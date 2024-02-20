@@ -1,0 +1,13 @@
+{
+    "name": "John Lee", 
+    "image" : "img/authors/espressif.png",
+    "bio": "Espressif Systems",
+    "social": [
+        { "linkedin": "https://linkedin.com/in/" },
+        { "twitter": "https://twitter.com/" },
+        { "instagram": "https://instagram.com/" },
+        { "medium": "https://medium.com/" },
+        { "github": "https://github.com/" },
+        { "link": "https://espressif.com/"}
+    ]
+}
