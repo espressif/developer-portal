@@ -15,4 +15,5 @@ showSummary : false
 sharingLinks : false
 showLikes : false
 showViews : false
+showAuthor : true
 ---

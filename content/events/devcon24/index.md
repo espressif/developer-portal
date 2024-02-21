@@ -5,6 +5,10 @@ draft: false
 description: "Espressif Systems"
 tags: ["event", "announcement", "devcon"]
 showDate : false
+showAuthor: false
+authors:
+  - "espressif"
+showAuthorsBadges : false
 ---
 
 {{< badge >}}

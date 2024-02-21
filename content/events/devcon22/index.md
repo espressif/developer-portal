@@ -4,6 +4,10 @@ date: 2022-02-15
 draft: false
 description: "Espressif Systems"
 tags: ["event", "announcement", "devcon"]
+showAuthor: false
+authors:
+  - "espressif"
+showAuthorsBadges : false
 ---
 
 ## Announcement
