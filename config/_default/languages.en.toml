@@ -1,0 +1,30 @@
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Developer Portal"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  logo = "img/espressif_logo_contour.png"
+  # secondaryLogo = "PATH"
+  description = "The developer resources in just one place!"
+  # copyright = "Copy, _right?_ :thinking_face:"
+
+[author]
+  name = "Developer Portal"
+  image = "img/espressif_logo_contour_only.png"
+  headline = "The developer resources in just one place!"
+  bio = "The developer resources in just one place!"
+  links = [
+    { x-twitter = "https://twitter.com/EspressifSystem" },
+    { instagram = "https://www.instagram.com/espressif_systems_official/" },
+    { youtube = "https://www.youtube.com/channel/UCDBWNF7CJ2U5eLGT7o3rKog" },
+    { facebook = "https://www.facebook.com/espressif/" },
+    { linkedin = "https://www.linkedin.com/company/espressif-systems/" },
+    { github = "https://github.com/espressif" },
+  ]
+
+  

@@ -1,0 +1,15 @@
+.banner {
+    width: 100%;
+    height: auto; /* Adjust the height as needed */
+    background-color: #e78c8c; /* Set your desired background color */
+    color: #ffffff; /* Set your desired text color */
+    text-align: center;
+    padding: 20px; /* Adjust the padding as needed */
+    box-sizing: border-box;
+  }
+  
+  /* Optional: Add styling for the text inside the banner */
+  .banner h1 {
+    font-size: 24px;
+    margin: 0;
+  }

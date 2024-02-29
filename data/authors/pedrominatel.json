@@ -1,0 +1,9 @@
+{
+    "name": "Pedro Minatel",
+    "image" : "img/authors/pedrominatel.jpg",
+    "bio": "Developer Relations Managet at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/pedrominatel/" },
+        { "github": "https://github.com/pedrominatel" }
+    ]
+}
