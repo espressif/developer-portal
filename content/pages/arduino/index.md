@@ -21,17 +21,3 @@ showZenMode : false
 showRelatedContent : false
 relatedContentLimit : 3
 ---
-
-### Getting Started
-
-
-
-### Documentation
-
-### GitHub
-
-{{< github repo="espressif/arduino-esp32" >}}
-
-### Examples
-
-### Related Links

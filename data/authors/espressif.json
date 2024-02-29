@@ -3,11 +3,11 @@
     "image" : "img/authors/espressif.png",
     "bio": "Espressif Systems",
     "social": [
-        { "linkedin": "https://linkedin.com/in/" },
-        { "twitter": "https://twitter.com/" },
-        { "instagram": "https://instagram.com/" },
-        { "medium": "https://medium.com/" },
-        { "github": "https://github.com/" },
+        { "linkedin": "https://www.linkedin.com/company/espressif-systems" },
+        { "twitter": "https://twitter.com/EspressifSystem" },
+        { "instagram": "https://www.instagram.com/espressif_systems_official" },
+        { "medium": "https://blog.espressif.com/" },
+        { "github": "https://github.com/espressif" },
         { "link": "https://espressif.com/"}
     ]
 }

@@ -19,5 +19,3 @@ showLikes : false
 showViews : false
 showZenMode : false
 ---
-
-## About Espressif Developer Portal

@@ -22,10 +22,3 @@ showRelatedContent : false
 relatedContentLimit : 3
 ---
 
-### Getting Started
-
-### Documentation
-
-### Examples
-
-### Related Links

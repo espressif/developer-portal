@@ -3,10 +3,7 @@
     "image" : "img/authors/pedrominatel.jpg",
     "bio": "Developer Relations Managet at Espressif",
     "social": [
-        { "linkedin": "https://linkedin.com/in/" },
-        { "twitter": "https://twitter.com/" },
-        { "instagram": "https://instagram.com/" },
-        { "medium": "https://medium.com/" },
-        { "github": "https://github.com/" }
+        { "linkedin": "https://www.linkedin.com/in/pedrominatel/" },
+        { "github": "https://github.com/pedrominatel" }
     ]
 }
