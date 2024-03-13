@@ -20,5 +20,6 @@ showViews : false
 showZenMode : false
 showRelatedContent : false
 relatedContentLimit : 3
+disableComments : true
 ---
 
