@@ -79,20 +79,15 @@
         <div class="article-content max-w-prose mb-20">
           {{ .Content | emojify }}
         </div>
-        
         {{ partial "series-closed.html" . }}
         {{ partial "sharing-links.html" . }}
 
-        <script>
-          var colorScheme = localStorage.getItem("appearance");
-          if (colorScheme === "light") {
-            document.write('{{ partial "giscus_light" . }}');
-          } else {
-            document.write('{{ partial "giscus_dark" . }}');
-          }
-        </script>
-        
-        
+        {{ if (eq (.Site.Params.defaultAppearance | default "light") "light") }}
+          {{ partial "giscus_light" . }}
+        {{ else }}
+          {{ partial "giscus_dark" . }}
+        {{ end }}
+
         {{ partial "related.html" . }}  
       </div>
      
