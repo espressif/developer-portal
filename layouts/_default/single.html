@@ -87,10 +87,11 @@
           var colorScheme = localStorage.getItem("appearance");
           if (colorScheme === "light") {
             document.write('{{ partial "giscus_light" . }}');
-          } else if (colorScheme === "dark") {
+          } else {
             document.write('{{ partial "giscus_dark" . }}');
           }
         </script>
+        
         
         {{ partial "related.html" . }}  
       </div>
