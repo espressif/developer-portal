@@ -15,4 +15,5 @@ sharingLinks : false
 showLikes : false
 showViews : false
 showZenMode : false
+disableComments : true
 ---

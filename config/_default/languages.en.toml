@@ -14,7 +14,7 @@ title = "Developer Portal"
   # copyright = "Copy, _right?_ :thinking_face:"
 
 [author]
-  name = "Developer Portal"
+  name = "Espressif Developer Portal"
   image = "img/espressif_logo_contour_only.png"
   headline = "The developer resources in just one place!"
   bio = "The developer resources in just one place!"

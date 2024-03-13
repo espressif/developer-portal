@@ -16,5 +16,5 @@ sharingLinks : true
 showLikes : false
 showViews : false
 groupByYear : true
-
+disableComments : true
 ---
