@@ -1,0 +1,9 @@
+{{/* Asciinema */}}
+{{ if .Page.HasShortcode "asciinema" }}
+{{ $asciinemaCSS := resources.Get "lib/asciinema/asciinema-player.css" }}
+{{ $asciinemaCSS := $asciinemaCSS | resources.Fingerprint "sha512" }}
+<link type="text/css" rel="stylesheet" href="{{ $asciinemaCSS.RelPermalink }}" integrity="{{ $asciinemaCSS.Data.Integrity }}" />
+{{ $asciinemaJS := resources.Get "lib/asciinema/asciinema-player.min.js" }}
+{{ $asciinemaJS := $asciinemaJS | resources.Fingerprint "sha512" }}
+<script src="{{ $asciinemaJS.RelPermalink }}" integrity="{{ $asciinemaJS.Data.Integrity }}"></script>
+{{ end }}
