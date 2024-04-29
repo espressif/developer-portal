@@ -56,9 +56,9 @@
     {{ if or $taxonomyLink $showAuthor }}
     <div class="mb-5"></div>
     {{ end }}
-  
+
   </header>
-  
+
   <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
     {{ if or (and (.Params.showTableOfContents | default (.Site.Params.article.showTableOfContents | default false)) (in
     .TableOfContents "<ul")) (.Site.Params.article.showRelatedPosts | default false) }} <div
@@ -73,7 +73,7 @@
       {{ end }}
 
       <div class="min-w-0 min-h-0 max-w-fit">
-        
+
         {{ partial "series.html" . }}
 
         <div class="article-content max-w-prose mb-20">
@@ -88,9 +88,9 @@
           {{ partial "giscus_dark" . }}
         {{ end }}
 
-        {{ partial "related.html" . }}  
+        {{ partial "related.html" . }}
       </div>
-     
+
     {{ with .File }}
      <script>
         var oid = "views_{{ .Path }}"
@@ -100,7 +100,7 @@
       {{ $jsPage := resources.Get "js/page.js" }}
       {{ $jsPage = $jsPage | resources.Minify | resources.Fingerprint "sha512" }}
       <script type="text/javascript" src="{{ $jsPage.RelPermalink }}" integrity="{{ $jsPage.Data.Integrity }}"></script>
-  
+
     </section>
   <footer class="pt-8 max-w-prose print:hidden">
 
@@ -117,6 +117,13 @@
     {{ else }}
     {{ warnf "[BLOWFISH] Comments are enabled for %s but no comments partial exists." .File.Path }}
     {{ end }}
+    {{ end }}
+
+    {{ if .Store.Get "hasMermaid" }}
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
     {{ end }}
 
   </footer>
