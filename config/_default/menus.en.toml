@@ -1,7 +1,7 @@
 # -- Main Menu --
 # The main menu is displayed in the header at the top of the page.
 # Acceptable parameters are name, pageRef, page, url, title, weight.
-# 
+#
 # The simplest menu configuration is to provide:
 #   name = The name to be displayed for this menu link
 #   pageRef = The identifier of the page or section to link to
@@ -127,15 +127,20 @@
   pageRef = "pages/about"
   weight = 90
 
- [[footer]]
-   name = "Tags"
-   pageRef = "tags"
-   weight = 10
+[[footer]]
+  name = "Tags"
+  pageRef = "tags"
+  weight = 10
 
- [[footer]]
-   name = "Authors"
-   pageRef = "authors"
-   weight = 20
+[[footer]]
+  name = "Authors"
+  pageRef = "authors"
+  weight = 20
+
+[[footer]]
+  name = "Contribute"
+  pageRef = "pages/contribution_guide"
+  weight = 100
 
 [[footer]]
   identifier = "github"
