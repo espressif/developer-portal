@@ -2,11 +2,12 @@
 title: "asciinema casts"
 date: 2024-03-18T10:55:37+01:00
 draft: false
+tags: ["Contribute"]
 ---
 
-## asciinema casts
+## Overview
 
-Now you can easily embed asciinema casts on the Developer Portal. asciinema allows you to record terminal sessions using a lightweight text-based format.
+You can easily embed asciinema casts on the Developer Portal. asciinema allows you to record terminal sessions using a lightweight text-based format.
 
 ### Notable features
 
