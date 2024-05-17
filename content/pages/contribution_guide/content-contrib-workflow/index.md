@@ -78,7 +78,7 @@ To contribute from the private mirror on Espressif GitLab to `espressif / develo
 
 For private contributions from anywhere, do the following:
 
-- Create a private mirror as described in [How to create a private mirror](#how-to-create-a-private-mirror)
+- Set up a private mirror as described in [How to set up a private mirror](#how-to-set-up-a-private-mirror)
 - In your private mirror, create a new branch and make the desired updates
 - Invite Espressif's reviewers to your private mirror to do the review
 - Once the private work on the new branch is finished, do the following in the private mirror:
