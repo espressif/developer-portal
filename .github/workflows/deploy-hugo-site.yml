@@ -26,7 +26,21 @@ defaults:
     shell: bash
 
 jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --no-progress --include-fragments --exclude-path ./themes/ --exclude-path ./layouts/ .
+          # Fail action on broken links
+          fail: true
+
   build-and-deploy:
+    needs: check-links
     runs-on: ubuntu-latest
     steps:
 
