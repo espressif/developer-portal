@@ -76,8 +76,8 @@ smartTOCHideUnfocusedChildren = false
   showTableOfContents = true
   showRelatedContent = true
   relatedContentLimit = 3
-  showTaxonomies = true 
-  showAuthorsBadges = true 
+  showTaxonomies = true
+  showAuthorsBadges = true
   showWordCount = false
   sharingLinks = [ "linkedin", "twitter", "reddit", "whatsapp", "telegram", "facebook", "email"]
   showZenMode = true
@@ -121,7 +121,7 @@ smartTOCHideUnfocusedChildren = false
   groupByYear = false
   cardView = true
   cardViewScreenWidth = false
-  
+
 [firebase]
   apiKey = ""
   authDomain = ""
