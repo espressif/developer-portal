@@ -8,11 +8,11 @@
     <div>
         <a href="{{ "" | relLangURL }}" class="flex">
             <span class="sr-only">{{ .Site.Title | markdownify | emojify }}</span>
-    
-            <img src="{{ $logo.RelPermalink }}" 
-                width="{{ mul $logo.Width $scalingFactor }}" 
+
+            <img src="{{ $logo.RelPermalink }}"
+                width="{{ mul $logo.Width $scalingFactor }}"
                 height="{{ mul $logo.Height $scalingFactor }}"
-                class="logo max-h-{{ printf "[%grem]" (mul 5 $scalingFactor) }} max-w-{{ printf "[%grem]" (mul 5 $scalingFactor) }} object-scale-down object-left nozoom" 
+                class="logo max-h-{{ printf "[%grem]" (mul 5 $scalingFactor) }} max-w-{{ printf "[%grem]" (mul 5 $scalingFactor) }} object-scale-down object-left nozoom"
                 alt="{{ .Site.Title }}" />
         </a>
     </div>
@@ -100,11 +100,11 @@
             <div id="menu-wrapper" style="padding-top:5px;"
                 class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
                 <ul
-                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl menu-ul">
 
                     <li>
                         <span
-                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">{{
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400 menu-close">{{
                             partial
                             "icon.html"
                             "xmark" }}</span>
@@ -176,6 +176,46 @@
         var path = window.location.pathname;
         $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
             $(e).children('p').addClass('active');
+        });
+        // Add the click event of the first level menu to realize the expansion and collapse of the menu
+        document.querySelectorAll('#menu-wrapper .mt-1').forEach((parent) => {
+            parent.style.width = '7rem';
+            parent.style.textAlign = 'left';
+            if (parent.querySelector('span') !== null) {
+                parent.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const root = document.querySelector('#menu-wrapper');
+                    root.style.display = 'block';
+                    if (this.classList.contains('menu-show')) {
+                        this.classList.remove('menu-show');
+                    } else {
+                        this.classList.add('menu-show');
+                    }
+                    // Find the second-level menu li corresponding to the first-level menu and display or hide it according to the style
+                    var nextLiElements = [];
+                    var nextSibling = this.nextSibling;
+                    while (nextSibling) {
+                        if (nextSibling.nodeType === 1 && nextSibling.classList.contains('mb-2')) {
+                            break;
+                        }
+                        if (nextSibling.nodeType === 1 && nextSibling.tagName.toLowerCase() === 'li') {
+                            nextLiElements.push(nextSibling);
+                        }
+                        nextSibling = nextSibling.nextSibling;
+                    }
+
+                    nextLiElements.forEach(function(nextLi) {
+                        nextLi.style.display = parent.classList.contains('menu-show') ? 'block' : 'none'
+                    });
+                })
+            }
+            if (parent.querySelector('a')?.querySelector('p.text-sm')) {
+                parent.style.display = 'none';
+            }
+        });
+        document.querySelectorAll('#menu-wrapper .mb-2').forEach((node) => {
+            node.style.display = 'none';
         });
     })();
 </script>

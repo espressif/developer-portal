@@ -1,15 +1,33 @@
 .banner {
-    width: 100%;
-    height: auto; /* Adjust the height as needed */
-    background-color: #e78c8c; /* Set your desired background color */
-    color: #ffffff; /* Set your desired text color */
-    text-align: center;
-    padding: 20px; /* Adjust the padding as needed */
-    box-sizing: border-box;
-  }
-  
-  /* Optional: Add styling for the text inside the banner */
-  .banner h1 {
-    font-size: 24px;
-    margin: 0;
-  }
+  width: 100%;
+  height: auto; /* Adjust the height as needed */
+  background-color: #e78c8c; /* Set your desired background color */
+  color: #ffffff; /* Set your desired text color */
+  text-align: center;
+  padding: 20px; /* Adjust the padding as needed */
+  box-sizing: border-box;
+}
+
+/* Optional: Add styling for the text inside the banner */
+.banner h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+/* Optional: Add styling for website navigation bar */
+.menu-ul {
+  padding-right: 0.8rem !important;
+}
+
+.menu-ul .mt-1{
+  width: 7rem !important;
+  text-align: left !important;
+}
+
+.menu-ul .mb-2 {
+  display: none !important;
+}
+
+.menu-close {
+  margin-right: 1rem !important;
+}
