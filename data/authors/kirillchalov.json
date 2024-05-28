@@ -1,0 +1,9 @@
+{
+  "name": "Kirill Chalov",
+  "image" : "img/authors/kirillchalov.jpg",
+  "bio": "Senior technical writer at Espressif",
+  "social": [
+      { "linkedin": "https://linkedin.com/in/kchalov" },
+      { "github": "https://github.com/f-hollow" }
+  ]
+}
