@@ -1,7 +1,6 @@
 ---
 title: "Content writing workflow"
 date: 2024-04-29T14:25:01+08:00
-draft: false
 tags: ["Contribute"]
 ---
 
@@ -26,7 +25,6 @@ See also the official [docs](https://gohugo.io/getting-started/quick-start/#add-
   hugo new content blog/contribution_guide/index.md
   ```
   This assumes that you want to organize the content as a leaf bundle (the usual way). You can also use the [branch bundle](https://gohugo.io/content-management/page-bundles/#comparison).
-- In the created file, change `draft: true` to `draft: false` to make the article visible in the build.
 - To view the changes, in your project folder run
   ```sh
   hugo server
