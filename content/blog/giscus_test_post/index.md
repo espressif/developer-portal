@@ -1,7 +1,6 @@
 ---
 title: "Giscus Comments Test"
 date: 2024-03-13T10:55:37+01:00
-draft: false
 ---
 
 ## How to post a comment using Giscus

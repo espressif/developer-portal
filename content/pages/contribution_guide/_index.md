@@ -1,7 +1,6 @@
 ---
 title: "Contribution guide"
 date: 2024-04-29T19:22:05+08:00
-draft: false
 description: "Aspects of contributing to the Espressif Developer Portal"
 tags: ["Contribute"]
 ---
