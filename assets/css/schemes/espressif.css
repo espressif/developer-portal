@@ -13,22 +13,22 @@
     --color-neutral-900:  18,  27,  33;
     /* Red */
     --color-primary-0:   252, 233, 232;
-    --color-primary-50:  250, 211, 209;   
-    --color-primary-100: 247, 189, 186; 
+    --color-primary-50:  250, 211, 209;
+    --color-primary-100: 247, 189, 186;
     --color-primary-150: 245, 167, 163;
-    --color-primary-200: 242, 145, 140; 
+    --color-primary-200: 242, 145, 140;
     --color-primary-250: 240, 123, 117;
-    --color-primary-300: 237, 101,  94; 
+    --color-primary-300: 237, 101,  94;
     --color-primary-350: 235,  80,  71;
-    --color-primary-400: 232,  58,  48; 
+    --color-primary-400: 232,  58,  48;
     --color-primary-450: 230,  36,  25;
-    --color-primary-500: 207,  32,  23; 
+    --color-primary-500: 207,  32,  23;
     --color-primary-550: 184,  29,  20;
-    --color-primary-600: 161,  25,  18; 
+    --color-primary-600: 161,  25,  18;
     --color-primary-650: 138,  21,  15;
-    --color-primary-700: 115,  18,  13; 
+    --color-primary-700: 115,  18,  13;
     --color-primary-750:  92,  14,  10;
-    --color-primary-800:  69,  11,   8; 
+    --color-primary-800:  69,  11,   8;
     --color-primary-850:  46,   7,   5;
     --color-primary-900:  23,   4,   3;
     --color-primary-950:   0,   0,   0;
@@ -44,8 +44,8 @@
     --color-secondary-800:  48,  36,  66;
     --color-secondary-900:  24,  18,  33;
   }
-  
-  /*   
+
+  /*
   #e7352c RED
   #674d8e Purple
   #384f7a Blue
