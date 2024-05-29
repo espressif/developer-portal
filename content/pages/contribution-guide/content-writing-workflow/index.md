@@ -22,7 +22,7 @@ See also the official [docs](https://gohugo.io/getting-started/quick-start/#add-
   ```sh
   hugo new content <path/index.md>
   # Example
-  hugo new content blog/contribution_guide/index.md
+  hugo new content blog/contribution-guide/index.md
   ```
   This assumes that you want to organize the content as a leaf bundle (the usual way). You can also use the [branch bundle](https://gohugo.io/content-management/page-bundles/#comparison).
 - To view the changes, in your project folder run
@@ -66,7 +66,7 @@ Apart from the usual content types supported by markdown, such as visuals or cod
 - [Diagrams as code](https://gohugo.io/content-management/diagrams/)
   - Mermaid diagrams are supported, for an example see the raw version of [this page](../content-contrib-workflow "Content contribution workflow")
 - Youtube videos using [Hugo shortcodes](https://gohugo.io/content-management/shortcodes/#youtube)
-- [asciinema casts](../asciinema_casts "asciinema casts")
+- [asciinema casts](../asciinema-casts "asciinema casts")
 
 If you need other types of content, either create a discussion on GitHub or offer a PR with the required functionality. It will be very much appreciated!
 
