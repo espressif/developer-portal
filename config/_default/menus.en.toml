@@ -139,7 +139,7 @@
 
 [[footer]]
   name = "Contribute"
-  pageRef = "pages/contribution_guide"
+  pageRef = "pages/contribution-guide"
   weight = 100
 
 [[footer]]
