@@ -1,7 +1,6 @@
 ---
 title: "Content contribution workflow"
 date: 2024-04-30T14:25:09+08:00
-draft: false
 tags: ["Contribute"]
 ---
 
