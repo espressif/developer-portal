@@ -2,6 +2,9 @@
 title: "Content writing workflow"
 date: 2024-04-29T14:25:01+08:00
 tags: ["Contribute"]
+showAuthor: false
+authors:
+  - "kirill-chalov"
 ---
 
 ## Before you start writing
@@ -41,8 +44,8 @@ The default Espressif author is used:
 In other cases, add yourself as an author. For this, do the following:
 
 - Create your author entry
-  - At `content/authors/<authorname>/_index.md`, create your page
-  - At `data/authors/<authorname>.json`, add your personal data
+  - At `content/authors/<author-name>/_index.md`, create your page
+  - At `data/authors/<author-name>.json`, add your personal data
 
 - Add the following to your article's YAML header
 
