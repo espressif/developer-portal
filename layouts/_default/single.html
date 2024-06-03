@@ -45,7 +45,7 @@
 
     {{ range $taxonomyname, $taxonomy := $taxonomies }}
     {{ if (eq $taxonomyname $author) }}
-    {{ $taxonomyLink = delimit (slice $baseURL "/authors/" $author) "" }}
+    {{ $taxonomyLink = delimit (slice $baseURL "authors/" $author) "" }}
     {{ end }}
     {{ end }}
 
