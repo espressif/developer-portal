@@ -1,8 +1,9 @@
 ---
 title: "Simplified Embedded Rust: A Comprehensive Guide to Embedded Rust Development"
 date: 2024-06-07
-description: "A review of Omar Hiari's books 'Simplified Embedded Rust: ESP Core Library Edition' and 'ESP Standard Library Edition' which offer comprehensive guidance on using Rust for embedded development on Espressif chips."
-author: "Juraj Michálek"
+showAuthor: false
+authors:
+    - "juraj-michalek"
 tags: ["Rust", "Embedded Systems", "ESP32", "ESP32-C3", "Espressif", "Wokwi", "Book", "Review"]
 ---
 
