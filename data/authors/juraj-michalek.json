@@ -1,0 +1,16 @@
+{
+  "name": "Juraj Michálek",
+  "bio": "Software Manager at Espressif Systems (Czech) s.r.o.",
+  "social": [
+    {
+      "linkedin": "https://www.linkedin.com/in/juraj-michalek/"
+    },
+    {
+      "link": "https://georgik.rocks/"
+    },
+    {
+      "github": "https://github.com/georgik"
+    }
+  ],
+  "image" : "img/authors/juraj-michalek.webp"
+}
