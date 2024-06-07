@@ -14,7 +14,7 @@ tags: ["Rust", "Embedded Systems", "ESP32", "ESP32-C3", "Espressif", "Wokwi", "B
 Omar Hiari's "Simplified Embedded Rust" series offers two books, each tailored to different stages of a developer's Rust and embedded systems journey. The two books, "ESP Core Library Edition" and "ESP Standard Library Edition," provide comprehensive guidance on using Rust for embedded development on Espressif chips, specifically the ESP32-C3.
 
 ### Why Two Books?
-The Core Library Edition focuses on a no_std environment, giving developers complete control over their code, ideal for performance-critical applications. The Standard Library Edition, on the other hand, leverages the ESP-IDF framework, making it easier for beginners by providing access to all features supported by ESP-IDF.
+[The Core Library Edition](http://ser-book.com/espnostd) focuses on a no_std environment, giving developers complete control over their code, ideal for performance-critical applications. [The Standard Library Edition](http://ser-book.com/espstd), on the other hand, leverages the ESP-IDF framework, making it easier for beginners by providing access to all features supported by ESP-IDF.
 
 ### Key Features of Both Books
 
@@ -42,6 +42,8 @@ Omar Hiari’s "Simplified Embedded Rust" series is a valuable resource for deve
 Additionally, while the books are written with the ESP32-C3 in mind, the knowledge and skills gained from these resources are applicable to other Espressif chips, including the newly announced ESP32-P4, ensuring that developers are well-prepared for future projects.
 
 ### Additional Resources
+- [The Core Library Edition](http://ser-book.com/espnostd)
+- [The Standard Library Edition](http://ser-book.com/espstd)
 - [The Embedded Rustacean Blog](https://blog.theembeddedrustacean.com/)
 - [The Embedded Rustacean Newsletter](https://www.theembeddedrustacean.com/subscribe)
 - [Wokwi Simulator](https://wokwi.com/rust)
