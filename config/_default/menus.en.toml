@@ -56,16 +56,6 @@
   weight = 12
 
 [[main]]
-  name = "Tutorials"
-  pageRef = "tutorials"
-  weight = 15
-
-[[main]]
-  name = "Articles"
-  pageRef = "articles"
-  weight = 20
-
-[[main]]
   name = "Events"
   pageRef = "events"
   weight = 20
