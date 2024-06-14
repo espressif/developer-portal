@@ -6,7 +6,10 @@ showAuthor: false
 authors:
     - "john-lee"
     - "pedro-minatel"
-tags: ["Template", "Developer", "Post"]
+tags: ["How to", "Hugo", "Template"]
+categories: ["Tutorial"]
+platforms: ["ESP-IDF"]
+socs: ["ESP32-C6"]
 ---
 
 ## How to create a blog post on the Developer Portal
@@ -49,7 +52,7 @@ void configure_led(void)
         // LED strip model
         .led_model = LED_MODEL_WS2812,
         // In some cases, the logic is inverted
-        .flags.invert_out = false,                
+        .flags.invert_out = false,
     };
 
     // LED strip backend configuration: RMT
@@ -88,7 +91,7 @@ You can highlight some specific lines on your code:
         // LED model
         .led_model = LED_MODEL_WS2812,
         // In some cases, the logic is inverted
-        .flags.invert_out = false,                
+        .flags.invert_out = false,
     };
 {{< /highlight >}}
 
