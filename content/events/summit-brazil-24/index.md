@@ -9,15 +9,20 @@ showDate : false
 
 ## Espressif Summit Brazil 2024
 
-We are pleased to announce the first in-person Espressif event in Brazil, taking place in Campinas from July 17th to 18th, from 9 am to 6 pm. On the first day, we will present talks about our most recent products, including the ESP32-P4, ESP32-C5, ESP-IDF, Nuttx, Zephyr, low-power applications, Arduino, MQTT, and more.
+We are pleased to announce the first in-person Espressif event in Brazil, taking place in Campinas from July 17 to 18, 9 am - 6 pm. On the first day, we will present talks about our most recent products, including the ESP32-P4, ESP32-C5, ESP-IDF, Nuttx, Zephyr, low-power applications, Arduino, MQTT, and more.
 
-On the second day, workshops will be presented in two different tracks, including "Introduction to ESP-IDF with the ESP32-C6," "IoT Workshop with RainMaker and Matter," and "Zephyr with ESP32." All the talks and workshops will be presented by Espressif experts and will be mostly in **Portuguese**.
+The activities are as follows:
+
+- **Day 1**: we will present talks about our most recent products, including the ESP32-P4, ESP32-C5, ESP-IDF, Nuttx, Zephyr, low-power applications, Arduino, MQTT, and more.
+- **Day 2**: workshops will be presented in two different tracks, including "Introduction to ESP-IDF with the ESP32-C6," "IoT Workshop with RainMaker and Matter," and "Zephyr with ESP32."
+
+All the talks and workshops will be presented by Espressif experts and will be mostly in Portuguese.
 
 ### Location
 
-Vitoria Hotel Concept, Campinas, SP
+[Vitoria Hotel Concept, Campinas, SP](https://www.google.com/travel/hotels/s/L7pJr99Wecv6bma46)
 
-Time: Starting from 9 AM
+Time: Starting from 9 am
 
 Use the promotional code ESPRESSIF and get a 12% discount on your stay.
 
@@ -48,7 +53,11 @@ The event is free for any participant, and registration can be done for each day
 
 Workshops July 18th:
 
-- Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (EN) - 10:00 – 13:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=befed46386&e=e3a0757cf1)
-- Workshop: [Introdução em IoT com RainMaker e Matter - 10:00 – 13:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=65843b1f5b&e=e3a0757cf1)
-- Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (PT) – 14:00 – 17:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=e702c00462&e=e3a0757cf1)
-- Workshop: [Desenvolvendo aplicações com Zephyr e ESP32 – 14:00 – 17:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=e92cdf98ba&e=e3a0757cf1)
+- **Track 1**:
+  - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (EN) - 10:00 – 13:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=befed46386&e=e3a0757cf1)
+  - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (PT) – 14:00 – 17:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=e702c00462&e=e3a0757cf1)
+- **Track 2**:
+  - Workshop: [Introdução em IoT com RainMaker e Matter - 10:00 – 13:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=65843b1f5b&e=e3a0757cf1)
+  - Workshop: [Desenvolvendo aplicações com Zephyr e ESP32 – 14:00 – 17:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=e92cdf98ba&e=e3a0757cf1)
+
+
