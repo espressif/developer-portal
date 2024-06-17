@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF with ESP32-C6 Workshop"
 date: 2024-06-03T00:00:00+01:00
+showTableOfContents: false
 tags: ["Workshop"]
 authors:
     - pedro-minatel
@@ -10,7 +11,7 @@ Welcome to the Espressif IoT Development Framework (ESP-IDF) workshop!
 
 ## About this workshop
 
-On this workshop, you will have an introdution to the ESP-IDF development using the Espressif IDE and the ESP32-C6. From the IDE installation, you will be guided to setup your system, create the first project, build, flash and debug.
+On this workshop, you will have an introduction to the ESP-IDF development using the Espressif IDE and the ESP32-C6. From the IDE installation, you will be guided to setup your system, create the first project, build, flash and debug.
 
 After the initial steps, you will be guided on how to use the components, blink the addressable RGB LED, work with the SDK configuration, connect to the WiFi network and finally, explore the low-power features on the ESP32-C6.
 
@@ -22,11 +23,13 @@ This workshop will be divided in X different assignments. Please see the worksho
 
 - [ESP-IDF introduction](#the-esp-idf)
 - [ESP32-C6 introduction](#introduction-to-the-esp32-c6)
-- [Assignment 1: Installing the Espressif IDE](#assignmnent-installing-the-espressif-ide)
-- [Assignment 2: Creating a project with Components](#assignmnent-creating-a-project-with-components)
-- [Assignment 3: Using KConfig and SDKConfig](#assignmnent-using-kconfig-and-sdkconfig)
-- [Assignment 4: Connecting to WiFi](#assignmnent-connecting-to-wifi)
-- [Assignment 5: Using the LP core](#assignmnent-using-the-lp-core)
+- [Assignment 1: Installing the Espressif IDE](#)
+- [Assignment 2: Creating a new project with Components](#)
+- [Assignment 3: Connecting to WiFi](#)
+- [Assignment 4: Working with the NVS](#)
+- [Assignment 5: WiFi provisioning (EXTRA)](#)
+- [Assignment 6: Protocols: SNTP](#)
+- [Assignment 7: Using the LP core](#)
 - [Demos](#demos)
 - [Conclusion](#conclusion)
 - [Next steps](#next-steps)
@@ -53,12 +56,12 @@ To follow this workshop, make sure you will meet the prerequisites, as described
 ### Effort
 
 {{< alert icon="mug-hot">}}
-**Estimated completition time: 120 min**
+**Estimated time: 120 min**
 {{< /alert >}}
 
 ## The ESP-IDF
 
-> TODO: Include one explanatiom about the ESP-IDF and some images.
+> TODO: Include one explanation about the ESP-IDF and some images.
 
 ## Introduction to the ESP32-C6
 
@@ -106,7 +109,7 @@ WiFi6, also known as IEEE 802.11ax, represents the latest generation of WiFi tec
 - **MCS0 ~ MCS9**: Support for modulation and coding schemes ranging from MCS0 to MCS9, which dictate data rates and signal robustness.
 - **Uplink and Downlink OFDMA**: Orthogonal Frequency Division Multiple Access enables efficient simultaneous connections, particularly beneficial in high-density environments such as stadiums or large office buildings.
 - **Downlink MU-MIMO**: Multi-user, multiple input, multiple output technology increases network capacity by allowing the transmission of data to multiple devices at the same time.
-- **Beamformee**: This feature enhances signal quality by focusing the WiFi signal towards the receiving device.
+- **Beamforming**: This feature enhances signal quality by focusing the WiFi signal towards the receiving device.
 - **Channel Quality Indication (CQI)**: Provides real-time feedback on the channel conditions, aiding in dynamic adjustments for optimal performance.
 - **DCM (Dual Carrier Modulation)**: Enhances link robustness by using dual carriers, reducing the likelihood of signal degradation.
 - **Spatial Reuse**: Maximizes parallel transmissions by allowing multiple devices to communicate simultaneously on the same frequency without significant interference.
@@ -115,6 +118,7 @@ WiFi6, also known as IEEE 802.11ax, represents the latest generation of WiFi tec
 These advanced features make WiFi6 a robust and efficient choice for modern wireless communication needs, ensuring better performance, reliability, and energy efficiency.
 
 **WiFi MAC support for the 802.11ax:**
+
 - Target wake time (TWT) requester
 - Multiple BSSIDs
 - Triggered response scheduling
@@ -144,6 +148,7 @@ These advanced features make WiFi6 a robust and efficient choice for modern wire
 The ESP32-C6-DevKitC-1 is a beginner-friendly development board featuring the ESP32-C6-WROOM-1(U) module, which includes an 8 MB SPI flash. This board offers comprehensive Wi-Fi, Bluetooth LE, Zigbee, and Thread capabilities.
 
 To facilitate easy interfacing, most of the I/O pins are accessible through pin headers on both sides. Developers can connect peripherals using jumper wires or mount the ESP32-C6-DevKitC-1 on a breadboard.
+
 ### Features
 
 Here is the development board feature list:
@@ -168,7 +173,7 @@ Here is the development board feature list:
 
 ![Board](assets/esp32-c6-devkitc-1-v1.2-block-diagram.png)
 
-#### Board pinout
+#### Board pin-layout
 
 ![Pinlayout](assets/esp32-c6-devkitc-1-pin-layout.png)
 
@@ -178,13 +183,13 @@ Here is the development board feature list:
 |---|---|---|---|
 | 1 | 3V3 | P | 3.3 V power supply |
 | 2 | RST | I | High: enables the chip; Low: disables the chip. |
-| 3 | 4 | I/O/T | MTMS [3]_, GPIO4, LP_GPIO4, LP_UART_RXD, ADC1_CH4, FSPIHD |
-| 4 | 5 | I/O/T | MTDI [3]_, GPIO5, LP_GPIO5, LP_UART_TXD, ADC1_CH5, FSPIWP |
+| 3 | 4 | I/O/T | MTMS, GPIO4, LP_GPIO4, LP_UART_RXD, ADC1_CH4, FSPIHD |
+| 4 | 5 | I/O/T | MTDI, GPIO5, LP_GPIO5, LP_UART_TXD, ADC1_CH5, FSPIWP |
 | 5 | 6 | I/O/T | MTCK, GPIO6, LP_GPIO6, LP_I2C_SDA, ADC1_CH6, FSPICLK |
 | 6 | 7 | I/O/T | MTDO, GPIO7, LP_GPIO7, LP_I2C_SCL, FSPID |
 | 7 | 0 | I/O/T | GPIO0, XTAL_32K_P, LP_GPIO0, LP_UART_DTRN, ADC1_CH0 |
 | 8 | 1 | I/O/T | GPIO1, XTAL_32K_N, LP_GPIO1, LP_UART_DSRN, ADC1_CH1 |
-| 9 | 8 | I/O/T | GPIO8 [2]_ [3]_ |
+| 9 | 8 | I/O/T | GPIO8 |
 | 10 | 10 | I/O/T | GPIO10 |
 | 11 | 11 | I/O/T | GPIO11 |
 | 12 | 2 | I/O/T | GPIO2, LP_GPIO2, LP_UART_RTSN, ADC1_CH2, FSPIQ |
@@ -200,31 +205,31 @@ Here is the development board feature list:
 | 1 | G | G | Ground |
 | 2 | TX | I/O/T | U0TXD, GPIO16, FSPICS0 |
 | 3 | RX | I/O/T | U0RXD, GPIO17, FSPICS1 |
-| 4 | 15 | I/O/T | GPIO15 [3]_ |
+| 4 | 15 | I/O/T | GPIO15 |
 | 5 | 23 | I/O/T | GPIO23, SDIO_DATA3 |
 | 6 | 22 | I/O/T | GPIO22, SDIO_DATA2 |
 | 7 | 21 | I/O/T | GPIO21, SDIO_DATA1, FSPICS5 |
 | 8 | 20 | I/O/T | GPIO20, SDIO_DATA0, FSPICS4 |
 | 9 | 19 | I/O/T | GPIO19, SDIO_CLK, FSPICS3 |
 | 10 | 18 | I/O/T | GPIO18, SDIO_CMD, FSPICS2 |
-| 11 | 9 | I/O/T | GPIO9 [3]_ |
+| 11 | 9 | I/O/T | GPIO9 |
 | 12 | G | G | Ground |
 | 13 | 13 | I/O/T | GPIO13, USB_D+ |
 | 14 | 12 | I/O/T | GPIO12, USB_D- |
 | 15 | G | G | Ground |
 | 16 | NC | – | No connection |
 
-## Assignmnent: Installing the Espressif IDE
+## Assignment 1: Installing the Espressif IDE
 
 ---
 
 To get started and perform all the workshop assignments, you will need to install the [Espressif IDE](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0). This IDE will be used to create the project, flash and debug the code.
 
-> As alternative, you can use the VSCode extension for ESP-IDF or you can do directly by the Commamnd Line Interface (CLI), however, this workshop is based on the Espressif IDE and all the assignments will follow the steps using the IDE.
+> As alternative, you can use the VSCode extension for ESP-IDF or you can do directly by the Command-Line-Interface (CLI), however, this workshop is based on the Espressif IDE and all the assignments will follow the steps using this IDE.
 
 ### Installing the ESP-IDE
 
-This process can be done by the following tutorial: [Getting Started with IDEs Workshop](../espressif-ide/).
+This assignment will be done by the following tutorial: [Getting Started with IDEs Workshop](../espressif-ide/).
 
 You will need to:
 
@@ -232,42 +237,16 @@ You will need to:
 - Install the Espressif IDE
 - Install the tools using the Tools Manager
 
-### Assignmnent: Blink project
-
----
-
-> TODO: Create a new project usint the blink as template.
-
-#### Project configuration
-
-> TODO: Setup the project using the SDKConfig.
-
-#### Building the project
-
-> TODO: Build.
-
-#### Flash to the device
-
-> TODO: Flash.
-
-#### Monitoring the serial output
-
-> TODO: Monitor.
-
-#### Debugging
-
-> TODO: Debug.
-
-### Assignmnent: Creating a project with Components
+## Assignment 2: Creating a new project with Components
 
 ---
 
 On this assignment, we will show on how to use components to accelerate your development.
 Components are similar to libraries, adding new features like sensors drivers, protocols, and any other feature that is not part of the ESP-IDF. Some components are already part of some examples and the ESP-IDF also uses the external component approach to make the ESP-IDF more modular.
 
-Using components not only makes your project easier to maintain but also improve the development speed by reusing and sharing components accross different projects.
+Using components not only makes your project easier to maintain but also improve the development speed by reusing and sharing components with different projects.
 
-If you want to create and publish your own component, we recooment you to watch [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc) talk.
+If you want to create and publish your own component, we recommend you to watch [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc) talk.
 
 {{< youtube D86gQ4knUnc >}}
 
@@ -275,7 +254,7 @@ You can also find components using our [ESP Registry](https://components.espress
 
 To show how to use components, we will create a new project from the scratch and add the component LED strip.
 
-#### Hands-on
+#### Hands-on with components
 
 This hands on will use a component for the RGB LED (WS2812) connected on the ```GPIO8``` and the [Remote Control Transceiver]([https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) peripheral to control the data transfer to the addressable LEDs.
 
@@ -305,14 +284,12 @@ idf.py add-dependency "espressif/led_strip^2.5.3"
 
 You will note that a new file, **idf_component.yml** will be created inside the main folder, after adding the dependency. On the first build, the folder **managed_components** will be created and the component will be downloaded inside this folder.
 
-{{< highlight yaml "linenos=table,hl_lines=">}}
-## IDF Component Manager Manifest File
+```yaml
 dependencies:
   espressif/led_strip: "^2.5.3"
-  ## Required IDF version
   idf:
     version: ">=4.1.0"
-{{< /highlight >}}
+```
 
 You can also change this file manually to include dependencies to your project.
 
@@ -326,18 +303,18 @@ For this assignment, please follow the steps.
 
 Include the ```led_strip.h``` header file.
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 #include "led_strip.h"
-{{< /highlight >}}
+```
 
 and create the function to configure the LED.
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 led_strip_handle_t configure_led(void)
 {
     // Your code goes here
 }
-{{< /highlight >}}
+```
 
 You will use this function for the following 3 steps.
 
@@ -345,7 +322,7 @@ You will use this function for the following 3 steps.
 
 Use the ```led_strip_config_t``` structure to configure the LED strip. For the **ESP32-C6-DevKit-C**, the LED model is the WS2812.
 
-{{< highlight c "linenos=table,hl_lines=3 5 7 9 11" >}}
+```c
     led_strip_config_t strip_config = {
         // Set the GPIO8 that the LED is connected
         .strip_gpio_num = 8,
@@ -356,15 +333,15 @@ Use the ```led_strip_config_t``` structure to configure the LED strip. For the *
         // LED model
         .led_model = LED_MODEL_WS2812,
         // In some cases, the logic is inverted
-        .flags.invert_out = false,                
+        .flags.invert_out = false,
     };
-{{< /highlight >}}
+```
 
 3. **Configure the RMT driver**
 
 Use the ```led_strip_rmt_config_t``` structure to configure the RMT peripheral driver.
 
-{{< highlight c "linenos=table,hl_lines=3 5 7" >}}
+```c
     led_strip_rmt_config_t rmt_config = {
         // Set the clock source
         .clk_src = RMT_CLK_SRC_DEFAULT,
@@ -373,25 +350,25 @@ Use the ```led_strip_rmt_config_t``` structure to configure the RMT peripheral d
         // Set the DMA feature (not supported on the ESP32-C6)
         .flags.with_dma = false,
     };
-{{< /highlight >}}
+```
 
 4. **Create the RMT device**
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip);
-{{< /highlight >}}
+```
 
 5. Create the LED strip handle.
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 led_strip = configure_led();
-{{< /highlight >}}
+```
 
 6. **Set the LED RGB color**
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 led_strip_set_pixel(led_strip, 0, 20, 0, 0);
-{{< /highlight >}}
+```
 
 Where the arguments are:
 
@@ -406,9 +383,9 @@ Where the arguments are:
 
 This function must be called to update the LED pixel color.
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 led_strip_refresh(led_strip);
-{{< /highlight >}}
+```
 
 To clear the RBG LED (off), you can use the function ```led_strip_clear(led_strip)```.
 
@@ -416,7 +393,7 @@ To clear the RBG LED (off), you can use the function ```led_strip_clear(led_stri
 
 Here you can find the full code for this assignment:
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 #include <stdio.h>
 #include "led_strip.h"
 
@@ -438,7 +415,7 @@ void configure_led(void)
         // LED strip model
         .led_model = LED_MODEL_WS2812,
         // In some cases, the logic is inverted
-        .flags.invert_out = false,                
+        .flags.invert_out = false,
     };
 
     // LED strip backend configuration: RMT
@@ -461,9 +438,9 @@ void app_main(void)
     led_strip_set_pixel(led_strip, 0, 20, 0, 0);
     led_strip_refresh(led_strip);
 }
-{{< /highlight >}}
+```
 
-#### Expected result
+#### Expected results
 
 The LED should turn on in RED in mid brigthness.
 
@@ -474,102 +451,7 @@ The LED should turn on in RED in mid brigthness.
   1. Create a FreeRTOS task to blink the LED using different color or fade.
   2. Use the component [espressif/button](https://components.espressif.com/components/espressif/button/versions/3.2.0) and 
 
-
-### Assignmnent: Using KConfig and SDKConfig
-
----
-
-The ESP-IDF use a method to configure the SDK based on the kconfiglib, a Python extension of the [Kconfig](https://docs.kernel.org/kbuild/kconfig-language.html) system, called [esp-idf-kconfig](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/kconfig.html?highlight=kconfig).
-This configuration method can be used by the command or via the Espressif IDE GUI:
-
-```bash
-idf.py menuconfig
-```
-
-This configuration can be performed by the IDE GUI.
-
-> TODO: Add printscreen
-
-#### ESP-IDF configuration
-
-This is one of the most important steps before flashing your application into the device. You will need to change some of the default configurations in order to better fit the SoC or module in use to the SDK.
-
-A good example of a setting you will probably need to change is the flash memory size. As default, some SoCs cames with the 2MB flash size selected. To change that, you will need to use the SDK configuration.
-
-{{< asciinema key="kconfig" idleTimeLimit="2" speed="1.5" poster="npt:0:09" >}}
-
-To make your project easier to configure, there are different ways to set default configurations or to create custom menus for the SDK configuration tool.
-
-#### Hands-on
-
-For this hands-on, we will create a new configuration menu to set the WiFi credentials (SSID and password). We will also understand how to pre-define some configurations as default, improving the configuration process by avoiding configuration mistakes.
-
-  1. **Creating a new configuration menu**
-
-First, we need to create a new file called ```Kconfig.projbuild``` inside the **main** folder.
-
-```text
-menu "WiFi Configuration"
-
-    config ESP_WIFI_SSID
-        string "WiFi SSID"
-        default "default_ssid"
-        help
-            SSID (network name) to connect to.
-
-    config ESP_WIFI_PASSWORD
-        string "WiFi Password"
-        default "default_password"
-        help
-            WiFi password (WPA, WPA2, or WPA3).
-endmenu
-```
-
-Where the menu name will be ```WiFi Configuration``` with 2 configurations:
-
-- Config **ESP_WIFI_SSID** with ```string``` data type named "WiFi SSID" with the default value of **"default_ssid"**.
-- Config **ESP_WIFI_PASSWORD** with ```string``` data type named "WiFi Password" with the default value of **"default_password"**.
-
-There are more data types, such as ```bool``` and ```int```.
-This file will be used by this project when calling the SDK configuration interface.
-
-To use the new configuration entries, you can do:
-
-{{< highlight c "linenos=table,hl_lines=">}}
-#define WIFI_SSID CONFIG_ESP_WIFI_SSID
-#define WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
-{{< /highlight >}}
-
-As you can see, you will need to include the prefix ```CONFIG_```to the config name.
-
-Now run the configuration menu to see the recently created menu for the WiFi credentials. If you are not able to see the menu, you can try to run this command.
-
-```bash
-idf.py reconfigure
-```
-
-> Every time you change the SDK configuration, the build system will rebuild and it might take a while depending on your system.
-> Important: This configuration menu will be used for the next assignment.
-
-  2. **Setting the default configuration**
-
-You might noticed that you will need to change the new configuration entries manually, if you are not going to define as your default values. To overcome this, you can define the default SDK configuration values.
-This is valid for all the configuration values, not only for those you have just created.
-
-To do this, create the ```sdkconfig.defaults``` file, in the same folder as you have the ```sdkconfig``` file.
-We do not recommend you to change the ```sdkconfig``` file manually, so the way to define your own default configuration values is by the ```sdkconfig.defaults``` file.
-
-```text
-CONFIG_ESPTOOLPY_FLASHSIZE_8MB
-CONFIG_ESP_WIFI_SSID="EspressifWorkshop"
-CONFIG_ESP_WIFI_PASSWORD="espressifsummit"
-```
-
-When you run the SDK configuration for the first time, the values from the defaults file will be applied. You can also use the ```reconfigure```to apply again the default values or you can delete the ```sdkconfig``` file manually.
-
-If you have different targets, you can define default configuration files based on the selected target. To do that, the file name should contain the target name: ```sdkconfig.defaults.esp32c6``` for example on the ESP32-C6.
-
-### Assignmnent: Connecting to WiFi
+## Assignment 3: Connecting to WiFi
 
 ---
 
@@ -579,26 +461,26 @@ Now it's time to connect the ESP32-C6 to the WiFi network. The ESP32-C6 supports
 
 The ESP32's supports both Station and SoftAP modes.
 
-For this assignment, we will set up the station mode WiFi driver and connect to a WiFi4/WiFi6 network, using the same project as used on the [Creating a project with Components](#assignmnent-creating-a-project-with-components) assignment.
+For this assignment, we will set up the station mode WiFi driver and connect to a WiFi4/WiFi6 network, using the same project as used on the [Creating a project with Components](#) assignment.
 
-#### Hands-on
+#### Hands-on WiFi
 
 To get started with the WiFi, we need to setup the WiFi driver in order to connect to a WiFi network, using the access credentials (SSID and password). Once we successfuly 
 
   1. Add all the necessary includes.
 
-{{< highlight c "linenos=table,hl_lines=">}}
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/event_groups.h"
-#include "esp_system.h"
-#include "esp_wifi.h"
-#include "esp_event.h"
-#include "esp_log.h"
-#include "nvs_flash.h"
-#include "lwip/err.h"
-#include "lwip/sys.h"
-{{< /highlight >}}
+```c
+    #include "freertos/FreeRTOS.h"
+    #include "freertos/task.h"
+    #include "freertos/event_groups.h"
+    #include "esp_system.h"
+    #include "esp_wifi.h"
+    #include "esp_event.h"
+    #include "esp_log.h"
+    #include "nvs_flash.h"
+    #include "lwip/err.h"
+    #include "lwip/sys.h"
+```
 
   2. Create the WiFi initialization
 
@@ -606,22 +488,22 @@ To initializate the WiFi, we need to perform the following steps:
   
 - Initialize the TCP/IP stack:
 
-{{< highlight c "linenos=table,hl_lines=">}}
-esp_netif_init();
-esp_event_loop_create_default();
-esp_netif_create_default_wifi_sta();
-{{< /highlight >}}
+```c
+    esp_netif_init();
+    esp_event_loop_create_default();
+    esp_netif_create_default_wifi_sta();
+```
 
 - Initialize and allocate the resources for WiFi driver:
 
-{{< highlight c "linenos=table,hl_lines=">}}
-wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-esp_wifi_init(&cfg);
-{{< /highlight >}}
+```c
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    esp_wifi_init(&cfg);
+```
 
 - Registry the event handler for ```WIFI_EVENT```and ```IP_EVENT```:
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
     esp_event_handler_instance_t instance_any_id;
     esp_event_handler_instance_t instance_got_ip;
     esp_event_handler_instance_register(WIFI_EVENT,
@@ -634,19 +516,19 @@ esp_wifi_init(&cfg);
             &event_handler,
             NULL,
             &instance_got_ip);
-{{< /highlight >}}
+```
 
 - Set the WiFi mode as station using ```WIFI_MODE_STA```:
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
     esp_wifi_set_mode(WIFI_MODE_STA);
-{{< /highlight >}}
+```
 
 - Set the WiFi configuration:
 
 Using the struct ```wifi_config_t```, setup the WiFi as ```sta```:
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
     wifi_config_t wifi_config = {
         .sta = {
             // Set the newtork name
@@ -661,30 +543,30 @@ Using the struct ```wifi_config_t```, setup the WiFi as ```sta```:
             .sae_h2e_identifier = "",
         },
     };
-{{< /highlight >}}
+```
 
 Then the network **ssid** and **password** as:
 
-{{< highlight c "linenos=table,hl_lines=">}}
-#define WIFI_SSID CONFIG_ESP_WIFI_SSID
-#define WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
-{{< /highlight >}}
+```c
+#define WIFI_SSID "network-ssid"
+#define WIFI_PASS "network-pass"
+```
 
 - Now you can call ```esp_wifi_set_config``` function.
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
     esp_wifi_set_config(WIFI_IF_STA, &wifi_config);
-{{< /highlight >}}
+```
 
 - Start the WiFi on the selected mode with the configuration defined:
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
     esp_wifi_start();
-{{< /highlight >}}
+```
 
 - Finally, wait for the ```WIFI_CONNECTED_BIT```or ```WIFI_FAIL_BIT```.
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
     EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group,
             WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
             pdFALSE,
@@ -696,13 +578,13 @@ Then the network **ssid** and **password** as:
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGE(TAG, "Failed to connect!");
     }
-{{< /highlight >}}
+```
 
 This is not mandatory, however it is useful.
 
 #### Code Block
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 void wifi_init_sta(void)
 {
     s_wifi_event_group = xEventGroupCreate();
@@ -753,13 +635,13 @@ void wifi_init_sta(void)
         ESP_LOGE(TAG, "Failed to connect!");
     }
 }
-{{< /highlight >}}
+```
 
 3. Create the WiFi event handler
 
 #### Code Block
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 static void event_handler(void* arg, esp_event_base_t event_base,
                                 int32_t event_id, void* event_data)
 {
@@ -781,30 +663,30 @@ static void event_handler(void* arg, esp_event_base_t event_base,
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
     }
 }
-{{< /highlight >}}
+```
 
 4. Check the NVS initialization
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
       ESP_ERROR_CHECK(nvs_flash_erase());
       ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
-{{< /highlight >}}
+```
 
 5. Init WiFi
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c
 wifi_init_sta();
-{{< /highlight >}}
+```
 
 #### Assignment Code
 
 Here you can find the full code for this assignment:
 
-{{< highlight c "linenos=table,hl_lines=">}}
+```c c "linenos=,hl_lines=">}}
 #include <stdio.h>
 #include "led_strip.h"
 
@@ -820,8 +702,8 @@ Here you can find the full code for this assignment:
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
-#define WIFI_SSID CONFIG_ESP_WIFI_SSID
-#define WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
+#define WIFI_SSID "network-ssid"
+#define WIFI_PASS "network-pass"
 
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
@@ -922,7 +804,7 @@ void configure_led(void)
         .max_leds = 1,
         .led_pixel_format = LED_PIXEL_FORMAT_GRB,
         .led_model = LED_MODEL_WS2812,
-        .flags.invert_out = false,                
+        .flags.invert_out = false,
     };
 
     led_strip_rmt_config_t rmt_config = {
@@ -950,23 +832,395 @@ void app_main(void)
 
     wifi_init_sta();
 }
-{{< /highlight >}}
+```
 
 #### Extra
 
-  1. Modify your code to change the RGB LED color according to the WiFi connection state. Light it blue for the connecting, green for connected and red for failed to connet.
+  1. Modify your code to change the RGB LED color according to the WiFi connection state. Light it blue for the connecting, green for connected and red for failed to connect (*included on the assignment code*).
 
-  2. Add the [espressif/console_cmd_wifi](https://components.espressif.com/components/espressif/console_cmd_wifi/versions/1.0.1) to add the functionality to control the WiFi connection vit the terminal console.
+  2. Change your code to use the [common_components/protocol_examples_common](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/common_components/protocol_examples_common) component to handle the WiFi connection.
 
-  3. Use the SNTP to get the time from an NTP server.
+## Assignment 4: Working with the NVS
 
-  4. Certificate bundle for HTTPS.
+As you can see from the last assignment, the WiFi credentials were stored hard-coded. This is not the ideal solution for storing this kind of data, because mainly you can not change easily and adds vulnerability to your project.
 
-### Assignmnent: Using the LP core
+On this assignment, we will see how to store data to the [Non-Volatile-Storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/api-reference/storage/nvs_flash.html). The NVS is often called as emulated EEPROM but in the ESP32 the NVS uses the flash and the ESP32 does not have any embedded EEPROM.
+
+The NVS library was designed to store small key-value, including `integer`, `string`, and `blob` types.
+
+> String values are currently limited to 4000 bytes. This includes the null terminator. Blob values are limited to 508,000 bytes or 97.6% of the partition size - 4000 bytes, whichever is lower.
+
+This library can be used to store several different configurations or values you will need to persist on the flash memory.
+
+### Hands-on NVS
+
+For this hands-on, we will need to prepare the project for the NVS, create the NVS data file with the WiFi credentials, set the default values, add the NVS code and change the example to read the WiTi credentials from the NVS.
+
+1. **Create the partition file**
+
+To create the partition table file, use the Partition Table Editor from the Espressif IDE. To open the editor, right click on the project, `ESP-IDF` -> `Partition Table Editor`:
+
+![Partition Editor Menu](assets/partition-editor-menu.png "Partition Editor Menu")
+
+Leave the default values and click `Save and Quit`.
+
+![Partition Editor](assets/partition-editor.png "Partition Editor")
+
+The default `partitions.csv` will be created with the following structure:
+
+```text
+# ESP-IDF Partition Table
+# Name,   Type, SubType, Offset,  Size,   Flags
+nvs,      data, nvs,     0x9000,  0x6000,
+phy_init, data, phy,     0xf000,  0x1000,
+factory,  app,  factory, 0x10000, 1M,
+```
+
+You can change later the partitions according to your needs.
+
+2. **Create the NVS data file**
+
+For the NVS editor, you will need to open the editor by the `ESP-IDF` -> `NVS Table Editor`
+
+![NVS Editor Menu](assets/nvs-editor-menu.png "NVS Table Editor Menu")
+
+and add the namespace `storage` and the keys `SSID` and `password` then `Save and Quit`.
+
+![NVS Editor](assets/nvs-editor.png "NVS Table Editor")
+
+> Please change the SSID and password values according to the workshop network or the network you will connect.
+
+After the NVS table created, the file `nvs.csv`will be added to the project with the content:
+
+```text
+key,type,encoding,value
+storage,namespace,,
+ssid,data,string,"network-ssid"
+password,data,string,"network-password"
+
+```
+
+3. **Include the NVS code**
+
+After the NVS initialization, the partition can be opened
+
+```c
+    ESP_LOGI(TAG, "Opening Non-Volatile Storage (NVS) handle");
+    nvs_handle_t my_handle;
+    ret = nvs_open_from_partition("nvs", "storage", NVS_READWRITE, &my_handle);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(ret));
+        return;
+    }
+    ESP_LOGI(TAG, "The NVS handle successfully opened");
+```
+
+and the values from the NVS can be read
+
+```c
+
+char ssid[32];
+char password[64];
+
+esp_err_t get_wifi_credentials(void){
+	
+	esp_err_t err;
+	
+	ESP_LOGI(TAG, "Opening Non-Volatile Storage (NVS) handle");
+    nvs_handle_t nvs_mem_handle;
+    err = nvs_open_from_partition("nvs", "storage", NVS_READWRITE, &nvs_mem_handle);
+    if (err != ESP_OK) {
+		led_strip_set_pixel(led_strip, 0, 25, 0, 0);
+    	led_strip_refresh(led_strip);
+        ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(err));
+        return err;
+    }
+    ESP_LOGI(TAG, "The NVS handle successfully opened");
+	
+	size_t ssid_len = sizeof(ssid);
+	size_t pass_len = sizeof(password);
+	
+    err = nvs_get_str(nvs_mem_handle, "ssid", ssid, &ssid_len);
+    ESP_ERROR_CHECK(err);
+
+    err = nvs_get_str(nvs_mem_handle, "password", password, &pass_len);
+    ESP_ERROR_CHECK(err);
+
+    nvs_close(nvs_mem_handle);
+    return ESP_OK;	
+}
+```
+
+Now you need to change the WiFi config to get the NVS values:
+
+```c
+    wifi_config_t wifi_config = {
+        .sta = {
+            .ssid = "",
+            .password = "",
+            .threshold.authmode = WIFI_AUTH_WPA2_WPA3_PSK,
+            .sae_pwe_h2e = WPA3_SAE_PWE_BOTH,
+            .sae_h2e_identifier = "",
+        },
+    };
+    
+    strncpy((char*)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid));
+    strncpy((char*)wifi_config.sta.password, password, sizeof(wifi_config.sta.password));
+```
+
+Call the `get_wifi_credentials` before `wifi_init_sta` in the `app_main` function:
+
+```c
+ESP_ERROR_CHECK(get_wifi_credentials());
+```
+
+4. **Change the build to include the NVS**
+
+Now you will need to change the file `main/CMakeLists.txt` to add the `nvs_create_partition_image`.
+
+```c
+idf_component_register(
+    SRCS main.c         # list the source files of this component
+    INCLUDE_DIRS        # optional, add here public include directories
+    PRIV_INCLUDE_DIRS   # optional, add here private include directories
+    REQUIRES            # optional, list the public requirements (component names)
+    PRIV_REQUIRES       # optional, list the private requirements
+)
+nvs_create_partition_image(nvs ../nvs.csv FLASH_IN_PROJECT)
+```
+
+5. **Change the default configuration file to change the SDKConfig**
+
+If you do not hame the file `sdkconfig.defaults`create one in the same level of the `sdkconfig` file and add the following configuration:
+
+```c
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+CONFIG_PARTITION_TABLE_FILENAME="partitions.csv"
+```
+
+This will trigger the binary creation with the predefined values from the `nvs.csv` file.
+
+Now you can handle and change the **SSID** and **password** as you prefer directly from the NVS.
+
+#### Assignment Code
+
+```c
+#include <stdio.h>
+#include "esp_err.h"
+#include "led_strip.h"
+
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+#include "esp_system.h"
+#include "esp_wifi.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "nvs_flash.h"
+
+#include "nvs.h"
+
+#include "lwip/err.h"
+#include "lwip/sys.h"
+
+char ssid[32];
+char password[64];
+
+#define WIFI_CONNECTED_BIT BIT0
+#define WIFI_FAIL_BIT      BIT1
+
+#define LED_STRIP_RMT_RES_HZ  (10 * 1000 * 1000)
+
+led_strip_handle_t led_strip;
+
+static EventGroupHandle_t s_wifi_event_group;
+static int s_retry_num = 0;
+
+static const char *TAG = "workshop";
+
+
+static void event_handler(void* arg, esp_event_base_t event_base,
+                                int32_t event_id, void* event_data)
+{
+    if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
+        esp_wifi_connect();
+    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+        if (s_retry_num < 10) {
+            esp_wifi_connect();
+            s_retry_num++;
+            ESP_LOGW(TAG, "Trying to connect to WiFi");
+            led_strip_set_pixel(led_strip, 0, 0, 0, 25);
+            led_strip_refresh(led_strip);
+        } else {
+            xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
+        }
+        ESP_LOGE(TAG, "Failed to connect to WiFi");
+        led_strip_set_pixel(led_strip, 0, 25, 0, 0);
+        led_strip_refresh(led_strip);
+    } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+        ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
+        ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
+        led_strip_set_pixel(led_strip, 0, 0, 25, 0);
+        led_strip_refresh(led_strip);
+        s_retry_num = 0;
+        xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+    }
+}
+
+void wifi_init_sta(void)
+{
+    s_wifi_event_group = xEventGroupCreate();
+
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    esp_netif_create_default_wifi_sta();
+
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    esp_event_handler_instance_t instance_any_id;
+    esp_event_handler_instance_t instance_got_ip;
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,
+            ESP_EVENT_ANY_ID,
+            &event_handler,
+            NULL,
+            &instance_any_id));
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT,
+            IP_EVENT_STA_GOT_IP,
+            &event_handler,
+            NULL,
+            &instance_got_ip));
+
+    wifi_config_t wifi_config = {
+        .sta = {
+            .ssid = "",
+            .password = "",
+            .threshold.authmode = WIFI_AUTH_WPA2_WPA3_PSK,
+            .sae_pwe_h2e = WPA3_SAE_PWE_BOTH,
+            .sae_h2e_identifier = "",
+        },
+    };
+    
+    strncpy((char*)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid));
+    strncpy((char*)wifi_config.sta.password, password, sizeof(wifi_config.sta.password));
+
+
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
+    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config) );
+    ESP_ERROR_CHECK(esp_wifi_start() );
+
+    EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group,
+            WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
+            pdFALSE,
+            pdFALSE,
+            portMAX_DELAY);
+
+    if (bits & WIFI_CONNECTED_BIT) {
+        ESP_LOGI(TAG, "Connected!");
+    } else if (bits & WIFI_FAIL_BIT) {
+        ESP_LOGE(TAG, "Failed to connect!");
+    }
+}
+
+void configure_led(void)
+{
+    led_strip_config_t strip_config = {
+        .strip_gpio_num = 8,
+        .max_leds = 1,
+        .led_pixel_format = LED_PIXEL_FORMAT_GRB,
+        .led_model = LED_MODEL_WS2812,
+        .flags.invert_out = false,
+    };
+
+    led_strip_rmt_config_t rmt_config = {
+
+        .clk_src = RMT_CLK_SRC_DEFAULT,
+        .resolution_hz = LED_STRIP_RMT_RES_HZ,
+        .flags.with_dma = false,
+    };
+
+    led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip);
+}
+
+esp_err_t get_wifi_credentials(void){
+	
+	esp_err_t err;
+	
+	ESP_LOGI(TAG, "Opening Non-Volatile Storage (NVS) handle");
+    nvs_handle_t nvs_mem_handle;
+    err = nvs_open_from_partition("nvs", "storage", NVS_READWRITE, &nvs_mem_handle);
+    if (err != ESP_OK) {
+		led_strip_set_pixel(led_strip, 0, 25, 0, 0);
+    	led_strip_refresh(led_strip);
+        ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(err));
+        return err;
+    }
+    ESP_LOGI(TAG, "The NVS handle successfully opened");
+	
+	size_t ssid_len = sizeof(ssid);
+	size_t pass_len = sizeof(password);
+	
+    err = nvs_get_str(nvs_mem_handle, "ssid", ssid, &ssid_len);
+    ESP_ERROR_CHECK(err);
+
+    err = nvs_get_str(nvs_mem_handle, "password", password, &pass_len);
+    ESP_ERROR_CHECK(err);
+
+    nvs_close(nvs_mem_handle);
+    return ESP_OK;	
+}
+
+void app_main(void)
+{
+    configure_led();
+    led_strip_set_pixel(led_strip, 0, 0, 0, 25);
+    led_strip_refresh(led_strip);
+
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+      ESP_ERROR_CHECK(nvs_flash_erase());
+      ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+    
+    ESP_ERROR_CHECK(get_wifi_credentials());
+    wifi_init_sta();
+}
+```
+
+## Assignment 5: WiFi provisioning (EXTRA)
+
+WiFi provisioning is a crucial step in the setup of any IoT device. It involves configuring the device with the necessary credentials (like SSID and password) to connect to a WiFi network. This process is typically performed once during the initial setup of the device, but it may also be repeated whenever the device needs to connect to a new network.
+
+There are several methods for WiFi provisioning. Some devices use a physical interface, like buttons or switches, to enter provisioning mode. Others use a web-based interface or a mobile app to guide the user through the process. In some cases, devices may also support automatic provisioning through technologies like Bluetooth Low Energy (BLE).
+
+Espressif offers solutions for provisioning. You will find this process being used in some projects like [ESP RainMaker](https://rainmaker.espressif.com/).
+
+### Hands-on WiFi provisioning
+
+From the NVS assignment, you can see how to set and get the WiFi credentials from the flash memory. This feature is useful but still you will need to set the values somehow.
+
+On this assignment we will show you how to use the mobile phone (Android or iOS) to set the WiFi credentials via BLE.
+
+1. **Install the mobile application**
+
+- Android: [ESP BLE Provisioning](https://play.google.com/store/apps/details?id=com.espressif.provble&pcampaignid=web_share)
+- iOS [ESP BLE Provisioning](https://apps.apple.com/us/app/esp-ble-provisioning/id1473590141)
+
+2. **Create a new project from the examples**
+
+3. **Build and flash**
+
+4. **Provisioning**
+
+## Assignment 6: Protocols: SNTP
+
+## Assignment 7: Using the LP core
 
 ---
 
-Reducing the power consumption on WiFi devices is a challenge. Here we will show you some of the techniques that can be applied to the ESP32-C6 in order to reduce the power consumption on WiFi applicatons.
+Reducing the power consumption on WiFi devices is a challenge. Here we will show you some of the techniques that can be applied to the ESP32-C6 in order to reduce the power consumption on WiFi applications.
 
 Another talk form the DevCon23, is the [Low-Power Features of ESP32-C6: Target Wake Time + LP Core](https://www.youtube.com/watch?v=FpTwQlGtV0k), witch cover the LP features and the TWT. Please save to watch later as a complementary material.
 
@@ -1031,10 +1285,20 @@ I2C sensor read
 
 > TODO
 
-### Conclusion
+
+
+## Conclusion
 
 ---
 
-### Next steps
+Throughout this workshop, we've explored the capabilities of the Espressif IoT Development Framework (ESP-IDF) and the ESP32 SoC. We've delved into the power management features that allow for efficient energy usage, especially in IoT applications where power consumption is a critical factor. We've also touched on the use of the low-power core for tasks like blinking an LED or reading from an I2C sensor.
+
+Moreover, we've hinted at some exciting demos like the PARLIO Logic Analyzer and iTWT, which showcase the versatility and potential of the ESP32 SoC in various applications.
+
+By participating in this workshop, you've gained a deeper understanding of the ESP32 SoC and the ESP-IDF, and how they can be leveraged to build efficient and powerful IoT applications. We hope this knowledge serves as a solid foundation for your future projects.
+
+Thank you for your time and engagement in this workshop. We look forward to seeing the innovative solutions you'll create with the ESP32 SoC and the ESP-IDF.
+
+## Next steps
 
 ---

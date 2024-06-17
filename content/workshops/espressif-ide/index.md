@@ -165,6 +165,96 @@ If you need to change any project or ESP-IDF configuration, this can be done by 
 
 > Please note that if you change anything in this file, the build process will rebuild everything.
 
+#### Creating a new configuration menu
+
+The ESP-IDF use a method to configure the SDK based on the kconfiglib, a Python extension of the [Kconfig](https://docs.kernel.org/kbuild/kconfig-language.html) system, called [esp-idf-kconfig](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/kconfig.html?highlight=kconfig).
+This configuration method can be used by the command or via the Espressif IDE GUI:
+
+```bash
+idf.py menuconfig
+```
+
+This configuration can be performed by the IDE GUI.
+
+> TODO: Add printscreen
+
+#### ESP-IDF configuration
+
+This is one of the most important steps before flashing your application into the device. You will need to change some of the default configurations in order to better fit the SoC or module in use to the SDK.
+
+A good example of a setting you will probably need to change is the flash memory size. As default, some SoCs cames with the 2MB flash size selected. To change that, you will need to use the SDK configuration.
+
+To make your project easier to configure, there are different ways to set default configurations or to create custom menus for the SDK configuration tool.
+
+#### Hands-on
+
+For this hands-on, we will create a new configuration menu to set the WiFi credentials (SSID and password). We will also understand how to pre-define some configurations as default, improving the configuration process by avoiding configuration mistakes.
+
+  1. **Creating a new configuration menu**
+
+First, we need to create a new file called ```Kconfig.projbuild``` inside the **main** folder.
+
+```text
+menu "WiFi Configuration"
+
+    config ESP_WIFI_SSID
+        string "WiFi SSID"
+        default "default_ssid"
+        help
+            SSID (network name) to connect to.
+
+    config ESP_WIFI_PASSWORD
+        string "WiFi Password"
+        default "default_password"
+        help
+            WiFi password (WPA, WPA2, or WPA3).
+endmenu
+```
+
+Where the menu name will be ```WiFi Configuration``` with 2 configurations:
+
+- Config **ESP_WIFI_SSID** with ```string``` data type named "WiFi SSID" with the default value of **"default_ssid"**.
+- Config **ESP_WIFI_PASSWORD** with ```string``` data type named "WiFi Password" with the default value of **"default_password"**.
+
+There are more data types, such as ```bool``` and ```int```.
+This file will be used by this project when calling the SDK configuration interface.
+
+To use the new configuration entries, you can do:
+
+{{< highlight c "linenos=table,hl_lines=">}}
+    #define WIFI_SSID CONFIG_ESP_WIFI_SSID
+    #define WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
+{{< /highlight >}}
+
+As you can see, you will need to include the prefix ```CONFIG_```to the config name.
+
+Now run the configuration menu to see the recently created menu for the WiFi credentials. If you are not able to see the menu, you can try to run this command.
+
+```bash
+idf.py reconfigure
+```
+
+> Every time you change the SDK configuration, the build system will rebuild and it might take a while depending on your system.
+> Important: This configuration menu will be used for the next assignment.
+
+  2. **Setting the default configuration**
+
+You might noticed that you will need to change the new configuration entries manually, if you are not going to define as your default values. To overcome this, you can define the default SDK configuration values.
+This is valid for all the configuration values, not only for those you have just created.
+
+To do this, create the ```sdkconfig.defaults``` file, in the same folder as you have the ```sdkconfig``` file.
+We do not recommend you to change the ```sdkconfig``` file manually, so the way to define your own default configuration values is by the ```sdkconfig.defaults``` file.
+
+```text
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB
+CONFIG_ESP_WIFI_SSID="EspressifWorkshop"
+CONFIG_ESP_WIFI_PASSWORD="espressifsummit"
+```
+
+When you run the SDK configuration for the first time, the values from the defaults file will be applied. You can also use the ```reconfigure```to apply again the default values or you can delete the ```sdkconfig``` file manually.
+
+If you have different targets, you can define default configuration files based on the selected target. To do that, the file name should contain the target name: ```sdkconfig.defaults.esp32c6``` for example on the ESP32-C6.
+
 ### Flashing the Device
 
 Before flashing the device, we need to define the communication port by clicking on the gear icon.
