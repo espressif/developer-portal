@@ -15,10 +15,10 @@ Are you a maker or an embedded systems enthusiast looking to create applications
 
 ## What is ESP-BSP?
 
-[ESP-BSP](https://github.com/espressif/esp-bsp) is a collection of Board Support Packages featuring Espressif’s or M5Stack development boards. The set can be extended to any board with Espressif’s chip. It provides a standardized interface, allowing you to develop applications that are easy to port between different boards. By using ESP-BSP, you can:
+[ESP-BSP](https://github.com/espressif/esp-bsp) is a collection of Board Support Packages featuring Espressif’s or M5Stack development boards. The set can be extended to any board with Espressif’s chip. It provides a convenient way to start a project for a specific development board without the need to manually look for drivers and other details. By using ESP-BSP, you can:
 
 - **Streamline Hardware Integration**: Simplify code and reduce complexity.
-- **Enhance Portability**: Easily adapt your application to different boards.
+- **Enhance Development Speed**: Quickly set up and start working on your projects.
 - **Access Standardized APIs**: Ensure consistency across your projects.
 
 ## Getting Started with ESP-BSP
@@ -36,7 +36,7 @@ Ensure you have the following hardware:
 
 Before you begin, make sure you have the following:
 
-- [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html#installation): The official development framework for the ESP32, properly installed and sourced in your shell.
+- [ESP-IDF v5.3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html#installation): The official development framework for the ESP32, properly installed and sourced in your shell.
 
 ### Creating Project from Example
 
@@ -84,7 +84,7 @@ Once the application is running, you’ll see the following features in action:
 
 ### Exploring the Component
 
-The ESP-BSP is included via `main/idf_component.yml` file. Simply by switching to other BSP, you can port the project to different hardware.
+The ESP-BSP is included via `main/idf_component.yml` file. Simply by switching to another BSP, you can adapt the project to different hardware. Here’s how you can specify dependencies for different boards:
 
 Example for ESP32-S3-BOX:
 
@@ -111,7 +111,7 @@ dependencies:
     version: "==1.1.0"
   ## Required IDF version
   idf:
-    version: ">=4.1.0"
+    version: ">=5.0.0"
 ```
 
 ## Conclusion
