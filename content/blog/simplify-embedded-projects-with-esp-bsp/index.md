@@ -59,6 +59,12 @@ Let’s create a simple project using the `display_audio_photo` example, which i
    idf.py set-target esp32s3
    ```
 
+   Note: For users of ESP-IDF 5.3 or newer, it is necessary to add the following dependency with the corrected I2C driver (error message at runtime: `CONFLICT! driver_ng`):
+
+   ```
+   idf.py add-dependency "espressif/esp_codec_dev==1.1.0"
+   ```
+
 3. **Build and Flash the Project**:
 
    Compile and flash your application to the ESP32-S3-BOX-3:
@@ -67,11 +73,6 @@ Let’s create a simple project using the `display_audio_photo` example, which i
    idf.py build flash monitor
    ```
 
-Note: For users of ESP-IDF 5.3 or newer, it might be necessary to add the following dependency with the corrected I2C driver (error message at runtime: `CONFLICT! driver_ng`):
-
-```
-idf.py add-dependency "espressif/esp_codec_dev==1.1.0"
-```
 
 ### Exploring the Example
 
