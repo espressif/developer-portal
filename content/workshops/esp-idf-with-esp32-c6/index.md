@@ -241,8 +241,10 @@ You will need to:
 
 ---
 
+> Change it to the BSP
+
 On this assignment, we will show on how to use components to accelerate your development.
-Components are similar to libraries, adding new features like sensors drivers, protocols, and any other feature that is not part of the ESP-IDF. Some components are already part of some examples and the ESP-IDF also uses the external component approach to make the ESP-IDF more modular.
+Components are similar to libraries, adding new features like sensors drivers, protocols, board support package, and any other feature that is not included on the ESP-IDF as default. Some components are already part of some examples and the ESP-IDF also uses the external component approach to make the ESP-IDF more modular.
 
 Using components not only makes your project easier to maintain but also improve the development speed by reusing and sharing components with different projects.
 
@@ -252,7 +254,7 @@ If you want to create and publish your own component, we recommend you to watch 
 
 You can also find components using our [ESP Registry](https://components.espressif.com) platform.
 
-To show how to use components, we will create a new project from the scratch and add the component LED strip.
+To show how to use components, we will create a new project from the scratch and add the component LED strip, later, we will change the approach to work with the Board Support Packages (BSP).
 
 #### Hands-on with components
 
@@ -446,10 +448,165 @@ The LED should turn on in RED in mid brigthness.
 
 > TODO: Add asciinema.
 
+#### Hands-on with BSP
+
+Now you know how to add a new component to your project, we will introduce the concept of working with BSP.
+
+The Board Support Package (BSP) is a package that describes the supported peripherals in a particular board. For example, the **ESP32-C6-DevKit** has one button connected to the **GPIO9** and one addressable LED connected to the **GPIO8**. In the BSP for this development kit, we can assume that the configuration for both peripherals will be handled by the BSP and we do not need to set the GPIOs or to add any extra component for handling the peripherals.
+
+This development kit is quite simple for a BSP, but if we consider a more complex board, like the **ESP32-S3-BOX-3**, the BSP will handle all the peripherals, including the display, sensors, audio codecs, and LEDs for example.
+
+Some of the advantages of using a BSP includes:
+
+- Easy initial configuration for the board features.
+- Code reuse across projects with the same board.
+- Reduces the board configuration mistakes.
+- Ensures that all the dependencies will be included on the project.
+
+For this hands-on, we will also show how to create a new project from the component example. The component to be used on this hands-on is the: [espressif/esp_bsp_generic](https://components.espressif.com/components/espressif/esp_bsp_generic/).
+Some of the components includes examples that shows on how to use the component. You can create a new project based on this example following these steps:
+
+1. **Create a new project from the example**
+
+To create a new project from a component example, we will need to do that using the terminal and not the Espressif IDE. This feature is not yet implemented inside the IDE.
+
+Let's get the generic BSP [examples/generic_button_led](https://components.espressif.com/components/espressif/esp_bsp_generic/versions/1.2.0/examples/generic_button_led?language=en) and create a new project using the terminal.
+
+```bash
+idf.py create-project-from-example "espressif/esp_bsp_generic^1.2.0:generic_button_led"
+```
+
+This command will create all the necessary files with the example code ready to be configured.
+
+*Alternative way:* The alternative way to use the BSP is to create a blank project using the Espressif IDE and create the manifest file manually.
+
+To do that, create a new blank project for the ESP32-C6 and inside the `main` folder create the file `idf_component.yml` with the following content:
+
+```yaml
+## IDF Component Manager Manifest File
+dependencies:
+  espressif/esp_bsp_generic: "^1.2.0"
+  ## Required IDF version
+  idf:
+    version: ">=4.1.0"
+```
+
+Copy this code to the `main.c` file.
+
+```c
+#include <stdio.h>
+#include "bsp/esp-bsp.h"
+#include "esp_log.h"
+#include "led_indicator_blink_default.h"
+
+static const char *TAG = "example";
+
+#if CONFIG_BSP_LEDS_NUM > 0
+static int example_sel_effect = BSP_LED_BREATHE_SLOW;
+static led_indicator_handle_t leds[BSP_LED_NUM];
+#endif
+
+#if CONFIG_BSP_BUTTONS_NUM > 0
+static void btn_handler(void *button_handle, void *usr_data)
+{
+    int button_pressed = (int)usr_data;
+    ESP_LOGI(TAG, "Button pressed: %d. ", button_pressed);
+
+#if CONFIG_BSP_LEDS_NUM > 0
+    led_indicator_stop(leds[0], example_sel_effect);
+
+    if (button_pressed == 0) {
+        example_sel_effect++;
+        if (example_sel_effect >= BSP_LED_MAX) {
+            example_sel_effect = BSP_LED_ON;
+        }
+    }
+
+    ESP_LOGI(TAG, "Changed LED blink effect: %d.", example_sel_effect);
+    led_indicator_start(leds[0], example_sel_effect);
+#endif
+}
+#endif
+
+void app_main(void)
+{
+#if CONFIG_BSP_BUTTONS_NUM > 0
+    /* Init buttons */
+    button_handle_t btns[BSP_BUTTON_NUM];
+    ESP_ERROR_CHECK(bsp_iot_button_create(btns, NULL, BSP_BUTTON_NUM));
+    for (int i = 0; i < BSP_BUTTON_NUM; i++) {
+        ESP_ERROR_CHECK(iot_button_register_cb(btns[i], BUTTON_PRESS_DOWN, btn_handler, (void *) i));
+    }
+#endif
+
+#if CONFIG_BSP_LEDS_NUM > 0
+    /* Init LEDs */
+    ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
+
+    /* Set LED color for first LED (only for addressable RGB LEDs) */
+    led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x00, 0x64, 0x64));
+
+    /*
+    Start effect for each LED
+    (predefined: BSP_LED_ON, BSP_LED_OFF, BSP_LED_BLINK_FAST, BSP_LED_BLINK_SLOW, BSP_LED_BREATHE_FAST, BSP_LED_BREATHE_SLOW)
+    */
+    led_indicator_start(leds[0], BSP_LED_BREATHE_SLOW);
+#endif
+}
+```
+
+2. **Setup the peripherals**
+
+Since we are using the generic BSP, we need to set the configuration using the configuration menu.
+
+  - LED connected to the **GPIO8** via RMT (addressable)
+  - Button connected to the **GPIO9** (boot button)
+
+Open the file `sdkconfig` to open the configuration. If the file is not in the project folder, you will need build the project before.
+
+On the SDK Configuration, go to `Component config` -> `Board Support Package (generic)`
+
+- **Buttons**
+  - Set `Number of buttons in BSP` to `1`
+  - Set `Button type` as `GPIO Button`
+  - Set `Button 1 GPIO` to `9`
+- **LEDs**
+  - Set `LED type` to `Addressable RGB LED`
+  - Set `Number of LEDs in BSP` to `1`
+  - Set `Addressable RGB LED GPIO` to `8`
+  - Set `Addressable RGB LED backend peripheral` to `RMT`
+
+3. **Build and flash**
+
+Now you can build and flash (run) the example to your device.
+
+> You might need to full clean your project before building if you have added the files and the component manually.
+
 #### Extra
 
-  1. Create a FreeRTOS task to blink the LED using different color or fade.
-  2. Use the component [espressif/button](https://components.espressif.com/components/espressif/button/versions/3.2.0) and 
+Here is the code for the first hands-on but now with the BSP. You can use this code to compare both solutions.
+
+```c
+#include <stdio.h>
+#include "bsp/esp-bsp.h"
+#include "led_indicator_blink_default.h"
+
+#if CONFIG_BSP_LEDS_NUM > 0
+static led_indicator_handle_t leds[BSP_LED_NUM];
+#endif
+
+void app_main(void)
+{
+#if CONFIG_BSP_LEDS_NUM > 0
+    /* Init LEDs */
+    ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
+
+    /* Set LED color for first LED (only for addressable RGB LEDs) */
+    led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x10, 0x0, 0x0));
+#endif
+}
+
+```
 
 ## Assignment 3: Connecting to WiFi
 
@@ -461,11 +618,11 @@ Now it's time to connect the ESP32-C6 to the WiFi network. The ESP32-C6 supports
 
 The ESP32's supports both Station and SoftAP modes.
 
-For this assignment, we will set up the station mode WiFi driver and connect to a WiFi4/WiFi6 network, using the same project as used on the [Creating a project with Components](#) assignment.
+For this assignment, we will set up the station mode WiFi driver and connect to a WiFi4/WiFi6 network, using the same project as used on the [Creating a project with Components](#) with BSP assignment.
 
 #### Hands-on WiFi
 
-To get started with the WiFi, we need to setup the WiFi driver in order to connect to a WiFi network, using the access credentials (SSID and password). Once we successfuly 
+To get started with the WiFi, we need to setup the WiFi driver in order to connect to a WiFi network, using the access credentials (SSID and password).
 
   1. Add all the necessary includes.
 
@@ -484,7 +641,7 @@ To get started with the WiFi, we need to setup the WiFi driver in order to conne
 
   2. Create the WiFi initialization
 
-To initializate the WiFi, we need to perform the following steps:
+To initialize the WiFi, we need to perform the following steps:
   
 - Initialize the TCP/IP stack:
 
@@ -1215,6 +1372,22 @@ On this assignment we will show you how to use the mobile phone (Android or iOS)
 4. **Provisioning**
 
 ## Assignment 6: Protocols: SNTP
+
+SNTP (Simple Network Time Protocol) is a protocol used to synchronize computer clocks over a network. It's a simpler version of the Network Time Protocol (NTP), which is widely used to synchronize the system time to a reference time source, such as an atomic clock or GPS time.
+
+The ESP-IDF provides an [SNTP API](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/api-reference/network/esp_netif.html#sntp-api) that allows the ESP32 to get the current time from an SNTP server over the internet. This is particularly useful in IoT applications where accurate timekeeping is necessary but a real-time clock (RTC) hardware is not available or not desirable due to cost or power consumption considerations.
+
+> Please note that the ESP32 needs to be connected to the internet to use the SNTP service. Also, the SNTP service uses the UDP protocol, so you need to ensure that your network allows UDP traffic.
+
+Please use the [ESP-IDF SNTP example](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/protocols/sntp) as your reference.
+
+### Hands-on SNTP
+
+1. **Add the necessary includes**
+
+2. **Add the SNTP initialization**
+
+3. **Add the SNTP time sync**
 
 ## Assignment 7: Using the LP core
 
