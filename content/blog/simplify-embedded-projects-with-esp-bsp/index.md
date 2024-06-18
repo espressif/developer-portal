@@ -11,17 +11,19 @@ tags: ["Embedded Systems", "ESP32", "ESP32-S3", "Espressif", "BSP"]
 
 ## Introduction
 
-Are you a maker or an embedded systems enthusiast looking to create applications that work seamlessly across different ESP32 development boards? Whether you’re using the ESP-Wrover-Kit, M5Stack-CoreS3, ESP32-S3-BOX-3, or other compatible boards, the ESP Board Support Package (ESP-BSP) makes your life easier. In this article, we’ll walk you through how to get started with ESP-BSP, enabling you to focus on your project’s functionality without worrying about hardware differences.
+Are you a maker or an embedded systems enthusiast looking to create applications that work seamlessly across different ESP32 development boards? Whether you’re using the [ESP-WROVER-KIT](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/hw-reference/esp32/get-started-wrover-kit.html), [M5Stack-CoreS3](https://docs.m5stack.com/en/core/CoreS3), [ESP32-S3-BOX-3](https://github.com/espressif/esp-box/blob/master/docs/hardware_overview/esp32_s3_box_3/hardware_overview_for_box_3.md), or other compatible boards, the ESP Board Support Package (ESP-BSP) makes your life easier. In this article, we’ll walk you through how to get started with ESP-BSP, enabling you to focus on your project’s functionality without worrying about hardware differences.
 
 ## What is ESP-BSP?
 
-ESP-BSP is a collection of Board Support Packages specifically designed for Espressif’s development boards. It provides a standardized interface, allowing you to develop applications that are easy to port between different boards. By using ESP-BSP, you can:
+[ESP-BSP](https://github.com/espressif/esp-bsp) is a collection of Board Support Packages featuring Espressif’s or M5Stack development boards. The set can be extended to any board with Espressif’s chip. It provides a standardized interface, allowing you to develop applications that are easy to port between different boards. By using ESP-BSP, you can:
 
 - **Streamline Hardware Integration**: Simplify code and reduce complexity.
 - **Enhance Portability**: Easily adapt your application to different boards.
 - **Access Standardized APIs**: Ensure consistency across your projects.
 
 ## Getting Started with ESP-BSP
+
+The following example covers steps for building application for ESP32-S3-BOX-3 which is supported by ESP-BSP.
 
 ### Hardware Setup
 
@@ -36,7 +38,7 @@ Before you begin, make sure you have the following:
 
 - [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html#installation): The official development framework for the ESP32, properly installed and sourced in your shell.
 
-### Creating Your First Project
+### Creating Project from Example
 
 Let’s create a simple project using the `display_audio_photo` example, which is available for the ESP32-S3-BOX-3. This example showcases how to use the display, touch, and audio features.
 
@@ -65,6 +67,12 @@ Let’s create a simple project using the `display_audio_photo` example, which i
    idf.py build flash monitor
    ```
 
+Note: For users of ESP-IDF 5.3 or newer, it might be necessary to add the following dependency with the corrected I2C driver (error message at runtime: `CONFLICT! driver_ng`):
+
+```
+idf.py add-dependency "espressif/esp_codec_dev==1.1.0"
+```
+
 ### Exploring the Example
 
 Once the application is running, you’ll see the following features in action:
@@ -72,6 +80,39 @@ Once the application is running, you’ll see the following features in action:
 - **Display**: Shows images, text files, and more.
 - **Touch**: Interacts with the display.
 - **Audio**: Plays sound files.
+
+
+### Exploring the Component
+
+The ESP-BSP is included via `main/idf_component.yml` file. Simply by switching to other BSP, you can port the project to different hardware.
+
+Example for ESP32-S3-BOX:
+
+```
+## IDF Component Manager Manifest File
+dependencies:
+  espressif/esp-box: "^3.1.0"
+  esp_codec_dev:
+    public: true
+    version: "==1.1.0"
+  ## Required IDF version
+  idf:
+    version: ">=5.0.0"
+```
+
+Example for M5Stack-CoreS3:
+
+```
+## IDF Component Manager Manifest File
+dependencies:
+  espressif/m5stack_core_s3: "^1.1.0"
+  esp_codec_dev:
+    public: true
+    version: "==1.1.0"
+  ## Required IDF version
+  idf:
+    version: ">=4.1.0"
+```
 
 ## Conclusion
 
