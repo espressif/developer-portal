@@ -73,6 +73,8 @@ Let’s create a simple project using the `display_audio_photo` example, which i
    idf.py build flash monitor
    ```
 
+   Note: Use `Ctrl+]` to quit the monitor application.
+
 
 ### Exploring the Example
 
