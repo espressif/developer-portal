@@ -42,6 +42,9 @@ Before you begin, make sure you have the following:
 
 Let’s create a simple project using the `display_audio_photo` example, which is available for the ESP32-S3-BOX-3. This example showcases how to use the display, touch, and audio features.
 
+First, let's see the whole build in Asciinema recording:
+{{< asciinema key="esp-bsp-display-demo" cols="80" rows="24" poster="npt:0:08" >}}
+
 1. **Initialize a New Project**:
 
    Use the `idf.py` tool to create a new project from the example:
