@@ -28,7 +28,7 @@ This workshop will be divided in X different assignments. Please see the worksho
 - [Assignment 3: Connecting to WiFi](#)
 - [Assignment 4: Working with the NVS](#)
 - [Assignment 5: WiFi provisioning (EXTRA)](#)
-- [Assignment 6: Protocols: SNTP](#)
+- [Assignment 6: Protocols](#)
 - [Assignment 7: Using the LP core](#)
 - [Demos](#demos)
 - [Conclusion](#conclusion)
@@ -46,7 +46,7 @@ To follow this workshop, make sure you will meet the prerequisites, as described
 ### Software Prerequisites
 
 - Windows, Linux, or macOS computer
-- [ESP-IDF v5.3](https://github.com/espressif/esp-idf/tree/release/v5.3)
+- [ESP-IDF v5.2](https://github.com/espressif/esp-idf/tree/release/v5.2)
 - [Espressif IDE 3.0.0](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0)
 
 ### Extra resources
@@ -444,7 +444,7 @@ void app_main(void)
 
 #### Expected results
 
-The LED should turn on in RED in mid brigthness.
+The LED should turn on in RED.
 
 > TODO: Add asciinema.
 
@@ -491,7 +491,49 @@ dependencies:
     version: ">=4.1.0"
 ```
 
+2. **Setup the peripherals**
+
+Since we are using the generic BSP, we need to set the configuration using the configuration menu.
+
+  - LED connected to the **GPIO8** via RMT (addressable)
+
+Open the file `sdkconfig` to open the configuration. If the file is not in the project folder, you will need build the project before.
+
+On the SDK Configuration, go to `Component config` -> `Board Support Package (generic)`
+
+- **Buttons**
+  - Set `Number of buttons in BSP` to `0`
+- **LEDs**
+  - Set `LED type` to `Addressable RGB LED`
+  - Set `Number of LEDs in BSP` to `1`
+  - Set `Addressable RGB LED GPIO` to `8`
+  - Set `Addressable RGB LED backend peripheral` to `RMT`
+
+3. **Build and flash**
+
 Copy this code to the `main.c` file.
+
+```c
+#include <stdio.h>
+#include "bsp/esp-bsp.h"
+#include "led_indicator_blink_default.h"
+
+static led_indicator_handle_t leds[BSP_LED_NUM];
+
+void app_main(void)
+{
+    ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
+    led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x20, 0x0, 0x0));
+}
+```
+
+Now you can build and flash (run) the example to your device.
+
+> You might need to full clean your project before building if you have added the files and the component manually.
+
+#### Extra
+
+To see the functionalities from this BSP, you can run the following code. You might need to change the configuration to add the button.
 
 ```c
 #include <stdio.h>
@@ -555,59 +597,6 @@ void app_main(void)
 }
 ```
 
-2. **Setup the peripherals**
-
-Since we are using the generic BSP, we need to set the configuration using the configuration menu.
-
-  - LED connected to the **GPIO8** via RMT (addressable)
-  - Button connected to the **GPIO9** (boot button)
-
-Open the file `sdkconfig` to open the configuration. If the file is not in the project folder, you will need build the project before.
-
-On the SDK Configuration, go to `Component config` -> `Board Support Package (generic)`
-
-- **Buttons**
-  - Set `Number of buttons in BSP` to `1`
-  - Set `Button type` as `GPIO Button`
-  - Set `Button 1 GPIO` to `9`
-- **LEDs**
-  - Set `LED type` to `Addressable RGB LED`
-  - Set `Number of LEDs in BSP` to `1`
-  - Set `Addressable RGB LED GPIO` to `8`
-  - Set `Addressable RGB LED backend peripheral` to `RMT`
-
-3. **Build and flash**
-
-Now you can build and flash (run) the example to your device.
-
-> You might need to full clean your project before building if you have added the files and the component manually.
-
-#### Extra
-
-Here is the code for the first hands-on but now with the BSP. You can use this code to compare both solutions.
-
-```c
-#include <stdio.h>
-#include "bsp/esp-bsp.h"
-#include "led_indicator_blink_default.h"
-
-#if CONFIG_BSP_LEDS_NUM > 0
-static led_indicator_handle_t leds[BSP_LED_NUM];
-#endif
-
-void app_main(void)
-{
-#if CONFIG_BSP_LEDS_NUM > 0
-    /* Init LEDs */
-    ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
-
-    /* Set LED color for first LED (only for addressable RGB LEDs) */
-    led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x10, 0x0, 0x0));
-#endif
-}
-
-```
-
 ## Assignment 3: Connecting to WiFi
 
 ---
@@ -624,22 +613,9 @@ For this assignment, we will set up the station mode WiFi driver and connect to 
 
 To get started with the WiFi, we need to setup the WiFi driver in order to connect to a WiFi network, using the access credentials (SSID and password).
 
-  1. Add all the necessary includes.
+  1. **Add all the necessary includes.**
 
-```c
-    #include "freertos/FreeRTOS.h"
-    #include "freertos/task.h"
-    #include "freertos/event_groups.h"
-    #include "esp_system.h"
-    #include "esp_wifi.h"
-    #include "esp_event.h"
-    #include "esp_log.h"
-    #include "nvs_flash.h"
-    #include "lwip/err.h"
-    #include "lwip/sys.h"
-```
-
-  2. Create the WiFi initialization
+  2. **Create the WiFi initialization**
 
 To initialize the WiFi, we need to perform the following steps:
   
@@ -715,7 +691,7 @@ Then the network **ssid** and **password** as:
     esp_wifi_set_config(WIFI_IF_STA, &wifi_config);
 ```
 
-- Start the WiFi on the selected mode with the configuration defined:
+- Start the WiFi on selected mode with the configuration defined:
 
 ```c
     esp_wifi_start();
@@ -739,64 +715,7 @@ Then the network **ssid** and **password** as:
 
 This is not mandatory, however it is useful.
 
-#### Code Block
-
-```c
-void wifi_init_sta(void)
-{
-    s_wifi_event_group = xEventGroupCreate();
-
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-    esp_netif_create_default_wifi_sta();
-
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
-
-    esp_event_handler_instance_t instance_any_id;
-    esp_event_handler_instance_t instance_got_ip;
-    ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,
-            ESP_EVENT_ANY_ID,
-            &event_handler,
-            NULL,
-            &instance_any_id));
-    ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT,
-            IP_EVENT_STA_GOT_IP,
-            &event_handler,
-            NULL,
-            &instance_got_ip));
-
-    wifi_config_t wifi_config = {
-        .sta = {
-            .ssid = WIFI_SSID,
-            .password = WIFI_PASS,
-            .threshold.authmode = WIFI_AUTH_WPA2_WPA3_PSK,
-            .sae_pwe_h2e = WPA3_SAE_PWE_BOTH,
-            .sae_h2e_identifier = "",
-        },
-    };
-
-    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
-    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config) );
-    ESP_ERROR_CHECK(esp_wifi_start() );
-
-    EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group,
-            WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
-            pdFALSE,
-            pdFALSE,
-            portMAX_DELAY);
-
-    if (bits & WIFI_CONNECTED_BIT) {
-        ESP_LOGI(TAG, "Connected!");
-    } else if (bits & WIFI_FAIL_BIT) {
-        ESP_LOGE(TAG, "Failed to connect!");
-    }
-}
-```
-
 3. Create the WiFi event handler
-
-#### Code Block
 
 ```c
 static void event_handler(void* arg, esp_event_base_t event_base,
@@ -843,10 +762,10 @@ wifi_init_sta();
 
 Here you can find the full code for this assignment:
 
-```c c "linenos=,hl_lines=">}}
+```c
 #include <stdio.h>
-#include "led_strip.h"
-
+#include "bsp/esp-bsp.h"
+#include "led_indicator_blink_default.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
@@ -855,7 +774,6 @@ Here you can find the full code for this assignment:
 #include "esp_event.h"
 #include "esp_log.h"
 #include "nvs_flash.h"
-
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
@@ -865,15 +783,12 @@ Here you can find the full code for this assignment:
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
 
-#define LED_STRIP_RMT_RES_HZ  (10 * 1000 * 1000)
-
-led_strip_handle_t led_strip;
+static led_indicator_handle_t leds[BSP_LED_NUM];
 
 static EventGroupHandle_t s_wifi_event_group;
 static int s_retry_num = 0;
 
 static const char *TAG = "workshop";
-
 
 static void event_handler(void* arg, esp_event_base_t event_base,
                                 int32_t event_id, void* event_data)
@@ -881,23 +796,20 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
         esp_wifi_connect();
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-        if (s_retry_num < 10) {
+        if (s_retry_num < 30) {
             esp_wifi_connect();
             s_retry_num++;
             ESP_LOGW(TAG, "Trying to connect to WiFi");
-            led_strip_set_pixel(led_strip, 0, 0, 0, 25);
-            led_strip_refresh(led_strip);
+			led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
         } else {
             xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
         }
         ESP_LOGE(TAG, "Failed to connect to WiFi");
-        led_strip_set_pixel(led_strip, 0, 25, 0, 0);
-        led_strip_refresh(led_strip);
+		led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x20, 0x0, 0x0));
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
         ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
         ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
-        led_strip_set_pixel(led_strip, 0, 0, 25, 0);
-        led_strip_refresh(led_strip);
+		led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x20, 0x0));
         s_retry_num = 0;
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
     }
@@ -954,31 +866,8 @@ void wifi_init_sta(void)
     }
 }
 
-void configure_led(void)
-{
-    led_strip_config_t strip_config = {
-        .strip_gpio_num = 8,
-        .max_leds = 1,
-        .led_pixel_format = LED_PIXEL_FORMAT_GRB,
-        .led_model = LED_MODEL_WS2812,
-        .flags.invert_out = false,
-    };
-
-    led_strip_rmt_config_t rmt_config = {
-
-        .clk_src = RMT_CLK_SRC_DEFAULT,
-        .resolution_hz = LED_STRIP_RMT_RES_HZ,
-        .flags.with_dma = false,
-    };
-
-    led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip);
-}
-
 void app_main(void)
 {
-    configure_led();
-    led_strip_set_pixel(led_strip, 0, 0, 0, 25);
-    led_strip_refresh(led_strip);
 
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -987,21 +876,22 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(ret);
 
+    ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
+    led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
+
     wifi_init_sta();
 }
 ```
 
 #### Extra
 
-  1. Modify your code to change the RGB LED color according to the WiFi connection state. Light it blue for the connecting, green for connected and red for failed to connect (*included on the assignment code*).
-
-  2. Change your code to use the [common_components/protocol_examples_common](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/common_components/protocol_examples_common) component to handle the WiFi connection.
+1. Change your code to use the [common_components/protocol_examples_common](https://github.com/espressif/esp-idf/tree/release/v5.2/examples/common_components/protocol_examples_common) component to handle the WiFi connection.
 
 ## Assignment 4: Working with the NVS
 
 As you can see from the last assignment, the WiFi credentials were stored hard-coded. This is not the ideal solution for storing this kind of data, because mainly you can not change easily and adds vulnerability to your project.
 
-On this assignment, we will see how to store data to the [Non-Volatile-Storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/api-reference/storage/nvs_flash.html). The NVS is often called as emulated EEPROM but in the ESP32 the NVS uses the flash and the ESP32 does not have any embedded EEPROM.
+On this assignment, we will see how to store data to the [Non-Volatile-Storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/api-reference/storage/nvs_flash.html). The NVS is often called as emulated EEPROM but in the ESP32 the NVS uses the flash and the ESP32 does not have any embedded EEPROM.
 
 The NVS library was designed to store small key-value, including `integer`, `string`, and `blob` types.
 
@@ -1164,9 +1054,8 @@ Now you can handle and change the **SSID** and **password** as you prefer direct
 
 ```c
 #include <stdio.h>
-#include "esp_err.h"
-#include "led_strip.h"
-
+#include "bsp/esp-bsp.h"
+#include "led_indicator_blink_default.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
@@ -1174,28 +1063,23 @@ Now you can handle and change the **SSID** and **password** as you prefer direct
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "esp_log.h"
-#include "nvs_flash.h"
-
 #include "nvs.h"
-
+#include "nvs_flash.h"
 #include "lwip/err.h"
 #include "lwip/sys.h"
-
-char ssid[32];
-char password[64];
 
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
 
-#define LED_STRIP_RMT_RES_HZ  (10 * 1000 * 1000)
+char ssid[32];
+char password[64];
 
-led_strip_handle_t led_strip;
+static led_indicator_handle_t leds[BSP_LED_NUM];
 
 static EventGroupHandle_t s_wifi_event_group;
 static int s_retry_num = 0;
 
 static const char *TAG = "workshop";
-
 
 static void event_handler(void* arg, esp_event_base_t event_base,
                                 int32_t event_id, void* event_data)
@@ -1203,23 +1087,20 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
         esp_wifi_connect();
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-        if (s_retry_num < 10) {
+        if (s_retry_num < 30) {
             esp_wifi_connect();
             s_retry_num++;
             ESP_LOGW(TAG, "Trying to connect to WiFi");
-            led_strip_set_pixel(led_strip, 0, 0, 0, 25);
-            led_strip_refresh(led_strip);
+			led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
         } else {
             xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
         }
         ESP_LOGE(TAG, "Failed to connect to WiFi");
-        led_strip_set_pixel(led_strip, 0, 25, 0, 0);
-        led_strip_refresh(led_strip);
+		led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x20, 0x0, 0x0));
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
         ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
         ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
-        led_strip_set_pixel(led_strip, 0, 0, 25, 0);
-        led_strip_refresh(led_strip);
+		led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x20, 0x0));
         s_retry_num = 0;
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
     }
@@ -1249,7 +1130,7 @@ void wifi_init_sta(void)
             NULL,
             &instance_got_ip));
 
-    wifi_config_t wifi_config = {
+	wifi_config_t wifi_config = {
         .sta = {
             .ssid = "",
             .password = "",
@@ -1261,7 +1142,6 @@ void wifi_init_sta(void)
     
     strncpy((char*)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid));
     strncpy((char*)wifi_config.sta.password, password, sizeof(wifi_config.sta.password));
-
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config) );
@@ -1280,26 +1160,6 @@ void wifi_init_sta(void)
     }
 }
 
-void configure_led(void)
-{
-    led_strip_config_t strip_config = {
-        .strip_gpio_num = 8,
-        .max_leds = 1,
-        .led_pixel_format = LED_PIXEL_FORMAT_GRB,
-        .led_model = LED_MODEL_WS2812,
-        .flags.invert_out = false,
-    };
-
-    led_strip_rmt_config_t rmt_config = {
-
-        .clk_src = RMT_CLK_SRC_DEFAULT,
-        .resolution_hz = LED_STRIP_RMT_RES_HZ,
-        .flags.with_dma = false,
-    };
-
-    led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip);
-}
-
 esp_err_t get_wifi_credentials(void){
 	
 	esp_err_t err;
@@ -1308,11 +1168,10 @@ esp_err_t get_wifi_credentials(void){
     nvs_handle_t nvs_mem_handle;
     err = nvs_open_from_partition("nvs", "storage", NVS_READWRITE, &nvs_mem_handle);
     if (err != ESP_OK) {
-		led_strip_set_pixel(led_strip, 0, 25, 0, 0);
-    	led_strip_refresh(led_strip);
         ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(err));
         return err;
     }
+    
     ESP_LOGI(TAG, "The NVS handle successfully opened");
 	
 	size_t ssid_len = sizeof(ssid);
@@ -1330,9 +1189,6 @@ esp_err_t get_wifi_credentials(void){
 
 void app_main(void)
 {
-    configure_led();
-    led_strip_set_pixel(led_strip, 0, 0, 0, 25);
-    led_strip_refresh(led_strip);
 
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -1340,8 +1196,12 @@ void app_main(void)
       ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
-    
-    ESP_ERROR_CHECK(get_wifi_credentials());
+
+    ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
+    led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
+
+	ESP_ERROR_CHECK(get_wifi_credentials());
+
     wifi_init_sta();
 }
 ```
@@ -1362,32 +1222,38 @@ On this assignment we will show you how to use the mobile phone (Android or iOS)
 
 1. **Install the mobile application**
 
+Install the provisioning application on your smartphone.
+
 - Android: [ESP BLE Provisioning](https://play.google.com/store/apps/details?id=com.espressif.provble&pcampaignid=web_share)
 - iOS [ESP BLE Provisioning](https://apps.apple.com/us/app/esp-ble-provisioning/id1473590141)
 
 2. **Create a new project from the examples**
 
-3. **Build and flash**
+Create a new ESP-IDF project using the example `provisioning` -> `wifi_prov_mgr`.
+
+For existing projects, you can use the component [espressif/network_provisioning](https://components.espressif.com/components/espressif/network_provisioning).
+
+```bash
+idf.py add-dependency "espressif/network_provisioning^0.2.0"
+```
+
+3. **Build, flash, and monitor**
+
+Now you can build and flash (run) the example to your device.
+
+> You might need to full clean your project before building if you have added the files and the component manually.
+
+After building your application, open the `ESP-IDF Serial Monitor`.
 
 4. **Provisioning**
 
-## Assignment 6: Protocols: SNTP
+In the provisioning application, follow the steps to **Provision New Device** using BLE.
 
-SNTP (Simple Network Time Protocol) is a protocol used to synchronize computer clocks over a network. It's a simpler version of the Network Time Protocol (NTP), which is widely used to synchronize the system time to a reference time source, such as an atomic clock or GPS time.
+You will need to scan the QRCode or to use the **I don't have a QR code** option. Please make sure you are provisioning your device.
 
-The ESP-IDF provides an [SNTP API](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/api-reference/network/esp_netif.html#sntp-api) that allows the ESP32 to get the current time from an SNTP server over the internet. This is particularly useful in IoT applications where accurate timekeeping is necessary but a real-time clock (RTC) hardware is not available or not desirable due to cost or power consumption considerations.
+## Assignment 6: Protocols
 
-> Please note that the ESP32 needs to be connected to the internet to use the SNTP service. Also, the SNTP service uses the UDP protocol, so you need to ensure that your network allows UDP traffic.
-
-Please use the [ESP-IDF SNTP example](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/protocols/sntp) as your reference.
-
-### Hands-on SNTP
-
-1. **Add the necessary includes**
-
-2. **Add the SNTP initialization**
-
-3. **Add the SNTP time sync**
+### Hands-on protocols
 
 ## Assignment 7: Using the LP core
 
