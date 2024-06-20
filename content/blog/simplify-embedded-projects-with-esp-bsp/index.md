@@ -78,6 +78,11 @@ First, let's see the whole build in Asciinema recording:
 
    Note: Use `Ctrl+]` to quit the monitor application.
 
+Or, you can try it directly with ESP Launchpad and flash precompiled binary to your ESP32-S3-BOX-3:
+
+   <a href="https://espressif.github.io/esp-launchpad/?flashConfigURL=https://espressif.github.io/esp-bsp/config.toml&amp;app=display_audio_photo">
+   <img alt="Try it with ESP Launchpad" src="https://espressif.github.io/esp-launchpad/assets/try_with_launchpad.png">
+   </a>
 
 ### Exploring the Example
 
