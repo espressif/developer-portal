@@ -130,11 +130,17 @@ First, let's see the whole build in Asciinema recording:
 
    Note: Use `Ctrl+]` to quit the monitor application.
 
-Or, you can try it directly with ESP Launchpad and flash precompiled binary to your ESP32-S3-BOX-3:
+   Or, you can try it directly with ESP Launchpad and flash precompiled binary to your ESP32-S3-BOX-3:
 
    <a href="https://espressif.github.io/esp-launchpad/?flashConfigURL=https://espressif.github.io/esp-bsp/config.toml&amp;app=display_audio_photo">
    <img alt="Try it with ESP Launchpad" src="https://espressif.github.io/esp-launchpad/assets/try_with_launchpad.png">
    </a>
+
+   Note: Some models of M5Stack CoreS3 have QUAD SPI RAM, in that case please use the following command for the build, which will take into account specific settings for M5Stack CoreS3 from the file:
+
+   ```bash
+   idf.py build -DSDKCONFIG=sdkconfig.bsp.m5stack_core_s3
+   ```
 
 ### Exploring the Example
 
