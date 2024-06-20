@@ -68,7 +68,59 @@ First, let's see the whole build in Asciinema recording:
    idf.py add-dependency "espressif/esp_codec_dev==1.1.0"
    ```
 
-3. **Build and Flash the Project**:
+3. **Check the Configuration of Dependencies**:
+
+    Check that file `main/idf_component.yml` contains dependency on BSP specific to you board.
+
+    Configuration for ESP32-S3-BOX-3:
+
+    ```yaml
+    ## IDF Component Manager Manifest File
+    dependencies:
+        espressif/esp-box-3: "^1.2.0"
+        esp_jpeg:
+            version: '*'
+        esp_codec_dev:
+            public: true
+            version: "==1.1.0"
+    ## Required IDF version
+    idf:
+        version: ">=5.0.0"
+    ```
+
+    Configuration for ESP32-S3-BOX:
+
+    ```yaml
+    ## IDF Component Manager Manifest File
+    dependencies:
+        espressif/esp-box: "^3.1.0"
+        esp_jpeg:
+            version: '*'
+        esp_codec_dev:
+            public: true
+            version: "==1.1.0"
+    ## Required IDF version
+    idf:
+        version: ">=5.0.0"
+    ```
+
+    Configuration for M5Stack-CoreS3:
+
+    ```yaml
+    ## IDF Component Manager Manifest File
+    dependencies:
+        espressif/m5stack_core_s3: "^1.1.0"
+        esp_jpeg:
+            version: '*'
+        esp_codec_dev:
+            public: true
+            version: "==1.1.0"
+    ## Required IDF version
+    idf:
+        version: ">=5.0.0"
+    ```
+
+4. **Build and Flash the Project**:
 
    Compile and flash your application to the ESP32-S3-BOX-3:
 
@@ -97,33 +149,6 @@ Once the application is running, you’ll see the following features in action:
 
 The ESP-BSP is included via `main/idf_component.yml` file. Simply by switching to another BSP, you can adapt the project to different hardware. Here’s how you can specify dependencies for different boards:
 
-Example for ESP32-S3-BOX:
-
-```yaml
-## IDF Component Manager Manifest File
-dependencies:
-  espressif/esp-box: "^3.1.0"
-  esp_codec_dev:
-    public: true
-    version: "==1.1.0"
-  ## Required IDF version
-  idf:
-    version: ">=5.0.0"
-```
-
-Example for M5Stack-CoreS3:
-
-```yaml
-## IDF Component Manager Manifest File
-dependencies:
-  espressif/m5stack_core_s3: "^1.1.0"
-  esp_codec_dev:
-    public: true
-    version: "==1.1.0"
-  ## Required IDF version
-  idf:
-    version: ">=5.0.0"
-```
 
 ## Conclusion
 
