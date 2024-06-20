@@ -58,13 +58,13 @@ First, let's see the whole build in Asciinema recording:
 
    Ensure the correct target is set for your project:
 
-   ```
+   ```bash
    idf.py set-target esp32s3
    ```
 
    Note: For users of ESP-IDF 5.3 or newer, it is necessary to add the following dependency with the corrected I2C driver (error message at runtime: `CONFLICT! driver_ng`):
 
-   ```
+   ```bash
    idf.py add-dependency "espressif/esp_codec_dev==1.1.0"
    ```
 
@@ -72,7 +72,7 @@ First, let's see the whole build in Asciinema recording:
 
    Compile and flash your application to the ESP32-S3-BOX-3:
 
-   ```
+   ```bash
    idf.py build flash monitor
    ```
 
@@ -94,7 +94,7 @@ The ESP-BSP is included via `main/idf_component.yml` file. Simply by switching t
 
 Example for ESP32-S3-BOX:
 
-```
+```yaml
 ## IDF Component Manager Manifest File
 dependencies:
   espressif/esp-box: "^3.1.0"
@@ -108,7 +108,7 @@ dependencies:
 
 Example for M5Stack-CoreS3:
 
-```
+```yaml
 ## IDF Component Manager Manifest File
 dependencies:
   espressif/m5stack_core_s3: "^1.1.0"
