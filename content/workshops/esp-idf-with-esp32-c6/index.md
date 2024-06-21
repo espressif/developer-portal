@@ -17,20 +17,19 @@ After the initial steps, you will be guided on how to use the components, blink 
 
 > This workshop is not limited to the ESP32-C6, however, some of the features explored on this workshop is only available on this SoC.
 
-This workshop will be divided in X different assignments. Please see the workshop agenda below:
+This workshop will be divided in 7 different assignments. Please see the workshop agenda below:
 
 ### Agenda
 
 - [ESP-IDF introduction](#the-esp-idf)
 - [ESP32-C6 introduction](#introduction-to-the-esp32-c6)
-- [Assignment 1: Installing the Espressif IDE](#)
-- [Assignment 2: Creating a new project with Components](#)
-- [Assignment 3: Connecting to WiFi](#)
-- [Assignment 4: Working with the NVS](#)
-- [Assignment 5: WiFi provisioning (EXTRA)](#)
-- [Assignment 6: Protocols](#)
-- [Assignment 7: Using the LP core](#)
-- [Demos](#demos)
+- [Assignment 1: Installing the Espressif IDE](#assignment-1-installing-the-espressif-ide)
+- [Assignment 2: Creating a new project with Components](#assignment-2-creating-a-new-project-with-components)
+- [Assignment 3: Connecting to WiFi](#assignment-3-connecting-to-wifi)
+- [Assignment 4: Working with the NVS](#assignment-4-working-with-the-nvs)
+- [Assignment 5: WiFi provisioning (EXTRA)](#assignment-5-wifi-provisioning-extra)
+- [Assignment 6: Protocols](#assignment-6-protocols-extra)
+- [Assignment 7: Using the LP core](#assignment-7-using-the-ulp)
 - [Conclusion](#conclusion)
 - [Next steps](#next-steps)
 
@@ -49,10 +48,6 @@ To follow this workshop, make sure you will meet the prerequisites, as described
 - [ESP-IDF v5.2](https://github.com/espressif/esp-idf/tree/release/v5.2)
 - [Espressif IDE 3.0.0](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0)
 
-### Extra resources
-
-{{< github repo="espressif/esp-idf" >}}
-
 ### Effort
 
 {{< alert icon="mug-hot">}}
@@ -61,13 +56,34 @@ To follow this workshop, make sure you will meet the prerequisites, as described
 
 ## The ESP-IDF
 
-> TODO: Include one explanation about the ESP-IDF and some images.
+The ESP-IDF (Espressif IoT Development Framework) is the official operating system and development framework for the ESP32 series of microcontrollers by Espressif Systems. It provides a comprehensive environment for building IoT applications with robust networking, security, and reliability features. 
+
+The framework supports FreeRTOS, allowing developers to create real-time, multitasking applications. With extensive libraries, components, protocols, tools, and documentation, ESP-IDF simplifies the development process, enabling seamless integration with hardware peripherals, Wi-Fi, Bluetooth, Thread, ZigBee, and cloud services. The ESP-IDF includes almost 400 examples, covering a wide range of use cases and helping developers quickly get started on their projects.
+
+### Architecture
+
+### Frameworks
+
+Several other frameworks use ESP-IDF as a base, including:
+
+- **Arduino for ESP32**
+- **ESP-ADF** (Audio Development Framework): Designed for audio applications.
+- **ESP-WHO** (AI Development Framework): Focused on face detection and recognition.
+- **ESP-RainMaker**: Simplifies building connected devices with cloud capabilities.
+
+### Current supported versions
+
+Visit the ESP-IDF project on GitHub to get the updated list of supported versions and the maintenance period.
+
+{{< github repo="espressif/esp-idf" >}}
 
 ## Introduction to the ESP32-C6
 
 The ESP32-C6 is a Ultra-low-power SoC with RISC-V single-core microprocessor, 2.4 GHz Wi-Fi 6 (802.11ax), Bluetooth® 5 (LE), Zigbee and Thread (802.15.4). It has an optional 4 MB flash in the chip’s package,30 or 22 GPIOs, rich set of peripherals including:
 
-![Diagram](assets/esp32-c6-diagram.png)
+{{< gallery >}}
+  <img src="assets/esp32-c6-diagram.png" class="grid-w22" />
+{{< /gallery >}}
 
 - 30 GPIOs (QFN40), or 22 GPIOs (QFN32)
 - 5 strapping GPIOs
@@ -167,15 +183,16 @@ Here is the development board feature list:
 
 #### Board description
 
-![Board](assets/esp32-c6-devkitc-1-v1.2-annotated-photo.png)
-
-#### Board diagram
-
-![Board](assets/esp32-c6-devkitc-1-v1.2-block-diagram.png)
+{{< gallery >}}
+  <img src="assets/esp32-c6-devkitc-1-v1.2-annotated-photo.png" class="grid-w22" />
+  <img src="assets/esp32-c6-devkitc-1-v1.2-block-diagram.png" class="grid-w22" />
+{{< /gallery >}}
 
 #### Board pin-layout
 
-![Pinlayout](assets/esp32-c6-devkitc-1-pin-layout.png)
+{{< gallery >}}
+  <img src="assets/esp32-c6-devkitc-1-pin-layout.png" class="grid-w22" />
+{{< /gallery >}}
 
 #### J1 connector
 
@@ -183,17 +200,17 @@ Here is the development board feature list:
 |---|---|---|---|
 | 1 | 3V3 | P | 3.3 V power supply |
 | 2 | RST | I | High: enables the chip; Low: disables the chip. |
-| 3 | 4 | I/O/T | MTMS, GPIO4, LP_GPIO4, LP_UART_RXD, ADC1_CH4, FSPIHD |
-| 4 | 5 | I/O/T | MTDI, GPIO5, LP_GPIO5, LP_UART_TXD, ADC1_CH5, FSPIWP |
-| 5 | 6 | I/O/T | MTCK, GPIO6, LP_GPIO6, LP_I2C_SDA, ADC1_CH6, FSPICLK |
-| 6 | 7 | I/O/T | MTDO, GPIO7, LP_GPIO7, LP_I2C_SCL, FSPID |
-| 7 | 0 | I/O/T | GPIO0, XTAL_32K_P, LP_GPIO0, LP_UART_DTRN, ADC1_CH0 |
-| 8 | 1 | I/O/T | GPIO1, XTAL_32K_N, LP_GPIO1, LP_UART_DSRN, ADC1_CH1 |
+| 3 | 4 | I/O/T | MTMS, GPIO4, **LP_GPIO4**, **LP_UART_RXD**, ADC1_CH4, FSPIHD |
+| 4 | 5 | I/O/T | MTDI, GPIO5, **LP_GPIO5**, **LP_UART_TXD**, ADC1_CH5, FSPIWP |
+| 5 | 6 | I/O/T | MTCK, GPIO6, **LP_GPIO6**, **LP_I2C_SDA**, ADC1_CH6, FSPICLK |
+| 6 | 7 | I/O/T | MTDO, GPIO7, **LP_GPIO7**, **LP_I2C_SCL**, FSPID |
+| 7 | 0 | I/O/T | GPIO0, XTAL_32K_P, **LP_GPIO0**, **LP_UART_DTRN**, ADC1_CH0 |
+| 8 | 1 | I/O/T | GPIO1, XTAL_32K_N, **LP_GPIO1**, **LP_UART_DSRN**, ADC1_CH1 |
 | 9 | 8 | I/O/T | GPIO8 |
 | 10 | 10 | I/O/T | GPIO10 |
 | 11 | 11 | I/O/T | GPIO11 |
-| 12 | 2 | I/O/T | GPIO2, LP_GPIO2, LP_UART_RTSN, ADC1_CH2, FSPIQ |
-| 13 | 3 | I/O/T | GPIO3, LP_GPIO3, LP_UART_CTSN, ADC1_CH3 |
+| 12 | 2 | I/O/T | GPIO2, **LP_GPIO2**, **LP_UART_RTSN**, ADC1_CH2, FSPIQ |
+| 13 | 3 | I/O/T | GPIO3, **LP_GPIO3**, **LP_UART_CTSN**, ADC1_CH3 |
 | 14 | 5V | P | 5 V power supply |
 | 15 | G | G | Ground |
 | 16 | NC | – | No connection |
@@ -241,8 +258,6 @@ You will need to:
 
 ---
 
-> Change it to the BSP
-
 On this assignment, we will show on how to use components to accelerate your development.
 Components are similar to libraries, adding new features like sensors drivers, protocols, board support package, and any other feature that is not included on the ESP-IDF as default. Some components are already part of some examples and the ESP-IDF also uses the external component approach to make the ESP-IDF more modular.
 
@@ -256,11 +271,15 @@ You can also find components using our [ESP Registry](https://components.espress
 
 To show how to use components, we will create a new project from the scratch and add the component LED strip, later, we will change the approach to work with the Board Support Packages (BSP).
 
-#### Hands-on with components
+### Hands-on with components
 
-This hands on will use a component for the RGB LED (WS2812) connected on the ```GPIO8``` and the [Remote Control Transceiver]([https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) peripheral to control the data transfer to the addressable LEDs.
+This hands on will use a component for the RGB LED (WS2812) connected on the ```GPIO8``` and the [Remote Control Transceiver](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) peripheral to control the data transfer to the addressable LEDs.
 
-1. Create a new project blank project.
+1. **Create a new project blank project**
+
+Create a new project using the Espressif IDE.
+
+**Command Line Interface**
 
 To create the project form the command line interface (CLI), you can use the following command. Make sure you have your ESP-IDF installed.
 
@@ -271,7 +290,6 @@ cd my-workshop-project
 
 Now you can set the SoC target by the following command:
 
-
 ```bash
 idf.py set-target esp32c6
 ```
@@ -279,6 +297,8 @@ idf.py set-target esp32c6
 This command will set the target for this project and it will build for the specified target only.
 
 The next step is to add the component [espressif/led_strip](https://components.espressif.com/components/espressif/led_strip/versions/2.5.3). This component will add all the necessary drivers for the addressable LED (board LED).
+
+2. **Add the component**
 
 ```bash
 idf.py add-dependency "espressif/led_strip^2.5.3"
@@ -295,13 +315,9 @@ dependencies:
 
 You can also change this file manually to include dependencies to your project.
 
-> TODO: Describe the folder structure.
-
-#### Steps
-
 For this assignment, please follow the steps.
 
-  1. **Create a function to configure the LEDs and the RMT peripheral driver**
+3. **Create a function to configure the LEDs and the RMT peripheral driver**
 
 Include the ```led_strip.h``` header file.
 
@@ -320,7 +336,7 @@ led_strip_handle_t configure_led(void)
 
 You will use this function for the following 3 steps.
 
-2. **Configure the LED strip**
+4. **Configure the LED strip**
 
 Use the ```led_strip_config_t``` structure to configure the LED strip. For the **ESP32-C6-DevKit-C**, the LED model is the WS2812.
 
@@ -339,7 +355,7 @@ Use the ```led_strip_config_t``` structure to configure the LED strip. For the *
     };
 ```
 
-3. **Configure the RMT driver**
+5. **Configure the RMT driver**
 
 Use the ```led_strip_rmt_config_t``` structure to configure the RMT peripheral driver.
 
@@ -354,19 +370,19 @@ Use the ```led_strip_rmt_config_t``` structure to configure the RMT peripheral d
     };
 ```
 
-4. **Create the RMT device**
+6. **Create the RMT device**
 
 ```c
 led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip);
 ```
 
-5. Create the LED strip handle.
+7 Create the LED strip handle.
 
 ```c
 led_strip = configure_led();
 ```
 
-6. **Set the LED RGB color**
+8. **Set the LED RGB color**
 
 ```c
 led_strip_set_pixel(led_strip, 0, 20, 0, 0);
@@ -381,7 +397,7 @@ Where the arguments are:
 
 > You can try and change the RGB values to vary the color!
 
-7. **Refresh the LED strip**
+9. **Refresh the LED strip**
 
 This function must be called to update the LED pixel color.
 
@@ -445,8 +461,6 @@ void app_main(void)
 #### Expected results
 
 The LED should turn on in RED.
-
-> TODO: Add asciinema.
 
 #### Hands-on with BSP
 
@@ -907,11 +921,15 @@ For this hands-on, we will need to prepare the project for the NVS, create the N
 
 To create the partition table file, use the Partition Table Editor from the Espressif IDE. To open the editor, right click on the project, `ESP-IDF` -> `Partition Table Editor`:
 
-![Partition Editor Menu](assets/partition-editor-menu.png "Partition Editor Menu")
+{{< gallery >}}
+  <img src="assets/partition-editor-menu.png" />
+{{< /gallery >}}
 
 Leave the default values and click `Save and Quit`.
 
-![Partition Editor](assets/partition-editor.png "Partition Editor")
+{{< gallery >}}
+  <img src="assets/partition-editor.png" />
+{{< /gallery >}}
 
 The default `partitions.csv` will be created with the following structure:
 
@@ -929,11 +947,21 @@ You can change later the partitions according to your needs.
 
 For the NVS editor, you will need to open the editor by the `ESP-IDF` -> `NVS Table Editor`
 
-![NVS Editor Menu](assets/nvs-editor-menu.png "NVS Table Editor Menu")
+{{< gallery >}}
+  <img src="assets/nvs-editor-menu.png" />
+{{< /gallery >}}
 
 and add the namespace `storage` and the keys `SSID` and `password` then `Save and Quit`.
 
-![NVS Editor](assets/nvs-editor.png "NVS Table Editor")
+{{< gallery >}}
+  <img src="assets/nvs-editor.png" />
+{{< /gallery >}}
+
+Set the `Size of partition in bytes` to `0x6000`(same value of the `partitions.csv` file) and add the following:
+
+- **storage** type `namespace`,
+- **ssid** type `data`, encoding `string` and value `network-ssid`
+- **password** type `data`, encoding `string` and value `network-password`
 
 > Please change the SSID and password values according to the workshop network or the network you will connect.
 
@@ -1249,95 +1277,721 @@ After building your application, open the `ESP-IDF Serial Monitor`.
 
 In the provisioning application, follow the steps to **Provision New Device** using BLE.
 
+{{< gallery >}}
+  <img src="assets/provisioning-app-1.jpg" class="grid-w33" />
+  <img src="assets/provisioning-app-2.jpg" class="grid-w33" />
+  <img src="assets/provisioning-app-3.jpg" class="grid-w33" />
+  <img src="assets/provisioning-app-4.jpg" class="grid-w33" />
+  <img src="assets/provisioning-app-5.jpg" class="grid-w33" />
+{{< /gallery >}}
+
 You will need to scan the QRCode or to use the **I don't have a QR code** option. Please make sure you are provisioning your device.
 
-## Assignment 6: Protocols
+After completing the provisioning process, the device will connect to the selected network.
+
+## Assignment 6: Protocols (EXTRA)
+
+Currently, the ESP-IDF supports a variety of protocols including but not limited to.
+
+- HTTP and HTTPS
+- ICMP
+- CoAP
+- MQTT and MQTT5
+- PPP (Point-to-Point Protocol) including PPPoS
+- Sockets
+- Modbus
+- SMTP
+- SNTP
+
+You can explore the protocols directly on [ESP-IDF examples](https://github.com/espressif/esp-idf/tree/master/examples), [esp-protocols](https://github.com/espressif/esp-protocols) or on the [ESP Registry](https://components.espressif.com) (Component Manager).
 
 ### Hands-on protocols
 
-## Assignment 7: Using the LP core
+On this hands-on, we will show how to use the x509 certificate bundle and make your development easier when dealing with some protocols that requires certificate for the secure connection, including HTTPS.
+
+The [ESP x509 Certificate Bundle API](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/api-reference/protocols/esp_crt_bundle.html?highlight=bundle#esp-x509-certificate-bundle) provide a collection of certificates for TLS server verification, automatically generated from the from [Mozilla's NSS root certificate store](https://wiki.mozilla.org/CA/Included_Certificates). This bundle contains more than 130 certificates and it's constantly updated.
+
+By using the certificate bundle to make a secure a HTTPS connection using TLS (ESP-TLS), you do not need to load the root certificate manually or to update in case of expired certificates.
+
+1. **Open the WiFi connection assignment project**
+
+For this assignment we will continue editing the WiFi project. Open the project and make sure the project is building and the WiFi connection is working.
+
+> This assignment will require Internet connection.
+
+2. **Edit the SDK configuration**
+
+Go to the SDK configuration and check the certificate bundle settings.
+
+`Component config` -> `mbedTLS` -> `Certificate Bundle`
+
+- Check `Enable trusted root certificate bundle`
+- Select `Use the full default certificate bundle` on the `Default certificate bundle options`
+
+3. **Code for TLS connection**
+
+Add the includes:
+
+```c
+#include "lwip/err.h"
+#include "lwip/sockets.h"
+#include "lwip/sys.h"
+#include "lwip/netdb.h"
+#include "lwip/dns.h"
+#include "esp_tls.h"
+#include "esp_crt_bundle.h"
+```
+
+Defines and the URL list that we will try to connect using the bundle:
+
+```c
+#define MAX_URLS    4
+
+static const char *web_urls[MAX_URLS] = {
+    "https://www.github.com",
+    "https://espressif.com",
+    "https://youtube.com",
+    "https://acesso.gov.br",
+};
+```
+
+You can modify this list to include your URLs to test the connection.
+
+4. **Create a task to try to connect to the given URLs**
+
+This task will try to connect on each URL.
+
+```c
+static void event_handler(void* arg, esp_event_base_t event_base,
+                                int32_t event_id, void* event_data)
+{
+    if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
+        esp_wifi_connect();
+    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+        if (s_retry_num < 100) {
+            esp_wifi_connect();
+            s_retry_num++;
+            ESP_LOGW(TAG, "Trying to connect to WiFi");
+			led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
+        } else {
+            xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
+        }
+        ESP_LOGE(TAG, "Failed to connect to WiFi");
+		led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x20, 0x0, 0x0));
+    } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+        ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
+        ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
+		led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x20, 0x0));
+        s_retry_num = 0;
+        xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+    }
+}
+```
+
+Create the task after the `wifi_init_sta`:
+
+```c
+xTaskCreate(&https_get_task, "https_get_task", 8192, NULL, 5, NULL);
+```
+
+#### Assignment Code
+
+```c
+#include <stdio.h>
+#include "bsp/esp-bsp.h"
+#include "led_indicator_blink_default.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+#include "esp_system.h"
+#include "esp_wifi.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "nvs.h"
+#include "nvs_flash.h"
+#include "lwip/err.h"
+#include "lwip/sys.h"
+
+#include "lwip/err.h"
+#include "lwip/sockets.h"
+#include "lwip/sys.h"
+#include "lwip/netdb.h"
+#include "lwip/dns.h"
+
+#include "esp_tls.h"
+#include "esp_crt_bundle.h"
+
+#define WIFI_CONNECTED_BIT BIT0
+#define WIFI_FAIL_BIT      BIT1
+
+#define MAX_URLS    4
+
+static const char *web_urls[MAX_URLS] = {
+    "https://www.github.com",
+    "https://espressif.com",
+    "https://youtube.com",
+    "https://acesso.gov.br",
+};
+
+char ssid[32];
+char password[64];
+
+static led_indicator_handle_t leds[BSP_LED_NUM];
+
+static EventGroupHandle_t s_wifi_event_group;
+static int s_retry_num = 0;
+
+static const char *TAG = "workshop";
+
+static void event_handler(void* arg, esp_event_base_t event_base,
+                                int32_t event_id, void* event_data)
+{
+    if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
+        esp_wifi_connect();
+    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+        if (s_retry_num < 100) {
+            esp_wifi_connect();
+            s_retry_num++;
+            ESP_LOGW(TAG, "Trying to connect to WiFi");
+			led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
+        } else {
+            xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
+        }
+        ESP_LOGE(TAG, "Failed to connect to WiFi");
+		led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x20, 0x0, 0x0));
+    } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+        ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
+        ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
+		led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x20, 0x0));
+        s_retry_num = 0;
+        xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+    }
+}
+
+void wifi_init_sta(void)
+{
+    s_wifi_event_group = xEventGroupCreate();
+
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    esp_netif_create_default_wifi_sta();
+
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    esp_event_handler_instance_t instance_any_id;
+    esp_event_handler_instance_t instance_got_ip;
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,
+            ESP_EVENT_ANY_ID,
+            &event_handler,
+            NULL,
+            &instance_any_id));
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT,
+            IP_EVENT_STA_GOT_IP,
+            &event_handler,
+            NULL,
+            &instance_got_ip));
+
+	wifi_config_t wifi_config = {
+        .sta = {
+            .ssid = "",
+            .password = "",
+            .threshold.authmode = WIFI_AUTH_WPA2_WPA3_PSK,
+            .sae_pwe_h2e = WPA3_SAE_PWE_BOTH,
+            .sae_h2e_identifier = "",
+        },
+    };
+    
+    strncpy((char*)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid));
+    strncpy((char*)wifi_config.sta.password, password, sizeof(wifi_config.sta.password));
+
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
+    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config) );
+    ESP_ERROR_CHECK(esp_wifi_start() );
+
+    EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group,
+            WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
+            pdFALSE,
+            pdFALSE,
+            portMAX_DELAY);
+
+    if (bits & WIFI_CONNECTED_BIT) {
+        ESP_LOGI(TAG, "Connected!");
+    } else if (bits & WIFI_FAIL_BIT) {
+        ESP_LOGE(TAG, "Failed to connect!");
+    }
+}
+
+esp_err_t get_wifi_credentials(void){
+	
+	esp_err_t err;
+	
+	ESP_LOGI(TAG, "Opening Non-Volatile Storage (NVS) handle");
+    nvs_handle_t nvs_mem_handle;
+    err = nvs_open_from_partition("nvs", "storage", NVS_READWRITE, &nvs_mem_handle);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(err));
+        return err;
+    }
+    
+    ESP_LOGI(TAG, "The NVS handle successfully opened");
+	
+	size_t ssid_len = sizeof(ssid);
+	size_t pass_len = sizeof(password);
+	
+    err = nvs_get_str(nvs_mem_handle, "ssid", ssid, &ssid_len);
+    ESP_ERROR_CHECK(err);
+
+    err = nvs_get_str(nvs_mem_handle, "password", password, &pass_len);
+    ESP_ERROR_CHECK(err);
+
+    nvs_close(nvs_mem_handle);
+    return ESP_OK;	
+}
+
+static void https_get_task(void *pvParameters)
+{
+    while (1) {
+        int conn_count = 0;
+        ESP_LOGI(TAG, "Connecting to %d URLs", MAX_URLS);
+
+        for (int i = 0; i < MAX_URLS; i++) {
+            esp_tls_cfg_t cfg = {
+                .crt_bundle_attach = esp_crt_bundle_attach,
+            };
+
+            esp_tls_t *tls = esp_tls_init();
+            if (!tls) {
+                ESP_LOGE(TAG, "Failed to allocate esp_tls handle!");
+                goto end;
+            }
+
+            if (esp_tls_conn_http_new_sync(web_urls[i], &cfg, tls) == 1) {
+                ESP_LOGI(TAG, "Connection established to %s", web_urls[i]);
+                conn_count++;
+            } else {
+                ESP_LOGE(TAG, "Could not connect to %s", web_urls[i]);
+            }
+
+            esp_tls_conn_destroy(tls);
+end:
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
+        }
+
+        ESP_LOGI(TAG, "Completed %d connections", conn_count);
+        ESP_LOGI(TAG, "Starting over again...");
+    }
+}
+
+void app_main(void)
+{
+
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+      ESP_ERROR_CHECK(nvs_flash_erase());
+      ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
+    ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
+    led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
+
+	ESP_ERROR_CHECK(get_wifi_credentials());
+
+    wifi_init_sta();
+    
+    xTaskCreate(&https_get_task, "https_get_task", 8192, NULL, 5, NULL);
+}
+```
+
+## Assignment 7: Using the ULP
 
 ---
 
-Reducing the power consumption on WiFi devices is a challenge. Here we will show you some of the techniques that can be applied to the ESP32-C6 in order to reduce the power consumption on WiFi applications.
+The ESP32-C6 has 2 cores, the high-power (HP) core and the low-power (LP) core.
 
-Another talk form the DevCon23, is the [Low-Power Features of ESP32-C6: Target Wake Time + LP Core](https://www.youtube.com/watch?v=FpTwQlGtV0k), witch cover the LP features and the TWT. Please save to watch later as a complementary material.
+Usually called **Ultra-Low-Power (ULP)**, this second core, is designed to handle simple tasks while the HP-core is in sleep mode, significantly reducing power consumption. This feature is particularly advantageous for battery-powered IoT devices where energy efficiency is critical.
+
+The LP-core can operate independently of the main HP-core, performing tasks such as sensor data acquisition and processing, and controlling GPIOs with minimal power consumption. For the complete API reference, please go to the [ULP LP-Core Coprocessor Programming](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c6/api-reference/system/ulp-lp-core.html#) guide.
+
+### The LP-core
+
+- 32-bit RISC-V core @20MHz
+- 16KB LP SRAM
+- RISC-V IMAC instruction set
+- Act as a co-processor
+- Access to peripherals, including
+  - GPIO
+  - UART
+  - I2C
+
+You can watch the talk form the DevCon23, [Low-Power Features of ESP32-C6: Target Wake Time + LP Core](https://www.youtube.com/watch?v=FpTwQlGtV0k), witch cover the LP features and the TWT. Please save to watch later as a complementary material.
 
 {{< youtube FpTwQlGtV0k >}}
 
-### WiFi6 feature: TWT
+#### ULP pinout
+
+Note that the ULP uses a specific set of pins. Please use the [board pin layout](#board-pin-layout) to know the pins you can use for the ULP.
+
+### Hands-on LP core
 
 ---
 
-One of the advantages of the WiFi6, is the Target Wake Time, or just TWT.
+For this hands-on, we will walkthrough the ULP programming to create a blink program to run on the HP and on the LP core to compare the power consumption on a similar task.
 
-### Low-power features
+{{< alert icon="eye">}}
+**This hands-on requires the ESP-IDF v5.4 (master branch) and some additional hardware (LED and button)**
+{{< /alert >}}
 
----
+1. **Create the `main/ulp` folder and `main.c` file**
 
-#### Power Management
+```c
+#include <stdint.h>
+#include <stdbool.h>
+#include "ulp_lp_core.h"
+#include "ulp_lp_core_utils.h"
+#include "ulp_lp_core_gpio.h"
+#include "ulp_lp_core_interrupts.h"
+
+#define WAKEUP_PIN LP_IO_NUM_0
+#define RED_PIN    LP_IO_NUM_4
+#define GREEN_PIN  LP_IO_NUM_5
+
+static uint32_t wakeup_count;
+uint32_t start_toggle;
+
+void LP_CORE_ISR_ATTR ulp_lp_core_lp_io_intr_handler(void)
+{
+    ulp_lp_core_gpio_clear_intr_status();
+    wakeup_count++;
+}
+
+int main (void)
+{
+    /* Register interrupt for the wakeup pin */
+    ulp_lp_core_intr_enable();
+    ulp_lp_core_gpio_intr_enable(WAKEUP_PIN, LP_IO_INTR_POSEDGE);
+
+    int level = 0;
+    while (1) {
+        /* Toggle the Red LED GPIO */
+        ulp_lp_core_gpio_set_level(GREEN_PIN, 0);
+        ulp_lp_core_gpio_set_level(RED_PIN, level);
+        level = level ? 0 : 1;
+        ulp_lp_core_delay_us(1000000);
+
+        /* Wakeup the main processor after 4 toggles of the button */
+        if (wakeup_count >= 4) {
+            ulp_lp_core_gpio_set_level(RED_PIN, 0);
+            ulp_lp_core_wakeup_main_processor();
+            wakeup_count = 0;
+        }
+    }
+    /* ulp_lp_core_halt() is called automatically when main exits */
+    return 0;
+}
+```
+
+On this code, the interrupt for the push button (wakeup) will be enabled on the LP-core by the function `ulp_lp_core_intr_enable` and the GPIO0 will be set as the input pin, triggered by the positive edge (when the state goes from low to high) and attached to the interrupt by the function `ulp_lp_core_gpio_intr_enable`. The wake up counter will be handled by the interrupt handler `ulp_lp_core_lp_io_intr_handler`.
+
+Now the loop for the blink and the wakeup counter check will start. The GPIO level is set by the function `ulp_lp_core_gpio_set_level`. If the number of pushes is 4 or higher, the HP-core will wake up by the function `ulp_lp_core_wakeup_main_processor`.
+
+2. **Change the `CMakeLists.txt`**
+
+You need to set the ULP application name, source files, etc.
+
+```text
+# Set usual component variables
+set(app_sources "main.c")
+
+idf_component_register(SRCS ${app_sources}
+                       REQUIRES ulp
+                       WHOLE_ARCHIVE)
+#
+# ULP support additions to component CMakeLists.txt.
+#
+# 1. The ULP app name must be unique (if multiple components use ULP).
+set(ulp_app_name ulp_${COMPONENT_NAME})
+#
+# 2. Specify all C and Assembly source files.
+#    Files should be placed into a separate directory (in this case, ulp/),
+#    which should not be added to COMPONENT_SRCS.
+set(ulp_sources "ulp/main.c")
+#
+# 3. List all the component source files which include automatically
+#    generated ULP export file, ${ulp_app_name}.h:
+set(ulp_exp_dep_srcs ${app_sources})
+#
+# 4. Call function to build ULP binary and embed in project using the argument
+#    values above.
+ulp_embed_binary(${ulp_app_name} "${ulp_sources}" "${ulp_exp_dep_srcs}")
+
+```
+
+3. **Change the `main.c` for the HP-core**
+
+```c
+#include <stdio.h>
+#include "esp_sleep.h"
+#include "driver/gpio.h"
+#include "driver/rtc_io.h"
+#include "ulp_lp_core.h"
+#include "ulp_main.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+extern const uint8_t ulp_main_bin_start[] asm("_binary_ulp_main_bin_start");
+extern const uint8_t ulp_main_bin_end[]   asm("_binary_ulp_main_bin_end");
+
+static void init_ulp_program(void);
+
+#define WAKEUP_PIN  GPIO_NUM_0
+#define RED_PIN     GPIO_NUM_4
+#define GREEN_PIN   GPIO_NUM_5
+
+void app_main(void)
+{
+    /* If user is using USB-serial-jtag then idf monitor needs some time to
+    *  re-connect to the USB port. We wait 1 sec here to allow for it to make the reconnection
+    *  before we print anything. Otherwise the chip will go back to sleep again before the user
+    *  has time to monitor any output.
+    */
+    vTaskDelay(pdMS_TO_TICKS(1000));
+
+    /* ULP caused wakeup */
+    esp_sleep_wakeup_cause_t cause = esp_sleep_get_wakeup_cause();
+    if (cause == ESP_SLEEP_WAKEUP_ULP) {
+        printf("ULP woke up the main CPU! \n");
+        ulp_lp_core_stop();
+    }
+
+    printf("In active mode\n");
+    printf("Long press the wake button to put the chip to sleep and run the ULP\n");
+
+    /* Initialize selected GPIOs */
+    rtc_gpio_init(WAKEUP_PIN);
+    rtc_gpio_set_direction(WAKEUP_PIN, RTC_GPIO_MODE_INPUT_ONLY);
+    rtc_gpio_pulldown_dis(WAKEUP_PIN);
+    rtc_gpio_pullup_dis(WAKEUP_PIN);
+
+    rtc_gpio_init(RED_PIN);
+    rtc_gpio_set_direction(RED_PIN, RTC_GPIO_MODE_OUTPUT_ONLY);
+    rtc_gpio_pulldown_dis(RED_PIN);
+    rtc_gpio_pullup_dis(RED_PIN);
+
+    rtc_gpio_init(GREEN_PIN);
+    rtc_gpio_set_direction(GREEN_PIN, RTC_GPIO_MODE_OUTPUT_ONLY);
+    rtc_gpio_pulldown_dis(GREEN_PIN);
+    rtc_gpio_pullup_dis(GREEN_PIN);
+
+    int gpio_level = 0;
+    int previous_gpio_level = 0;
+    int cnt = 0;
+
+    while (1) {
+        /* Toggle the Green LED GPIO */
+        rtc_gpio_set_level(RED_PIN, 0);
+        rtc_gpio_set_level(GREEN_PIN, 1);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        rtc_gpio_set_level(GREEN_PIN, 0);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+
+        /* Read the wakeup pin continuously */
+        gpio_level = rtc_gpio_get_level(WAKEUP_PIN);
+        if (gpio_level != previous_gpio_level) {
+            previous_gpio_level = gpio_level;
+            cnt++;
+            if (cnt > 1) {
+                rtc_gpio_set_level(GREEN_PIN, 0);
+                cnt = 0;
+                break;
+                /* break and run the LP core code */
+            }
+        }
+    }
+
+    /* Load and run the ULP program */
+    init_ulp_program();
+
+    /* Go back to sleep, only the ULP will run */
+    printf("Entering in deep sleep\n\n");
+    printf("Press the wake button at least 3 or 4 times to wakeup the main CPU again\n");
+    vTaskDelay(10);
+
+    ESP_ERROR_CHECK( esp_sleep_enable_ulp_wakeup());
+
+    esp_deep_sleep_start();
+}
+
+static void init_ulp_program(void)
+{
+    esp_err_t err = ulp_lp_core_load_binary(ulp_main_bin_start, (ulp_main_bin_end - ulp_main_bin_start));
+    ESP_ERROR_CHECK(err);
+
+    /* Start the program */
+    ulp_lp_core_cfg_t cfg = {
+        .wakeup_source = ULP_LP_CORE_WAKEUP_SOURCE_HP_CPU,
+    };
+
+    err = ulp_lp_core_run(&cfg);
+    ESP_ERROR_CHECK(err);
+}
+```
+
+4. **Enable the ULP on the SDK configuration**
+
+To enable the ULP, we need to set the following configurations on the SDKConfig. You can create the `sdkconfig.defaults` with the following content:
+
+```text
+# Enable ULP
+CONFIG_ULP_COPROC_ENABLED=y
+CONFIG_ULP_COPROC_TYPE_LP_CORE=y
+CONFIG_ULP_COPROC_RESERVE_MEM=4096
+# Set log level to Warning to produce clean output
+CONFIG_BOOTLOADER_LOG_LEVEL_WARN=y
+CONFIG_BOOTLOADER_LOG_LEVEL=2
+CONFIG_LOG_DEFAULT_LEVEL_WARN=y
+CONFIG_LOG_DEFAULT_LEVEL=2
+```
+
+5. **Hardware setup**
+
+For this example, you will need 2 LEDs and one push button connected as following:
+
+- Red LED -> **GPIO4**
+- Green LED -> **GPIO5**
+- Push button (pull-down, active high) -> **GPIO0**
+
+6. **Build, flash and monitor the log output**
+
+For the ULP flashing and monitoring, please use the USB port labeled as **UART**. We recommend to do a **Erase Flash** before flashing this example.
+
+#### Expected results on the ULP assignment
+
+After flashing, the green LED will start blinking every 1 second with the following log output.
+
+```text
+In active mode
+Long press the wake button to put the chip to sleep and run the ULP
+```
+
+Now to enter to the deep sleep and activate the ULP, long-press the push button and then the red LED will start blinking every 1 second with the following log output:
+
+```text
+Entering in deep sleep
+Press the wake button at least 3 or 4 times to wakeup the main CPU again
+```
+
+To go back from the deep sleep, press the push button 4 times.
+
+```text
+ULP woke up the main CPU! 
+In active mode
+Long press the wake button to put the chip to sleep and run the ULP
+```
+
+To measure the power consumption, we use the **J5** jumper and a power analysis tool, like the [JouleScope](https://www.joulescope.com/) or the [PPK2](https://www.nordicsemi.com/Products/Development-hardware/Power-Profiler-Kit-2).
+
+**LED blink running on HP-core**
+
+Running on the HP-core, the average power consumption in a 10 seconds window is: **22.32mA**.
+
+{{< gallery >}}
+  <img src="assets/ulp-hp-core.png" />
+{{< /gallery >}}
+
+**LED blink running on the LP-core**
+
+Running on the LP-core, the average power consumption in a 10 seconds window is: **2.97mA**.
+
+{{< gallery >}}
+  <img src="assets/ulp-lp-core.png" />
+{{< /gallery >}}
+
+The power reduction when switching from the HP-core to the LP-core is approximately **86.7%** for a similar task.
+
+You can explore more examples for the ULP, including:
+
+- [LP Core simple example with GPIO Polling](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/gpio)
+- [LP Core Pulse Counting Example](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/gpio_intr_pulse_counter)
+- [LP-Core example with interrupt triggered from HP-Core](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/interrupt)
+- [LP I2C Example](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/lp_i2c)
+- [LP UART Examples](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/lp_uart)
+
+#### Extra: Power Management
 
 If you are not using the WiFi6, you still can reduce the power consumption in between the beacon packages.
 
 The new power management present on all the WiFi capable SoCs, allows you to reduce the power consumption on the WiFi connection when using the DTIM1. By enabling this feature, the HP core will sleep between the beacon packets.
 
-Here you will see on how to change the configuration to enable the power management.
+1. **Create a new project using the power management example**
 
-```text
-# Use lower CPU frequency
-CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_80=y
-# Enable support for power management
-CONFIG_PM_ENABLE=y
-# Enable tickless idle mode
-CONFIG_FREERTOS_USE_TICKLESS_IDLE=y
-# Put related source code in IRAM
-CONFIG_PM_SLP_IRAM_OPT=y
-CONFIG_PM_RTOS_IDLE_OPT=y
-# Disable all GPIO at light sleep
-CONFIG_GPIO_ESP32_SUPPORT_SWITCH_SLP_PULL=y
-CONFIG_PM_SLP_DISABLE_GPIO=y
-# Enable wifi sleep iram optimization
-CONFIG_ESP_WIFI_SLP_IRAM_OPT=y
-# Use 1000Hz freertos tick to lower sleep time threshold
-CONFIG_FREERTOS_HZ=1000
-```
+Create a new project based on the example `wifi/power_save`.
 
-> TODO Add PPK power consumption comparison.
+2. **Set the SDK configuration**
 
-#### Low-power core
+Change the `sdkconfig` file to set the WiFi credentials, and the power save mode.
 
-LP-blink
+3. **Build, flash, and monitor**
 
-> Steps for the LP-GPIO blink
+Now build and flash the application.
 
-I2C sensor read
+4. **Results**
 
-### Demos
+You can use the **J5** jumper to measure the power consumption using your favorite power measurement tool.
 
----
+Here you can see the power consumption on the 3 different modes.
 
-#### PARLIO Logic Analyzer
+**Power save mode: none**
 
-> TODO
+Average power consumption on this mode: **74.87mA**
 
-#### iTWT
+{{< gallery >}}
+  <img src="assets/power-save-none.png" />
+{{< /gallery >}}
 
-> TODO
+**Power save mode: minimum modem**
 
+Average power consumption on this mode: **23.84mA**
 
+{{< gallery >}}
+  <img src="assets/power-save-minimum.png" />
+{{< /gallery >}}
+
+**Power save mode: maximum modem**
+
+Average power consumption on this mode: **13.46mA**
+
+{{< gallery >}}
+  <img src="assets/power-save-maximum.png" />
+{{< /gallery >}}
+
+This power save option can be used to reduce the power consumption on battery operated devices, when the WiFi6 TWT is not an option. You can use this feature on any ESP32 with WiFi capability.
 
 ## Conclusion
 
 ---
 
-Throughout this workshop, we've explored the capabilities of the Espressif IoT Development Framework (ESP-IDF) and the ESP32 SoC. We've delved into the power management features that allow for efficient energy usage, especially in IoT applications where power consumption is a critical factor. We've also touched on the use of the low-power core for tasks like blinking an LED or reading from an I2C sensor.
+Throughout this workshop, we've explored several key topics and hands-on assignments to deepen our understanding of the Espressif IoT Development Framework (ESP-IDF) and the ESP32-C6 System on Chip (SoC).
 
-Moreover, we've hinted at some exciting demos like the PARLIO Logic Analyzer and iTWT, which showcase the versatility and potential of the ESP32 SoC in various applications.
+We began with an introduction to ESP-IDF, providing a foundation for using this powerful development framework. We then moved on to an introduction to the ESP32-C6, highlighting its capabilities and features.
 
-By participating in this workshop, you've gained a deeper understanding of the ESP32 SoC and the ESP-IDF, and how they can be leveraged to build efficient and powerful IoT applications. We hope this knowledge serves as a solid foundation for your future projects.
+The practical assignments covered a range of essential skills:
 
-Thank you for your time and engagement in this workshop. We look forward to seeing the innovative solutions you'll create with the ESP32 SoC and the ESP-IDF.
+- **Assignment 1**: Installing the Espressif IDE, ensuring we have the necessary tools to start development.
+- **Assignment 2**: Creating a new project with Components, teaching us how to structure and manage our projects effectively.
+- **Assignment 3**: Connecting to WiFi, a crucial step for many IoT applications.
+- **Assignment 4**: Working with the NVS (Non-Volatile Storage), allowing us to manage persistent data.
+- **Assignment 5 (EXTRA)**: WiFi provisioning, providing insights into setting up and configuring WiFi networks.
+- **Assignment 6 (EXTRA)**: Protocols, where we explored various communication protocols supported by the ESP32-C6, including the implementation of the TSL certificate bundle for secure communications.
+- **Assignment 7**: Using the LP core, demonstrating how to utilize the low-power core for efficient energy management.
+
+By participating in this workshop, you’ve gained a comprehensive understanding of the ESP32-C6 SoC and the ESP-IDF, and how they can be leveraged to build efficient and powerful IoT applications. We hope this knowledge serves as a solid foundation for your future projects.
+
+Thank you for your time and engagement in this workshop. We look forward to seeing the innovative solutions you’ll create with the ESP32-C6 SoC and the ESP-IDF.
 
 ## Next steps
+
+If you have any feedback for this workshop, please star a new [discussion on GitHub](https://github.com/espressif/developer-portal/discussions).
 
 ---
