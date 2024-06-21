@@ -180,9 +180,22 @@ void app_main(void)
     app_audio_init();
 
     ESP_LOGI(TAG, "Example initialization done.");
-
 }
 ```
+
+## Simulating the ESP32-S3-BOX-3 with Wokwi
+
+You can also simulate the application with ESP-BSP for ESP32-S3-BOX-3 using the Wokwi simulator from your development environment using a plugin for [VS Code](https://docs.wokwi.com/vscode/getting-started), [Espressif IDE](https://github.com/espressif/idf-eclipse-plugin?tab=readme-ov-file#wokwi-simulator), or [JetBrains IDEs](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator). This allows you to test your applications without needing the physical hardware.
+
+To set up the simulation, you need to add two files to your project: [wokwi.toml](wokwi.toml) and [diagram.json](diagram.json) in the root of the project.
+
+Use the following command to build the UF2 image for your project. The Wokwi simulator will pick up this binary and run it.
+
+```bash
+idf.py uf2
+```
+
+Now you can start the simulation in your favorite IDE.
 
 ## Conclusion
 
@@ -195,4 +208,4 @@ With ESP-BSP, you can quickly develop and port your applications across various 
 - [ESP-BSP Documentation](https://github.com/espressif/esp-bsp/blob/master/README.md)
 - [ESP-BOX-3 BSP Example](https://components.espressif.com/components/espressif/esp-box-3/versions/1.2.0/examples?language=en)
 - [ESP-IDF Installation Guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html)
-- [Wokwi - Online ESP32 Simulator](https://wokwi.com)
+- [Wokwi - Online ESP32 Simulator](https://wokwi.com/esp32)
