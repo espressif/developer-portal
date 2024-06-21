@@ -36,7 +36,7 @@ Ensure you have the following hardware:
 
 Before you begin, make sure you have the following:
 
-- [ESP-IDF v5.3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html#installation): The official development framework for the ESP32, properly installed and sourced in your shell.
+- [ESP-IDF v5.3](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/get-started/index.html): The official development framework for the ESP32, properly installed and sourced in your shell.
 
 ### Creating Project from Example
 
