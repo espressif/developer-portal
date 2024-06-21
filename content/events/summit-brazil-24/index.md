@@ -26,7 +26,7 @@ Time: Starting from 9 am
 
 Use the promotional code ESPRESSIF and get a 12% discount on your stay.
 
-## Agenda
+## Agenda for July 17
 
 | Time  | Activity | Speaker |
 |-------|-----------|---------|
