@@ -23,7 +23,7 @@ During the three-day online conference, we will provide you with nearly 30 talks
 
 > *Full program will be shared later.*
 
-For more information, please visit [DevCon24](devcon.espressif.com)
+For more information, please visit [DevCon24](https://devcon.espressif.com)
 
 This event is free and will be streamed on [Espressif's YouTube channel](https://www.youtube.com/channel/UCDBWNF7CJ2U5eLGT7o3rKog).
 

@@ -53,15 +53,13 @@ The event is free for any participant, and registration can be done for each day
 **All the tickets are sold-out for now.**
 {{< /alert >}}
 
-- Talks on July 17: [Espressif Summit Brazil 2024](#)
+- Talks on July 17: Espressif Summit Brazil 2024
 
 Workshops July 18:
 
 - **Track 1**:
-  - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (EN) - 10:00 – 13:00](#)
-  - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (PT) – 14:00 – 17:00](#)
+  - Workshop: Introdução ao ESP-IDF com o ESP32-C6 (EN) - 10:00 – 13:00
+  - Workshop: Introdução ao ESP-IDF com o ESP32-C6 (PT) – 14:00 – 17:00
 - **Track 2**:
-  - Workshop: [Introdução em IoT com RainMaker e Matter - 10:00 – 13:00](#)
-  - Workshop: [Desenvolvendo aplicações com Zephyr e ESP32 – 14:00 – 17:00](#)
-
-
+  - Workshop: Introdução em IoT com RainMaker e Matter - 10:00 – 13:00
+  - Workshop: Desenvolvendo aplicações com Zephyr e ESP32 – 14:00 – 17:00
