@@ -113,7 +113,7 @@ This code initializes an LED strip connected to an ESP32-C6 microcontroller. The
 
 ## Conclusion
 
-Embedded Swift represents a significant advancement in bringing Swift's powerful features to embedded systems and constrained environments. By focusing on reducing runtime dependencies and optimizing code size, Embedded Swift allows developers to leverage Swift's modern programming paradigms even on the smallest devices.
+Embedded Swift represents a significant advancement in bringing Swift's powerful features to embedded systems and constrained environments. By focusing on reducing runtime dependencies and optimizing code size, Embedded Swift allows developers to leverage Swift's modern programming paradigms even on MCUs.
 
 ## Useful Links
 
