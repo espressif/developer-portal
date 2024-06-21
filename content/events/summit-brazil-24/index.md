@@ -49,15 +49,19 @@ Use the promotional code ESPRESSIF and get a 12% discount on your stay.
 
 The event is free for any participant, and registration can be done for each day and workshop with the following links:
 
-- Talks on July 17: [Espressif Summit Brazil 2024](https://www.sympla.com.br/evento/espressif-summit-brasil-2024/2476627)
+{{< alert icon="eye">}}
+**All the tickets are sold-out for now.**
+{{< /alert >}}
+
+- Talks on July 17: [Espressif Summit Brazil 2024](#)
 
 Workshops July 18:
 
 - **Track 1**:
-  - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (EN) - 10:00 – 13:00](https://www.sympla.com.br/evento/workshop-introducao-ao-esp-idf-com-o-esp32-c6-en-espressif-summit-brasil-2024/2477463)
-  - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (PT) – 14:00 – 17:00](https://www.sympla.com.br/evento/workshop-introducao-ao-esp-idf-com-o-esp32-c6-espressif-summit-brasil-2024/2477467)
+  - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (EN) - 10:00 – 13:00](#)
+  - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (PT) – 14:00 – 17:00](#)
 - **Track 2**:
-  - Workshop: [Introdução em IoT com RainMaker e Matter - 10:00 – 13:00](https://www.sympla.com.br/evento/workshop-introducao-em-iot-com-rainmaker-e-matter-espressif-summit-brasil-2024/2477466)
-  - Workshop: [Desenvolvendo aplicações com Zephyr e ESP32 – 14:00 – 17:00](https://www.sympla.com.br/evento/workshop-desenvolvendo-aplicacoes-com-zephyr-e-esp32-espressif-summit-brasil-2024/2477468)
+  - Workshop: [Introdução em IoT com RainMaker e Matter - 10:00 – 13:00](#)
+  - Workshop: [Desenvolvendo aplicações com Zephyr e ESP32 – 14:00 – 17:00](#)
 
 
