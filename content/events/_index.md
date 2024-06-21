@@ -13,8 +13,9 @@ showTaxonomies : false
 showWordCount : false
 showSummary : false
 sharingLinks : true
-showLikes : false
-showViews : false
-groupByYear : true
-disableComments : true
+cascade:
+    showLikes : false
+    showViews : false
+    groupByYear : true
+    disableComments : true
 ---
