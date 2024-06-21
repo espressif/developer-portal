@@ -37,9 +37,7 @@ Before you begin, make sure you have the following:
 
 ### Building an Example Project
 
-Let’s build example project.
-
-First, let's see the whole build in Asciinema recording:
+First, let's see the whole build process in Asciinema recording:
 {{< asciinema key="build-swift-app-for-esp32c6" cols="80" rows="24" poster="npt:0:08" >}}
 
 1. **Clone Sample Project**:
