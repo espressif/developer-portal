@@ -127,7 +127,12 @@ First, let's see the whole build in Asciinema recording:
 
    Note: Use `Ctrl+]` to quit the monitor application.
 
-   Or, you can try to flash the pre-built application directly with [ESP Launchpad](https://espressif.github.io/esp-launchpad/?flashConfigURL=https://espressif.github.io/esp-bsp/config.toml&app=display_audio_photo).
+   Or, you can try it directly with ESP Launchpad and flash precompiled binary to your ESP32-S3-BOX-3:
+
+   {{< button href="https://espressif.github.io/esp-launchpad/?flashConfigURL=https://espressif.github.io/esp-bsp/config.toml&app=display_audio_photo" target="_blank" >}}
+     Try it with ESP Launchpad
+   {{< /button >}}
+
 
    Note: Some models of M5Stack CoreS3 have QUAD SPI RAM, in that case please use the following command for the build, which will take into account specific settings for M5Stack CoreS3 from the file:
 
