@@ -78,8 +78,7 @@ First, let's see the whole build in Asciinema recording:
     ## IDF Component Manager Manifest File
     dependencies:
         espressif/esp-box-3: "^1.2.0"
-        esp_jpeg:
-            version: '*'
+        esp_jpeg: "^1.0.5~2"
         esp_codec_dev:
             public: true
             version: "==1.1.0"
@@ -94,8 +93,7 @@ First, let's see the whole build in Asciinema recording:
     ## IDF Component Manager Manifest File
     dependencies:
         espressif/esp-box: "^3.1.0"
-        esp_jpeg:
-            version: '*'
+        esp_jpeg: "^1.0.5~2"
         esp_codec_dev:
             public: true
             version: "==1.1.0"
@@ -110,8 +108,7 @@ First, let's see the whole build in Asciinema recording:
     ## IDF Component Manager Manifest File
     dependencies:
         espressif/m5stack_core_s3: "^1.1.0"
-        esp_jpeg:
-            version: '*'
+        esp_jpeg: "^1.0.5~2"
         esp_codec_dev:
             public: true
             version: "==1.1.0"
@@ -150,11 +147,42 @@ Once the application is running, you’ll see the following features in action:
 - **Touch**: Interacts with the display.
 - **Audio**: Plays sound files.
 
+Let's look at the source code of the example. Board Support Package provides API which allows to initialize a board. The application code the can be cleaner and does not need to require board specific details like pins definition.
 
-### Exploring the Component
+```c
+#include "esp_log.h"
+#include "bsp/esp-bsp.h"
+#include "app_disp_fs.h"
 
-The ESP-BSP is included via `main/idf_component.yml` file. Simply by switching to another BSP, you can adapt the project to different hardware. Here’s how you can specify dependencies for different boards:
+static const char *TAG = "example";
 
+void app_main(void)
+{
+    /* Initialize and mount SPIFFS */
+    bsp_spiffs_mount();
+
+    /* Initialize I2C (for touch and audio) */
+    bsp_i2c_init();
+
+    /* Initialize display and LVGL */
+    bsp_display_start();
+
+    /* Set default display brightness */
+    bsp_display_brightness_set(APP_DISP_DEFAULT_BRIGHTNESS);
+
+    /* Add and show LVGL objects on display */
+    app_disp_lvgl_show();
+
+    /* Initialize SPI flash file system and show list of files on display */
+    app_disp_fs_init();
+
+    /* Initialize audio */
+    app_audio_init();
+
+    ESP_LOGI(TAG, "Example initialization done.");
+
+}
+```
 
 ## Conclusion
 
