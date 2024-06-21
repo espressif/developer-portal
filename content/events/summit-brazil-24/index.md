@@ -14,7 +14,7 @@ We are pleased to announce the first in-person Espressif event in Brazil, taking
 The activities are as follows:
 
 - **Day 1**: we will present talks about our most recent products, including the ESP32-P4, ESP32-C5, ESP-IDF, Nuttx, Zephyr, low-power applications, Arduino, MQTT, and more.
-- **Day 2**: workshops will be presented in two different tracks, including "Introduction to ESP-IDF with the ESP32-C6," "IoT Workshop with RainMaker and Matter," and "Zephyr with ESP32."
+- **Day 2**: workshops will be presented in two different tracks. The topics include “Introduction to ESP-IDF with the ESP32-C6,” “IoT Workshop with RainMaker and Matter,” and “Zephyr with ESP32.” For details, please refer to [Registration](#registration).
 
 All the talks and workshops will be presented by Espressif experts and will be mostly in Portuguese.
 
@@ -49,9 +49,9 @@ Use the promotional code ESPRESSIF and get a 12% discount on your stay.
 
 The event is free for any participant, and registration can be done for each day and workshop with the following links:
 
-- Talks on July 17th: [Espressif Summit Brazil 2024](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=1988e2d518&e=e3a0757cf1)
+- Talks on July 17: [Espressif Summit Brazil 2024](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=1988e2d518&e=e3a0757cf1)
 
-Workshops July 18th:
+Workshops July 18:
 
 - **Track 1**:
   - Workshop: [Introdução ao ESP-IDF com o ESP32-C6 (EN) - 10:00 – 13:00](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=befed46386&e=e3a0757cf1)
