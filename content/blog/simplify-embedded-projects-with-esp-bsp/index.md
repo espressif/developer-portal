@@ -146,7 +146,7 @@ Once the application is running, you’ll see the following features in action:
 - **Touch**: Interacts with the display.
 - **Audio**: Plays sound files.
 
-Let's look at the source code of the example. Board Support Package provides API which allows to initialize a board. The application code the can be cleaner and does not need to require board specific details like pins definition.
+Let's look at the source code of the example. The Board Support Package provides an API that allows you to initialize a board. The application code is cleaner and does not require board-specific details, such as pins hard-coded in the application code.
 
 ```c
 #include "esp_log.h"
