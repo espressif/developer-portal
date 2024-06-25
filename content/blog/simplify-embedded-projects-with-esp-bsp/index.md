@@ -7,8 +7,6 @@ authors:
 tags: ["Embedded Systems", "ESP32", "ESP32-S3", "Espressif", "BSP"]
 ---
 
-# Simplify Your Embedded Projects with ESP-BSP
-
 ## Introduction
 
 Are you a maker or an embedded systems enthusiast looking to create applications that work seamlessly across different ESP32 development boards? Whether you’re using the [ESP-WROVER-KIT](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/hw-reference/esp32/get-started-wrover-kit.html), [M5Stack-CoreS3](https://docs.m5stack.com/en/core/CoreS3), [ESP32-S3-BOX-3](https://github.com/espressif/esp-box/blob/master/docs/hardware_overview/esp32_s3_box_3/hardware_overview_for_box_3.md), or other compatible boards, the ESP Board Support Package (ESP-BSP) makes your life easier. In this article, we’ll walk you through how to get started with ESP-BSP, enabling you to focus on your project’s functionality without worrying about hardware differences.
