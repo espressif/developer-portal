@@ -32,9 +32,16 @@ Ensure you have the following hardware:
 
 ### Prerequisites
 
-Before you begin, make sure you have the following:
+Before you begin, make sure you have [ESP-IDF v5.3](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/get-started/index.html), the official development framework for the ESP32, properly installed and sourced in your shell.
 
-- [ESP-IDF v5.3](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/get-started/index.html): The official development framework for the ESP32, properly installed and sourced in your shell.
+### Pre-compiled binaries
+
+The pre-compiled binaries for the following example are also available via ESP Launchpad and can be flashed directly from the web browser.
+
+{{< button href="https://espressif.github.io/esp-launchpad/?flashConfigURL=https://espressif.github.io/esp-bsp/config.toml&app=display_audio_photo" target="_blank" >}}
+    Try it with ESP Launchpad
+{{< /button >}}
+
 
 ### Creating Project from Example
 
@@ -124,13 +131,6 @@ First, let's see the whole build in Asciinema recording:
    ```
 
    Note: Use `Ctrl+]` to quit the monitor application.
-
-   Or, you can try it directly with ESP Launchpad and flash precompiled binary to your ESP32-S3-BOX-3:
-
-   {{< button href="https://espressif.github.io/esp-launchpad/?flashConfigURL=https://espressif.github.io/esp-bsp/config.toml&app=display_audio_photo" target="_blank" >}}
-     Try it with ESP Launchpad
-   {{< /button >}}
-
 
    Note: Some models of M5Stack CoreS3 have QUAD SPI RAM, in that case please use the following command for the build, which will take into account specific settings for M5Stack CoreS3 from the file:
 
