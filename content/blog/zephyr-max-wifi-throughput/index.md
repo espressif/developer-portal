@@ -3,38 +3,42 @@ title: "Maximizing Wi-Fi Throughput: Fine-Tuning Zephyr for Peak Performance wit
 date: 2024-06-24T14:29:12+08:00
 ---
 
-A common need for all developers of IoT applications based on Zephyr OS is to measure the performance achieved by a certain configuration made in the parameters of the Wi-Fi network stack. This article aims to show how to install, configure and use the zperf and iperf tools to quantify this performance.
+Those who develop IoT applications based on Zephyr OS often need to optimize the communication performance. It can be done by tweaking the Wi-Fi network stack parameters. However, how do you evaluate the resulting changes and find the most suitable configuration? In this article, we will overview a method to optimize communication performance by using the `iperf` and `zperf` tools.
 
-## 1. Testing Environment
+`iperf` is a tool that allows generating network traffic to measure the maximum achievable network bandwidth. `zperf` is a very similar tool but designed for Zephyr OS.
 
-To evaluate the communication performance, a setup featuring an ESP32-S3_DevKitC-1, a Wi-Fi home router, and a Linux-based computer running Ubuntu 22.04 was used.
+
+## 1. Prepare the testing environment
+
+To evaluate the communication performance, we are going to use the following setup:
+
+- Wi-Fi home router
+- ESP32-S3-DevKitC-1
+- Computer running Ubuntu 22.04
 
 ![](./img/setup.webp)
 
-To ease packet generation and consumption on the Wi-Fi network, we employed iperf tool on the computer side. On esp32-s3_devkitc we used zperf application, included in the standard Zephyr distribution. This structured testing approach allows to systematically analyze the impact of Zephyr parameter adjustments on Wi-Fi communication in various real-world scenarios:
+To simplify packet generation and consumption on the Wi-Fi network, we will use `iperf` on the computer and zperf on the ESP32-S3-DevKitC-1. `zperf` is included in the standard Zephyr distribution.
 
+This structured testing approach allows to systematically analyze the impact of Zephyr parameter adjustments on Wi-Fi communication in various real-world scenarios, including:
 
-### 1.1. ESP32 Sending UDP Packets to PC:
+- ESP32 Sending UDP Packets to PC:
+  ![](./img/send-upd-packets-esp32-pc.webp)
+- PC Sending UDP Packets to ESP32
+  ![](./img/send-upd-packets-pc-esp32.webp)
+- ESP32 Sending TCP Packets to PC
+  ![](./img/send-tcp-packets-esp32-pc.webp)
+- PC sending TCP Packets to ESP32:
+  ![](./img/send-tcp-packets-pc-esp32.webp)
 
-![](./img/send-upd-packets-esp32-pc.webp)
+## 2. Configure your computer
 
+We are going to install the following on the computer:
 
-### 1.2. PC Sending UDP Packets to ESP32:
+- `iperf`
+- Zephyr OS
 
-![](./img/send-upd-packets-pc-esp32.webp)
-
-
-### 1.3. ESP32 Sending TCP Packets to PC:
-
-![](./img/send-tcp-packets-esp32-pc.webp)
-
-
-### 1.4. PC sending TCP Packets to ESP32:
-
-![](./img/send-tcp-packets-pc-esp32.webp)
-
-
-## 2. Installing iperf on PC side
+### 2.1. Install `iperf`
 
 On a terminal window, execute the following command:
 
@@ -45,12 +49,12 @@ sudo apt-get install iperf
 Please note that administrator privileges are required to successfully complete this installation.
 
 
-## 3. Installing Zephyr OS
+### 2.2. Install Zephyr OS
 
-To setup Zephyr OS and its dependencies, follow these step-by-step instructions:
+To setup Zephyr OS and its dependencies, follow the instructions in the subsections.
 
 
-### 3.1. Installing Dependencies:
+#### 2.2.1. Install Dependencies
 
 On a terminal window, execute the following command:
 
@@ -62,18 +66,18 @@ sudo apt install --no-install-recommends \
 ```
 
 
-### 3.2. Installing West:
+#### 2.2.2. Install West
 
-To install the Python script that manages the Zephyr OS build system, execute the following command:
+Install the Python script that manages the Zephyr OS build system by running:
 
 ```sh
 pip install west
 ```
 
 
-### 3.3. Initializing Zephyr:
+#### 2.2.3. Initialize Zephyr
 
-Now, initialize Zephyr on your machine using the following commands:
+Now, initialize Zephyr on your machine by running:
 
 ```sh
 west init ~/zephyrproject
@@ -82,18 +86,18 @@ west update
 ```
 
 
-### 3.4. Installing Python Dependencies:
+#### 2.2.4. Install Python dependencies
 
-After initializing Zephyr, install additional Python dependencies by typing:
+After initializing Zephyr, install additional Python dependencies by running:
 
 ```sh
 pip install -r ~/zephyrproject/zephyr/scripts/requirements.txt
 ```
 
 
-### 3.5. Downloading and Installing Zephyr SDK:
+#### 2.2.5. Download and Install Zephyr SDK
 
-For cross-compiling zperf, download and install the Zephyr SDK using the following commands:
+For cross-compiling `zperf`, download and install the Zephyr SDK by running:
 
 ```sh
 cd ~
@@ -106,16 +110,16 @@ cd zephyr-sdk-0.16.4
 ```
 
 
-### 3.6. Installing Espressif binary blobs:
+#### 2.2.6. Install Espressif binary blobs
 
-To successfully build your ESP32-S3 Wi-Fi application on Zephyr, install the hal_espressif binary blobs:
+To successfully build your ESP32-S3 Wi-Fi application on Zephyr, install the `hal_espressif` binary blobs:
 
 ```sh
 west blobs fetch hal_espressif
 ```
 
 
-### 3.7. Installing udev Rules:
+#### 2.2.7. Install udev rules
 
 Additionally, install udev rules to allow flashing ESP32-S3 as a regular user:
 
@@ -124,73 +128,59 @@ sudo cp /opt/zephyr-sdk-0.16.4/sysroots/x86_64-pokysdk-linux/usr/share/openocd/c
 sudo udevadm control --reload
 ```
 
+## 3. Configure your ESP32-S3-DevKitC-1
 
-## 4. Getting zperf Running on ESP32-S3_DevKitC-1
+To run `zperf` on your ESP32-S3-DevKitC-1, do the following:
 
-To enable zperf functionality on the ESP32-S3_DevKitC-1, follow these steps to configure the necessary files:
+- Create the overlay file
+- Build and flash `zperf`
 
+### 3.1. Create the overlay file
 
-## 4.1. Create the Overlay File:
-
-Create the **zephyr/samples/net/zperf/boards/esp32s3_devkitc.overlay** with the following content:
-
-```sh
-/*
- * Copyright (c) 2024 Espressif Systems (Shanghai) Co., Ltd.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-&wifi {
-    status = "okay";
-};
-```
-
-**Update prj.conf File**: Modify the content of the file **zephyr/samples/net/zperf/prj.conf** to include the following configurations:
-
-```sh
-CONFIG_NET_BUF_DATA_SIZE=1500
-CONFIG_NET_IF_UNICAST_IPV4_ADDR_COUNT=1
-CONFIG_NET_MAX_CONTEXTS=5
-CONFIG_NET_TC_TX_COUNT=1
-CONFIG_NET_SOCKETS=y
-CONFIG_NET_SOCKETS_POSIX_NAMES=y
-CONFIG_NET_SOCKETS_POLL_MAX=4
-CONFIG_POSIX_MAX_FDS=8
-CONFIG_INIT_STACKS=y
-CONFIG_TEST_RANDOM_GENERATOR=y
-CONFIG_NET_L2_ETHERNET=y
-CONFIG_NET_SHELL=y
-CONFIG_NET_L2_WIFI_SHELL=y
-CONFIG_NET_CONFIG_SETTINGS=y
-CONFIG_LOG=y
-CONFIG_SHELL_CMDS_RESIZE=n
-CONFIG_NET_IPV6=n
-CONFIG_NET_DHCPV4=n
-CONFIG_NET_CONFIG_MY_IPV4_ADDR="<STATION IP ADDRESS>"
-CONFIG_NET_CONFIG_MY_IPV4_GW="<GATEWAY IP ADDRESS>"
-CONFIG_NET_CONFIG_MY_IPV4_NETMASK="255.255.255.0"
-CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE=50000
-```
-
-Make sure to replace `<STATION IP ADDRESS>` and `<GATEWAY IP ADDRESS>` with the actual IP addresses relevant to your network configuration.
+- Create the file `zephyr/samples/net/zperf/boards/esp32s3_devkitc.overlay` and add the following content:
+  ```sh
+  /*
+  * Copyright (c) 2024 Espressif Systems (Shanghai) Co., Ltd.
+  *
+  * SPDX-License-Identifier: Apache-2.0
+  */
+  &wifi {
+      status = "okay";
+  };
+  ```
+- To the file `zephyr/samples/net/zperf/prj.conf`, add the following:
+  ```sh
+  CONFIG_NET_BUF_DATA_SIZE=1500
+  CONFIG_NET_IF_UNICAST_IPV4_ADDR_COUNT=1
+  CONFIG_NET_MAX_CONTEXTS=5
+  CONFIG_NET_TC_TX_COUNT=1
+  CONFIG_NET_SOCKETS=y
+  CONFIG_NET_SOCKETS_POSIX_NAMES=y
+  CONFIG_NET_SOCKETS_POLL_MAX=4
+  CONFIG_POSIX_MAX_FDS=8
+  CONFIG_INIT_STACKS=y
+  CONFIG_TEST_RANDOM_GENERATOR=y
+  CONFIG_NET_L2_ETHERNET=y
+  CONFIG_NET_SHELL=y
+  CONFIG_NET_L2_WIFI_SHELL=y
+  CONFIG_NET_CONFIG_SETTINGS=y
+  CONFIG_LOG=y
+  CONFIG_SHELL_CMDS_RESIZE=n
+  CONFIG_NET_IPV6=n
+  CONFIG_NET_DHCPV4=n
+  CONFIG_NET_CONFIG_MY_IPV4_ADDR="<STATION IP ADDRESS>"
+  CONFIG_NET_CONFIG_MY_IPV4_GW="<GATEWAY IP ADDRESS>"
+  CONFIG_NET_CONFIG_MY_IPV4_NETMASK="255.255.255.0"
+  CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE=50000
+  ```
+  Replace `<STATION IP ADDRESS>` and `<GATEWAY IP ADDRESS>` with the actual IP addresses relevant to your network configuration.
 
 
-### 4.2. Build and Flash zperf:
+### 3.2. Build and flash `zperf`
 
-After each modification done on the file **zephyr/samples/net/zperf/prj.conf** with the propose of setting new configuration parameters values, build zperf and flash it onto the ESP32-S3_DevKitC-1 before starting a testing sequence using the following west commands:
+> Note: After updating any configuration parameters in `zephyr/samples/net/zperf/prj.conf` , build `zperf` and flash it onto the ESP32-S3-DevKitC-1.
 
-```sh
-west build -b esp32s3_devkitc zephyr/samples/net/zperf --pristine
-west flash
-west espressif monitor
-```
-
-Ensure that the ESP32-S3_DevKitC-1 is connected to the PC via USB during the flashing process.
-
-
-## 5. Running Tests
-
-Before starting the test sequence, always remember build and flash zperf on ESP32-S3_DevKitC-1:
+Ensure that the ESP32-S3-DevKitC-1 is connected to the computer via USB, then run a testing sequence using the following west commands:
 
 ```sh
 west build -b esp32s3_devkitc zephyr/samples/net/zperf --pristine
@@ -198,7 +188,13 @@ west flash
 west espressif monitor
 ```
 
-After entering this command line, you will access the zperf terminal. Follow these steps to connect the ESP32-S3_DevKitC-1 to the Wi-Fi router:
+
+## 4. Run the tests
+
+Before starting the testing sequence, always remember to [build and flash zperf](#32-build-and-flash-zperf).
+
+
+After the build and flash commands, you will access the `zperf` terminal. Connect the ESP32-S3-DevKitC-1 to the Wi-Fi router using the following steps:
 
 ```sh
 wifi connect <SSID> <PASSWORD>
@@ -224,47 +220,75 @@ PING 192.168.15.8
 uart:~$
 ```
 
-Now, open a second terminal where you will run iperf.
+Now, open a second terminal where you will run `iperf`.
 
 
-## 5.1. ESP32 Sending UDP Packets to PC:
+### 4.1. ESP32 Sending UDP Packets to PC:
 
-On the iperf terminal, type:
+On the `iperf` terminal, type:
 
 ```sh
 iperf -s -l 1K -u -B 192.168.15.8
 ```
 
-On the zperf terminal, type:
+On the `zperf` terminal, type:
 
 ```sh
 zperf udp upload 192.168.15.6 5001 10 1K 5M
 ```
 
 
-### 5.2. PC Sending UDP Packets to ESP32:
+### 4.2. PC Sending UDP Packets to ESP32:
 
-On the zperf terminal, type:
-
-```sh
-zperf udp download 5001
-```
-
-On the iperf terminal, type:
+On the `zperf` terminal, type:
 
 ```sh
 zperf udp download 5001
 ```
 
+On the `iperf` terminal, type:
 
-## 6. Results
+```sh
+iperf -l 1K -u -c 192.168.15.2 -b 10M
+```
 
-To illustrate the tangible impact of adjusting network-sensitive parameters on ESP32-S3 Wi-Fi throughput, we conducted a series of tests, each time modifying the CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE parameter. The result highlights the performance progression before and after parameter changes:
+### 4.3. ESP32 Sending TCP Packets to PC
+
+On the `iperf` terminal, type:
+
+```sh
+iperf -s -l 1K -B 192.168.15.8
+```
+
+On the `zperf` terminal, type:
+
+```sh
+zperf tcp upload 192.168.15.8 5001 10 1K 5M
+```
+
+### 4.4. C Sending TCP Packets to ESP32
+
+On the `zperf` terminal, type:
+
+```sh
+zperf tcp download 5001
+```
+
+On the `iperf` terminal, type:
+
+```sh
+zperf tcp download 5001
+```
 
 
-### 6.1. Initial Configuration:
+## 5. Results
 
-CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE commented.
+To illustrate the tangible impact of adjusting network-sensitive parameters for ESP32-S3 Wi-Fi throughput, we conducted a series of tests, each time modifying the parameter `CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE`. The result highlights the performance progression before and after parameter changes:
+
+
+### 5.1. Initial Configuration
+
+The parameter `CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE` commented out.
 
 <table>
 <thead>
@@ -303,9 +327,9 @@ CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE commented.
 </tbody>
 </table>
 
-### 6.2. Modified Configuration (Increased Window Size):
+### 5.2. Modified Configuration (Increased Window Size):
 
-CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE=20000
+The parameter `CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE=20000`
 
 <table>
 <thead>
@@ -344,9 +368,9 @@ CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE=20000
 </tbody>
 </table>
 
-### 6.3. Further Modified Configuration (Increased Window Size):
+### 5.3. Further Modified Configuration (Increased Window Size):
 
-CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE=50000
+The parameter `CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE=50000`
 
 <table>
 <thead>
@@ -385,12 +409,16 @@ CONFIG_NET_TCP_MAX_RECV_WINDOW_SIZE=50000
 </tbody>
 </table>
 
-### 6.4. Comparative results chart:
+### 5.4. Comparative results chart
+
+These results are provided below.
 
 ![](./img/compare-results-chart.webp)
 
-These results provide valuable insights into the dynamic relationship between network parameters and ESP32-S3 Wi-Fi throughput. Developers can leverage this information to fine-tune their applications for optimal performance in diverse network scenarios. Adjust parameters based on specific requirements and network conditions to achieve the desired outcome.
+These are valuable insights into the dynamic relationship between network parameters and ESP32-S3 Wi-Fi throughput. It is possible to fine-tune these parameters to achieve optimal performance in diverse network scenarios.
 
-## 7. Conclusion
+## 6. Conclusion
 
-The issue of measuring the evolution of communication performance in response to changes in the values of the Zephyr OS Wi-Fi network stack configuration parameter using the ESP32-S3_devkitM development board was presented. By installing, configuring, and utilizing the iperf and zperf tools, and following the procedure outlined in this article, it was possible to tangibly observe the performance evolution as the configuration parameters were modified.
+This article presented how to measure communication performance in response to changes in the values of the Zephyr OS Wi-Fi network stack configuration parameter. The ESP32-S3-DevKitC-1 development board was used.
+
+By installing, configuring, and utilizing the `iperf` and `zperf` tools, and following the procedure outlined in this article, it is possible to tangibly observe the performance evolution as the configuration parameters are modified.
