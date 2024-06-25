@@ -188,6 +188,34 @@ You can also simulate the application with ESP-BSP for ESP32-S3-BOX-3 using the 
 
 To set up the simulation, you need to add two files to your project: [wokwi.toml](wokwi.toml) and [diagram.json](diagram.json) in the root of the project.
 
+Content of `wokwi.toml`
+```toml
+[wokwi]
+version = 1
+elf = "build/uf2.bin"
+firmware = "build/uf2.bin"
+```
+
+Content of `diagram.json`
+```json
+{
+  "version": 1,
+  "author": "Wokwi.com",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-s3-box-3",
+      "id": "esp32",
+      "top": -24.91,
+      "left": -388.54,
+      "attrs": { "psramSize": "16", "flashSize": "16" }
+    }
+  ],
+  "connections": [ [ "$serialMonitor:RX", "esp32:G14", "", [] ], [ "$serialMonitor:TX", "esp32:G11", "", [] ] ],
+  "dependencies": {}
+}
+```
+
 Use the following command to build the UF2 image for your project. The Wokwi simulator will pick up this binary and run it.
 
 ```bash
