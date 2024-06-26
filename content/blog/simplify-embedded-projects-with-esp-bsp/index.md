@@ -226,7 +226,7 @@ Now you can start the simulation in your favorite IDE.
 
 ## Conclusion
 
-With ESP-BSP, you can quickly develop and port your applications across various ESP32 boards, saving time and effort. Whether you’re building a new project or upgrading an existing one, ESP-BSP simplifies your development process.
+With ESP-BSP, you can quickly develop and port your applications across various boards with Espressif SoC, saving time and effort. Whether you’re building a new project or upgrading an existing one, ESP-BSP simplifies your development process.
 
 ## Useful Links
 
