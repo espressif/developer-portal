@@ -13,7 +13,7 @@ Are you a maker or an embedded systems enthusiast looking to create applications
 
 ## What is ESP-BSP?
 
-[ESP-BSP](https://github.com/espressif/esp-bsp) is a collection of Board Support Packages featuring Espressif’s or M5Stack development boards. The set can be extended to any board with Espressif’s chip. It provides a convenient way to start a project for a specific development board without the need to manually look for drivers and other details. By using ESP-BSP, you can:
+[ESP-BSP](https://github.com/espressif/esp-bsp) is a collection of Board Support Packages featuring Espressif’s or M5Stack development boards. It provides a convenient way to start a ESP-IDF based project for a specific development board without the need to manually look for drivers and other details. By using ESP-BSP, you can:
 
 - **Streamline Hardware Integration**: Simplify code and reduce complexity.
 - **Enhance Development Speed**: Quickly set up and start working on your projects.
