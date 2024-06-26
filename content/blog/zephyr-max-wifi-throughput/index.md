@@ -1,6 +1,10 @@
 ---
 title: "Maximizing Wi-Fi Throughput: Fine-Tuning Zephyr for Peak Performance with ESP32 SoCs in IoT Applications"
 date: 2024-06-24T14:29:12+08:00
+showAuthor: false
+authors:
+  - "marcio-ribeiro"
+tags: ["ESP32-S3", "Zephyr", "Wi-Fi"]
 ---
 
 Those who develop IoT applications based on Zephyr OS often need to optimize the communication performance. It can be done by tweaking the Wi-Fi network stack parameters. However, how do you evaluate the resulting changes and find the most suitable configuration? In this article, we will overview a method to optimize communication performance by using the `iperf` and `zperf` tools.
