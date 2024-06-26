@@ -7,7 +7,7 @@ series_order: 8
 showAuthor: false
 ---
 
-## Assignment 7: Using the ULP
+## Assignment 7: Using the Low Power
 
 ---
 
@@ -300,7 +300,7 @@ To measure the power consumption, we use the **J5** jumper and a power analysis 
 Running on the HP-core, the average power consumption in a 10 seconds window is: **22.32mA**.
 
 {{< gallery >}}
-  <img src="../assets/ulp-hp-core.png" />
+  <img src="../assets/ulp-hp-core.webp" />
 {{< /gallery >}}
 
 **LED blink running on the LP-core**
@@ -308,7 +308,7 @@ Running on the HP-core, the average power consumption in a 10 seconds window is:
 Running on the LP-core, the average power consumption in a 10 seconds window is: **2.97mA**.
 
 {{< gallery >}}
-  <img src="../assets/ulp-lp-core.png" />
+  <img src="../assets/ulp-lp-core.webp" />
 {{< /gallery >}}
 
 The power reduction when switching from the HP-core to the LP-core is approximately **86.7%** for a similar task.
@@ -350,7 +350,7 @@ Here you can see the power consumption on the 3 different modes.
 Average power consumption on this mode: **74.87mA**
 
 {{< gallery >}}
-  <img src="../assets/power-save-none.png" />
+  <img src="../assets/power-save-none.webp" />
 {{< /gallery >}}
 
 **Power save mode: minimum modem**
@@ -358,7 +358,7 @@ Average power consumption on this mode: **74.87mA**
 Average power consumption on this mode: **23.84mA**
 
 {{< gallery >}}
-  <img src="../assets/power-save-minimum.png" />
+  <img src="../assets/power-save-minimum.webp" />
 {{< /gallery >}}
 
 **Power save mode: maximum modem**
@@ -366,9 +366,27 @@ Average power consumption on this mode: **23.84mA**
 Average power consumption on this mode: **13.46mA**
 
 {{< gallery >}}
-  <img src="../assets/power-save-maximum.png" />
+  <img src="../assets/power-save-maximum.webp" />
 {{< /gallery >}}
 
 This power save option can be used to reduce the power consumption on battery operated devices, when the WiFi6 TWT is not an option. You can use this feature on any ESP32 with WiFi capability.
 
-## Next step
+## Conclusion
+
+Thank you for participating in this workshop on the ESP-IDF and the ESP32-C6. We hope you found the sessions informative and the assignments engaging.
+
+Throughout this workshop, we covered a range of essential skills:
+
+- **Assignment 1**: You successfully installed the Espressif IDE, ensuring that you have the necessary tools to start development.
+- **Assignment 2**: You learned how to create a new project with components, which is crucial for structuring and managing your projects effectively.
+- **Assignment 3**: You connected to WiFi, a fundamental step for many IoT applications.
+- **Assignment 4**: You worked with the NVS (Non-Volatile Storage), gaining the ability to manage persistent data.
+- **Assignment 5 (EXTRA)**: You explored WiFi provisioning, gaining insights into setting up and configuring WiFi networks.
+- **Assignment 6 (EXTRA)**: You delved into various communication protocols supported by the ESP32-C6, including implementing the TSL certificate bundle for secure communications.
+- **Assignment 7**: You utilized the LP core, learning how to manage energy efficiently with the low-power core.
+
+By completing these assignments, you have gained a comprehensive understanding of the ESP32-C6 SoC and the ESP-IDF. This knowledge will serve as a solid foundation for building efficient and powerful IoT applications.
+
+We hope that the skills and insights you have gained will inspire you to create innovative solutions with the ESP32-C6 SoC and the ESP-IDF. Your time and engagement in this workshop are greatly appreciated, and we look forward to seeing the impressive projects you will develop in the future.
+
+Thank you once again for your participation.

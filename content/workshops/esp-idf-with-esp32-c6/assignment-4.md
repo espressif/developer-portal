@@ -28,13 +28,13 @@ For this hands-on, we will need to prepare the project for the NVS, create the N
 To create the partition table file, use the Partition Table Editor from the Espressif IDE. To open the editor, right click on the project, `ESP-IDF` -> `Partition Table Editor`:
 
 {{< gallery >}}
-  <img src="../assets/partition-editor-menu.png" />
+  <img src="../assets/partition-editor-menu.webp" />
 {{< /gallery >}}
 
 Leave the default values and click `Save and Quit`.
 
 {{< gallery >}}
-  <img src="../assets/partition-editor.png" />
+  <img src="../assets/partition-editor.webp" />
 {{< /gallery >}}
 
 The default `partitions.csv` will be created with the following structure:
@@ -54,13 +54,13 @@ You can change later the partitions according to your needs.
 For the NVS editor, you will need to open the editor by the `ESP-IDF` -> `NVS Table Editor`
 
 {{< gallery >}}
-  <img src="../assets/nvs-editor-menu.png" />
+  <img src="../assets/nvs-editor-menu.webp" />
 {{< /gallery >}}
 
 and add the namespace `storage` and the keys `SSID` and `password` then `Save and Quit`.
 
 {{< gallery >}}
-  <img src="../assets/nvs-editor.png" />
+  <img src="../assets/nvs-editor.webp" />
 {{< /gallery >}}
 
 Set the `Size of partition in bytes` to `0x6000`(same value of the `partitions.csv` file) and add the following:
@@ -341,3 +341,7 @@ void app_main(void)
 ```
 
 ## Next step
+
+Too complicated? Let's make things eaiser.
+
+[Assignment 5: WiFi provisioning (EXTRA)](../assignment-5)

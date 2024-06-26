@@ -17,12 +17,20 @@ To get started and perform all the workshop assignments, you will need to instal
 
 ### Installing the ESP-IDE
 
-This assignment will be done by the following tutorial: [Getting Started with IDEs Workshop](../espressif-ide/).
+This assignment will be done by the following tutorial: [Getting Started with IDEs Workshop](../../espressif-ide/).
 
 You will need to:
 
 - Install all the necessary drivers for Windows
 - Install the Espressif IDE
-- Install the tools using the Tools Manager
+- Install the ESP-IDF
+- Create the first project
+- Build
+- Flash
+- Debug
 
 ## Next step
+
+Now that you know how to use the Espressif IDE, let's get started with the ESP-IDF and create a project based on the components.
+
+[Assignment 2: Creating a new project with Components](../assignment-2)

@@ -366,3 +366,7 @@ void app_main(void)
 
 
 ## Next step
+
+Let there be light! Now it is time to connect to the WiFi!
+
+[Assignment 3: Connecting to WiFi](../assignment-3)

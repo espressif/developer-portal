@@ -62,3 +62,7 @@ You will need to scan the QRCode or to use the **I don't have a QR code** option
 After completing the provisioning process, the device will connect to the selected network.
 
 ## Next step
+
+Now you can easily connect to the WiFi, let's try to talk in a secure way!
+
+[Assignment 6: Protocols (EXTRA)](../assignment-6)

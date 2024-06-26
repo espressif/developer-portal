@@ -92,56 +92,105 @@ For this workshop, we will skip the manual installation, however, you can see ho
 
 After the installation process is completed, you will be able to open the Espressif IDE.
 
-
 The first step is to select your workspace folder. This folder is where all your projects will be stored.
 
-![Workspace](assets/espressif-ide-1.webp "Espressif IDE Workspace selection")
+{{< gallery >}}
+  <img src="assets/espressif-ide-1.webp" />
+{{< /gallery >}}
 
 Once you have selected it, you can proceed by clicking on the `Launch` button.
 
-![Espressif-IDE](assets/espressif-ide-16.webp "Espressif IDE welcome screen")
+![Espressif-IDE]( "Espressif IDE welcome screen")
+
+{{< gallery >}}
+  <img src="assets/espressif-ide-16.webp" />
+{{< /gallery >}}
+
+If everything is running as expected, you will see the welcome screen.
 
 #### Installing, upgrading or downgrading ESP-IDF versions
 
 Before creating the first project, we need to install the ESP-IDF.
 
-![Workspace](assets/espressif-ide-17.webp)
+Go to `Espressif` -> `ESP-IDF Manager`
 
-![Workspace](assets/espressif-ide-18.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-17.webp" />
+{{< /gallery >}}
 
-![Workspace](assets/espressif-ide-19.webp)
+Select `Add ESP-IDF` to install the SDK.
 
-![Workspace](assets/espressif-ide-20.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-18.webp" />
+{{< /gallery >}}
 
-![Workspace](assets/espressif-ide-21.webp)
+Now you can select how and where the ESP-IDF will be installed or selected from the existing installation.
 
-![Workspace](assets/espressif-ide-22.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-19.webp" />
+{{< /gallery >}}
 
-![Workspace](assets/espressif-ide-23.webp)
+If you are installing a new SDK, you can select the version and the path that this installation will be installed.
 
-![Workspace](assets/espressif-ide-24.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-20.webp" />
+{{< /gallery >}}
 
-![Workspace](assets/espressif-ide-25.webp)
+You can install the ESP-IDF by selecting the version you want to install or you can use a pre-existing installation.
 
-> TODO: Install the ESP-IDF 5.3
+{{< gallery >}}
+  <img src="assets/espressif-ide-21.webp" />
+{{< /gallery >}}
+
+However, if you want to use the existing one, select the path that the installation is located. Click on `Finish` to start the installation process.
+
+{{< gallery >}}
+  <img src="assets/espressif-ide-22.webp" />
+{{< /gallery >}}
+
+The installer will download and install all pre-requisites.
+
+{{< gallery >}}
+  <img src="assets/espressif-ide-23.webp" />
+{{< /gallery >}}
+
+After the installation process completed, you will see the installed version in the ESP-IDF Manager list.
+
+{{< gallery >}}
+  <img src="assets/espressif-ide-24.webp" />
+{{< /gallery >}}
+
+If you decide to install multiple versions, the list will show all the installed versions. You can select only one version at once.
+
+{{< gallery >}}
+  <img src="assets/espressif-ide-25.webp" />
+{{< /gallery >}}
 
 ### Creating a new project
 
 To create a new project, go to `File` -> `New` -> `Project`.
 
-![Create New Project](assets/espressif-ide-2.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-2.webp" />
+{{< /gallery >}}
 
 On the **New Project** screen, select `Espressif` -> `Espressif IDF Project` and click `Finish`.
 
-![New Project](assets/espressif-ide-3.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-3.webp" />
+{{< /gallery >}}
 
 Now we will select the `Create a project using one of the templates` and select the **blink** project.
 
-![Create New Project Example](assets/espressif-ide-4.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-4.webp" />
+{{< /gallery >}}
 
 Select the target for this project, in this case, the **ESP32-C6**.
 
-![Select the SoC](assets/espressif-ide-5.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-5.webp" />
+{{< /gallery >}}
 
 Click `Finish` to create the project in the selected workspace.
 
@@ -149,11 +198,15 @@ Click `Finish` to create the project in the selected workspace.
 
 Building the project is done by clicking the button with a hammer icon, as shown in the next image.
 
-![Build the Project](assets/espressif-ide-6.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-6.webp" />
+{{< /gallery >}}
 
 By clicking the build button, the build process will start. This operation can take a while depending on your operating system.
 
-![Create New Project](assets/espressif-ide-7.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-7.webp" />
+{{< /gallery >}}
 
 After the build is complete, you will be able to flash the application to the device.
 
@@ -161,22 +214,15 @@ After the build is complete, you will be able to flash the application to the de
 
 If you need to change any project or ESP-IDF configuration, this can be done by opening the `sdkconfig` file. After opening this file, you will see the SDK configuration interface, as shown in the image.
 
-![Create New Project](assets/espressif-ide-14.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-14.webp" />
+{{< /gallery >}}
 
 > Please note that if you change anything in this file, the build process will rebuild everything.
 
 #### Creating a new configuration menu
 
 The ESP-IDF use a method to configure the SDK based on the kconfiglib, a Python extension of the [Kconfig](https://docs.kernel.org/kbuild/kconfig-language.html) system, called [esp-idf-kconfig](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/kconfig.html?highlight=kconfig).
-This configuration method can be used by the command or via the Espressif IDE GUI:
-
-```bash
-idf.py menuconfig
-```
-
-This configuration can be performed by the IDE GUI.
-
-> TODO: Add printscreen
 
 #### ESP-IDF configuration
 
@@ -190,7 +236,7 @@ To make your project easier to configure, there are different ways to set defaul
 
 For this hands-on, we will create a new configuration menu to set the WiFi credentials (SSID and password). We will also understand how to pre-define some configurations as default, improving the configuration process by avoiding configuration mistakes.
 
-  1. **Creating a new configuration menu**
+1. **Creating a new configuration menu**
 
 First, we need to create a new file called ```Kconfig.projbuild``` inside the **main** folder.
 
@@ -228,16 +274,12 @@ To use the new configuration entries, you can do:
 
 As you can see, you will need to include the prefix ```CONFIG_```to the config name.
 
-Now run the configuration menu to see the recently created menu for the WiFi credentials. If you are not able to see the menu, you can try to run this command.
-
-```bash
-idf.py reconfigure
-```
+Now run the configuration menu to see the recently created menu for the WiFi credentials. If you are not able to see the menu, you can try to do a `Project Full Clean` and build again.
 
 > Every time you change the SDK configuration, the build system will rebuild and it might take a while depending on your system.
 > Important: This configuration menu will be used for the next assignment.
 
-  2. **Setting the default configuration**
+2. **Setting the default configuration**
 
 You might noticed that you will need to change the new configuration entries manually, if you are not going to define as your default values. To overcome this, you can define the default SDK configuration values.
 This is valid for all the configuration values, not only for those you have just created.
@@ -259,7 +301,9 @@ If you have different targets, you can define default configuration files based 
 
 Before flashing the device, we need to define the communication port by clicking on the gear icon.
 
-![Target configuration](assets/espressif-ide-15.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-15.webp" />
+{{< /gallery >}}
 
 If your board is already connected to your computer, and the operating system is able to recognize it, you will see the available COM ports in the drop-down menu.
 
@@ -271,19 +315,27 @@ You can also debug using an external JTAG, like the [ESP-PROG]().
 
 Please select the one recognized as `USB JTAG/serial debug unit`.
 
-![Create New Project](assets/espressif-ide-8.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-8.webp" />
+{{< /gallery >}}
 
 Once you select the correct communication port, the board will be detected as you can see in the image.
 
-![Create New Project](assets/espressif-ide-9.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-9.webp" />
+{{< /gallery >}}
 
 Now to flash, you can click on the green orb with a "play" icon labeled as `Launch in 'run' mode`.
 
-![Create New Project](assets/espressif-ide-10.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-10.webp" />
+{{< /gallery >}}
 
 After a successful flashing procedure, you will see the message in the console output:
 
-![Create New Project](assets/espressif-ide-11.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-11.webp" />
+{{< /gallery >}}
 
 If everything worked, you will see the RGB LED blinking in white color.
 
@@ -293,33 +345,95 @@ If everything worked, you will see the RGB LED blinking in white color.
 
 In this project, the application will print some log output from the USB serial interface.
 
-![Create New Project](assets/espressif-ide-12.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-12.webp" />
+{{< /gallery >}}
 
-![Create New Project](assets/espressif-ide-13.webp)
+{{< gallery >}}
+  <img src="assets/espressif-ide-13.webp" />
+{{< /gallery >}}
 
 ### Debugging
 
 Debugging is a crucial part of software development. It allows you to find and fix issues in your code. When working with ESP32, the Espressif IDE provides a built-in debugger that can be used to debug your applications.
 
-To start debugging, you first need to build and flash your project to the target device.
+Some ESP32 SoCs comes with a build-in USB JTAG and USB CDC interfaces. On the ESP32-C6-DevKit, the USB JTAG port is the USB port with the label `USB`. Make sure you are using a good quality USB cable with data.
+
+{{< gallery >}}
+  <img src="assets/esp32-c6-devkitc-1-v1.2-annotated-photo.png" />
+{{< /gallery >}}
+
+You can use an external compatible JTAG, like the [ESP-PROG]() or build your own using the [esp-usb-bridge](https://github.com/espressif/esp-usb-bridge) with an ESP32-S2 or ESP32-S3.
+
+#### Hands-on debugging
+
+1. **Change the mode and the configuration to debug**
+
+The first step before debugging is to change the **Launch Mode** mode to `Debug` and select the **Launch Configuration** to `blink Configuration`.
+
+{{< gallery >}}
+  <img src="assets/debug-4.webp" />
+{{< /gallery >}}
+
+{{< gallery >}}
+  <img src="assets/debug-5.webp" />
+{{< /gallery >}}
+
+2. **Change the default debug configuration**
+
+Now open the debug `Edit Configuration` by clicking the gear icon in the  **Launch Configuration**.
+
+- On the tab `Main` select the application to be debugged on the `C/C++ Application`. Select the `blink.elf` on the `Search Project...` button.
+
+{{< gallery >}}
+  <img src="assets/debug-1.webp" />
+{{< /gallery >}}
+
+- On the tab `Debugger`, check if the correct SoC and the board debug device are selected.
+
+{{< gallery >}}
+  <img src="assets/debug-2.webp" />
+{{< /gallery >}}
+
+- On the tab `Startup`, uncheck the `Flash every time with application binaries` box. This is done to avoid building the application and flashing the device again.
+
+{{< gallery >}}
+  <img src="assets/debug-3.webp" />
+{{< /gallery >}}
+
+3. **Launch in 'Debug' mode**
 
 Once the project is built, you can start a debugging session by clicking on the bug icon in the IDE. This will launch the debugger and attach it to your ESP32 device. There is an option to build and flash every time you start debugging, however, we will disable this option for this workshop to save time.
 
-> TODO
+{{< gallery >}}
+  <img src="assets/debug-6.webp" />
+{{< /gallery >}}
+
+4. **Debug**
 
 During a debugging session, you can control the execution of your program by setting breakpoints, stepping through your code, inspecting variables, and watching expressions. Breakpoints can be set by clicking in the margin of the code editor next to the line of code where you want the breakpoint.
-
-> TODO
 
 When the program execution hits a breakpoint, it will pause, and you can inspect the current state of your program. The IDE provides several views to inspect the state of your program, such as the Variables view, the Call Stack view, and the Watch view.
 
 Remember, debugging is a powerful tool that can help you understand how your code is executing and where problems may be occurring.
 
+#### Troubleshooting
+
+If you have issues debugging, please read our [ debug troubleshooting guide](https://github.com/espressif/idf-eclipse-plugin?tab=readme-ov-file#troubleshooting) for the Espressif IDE.
+
 ### Tools
 
 #### Partition table editor
 
+...
+
+#### NVS editor
+
+...
+
 #### Components
+
+...
 
 ### Conclusion
 
@@ -333,4 +447,4 @@ Thank you for participating in this workshop. We hope you found it informative a
 
 ### Next steps
 
-- [ESP-IDF Workshop]()
+- [ESP-IDF Workshop](../esp-idf-with-esp32-c6)

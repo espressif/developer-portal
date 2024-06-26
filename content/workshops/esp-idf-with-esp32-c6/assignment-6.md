@@ -323,3 +323,7 @@ void app_main(void)
 ```
 
 ## Next step
+
+Too much energy so far? Let's reduce the energy consumption.
+
+[Assignment 7: Using the Low Power](../assignment-7)

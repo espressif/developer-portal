@@ -299,3 +299,7 @@ void app_main(void)
 
 
 ## Next step
+
+Connected! Let's now move on the memory side!
+
+[Assignment 4: Working with the NVS](../assignment-4)
