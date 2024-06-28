@@ -1,0 +1,9 @@
+{
+	"name": "Tiago Medicci",
+	"image" : "img/authors/tiago-medicci.jpg",
+	"bio": "Embedded Software Engineer at Espressif",
+	"social": [
+		{ "linkedin": "https://www.linkedin.com/in/tmedicci" },
+		{ "github": "https://github.com/tmedicci" }
+	]
+}

@@ -1,0 +1,9 @@
+{
+	"name": "Eren Terzioğlu",
+	"image" : "img/authors/eren-terzioglu.png",
+	"bio": "Junior Software Engineer at Espressif",
+	"social": [
+		{ "linkedin": "https://www.linkedin.com/in/eren-terzioglu" },
+		{ "github": "https://github.com/eren-terzioglu" }
+	]
+}

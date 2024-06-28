@@ -1,0 +1,9 @@
+{
+    "name": "Filipe Cavalcanti",
+    "image" : "img/authors/filipe-cavalcanti.jpg",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/fdcavalcanti" },
+        { "github": "https://github.com/fdcavalcanti" }
+    ]
+}
