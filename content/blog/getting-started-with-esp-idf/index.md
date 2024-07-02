@@ -304,6 +304,8 @@ By following this guide, we have gained a deeper understanding of the ESP32 SoC 
 
 Do feel free to explore the [other examples](https://github.com/espressif/esp-idf/tree/master/examples) available on the ESP-IDF and explore what ESP32 SoCs may offer! Also, do to check out the various solutions offered by Espressif to build ever more impressive projects!
 
+If you would like to understand more about how ESP-IDF is structured and how to build even more robust applications with the ESP-IDF, feel free to check out Espressif Developer Conference 2023 Talk on the topic [here](https://youtu.be/J8zc8mMNKtc?si=sr59c2lNmPmd4WtF).
+
 ## 7. Error & Troubleshooting:
 <!--
 - **Error & Troubleshooting:**
@@ -336,3 +338,4 @@ Some are the errors are also described on the [ESP-IDF programming guide](https:
 - **References:**
     - [ESP-IDF Programming Guide](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/index.html)
     - [ESP-IDF Github Repository](https://github.com/espressif/esp-idf/tree/master)
+    - [Espressif Developer Conference 2023: ESP-IDF Getting Started](https://youtu.be/J8zc8mMNKtc?si=sr59c2lNmPmd4WtF)
