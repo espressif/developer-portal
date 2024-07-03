@@ -4,6 +4,7 @@
   "bio": "Embedded Software Developer",
   "social": [
       { "linkedin": "https://www.linkedin.com/in/raffaelrostagno/" },
-      { "github": "https://github.com/raffarost" }
+      { "github": "https://github.com/raffarost" },
+      { "email": "mailto:raffael.rostagno@espressif.com" }
   ]
 }

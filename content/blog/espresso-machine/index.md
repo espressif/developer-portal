@@ -16,13 +16,13 @@ Being a (sort of) aficionado myself, I have been puzzled by my experience when u
 
 After some research and observation it became clear to me that one of the main issues is what is called channeling. Channeling is the natural tendency of water to flow through the path of least resistance of a coffee puck (this applies to unpressurized coffee baskets, so please check reference [2] if you are unfamiliar with the term). Much like an electrical current will flow proportionally more through the path of least resistance in a circuit, water will do the same in any physical setting. If during preparation coffee isn’t properly distributed and tamped, channeling is very likely to happen.
 
-![Channeling in an espresso coffee puck](./img/channeling-espresso-coffee-puck.webp "Channeling in an espresso coffee puck ([source](https://bigcupofcoffee.com/how-to-prevent-espresso-channeling/))")
+![Channeling in an espresso coffee puck](./img/channeling-espresso-coffee-puck.webp "Channeling in an espresso coffee puck [3]")
 
 One of the strategies employed by more expensive espresso coffee machines to reduce channeling is to do a process called pre-infusion [4]. It consists of dispensing a small amount of water at the start of the brewing process, then wait for some seconds for the coffee puck to absorb water and become soaked. When the water pump is turned on again for the rest of the extraction, channeling is less likely to occur. The reasoning, besides the fact that the grounds are soaked and extraction is already underway, is that as the coffee puck swells it might redistribute better by filling gaps of lesser density in the basket.
 
 Although more expensive equipment will probably allow for better control of the variables involved in the brewing process, there is a limit on how much this yields to better tasting coffee. Cheap and expensive machines are built alike, except for these sometimes sophisticated resources, some whistles and bells and good looks for a premium market and price.
 
-![Basic elements of an espresso machine](./img/basic-elements-espresso-machine.webp "Basic elements of an espresso machine ([source](https://www.bluker.com/howitworks2.html))")
+![Basic elements of an espresso machine](./img/basic-elements-espresso-machine.webp "Basic elements of an espresso machine [5]")
 
 With these considerations in mind, I decided to use a PID controller algorithm (please check reference [6] if
 you are unfamiliar with how a PID works) and pre-infusion mechanism for my espresso machine using an ESP32 and RainMaker, in order to verify if it can really help consistently produce better tasting coffee and to play around a bit with control strategies.
@@ -57,8 +57,7 @@ machine’s boiler temperature and by adding a pre-infusion feature by means of 
 For this project I used a Delonghi EC220 espresso coffee machine, an ESP32 embedded device, a dimmer
 circuit operated by zero-cross detection to control the boiler’s heating element, a simple relay board to
 control the water pump and a temperature sensor (thermocouple type K) for probing. The list of materials
-can be found in topic 6 (List of Materials). The GitHub source code can be found in the link provided in
-topic 7 (GitHub source code).
+can be found in the [List of Materials](#5-list-of-materials) section. The GitHub source code can be found at the link provided in [GitHub source code](#6-github-source-code).
 
 
 ### 2.1 General diagram
@@ -203,9 +202,11 @@ https://github.com/raffarost/espresso
 
 ## 7. Contact info
 
-March 2024
-Raffael Rostagno
-raffael.rostagno@espressif.com
+| | |
+| --- | --- |
+| Author | Raffael Rostagno |
+| Date   | March 2024 |
+| email  | raffael.rostagno@espressif.com |
 
 
 ## 8. References
