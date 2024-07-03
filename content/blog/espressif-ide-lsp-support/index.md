@@ -96,19 +96,19 @@ clangd runs the clang compiler on your code as you type, and shows diagnostics o
 
 The compiler can suggest fixes for many common problems automatically, and clangd can update the code for you.
 
-![](assets/1_6k_kCkTfX9V25YNJAB2uGA.gif)
+![](assets/lsp_fixes.gif)
 
 ### Find definition/declaration
 
 Jump to the definition or declaration of a symbol by pressing ctrl+click action.
 
-![](assets/1_mGr3QjpYGhqTyuvzXeD08w.gif)
+![](assets/lsp_finddefinition.gif)
 
 ### Hover
 
 Hover over a symbol to see more information about it, such as its type, documentation, and definition.
 
-![](assets/1_MU1SFADGbV_yVGGgxK742g.gif)
+![](assets/lsp_hover.gif)
 
 ### Formatting
 
@@ -116,13 +116,18 @@ clangd embeds [clang-format](https://clang.llvm.org/docs/ClangFormat.html), whic
 
 clangd language server searches for a .clang-format file in the source folder and its parents. File can be formatted using **Source > Format** option or also on file save if you enable [Save Actions](https://github.com/eclipse-cdt/cdt-lsp?tab=readme-ov-file#save-actions-using-clang-format) in the preferences.
 
-![](assets/1_-fMq6C_Vr9Eni5-7Bl4N4w.gif)
+![](assets/lsp_format.gif)
 
 > You can’t use standard C/C++ formatting styles with the LSP editor.
 
 However, you should be able to generate the default formatting styles using the [clang-format](https://clang.llvm.org/docs/ClangFormat.html) tool. It offers different coding styles ( LLVM, GNU, Google, Chromium, Microsoft,Mozilla, WebKit).
 
-![](assets/1_izzGHqkXtnvHVmr_mT4dfQ.gif)
+![](assets/lsp_format_generate.gif)
+
+### Editor Colors
+The clangd-based editor is derived from the standard Eclipse Text Editor, so you can change the editor color options from the Text Editor preferences. For example, you can modify the line number foreground color and the current line highlight color, among other options available in the Text Editor preferences.
+
+![](assets/editor_color_options.png)
 
 <a name="Conclusion"></a>
 ## Conclusion
