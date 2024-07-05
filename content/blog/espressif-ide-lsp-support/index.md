@@ -10,8 +10,9 @@ authors:
 This article has the following major sections:
 
 - [Introduction](#introduction)
-- [What are LSP, Clangd, and Clang?](#what-are-lsp-clangd-and-clang)
-- [Why are we moving to clangd based editor?](#why-are-we-moving-to-clangd-based-editor)
+- [Deciphering the alphabet soup](#deciphering-the-alphabet-soup)
+- [Project building and toolchains](#project-building-and-toolchains)
+- [Why moving to LSP-based editor?](#why-moving-to-lsp-based-editor)
 - [Clangd Setup](#clangd-setup)
 - [Editor Features](#editor-features)
 - [Conclusion](#conclusion)
@@ -19,44 +20,85 @@ This article has the following major sections:
 
 ## Introduction
 
-We are excited to announce the release of [Espressif-IDE 3.0.0](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0), a significant update that brings long-awaited features! This version includes Eclipse [CDT-LSP](https://github.com/eclipse-cdt/cdt-lsp) plugins, bringing support for the latest C/C++ standards and a new LSP-based C/C++ Editor. This editor, powered by the [LLVM clangd C/C++ language server](https://github.com/espressif/llvm-project) (need esp-clang toolchain version 17.0.1_20240419 and higher), offers advanced editor features for ESP-IDF developers.
+We are excited to announce the release of Espressif-IDE 3.0.0, a significant update that brings long-awaited features!
+
+This version includes:
+
+- **Eclipse CDT-LSP plugins** that bringing support for the latest C/C++ standards
+- New **LSP-based C/C++ Editor** powered by the LLVM clangd C/C++ language server and offering advanced editor features for ESP-IDF developers
 
 
-## What are LSP, Clangd, and Clang?
+## Deciphering the alphabet soup
 
-[LSP](https://microsoft.github.io/language-server-protocol/) stands for Language Server Protocol. It is a protocol used to provide language-specific features in integrated development environments (IDEs) and text editors.
+The article includes a number of concepts and abbreviations that might look somewhat intimidating, such as LLVM, LSP, CDT-LSP, Clang, Clangd, esp-clang, etc. The uninitiated reader might easily get lost. Let's go through those quickly.
 
-[clangd](https://clangd.llvm.org/) is a language server that provides IDE-like features such as code completion, navigation, and documentation. It uses the Language Server Protocol (LSP) to communicate with text editors and IDEs.
+```mermaid
+flowchart LR
+subgraph ide[Espressif-IDE]
+  ide1["ESP-IDF Eclipse Plugin\n(IEP plugin)"]
+  style ide1 fill:#99f
+  subgraph ide10[Eclipse CDT]
+    ide11[C/C++\nEditor]
+  end
+  style ide10 fill:#99f
+  ide11[C/C++\neditor] <--> ide21[LSP]
+  subgraph ide20[Eclipse CDT-LSP]
+    direction LR
+    ide21[LSP] <--> ide22[clangd]
+  end
+  style ide20 fill:#99f
+end
+subgraph idf[ESP-IDF]
+  idf2[Other\ncomponents]
+  idf1[esp-clang]
+end
+ide22[clangd\nconfig] <--> idf1[esp-clang]
+```
 
-[Clang](https://clang.llvm.org/) is a compiler front end for the C, C++, and Objective-C programming languages. It is designed to be a replacement for the GCC (GNU Compiler Collection) and is known for its fast compilation times and excellent diagnostics.
+- [ESP-IDF Eclipse Plugin](https://github.com/espressif/idf-eclipse-plugin) (a.k.a. IEP plugin) is an easy-to-use Eclipse-based development environment which simplifies and enhances standard Eclipse CDT for developing IoT applications on Espressif chips, such as ESP32 or ESP32-P4.
+- [Espressif-IDE](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0) is a cross-platform integrated development environment that combines Eclipse CDT, the IEP plugin, and more. It is the recommended way to install and use the ESP-IDF Eclipse Plugin.
+- [Eclipse CDT](https://projects.eclipse.org/projects/tools.cdt) (C/C++ Development Tooling) is a fully functional C and C++ Integrated Development Environment (IDE) offering enhanced development experience. However, it integrates the GCC (GNU Compiler Collection) development tools that are not as advanced or user-friendly as Clang tools. Though, Clang tools can only be accessed via the Language Server Protocol (LSP).
+- [Eclipse CDT LSP](https://github.com/eclipse-cdt/cdt-lsp) (LSP based C/C++ Editor) integrates the Language Server Protocol (LSP) within the Eclipse CDT environment. It enables access to Clang tools that support newer C/C++ standards required by more recent versions of ESP-IDF.
+- [Clang](https://clang.llvm.org/) is a compiler front-end and tooling infrastructure for C, C++ and other C family languages within the LLVM project. Compared to the GCC (GNU Compiler Collection), Clang offers better support for the newer C++ standards. Instead of Clang, we use its customized version -- esp-clang.
+- [clangd](https://clangd.llvm.org/) is a language server that provides IDE-like features, such as code completion, navigation, and documentation, for C, C++, and C family languages. It is part of the LLVM project and leverages the Clang front end to parse and analyze code. In our case, it fetches information from esp-clang (not Clang) and uses the Language Server Protocol (LSP) to communicate with the C/C++ editor.
+- [esp-clang](https://github.com/espressif/llvm-project) is a customized version of the Clang compiler specifically tailored for developing IoT applications on Espressif chips. The esp-clang compiler is installed as part of [ESP-IDF](https://github.com/espressif/esp-idf).
+- [LLVM](https://llvm.org/) (just for completeness) is an open-source collection of modular and reusable compiler and toolchain technologies. Initially designed as a set of compiler tools, LLVM has evolved to encompass a broad range of components for developing compilers and other language-related tools.
 
-> In the current release of Espressif-IDE 3.0.0, the C/C++ editor is enabled with clangd for editor features by default. However, it still builds projects with the GCC toolchain only (not with the clang toolchain), considering that the esp-clang toolchain is currently an experimental feature.
+
+## Project building and toolchains
+
+Even though in the current release of Espressif-IDE 3.0.0, the C/C++ editor uses clangd for editor features by default, the projects are built with the GCC toolchain only. The esp-clang toolchain is currently an experimental feature.
 
 
-## Why are we moving to clangd based editor?
+## Why moving to LSP-based editor?
 
-Many users have been reporting that the CDT Editor/Indexer is unable to resolve headers and symbols when working with ESP-IDF 5.0 and higher. This issue arises because the CDT Editor/Indexer only supports up to C++14, while ESP-IDF 5.0 uses C++20 (with GCC 11.2) and ESP-IDF v5.2 uses C++23 (with GCC 13.1), which requires language support in the editor for identifying new language grammar. By adopting an LSP-based editor, we should be able to support the latest ESP-IDF, making coding easier and better.
+Many users have been reporting that the Eclipse CDT Editor/Indexer is unable to resolve headers and symbols when working with ESP-IDF 5.0 and higher. This issue arises because the Eclipse CDT only supports the versions up to C++14. However, ESP-IDF v5.0 uses C++20 (with GCC 11.2) and ESP-IDF v5.2 uses C++23 (with GCC 13.1).
 
-> This also means that we have stopped supporting the old C/C++ editor in Espressif-IDE. Therefore, you cannot open your editor with the old C/C++ editor and use the Indexer for ESP-IDF projects. However, you can still use the standard C/C++ editor for non-ESP-IDF projects as-is.
+By adopting an LSP-based editor with the help of Eclipse CDT LSP and esp-clang, Espressif-IDE 3.0.0 enables support for newer C/C++ standards required by more recent versions of ESP-IDF. The support for newer C/C++ standards makes coding easier and more efficient.
+
+This also means that we have stopped supporting the old C/C++ editor in Espressif-IDE. Therefore, you cannot use the old C/C++ editor and its Indexer for ESP-IDF projects. However, you can still use the old C/C++ editor for non-ESP-IDF projects as-is.
 
 
 ## Clangd Setup
 
-The C/C++ Editor is configured to work with clangd, and all the configuration is set by default. Here are some additional setup instructions that might be helpful if you encounter any challenges.
+The C/C++ Editor is configured to work with LSP and clangd by default. Here are some additional setup instructions that might be helpful if you encounter any challenges.
 
 
 <!-- omit in toc -->
 ### clangd server setup
 
-By default, the [esp-clang](https://github.com/espressif/llvm-project) toolchain is installed as part of the ESP-IDF tools installation process, and the clangd path is configured in the preferences. The *Drivers* path and *--compile-commands-dir* path will be set based on the selected target (e.g., esp32, esp32c6) and the project you’re building.
+By default, the esp-clang toolchain is installed as part of the ESP-IDF tools installation process. Espressif-IDE 3.0.0 requires esp-clang of version
+clang-esp-17.0.1_20240419 or higher.
+
+The clangd path is configured in the preferences. The *Drivers* path and *--compile-commands-dir* path will be set based on the selected target (e.g., esp32, esp32c6) and the project you’re building.
 
 However, if there are any issues with the configuration, you can set it up as follows:
 
 1. Go to `Window > Preferences > C/C++ > Editor (LSP)`.
-1. Navigate to the `clangd` node.
-1. Provide the `Drivers` path as shown in the screenshot. It should point to the target toolchain path.
-1. Set `--compile-commands-dir=/project/build` in the Additional arguments section.
-1. Click Apply and Close.
+2. Navigate to the `clangd` node.
+3. Provide the `Drivers` path as shown in the screenshot. It should point to the target toolchain path.
+4. Set `--compile-commands-dir=/project/build` in the Additional arguments section.
+5. Click Apply and Close.
 
 {{< gallery >}}
   <img src="assets/1_kDY7JU51xUBDqV5-_IRTqQ.webp" />
@@ -64,19 +106,22 @@ However, if there are any issues with the configuration, you can set it up as fo
 
 
 <!-- omit in toc -->
-### .clangd Configuration
+### `.clangd` configuration
 
-By default, when you create a new project, a [.clangd configuration file](https://clangd.llvm.org/config#files) is created with the following arguments. For existing projects, please create a .clangd file at the root of the project and add the following content.
+For a new project, a `.clangd` configuration file is created by default with the contents provided below. For an existing project, create a `.clangd` file in its root folder yourself and add required parameters.
 
-```text
- CompileFlags:
+```yaml
+CompileFlags:
   CompilationDatabase: build
   Remove: [-m*, -f*]
 ```
 
-**CompilationDatabase:** This parameter specifies the location of the compilation database. In this case, it is set to `build`. A compilation database is typically a `compile_commands.json` file that contains information about how each translation unit of a codebase is compiled. This file is usually generated by CMake build systems.
+- `CompileFlags`: This key indicates the start of a dictionary (or map) containing compilation flag settings.
+- `CompilationDatabase`: This key specifies the location of the compilation database, which, in our case, is the `compile_commands.json` file generated by CMake. The value indicates that `compile_commands.json` in located in the `build` directory relative to the root of the project.
 
-**Remove:** This parameter lists flags that should be removed from the compilation commands. The flags `-m*` and `-f*` are likely wildcards, meaning any compilation flags that start with `-m` or `-f` should be removed. These were added to remove some of the errors reported by clangd as we built the project with the GCC toolchain(not with the esp-clang toolchain)
+  A compilation database (`compile_commands.json`) is a file that contains an array of command objects, each representing a single compilation unit, providing details like the compiler executable, the compiler flags used, the source files, and the working directory. This database is used by clangd to determine how the source code is compiled.
+
+- `Remove`: This key lists the patterns, meaning that any compilation flags that start with `-m` or `-f` should be removed from the compilation commands. This is needed to remove some errors reported by clangd because Espressif-IDE uses the **GCC toolchain** by default to build projects. If you choose to use the experimental **esp-clang toolchain**, this key is not needed.
 
 Here are the errors you may find in the file if you haven’t added the remove flags as mentioned above.
 
@@ -88,7 +133,6 @@ Here are the errors you may find in the file if you haven’t added the remove f
 
 
 ## Editor Features
-
 
 <!-- omit in toc -->
 ### Errors and warnings
