@@ -38,7 +38,12 @@ For other updates, see the [Release notes](https://github.com/espressif/idf-ecli
 
 The article includes a number of concepts and abbreviations that might look somewhat intimidating, such as LLVM, LSP, CDT-LSP, Clang, clangd, esp-clang, etc. The uninitiated reader might easily get lost. Let's go through those quickly.
 
-![](./arch.svg)
+{{< figure
+    default=true
+    src="img/arch.svg"
+    alt=""
+    caption=""
+    >}}
 
 - [ESP-IDF Eclipse Plugin](https://github.com/espressif/idf-eclipse-plugin) (a.k.a. IEP plugin) is an easy-to-use Eclipse-based development environment which simplifies and enhances standard Eclipse CDT for developing IoT applications on Espressif chips.
 - [Espressif-IDE](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0) is a cross-platform integrated development environment that combines Eclipse CDT, Eclipse CDT LSP, the ESP-IDF Eclipse Plugin, and more. It is the recommended way to install and use the ESP-IDF Eclipse Plugin.
@@ -50,7 +55,7 @@ The article includes a number of concepts and abbreviations that might look some
 - [LLVM](https://llvm.org/) (just for completeness) is an open-source collection of modular and reusable compiler and toolchain technologies. Initially designed as a set of compiler tools, LLVM has evolved to encompass a broad range of components for developing compilers and other language-related tools.
 
 {{< alert >}}
-Even though the C/C++ editor uses esp-clang for editor features in Espressif-IDE 3.0.0, **the projects are built with the GCC toolchain**. Building projects using the esp-clang toolchain is currently an experimental feature.
+  Even though the C/C++ editor uses esp-clang for editor features in Espressif-IDE 3.0.0, **the projects are built with the GCC toolchain**. Building projects using the esp-clang toolchain is currently an experimental feature.
 {{< /alert >}}
 
 
@@ -69,7 +74,7 @@ The LSP C/C++ Editor is configured to work with LSP and clangd by default. Here 
 <!-- omit in toc -->
 ### clangd server setup
 
-The clangd path is configured in the preferences. The *Drivers* path and *--compile-commands-dir* path will be set based on the selected target (e.g., esp32, esp32c6) and the project you’re building.
+The clangd path is configured in the preferences. The `Drivers` path and `--compile-commands-dir` path will be set based on the selected target (e.g., esp32, esp32c6) and the project you’re building.
 
 However, if there are any issues with the configuration, see the [clangd configuration][clangd-config] document.
 
@@ -96,9 +101,12 @@ CompileFlags:
 
   Here are the errors you may find in the file if you haven’t added the remove flags as mentioned above.
 
-  {{< gallery >}}
-    <img src="assets/1_BrhDa-MIopi70f-iebSKRQ.webp" />
-  {{< /gallery >}}
+  {{< figure
+      default=true
+      src="img/errors-without-flags.webp"
+      alt=""
+      caption=""
+      >}}
 
 For information about other `.clangd` configuration options, see [Configuration](https://clangd.llvm.org/config).
 
@@ -121,9 +129,12 @@ Normally, these settings are configured by default, but if something goes wrong,
 
 The clangd server runs your code through esp-clang as you type and displays errors and warnings in-place.
 
-{{< gallery >}}
-  <img src="assets/1_CxxlgQVkpkdVF_jzedUkIQ.webp" />
-{{< /gallery >}}
+{{< figure
+    default=true
+    src="img/dispaly-errors-warnings.webp"
+    alt=""
+    caption=""
+    >}}
 
 
 <!-- omit in toc -->
@@ -131,12 +142,7 @@ The clangd server runs your code through esp-clang as you type and displays erro
 
 The clangd server can suggest fixes for many common problems automatically and update the code for you.
 
-{{< figure
-    default=true
-    src="assets/lsp_fixes.gif"
-    alt=""
-    caption=""
-    >}}
+{{< video src="video/lsp-fixes" >}}
 
 
 <!-- omit in toc -->
@@ -152,12 +158,7 @@ As you type, you will see suggestions based on the methods, variables, etc. avai
 
 To jump to the definition or declaration of a specific compilation unit, hold *Ctrl* and click the desired unit.
 
-{{< figure
-    default=true
-    src="assets/lsp_finddefinition.gif"
-    alt=""
-    caption=""
-    >}}
+{{< video src="video/lsp-find-def" >}}
 
 
 <!-- omit in toc -->
@@ -165,12 +166,7 @@ To jump to the definition or declaration of a specific compilation unit, hold *C
 
 Hover over a compilation unit to see more information about it, such as its type, documentation, and definition.
 
-{{< figure
-    default=true
-    src="assets/lsp_hover.gif"
-    alt=""
-    caption=""
-    >}}
+{{< video src="video/lsp-hover" >}}
 
 
 <!-- omit in toc -->
@@ -185,15 +181,10 @@ A file can be formatted using two ways:
   OR
 -  On file save if you enable [Save Actions](https://github.com/eclipse-cdt/cdt-lsp?tab=readme-ov-file#save-actions-using-clang-format) in the preferences.
 
-{{< figure
-    default=true
-    src="assets/lsp_format.gif"
-    alt=""
-    caption=""
-    >}}
+{{< video src="video/lsp-format" >}}
 
 {{< alert >}}
-Note that you cannot use the CDT C/C++ formatting styles with the LSP C/C++ editor.
+  Note that you cannot use the CDT C/C++ formatting styles with the LSP C/C++ editor.
 {{< /alert >}}
 
 However, you can use a feature of [ClangFormat][clang-format] to generate the default formatting styles, such as LLVM, GNU, Google, Chromium, Microsoft,Mozilla, WebKit. For example, to generate the GNU formatting style, run in your terminal:
@@ -204,12 +195,7 @@ However, you can use a feature of [ClangFormat][clang-format] to generate the de
 clang-format -style=GNU -dump=config > .clang-format
 ```
 
-{{< figure
-    default=true
-    src="assets/lsp_format_generate.gif"
-    alt=""
-    caption=""
-    >}}
+{{< video src="video/lsp-format-generate" >}}
 
 
 <!-- omit in toc -->
@@ -219,7 +205,7 @@ The LSP C/C++ Editor is derived from the standard Eclipse Text Editor, so you ca
 
 {{< figure
     default=true
-    src="assets/editor_color_options.png"
+    src="img/editor-color-options.webp"
     alt=""
     caption=""
     >}}
