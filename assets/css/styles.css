@@ -31,3 +31,13 @@
 .menu-close {
   margin-right: 1rem !important;
 }
+
+/* Fix transparency of menu */
+.backdrop-blur {
+    --tw-backdrop-blur: blur(8px); 
+    -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+    backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia); 
+    --tw-backdrop-brightness: brightness(7);
+    --tw-backdrop-opacity: opacity(0.9);
+}
+
