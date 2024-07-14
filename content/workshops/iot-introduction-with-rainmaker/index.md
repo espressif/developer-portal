@@ -10,6 +10,10 @@ showAuthor: false
 
 Welcome to the IoT workshop with [ESP RainMaker](https://rainmaker.espressif.com/). The ESP RainMaker was designed to empower you to build, develop, and deploy customized AIoT solutions effortlessly, ESP RainMaker ensures you can achieve your goals with minimal coding and maximum security.
 
+{{< gallery >}}
+  <img src="assets/ESP RainMaker_horizontal.svg" />
+{{< /gallery >}}
+
 Join us as we explore how ESP RainMaker can transform your AIoT projects, offering a seamless blend of innovation, security, and scalability. Whether you are looking to streamline maintenance, enhance security, or scale your operations, this workshop will equip you with the knowledge and tools to harness the full potential of ESP RainMaker.
 
 ## About this workshop
@@ -62,25 +66,73 @@ To follow this workshop, make sure you will meet the prerequisites, as described
 
 ## RainMaker introduction
 
-The [ESP RainMaker](https://rainmaker.espressif.com/) is a end-to-end solution, cloud based, to provide an easy to use platform for IoT devices. The backend is based on the Amazon Web Services (AWS) server-less architecture, providing flexibility and scalability.
+The [ESP RainMaker](https://rainmaker.espressif.com/) is a end-to-end solution, cloud based, to provide an easy to use platform for IoT devices.
 
 From the device side, the open-source SDK provides easy to use APIs to build your device, like switches, lights, fans, and more. Check the project repository for more examples on how to use and develop your RainMaker based product.
 
-### Related documents
+ESP RainMaker also provides two types of phone apps: ESP RainMaker App and the Nova Home App.
 
-- [esp-rainmaker](https://github.com/espressif/esp-rainmaker) GitHub repository
-- [RainMaker programming guide](https://rainmaker.espressif.com/docs)
-- [RainMaker documentation](https://docs.espressif.com/projects/esp-rainmaker/en/latest/esp32/index.html)
+You can use RainMaker for free for a small number of nodes. For commercial use, please contact Espressif Sales.
 
+### Basic concepts
 
+The backend is built using AWS serverless architecture, which offers unparalleled flexibility and scalability in terms of computing, data storage and transmission capacity. 
 
-- [ESP RainMaker](https://rainmaker.espressif.com/)
-- [RainMaker dashboard](https://dashboard.rainmaker.espressif.com)
+{{< gallery >}}
+  <img src="assets/rainmaker-arch.png" />
+{{< /gallery >}}
 
-You can also use the phone apps, supported on Android and iOS.
+{{< gallery >}}
+  <img src="assets/rainmaker-node.png" />
+{{< /gallery >}}
 
-- [RainMaker Android App](https://play.google.com/store/apps/details?id=com.espressif.rainmaker)
-- [RainMaker iOS App](https://apps.apple.com/us/app/esp-rainmaker/id1497491540?platform=iphone)
+The RainMaker SDK is built on top of the ESP-IDF and provides simple APIs to build applications based on the ESP RainMaker.
+
+{{< gallery >}}
+  <img src="assets/rainmaker-sdk.png" />
+{{< /gallery >}}
+
+#### Node
+
+A node is a single ESP32-based product. It has an associated identifier (Node ID) and a set of credentials provided by the Claiming Service.
+
+{{< gallery >}}
+  <img src="assets/rainmaker-device-node.png" />
+{{< /gallery >}}
+
+You can give a friendly name to the node. A single node can expose to multiple devices.
+
+*Node Attributes*
+
+Node Attributes are optional and custom metadata for a given node, something like a serial number.
+
+#### Device
+
+A device is a logical user-controllable entity like Switch, Lightbulb, Thermostat, Temperature Sensor, etc. A simple node generally has a single device. However, an ESP32 may also have multiple devices.
+
+For example, it might integrate two switches on a single board, or act as a bridge for other devices such as BLE sensors. Each device must have a unique name within the node, and optionally, a type.
+
+*Device Attributes*
+
+Similar to node attributes, device attributes are additional, user-defined, and read-only name-value pairs that act as metadata for the device. They can include information such as firmware version, serial number.
+
+These attributes are particularly useful when there are multiple devices bridged to the node, such as Wi-Fi to wired network, BLE, Zigbee, etc.
+
+#### Parameters
+
+Parameters refers to control and monitoring parameters of a device, such as the ON/OFF power state, brightness, current/target temperature, etc. All such parameters must have a unique name within the device.
+
+They can also have additional fields like value, type, bounds, UI information, etc. The parameters values can be boolean, integer, float, or string.
+
+See the full list of supported [device types](https://rainmaker.espressif.com/docs/standard-types#devices).
+
+#### Services
+
+A service is an entity that is very similar to a device in terms of its structure, with the main difference being that it is designed for operations that may not necessarily need to be visible to the user.
+
+A typical example of this is the OTA Firmware Upgrade Service, which can have parameters like url, status, etc.
+
+### Cloud
 
 For the cloud, you can get access to the devices via the [RainMaker dashboard](https://dashboard.rainmaker.espressif.com), where you can:
 
@@ -92,6 +144,21 @@ For the cloud, you can get access to the devices via the [RainMaker dashboard](h
 With the RainMaker dashboard you can't control the devices parameters. This is only possible by the RainMaker mobile application, CLI or via the REST [APIs](https://swaggerapis.rainmaker.espressif.com/).
 
 [Client Cloud Communication](https://rainmaker.espressif.com/docs/spec-client-cloud)
+
+
+### Related documents
+
+- [esp-rainmaker](https://github.com/espressif/esp-rainmaker) GitHub repository
+- [RainMaker programming guide](https://rainmaker.espressif.com/docs)
+- [RainMaker documentation](https://docs.espressif.com/projects/esp-rainmaker/en/latest/esp32/index.html)
+- [ESP RainMaker](https://rainmaker.espressif.com/)
+- [RainMaker dashboard](https://dashboard.rainmaker.espressif.com)
+
+You can also use the phone apps, supported on Android and iOS.
+
+- [RainMaker Android App](https://play.google.com/store/apps/details?id=com.espressif.rainmaker)
+- [RainMaker iOS App](https://apps.apple.com/us/app/esp-rainmaker/id1497491540?platform=iphone)
+
 
 
 ## Assignment 1: Installing the Espressif IDE
@@ -149,111 +216,350 @@ To get started with RainMaker, we will build the application in 3 steps:
 1. Switch
 1. Outlet
 
-### LED light bulb
+**LED light bulb**: This device represents the LED light bulb where you can set `Name`, `Power`, `Brightness`, `Color Temperature`, `Hue`, `Saturation`, `Intensity`, `Light Mode`.
 
-This device represents the LED light bulb where you can set:
+**Switch**: This device is the light switch and you will need to set `Name` and `Power` parameters. The power parameter is a `boolean` type and represents the on and off state.
 
-- Name
-- Power
-- Brightness
-- Color Temperature
-- Hue
-- Saturation
-- Intensity
-- Light Mode
+**Outlet** This device is the power outlet and you will need to set `Name` and `Power` parameters. The power parameter is a `boolean` type and represents the on and off state.
 
-### Switch
+### Steps
 
-- Name
-- Power
+The typical code for any ESP RainMaker based application is as follows:
 
-### Outlet
-
-- Name
-- Power
+1. Initialize Wi-Fi (app_wifi_init()), which also initializes the MAC address that will act as the unique node identifier (node_id) for ESP32-S2 self-claiming.
+2. Initialize the ESP RainMaker node (`esp_rmaker_node_init()`) by passing it a configuration (`esp_rmaker_config_t`), node name and type.
+3. Create a device (`esp_rmaker_device_create()`). The RainMaker node in itself has no specific value, unless it has a device under it. In our example, we create a device named "Switch", for which we also provide a write callback. The callback will be invoked if a write request is received for any parameter under the Switch device.
+4. Add parameters and other metadata. A switch device, at the minimum, will have at least the standard power parameter. Marking some parameter as primary gives it prominence in the phone apps.
+5. Add the device to the node.
+6. Start the RainMaker Agent (`esp_rmaker_start()`). This will start the RainMaker core task which will wait for Wi-Fi, do the claiming, if required, connect to the RainMaker cloud over MQTT, report the node configuration, report the values of parameters, and then wait for commands.
+7. Start Wi-Fi (`app_wifi_start()`). If ESP32 is already provisioned, it will join the configured Wi-Fi network. Else, it will start the Wi-Fi provisioning. Note that rainmaker 8. should be initialized and started before this call.
 
 ### Node
 
-```c
-esp_rmaker_config_t rainmaker_cfg = {
-    .enable_time_sync = false,
-};
+To create the node, we need to set in the `esp_rmaker_node_init` function the following parameters:
 
-esp_rmaker_node_t *node = esp_rmaker_node_init(&rainmaker_cfg, "ESP RainMaker Device", "Switch");
-if (!node) {
-    ESP_LOGE(TAG, "Could not initialise node. Aborting!!!");
-    vTaskDelay(5000/portTICK_PERIOD_MS);
-    abort();
-}
+- **config**: Configuration to be used by the ESP RainMaker, set as the structure `rainmaker_cfg`.
+- **name**: Name of the node set as "Espressif Workshop Light".
+- **type**: Type of the node set as "Lightbulb".
+
+Example:
+
+```c
+esp_rmaker_node_t *node = esp_rmaker_node_init(&rainmaker_cfg, "Espressif Workshop Light", "Lightbulb");
 ```
+
+Call the function `esp_rmaker_node_init` to initialize the node.
+
+Function [esp_rmaker_node_init](https://docs.espressif.com/projects/esp-rainmaker/en/latest/esp32/c-api-reference/rainmaker_core.html?highlight=esp_rmaker_node_init#_CPPv420esp_rmaker_node_initPK19esp_rmaker_config_tPKcPKc) reference.
 
 ### Device
 
-### Parameters
+To create the light bulb device, you can use the function `esp_rmaker_lightbulb_device_create` which will facilitate the device creation. You will see later on how to create the device manually.
 
-### WiFi provisioning
-
-### Code
+Example:
 
 ```c
-    /* Initialize Wi-Fi. Note that, this should be called before esp_rmaker_init()
-     */
+esp_rmaker_device_t *light_device;
+light_device = esp_rmaker_lightbulb_device_create("Light", NULL, DEFAULT_POWER);
+esp_rmaker_device_add_bulk_cb(light_device, bulk_write_cb, NULL);
+```
+
+See the reference [here](https://docs.espressif.com/projects/esp-rainmaker/en/latest/esp32/c-api-reference/rainmaker_standard_types.html?highlight=esp_rmaker_lightbulb_device_create#_CPPv434esp_rmaker_lightbulb_device_createPKcPvb).
+
+### Parameters
+
+Once you create the device, it's time to create the device parameters. The device parameters will be created to control the functionalities, like brightness, hue and saturation.
+
+It's important to mention that on this example, the LED (WS2812) control will be handled by the `app_driver.c`.
+
+Example:
+
+```c
+esp_rmaker_device_add_param(light_device, esp_rmaker_brightness_param_create(ESP_RMAKER_DEF_BRIGHTNESS_NAME, DEFAULT_BRIGHTNESS));
+esp_rmaker_device_add_param(light_device, esp_rmaker_hue_param_create(ESP_RMAKER_DEF_HUE_NAME, DEFAULT_HUE));
+esp_rmaker_device_add_param(light_device, esp_rmaker_saturation_param_create(ESP_RMAKER_DEF_SATURATION_NAME, DEFAULT_SATURATION));
+```
+
+The function `esp_rmaker_device_add_param` will add parameter to the `light_device`, including the param name and default value.
+
+After adding all the parameters, you can add the device to the node.
+
+Example:
+
+```c
+esp_rmaker_node_add_device(node, light_device);
+```
+
+### Custom device
+
+To create the device manually, you will need to call different functions.
+
+1. Create the device by calling `esp_rmaker_device_create`.
+2. Add the callback function to handle the received command using the function `esp_rmaker_device_add_cb`.
+3. Set the parameters with `esp_rmaker_device_add_param` then `esp_rmaker_param_create`.
+4. Add the UI (`esp_rmaker_param_add_ui_type`) type to be used with the RainMaker application and assign the primary parameter with `esp_rmaker_device_assign_primary_param`.
+5. Define the parameter limits (boundary) with `esp_rmaker_param_add_bounds` if applicable to the parameter.
+
+On this example, the device is a light with 2 parameters, the on/off with a toggle widget and the brightness with a slider that goes from 0 to 100 in steps of 1.
+
+```c
+esp_rmaker_device_t *device = esp_rmaker_device_create("Light", NULL, NULL);
+esp_rmaker_device_add_cb(device, write_cb, NULL);
+
+esp_rmaker_device_add_param(device, esp_rmaker_param_create("name", NULL, esp_rmaker_str("Light"),
+            PROP_FLAG_READ | PROP_FLAG_WRITE | PROP_FLAG_PERSIST));
+
+esp_rmaker_param_t *power_param = esp_rmaker_param_create("power", NULL, esp_rmaker_bool(true),
+            PROP_FLAG_READ | PROP_FLAG_WRITE);
+
+esp_rmaker_param_add_ui_type(power_param, ESP_RMAKER_UI_TOGGLE);
+esp_rmaker_device_add_param(device, power_param);
+esp_rmaker_device_assign_primary_param(device, power_param);
+
+esp_rmaker_param_t *brightness_param = esp_rmaker_param_create("brightness", NULL, esp_rmaker_int(100),
+            PROP_FLAG_READ | PROP_FLAG_WRITE);
+esp_rmaker_param_add_ui_type(brightness_param, ESP_RMAKER_UI_SLIDER);
+esp_rmaker_param_add_bounds(brightness_param, esp_rmaker_int(0), esp_rmaker_int(100), esp_rmaker_int(1));
+esp_rmaker_device_add_param(device, brightness_param);
+```
+
+#### Hands on create device
+
+Let's now create the device!
+
+First, you will need to import the project in to your Espressif IDE workspace. Go to `File` -> `Import` -> `Espressif` -> `Existing IDF Project` and select the `workshop-rainmaker` located inside the workshop shared folder or on the [ESP Workshop](https://github.com/pedrominatel/esp-workshops/tree/main/workshop-iot-rainmaker/assignment/workshop-rainmaker) repository.
+
+1. Open the project and change the `CMakeLists.txt` to point to your RainMaker folder:
+
+```c
+# The following lines of boilerplate have to be in your project's CMakeLists
+# in this exact order for cmake to work correctly
+cmake_minimum_required(VERSION 3.5)
+
+if(DEFINED ENV{RMAKER_PATH})
+  set(RMAKER_PATH $ENV{RMAKER_PATH})
+else()
+  set(RMAKER_PATH <PATH-TO-RAINMAKER-FOLDER>/esp-rainmaker)
+endif(DEFINED ENV{RMAKER_PATH})
+
+# Add RainMaker components and other common application components
+set(EXTRA_COMPONENT_DIRS ${RMAKER_PATH}/components/esp-insights/components ${RMAKER_PATH}/components ${RMAKER_PATH}/examples/common)
+
+set(PROJECT_VER "1.0")
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(workshop-rainmaker)
+```
+
+2. Change the `app_main.c` file and add the RainMaker code to the `app_main`.
+
+```c
+void app_main()
+{
+
+    esp_rmaker_console_init();
+    app_driver_init();
+
+    /* Initialize NVS. */
+    esp_err_t err = nvs_flash_init();
+    if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        err = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK( err );
+
     app_wifi_init();
 
-    /* Initialize the ESP RainMaker Agent.
-     * Note that this should be called after app_wifi_init() but before app_wifi_start()
-     * */
     esp_rmaker_config_t rainmaker_cfg = {
         .enable_time_sync = false,
     };
-    esp_rmaker_node_t *node = esp_rmaker_node_init(&rainmaker_cfg, "ESP RainMaker Device", "Switch");
+    
+    esp_rmaker_node_t *node = esp_rmaker_node_init(&rainmaker_cfg, "Espressif Workshop Light", "Lightbulb");
     if (!node) {
         ESP_LOGE(TAG, "Could not initialise node. Aborting!!!");
         vTaskDelay(5000/portTICK_PERIOD_MS);
         abort();
     }
 
-    /* Create a Switch device.
-     * You can optionally use the helper API esp_rmaker_switch_device_create() to
-     * avoid writing code for adding the name and power parameters.
-     */
-    switch_device = esp_rmaker_device_create("Switch", ESP_RMAKER_DEVICE_SWITCH, NULL);
+    // Enable the OTA with the default configuration
+    esp_rmaker_ota_enable_default();
+    // Enable the timezone service to get the correct time at the given timezone
+    esp_rmaker_timezone_service_enable();
+    // Enable the scheduling service
+    esp_rmaker_schedule_enable();
+    // Enable the scenes service
+    esp_rmaker_scenes_enable();
+    // Start RainMaker
+    esp_rmaker_start();
+    // Start WiFi
+    err = app_wifi_start(POP_TYPE_RANDOM);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Could not start Wifi. Aborting!!!");
+        vTaskDelay(5000/portTICK_PERIOD_MS);
+        abort();
+    }
+}
+```
 
-    /* Add the write callback for the device. We aren't registering any read callback yet as
-     * it is for future use.
-     */
+3. Add the light bulb device:
+
+```c
+esp_rmaker_device_t *light_device;
+
+void device_create_lightbulb(esp_rmaker_node_t *node)
+{
+
+    light_device = esp_rmaker_lightbulb_device_create("Light", NULL, DEFAULT_POWER);
+    esp_rmaker_device_add_bulk_cb(light_device, bulk_write_cb, NULL);
+
+    esp_rmaker_device_add_param(light_device,
+                esp_rmaker_brightness_param_create(ESP_RMAKER_DEF_BRIGHTNESS_NAME, DEFAULT_BRIGHTNESS));
+    esp_rmaker_device_add_param(light_device,
+                esp_rmaker_hue_param_create(ESP_RMAKER_DEF_HUE_NAME, DEFAULT_HUE));
+    esp_rmaker_device_add_param(light_device,
+                esp_rmaker_saturation_param_create(ESP_RMAKER_DEF_SATURATION_NAME, DEFAULT_SATURATION));
+
+    esp_rmaker_node_add_device(node, light_device);
+}
+```
+
+and the callback function to handle the light bulb:
+
+```c
+static esp_err_t bulk_write_cb(const esp_rmaker_device_t *device, const esp_rmaker_param_write_req_t write_req[],
+        uint8_t count, void *priv_data, esp_rmaker_write_ctx_t *ctx)
+{
+    if (ctx) {
+        ESP_LOGI(TAG, "Received write request via : %s", esp_rmaker_device_cb_src_to_str(ctx->src));
+    }
+    
+    ESP_LOGI(TAG, "Light received %d params in write", count);
+    for (int i = 0; i < count; i++) {
+        const esp_rmaker_param_t *param = write_req[i].param;
+        esp_rmaker_param_val_t val = write_req[i].val;
+        const char *device_name = esp_rmaker_device_get_name(device);
+        const char *param_name = esp_rmaker_param_get_name(param);
+        if (strcmp(param_name, ESP_RMAKER_DEF_POWER_NAME) == 0) {
+            ESP_LOGI(TAG, "Received value = %s for %s - %s",
+                    val.val.b? "true" : "false", device_name, param_name);
+            app_light_set_power(val.val.b);
+        } else if (strcmp(param_name, ESP_RMAKER_DEF_BRIGHTNESS_NAME) == 0) {
+            ESP_LOGI(TAG, "Received value = %d for %s - %s",
+                    val.val.i, device_name, param_name);
+            app_light_set_brightness(val.val.i);
+        } else if (strcmp(param_name, ESP_RMAKER_DEF_HUE_NAME) == 0) {
+            ESP_LOGI(TAG, "Received value = %d for %s - %s",
+                    val.val.i, device_name, param_name);
+            app_light_set_hue(val.val.i);
+        } else if (strcmp(param_name, ESP_RMAKER_DEF_SATURATION_NAME) == 0) {
+            ESP_LOGI(TAG, "Received value = %d for %s - %s",
+                    val.val.i, device_name, param_name);
+            app_light_set_saturation(val.val.i);
+        } else {
+            ESP_LOGI(TAG, "Updating for %s", param_name);
+        }
+        esp_rmaker_param_update(param, val);
+    }
+    return ESP_OK;
+}
+```
+
+4. Add the switch device as a custom device for multi-device feature:
+
+```c
+void device_create_switch(esp_rmaker_node_t *node)
+{
+
+    esp_rmaker_device_t *switch_device = esp_rmaker_device_create("Switch", ESP_RMAKER_DEVICE_SWITCH, NULL);
     esp_rmaker_device_add_cb(switch_device, write_cb, NULL);
 
-    /* Add the standard name parameter (type: esp.param.name), which allows setting a persistent,
-     * user friendly custom name from the phone apps. All devices are recommended to have this
-     * parameter.
-     */
-    esp_rmaker_device_add_param(switch_device, esp_rmaker_name_param_create("name", "Switch"));
-
-    /* Add the standard power parameter (type: esp.param.power), which adds a boolean param
-     * with a toggle switch ui-type.
-     */
-    esp_rmaker_param_t *power_param = esp_rmaker_power_param_create("power", DEFAULT_POWER);
+    esp_rmaker_param_t *power_param = esp_rmaker_param_create("Power", ESP_RMAKER_PARAM_POWER, esp_rmaker_bool(false),
+    			PROP_FLAG_READ | PROP_FLAG_WRITE);
+    
+    esp_rmaker_param_add_ui_type(power_param, ESP_RMAKER_UI_TOGGLE);
     esp_rmaker_device_add_param(switch_device, power_param);
 
-    /* Assign the power parameter as the primary, so that it can be controlled from the
-     * home screen of the phone apps.
-     */
-    esp_rmaker_device_assign_primary_param(switch_device, power_param);
-
-    /* Add this switch device to the node */
     esp_rmaker_node_add_device(node, switch_device);
-
-    /* Start the ESP RainMaker Agent */
-    esp_rmaker_start();
-
-    /* Start Wi-Fi.
-     * If the node is provisioned, it will start connection attempts,
-     * else, it will start Wi-Fi provisioning. The function will return
-     * after a connection has been successfully established
-     */
-    app_wifi_start(POP_TYPE_RANDOM);
+}
 ```
+
+5. Add the thermostat device:
+
+```c
+void device_create_thermostat(esp_rmaker_node_t *node)
+{
+
+    esp_rmaker_device_t *thermo_device = esp_rmaker_device_create("Thermostat", ESP_RMAKER_DEVICE_THERMOSTAT, NULL);
+    esp_rmaker_device_add_cb(thermo_device, write_cb, NULL);
+
+    esp_rmaker_param_t *power_param = esp_rmaker_param_create("Power", ESP_RMAKER_PARAM_POWER, esp_rmaker_bool(false),
+				PROP_FLAG_READ | PROP_FLAG_WRITE);
+    
+    esp_rmaker_param_add_ui_type(power_param, ESP_RMAKER_UI_TOGGLE);
+    esp_rmaker_device_add_param(thermo_device, power_param);
+
+	esp_rmaker_param_t *temp_param = esp_rmaker_param_create(ESP_RMAKER_DEF_TEMPERATURE_NAME, ESP_RMAKER_PARAM_TEMPERATURE,
+                esp_rmaker_float(20.0),
+	            PROP_FLAG_READ);
+	esp_rmaker_param_add_ui_type(temp_param, ESP_RMAKER_UI_TEXT);
+	esp_rmaker_device_add_param(thermo_device, temp_param);
+
+	esp_rmaker_param_t *setpoint_param = esp_rmaker_param_create("Temperature Set", ESP_RMAKER_PARAM_TEMPERATURE,
+                esp_rmaker_int(20),
+	            PROP_FLAG_READ | PROP_FLAG_WRITE);
+	esp_rmaker_param_add_ui_type(setpoint_param, ESP_RMAKER_UI_SLIDER);
+	esp_rmaker_param_add_bounds(setpoint_param, esp_rmaker_int(15), esp_rmaker_int(30), esp_rmaker_int(1));
+	esp_rmaker_device_add_param(thermo_device, setpoint_param);
+
+    esp_rmaker_node_add_device(node, thermo_device);
+}
+```
+
+6. Create the callback function for the custom devices:
+
+```c
+static esp_err_t write_cb(const esp_rmaker_device_t *device, const esp_rmaker_param_t *param,
+            const esp_rmaker_param_val_t val, void *priv_data, esp_rmaker_write_ctx_t *ctx)
+{
+    if (ctx) {
+        ESP_LOGI(TAG, "Received write request via : %s", esp_rmaker_device_cb_src_to_str(ctx->src));
+    }
+    return ESP_OK;
+}
+```
+
+For the final assignment code, please use the [workshop-rainmaker-final](https://github.com/pedrominatel/esp-workshops/tree/main/workshop-iot-rainmaker/assignment-final/workshop-rainmaker-final)
+
+**Extra**
+
+Create a function to update the temperature values for the thermostat parameter.
+
+```c
+static void device_thermo_temp_update(esp_rmaker_device_t *device, float temp)
+{
+    esp_rmaker_param_update_and_report(
+            esp_rmaker_device_get_param_by_type(device, ESP_RMAKER_PARAM_TEMPERATURE),
+            esp_rmaker_float(temp));
+}
+```
+
+### WiFi provisioning
+
+After the node, device, and parameters configuration, you can call `esp_rmaker_start`. This will trigger the claiming process, connect to the WiFi, connect to the MQTT, and report the node parameters, values and configuration.
+
+To do the claiming/provisioning, we will use the RainMaker mobile phone application.
+
+{{< gallery >}}
+    <img src="assets/app-rainmaker-1.jpg" class="grid-w33" />
+    <img src="assets/app-rainmaker-2.jpg" class="grid-w33" />
+    <img src="assets/app-rainmaker-3.jpg" class="grid-w33" />
+    <img src="assets/app-rainmaker-4.jpg" class="grid-w33" />
+    <img src="assets/app-rainmaker-5.jpg" class="grid-w33" />
+    <img src="assets/app-rainmaker-6.jpg" class="grid-w33" />
+    <img src="assets/app-rainmaker-7.jpg" class="grid-w33" />
+    <img src="assets/app-rainmaker-8.jpg" class="grid-w33" />
+{{< /gallery >}}
+
+After the provisioning process, you can reset to factory mode by pressing and holding the `BOOT` button in the DevKit-C.
 
 ### ESP Insights
 
@@ -280,6 +586,22 @@ app_insights_enable();
 Set `Enable ESP Insights ` in `Component config` -> `ESP Insights`.
 
 Now you will be enabled to see the device metrics in the [ESP Insights Dashboard](https://dashboard.insights.espressif.com).
+
+{{< gallery >}}
+  <img src="assets/insights-home.png" />
+{{< /gallery >}}
+
+{{< gallery >}}
+  <img src="assets/insights-metrics.png" />
+{{< /gallery >}}
+
+{{< gallery >}}
+  <img src="assets/insights-metrics-wifi.png" />
+{{< /gallery >}}
+
+{{< gallery >}}
+  <img src="assets/insights-metrics-heap.png" />
+{{< /gallery >}}
 
 ## Assignment 4: Google Home integration
 
@@ -311,17 +633,67 @@ In a connected world, devices can fail and security breaches can be discovered. 
 
 To do that, the Over-the-air (OTA) update solves this issue.
 
-RainMaker supports OTA
+RainMaker supports OTA with just one line of code:
+
+```c
+esp_rmaker_ota_enable_default();
+```
+
+Then on the backend side, you can upload the firmware image and create a new OTA task and trigger the OTA update.
+
+
+1. Go to `Firmware Images` -> `Add Image`.
+
+{{< gallery >}}
+  <img src="assets/rainmaker-ota-images.png" />
+{{< /gallery >}}
+
+2. Fill with the image name, type, and select the image file (.bin).
+3. In `Advanced` you can also define the secure sign keys, bootloader file, firmware version, and model.
+
+{{< gallery >}}
+  <img src="assets/rainmaker-ota-1.png" />
+{{< /gallery >}}
+
+Once you add the image to the RainMaker backend, you can create the OTA job.
+
+1. In the list of uploaded images, select `Start OTA` in the selected image.
+2. Enter the job name.
+3. Select the node group or nodes that will be updated.
+4. Check `Force Push` if you need to run the OTA right away.
+5. Start OTA.
+
+You can use the `Advanced` option to schedule the OTA.
+
+If everything if properly configured, the firmware update will start and this action will take a while to complete.
+
+You can check the task progress in the `OTA Jobs`. Once the OTA is completed, you can check the firmware version in the `Nodes` list.
 
 ## Assignment 6: Introduction to Matter
 
 ---
 
-[ESP ZeroCode](https://zerocode.espressif.com/)
+Espressif’s SDK for Matter has been developed over the open-source Matter SDK to provide a simplified API and the required tools for building Matter-compatible devices with Espressif SoCs. This SDK defines periodic releases and support structures that ensure maintaining the in-field devices effectively.
 
-1. Create account
+Making your devices Matter-compatible with ESP-ZeroCode Modules is as simple as just adding these modules to your devices.
+
+{{< gallery >}}
+  <img src="assets/zerocode_promo.png" />
+{{< /gallery >}}
+
+EZP ZeroCode supports different kinds of products like lightbulbs, lighting fixtures, led strips, sockets, switches, roller blinds, refrigerator, laundry washer, thermostat and more.
+
+Choose any Espressif module from the ESP32-C2, ESP32-C3, ESP32-C6 and ESP32-H2 series.
+
+Make changes as per your hardware configurations and visualize them on your selected module.
+
+Validate your end-user workflow by testing it directly on your hardware.
+
+Order modules pre-programmed with Matter-certified firmware as per your configuration. Mount the modules on your PCBs and launch.
+
+1. Create [ESP ZeroCode](https://zerocode.espressif.com/) account
 1. Create product
-1. Flash using ESP Launchpad
+1. Flash using [ESP Launchpad](https://espressif.github.io/esp-launchpad/)
 1. Provision using Google Home mobile application
 
 > In order to use the Espressif vendor for development purpose, you need to enable your Google account as developer and create the Matter device types into your account using the console.
