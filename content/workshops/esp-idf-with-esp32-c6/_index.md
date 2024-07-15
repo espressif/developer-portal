@@ -26,7 +26,7 @@ Throughout this workshop, we will explore several key topics with hands-on assig
 
 We will start with an introduction to ESP-IDF, providing a foundation for using this powerful development framework. We then moved on to an introduction to the ESP32-C6, highlighting its capabilities and features.
 
-- [ESP-IDF introduction](introduction)
+- [ESP-IDF introduction](introduction/index.md)
 - [Assignment 1: Installing the Espressif IDE](assignment-1)
 - [Assignment 2: Creating a new project with Components](assignment-2)
 - [Assignment 3: Connecting to WiFi](assignment-3)

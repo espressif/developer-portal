@@ -34,7 +34,7 @@ You can watch the talk form the DevCon23, [Low-Power Features of ESP32-C6: Targe
 
 #### ULP pinout
 
-Note that the ULP uses a specific set of pins. Please use the [board pin layout](#board-pin-layout) to know the pins you can use for the ULP.
+Note that the ULP uses a specific set of pins. Please use the [board pin layout](../introduction/#board-pin-layout) to know the pins you can use for the ULP.
 
 ### Hands-on LP core
 
@@ -288,7 +288,7 @@ Press the wake button at least 3 or 4 times to wakeup the main CPU again
 To go back from the deep sleep, press the push button 4 times.
 
 ```text
-ULP woke up the main CPU! 
+ULP woke up the main CPU!
 In active mode
 Long press the wake button to put the chip to sleep and run the ULP
 ```

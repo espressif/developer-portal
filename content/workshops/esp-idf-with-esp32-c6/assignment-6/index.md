@@ -219,7 +219,7 @@ void wifi_init_sta(void)
             .sae_h2e_identifier = "",
         },
     };
-    
+
     strncpy((char*)wifi_config.sta.ssid, ssid, sizeof(wifi_config.sta.ssid));
     strncpy((char*)wifi_config.sta.password, password, sizeof(wifi_config.sta.password));
 
@@ -241,9 +241,9 @@ void wifi_init_sta(void)
 }
 
 esp_err_t get_wifi_credentials(void){
-	
+
 	esp_err_t err;
-	
+
 	ESP_LOGI(TAG, "Opening Non-Volatile Storage (NVS) handle");
     nvs_handle_t nvs_mem_handle;
     err = nvs_open_from_partition("nvs", "storage", NVS_READWRITE, &nvs_mem_handle);
@@ -251,12 +251,12 @@ esp_err_t get_wifi_credentials(void){
         ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(err));
         return err;
     }
-    
+
     ESP_LOGI(TAG, "The NVS handle successfully opened");
-	
+
 	size_t ssid_len = sizeof(ssid);
 	size_t pass_len = sizeof(password);
-	
+
     err = nvs_get_str(nvs_mem_handle, "ssid", ssid, &ssid_len);
     ESP_ERROR_CHECK(err);
 
@@ -264,7 +264,7 @@ esp_err_t get_wifi_credentials(void){
     ESP_ERROR_CHECK(err);
 
     nvs_close(nvs_mem_handle);
-    return ESP_OK;	
+    return ESP_OK;
 }
 
 static void https_get_task(void *pvParameters)
@@ -317,7 +317,7 @@ void app_main(void)
 	ESP_ERROR_CHECK(get_wifi_credentials());
 
     wifi_init_sta();
-    
+
     xTaskCreate(&https_get_task, "https_get_task", 8192, NULL, 5, NULL);
 }
 ```

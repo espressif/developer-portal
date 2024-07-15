@@ -9,7 +9,7 @@ showAuthor: false
 
 ## The ESP-IDF
 
-The ESP-IDF (Espressif IoT Development Framework) is the official operating system and development framework for the ESP32 series of microcontrollers by Espressif Systems. It provides a comprehensive environment for building IoT applications with robust networking, security, and reliability features. 
+The ESP-IDF (Espressif IoT Development Framework) is the official operating system and development framework for the ESP32 series of microcontrollers by Espressif Systems. It provides a comprehensive environment for building IoT applications with robust networking, security, and reliability features.
 
 ESP-IDF framework supports FreeRTOS, allowing developers to create real-time, multitasking applications. With extensive libraries, components, protocols, tools, and documentation, ESP-IDF simplifies the development process, enabling seamless integration with hardware peripherals, Wi-Fi, Bluetooth, Thread, ZigBee, and cloud services. The ESP-IDF includes almost 400 examples, covering a wide range of use cases and helping developers quickly get started on their projects.
 
@@ -25,7 +25,7 @@ The ESP-IDF platform architecture is mainly divided in 3 layers:
   - This is your application.
 
 {{< gallery >}}
-  <img src="../assets/esp-idf-highlevel.png" class="grid-w22" />
+  <img src="../assets/esp-idf-highlevel.webp" class="grid-w22" />
 {{< /gallery >}}
 
 All the necessary blocks for building your application will be included on the ESP-IDF platform.
@@ -53,7 +53,7 @@ Visit the ESP-IDF project on GitHub to get the updated list of supported version
 The ESP32-C6 is a Ultra-low-power SoC with RISC-V single-core microprocessor, 2.4 GHz Wi-Fi 6 (802.11ax), Bluetooth® 5 (LE), Zigbee and Thread (802.15.4). It has an optional 4 MB flash in the chip’s package,30 or 22 GPIOs, rich set of peripherals including:
 
 {{< gallery >}}
-  <img src="../assets/esp32-c6-diagram.png" class="grid-w22" />
+  <img src="../assets/esp32-c6-diagram.webp" class="grid-w22" />
 {{< /gallery >}}
 
 - 30 GPIOs (QFN40), or 22 GPIOs (QFN32)
@@ -155,14 +155,14 @@ Here is the development board feature list:
 #### Board description
 
 {{< gallery >}}
-  <img src="../assets/esp32-c6-devkitc-1-v1.2-annotated-photo.png" class="grid-w22" />
-  <img src="../assets/esp32-c6-devkitc-1-v1.2-block-diagram.png" class="grid-w22" />
+  <img src="../assets/esp32-c6-devkitc-1-v1.2-annotated-photo.webp" class="grid-w22" />
+  <img src="../assets/esp32-c6-devkitc-1-v1.2-block-diagram.webp" class="grid-w22" />
 {{< /gallery >}}
 
 #### Board pin-layout
 
 {{< gallery >}}
-  <img src="../assets/esp32-c6-devkitc-1-pin-layout.png" class="grid-w22" />
+  <img src="../assets/esp32-c6-devkitc-1-pin-layout.webp" class="grid-w22" />
 {{< /gallery >}}
 
 #### J1 connector

@@ -17,7 +17,7 @@ Now it's time to connect the ESP32-C6 to the WiFi network. The ESP32-C6 supports
 
 The ESP32's supports both Station and SoftAP modes.
 
-For this assignment, we will set up the station mode WiFi driver and connect to a WiFi4/WiFi6 network, using the same project as used on the [Creating a project with Components](#) with BSP assignment.
+For this assignment, we will set up the station mode WiFi driver and connect to a WiFi4/WiFi6 network, using the same project as used on the [Creating a project with Components](../assignment-2/) with BSP assignment.
 
 #### Hands-on WiFi
 
@@ -28,7 +28,7 @@ To get started with the WiFi, we need to setup the WiFi driver in order to conne
   2. **Create the WiFi initialization**
 
 To initialize the WiFi, we need to perform the following steps:
-  
+
 - Initialize the TCP/IP stack:
 
 ```c
