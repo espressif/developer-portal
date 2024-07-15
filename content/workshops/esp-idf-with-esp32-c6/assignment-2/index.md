@@ -11,30 +11,30 @@ showAuthor: false
 
 ---
 
-On this assignment, we will show on how to use components to accelerate your development.
-Components are similar to libraries, adding new features like sensors drivers, protocols, board support package, and any other feature that is not included on the ESP-IDF as default. Some components are already part of some examples and the ESP-IDF also uses the external component approach to make the ESP-IDF more modular.
+In this assignment, we will show how to use components to accelerate your development.
+Components are similar to libraries, adding new features like drivers for sensors, protocols, board support package, and any other feature that is not included in ESP-IDF by default. Certain components are already part of some examples and ESP-IDF also uses the external component approach to make ESP-IDF more modular.
 
 Using components not only makes your project easier to maintain but also improve the development speed by reusing and sharing components with different projects.
 
-If you want to create and publish your own component, we recommend you to watch [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc) talk.
+If you want to create and publish your own component, we recommend that you watch [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc) talk.
 
 {{< youtube D86gQ4knUnc >}}
 
 You can also find components using our [ESP Registry](https://components.espressif.com) platform.
 
-To show how to use components, we will create a new project from the scratch and add the component LED strip, later, we will change the approach to work with the Board Support Packages (BSP).
+To show how to use components, we will create a new project from scratch and add the component LED strip. Later, we will change the approach to work with the Board Support Packages (BSP).
 
 ### Hands-on with components
 
-This hands on will use a component for the RGB LED (WS2812) connected on the ```GPIO8``` and the [Remote Control Transceiver](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) peripheral to control the data transfer to the addressable LEDs.
+This hands-on guide will use a component for the RGB LED (WS2812) connected to ```GPIO8``` and the [Remote Control Transceiver](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) peripheral to control the data transfer to the addressable LEDs.
 
-1. **Create a new project blank project**
+1. **Create a new project**
 
-Create a new project using the Espressif IDE.
+Create a new project in Espressif-IDE.
 
 **Command Line Interface**
 
-To create the project form the command line interface (CLI), you can use the following command. Make sure you have your ESP-IDF installed.
+To create the project from the command line interface (CLI), you can use the following command. Make sure you have your ESP-IDF installed.
 
 ```bash
 idf.py create-project my-workshop-project

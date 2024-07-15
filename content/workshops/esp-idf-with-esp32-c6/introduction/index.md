@@ -7,15 +7,17 @@ series_order: 1
 showAuthor: false
 ---
 
-## The ESP-IDF
+## Lecture: ESP-IDF Introduction
 
 The ESP-IDF (Espressif IoT Development Framework) is the official operating system and development framework for the ESP32 series of microcontrollers by Espressif Systems. It provides a comprehensive environment for building IoT applications with robust networking, security, and reliability features.
 
-ESP-IDF framework supports FreeRTOS, allowing developers to create real-time, multitasking applications. With extensive libraries, components, protocols, tools, and documentation, ESP-IDF simplifies the development process, enabling seamless integration with hardware peripherals, Wi-Fi, Bluetooth, Thread, ZigBee, and cloud services. The ESP-IDF includes almost 400 examples, covering a wide range of use cases and helping developers quickly get started on their projects.
+ESP-IDF framework includes FreeRTOS that allows developers to create real-time, multitasking applications. With extensive libraries, components, protocols, tools, and documentation, ESP-IDF simplifies the development process enabling seamless integration with hardware peripherals, such as Wi-Fi, Bluetooth, Thread, ZigBee, and cloud services.
+
+ESP-IDF includes almost 400 examples, covering a wide range of use cases and helping developers quickly get started on their projects.
 
 ### Architecture
 
-The ESP-IDF platform architecture is mainly divided in 3 layers:
+The ESP-IDF platform architecture is mainly divided into 3 layers:
 
 - **ESP-IDF platform**
   - Contains the core components required and all the operating system. Includes the FreeRTOS, drivers, build system, protocols, etc.
@@ -25,7 +27,7 @@ The ESP-IDF platform architecture is mainly divided in 3 layers:
   - This is your application.
 
 {{< gallery >}}
-  <img src="../assets/esp-idf-highlevel.webp" class="grid-w22" />
+  <img src="../assets/esp-idf-highlevel.webp" />
 {{< /gallery >}}
 
 All the necessary blocks for building your application will be included on the ESP-IDF platform.
