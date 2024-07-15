@@ -344,4 +344,4 @@ void app_main(void)
 
 Too complicated? Let's make things eaiser.
 
-[Assignment 5: WiFi provisioning (EXTRA)](../assignment-5)
+[Assignment 5: Wi-Fi provisioning (EXTRA)](../assignment-5)

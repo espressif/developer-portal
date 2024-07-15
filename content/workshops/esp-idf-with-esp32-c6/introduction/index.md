@@ -214,4 +214,4 @@ Here is the development board feature list:
 
 After this introduction, it's time to get started and install the development environment.
 
-[Assignment 1: Installing the Espressif IDE](../assignment-1)
+[Assignment 1: Install the Espressif-IDE](../assignment-1)

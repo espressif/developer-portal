@@ -302,4 +302,4 @@ void app_main(void)
 
 Connected! Let's now move on the memory side!
 
-[Assignment 4: Working with the NVS](../assignment-4)
+[Assignment 4: Try using NVS](../assignment-4)

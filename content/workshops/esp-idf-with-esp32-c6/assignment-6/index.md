@@ -326,4 +326,4 @@ void app_main(void)
 
 Too much energy so far? Let's reduce the energy consumption.
 
-[Assignment 7: Using the Low Power](../assignment-7)
+[Assignment 7: Try using the LP core](../assignment-7)

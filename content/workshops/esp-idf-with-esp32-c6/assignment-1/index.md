@@ -11,7 +11,7 @@ showAuthor: false
 
 ---
 
-To get started and perform all the workshop assignments, you will need to install the [Espressif IDE](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0). This IDE will be used to create the project, flash and debug the code.
+To get started and perform all the workshop assignments, you need to install the [Espressif-IDE](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0). This IDE will be used to create the project, flash and debug the code.
 
 > As an alternative, you can use the VS Code extension for ESP-IDF or you can use the Command-Line-Interface (CLI) directly, however, this workshop is based on the Espressif-IDE and all the assignments will follow the steps using this IDE.
 
@@ -33,4 +33,4 @@ You will need to:
 
 Now that you know how to use Espressif-IDE, let's get started with ESP-IDF and create a project based on the components.
 
-[Assignment 2: Creating a new project with Components](../assignment-2)
+[Assignment 2: Create a new project with Components](../assignment-2)

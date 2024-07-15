@@ -27,13 +27,13 @@ Following that, you will be guided on how to use the components, blink the addre
 With the [prerequisites](#prerequisites) met, here is the agenda for the workshop:
 
 - [Lecture: ESP-IDF introduction](introduction/) -- essentials of using this powerful development framework followed by the introduction to the ESP32-C6 as a device on which the development will be done.
-- [Assignment 1: Install the Espressif IDE](assignment-1) -- installation of necessary tools to start development
+- [Assignment 1: Install the Espressif-IDE](assignment-1) -- installation of necessary tools to start development
 - [Assignment 2: Create a new project with Components](assignment-2) -- how to structure and manage projects effectively.
 - [Assignment 3: Connect to Wi-Fi](assignment-3) -- a crucial step for many IoT applications
-- [Assignment 4: Working with the NVS](assignment-4) (Non-Volatile Storage) -- management of persistent data.
-- [Assignment 5: WiFi provisioning (EXTRA)](assignment-5) -- insights into setting up and configuring WiFi networks.
+- [Assignment 4: Try using NVS](assignment-4) (Non-Volatile Storage) -- management of persistent data.
+- [Assignment 5: Wi-Fi provisioning (EXTRA)](assignment-5) -- insights into setting up and configuring WiFi networks.
 - [Assignment 6: Protocols](assignment-6) (EXTRA) -- exploration of various communication protocols supported by the ESP32-C6, including the implementation of the TSL certificate bundle for secure communications.
-- [Assignment 7: Using the LP core](assignment-7) -- demonstration of how to utilize the low-power core for efficient energy management.
+- [Assignment 7: Try using the LP core](assignment-7) -- demonstration of how to utilize the low-power core for efficient energy management.
 
 
 ## Prerequisites
