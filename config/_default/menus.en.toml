@@ -135,5 +135,5 @@
 [[footer]]
   identifier = "github"
   pre = "github"
-  url = "https://github.com/espressif"
+  url = "https://github.com/espressif/developer-portal/"
   weight = 400
