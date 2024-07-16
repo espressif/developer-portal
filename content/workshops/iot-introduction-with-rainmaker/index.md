@@ -214,19 +214,19 @@ To get started with RainMaker, we will build the application in 3 steps:
 
 1. LED light bulb
 1. Switch
-1. Outlet
+1. Thermostat
 
 **LED light bulb**: This device represents the LED light bulb where you can set `Name`, `Power`, `Brightness`, `Color Temperature`, `Hue`, `Saturation`, `Intensity`, `Light Mode`.
 
 **Switch**: This device is the light switch and you will need to set `Name` and `Power` parameters. The power parameter is a `boolean` type and represents the on and off state.
 
-**Outlet** This device is the power outlet and you will need to set `Name` and `Power` parameters. The power parameter is a `boolean` type and represents the on and off state.
+**Thermostat** This device is a thermostat and you will need to set `Name`, `Setpoint Temperature`, `Temperature`, `AC Mode`, and `Power` parameters.
 
 ### Steps
 
 The typical code for any ESP RainMaker based application is as follows:
 
-1. Initialize Wi-Fi (app_wifi_init()), which also initializes the MAC address that will act as the unique node identifier (node_id) for ESP32-S2 self-claiming.
+1. Initialize Wi-Fi (`app_wifi_init()`), which also initializes the MAC address that will act as the unique node identifier (`node_id`) for self-claiming.
 2. Initialize the ESP RainMaker node (`esp_rmaker_node_init()`) by passing it a configuration (`esp_rmaker_config_t`), node name and type.
 3. Create a device (`esp_rmaker_device_create()`). The RainMaker node in itself has no specific value, unless it has a device under it. In our example, we create a device named "Switch", for which we also provide a write callback. The callback will be invoked if a write request is received for any parameter under the Switch device.
 4. Add parameters and other metadata. A switch device, at the minimum, will have at least the standard power parameter. Marking some parameter as primary gives it prominence in the phone apps.
