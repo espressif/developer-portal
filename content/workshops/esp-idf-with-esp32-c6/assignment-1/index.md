@@ -7,7 +7,7 @@ series_order: 2
 showAuthor: false
 ---
 
-## Assignment 1: Installing the Espressif IDE
+## Assignment 1: Install the Espressif-IDE
 
 ---
 
@@ -15,14 +15,14 @@ To get started and perform all the workshop assignments, you need to install the
 
 > As an alternative, you can use the VS Code extension for ESP-IDF or you can use the Command-Line-Interface (CLI) directly, however, this workshop is based on the Espressif-IDE and all the assignments will follow the steps using this IDE.
 
-### Installing the ESP-IDE
+### Install the Espressif-IDE
 
 This assignment will be done by the following tutorial: [Getting Started with IDEs Workshop](../../espressif-ide/).
 
 You will need to:
 
 - Install all the necessary drivers for Windows
-- Install the Espressif IDE
+- Install the Espressif-IDE
 - Install ESP-IDF
 - Create the first project
 - Build

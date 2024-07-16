@@ -9,7 +9,7 @@ showAuthor: false
 
 ## Assignment 6: Protocols (EXTRA)
 
-Currently, the ESP-IDF supports a variety of protocols including but not limited to.
+Currently, ESP-IDF supports a variety of protocols including but not limited to:
 
 - HTTP and HTTPS
 - ICMP
@@ -21,19 +21,19 @@ Currently, the ESP-IDF supports a variety of protocols including but not limited
 - SMTP
 - SNTP
 
-You can explore the protocols directly on [ESP-IDF examples](https://github.com/espressif/esp-idf/tree/master/examples), [esp-protocols](https://github.com/espressif/esp-protocols) or on the [ESP Registry](https://components.espressif.com) (Component Manager).
+You can explore the protocols directly in the [ESP-IDF examples](https://github.com/espressif/esp-idf/tree/master/examples), [esp-protocols](https://github.com/espressif/esp-protocols), or the [ESP Registry](https://components.espressif.com) (Component Manager).
 
-### Hands-on protocols
+### Hands-on with protocols
 
-On this hands-on, we will show how to use the x509 certificate bundle and make your development easier when dealing with some protocols that requires certificate for the secure connection, including HTTPS.
+In this hands-on, we will use the x509 certificate bundle and make your development easier when dealing with some protocols that require a certificate for secure connection, including HTTPS.
 
-The [ESP x509 Certificate Bundle API](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/api-reference/protocols/esp_crt_bundle.html?highlight=bundle#esp-x509-certificate-bundle) provide a collection of certificates for TLS server verification, automatically generated from the from [Mozilla's NSS root certificate store](https://wiki.mozilla.org/CA/Included_Certificates). This bundle contains more than 130 certificates and it's constantly updated.
+The [ESP x509 Certificate Bundle API](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/api-reference/protocols/esp_crt_bundle.html?highlight=bundle#esp-x509-certificate-bundle) provides a collection of certificates for TLS server verification, automatically generated from [Mozilla's NSS root certificate store](https://wiki.mozilla.org/CA/Included_Certificates). This bundle contains more than 130 certificates and it's constantly updated.
 
-By using the certificate bundle to make a secure a HTTPS connection using TLS (ESP-TLS), you do not need to load the root certificate manually or to update in case of expired certificates.
+By using the certificate bundle to make a secure HTTPS connection using TLS (ESP-TLS), you do not need to load a root certificate manually or to update in case of expired certificates.
 
-1. **Open the WiFi connection assignment project**
+1. **Open the Wi-Fi connection assignment project**
 
-For this assignment we will continue editing the WiFi project. Open the project and make sure the project is building and the WiFi connection is working.
+For this assignment, we will continue editing the Wi-Fi project. Open the project and make sure the project is building and the Wi-Fi connection is working.
 
 > This assignment will require Internet connection.
 
@@ -60,7 +60,7 @@ Add the includes:
 #include "esp_crt_bundle.h"
 ```
 
-Defines and the URL list that we will try to connect using the bundle:
+Add the defines and the URL list that we will try to connect to using the bundle:
 
 ```c
 #define MAX_URLS    4
@@ -77,7 +77,7 @@ You can modify this list to include your URLs to test the connection.
 
 4. **Create a task to try to connect to the given URLs**
 
-This task will try to connect on each URL.
+This task will try to connect to each URL.
 
 ```c
 static void event_handler(void* arg, esp_event_base_t event_base,
@@ -324,6 +324,6 @@ void app_main(void)
 
 ## Next step
 
-Too much energy so far? Let's reduce the energy consumption.
+Too much energy consumed so far? Let's reduce the energy consumption.
 
 [Assignment 7: Try using the LP core](../assignment-7)

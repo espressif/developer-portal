@@ -6,19 +6,19 @@ series: ["WS001"]
 series_order: 6
 showAuthor: false
 ---
-## Assignment 5: WiFi provisioning (EXTRA)
+## Assignment 5: Wi-Fi provisioning (EXTRA)
 
-WiFi provisioning is a crucial step in the setup of any IoT device. It involves configuring the device with the necessary credentials (like SSID and password) to connect to a WiFi network. This process is typically performed once during the initial setup of the device, but it may also be repeated whenever the device needs to connect to a new network.
+Wi-Fi provisioning is a crucial step in the setup of any IoT device. It involves configuring the device with the necessary credentials, such as SSID and password, to connect to a Wi-Fi network. This process is typically performed once during the initial setup of the device, but it may also be repeated whenever the device needs to connect to a new network.
 
-There are several methods for WiFi provisioning. Some devices use a physical interface, like buttons or switches, to enter provisioning mode. Others use a web-based interface or a mobile app to guide the user through the process. In some cases, devices may also support automatic provisioning through technologies like Bluetooth Low Energy (BLE).
+There are several methods for Wi-Fi provisioning. Some devices use a physical interface, like buttons or switches, to enter provisioning mode. Others use a web-based interface or a mobile app to guide the user through the process. In some cases, devices may also support automatic provisioning through technologies like Bluetooth Low Energy (BLE).
 
 Espressif offers solutions for provisioning. You will find this process being used in some projects like [ESP RainMaker](https://rainmaker.espressif.com/).
 
-### Hands-on WiFi provisioning
+### Hands-on with Wi-Fi provisioning
 
-From the NVS assignment, you can see how to set and get the WiFi credentials from the flash memory. This feature is useful but still you will need to set the values somehow.
+In the NVS assignment, we learned how to set and get the Wi-Fi credentials from the flash memory. This feature is useful but you still need to set the values, which is tedious.
 
-On this assignment we will show you how to use the mobile phone (Android or iOS) to set the WiFi credentials via BLE.
+In this assignment, we will use a mobile phone (Android or iOS) to set the Wi-Fi credentials via BLE.
 
 1. **Install the mobile application**
 
@@ -41,11 +41,13 @@ idf.py add-dependency "espressif/network_provisioning^0.2.0"
 
 Now you can build and flash (run) the example to your device.
 
-> You might need to full clean your project before building if you have added the files and the component manually.
+> You might need to full clean your project before building if you have added the files and the component manually. For this, run:
+>
+> `idf.py fullclean`
 
 After building your application, open the `ESP-IDF Serial Monitor`.
 
-4. **Provisioning**
+1. **Provisioning**
 
 In the provisioning application, follow the steps to **Provision New Device** using BLE.
 
@@ -57,12 +59,12 @@ In the provisioning application, follow the steps to **Provision New Device** us
   <img src="../assets/provisioning-app-5.jpg" class="grid-w33" />
 {{< /gallery >}}
 
-You will need to scan the QRCode or to use the **I don't have a QR code** option. Please make sure you are provisioning your device.
+You will need to scan the QRCode or use the **I don't have a QR code** option. Please make sure the device you are provisioning is *yours*.
 
 After completing the provisioning process, the device will connect to the selected network.
 
 ## Next step
 
-Now you can easily connect to the WiFi, let's try to talk in a secure way!
+Now you can easily connect to Wi-Fi, let's try to talk in a secure way!
 
 [Assignment 6: Protocols (EXTRA)](../assignment-6)

@@ -7,16 +7,16 @@ series_order: 3
 showAuthor: false
 ---
 
-## Assignment 2: Creating a new project with Components
+## Assignment 2: Create a new project with Components
 
 ---
 
 In this assignment, we will show how to use components to accelerate your development.
 Components are similar to libraries, adding new features like drivers for sensors, protocols, board support package, and any other feature that is not included in ESP-IDF by default. Certain components are already part of some examples and ESP-IDF also uses the external component approach to make ESP-IDF more modular.
 
-Using components not only makes your project easier to maintain but also improve the development speed by reusing and sharing components with different projects.
+Using components not only makes your project easier to maintain but also improves the development speed by reusing and sharing components with different projects.
 
-If you want to create and publish your own component, we recommend that you watch [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc) talk.
+If you want to create and publish your own component, we recommend that you watch the talk [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc).
 
 {{< youtube D86gQ4knUnc >}}
 
@@ -26,7 +26,7 @@ To show how to use components, we will create a new project from scratch and add
 
 ### Hands-on with components
 
-This hands-on guide will use a component for the RGB LED (WS2812) connected to ```GPIO8``` and the [Remote Control Transceiver](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) peripheral to control the data transfer to the addressable LEDs.
+This hands-on guide will use a component for the RGB LED (WS2812) connected to `GPIO8` and the [Remote Control Transceiver](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) peripheral to control the data transfer to the addressable LEDs.
 
 1. **Create a new project**
 
@@ -72,7 +72,7 @@ For this assignment, please follow the steps.
 
 3. **Create a function to configure the LEDs and the RMT peripheral driver**
 
-Include the ```led_strip.h``` header file.
+Include the `led_strip.h` header file.
 
 ```c
 #include "led_strip.h"
@@ -91,7 +91,7 @@ You will use this function for the following 3 steps.
 
 4. **Configure the LED strip**
 
-Use the ```led_strip_config_t``` structure to configure the LED strip. For the **ESP32-C6-DevKit-C**, the LED model is the WS2812.
+Use the `led_strip_config_t` structure to configure the LED strip. For the **ESP32-C6-DevKit-C**, the LED model is the WS2812.
 
 ```c
     led_strip_config_t strip_config = {
@@ -110,7 +110,7 @@ Use the ```led_strip_config_t``` structure to configure the LED strip. For the *
 
 5. **Configure the RMT driver**
 
-Use the ```led_strip_rmt_config_t``` structure to configure the RMT peripheral driver.
+Use the `led_strip_rmt_config_t` structure to configure the RMT peripheral driver.
 
 ```c
     led_strip_rmt_config_t rmt_config = {
@@ -129,7 +129,7 @@ Use the ```led_strip_rmt_config_t``` structure to configure the RMT peripheral d
 led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip);
 ```
 
-7 Create the LED strip handle.
+7. **Create the LED strip handle**
 
 ```c
 led_strip = configure_led();
@@ -143,10 +143,10 @@ led_strip_set_pixel(led_strip, 0, 20, 0, 0);
 
 Where the arguments are:
 
-- 0 is the LED number (in this case 0 because we have only one)
-- 20 is the RED that could be from 0 to 255 (max brightness)
-- 0 is the GREEN that could be from 0 to 255 (max brightness)
-- 0 is the BLUE that could be from 0 to 255 (max brightness)
+- `0` is the LED number (in this case 0 because we have only one)
+- `20` is the RED that could be from 0 to 255 (max brightness)
+- `0` is the GREEN that could be from 0 to 255 (max brightness)
+- `0` is the BLUE that could be from 0 to 255 (max brightness)
 
 > You can try and change the RGB values to vary the color!
 
@@ -158,7 +158,7 @@ This function must be called to update the LED pixel color.
 led_strip_refresh(led_strip);
 ```
 
-To clear the RBG LED (off), you can use the function ```led_strip_clear(led_strip)```.
+To clear the RBG LED (off), you can use the function `led_strip_clear(led_strip)`.
 
 #### Assignment Code
 
@@ -215,7 +215,7 @@ void app_main(void)
 
 The LED should turn on in RED.
 
-#### Hands-on with BSP
+### Hands-on with BSP
 
 Now you know how to add a new component to your project, we will introduce the concept of working with BSP.
 
@@ -223,19 +223,19 @@ The Board Support Package (BSP) is a package that describes the supported periph
 
 This development kit is quite simple for a BSP, but if we consider a more complex board, like the **ESP32-S3-BOX-3**, the BSP will handle all the peripherals, including the display, sensors, audio codecs, and LEDs for example.
 
-Some of the advantages of using a BSP includes:
+Some of the advantages of using a BSP include:
 
 - Easy initial configuration for the board features.
 - Code reuse across projects with the same board.
 - Reduces the board configuration mistakes.
 - Ensures that all the dependencies will be included on the project.
 
-For this hands-on, we will also show how to create a new project from the component example. The component to be used on this hands-on is the: [espressif/esp_bsp_generic](https://components.espressif.com/components/espressif/esp_bsp_generic/).
+For this hands-on guide, we will also show how to create a new project from the component example. The component to be used in this hands-on guide is [espressif/esp_bsp_generic](https://components.espressif.com/components/espressif/esp_bsp_generic/).
 Some of the components includes examples that shows on how to use the component. You can create a new project based on this example following these steps:
 
 1. **Create a new project from the example**
 
-To create a new project from a component example, we will need to do that using the terminal and not the Espressif IDE. This feature is not yet implemented inside the IDE.
+To create a new project from a component example, we will use the terminal and not the Espressif-IDE. This feature is not yet implemented inside the IDE.
 
 Let's get the generic BSP [examples/generic_button_led](https://components.espressif.com/components/espressif/esp_bsp_generic/versions/1.2.0/examples/generic_button_led?language=en) and create a new project using the terminal.
 
@@ -245,7 +245,7 @@ idf.py create-project-from-example "espressif/esp_bsp_generic^1.2.0:generic_butt
 
 This command will create all the necessary files with the example code ready to be configured.
 
-*Alternative way:* The alternative way to use the BSP is to create a blank project using the Espressif IDE and create the manifest file manually.
+*Alternative way:* The alternative way to use the BSP is to create a blank project using the Espressif-IDE and create the manifest file manually.
 
 To do that, create a new blank project for the ESP32-C6 and inside the `main` folder create the file `idf_component.yml` with the following content:
 
@@ -260,11 +260,11 @@ dependencies:
 
 2. **Setup the peripherals**
 
-Since we are using the generic BSP, we need to set the configuration using the configuration menu.
+Since we are using the generic BSP, we need to set the configuration parameters using the configuration menu.
 
   - LED connected to the **GPIO8** via RMT (addressable)
 
-Open the file `sdkconfig` to open the configuration. If the file is not in the project folder, you will need build the project before.
+Open the file `sdkconfig` to open the configuration. If the file is not in the project folder, you will need to build the project first.
 
 On the SDK Configuration, go to `Component config` -> `Board Support Package (generic)`
 
@@ -296,7 +296,9 @@ void app_main(void)
 
 Now you can build and flash (run) the example to your device.
 
-> You might need to full clean your project before building if you have added the files and the component manually.
+> You might need to full clean your project before building if you have added the files and the component manually. For this, run:
+>
+> `idf.py fullclean`
 
 #### Extra
 
@@ -367,6 +369,6 @@ void app_main(void)
 
 ## Next step
 
-Let there be light! Now it is time to connect to the WiFi!
+Let there be light! Now it is time to connect to Wi-Fi!
 
 [Assignment 3: Connect to Wi-Fi](../assignment-3)

@@ -90,23 +90,23 @@ The ESP32-C6 is a Ultra-low-power SoC with RISC-V single-core microprocessor, 2.
 
 For more details, please see the product [ESP32-C6 Datasheet](https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf).
 
-### WiFi6 (IEEE 802.11ax)
+### Wi-Fi 6 (IEEE 802.11ax)
 
-WiFi6, also known as IEEE 802.11ax, represents the latest generation of WiFi technology, designed to improve efficiency, capacity, and performance in various environments. Key features of WiFi6, as seen in devices like the ESP32-C6, include:
+Wi-Fi 6, also known as IEEE 802.11ax, represents the latest generation of Wi-Fi technology, designed to improve efficiency, capacity, and performance in various environments. Key features of Wi-Fi 6, as seen in devices like the ESP32-C6, include:
 
 - **20 MHz-only Non-AP Mode**: This mode operates in a non-access point capacity, utilizing a 20 MHz channel width.
 - **MCS0 ~ MCS9**: Support for modulation and coding schemes ranging from MCS0 to MCS9, which dictate data rates and signal robustness.
 - **Uplink and Downlink OFDMA**: Orthogonal Frequency Division Multiple Access enables efficient simultaneous connections, particularly beneficial in high-density environments such as stadiums or large office buildings.
 - **Downlink MU-MIMO**: Multi-user, multiple input, multiple output technology increases network capacity by allowing the transmission of data to multiple devices at the same time.
-- **Beamforming**: This feature enhances signal quality by focusing the WiFi signal towards the receiving device.
+- **Beamforming**: This feature enhances signal quality by focusing the Wi-Fi signal towards the receiving device.
 - **Channel Quality Indication (CQI)**: Provides real-time feedback on the channel conditions, aiding in dynamic adjustments for optimal performance.
 - **DCM (Dual Carrier Modulation)**: Enhances link robustness by using dual carriers, reducing the likelihood of signal degradation.
 - **Spatial Reuse**: Maximizes parallel transmissions by allowing multiple devices to communicate simultaneously on the same frequency without significant interference.
 - **Target Wake Time (TWT)**: Optimizes power-saving mechanisms by scheduling specific times for devices to wake up and communicate, extending battery life, especially for IoT devices.
 
-These advanced features make WiFi6 a robust and efficient choice for modern wireless communication needs, ensuring better performance, reliability, and energy efficiency.
+These advanced features make Wi-Fi 6 a robust and efficient choice for modern wireless communication needs, ensuring better performance, reliability, and energy efficiency.
 
-**WiFi MAC support for the 802.11ax:**
+**Wi-Fi MAC support for the 802.11ax:**
 
 - Target wake time (TWT) requester
 - Multiple BSSIDs

@@ -30,7 +30,7 @@ To follow this workshop, make sure you will meet the prerequisites, as described
 
 #### Software Prerequisites
 
-- Espressif IDE
+- Espressif-IDE
 - ESP-IDF v5.x
 
 {{< github repo="espressif/vscode-esp-idf-extension" >}}

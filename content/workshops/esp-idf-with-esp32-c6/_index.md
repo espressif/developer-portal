@@ -15,7 +15,7 @@ Welcome to the Espressif IoT Development Framework (ESP-IDF) workshop!
 
 By participating in this workshop, you will gain deeper understanding of the Espressif IoT Development Framework (ESP-IDF) and the ESP32-C6 System on a Chip (SoC). Through a number of hands-on assignments covering a range of essential skills, you will learn how to build efficient and powerful IoT applications.
 
-More precisely, this workshop provides an introduction to the ESP-IDF development using the Espressif IDE and the ESP32-C6. From the IDE installation, you will be guided to set up your system and create your first project. Then you will build, flash, and debug the project.
+More precisely, this workshop provides an introduction to the ESP-IDF development using the Espressif-IDE and the ESP32-C6. From the IDE installation, you will be guided to set up your system and create your first project. Then you will build, flash, and debug the project.
 
 Following that, you will be guided on how to use the components, blink the addressable RGB LED, work with the ESP-IDF configuration, connect to a Wi-Fi network and, finally, explore the low-power features of the ESP32-C6.
 
@@ -31,9 +31,9 @@ With the [prerequisites](#prerequisites) met, here is the agenda for the worksho
 - [Assignment 2: Create a new project with Components](assignment-2) -- how to structure and manage projects effectively.
 - [Assignment 3: Connect to Wi-Fi](assignment-3) -- a crucial step for many IoT applications
 - [Assignment 4: Try using NVS](assignment-4) (Non-Volatile Storage) -- management of persistent data.
-- [Assignment 5: Wi-Fi provisioning (EXTRA)](assignment-5) -- insights into setting up and configuring WiFi networks.
+- [Assignment 5: Wi-Fi provisioning (EXTRA)](assignment-5) -- insights into setting up and configuring Wi-Fi networks.
 - [Assignment 6: Protocols](assignment-6) (EXTRA) -- exploration of various communication protocols supported by the ESP32-C6, including the implementation of the TSL certificate bundle for secure communications.
-- [Assignment 7: Try using the LP core](assignment-7) -- demonstration of how to utilize the low-power core for efficient energy management.
+- [Assignment 7: Try using the Low Power core](assignment-7) -- demonstration of how to utilize the low-power core for efficient energy management.
 
 
 ## Prerequisites
@@ -49,7 +49,7 @@ Hardware prerequisites
 Software Prerequisites
 
 - [ESP-IDF v5.2](https://github.com/espressif/esp-idf/tree/release/v5.2) installed
-- [Espressif IDE 3.0.0](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0) installed
+- [Espressif-IDE 3.0.0](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v3.0.0) installed
 
 
 ## Effort
