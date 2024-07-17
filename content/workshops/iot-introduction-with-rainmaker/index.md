@@ -71,17 +71,17 @@ You can use ESP RainMaker for free for a small number of nodes. For commercial u
 The backend is built using AWS serverless architecture, which offers unparalleled flexibility and scalability in terms of computing, data storage and transmission capacity.
 
 {{< gallery >}}
-  <img src="assets/rainmaker-arch.png" />
+  <img src="assets/rainmaker-arch.webp" />
 {{< /gallery >}}
 
 {{< gallery >}}
-  <img src="assets/rainmaker-node.png" />
+  <img src="assets/rainmaker-node.webp" />
 {{< /gallery >}}
 
 The RainMaker SDK is built on top of ESP-IDF and provides simple APIs to build applications based on ESP RainMaker.
 
 {{< gallery >}}
-  <img src="assets/rainmaker-sdk.png" />
+  <img src="assets/rainmaker-sdk.webp" />
 {{< /gallery >}}
 
 #### Node
@@ -89,7 +89,7 @@ The RainMaker SDK is built on top of ESP-IDF and provides simple APIs to build a
 A node is a single ESP32-based product. It has an associated identifier (Node ID) and a set of credentials provided by the Claiming Service.
 
 {{< gallery >}}
-  <img src="assets/rainmaker-device-node.png" />
+  <img src="assets/rainmaker-device-node.webp" />
 {{< /gallery >}}
 
 You can give a friendly name to the node. A single node can have exposure to multiple devices.
@@ -539,14 +539,14 @@ After configuring the node, device, and parameters, you can call `esp_rmaker_sta
 To do the claiming/provisioning, we will use the RainMaker mobile phone application.
 
 {{< gallery >}}
-    <img src="assets/app-rainmaker-1.jpg" class="grid-w33" />
-    <img src="assets/app-rainmaker-2.jpg" class="grid-w33" />
-    <img src="assets/app-rainmaker-3.jpg" class="grid-w33" />
-    <img src="assets/app-rainmaker-4.jpg" class="grid-w33" />
-    <img src="assets/app-rainmaker-5.jpg" class="grid-w33" />
-    <img src="assets/app-rainmaker-6.jpg" class="grid-w33" />
-    <img src="assets/app-rainmaker-7.jpg" class="grid-w33" />
-    <img src="assets/app-rainmaker-8.jpg" class="grid-w33" />
+    <img src="assets/app-rainmaker-1.webp" class="grid-w33" />
+    <img src="assets/app-rainmaker-2.webp" class="grid-w33" />
+    <img src="assets/app-rainmaker-3.webp" class="grid-w33" />
+    <img src="assets/app-rainmaker-4.webp" class="grid-w33" />
+    <img src="assets/app-rainmaker-5.webp" class="grid-w33" />
+    <img src="assets/app-rainmaker-6.webp" class="grid-w33" />
+    <img src="assets/app-rainmaker-7.webp" class="grid-w33" />
+    <img src="assets/app-rainmaker-8.webp" class="grid-w33" />
 {{< /gallery >}}
 
 After the provisioning process, you can reset to factory mode by pressing and holding the `BOOT` button on the DevKit-C.
@@ -578,19 +578,19 @@ In `Component config` -> `ESP Insights`, set `Enable ESP Insights `.
 Now you will have access to see the device metrics in the [ESP Insights Dashboard](https://dashboard.insights.espressif.com).
 
 {{< gallery >}}
-  <img src="assets/insights-home.png" />
+  <img src="assets/insights-home.webp" />
 {{< /gallery >}}
 
 {{< gallery >}}
-  <img src="assets/insights-metrics.png" />
+  <img src="assets/insights-metrics.webp" />
 {{< /gallery >}}
 
 {{< gallery >}}
-  <img src="assets/insights-metrics-wifi.png" />
+  <img src="assets/insights-metrics-wifi.webp" />
 {{< /gallery >}}
 
 {{< gallery >}}
-  <img src="assets/insights-metrics-heap.png" />
+  <img src="assets/insights-metrics-heap.webp" />
 {{< /gallery >}}
 
 ---
@@ -635,14 +635,14 @@ Then on the backend side, you can upload the firmware image and create a new OTA
 1. Go to `Firmware Images` -> `Add Image`.
 
 {{< gallery >}}
-  <img src="assets/rainmaker-ota-images.png" />
+  <img src="assets/rainmaker-ota-images.webp" />
 {{< /gallery >}}
 
 2. Fill out the image name, type, and select the image file (.bin).
 3. In the `Advanced` section, you can also define the secure sign keys, bootloader file, firmware version, and model.
 
 {{< gallery >}}
-  <img src="assets/rainmaker-ota-1.png" />
+  <img src="assets/rainmaker-ota-1.webp" />
 {{< /gallery >}}
 
 Once you add the image to the RainMaker backend, you can create the OTA job.
@@ -668,7 +668,7 @@ Espressif’s SDK for Matter has been developed over the open-source Matter SDK 
 Making your devices Matter-compatible with ESP-ZeroCode Modules is as simple as just adding these modules to your devices.
 
 {{< gallery >}}
-  <img src="assets/zerocode_promo.png" />
+  <img src="assets/zerocode_promo.webp" />
 {{< /gallery >}}
 
 ESP ZeroCode supports different kinds of products like lightbulbs, lighting fixtures, led strips, sockets, switches, roller blinds, refrigerator, laundry washer, thermostat and more.
