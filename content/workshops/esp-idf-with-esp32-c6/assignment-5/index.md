@@ -52,11 +52,11 @@ After building your application, open the `ESP-IDF Serial Monitor`.
 In the provisioning application, follow the steps to **Provision New Device** using BLE.
 
 {{< gallery >}}
-  <img src="../assets/provisioning-app-1.jpg" class="grid-w33" />
-  <img src="../assets/provisioning-app-2.jpg" class="grid-w33" />
-  <img src="../assets/provisioning-app-3.jpg" class="grid-w33" />
-  <img src="../assets/provisioning-app-4.jpg" class="grid-w33" />
-  <img src="../assets/provisioning-app-5.jpg" class="grid-w33" />
+  <img src="../assets/provisioning-app-1.webp" class="grid-w33" />
+  <img src="../assets/provisioning-app-2.webp" class="grid-w33" />
+  <img src="../assets/provisioning-app-3.webp" class="grid-w33" />
+  <img src="../assets/provisioning-app-4.webp" class="grid-w33" />
+  <img src="../assets/provisioning-app-5.webp" class="grid-w33" />
 {{< /gallery >}}
 
 You will need to scan the QRCode or use the **I don't have a QR code** option. Please make sure the device you are provisioning is *yours*.
