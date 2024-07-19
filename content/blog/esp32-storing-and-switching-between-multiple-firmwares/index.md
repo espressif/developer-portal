@@ -1,5 +1,5 @@
 ---
-title: "ESP32: Store and Switch Between Multiple Firmwares from Flash Memory"
+title: "How to switch between multiple ESP32 firmware binaries stored in the flash memory"
 date: 2024-07-18
 showAuthor: false
 authors:
@@ -50,9 +50,11 @@ esptool.py --chip esp32s3 write_flash 0x0000 graphical_bootloader_esp32-s3-box-3
 
 You can also run the simulation of the application in the web browser using Wokwi.
 
-[![ESP32-S3-BOX-3 Graphical Bootloader](img/esp32-s3-box-3-graphical-bootloader.webp)](https://wokwi.com/experimental/viewer?diagram=https://github.com/georgik/esp32-graphical-bootloader/blob/main/diagram.json&firmware=https://github.com/georgik/esp32-graphical-bootloader/releases/download/v0.3/graphical-bootloader-esp32-box-3-uf2.bin)
+[![ESP32-S3-BOX-3 Graphical Bootloader](img/esp32-s3-box-3-graphical-bootloader.webp)](https://wokwi.com/experimental/viewer?diagram=https://gist.githubusercontent.com/urish/c3d58ddaa0817465605ecad5dc171396/raw/ab1abfa902835a9503d412d55a97ee2b7e0a6b96/diagram.json&firmware=https://github.com/georgik/esp32-graphical-bootloader/releases/latest/download/graphical-bootloader-esp32-s3-box.uf2
+)
 
-[Run on-line in Wokwi Simulator](https://wokwi.com/experimental/viewer?diagram=https://github.com/georgik/esp32-graphical-bootloader/blob/main/diagram.json&firmware=https://github.com/georgik/esp32-graphical-bootloader/releases/download/v0.3/graphical-bootloader-esp32-box-3-uf2.bin)
+[Run on-line in Wokwi Simulator](https://wokwi.com/experimental/viewer?diagram=https://gist.githubusercontent.com/urish/c3d58ddaa0817465605ecad5dc171396/raw/ab1abfa902835a9503d412d55a97ee2b7e0a6b96/diagram.json&firmware=https://github.com/georgik/esp32-graphical-bootloader/releases/latest/download/graphical-bootloader-esp32-s3-box.uf2
+)
 
 ### Cloning the Repository
 
