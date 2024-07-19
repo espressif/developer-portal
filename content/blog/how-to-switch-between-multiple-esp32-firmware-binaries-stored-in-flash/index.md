@@ -36,9 +36,9 @@ This partition table should be defined in your project and the following option 
 CONFIG_PARTITION_TABLE_CUSTOM=y
 ```
 
-## Setting Up the Graphical Bootloader
+## Set Up the Graphical Bootloader
 
-### Quick start with Pre-built firmware
+### Quick Start with Pre-built Firmware
 
 The example application is available as a binary image in [Releases](https://github.com/georgik/esp32-graphical-bootloader/releases).
 
@@ -56,7 +56,7 @@ You can also run the simulation of the application in the web browser using Wokw
 [Run on-line in Wokwi Simulator](https://wokwi.com/experimental/viewer?diagram=https://gist.githubusercontent.com/urish/c3d58ddaa0817465605ecad5dc171396/raw/ab1abfa902835a9503d412d55a97ee2b7e0a6b96/diagram.json&firmware=https://github.com/georgik/esp32-graphical-bootloader/releases/latest/download/graphical-bootloader-esp32-s3-box.uf2
 )
 
-### Cloning the Repository
+### Clone the Repository
 
 If you'd like to build your own version, please follow the instructions in this chapter.
 
@@ -67,7 +67,7 @@ git clone https://github.com/georgik/esp32-graphical-bootloader.git
 cd esp32-graphical-bootloader
 ```
 
-### Selecting the Target Board
+### Select the Target Board
 
 Set the appropriate `SDKCONFIG_DEFAULTS` for your board. For example, to configure for ESP32-S3-BOX-3, use:
 
@@ -75,7 +75,7 @@ Set the appropriate `SDKCONFIG_DEFAULTS` for your board. For example, to configu
 export SDKCONFIG_DEFAULTS=sdkconfig.defaults.esp-box-3
 ```
 
-### Building the Main Application and Sub-Applications
+### Build the Main Application and Sub-Applications
 
 Run the following commands to build the main application and all sub-applications:
 
@@ -84,7 +84,7 @@ cmake -Daction=select_board -P Bootloader.cmake
 cmake -Daction=build_all_apps -P Bootloader.cmake
 ```
 
-### Merging Binaries into a Single Image
+### Merg Binaries into a Single Image
 
 After building, merge the binaries into a single image:
 
@@ -92,7 +92,7 @@ After building, merge the binaries into a single image:
 cmake -Daction=merge_binaries -P Bootloader.cmake
 ```
 
-### Flashing the Merged Binary to the ESP32
+### Flash the Merged Binary to the ESP32
 
 Finally, flash the combined binary to the ESP32:
 
@@ -100,13 +100,13 @@ Finally, flash the combined binary to the ESP32:
 esptool.py --chip esp32s3 write_flash 0x0 build/combined.bin
 ```
 
-## Using the Bootloader
+## How to Use the Bootloader
 
 Once flashed, the ESP32 will boot into the graphical bootloader. This bootloader allows you to select which application to run. The user interface is intuitive, and you can navigate through the different applications stored in the OTA partitions.
 
-## Switching Between Applications
+## Switch Between Applications
 
-### Switching to Another Application
+### Switch to Application Stored at OTA Partition
 
 The following code snippet from the bootloader shows how to switch to another application. This is particularly useful for managing multiple applications stored in different OTA partitions:
 
@@ -120,7 +120,7 @@ if (next_partition && esp_ota_set_boot_partition(next_partition) == ESP_OK) {
 }
 ```
 
-### Returning to the Original Application
+### Returning to the Original Application at Factory Partition
 
 Each application can include a mechanism to switch back to the original application (bootloader). Here is an example function from one of the sub-applications:
 
