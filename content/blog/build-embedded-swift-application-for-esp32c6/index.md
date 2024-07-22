@@ -1,6 +1,6 @@
 ---
 title: "Build Embedded Swift Application for ESP32-C6"
-date: 2024-06-21
+date: 2024-07-22
 showAuthor: false
 authors:
     - "juraj-michalek"
