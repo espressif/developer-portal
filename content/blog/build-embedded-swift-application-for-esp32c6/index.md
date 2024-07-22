@@ -124,6 +124,13 @@ func app_main() {
 
 This code initializes an LED strip connected to an ESP32-C6 microcontroller. The app_main function starts by printing a message, then sets up an LED strip on GPIO pin 0 with a maximum of 8 LEDs. It clears the strip and enters an infinite loop where it cycles a random light color through the LEDs. Each iteration updates the LED colors, refreshes the strip, and delays for 500 milliseconds.
 
+## Simulation in Wokwi
+
+The examples for ESP32-C6 could be easily simulated by Wokwi:
+
+- [Embedded Swift - ESP32-C6 - Led Blink](https://wokwi.com/experimental/viewer?diagram=https://raw.githubusercontent.com/georgik/swift-embedded-examples/feature/wokwi/esp32-led-blink-sdk/diagram.json&firmware=https://github.com/georgik/swift-embedded-examples/releases/download/v0.1/embedded-swift-esp32-c6-led-blink-sdk.uf2.bin)
+- [Embedded Swift - ESP32-C6 - Led Strip](https://wokwi.com/experimental/viewer?diagram=https://raw.githubusercontent.com/georgik/swift-embedded-examples/feature/wokwi/esp32-led-strip-sdk/diagram.json&firmware=https://github.com/georgik/swift-embedded-examples/releases/download/v0.1/embedded-swift-esp32-c6-led-strip-sdk.uf2.bin)
+
 ## Conclusion
 
 Embedded Swift even in **experimental** stage represents a significant advancement in bringing Swift's powerful features to embedded systems and constrained environments. By focusing on reducing runtime dependencies and optimizing code size, Embedded Swift allows developers to leverage Swift's modern programming paradigms even on MCUs.
