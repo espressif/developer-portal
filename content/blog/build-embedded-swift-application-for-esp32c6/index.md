@@ -33,7 +33,8 @@ Ensure you have the following hardware:
 Before you begin, make sure you have the following:
 
 - [ESP-IDF v5.3](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/get-started/index.html): The official development framework for the ESP32, properly installed and sourced in your shell.
-- [Swift 6](https://www.swift.org/install/macos/#development-snapshots)
+- Swift 6 - nightly toolchain ([macOS download](https://www.swift.org/install/macos/#development-snapshots) / [Linux download](https://www.swift.org/install/linux))
+  - Note: the article was written using Apple Swift version 6.0-dev (LLVM 3bba20e27a3bcf9, Swift 8e8e486fb05209f)
 
 ### Building an Example Project
 
@@ -58,9 +59,11 @@ First, let's see the whole build process in Asciinema recording:
    idf.py set-target esp32c6
    ```
 
+   Note: It's possible to build the project also for other RISC-V based targets, like ESP32-C3.
+
 3. **Build and Flash the Project**:
 
-   Compile and flash your application to the ESP32-S3-BOX-3:
+   Compile and flash your application to the ESP32-C6-DevKit:
 
    ```bash
    idf.py build flash monitor
