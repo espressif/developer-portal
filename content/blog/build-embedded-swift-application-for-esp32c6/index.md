@@ -4,7 +4,7 @@ date: 2024-06-21
 showAuthor: false
 authors:
     - "juraj-michalek"
-tags: ["Embedded Systems", "ESP32-C6", "Espressif", "Swift"]
+tags: ["Embedded Systems", "ESP32-C6", "Espressif", "Swift", "experimental"]
 ---
 
 ## Introduction
@@ -13,7 +13,7 @@ Embedded Swift brings the power and expressivity of the Swift programming langua
 
 ## What is Embedded Swift?
 
-Embedded Swift is a specialized compilation mode of Swift designed to produce small, freestanding binaries suitable for embedded systems and bare-metal programming. It strips down unnecessary features and focuses on essential functionality to generate minimal and efficient code. Key goals include eliminating the large code size associated with the full Swift runtime, simplifying the generated code, and allowing effective dead-code stripping.
+Embedded Swift is an **experimental** specialized compilation mode of Swift designed to produce small, freestanding binaries suitable for embedded systems and bare-metal programming. It strips down unnecessary features and focuses on essential functionality to generate minimal and efficient code. Key goals include eliminating the large code size associated with the full Swift runtime, simplifying the generated code, and allowing effective dead-code stripping.
 
 Embedded Swift is not a complete SDK or HAL; rather, it provides the tools to compile Swift code into object files that can be integrated with existing embedded development workflows. It supports environments with and without a dynamic heap and aims to remain a subset of Swift, ensuring code compatibility with regular Swift projects.
 
@@ -126,7 +126,7 @@ This code initializes an LED strip connected to an ESP32-C6 microcontroller. The
 
 ## Conclusion
 
-Embedded Swift represents a significant advancement in bringing Swift's powerful features to embedded systems and constrained environments. By focusing on reducing runtime dependencies and optimizing code size, Embedded Swift allows developers to leverage Swift's modern programming paradigms even on MCUs.
+Embedded Swift even in **experimental** stage represents a significant advancement in bringing Swift's powerful features to embedded systems and constrained environments. By focusing on reducing runtime dependencies and optimizing code size, Embedded Swift allows developers to leverage Swift's modern programming paradigms even on MCUs.
 
 ## Useful Links
 
