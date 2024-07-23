@@ -19,7 +19,7 @@ This article covers the following key features:
 - [Code Navigation without full project build](#code-navigation-without-full-project-build)
 - [ESP-IDF Hints viewer](#esp-idf-hints-viewer)
 
-For other updates please review [v1.8.0 Release notes](https://github.com/espressif/vscode-esp-idf-extension/releases/tag/v1.8.0).
+For other updates please review [v1.8.0 Release notes](https://github.com/espressif/vscode-esp-idf-extension/releases/tag/v1.8.0). Now let's look into these features one by one.
 
 ## Eclipse CDT GDB Debug Adapter
 
@@ -40,7 +40,9 @@ This adapter is typically a standalone process with its own protocol. Both the D
 
 ### The actual Eclipse CDT GDB Debug Adapter
 
-Before we have implemented our own [ESP-IDF Debug Adapter](https://github.com/espressif/esp-debug-adapter) in Python. While this debug adapter works, our users have report many issues regarding configuration, responsiveness and runtime errors. In our search for solution we encountered that the Eclipse CDT Cloud team have published a [CDT-GDB-Adapter](https://github.com/eclipse-cdt-cloud/cdt-gdb-adapter) which is written in TypeScript and is using [NPM serialport package](https://www.npmjs.com/package/serialport) underneath. We added a few changes in order to make it work with our tools but it is mostly the same as the original.
+Up until this version, only [ESP-IDF Debug Adapter](https://github.com/espressif/esp-debug-adapter) implemented in python by Espressif has been available in ESP-IDF Visual Studio Code Extension. While it works, our users have reported many issues regarding configuration, responsiveness and runtime errors.
+
+In search of a better solution, we chose the [CDT GDB Adapter](https://github.com/eclipse-cdt-cloud/cdt-gdb-adapter) implemented by the Eclipse CDT Cloud team in TypeScript that uses [NPM serialport package](https://www.npmjs.com/package/serialport) underneath. We only made a few minor updates to make it work with our tools. In our plugin, this adapter is called Eclipse CDT GDB Debug Adapter and is used in launch.json when configuration type is `gdbtarget`.
 
 To use the Eclipse CDT GDB Adapter in an ESP-IDF project, add the following configuration in `.vscode/launch.json`:
 
@@ -129,3 +131,7 @@ The ESP-IDF bottom panel automatically updates to display ESP-IDF hints based on
 You can manually search for any ESP-IDF hint with the `ESP-IDF: Search Error Hint`. It will search from available hints listed in `$IDF_PATH/tools/idf_py_actions/hints.yml`.
 
 {{< video src="video/hints-manual-search" >}}
+
+## Conclusion
+
+In this article, we introduced the key features implemented in ESP-IDF Visual Studio Code Extension v1.8.0 release. We are working hard to make the developer experience as smooth and convenient as possible, and this release moved us a few steps forward in this endeavor. We hope this version brings what you expected. If not, feel free to leave your feedback in GitHub issues, and let's keep improving this extension together!
