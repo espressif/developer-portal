@@ -98,7 +98,7 @@ The current ESP-IDF version for currently open ESP-IDF project is shown in the s
     caption=""
     >}}
 
-## Use code navigation without full project build
+## Code navigation without full project build
 
 Now you can generate a `compile_commands.json` file for code navigation extensions without fully building your project by using the command `ESP-IDF: idf.py reconfigure task`. Read on for more explanations.
 
