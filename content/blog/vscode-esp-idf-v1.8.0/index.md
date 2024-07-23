@@ -25,7 +25,7 @@ For other updates please review [v1.8.0 Release notes](https://github.com/espres
 
 First, we will briefly talk about the implementation of debug adapters in VS Code and then will move on to the actual Eclipse CDT Debug Adapter.
 
-### What is a debug adapter in Visual Studio Code ?
+### What is a debug adapter in Visual Studio Code?
 
 VS Code implements a generic (language-agnostic) _Debugger UI_ that is based on an abstract protocol. That protocol was specifically introduced to communicate with debugger backends. As debuggers typically use their own long-established protocols, some "adapter" is needed to allow debugger UI to communicate with debugger backends.
 
