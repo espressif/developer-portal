@@ -112,7 +112,7 @@ If, for any reason, you don’t want to fully build your project but still want 
 [clangd-extension]: https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd
 [code-compilation-database]: https://clang.llvm.org/docs/JSONCompilationDatabase.html
 
-## ESP-IDF Hints
+## ESP-IDF Hints viewer
 
 ESP-IDF will try to show hints to resolve errors as described in [idf.py documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-py.html#hints-on-how-to-resolve-errors). It works with a database of hints stored in **tools/idf_py_actions/hints.yml** and the hints will be printed if a match is found for the given error.
 
