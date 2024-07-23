@@ -128,6 +128,6 @@ The ESP-IDF bottom panel automatically updates to display ESP-IDF hints based on
     caption=""
     >}}
 
-You can manually search for any ESP-IDF hint with the **ESP-IDF: Search Error Hint**. It will search from available hints listed in **$IDF_PATH/tools/idf_py_actions/hints.yml**.
+You can manually search for any ESP-IDF hint with the `ESP-IDF: Search Error Hint`. It will search from available hints listed in `$IDF_PATH/tools/idf_py_actions/hints.yml`.
 
 {{< video src="video/hints-manual-search" >}}
