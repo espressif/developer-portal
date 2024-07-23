@@ -11,15 +11,13 @@ authors:
 
 [ESP-IDF Visual Studio Code Extension](https://github.com/espressif/vscode-esp-idf-extension) v1.8.0 has been released! It introduces new features and many improvements. If you face any issue or improvement ideas please share them as a [Github issue](https://github.com/espressif/vscode-esp-idf-extension/issues).
 
-Key features;
+This article covers the following key features:
 
-- **Eclipse CDT GDB Debug Adapter**
-
-- **ESP-IDF version switcher**
-
-- **Code Navigation without full project build**
-
-- **ESP-IDF Hints viewer**
+<!-- no toc -->
+- [Eclipse CDT GDB Debug Adapter](#eclipse-cdt-gdb-debug-adapter)
+- [ESP-IDF version switcher](#esp-idf-version-switcher)
+- [Code Navigation without full project build](#code-navigation-without-full-project-build)
+- [ESP-IDF Hints viewer](#esp-idf-hints-viewer)
 
 For other updates please review [v1.8.0 Release notes](https://github.com/espressif/vscode-esp-idf-extension/releases/tag/v1.8.0).
 
