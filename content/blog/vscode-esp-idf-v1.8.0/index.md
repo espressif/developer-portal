@@ -1,5 +1,5 @@
 ---
-title: "ESP-IDF Visual Studio Code Extension v1.8.0 release"
+title: "ESP-IDF VS Code Extension v1.8.0 release"
 date: 2024-07-12T16:07:09+08:00
 showAuthor: false
 tags: ["News", "ESP-IDF extension", "VSCode", "Visual Studio Code"]
@@ -9,7 +9,7 @@ authors:
 
 ## Introduction
 
-[ESP-IDF Visual Studio Code Extension](https://github.com/espressif/vscode-esp-idf-extension) v1.8.0 has been released! It introduces new features and many improvements. If you face any issue or improvement ideas please share them as a [Github issue](https://github.com/espressif/vscode-esp-idf-extension/issues).
+[ESP-IDF VS Code Extension](https://github.com/espressif/vscode-esp-idf-extension) v1.8.0 has been released! It introduces new features and many improvements. If you face any issue or improvement ideas please share them as a [Github issue](https://github.com/espressif/vscode-esp-idf-extension/issues).
 
 This article covers the following key features:
 
@@ -25,7 +25,7 @@ For other updates please review [v1.8.0 Release notes](https://github.com/espres
 
 First, we will briefly talk about the implementation of debug adapters in VS Code and then will move on to the actual Eclipse CDT Debug Adapter.
 
-### What is a debug adapter in Visual Studio Code?
+### What is a debug adapter in VS Code?
 
 VS Code implements a generic (language-agnostic) _Debugger UI_ that is based on an abstract protocol. That protocol was specifically introduced to communicate with debugger backends. As debuggers typically use their own long-established protocols, some "adapter" is needed to allow debugger UI to communicate with debugger backends.
 
@@ -65,7 +65,7 @@ To start debugging the project, do the following:
 
 You can also check how to use the new debugger by following the [debug tutorial](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/debugging.md).
 
-The following figure shows an active debug session with the Eclipse CDT GDB Adapter in Visual Studio Code. You can see the list of variables, call stack, breakpoints, debug console and debug controls such as step in, step out, etc.
+The following figure shows an active debug session with the Eclipse CDT GDB Adapter in VS Code. You can see the list of variables, call stack, breakpoints, debug console and debug controls such as step in, step out, etc.
 
 {{< figure
     default=true
