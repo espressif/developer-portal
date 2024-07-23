@@ -65,7 +65,7 @@ To start debugging the project, do the following:
 
 You can also check how to use the new debugger by following the [debug tutorial](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/debugging.md).
 
-The next figure shows an active debug session with the Eclipse CDT GDB Adapter in Visual Studio Code. You can see the list of variables, call stack, breakpoints, debug console and debug controls such as step in, step out, etc.
+The following figure shows an active debug session with the Eclipse CDT GDB Adapter in Visual Studio Code. You can see the list of variables, call stack, breakpoints, debug console and debug controls such as step in, step out, etc.
 
 {{< figure
     default=true
