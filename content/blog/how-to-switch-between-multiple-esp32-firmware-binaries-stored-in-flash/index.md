@@ -115,6 +115,8 @@ Once flashed, the ESP32 will boot into the graphical bootloader. This bootloader
 
 The following steps will explain how to create a custom ESP-IDF application for ESP32-S3-BOX-3 which works with the Graphical Bootloader.
 
+{{< asciinema key="video/esp32-graphical-bootloader" cols="80" rows="24" poster="npt:0:08" >}}
+
 ```shell
 idf.py create-project hello_app
 cd hello_app
