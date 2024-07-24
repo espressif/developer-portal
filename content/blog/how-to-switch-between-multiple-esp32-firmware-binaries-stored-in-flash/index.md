@@ -11,7 +11,11 @@ tags: ["Embedded Systems", "ESP32", "ESP32-S3", "ESP32-P4", "GUI", "OTA", "Espre
 
 The ESP32 microcontroller is a versatile and powerful device, widely used in IoT and embedded applications. One of its advanced features is the ability to store multiple firmware images in its flash memory and switch between them. This capability can be leveraged for various purposes, such as testing different firmware versions, running multiple applications, or maintaining a backup firmware.
 
-In this article, we will explore how to use the ESP32 Graphical Bootloader to switch between multiple firmware images stored in the flash memory. This bootloader serves as the primary application, allowing you to select and run different firmware images. We will also demonstrate how each application can switch back to the bootloader, ensuring a seamless user experience.
+In this article, we will explore how to use the ESP32 Graphical Bootloader to switch between multiple firmware images stored in the flash memory. This bootloader serves as the primary application, allowing you to select and run different firmware images. We will also demonstrate how each application can switch back to the bootloader.
+
+## How it works
+
+The bootloader allows the user to select an application from a graphical menu. Once an application is selected, the corresponding partition is chosen, and the chip reboots. The bootloader then switches to the newly selected application. During the startup of this application, there is a code segment that switches the boot partition back to the original application containing the bootloader. Consequently, after another restart, the original bootloader application is displayed again. The bootloader is using [OTA mechanism](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html), just the applications are already present in the flash memory.
 
 ## Partition Table
 
@@ -69,27 +73,30 @@ cd esp32-graphical-bootloader
 
 ### Select the Target Board
 
-Set the appropriate `SDKCONFIG_DEFAULTS` for your board. For example, to configure for ESP32-S3-BOX-3, use:
+Set the appropriate board using `BUILD_BOARD` variable. For example, to configure for ESP32-S3-BOX-3, use:
 
 ```shell
-export SDKCONFIG_DEFAULTS=sdkconfig.defaults.esp-box-3
+cmake -DBUILD_BOARD=esp-box-3 -Daction=build_all_apps -P Bootloader.cmake
 ```
 
-### Build the Main Application and Sub-Applications
+List of other supported boards could be found in `boards` directory.
 
-Run the following commands to build the main application and all sub-applications:
-
-```shell
-cmake -Daction=select_board -P Bootloader.cmake
-cmake -Daction=build_all_apps -P Bootloader.cmake
-```
 
 ### Merg Binaries into a Single Image
 
 After building, merge the binaries into a single image:
 
 ```shell
-cmake -Daction=merge_binaries -P Bootloader.cmake
+esptool.py --chip esp32s3 merge_bin  -o build.esp-box-3/combined.bin --flash_mode dio --flash_size 16MB \
+    0x0 build.esp-box-3/bootloader/bootloader.bin \
+    0x8000 build.esp-box-3/partition_table/partition-table.bin \
+    0xf000 build.esp-box-3/ota_data_initial.bin \
+    0x20000 build.esp-box-3/esp32-graphical-bootloader.bin \
+    0x220000 apps/tic_tac_toe/build.esp-box-3/tic_tac_toe.bin \
+    0x4E0000 apps/wifi_list/build.esp-box-3/wifi_list.bin \
+    0x7A0000 apps/calculator/build.esp-box-3/calculator.bin \
+    0xA60000 apps/synth_piano/build.esp-box-3/synth_piano.bin \
+    0xD20000 apps/game_of_life/build.esp-box-3/game_of_life.bin
 ```
 
 ### Flash the Merged Binary to the ESP32
@@ -97,14 +104,24 @@ cmake -Daction=merge_binaries -P Bootloader.cmake
 Finally, flash the combined binary to the ESP32:
 
 ```shell
-esptool.py --chip esp32s3 write_flash 0x0 build/combined.bin
+esptool.py --chip esp32s3 write_flash 0x0 build.esp-box-3/combined.bin
 ```
 
 ## How to Use the Bootloader
 
 Once flashed, the ESP32 will boot into the graphical bootloader. This bootloader allows you to select which application to run. The user interface is intuitive, and you can navigate through the different applications stored in the OTA partitions.
 
-## Switch Between Applications
+## Create a custom application
+
+The following steps will explain how to create a custom ESP-IDF application for ESP32-S3-BOX-3 which works with the Graphical Bootloader.
+
+```shell
+idf.py create-app hello_app
+cd hello_app
+idf.py set-target esp32s3
+idf.py add-dependency "espressif/esp-box-3^1.2.0"
+idf.py add-dependency "espressif/esp_codec_dev^1.2.0"
+```
 
 ### Switch to Application Stored at OTA Partition
 
@@ -149,11 +166,95 @@ This function can be called at the beginning of the application to ensure that t
 In your application's `CMakeLists.txt`, ensure that you include the required dependency:
 
 ```shell
-idf_component_register(SRCS "calculator.c"
+idf_component_register(SRCS "hello_app.c"
                     INCLUDE_DIRS "."
                     REQUIRES app_update)
 ```
 
+### Application Code
+
+Update the code of `main/hello_app.c` to switch to factory app and display a message on the screen.
+
+```c
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+#include "lvgl.h"
+#include "bsp/esp-bsp.h"
+#include "esp_ota_ops.h"
+
+void reset_to_factory_app() {
+    // Get the partition structure for the factory partition
+    const esp_partition_t *factory_partition = esp_partition_find_first(ESP_PARTITION_TYPE_APP, ESP_PARTITION_SUBTYPE_APP_FACTORY, NULL);
+    if (factory_partition != NULL) {
+        if (esp_ota_set_boot_partition(factory_partition) == ESP_OK) {
+            printf("Set boot partition to factory, restarting now.\\n");
+        } else {
+            printf("Failed to set boot partition to factory.\\n");
+        }
+    } else {
+        printf("Factory partition not found.\\n");
+    }
+
+    fflush(stdout);
+}
+
+void app_main(void) {
+    // Initialize the BSP
+    bsp_i2c_init();
+    bsp_display_start();
+
+    // Create a label and set its text
+    lv_obj_t *label = lv_label_create(lv_scr_act());
+    lv_label_set_text(label, "Hello ESP32-S3-BOX-3");
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+
+    // Start the display backlight
+    bsp_display_backlight_on();
+
+    printf("Hello ESP32-S3-BOX-3\n");
+
+    // Handle LVGL tasks
+    while (1) {
+        lv_task_handler();
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
+}
+```
+
+### Flash the Application
+
+You can flash the application directly to the OTA partition.
+
+```shell
+esptool.py --chip esp32s3 write_flash 0x220000 build.esp-box-3/hello_app.bin
+```
+
+### Change an Application Icon
+
+Icons displayed in Graphical Bootloader are part of the bootloade firmware, it's not part of an application. Icons are stored in `resources/images`. 
+
+You can simply replace one of existing png files.
+
+If you'd like to use your own name for icon, then update the bootloader code `main/bootloader_ui.c`:
+
+```c
+LV_IMG_DECLARE(icon_hello_app)
+```
+
+Register the icon to `main/CMakeLists.txt`. IDF build process will convert the icon to proper format.
+
+```c
+lvgl_port_create_c_image("../resources/images/icon_hello_app.png" "images/gen/" "ARGB8888" "NONE")
+```
+
+After the change of the icon, you need to rebuild and flash the main application:
+
+```shell
+idf.py @boards/esp-box-3 fullclean
+idf.py @boards/esp-box-3 app-flash
+```
 
 ## Useful Links
 
