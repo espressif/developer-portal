@@ -1,6 +1,6 @@
 ---
 title: "How to switch between multiple ESP32 firmware binaries stored in the flash memory"
-date: 2024-07-18
+date: 2024-07-24
 showAuthor: false
 authors:
     - "juraj-michalek"
