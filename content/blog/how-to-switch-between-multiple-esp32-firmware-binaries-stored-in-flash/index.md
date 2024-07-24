@@ -120,7 +120,7 @@ idf.py create-app hello_app
 cd hello_app
 idf.py set-target esp32s3
 idf.py add-dependency "espressif/esp-box-3^1.2.0"
-idf.py add-dependency "espressif/esp_codec_dev^1.2.0"
+idf.py add-dependency "espressif/esp_codec_dev==1.1.0"
 ```
 
 ### Switch to Application Stored at OTA Partition
@@ -201,6 +201,8 @@ void reset_to_factory_app() {
 }
 
 void app_main(void) {
+    reset_to_factory_app();
+
     // Initialize the BSP
     bsp_i2c_init();
     bsp_display_start();
