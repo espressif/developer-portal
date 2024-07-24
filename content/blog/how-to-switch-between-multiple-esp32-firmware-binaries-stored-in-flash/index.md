@@ -116,11 +116,13 @@ Once flashed, the ESP32 will boot into the graphical bootloader. This bootloader
 The following steps will explain how to create a custom ESP-IDF application for ESP32-S3-BOX-3 which works with the Graphical Bootloader.
 
 ```shell
-idf.py create-app hello_app
+idf.py create-project hello_app
 cd hello_app
 idf.py set-target esp32s3
 idf.py add-dependency "espressif/esp-box-3^1.2.0"
 idf.py add-dependency "espressif/esp_codec_dev==1.1.0"
+cp ../calculator/sdkconfig.defaults .
+cp ../calculator/sdkconfig.defaults.esp-box-3 .
 ```
 
 ### Switch to Application Stored at OTA Partition
@@ -227,9 +229,10 @@ void app_main(void) {
 
 ### Flash the Application
 
-You can flash the application directly to the OTA partition.
+You can build and flash the application directly to the OTA partition.
 
 ```shell
+idf.py @../../boards/esp-box-3.cfg build
 esptool.py --chip esp32s3 write_flash 0x220000 build.esp-box-3/hello_app.bin
 ```
 
