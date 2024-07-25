@@ -35,7 +35,7 @@ This adapter is typically a standalone process with its own protocol. Both the D
     default=true
     src="img/debug-arch.webp"
     alt=""
-    caption=""
+    caption="The image is borrowed from [VS Code documentation](https://code.visualstudio.com/api/extension-guides/debugger-extension#debugging-architecture-of-vs-code)."
     >}}
 
 ### The actual Eclipse CDT GDB Debug Adapter
