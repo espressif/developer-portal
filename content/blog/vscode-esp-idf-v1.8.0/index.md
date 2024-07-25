@@ -134,4 +134,4 @@ You can manually search for any ESP-IDF hint with the `ESP-IDF: Search Error Hin
 
 ## Conclusion
 
-In this article, we introduced the key features implemented in ESP-IDF Visual Studio Code Extension v1.8.0 release. We are working hard to make the developer experience as smooth and convenient as possible, and this release moved us a few steps forward in this endeavor. We hope this version brings what you expected. If not, feel free to leave your feedback in GitHub issues, and let's keep improving this extension together!
+In this article, we introduced the key features implemented in ESP-IDF VS Code Extension v1.8.0 release. We are working hard to make the developer experience as smooth and convenient as possible, and this release moved us a few steps forward in this endeavor. We hope this version brings what you expected. If not, feel free to leave your feedback in GitHub issues, and let's keep improving this extension together!
