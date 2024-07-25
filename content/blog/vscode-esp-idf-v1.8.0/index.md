@@ -40,7 +40,7 @@ This adapter is typically a standalone process with its own protocol. Both the D
 
 ### The actual Eclipse CDT GDB Debug Adapter
 
-Up until this version, only [ESP-IDF Debug Adapter](https://github.com/espressif/esp-debug-adapter) implemented in python by Espressif has been available in ESP-IDF Visual Studio Code Extension. While it works, our users have reported many issues regarding configuration, responsiveness and runtime errors.
+Up until this version, only [ESP-IDF Debug Adapter](https://github.com/espressif/esp-debug-adapter) implemented in python by Espressif has been available in ESP-IDF VS Code Extension. While it works, our users have reported many issues regarding configuration, responsiveness and runtime errors.
 
 In search of a better solution, we chose the [CDT GDB Adapter](https://github.com/eclipse-cdt-cloud/cdt-gdb-adapter) implemented by the Eclipse CDT Cloud team in TypeScript that uses [NPM serialport package](https://www.npmjs.com/package/serialport) underneath. We only made a few minor updates to make it work with our tools. In our plugin, this adapter is called Eclipse CDT GDB Debug Adapter and is used in launch.json when configuration type is `gdbtarget`.
 
