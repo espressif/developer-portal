@@ -27,7 +27,7 @@ First, we will briefly talk about the implementation of debug adapters in VS Cod
 
 ### What is a debug adapter in VS Code?
 
-VS Code implements a generic (language-agnostic) _Debugger UI_ that is based on an abstract protocol. That protocol was specifically introduced to communicate with debugger backends. As debuggers typically use their own long-established protocols, some "adapter" is needed to allow debugger UI to communicate with debugger backends.
+VS Code implements a generic (language-agnostic) _Debugger UI_ that is based on an abstract protocol. That protocol was specifically introduced to communicate with debugger backends. As debuggers typically use their own long-established protocols, some "adapter" is needed to allow debugger UI to communicate with debugger backends. This is described in the [debugging architecture of VS Code](https://code.visualstudio.com/api/extension-guides/debugger-extension#debugging-architecture-of-vs-code) documentation.
 
 This adapter is typically a standalone process with its own protocol. Both the Debug Adapter (DA) and the abstract protocol that is used between the VS Code's Debugger UI and DA -- the [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/) (DAP) -- have already been implemented by independent contributors. The diagram below illustrates it better:
 
