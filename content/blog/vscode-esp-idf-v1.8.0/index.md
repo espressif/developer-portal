@@ -23,7 +23,7 @@ For other updates please review [v1.8.0 Release notes](https://github.com/espres
 
 ## Eclipse CDT GDB Debug Adapter
 
-First, we will briefly talk about the implementation of debug adapters in VS Code and then will move on to the actual Eclipse CDT Debug Adapter.
+First, we will briefly talk about the implementation of debug adapters in VS Code and then will move on to the actual Eclipse CDT GDB Debug Adapter.
 
 ### What is a debug adapter in VS Code?
 
