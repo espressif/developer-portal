@@ -1,0 +1,9 @@
+{
+	"name": "Brian Ignacio",
+	"image" : "img/authors/brian-ignacio.webp",
+	"bio": "Software Engineer at Espressif",
+	"social": [
+			{ "linkedin": "https://www.linkedin.com/in/brianignacio" },
+			{ "github": "https://github.com/brianignacio5" }
+	]
+}
