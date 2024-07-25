@@ -74,7 +74,7 @@ The following figure shows an active debug session with the Eclipse CDT GDB Debu
     caption=""
     >}}
 
-## Advanced configuration of Eclipse CDT Debug Adapter
+### Advanced configuration of Eclipse CDT GDB Debug Adapter
 
 There are many configurable options to customize the debug adapter if desired. You can view a deeper description in the [debugging documentation](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/DEBUGGING.md).
 
