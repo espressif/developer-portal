@@ -19,7 +19,7 @@ This article covers the following key features:
 - [Code Navigation without full project build](#code-navigation-without-full-project-build)
 - [ESP-IDF Hints viewer](#esp-idf-hints-viewer)
 
-For other updates please review [v1.8.0 Release notes](https://github.com/espressif/vscode-esp-idf-extension/releases/tag/v1.8.0). Now let's look into these features one by one.
+For other updates please review [v1.8.0 Release notes](https://github.com/espressif/vscode-esp-idf-extension/releases/tag/v1.8.0). Now let's look into the key features one by one.
 
 ## Eclipse CDT GDB Debug Adapter
 
