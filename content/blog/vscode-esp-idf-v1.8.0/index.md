@@ -16,7 +16,7 @@ This article covers the following key features:
 <!-- no toc -->
 - [Eclipse CDT GDB Debug Adapter](#eclipse-cdt-gdb-debug-adapter)
 - [ESP-IDF version switcher](#esp-idf-version-switcher)
-- [Code Navigation without full project build](#code-navigation-without-full-project-build)
+- [Code navigation without full project build](#code-navigation-without-full-project-build)
 - [ESP-IDF Hints viewer](#esp-idf-hints-viewer)
 
 For other updates please review [v1.8.0 Release notes](https://github.com/espressif/vscode-esp-idf-extension/releases/tag/v1.8.0). Now let's look into the key features one by one.
