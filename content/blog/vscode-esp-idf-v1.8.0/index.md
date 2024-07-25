@@ -106,7 +106,7 @@ One of the key features of an IDE is code navigation. While working on your proj
 
 Such extensions usually rely on a `compile_commands.json` file -- a JSON compilation database which consist of an array of *command objects*, where each command object specifies one way in which a translation unit is compiled in the project. More information about a JSON compilation database can be found [here][code-compilation-database].
 
-If, for any reason, you don’t want to fully build your project but still want to use code navigation, you can use the command `ESP-IDF: idf.py reconfigure task` to generate a `compile_commands.json` file for the language extension to work properly. This command executes the ESP-IDF reconfigure task, hence its name.
+Now you can enable code navigation by using the command `ESP-IDF: idf.py reconfigure task` to generate a `compile_commands.json` file without the need to wait for the whole project to build. This command executes the ESP-IDF reconfigure task, hence its name.
 
 [c-extension]: https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools
 [clangd-extension]: https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd
