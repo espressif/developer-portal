@@ -1,0 +1,6 @@
+{{ if .Page.HasShortcode "tabs" }}
+{{ $learnCSS := resources.Get "lib/learn/learn.css" }}
+<link type="text/css" rel="stylesheet" href="{{ $learnCSS.RelPermalink }}" integrity="{{ $learnCSS.Data.Integrity }}" />
+{{ $learnJS := resources.Get "lib/learn/learn.js" }}
+<script src="{{ $learnJS.RelPermalink }}" integrity="{{ $learnJS.Data.Integrity }}"></script>
+{{ end }}
