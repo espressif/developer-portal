@@ -14,14 +14,14 @@ tags: ["ESP32", "ESP-IDF", "Wi-Fi", "Tutorial"]
 In this tutorial, we will be exploring how to connect an Espressif SoC to a Wi-Fi Access Point (AP) using ESP-IDF.
 
 By the end of this tutorial, you will be able to:
-- Understand the background of the Wi-Fi technology 
+- Understand the background of the Wi-Fi technology
 - Understand the necessary component needed to enable Wi-Fi connection
 - Set up a simple Wi-Fi connection with the Espressif Soc
 - Able to implement Wi-Fi connections from scratch on ESP-IDF
 
-  
+
 ## Recommended prerequisite
-<!-- 
+<!--
 - **Prerequisite:** List out the knowledge that the reader is assumed to know prior to starting the guide.
   - Previous guides that would provide the prerequisite knowledge:
 -->
@@ -37,7 +37,7 @@ To install and get started with ESP-IDF, kindly refer to the tutorial [here](htt
 - Necessity of the protocol
 - In what situations that the protocol is used
 -->
-Wi-Fi technology, short for Wireless Fidelity, is a method of wirelessly connecting devices to the internet and to each other through a local area network (LAN). It uses radio waves to provide high-speed internet and network connections to a wide array of devices, including smartphones, laptops, tablets, and IoT gadgets. 
+Wi-Fi technology, short for Wireless Fidelity, is a method of wirelessly connecting devices to the internet and to each other through a local area network (LAN). It uses radio waves to provide high-speed internet and network connections to a wide array of devices, including smartphones, laptops, tablets, and IoT gadgets.
 
 Wi-Fi has revolutionized how we access information and communicate, enabling seamless internet connectivity without the need for physical cables. As a cornerstone of modern communication, Wi-Fi continues to evolve, bringing faster speeds, greater reliability, and enhanced security features to meet the ever-growing demands of digital connectivity.
 
@@ -83,7 +83,7 @@ This tutorial will be using the following software:
   - Include checkpoints where readers can run a partial project & look at the output.
   - This is to ensure that the reader is following along the guide and to be able to detect errors early in the project.
 
-** Important! Remember to include notes if 
+** Important! Remember to include notes if
 - there are differences in
 -->
 For this tutorial, we will be establishing Wi-Fi connection on the Espressif SoC via 2 methods:
@@ -100,8 +100,8 @@ Comparison between the 2 methods:
 #### Step 1: Set up the project
 
 
-> For Linux and macOS user: remember to set up the ESP-IDF environment in the terminal session where `idf.py` is used! This can be done with the command `. $HOME/esp/esp-idf/export.sh`. 
-> 
+> For Linux and macOS user: remember to set up the ESP-IDF environment in the terminal session where `idf.py` is used! This can be done with the command `. $HOME/esp/esp-idf/export.sh`.
+>
 > Refer [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/linux-macos-setup.html#step-4-set-up-the-environment-variables) for more information on the set up of environment variables for ESP-IDF. It is recommended to create an alias to set up ESP-IDF.
 
 
@@ -115,7 +115,7 @@ This command creates a minimal blank ESP-IDF project, with the following structu
 
 ```sh
 ├── CMakeLists.txt  # Build configuration declaring entire project
-├── main            # Contains project source code 
+├── main            # Contains project source code
 │   ├── CMakeLists.txt   # File that registers the main component
 │   └── simple_connect.c # Contains the main entry point of the program
 └── README.md            # File to describe the project
@@ -124,7 +124,7 @@ This command creates a minimal blank ESP-IDF project, with the following structu
 A brief overview of the files created:
 - Top-level `simple_connect/CMakeLists.txt`: this file sets project-wide CMake variable and integrate the project with the rest of the build system.
 - `main` directory: this directory contains the source code of the project.
-- Project-level `main/CMakeLists.txt`: this file sets the variable definition to control the build process of the project. 
+- Project-level `main/CMakeLists.txt`: this file sets the variable definition to control the build process of the project.
 - `simple_connect.c` : this file contain the main entry point of the program, `app_main()`. We will write our source code here.
 
 To understand how an ESP-IDF project is structured, see [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/build-system.html#build-system). For the list of available commands in the `idf.py` command-line tool, see [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-py.html#idf-frontend-idf-py).
@@ -145,7 +145,7 @@ dependencies:
 
 #### Step 3: Set up the target SoC
 
-We need to configure the ESP-IDF to build the project for the specifc target (SoC) used. 
+We need to configure the ESP-IDF to build the project for the specifc target (SoC) used.
 
 At the root of the project directory, run `idf.py set-target esp32XX`
 
@@ -170,7 +170,7 @@ To edit Wi-Fi credentials, do the following (also see the asciinema video below)
 
 #### Step 5: Edit the source code
 
-Now, let us write a simple program that connects to the Wi-Fi acccess point, then shortly after disconnects from the Wi-Fi access point. The complete code to be placed in `main/simple_connect.c` can be found [here](http://localhost:1313/blog/getting-started-with-wifi-on-esp-idf/#part-1-using-the-example_connect-function-1), and below some explanations are provided.
+Now, let us write a simple program that connects to the Wi-Fi acccess point, then shortly after disconnects from the Wi-Fi access point. The complete code to be placed in `main/simple_connect.c` can be found [here](#part-1-using-the-example_connect-function-1), and below some explanations are provided.
 
 **Header files and Macros**
 
@@ -230,7 +230,7 @@ The documentation on `wifi_ap_record_t` and `esp_wifi_sta_get_ap_info()` can be 
 
 #### Step 6: Run the application
 
-The full source code for this example can be found [here](#part-1-using-the-example_connect-function-1). 
+The full source code for this example can be found [here](#part-1-using-the-example_connect-function-1).
 
 
 Once we are done writing the source code in `simple_connect.c`, we can build the binaries and flash them onto the Espressif SoC.
@@ -240,18 +240,18 @@ This can be done with the following commands:
 - Flashing the binaries onto the Espressif SoC: `idf.py flash`
 - Reading the output from the serial port: `idf.py monitor`
 
-The source code provided will output the following on the terminal: 
+The source code provided will output the following on the terminal:
 {{< asciinema key="simpleConnectionMonitor" >}}
 
-The `example_connect()` provides a good starting point for establishing Wi-Fi connection on the Espressif SoC. 
+The `example_connect()` provides a good starting point for establishing Wi-Fi connection on the Espressif SoC.
 
 In the next section, we will look at how to write full Wi-Fi handling code that is more robust, configurable and is able to deal with various error conditions.
 
 ### Part 2: Using the Wi-Fi APIs
 
-The `example_connect()` function provides us with a simple method to establish a Wi-Fi connection. However, for developing real applications or more complex projects, it is worth the time and effort to write more robust Wi-Fi code. 
+The `example_connect()` function provides us with a simple method to establish a Wi-Fi connection. However, for developing real applications or more complex projects, it is worth the time and effort to write more robust Wi-Fi code.
 
-In this section, we will go through the various components of the Wi-Fi driver and APIs, then build the Wi-Fi code from scratch. 
+In this section, we will go through the various components of the Wi-Fi driver and APIs, then build the Wi-Fi code from scratch.
 
 For additional examples, feel free to refer to the following sources:
 - [ESP-IDF Example Connect Implementation](https://github.com/espressif/esp-idf/blob/master/examples/common_components/protocol_examples_common/wifi_connect.c)
@@ -271,13 +271,13 @@ For this example, let's demonstrate how to add more header and source code files
 In the `main` folder, create a header file named `tutorial.h` and another file named `tutorial.c`. The project will be structured as such:
 
 ```sh
-├── CMakeLists.txt  
-├── main           
-│   ├── CMakeLists.txt  
+├── CMakeLists.txt
+├── main
+│   ├── CMakeLists.txt
 │   └── wifi_tutorial.c # Source file that contains the entry point
 │   └── tutorial.c      # Create this source file
 │   └── tutorial.h      # Create this header file
-└── README.md          
+└── README.md
 ```
 
 We need to edit `main/CMakeLists.txt` so that the files added will be included in the build process. For more information about the ESP-IDF build system, you can refer to this [document](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/build-system.html).
@@ -348,7 +348,7 @@ static EventGroupHandle_t s_wifi_event_group = NULL;
 In `tutorial_init()`, we will initialize the hardware and interface needed to set up Wi-FI as shown below:
 
 ```c
-esp_err_t tutorial_init(void) 
+esp_err_t tutorial_init(void)
 {
     // Initialize Non-Volatile Storage (NVS)
     esp_err_t ret = nvs_flash_init();
@@ -413,7 +413,7 @@ In this tutorial, we also use Event Bits to indicate what Wi-Fi event has occurr
 To establish a Wi-Fi connection, we can configure the type of connection, security level and hardware mode using the following method:
 
 ```c
-esp_err_t tutorial_connect(char* wifi_ssid, char* wifi_password) 
+esp_err_t tutorial_connect(char* wifi_ssid, char* wifi_password)
 {
     wifi_config_t wifi_config = {
         .sta = {
@@ -430,11 +430,11 @@ esp_err_t tutorial_connect(char* wifi_ssid, char* wifi_password)
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
-    
+
     ESP_LOGI(TAG, "Connecting to Wi-Fi network: %s", wifi_config.sta.ssid);
     ESP_ERROR_CHECK(esp_wifi_start());
 
-    EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT, 
+    EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
         pdFALSE, pdFALSE, portMAX_DELAY);
 
     if (bits & WIFI_CONNECTED_BIT) {
@@ -443,8 +443,8 @@ esp_err_t tutorial_connect(char* wifi_ssid, char* wifi_password)
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGE(TAG, "Failed to connect to Wi-Fi network: %s", wifi_config.sta.ssid);
         return ESP_FAIL;
-    } 
-    
+    }
+
     ESP_LOGE(TAG, "Unexpected Wi-Fi error");
     return ESP_FAIL;
 }
@@ -460,17 +460,17 @@ The documentation for STA configuration can be found [here](https://docs.espress
 
 We can also configure the hardware resources allocated for managing Wi-Fi. For instance, we disable any power saving mode using `esp_wifi_set_ps()` in this tutorial to maximize reception and transmission of Wi-Fi data packets. However, there are some scenarios require that we set a specific power safe type, such as those requiring [power saving modes](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/sleep_modes.html#sleep-modes) and [RF coexistence](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/coexist.html#rf-coexistence).
 
-> Note that `xEventGroupWaitBits()` in the code above is a blocking process that waits until one of the bits are set by the event handlers. The documentation can be found [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html?highlight=xeventgroup#_CPPv419xEventGroupWaitBits18EventGroupHandle_tK11EventBits_tK10BaseType_tK10BaseType_t10TickType_t). 
+> Note that `xEventGroupWaitBits()` in the code above is a blocking process that waits until one of the bits are set by the event handlers. The documentation can be found [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html?highlight=xeventgroup#_CPPv419xEventGroupWaitBits18EventGroupHandle_tK11EventBits_tK10BaseType_tK10BaseType_t10TickType_t).
 >
 > Some familiarity with FreeRTOS concepts will be helpful to understand the behaviour of the program, refer to the documentation [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html?highlight=xeventgroup#overview).
 > For advanced use cases, it is possible to run the Wi-Fi routine as a RTOS task to avoid it from blocking the rest of the application while waiting for a Wi-Fi connection to be established.
 
 **Event Handler for Wi-FI and IP events**
 
-For this example, we created simple event handlers to log events related to [Wi-Fi](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_wifi.html?highlight=wifi_event#_CPPv412wifi_event_t) (defined under `wifi_event_t`) or [IP layer](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_netif.html?highlight=ip_event#_CPPv410ip_event_t) (defined under `ip_event_t`). 
+For this example, we created simple event handlers to log events related to [Wi-Fi](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_wifi.html?highlight=wifi_event#_CPPv412wifi_event_t) (defined under `wifi_event_t`) or [IP layer](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_netif.html?highlight=ip_event#_CPPv410ip_event_t) (defined under `ip_event_t`).
 
 The important notable events in establishing Wi-Fi are:
-- `WIFI_EVENT_STA_START` : The configuration for STA is completed 
+- `WIFI_EVENT_STA_START` : The configuration for STA is completed
 - `WIFI_EVENT_STA_CONNECTED` : The STA managed to establish a connection with the Wi-Fi Access Point
 - `WIFI_EVENT_STA_DISCONNECTED`: The STA lost a connection with an AP or timeout
 - `IP_EVENT_STA_GOT_IP`: The Espressif SoC received an IP address assigned by the AP, the Wi-Fi connection is complete.
@@ -487,12 +487,12 @@ We will need to clear the driver, network interface and unregister the event han
 Hence, `tutorial_disconnect()` and `tutorial_deinit()` are implemented as follows:
 
 ```c
-esp_err_t tutorial_disconnect(void) 
+esp_err_t tutorial_disconnect(void)
 {
     if (s_wifi_event_group) {
         vEventGroupDelete(s_wifi_event_group);
     }
-    
+
     return esp_wifi_disconnect();
 }
 
@@ -522,7 +522,7 @@ We have finished implementing the Wi-Fi connection according to the desired conf
 2. Establish Wi-Fi connection
 3. Once connection is established, print out information about the Access Point
 4. Terminate Wi-Fi connection
-5. Release the resources used for Wi-Fi connection 
+5. Release the resources used for Wi-Fi connection
 
 We encourage you to code out `wifi_tutorial.c` without referring to the answer! The complete code snippet can be found in the [next section](#part-2-using-the-wi-fi-apis-1).
 
@@ -541,7 +541,7 @@ Here is a demonstration of the tutorial:
 -->
 
 ### Part 1: Using the `example_connect()` function
-```c 
+```c
 // simple_connect.c
 #include <stdio.h>
 #include "esp_log.h"
@@ -629,7 +629,7 @@ static esp_event_handler_instance_t wifi_event_handler;
 
 static EventGroupHandle_t s_wifi_event_group = NULL;
 
-static void ip_event_cb(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) 
+static void ip_event_cb(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data)
 {
     ESP_LOGI(TAG, "Handling IP event, event code 0x%" PRIx32, event_id);
     switch (event_id)
@@ -652,13 +652,13 @@ static void ip_event_cb(void *arg, esp_event_base_t event_base, int32_t event_id
     default:
         ESP_LOGI(TAG, "IP event not handled");
         break;
-    } 
+    }
 }
 
-static void wifi_event_cb(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) 
+static void wifi_event_cb(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data)
 {
     ESP_LOGI(TAG, "Handling Wi-Fi event, event code 0x%" PRIx32, event_id);
-    
+
     switch (event_id)
     {
     case (WIFI_EVENT_WIFI_READY):
@@ -671,10 +671,10 @@ static void wifi_event_cb(void *arg, esp_event_base_t event_base, int32_t event_
         ESP_LOGI(TAG, "Wi-Fi started, connecting to AP...");
         esp_wifi_connect();
         break;
-    case (WIFI_EVENT_STA_STOP): 
+    case (WIFI_EVENT_STA_STOP):
         ESP_LOGI(TAG, "Wi-Fi stopped");
         break;
-    case (WIFI_EVENT_STA_CONNECTED):    
+    case (WIFI_EVENT_STA_CONNECTED):
         ESP_LOGI(TAG, "Wi-Fi connected");
         break;
     case (WIFI_EVENT_STA_DISCONNECTED):
@@ -695,10 +695,10 @@ static void wifi_event_cb(void *arg, esp_event_base_t event_base, int32_t event_
         ESP_LOGI(TAG, "Wi-Fi event not handled");
         break;
     }
-} 
+}
 
 
-esp_err_t tutorial_init(void) 
+esp_err_t tutorial_init(void)
 {
     // Initialize Non-Volatile Storage (NVS)
     esp_err_t ret = nvs_flash_init();
@@ -750,7 +750,7 @@ esp_err_t tutorial_init(void)
     return ret;
 }
 
-esp_err_t tutorial_connect(char* wifi_ssid, char* wifi_password) 
+esp_err_t tutorial_connect(char* wifi_ssid, char* wifi_password)
 {
     wifi_config_t wifi_config = {
         .sta = {
@@ -767,11 +767,11 @@ esp_err_t tutorial_connect(char* wifi_ssid, char* wifi_password)
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
-    
+
     ESP_LOGI(TAG, "Connecting to Wi-Fi network: %s", wifi_config.sta.ssid);
     ESP_ERROR_CHECK(esp_wifi_start());
 
-    EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT, 
+    EventBits_t bits = xEventGroupWaitBits(s_wifi_event_group, WIFI_CONNECTED_BIT | WIFI_FAIL_BIT,
         pdFALSE, pdFALSE, portMAX_DELAY);
 
     if (bits & WIFI_CONNECTED_BIT) {
@@ -780,18 +780,18 @@ esp_err_t tutorial_connect(char* wifi_ssid, char* wifi_password)
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGE(TAG, "Failed to connect to Wi-Fi network: %s", wifi_config.sta.ssid);
         return ESP_FAIL;
-    } 
-    
+    }
+
     ESP_LOGE(TAG, "Unexpected Wi-Fi error");
     return ESP_FAIL;
 }
 
-esp_err_t tutorial_disconnect(void) 
+esp_err_t tutorial_disconnect(void)
 {
     if (s_wifi_event_group) {
         vEventGroupDelete(s_wifi_event_group);
     }
-    
+
     return esp_wifi_disconnect();
 }
 
@@ -845,7 +845,7 @@ void app_main(void)
     ret = esp_wifi_sta_get_ap_info(&ap_info);
     if (ret == ESP_ERR_WIFI_CONN) {
         ESP_LOGE(TAG, "Wi-Fi station interface not initialized");
-    } 
+    }
     else if (ret == ESP_ERR_WIFI_NOT_CONNECT) {
         ESP_LOGE(TAG, "Wi-Fi station is not connected");
     } else {
@@ -863,19 +863,19 @@ void app_main(void)
 
     ESP_ERROR_CHECK(tutorial_deinit());
 
-    ESP_LOGI(TAG, "End of tutorial...");   
+    ESP_LOGI(TAG, "End of tutorial...");
 }
 ```
 
 ## Conclusion
 <!--
 - ** Next tutorial **
-  - Link to the subsequent sub-module 
+  - Link to the subsequent sub-module
 -->
 
-In this tutorial, we learned various ways to establish a basic Wi-Fi connection from our Espressif Soc to an Access Point. 
+In this tutorial, we learned various ways to establish a basic Wi-Fi connection from our Espressif Soc to an Access Point.
 
-We delved into the intricacies of initializing the resources needed for the Wi-Fi capabilities on the Espressif Soc, where we explored the sequence of steps in detail needed for a robust configuration. 
+We delved into the intricacies of initializing the resources needed for the Wi-Fi capabilities on the Espressif Soc, where we explored the sequence of steps in detail needed for a robust configuration.
 
 To gain a better understanding of the Wi-Fi capabilities on Espressif Soc, we invite you to experiment with different Wi-Fi configurations, such as WPA3 or DPP. We hope that this tutorial has given you the necessary tools to explore them!
 
@@ -901,7 +901,7 @@ ninja: build stopped: subcommand failed.
 - Then run `idf.py fullclean` and build again by running `idf.py build`
 
 ### Error 2: NVS not initialized
-```bash 
+```bash
 ESP_ERROR_CHECK failed: esp_err_t 0x1101 (ESP_ERR_NVS_NOT_INITIALIZED) at 0x42008226
 file: "/IDF/examples/common_components/protocol_examples_common/wifi_connect.c" line 138
 func: example_wifi_start
@@ -932,7 +932,7 @@ abort() was called at PC 0x40386345 on core 0
 <!--
 - **References:**
   - Links to references on the protocol in discussion.
-  - Github example 
+  - Github example
   - ESP Docs
 
 -->
