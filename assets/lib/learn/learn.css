@@ -14,7 +14,7 @@ body .tab-nav-button:first-child {
     margin-left: 0px;
 }
 body .tab-nav-button.active {
-    text-decoration-line: none; 
+    text-decoration-line: none;
     background-color: #fff!important;
     border-bottom-color: #fff!important;
 }
@@ -37,7 +37,7 @@ body .tab-content .tab-item{
 }
 
 body .tab-content .tab-item.active{
-    text-decoration-line: none; 
+    text-decoration-line: none;
     display: block;
 }
 
