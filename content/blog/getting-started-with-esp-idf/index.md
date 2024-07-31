@@ -1,13 +1,13 @@
 ---
 title: "Getting Started With ESP-IDF"
-date: "2024-06-10"
+date: "2024-07-31"
 showAuthor: false
 authors:
     - "cheah-hao-yi"
-tags: ["ESP32", "ESP-IDF"]
+tags: ["ESP32", "ESP-IDF", "Tutorial"]
 ---
 
-## Learning Objective
+## Learning Objectives
 <!--
 - **Learning Objective:** Outline the topic in discussion and what kind of project the user can expect at the end of the guide.
 -->
@@ -54,7 +54,7 @@ Hardware:
 
 Software
 
-- ESP-IDF version 5.2.1 
+- ESP-IDF version 5.2.2
 
 ## Step-by-step Guide
 <!--
@@ -78,10 +78,10 @@ The first step in running application on an Espressif SoC is to ensure that the 
 > Note: 
 > For Linux and MacOS computer, this step is not necessary. Kindly proceed to [Step 2](#step-2-installing-the-prerequisite)
 
-#### 1.1 Connecting the Devkit
-Let's first check if the computer can recongnize your SoC. 
+#### 1.1 Connect the SoC
+Let's first check if the computer can recognize your SoC. 
 
-![Connecting to the ESP32 DevKit](./assets/esp32devkit_connected.webp)
+![Connecting to the Espressif SoC](./assets/esp32devkit_connected.webp)
 
 
 Connect the USB cable to your Espressif SoC and open up the Device Manager. (Window's Icon > Search for "Device Manager")
@@ -90,7 +90,7 @@ Connect the USB cable to your Espressif SoC and open up the Device Manager. (Win
 
 Under *Other devices*, there is an entry called `CP2102N USB to UART Bridge Controller` with a warning icon, this is normal. This implies that the computer is unable to communicate with the SoC just yet. Hence it is necessary to install the driver.
 
-#### 1.2 Getting the driver files
+#### 1.2 Get the driver files
 
 Navigate to [CP210x USB to UART Driver page](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers). 
 
@@ -102,7 +102,7 @@ Under the *Downloads* tab, select the *CP210x Universal Windows Driver*, this wi
 
 Navigate to the downloaded zip file, and unzip it. 
 
-#### 1.3 Installing the driver
+#### 1.3 Install the driver
 
 Go back to the Device Manager, right click on the "CP2102N USB to UART Bridge Controller", and click update driver.
 
@@ -132,7 +132,7 @@ Take note of which COM Port the Espressif SoC is connected to. This will be impo
 
 For the rest of this guide, `COMx` will refer to the COM port that the Espressif SoC is connected to.
 
-### Step 2: Installing the ESP-IDF 
+### Step 2: Install the ESP-IDF 
 
 Navigate to the [ESP-IDF Programming Guide](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html#manual-installation). Under `Manual Installation`, select the guide that corresponds to your operating system.
 
@@ -150,9 +150,9 @@ Follow through with the installation step, the installation can be customized if
 
 ![Window Installation Step](./assets/window_installation_step.webp)
 
-Once the command prompt icon is available on the desktop screen, we will have the necessary application to program the ESP32 DevKits!
+Once the command prompt icon is available on the desktop screen, we will have the necessary application to program the Espressif SoC!
 
-### Step 3: Understanding the ESP-IDF file hierarchy
+### Step 3: Learn ESP-IDF file hierarchy
 
 #### For Linux and macOS
 
@@ -176,7 +176,7 @@ On the Windows terminal, run `dir`. (`ls` for Linux and macOS user), below is th
 
 As you can see, the folders here repeat the folders in the [ESP-IDF Github repository](https://github.com/espressif/esp-idf). 
 
-#### 3.2 Navigating to the project directory
+#### 3.2 Go to the project directory
 
 We will be running the blink example, which is located under `examples > get-started > blink`.
 
@@ -187,10 +187,10 @@ Run `cd examples\get-started\blink` to change directory into the blink project. 
 For an overview of the components in the project directory, see the [explanation here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/build-system.html#example-project).
 
 
-### Step 4: Running the blink example
+### Step 4: Run the blink example
 We will now go through the workflow for uploading and running a sample project.
 
-#### 4.1 Setting the target SoC
+#### 4.1 Set the target SoC
 We will first configure the IDF such that the project will be build for the specific target (SoC) that we have.
 
 
@@ -210,7 +210,7 @@ It is important to set the chips now to avoid encountering errors while uploadin
 For more information on target selection, see [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-py.html#selecting-idf-target)
 
 
-#### 4.2 Building the binaries
+#### 4.2 Build the binaries
 
 Next, we need to build our blink example project to get a binary.
 
@@ -221,12 +221,12 @@ In the terminal, go to the root of your project directory (in this case, the *bl
 
 All the relevant source code and dependencies will compile at this stage. Pay attention to the line `Project build complete. To flash, run this command:` near the end of the output.
 
-At this stage, any syntatic errors or dependencies errors will be flagged out by the compiler if the build fails. The `build` stage will translate the source code into an executable program for the Espressif SoCs. 
+At this stage, any syntatic errors or dependencies errors will be flagged out by the compiler if the build fails. The `build` stage will compile the source code into an executable program for the Espressif SoCs. 
 
 For more information on the `build` command, see [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-py.html#build-the-project-build)
 
 
-#### 4.3 Uploading the binaries to the ESP32 DevKit
+#### 4.3 Upload the binaries to the Espressif SoC
 
 Next, we will upload the binaries to the Espressif SoC.
 
@@ -246,7 +246,7 @@ If the flashing is successful, the following should be observed:
 
 ![Flash output](./assets/output_flash.webp)
 
-#### 4.4 Viewing the console output of the ESP32 DevKit
+#### 4.4 View the console output of the Espressif SoC
 
 To view the serial monitor:
 - Windows: run `idf.py -p COMx monitor`
@@ -298,12 +298,12 @@ void app_main(void)
 }
 ```
 
-### `void app_main(void)`
+*`void app_main(void)`*
 
 This is the main entry point of the project.
 
 
-### `configure_led()`
+*`configure_led()`*
 
 This is a function that initializes the hardware required to blink the LED.
 
