@@ -24,7 +24,7 @@ By the end of this tutorial, we will be able to:
 
 
 ## Recommended prerequisite
-<!-- 
+<!--
 - **Prerequisite:** List out the knowledge that the reader is assumed to know prior to starting the guide.
   - Previous guides that would provide the prerequisite knowledge:
 -->
@@ -42,7 +42,7 @@ This tutorial serves as the foundation of all the other tutorials using Espressi
 -->
 ESP-IDF is Espressif's official IoT Development Framework for most of the Espressif SoCs. It provides a self-sufficient SDK for any generic application development on Espressif SoCs.
 
-The primary programming language used in ESP-IDF is C. Also, there is support for C++ and R that will be described in other guides. 
+The primary programming language used in ESP-IDF is C. Also, there is support for C++ and R that will be described in other guides.
 
 ### Requirements
 
@@ -67,7 +67,7 @@ Software
   - Include checkpoints where readers can run a partial project & look at the output.
   - This is to ensure that the reader is following along the guide and to be able to detect errors early in the project.
 
-** Important! Remember to include notes if 
+** Important! Remember to include notes if
 - there are differences in
 -->
 
@@ -75,11 +75,11 @@ Software
 
 The first step in running application on an Espressif SoC is to ensure that the computer is able to recognize and communicate with the SoCs. If you use Windows, this involves installing the relevant driver.
 
-> Note: 
+> Note:
 > For Linux and MacOS computer, this step is not necessary. Kindly proceed to [Step 2](#step-2-install-the-esp-idf)
 
 #### 1.1 Connect the SoC
-Let's first check if the computer can recognize your SoC. 
+Let's first check if the computer can recognize your SoC.
 
 ![Connecting to the Espressif SoC](./assets/esp32devkit_connected.webp)
 
@@ -92,7 +92,7 @@ Under *Other devices*, there is an entry called `CP2102N USB to UART Bridge Cont
 
 #### 1.2 Get the driver files
 
-Navigate to [CP210x USB to UART Driver page](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers). 
+Navigate to [CP210x USB to UART Driver page](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers).
 
 ![Driver Website](./assets/driver_sil_lab_website.webp)
 
@@ -100,7 +100,7 @@ Under the *Downloads* tab, select the *CP210x Universal Windows Driver*, this wi
 
 ![Unzipping the file](./assets/driver_unzip.webp)
 
-Navigate to the downloaded zip file, and unzip it. 
+Navigate to the downloaded zip file, and unzip it.
 
 #### 1.3 Install the driver
 
@@ -127,12 +127,12 @@ Close the pop up. In the device manager, we can see that the entry for the SoC i
 The entry will specify which *COM Port* number is connected to the SoC. Try to disconnect and reconnect to double-check the port number.
 
 {{< alert >}}
-Take note of which COM Port the Espressif SoC is connected to. This will be important when uploading the application in the later steps. The port can differ across different computers. 
+Take note of which COM Port the Espressif SoC is connected to. This will be important when uploading the application in the later steps. The port can differ across different computers.
 {{< /alert >}}
 
 For the rest of this guide, `COMx` will refer to the COM port that the Espressif SoC is connected to.
 
-### Step 2: Install the ESP-IDF 
+### Step 2: Install the ESP-IDF
 
 Navigate to the [ESP-IDF Programming Guide](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html#manual-installation). Under `Manual Installation`, select the guide that corresponds to your operating system.
 
@@ -174,7 +174,7 @@ On the Windows terminal, run `dir`. (`ls` for Linux and macOS user), below is th
 
 ![Listing ESP IDF](./assets/list_dir_idf.webp)
 
-As you can see, the folders here repeat the folders in the [ESP-IDF Github repository](https://github.com/espressif/esp-idf). 
+As you can see, the folders here repeat the folders in the [ESP-IDF Github repository](https://github.com/espressif/esp-idf).
 
 #### 3.2 Go to the project directory
 
@@ -221,7 +221,7 @@ In the terminal, go to the root of your project directory (in this case, the *bl
 
 All the relevant source code and dependencies will compile at this stage. Pay attention to the line `Project build complete. To flash, run this command:` near the end of the output.
 
-At this stage, any syntatic errors or dependencies errors will be flagged out by the compiler if the build fails. The `build` stage will compile the source code into an executable program for the Espressif SoCs. 
+At this stage, any syntatic errors or dependencies errors will be flagged out by the compiler if the build fails. The `build` stage will compile the source code into an executable program for the Espressif SoCs.
 
 For more information on the `build` command, see [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-py.html#build-the-project-build)
 
@@ -281,7 +281,7 @@ To exit from the serial monitor, the key combination is `Ctrl` + `]`.
 -->
 Here is a brief overview of the example code under `blink/main/blink_example_main.c`
 
-```c 
+```c
 void app_main(void)
 {
 
@@ -311,7 +311,7 @@ This is a function that initializes the hardware required to blink the LED.
 ## Conclusion
 <!--
 - ** Next tutorial **
-  - Link to the subsequent sub-module 
+  - Link to the subsequent sub-module
 -->
 
 Throughout this guide, we've explored the capabilities of the Espressif IoT Development Framework (ESP-IDF) and the Espressif SoCs.
@@ -337,7 +337,7 @@ Here are some common errors:
 - To resolve:
   - Exit the monitor
   - Run `idf.py menuconfig`
-  - Select `Component Config` > `Hardware Settings` > `Main XTAL Config` > `Main XTAL Frequency` 
+  - Select `Component Config` > `Hardware Settings` > `Main XTAL Config` > `Main XTAL Frequency`
   - Set `CONFIG_XTAL_FREQ_SEL` to 26 MHz
   - Build and flash the application again.
 
@@ -349,7 +349,7 @@ Some other errors are also described in the [ESP-IDF Programming Guide](https://
 <!--
 - **References:**
   - Links to references on the protocol in discussion.
-  - Github example 
+  - Github example
   - ESP Docs
 
 -->
