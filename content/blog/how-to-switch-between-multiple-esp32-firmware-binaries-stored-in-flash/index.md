@@ -13,7 +13,7 @@ The ESP32 microcontroller is a versatile and powerful device, widely used in IoT
 
 In this article, we will explore how to use the ESP32 Graphical Bootloader to switch between multiple firmware images stored in the flash memory. This bootloader serves as the primary application, allowing you to select and run different firmware images. We will also demonstrate how each application can switch back to the bootloader.
 
-## How it works
+## How It Works
 
 The bootloader allows the user to select an application from a graphical menu. Once an application is selected, the corresponding partition is chosen, and the chip reboots. The bootloader then switches to the newly selected application. During the startup of this application, there is a code segment that switches the boot partition back to the original application containing the bootloader. Consequently, after another restart, the original bootloader application is displayed again. The bootloader is using [OTA mechanism](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/ota.html), just the applications are already present in the flash memory.
 
@@ -82,7 +82,7 @@ cmake -DBUILD_BOARD=esp-box-3 -Daction=build_all_apps -P Bootloader.cmake
 List of other supported boards could be found in `boards` directory.
 
 
-### Merg Binaries into a Single Image
+### Merge Binaries into a Single Image
 
 After building, merge the binaries into a single image:
 
@@ -111,7 +111,7 @@ esptool.py --chip esp32s3 write_flash 0x0 build.esp-box-3/combined.bin
 
 Once flashed, the ESP32 will boot into the graphical bootloader. This bootloader allows you to select which application to run. The user interface is intuitive, and you can navigate through the different applications stored in the OTA partitions.
 
-## Create a custom application
+## Create a Custom Application
 
 The following steps will explain how to create a custom ESP-IDF application for ESP32-S3-BOX-3 which works with the Graphical Bootloader.
 
@@ -127,7 +127,7 @@ cp ../calculator/sdkconfig.defaults .
 cp ../calculator/sdkconfig.defaults.esp-box-3 .
 ```
 
-### Switch to Application Stored at OTA Partition
+### Switch to Application Stored in OTA Partition
 
 The following code snippet from the bootloader shows how to switch to another application. This is particularly useful for managing multiple applications stored in different OTA partitions:
 
@@ -141,7 +141,7 @@ if (next_partition && esp_ota_set_boot_partition(next_partition) == ESP_OK) {
 }
 ```
 
-### Returning to the Original Application at Factory Partition
+### Returning to the Original Application in Factory Partition
 
 Each application can include a mechanism to switch back to the original application (bootloader). Here is an example function from one of the sub-applications:
 
@@ -240,7 +240,7 @@ esptool.py --chip esp32s3 write_flash 0x220000 build.esp-box-3/hello_app.bin
 
 ### Change an Application Icon
 
-Icons displayed in Graphical Bootloader are part of the bootloade firmware, it's not part of an application. Icons are stored in `resources/images`. 
+Icons displayed in Graphical Bootloader are part of the bootloader firmware, it's not part of an application. Icons are stored in `resources/images`.
 
 You can simply replace one of existing png files.
 
