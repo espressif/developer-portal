@@ -53,6 +53,10 @@ The next step is to add the component [espressif/led_strip](https://components.e
 
 2. **Add the component**
 
+Now we will add the component to the project.
+
+> **Note**: Before adding the component, it is mandatory to do a project full clean, otherwise the CMake will not re-run.
+
 ```bash
 idf.py add-dependency "espressif/led_strip^2.5.3"
 ```
@@ -237,7 +241,11 @@ Some of the components includes examples that shows on how to use the component.
 
 To create a new project from a component example, we will use the terminal and not the Espressif-IDE. This feature is not yet implemented inside the IDE.
 
-Let's get the generic BSP [examples/generic_button_led](https://components.espressif.com/components/espressif/esp_bsp_generic/versions/1.2.0/examples/generic_button_led?language=en) and create a new project using the terminal.
+Let's get the generic BSP [examples/generic_button_led](https://components.espressif.com/components/espressif/esp_bsp_generic/versions/1.2.0/examples/generic_button_led?language=en) and create a new project using the BSP.
+
+**Alternative way**
+
+If you are using the terminal, you can run this command that will create a new project from the example.
 
 ```bash
 idf.py create-project-from-example "espressif/esp_bsp_generic^1.2.0:generic_button_led"
@@ -245,7 +253,9 @@ idf.py create-project-from-example "espressif/esp_bsp_generic^1.2.0:generic_butt
 
 This command will create all the necessary files with the example code ready to be configured.
 
-*Alternative way:* The alternative way to use the BSP is to create a blank project using the Espressif-IDE and create the manifest file manually.
+**Creating a new project**
+
+The way to use the BSP with the Espressif-IDE is to create a blank project and add the manifest file manually.
 
 To do that, create a new blank project for the ESP32-C6 and inside the `main` folder create the file `idf_component.yml` with the following content:
 
@@ -264,7 +274,9 @@ Since we are using the generic BSP, we need to set the configuration parameters 
 
   - LED connected to the **GPIO8** via RMT (addressable)
 
-Open the file `sdkconfig` to open the configuration. If the file is not in the project folder, you will need to build the project first.
+Open the file `sdkconfig` to open the configuration.
+
+**If the `sdkconfig` file is not in the project folder, you will need to first build the project. This file is only created after the first build.**
 
 On the SDK Configuration, go to `Component config` -> `Board Support Package (generic)`
 

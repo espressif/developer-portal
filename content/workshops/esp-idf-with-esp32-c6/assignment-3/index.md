@@ -78,8 +78,8 @@ Using the struct `wifi_config_t`, set up Wi-Fi as `sta`:
             .ssid = WIFI_SSID,
             // Set the network pass key
             .password = WIFI_PASS,
-            // Set WPA2 or WPA3 with Pre-Shared Key (PSK) as the authentication mode
-            .threshold.authmode = WIFI_AUTH_WPA2_WPA3_PSK,
+            // Set WPA as the authentication mode
+            .threshold.authmode = WIFI_AUTH_WPA_PSK,
             // Set Simultaneous Authentication (SAE) and Password Element (PWE) derivation method
             .sae_pwe_h2e = WPA3_SAE_PWE_BOTH,
             // Set the password identifier for H2E (Hash-to-Element)
@@ -253,7 +253,7 @@ void wifi_init_sta(void)
         .sta = {
             .ssid = WIFI_SSID,
             .password = WIFI_PASS,
-            .threshold.authmode = WIFI_AUTH_WPA2_WPA3_PSK,
+            .threshold.authmode = WIFI_AUTH_WPA_PSK,
             .sae_pwe_h2e = WPA3_SAE_PWE_BOTH,
             .sae_h2e_identifier = "",
         },
