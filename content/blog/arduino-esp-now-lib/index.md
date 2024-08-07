@@ -467,7 +467,7 @@ flowchart LR
     B <-..-> C
 ```
 
-Here is a brief demonstration of the `ESP_NOW_Network` example:
+Here is the output of the example running on three devices:
 
 - Device 1 (Master):
   {{< asciinema key=cast/network-master idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
