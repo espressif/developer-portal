@@ -33,7 +33,7 @@ The project [ESP-Drone](https://github.com/espressif/esp-drone), for example, us
 To use ESP-NOW with Arduino, you need:
 - Any ESP32 board supported by Arduino with Wi-Fi capabilities (note that the H series chips are not supported as they lack Wi-Fi);
 - Arduino IDE installed on your computer;
-- Arduino Core for ESP32 installed version 3.0.0 or later.
+- Arduino Core for ESP32 installed (v3.0.0 or later).
 
 If you still haven't installed the Arduino Core for ESP32, you can do so by following the steps in the [official documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/getting_started.html).
 
@@ -60,11 +60,11 @@ flowchart LR
     C[Device 2] <-->|Serial| D[/Terminal/]
 ```
 
-Let's start with a simple example to send and receive data using ESP-NOW. Normally, you would need to set up a ESP-NOW peer class and define the send and receive callbacks.
+Let's start with the basics by sending and receiving data between two devices using ESP-NOW. This example is based on the [`ESP_NOW_Serial`](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Serial/ESP_NOW_Serial.ino) sketch provided by the ESP-NOW library. You can find it in the Arduino IDE under `File > Examples > ESP_NOW > ESP_NOW_Serial`.
 
-However, for communication between only two devices, the `ESP_NOW_Serial_Class` is provided to simplify the setup process. To use this class, you need to include the `ESP32_NOW_Serial.h` header file.
+Normally, you would need to set up an ESP-NOW peer class and define the send and receive callbacks. However, for communication between only two devices, the `ESP_NOW_Serial_Class` is provided to simplify the setup process. To use this class, you need to include the `ESP32_NOW_Serial.h` header file.
 
-We can create a new instance of the `ESP_NOW_Serial_Class` and use it to send and receive data. Let's create a basic example to demonstrate this.
+We can create a new instance of the `ESP_NOW_Serial_Class` and use it to send and receive data. Let's create a basic sketch to demonstrate this.
 
 ```cpp
 #include "ESP32_NOW_Serial.h"
@@ -148,8 +148,6 @@ For example:
 - Device 2:
   {{< asciinema key=cast/device2-basic idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
 
-This example was based on the [`ESP_NOW_Serial`](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Serial/ESP_NOW_Serial.ino) example provided in the ESP-NOW library. You can find it in the Arduino IDE under `File > Examples > ESP_NOW > ESP_NOW_Serial`.
-
 ### Broadcasting Data
 
 To broadcast data to multiple devices, you can use the broadcast address `FF:FF:FF:FF:FF:FF`. This address will send data to all devices in the network. This address is available as `ESP_NOW.BROADCAST_ADDR` in the ESP-NOW library to simplify its use.
@@ -161,6 +159,8 @@ flowchart TB
     C --> D[/Terminal/]
 ```
 
+The following examples are based, respectively, on the [ESP-NOW Broadcast Master](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Broadcast_Master/ESP_NOW_Broadcast_Master.ino) and [ESP-NOW Broadcast Slave](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Broadcast_Slave/ESP_NOW_Broadcast_Slave.ino) sketches provided by the ESP-NOW library. You can find them in the Arduino IDE under the `File > Examples > ESP_NOW` sub-menu.
+
 #### Broadcaster Device
 
 To demonstrate broadcasting, let's create a new example using a custom class to handle the ESP-NOW communication. First let's create a new class called `ESP_NOW_Broadcast_Peer` that will handle the setup and communication details. It will be used by the broadcaster device to send data to all receiver devices.
@@ -168,8 +168,6 @@ To demonstrate broadcasting, let's create a new example using a custom class to 
 ```cpp
 #include "ESP32_NOW.h"
 #include "WiFi.h"
-
-#include <esp_mac.h>  // For the MAC2STR and MACSTR macros
 
 /* Definitions */
 
@@ -444,21 +442,26 @@ This example was based on the [`ESP_NOW_Broadcast_Master`](https://github.com/es
 
 To create more complex applications using ESP-NOW, you can explore the advanced [examples](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples) provided in the ESP-NOW library. These examples demonstrate how to create a network of devices, send and receive data between multiple devices, handle different types of messages, add encryption to the communication, automatically decide the role of the device in the network without hardcoding it, and more.
 
-As the code for these examples is more extensive, we recommend checking the commented code directly in the Arduino IDE under `File > Examples > ESP_NOW`. You can find examples such as [`ESP_NOW_Network`](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Network/ESP_NOW_Network.ino) that demonstrate how to create a network of devices with automatic role assignment and cryptography.
+As the code for these examples is more extensive, we recommend checking the commented code directly in the Arduino IDE under `File > Examples > ESP_NOW`. You can find sketches, such as [`ESP_NOW_Network`](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Network/ESP_NOW_Network.ino), that highlight many of the previously mentioned features.
 
-The aim of this example is to demonstrate how to create a network of devices using the ESP-NOW protocol.
-The secondary devices will broadcast random data to the main device every 5 seconds and, from time to time,
-they will ping the other secondary devices with a "Hello!" message.
+### Network of Devices
+
+Let's briefly demonstrate the [`ESP_NOW_Network`](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Network/ESP_NOW_Network.ino) example. Its aim is to demonstrate how to create a more complex network of devices using the ESP-NOW protocol.
+
+First, all devices will be set up ESP-NOW with cryptography enabled and define a master device that will manage the network.
 
 The main device will receive the data from the secondary devices and print it to the Serial Monitor. From time
 to time, the main device will calculate the average of the data of the secondary devices and send it to
 all the secondary devices.
 
+The secondary devices will broadcast random data to the master device every 5 seconds and, from time to time,
+they will ping the other secondary devices with a "Hello!" message.
+
 ```mermaid
 flowchart LR
     A[Master Device]
-    B[Device 1]
-    C[Device 2]
+    B[Device 2]
+    C[Device 3]
     A <-...->|ESP-NOW| B
     A <-...->|ESP-NOW| C
     B <-..-> C
@@ -483,7 +486,7 @@ With ESP-NOW, you can create low-latency, low-power, and secure peer-to-peer com
 
 ---
 
-### Additional Resources
+## Additional Resources
 
 - [Arduino Core for ESP32](https://github.com/espressif/arduino-esp32)
 - [ESP-NOW Library Documentation](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html)
