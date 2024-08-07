@@ -1,13 +1,13 @@
 ---
 title: "Using ESP-NOW in Arduino"
-date: 2024-06-03T09:00:24-03:00
+date: 2024-08-06T09:00:24-03:00
 tags: ["Arduino", "ESP-NOW", "Wireless", "Wi-Fi", "ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6"]
 showAuthor: false
 authors:
   - "lucas-vaz"
 ---
 
-ESP-NOW is a connectionless Wi-Fi communication protocol developed by Espressif for its microcontrollers. It allows for efficient, low-power, and low-latency peer-to-peer communication. This article will guide you through the essentials of using the new ESP-NOW library included in Arduino 3.0.0, from basic setup to advanced features.
+[ESP-NOW](https://www.espressif.com/en/solutions/low-power-solutions/esp-now) is a connectionless Wi-Fi communication protocol developed by Espressif for its microcontrollers. It allows for efficient, low-power, and low-latency peer-to-peer communication. This article will guide you through the essentials of using the new ESP-NOW library included in Arduino 3.0.0, from basic setup to advanced features.
 
 ## What is ESP-NOW?
 
@@ -18,9 +18,20 @@ ESP-NOW enables direct communication between multiple devices without needing a 
 - **Scalability:** Supports multiple peers in a network.
 - **Security:** Built-in encryption for secure data transfer.
 
+{{< figure
+    default=true
+    src="img/model-en.webp"
+    alt=""
+    caption="The ESP-NOW protocol model. Source: [Espressif](https://www.espressif.com/en/solutions/low-power-solutions/esp-now)."
+    >}}
+
+Some examples of applications that can benefit from ESP-NOW include home automation, sensor networks, remote control systems, and IoT devices.
+The project [ESP-Drone](https://github.com/espressif/esp-drone), for example, uses ESP-NOW to provide a low-latency and reliable connection.
+
 ## Getting Started with ESP-NOW in Arduino
 
 To use ESP-NOW with Arduino, you need:
+- Any ESP32 board supported by Arduino with Wi-Fi capabilities (note that the H series chips are not supported as they lack Wi-Fi);
 - Arduino IDE installed on your computer;
 - Arduino Core for ESP32 installed version 3.0.0 or later.
 
@@ -41,6 +52,13 @@ Be sure to check the [ESP-NOW Library Documentation](https://docs.espressif.com/
 Let's show the capabilities of the ESP-NOW library with some examples.
 
 ### Two-Device Communication
+
+```mermaid
+flowchart LR
+    A[/Terminal/] <-->|Serial| B[Device 1]
+    B<-....->|ESP-NOW| C
+    C[Device 2] <-->|Serial| D[/Terminal/]
+```
 
 Let's start with a simple example to send and receive data using ESP-NOW. Normally, you would need to set up a ESP-NOW peer class and define the send and receive callbacks.
 
@@ -125,16 +143,23 @@ After loading the code to both devices, you can open the Serial Monitor for each
 For example:
 
 - Device 1:
-  {{< asciinema key=device1-basic idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
+  {{< asciinema key=cast/device1-basic idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
 
 - Device 2:
-  {{< asciinema key=device2-basic idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
+  {{< asciinema key=cast/device2-basic idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
 
 This example was based on the [`ESP_NOW_Serial`](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Serial/ESP_NOW_Serial.ino) example provided in the ESP-NOW library. You can find it in the Arduino IDE under `File > Examples > ESP_NOW > ESP_NOW_Serial`.
 
 ### Broadcasting Data
 
 To broadcast data to multiple devices, you can use the broadcast address `FF:FF:FF:FF:FF:FF`. This address will send data to all devices in the network. This address is available as `ESP_NOW.BROADCAST_ADDR` in the ESP-NOW library to simplify its use.
+
+```mermaid
+flowchart TB
+    A[Broadcaster 1] -...->|ESP-NOW| C[Receiver]
+    B[Broadcaster 2] -...->|ESP-NOW| C[Receiver]
+    C --> D[/Terminal/]
+```
 
 #### Broadcaster Device
 
@@ -406,10 +431,10 @@ After uploading the code to the receiver device, you can start the broadcaster d
 For example:
 
 - Broadcaster Device:
-  {{< asciinema key=broadcaster idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
+  {{< asciinema key=cast/broadcaster idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
 
 - Receiver Device:
-  {{< asciinema key=broadcast-receiver idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
+  {{< asciinema key=cast/broadcast-receiver idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
 
 As you can see, the receiver device automatically registers the broadcaster device and starts receiving the messages. If you add more broadcaster devices to the network, the receiver device will also register them and start receiving their messages. This way, you can easily create a network of devices using ESP-NOW.
 
@@ -417,7 +442,7 @@ This example was based on the [`ESP_NOW_Broadcast_Master`](https://github.com/es
 
 ## Advanced Examples
 
-To create more complex applications using ESP-NOW, you can explore the advanced examples provided in the ESP-NOW library. These examples demonstrate how to create a network of devices, send and receive data between multiple devices, handle different types of messages, add encryption to the communication, automatically decide the role of the device in the network without hardcoding it, and more.
+To create more complex applications using ESP-NOW, you can explore the advanced [examples](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples) provided in the ESP-NOW library. These examples demonstrate how to create a network of devices, send and receive data between multiple devices, handle different types of messages, add encryption to the communication, automatically decide the role of the device in the network without hardcoding it, and more.
 
 As the code for these examples is more extensive, we recommend checking the commented code directly in the Arduino IDE under `File > Examples > ESP_NOW`. You can find examples such as [`ESP_NOW_Network`](https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP_NOW/examples/ESP_NOW_Network/ESP_NOW_Network.ino) that demonstrate how to create a network of devices with automatic role assignment and cryptography.
 
@@ -429,20 +454,32 @@ The main device will receive the data from the secondary devices and print it to
 to time, the main device will calculate the average of the data of the secondary devices and send it to
 all the secondary devices.
 
+```mermaid
+flowchart LR
+    A[Master Device]
+    B[Device 1]
+    C[Device 2]
+    A <-...->|ESP-NOW| B
+    A <-...->|ESP-NOW| C
+    B <-..-> C
+```
+
 Here is a brief demonstration of the `ESP_NOW_Network` example:
 
 - Device 1 (Master):
-  {{< asciinema key=network-master idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
+  {{< asciinema key=cast/network-master idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
 
 - Device 2:
-  {{< asciinema key=network-dev1 idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
+  {{< asciinema key=cast/network-dev1 idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
 
 - Device 3:
-  {{< asciinema key=network-dev2 idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
+  {{< asciinema key=cast/network-dev2 idleTimeLimit=2 speed=1 cols=80 rows=24 poster=npt:0:15 >}}
 
 ## Conclusion
 
-ESP-NOW is a powerful protocol that enhances the capabilities of ESP32 microcontrollers. By following this guide, you can leverage the new ESP-NOW library in Arduino to create efficient and reliable communication networks for your projects. Experiment with the examples provided, explore advanced features, and unlock the full potential of ESP-NOW in your applications.
+ESP-NOW is a powerful protocol that enhances the capabilities of ESP32 microcontrollers. By following this guide, you can leverage the new ESP-NOW library in Arduino to create efficient and reliable communication networks for your projects. Experiment with the examples provided, explore advanced features, and unlock the full potential of the ESP32 SoCs with ESP-NOW in your wireless applications.
+
+With ESP-NOW, you can create low-latency, low-power, and secure peer-to-peer communication networks for a wide range of applications, from home automation to IoT devices. Start exploring the possibilities of ESP-NOW in your projects today!
 
 ---
 
