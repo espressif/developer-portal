@@ -105,10 +105,10 @@ For cross-compiling `zperf`, download and install the Zephyr SDK by running:
 
 ```sh
 cd ~
-wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.4/zephyr-sdk-0.16.4_linux-x86_64.tar.xz
-wget -O - https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.4/sha256.sum | shasum --check --ignore-missing
-tar xvf zephyr-sdk-0.16.4_linux-x86_64.tar.xz
-cd zephyr-sdk-0.16.4
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-x86_64.tar.xz
+wget -O - https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/sha256.sum | shasum --check --ignore-missing
+tar xvf zephyr-sdk-0.16.8_linux-x86_64.tar.xz
+cd zephyr-sdk-0.16.8
 
 ./setup.sh
 ```
@@ -187,7 +187,7 @@ To run `zperf` on your ESP32-S3-DevKitC-1, do the following:
 Ensure that the ESP32-S3-DevKitC-1 is connected to the computer via USB, then run a testing sequence using the following west commands:
 
 ```sh
-west build -b esp32s3_devkitc zephyr/samples/net/zperf --pristine
+west build -b esp32s3_devkitc/esp32s3/procpu zephyr/samples/net/zperf --pristine
 west flash
 west espressif monitor
 ```
