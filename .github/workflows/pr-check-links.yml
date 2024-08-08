@@ -19,7 +19,6 @@ jobs:
             --include-fragments
             --exclude-path ./themes/
             --exclude-path ./layouts/
-            --exclude-path ./content/blog/nuttx-getting-started/
             .
           # Fail action on broken links
           fail: true
