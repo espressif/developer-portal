@@ -1,8 +1,9 @@
 {
   "name": "Marcio Ribeiro",
   "image" : "img/authors/espressif.png",
-  "bio": "",
+  "bio": "Embedded Software Engineer at Espressif",
   "social": [
-      { "linkedin": "https://www.linkedin.com/in/wmrsouza/" }
+      { "linkedin": "https://www.linkedin.com/in/wmrsouza/" },
+      { "github": "https://github.com/wmrsouza" }
   ]
 }
