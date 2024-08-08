@@ -1,0 +1,9 @@
+{
+    "name": "Lucas Saavedra Vaz",
+    "image" : "img/authors/lucas-vaz.jpg",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/lucassvaz/" },
+        { "github": "https://github.com/lucasssvaz" }
+    ]
+}
