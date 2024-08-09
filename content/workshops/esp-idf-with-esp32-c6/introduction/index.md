@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF with ESP32-C6 Workshop - Introduction"
-date: 2024-06-03T00:00:00+01:00
+date: 2024-07-01T00:00:00+01:00
 showTableOfContents: false
 series: ["WS001"]
 series_order: 1

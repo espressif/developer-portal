@@ -4,4 +4,5 @@ cascade:
     showLikes : false
     showViews : false
     showDate : false
+    showTableOfContents : false
 ---

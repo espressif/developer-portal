@@ -1,6 +1,6 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 4"
-date: 2024-06-03T00:00:00+01:00
+title: "ESP-IDF with ESP32-C6 Workshop - Assignment 4: Try using NVS"
+date: 2024-06-27T00:00:00+01:00
 showTableOfContents: false
 series: ["WS001"]
 series_order: 5
@@ -12,6 +12,10 @@ showAuthor: false
 As you can see from the last assignment, the Wi-Fi credentials were stored hard-coded. This is not the ideal solution for storing this kind of data, because mainly you can not change them easily, and, what is more important, this adds vulnerability to your project.
 
 On this assignment, we will see how to store data to [Non-Volatile-Storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/api-reference/storage/nvs_flash.html). NVS is often called "emulated EEPROM", but the ESP32 does not have any embedded EEPROM, so NVS uses flash memory.
+
+{{< alert icon="circle-info">}}
+For this assignment, we will use the same project as we used in the previous assignment [Connect to Wi-Fi](../assignment-3/).
+{{< /alert >}}
 
 The NVS library was designed to store small key-value pairs, including `integer`, `string`, and `blob` types.
 

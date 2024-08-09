@@ -1,6 +1,6 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 7"
-date: 2024-06-03T00:00:00+01:00
+title: "ESP-IDF with ESP32-C6 Workshop - Assignment 7: Try using the Low Power core"
+date: 2024-06-24T00:00:00+01:00
 showTableOfContents: false
 series: ["WS001"]
 series_order: 8
@@ -42,8 +42,10 @@ Note that the ULP uses a specific set of pins. Please use the [board pin layout]
 
 For this hands-on, we will walk through the ULP programming to create a blink program to run on the HP core and on the LP core to compare the power consumption on a similar task.
 
-{{< alert icon="eye">}}
-**This hands-on requires the ESP-IDF v5.4 (master branch) and some additional hardware (LED and button)**
+**This hands-on requires the [ESP-IDF v5.4](https://github.com/espressif/esp-idf/tree/master) (master branch) and some additional hardware (LED and button)**
+
+{{< alert icon="circle-info">}}
+For this assignment, you will need to create a new blank project.
 {{< /alert >}}
 
 1. **Create the `main/ulp` folder and `main.c` file**

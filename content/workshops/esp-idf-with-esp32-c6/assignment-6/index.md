@@ -1,6 +1,6 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 6"
-date: 2024-06-03T00:00:00+01:00
+title: "ESP-IDF with ESP32-C6 Workshop - Assignment 6: Protocols"
+date: 2024-06-25T00:00:00+01:00
 showTableOfContents: false
 series: ["WS001"]
 series_order: 7
@@ -33,7 +33,11 @@ By using the certificate bundle to make a secure HTTPS connection using TLS (ESP
 
 1. **Open the Wi-Fi connection assignment project**
 
-For this assignment, we will continue editing the Wi-Fi project. Open the project and make sure the project is building and the Wi-Fi connection is working.
+{{< alert icon="circle-info">}}
+For this assignment, we will continue editing the [Wi-Fi project - Trying NVS](../assignment-4/) or you can create a new project based on the [protocols/https_x509_bundle](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_x509_bundle).
+{{< /alert >}}
+
+Open the project and make sure the project is building and the Wi-Fi connection is working.
 
 > This assignment will require Internet connection.
 
