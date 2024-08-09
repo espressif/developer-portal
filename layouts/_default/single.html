@@ -76,7 +76,7 @@
 
         {{ partial "series.html" . }}
 
-        <div class="article-content max-w-prose mb-20">
+        <div class="article-content max-w-fit mb-20">
           {{ .Content | emojify }}
         </div>
         {{ partial "series-closed.html" . }}

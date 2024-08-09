@@ -8,10 +8,10 @@ showDateUpdated: false
 showHeadingAnchors: false
 showPagination: false
 showReadingTime: false
-showTableOfContents: true
 showTaxonomies: false
 showWordCount: false
 showSummary: false
+
 cascade:
   showDate: false
   showAuthor: false
@@ -20,6 +20,7 @@ cascade:
   showLikes: false
   showViews: false
   disableComments : true
+  showTableOfContents : false
 ---
 
 Welcome to the Espressif workshops! Here you can find workshops prepared by Espressif to the community.

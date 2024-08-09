@@ -1,6 +1,6 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 2"
-date: 2024-06-03T00:00:00+01:00
+title: "ESP-IDF with ESP32-C6 Workshop - Assignment 2: Create a new project with Components"
+date: 2024-06-29T00:00:00+01:00
 showTableOfContents: false
 series: ["WS001"]
 series_order: 3
@@ -272,7 +272,7 @@ dependencies:
 
 Since we are using the generic BSP, we need to set the configuration parameters using the configuration menu.
 
-  - LED connected to the **GPIO8** via RMT (addressable)
+- LED connected to the **GPIO8** via RMT (addressable)
 
 Open the file `sdkconfig` to open the configuration.
 

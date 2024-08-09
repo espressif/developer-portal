@@ -49,7 +49,7 @@ smartTOCHideUnfocusedChildren = false
   showRecentItems = 6
   showMoreLink = true
   showMoreLinkDest = "blog"
-  cardView = false
+  cardView = true
   cardViewScreenWidth = false
   layoutBackgroundBlur = true # only used when layout equals background
 
@@ -61,7 +61,7 @@ smartTOCHideUnfocusedChildren = false
   showDateUpdated = true
   showAuthor = true
   showHero = true
-  heroStyle = "big" # valid options: basic, big, background, thumbAndBackground
+  heroStyle = "basic" # valid options: basic, big, background, thumbAndBackground
   layoutBackgroundBlur = true # only used when heroStyle equals background
   showBreadcrumbs = false
   showDraftLabel = true
@@ -84,7 +84,7 @@ smartTOCHideUnfocusedChildren = false
 
 [list]
   showHero = true
-  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
+  heroStyle = "basic" # valid options: basic, big, background, thumbAndBackground
   layoutBackgroundBlur = true # only used when heroStyle equals background
   layoutBackgroundHeaderSpace = false
   showBreadcrumbs = false
@@ -104,7 +104,7 @@ smartTOCHideUnfocusedChildren = false
 [taxonomy]
   showTermCount = true
   showHero = true
-  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
+  heroStyle = "basic" # valid options: basic, big, background, thumbAndBackground
   showBreadcrumbs = false
   showViews = true
   showLikes = true
@@ -113,7 +113,7 @@ smartTOCHideUnfocusedChildren = false
 
 [term]
   showHero = true
-  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
+  heroStyle = "basic" # valid options: basic, big, background, thumbAndBackground
   showBreadcrumbs = false
   showViews = true
   showLikes = true

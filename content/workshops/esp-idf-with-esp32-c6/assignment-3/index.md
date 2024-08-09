@@ -1,6 +1,6 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 3"
-date: 2024-06-03T00:00:00+01:00
+title: "ESP-IDF with ESP32-C6 Workshop - Assignment 3: Connect to Wi-Fi"
+date: 2024-06-28T00:00:00+01:00
 showTableOfContents: false
 series: ["WS001"]
 series_order: 4
@@ -17,7 +17,9 @@ Now it's time to connect the ESP32-C6 to a Wi-Fi network. The ESP32-C6 supports 
 
 The ESP32 supports both Station and SoftAP modes.
 
+{{< alert icon="circle-info">}}
 For this assignment, we will set up the station mode Wi-Fi driver and connect to a Wi-Fi 4 / Wi-Fi 6 network, using the same project as used in the assignment [Create a project with Components](../assignment-2/) where a BSP was used.
+{{< /alert >}}
 
 #### Hands-on Wi-Fi
 
@@ -166,6 +168,14 @@ static void event_handler(void* arg, esp_event_base_t event_base,
 
 ```c
 wifi_init_sta();
+```
+
+#### Troubleshooting
+
+If you have issues with the `esp_wifi.h` not being found, please add to the `main/CMakeLists.txt`:
+
+```txt
+REQUIRES esp_wifi esp_netif esp_event nvs_flash
 ```
 
 #### Assignment Code

@@ -1,6 +1,6 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 5"
-date: 2024-06-03T00:00:00+01:00
+title: "ESP-IDF with ESP32-C6 Workshop - Assignment 5: Wi-Fi provisioning"
+date: 2024-06-26T00:00:00+01:00
 showTableOfContents: false
 series: ["WS001"]
 series_order: 6
@@ -29,7 +29,11 @@ Install the provisioning application on your smartphone.
 
 2. **Create a new project from the examples**
 
-Create a new ESP-IDF project using the example `provisioning` -> `wifi_prov_mgr`.
+{{< alert icon="circle-info">}}
+For this assignment, we will create a new project based on the example [wifi_prov_mgr](https://github.com/espressif/esp-idf/tree/master/examples/provisioning/wifi_prov_mgr).
+{{< /alert >}}
+
+Create a new ESP-IDF project using the example `provisioning` -> `wifi_prov_mgr` as starting point.
 
 For existing projects, you can use the component [espressif/network_provisioning](https://components.espressif.com/components/espressif/network_provisioning).
 
