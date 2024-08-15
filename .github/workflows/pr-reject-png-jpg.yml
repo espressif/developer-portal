@@ -1,0 +1,29 @@
+name: Reject JPEG/PNG files
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  reject-jpg-png:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history to ensure we can access all branches
+
+      - name: Check for JPEG and PNG files
+        run: |
+          # Check for .jpeg, .jpg, .JPG, .JPEG, .png, .PNG files
+          IMAGE_FILES=$(git diff --name-only origin/main...HEAD | (grep -iE '\.(jpe?g|png)$' || true) )
+
+          if [ -n "$IMAGE_FILES" ]; then
+            echo "Rejecting merge. PR contains the following JPEG or PNG files:"
+            echo "$IMAGE_FILES"
+            echo "Please convert these files to WebP format."
+            exit 1
+
+          else
+            echo "No JPEG or PNG files found."
+          fi
