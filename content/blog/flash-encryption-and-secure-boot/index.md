@@ -68,16 +68,15 @@ In this case, suppose the partition table setting as follows:
 ```c
 # Name,   Type, SubType, Offset,   Size, Flags
 # Note: if you have increased the bootloader size, make sure to update the offsets to avoid overlap
-nvs,      data, nvs,     ,        0x4000,
-otadata,  data, ota,     ,        0x2000,
-phy_init, data, phy,     ,        0x1000, encrypted
-factory,  app,  factory, ,        1M,
-ota_0,    app,  ota_0,   ,        1M,
-ota_1,    app,  ota_1,   ,        1M,
-nvs_key,  data, nvs_keys,,        0x1000, encrypted
+nvs,      data, nvs, 0x10000 , 0x4000 ,
+otadata,  data, ota, 0x14000 , 0x2000 ,
+phy_init, data, phy, 0x16000 , 0x1000 , encrypted
+factory,  app,  factory, 0x20000 , 1M ,
+ota_0,    app,  ota_0, 0x120000  , 1M ,
+ota_1,    app,  ota_1, 0x220000  , 1M ,
+nvs_key,  data, nvs_keys, 0x320000 , 0x1000 , encrypted
 # Custom NVS data partition
-custom_nvs, data, nvs,      ,  0x6000,
-storage,    data, 0xff,     ,  0x1000, encrypted
+custom_nvs, data, nvs, 0x321000    , 0x6000 ,
 ```
 
 This partition table setting includes two `NVS` partitions, the default `nvs` and the `custom_nvs` partition.
@@ -196,6 +195,223 @@ python E:\esp\Espressif\frameworks\esp-idf-5.2.1\esp-idf\components\nvs_flash\nv
 
 ## Software Configuration
 
-- On the Software Configuration，you need to enable `Flash Encryption` and `Secure Boot V2` and `NVS  Encryption` setting.
+On the Software Configuration，you need to enable `Flash Encryption` and `Secure Boot V2` and `NVS  Encryption` setting.
 
-	`→ Security features`
+`idf.py menuconfig → Security features`
+  
+  - Enable Seucre Boot 
+    [*] Enable hardware Secure Boot in bootloader (READ DOCS FIRST)
+        Select secure boot version (Enable Secure Boot version 2)  --->
+    [*] Sign binaries during build (NEW)
+    (secure_boot_signing_key.pem) Secure boot private signing key (NEW) 
+
+  - Enable Flash Encryption
+    [*] Enable flash encryption on boot (READ DOCS FIRST) 
+        Size of generated XTS-AES key (AES-128 (256-bit key))  ---> 
+        Enable usage mode (Release)  ---> 
+    [*] Encrypt only the app image that is present in the partition of type app (NEW) 
+    [*] Check Flash Encryption enabled on app startup (NEW) 
+        UART ROM download mode (UART ROM download mode (Permanently disabled (recommended)))  ---> 
+
+  - Enable NVS Encryption
+
+    `idf.py menuconfig → Component config → NVS`
+    [*] Enable NVS encryption 
+
+Since the Flash Encryption and Secure Boot V2 feature will increase the size of the bootloader firmware, so you need to increase the partition table offset(Default is `0x8000`) setting. As follows:
+
+`idf.py menuconfig → Partition Table → (0xF000) Offset of partition table`
+
+
+### Compile the project to get the compiled firmware
+
+Then , you need compile the project to get the compiled firmware.
+
+```bash
+idf.py build
+```
+
+Because of the secure boot function is enabled. After compiled , you will get the `bootloader.bin` and `bootloader-unsigned.bin` and `app.bin` and `app-unsigned.bin` and other partition firmware bin files. The `bootloader.bin` and `app.bin` are signed firmware. The `bootloader-unsigned.bin` and `app-unsigned.bin` are unsigned firmware. We need to downlaod the signed firmware and other partition firmware bin files.
+
+Through the compilation completion log, you can see the firmware path and firmware download address. The firmware and firmware download address are need to be imported to the Flash Download tool . As follows:
+
+
+### [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash)   Configuration
+
+Put the `Flash Encryption Key` and the `digest of the Secure boot V2 public key` into the `flash_download_tool\bin` directory. As follows：
+
+
+In the `configure\esp32s3\security.conf` configuration file of the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) , enable the `Flash Encryption` and `Secure Boot V2` configuration option . As follows:
+
+
+The security configurations to be modified are as follows:
+
+```c
+[SECURE BOOT]
+secure_boot_en = True                  
+public_key_digest_path = .\bin\public_key_digest.bin
+public_key_digest_block_index = 0
+
+[FLASH ENCRYPTION]
+flash_encryption_en = True
+reserved_burn_times = 0
+flash_encrypt_key_block_index = 1
+
+[SECURE OTHER CONFIG]
+flash_encryption_use_customer_key_enable = True
+flash_encryption_use_customer_key_path = .\bin\flash_encryption_key.bin
+flash_force_write_enable = True
+
+[FLASH ENCRYPTION KEYS LOCAL SAVE]
+keys_save_enable = False
+encrypt_keys_enable = False
+encrypt_keys_aeskey_path = 
+
+[ESP32S3 EFUSE BIT CONFIG]
+dis_usb_jtag = True
+hard_dis_jtag = True
+soft_dis_jtag = 7
+dis_usb_otg_download_mode = False
+dis_direct_boot = True
+dis_download_icache = True
+dis_download_dcache = True
+dis_download_manual_encrypt = True
+```
+
+### Restart the [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash)  
+
+After restart the [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash) ，it is will read the  `configure\esp32s3\security.conf`  configuration informations. As follows：
+
+
+### Import all firmware to be Downloaded
+
+According to partition table setting, add all the firmware and firmware downloade address . As follows:
+
+### Downloading all firmware
+
+
+The Flash download tool will write the `Flash encryption key`  and  `Secure boot V2 Key public key digest` to the chip `eFuse BLOCK` during the firmware downloading process.
+- And wirting the（`SPI_BOOT_CRYPT_CNT`） eFuse bit to enable `Flash Encryption` and writing the `SECURE_BOOT_EN` eFuse bit to enable `Secure Boot V2`.
+- Then writing all （`configure\esp32s3\security.conf` ）`[ESP32S3 EFUSE BIT CONFIG]` configuration setting to chip eFuse. As follows log from black box :
+
+```bash
+test offset :  3276800 0x320000
+case ok
+test offset :  3280896 0x321000
+case ok
+.
+Changing baud rate to 115200
+Changed.
+NO XMC flash  detected!
+ESP32 secure boot v2 skip generate key
+burn secure key ...
+Burn keys to blocks:
+ - BLOCK_KEY0 -> [ae ba 41 be 66 f5 00 35 7d 20 9e 62 5f f7 b4 3a 6a 3c 2a fd f8 3e ac cc 2b 00 bb ae a8 b8 79 5b]
+        'KEY_PURPOSE_0': 'USER' -> 'SECURE_BOOT_DIGEST0'.
+        Disabling write to 'KEY_PURPOSE_0'.
+        Disabling write to key block
+
+
+Check all blocks for burn...
+idx, BLOCK_NAME,          Conclusion
+[00] BLOCK0               is not empty
+        (written ): 0x00000000800000020040000040040000000f0c0201000200
+        (to write): 0x000000000000000000000000090000000000000000800100
+        (coding scheme = NONE)
+[04] BLOCK_KEY0           is empty, will burn the new value
+.
+This is an irreversible operation!
+BURN BLOCK4  - OK (write block == read block)
+BURN BLOCK0  - OK (all write block bits are set)
+Reading updated efuses...
+Successful
+The efuses to burn:
+  from BLOCK0
+     - SPI_BOOT_CRYPT_CNT
+     - SECURE_BOOT_EN
+
+Burning efuses:
+
+    - 'SPI_BOOT_CRYPT_CNT' (Enables flash encryption when 1 or 3 bits are set and disabled otherwise) 0b001 -> 0b111
+
+    - 'SECURE_BOOT_EN' (Set this bit to enable secure boot) 0b0 -> 0b1
+
+
+Check all blocks for burn...
+idx, BLOCK_NAME,          Conclusion
+[00] BLOCK0               is not empty
+        (written ): 0x00000000800000020040000049040000000f0c0201800300
+        (to write): 0x000000000000000000100000001c00000000000000000000
+        (coding scheme = NONE)
+.
+This is an irreversible operation!
+BURN BLOCK0  - OK (all write block bits are set)
+Reading updated efuses...
+Checking efuses...
+Successful
+
+WARNING: - compress and encrypt options are mutually exclusive
+Will flash uncompressed
+Took 0.43s to erase flash block
+Took 0.05s to erase flash block
+Took 0.08s to erase flash block
+Took 1.23s to erase flash block
+Took 0.05s to erase flash block
+Took 0.24s to erase flash block
+The efuses to burn:
+  from BLOCK0
+     - DIS_USB_JTAG
+     - DIS_PAD_JTAG
+     - SOFT_DIS_JTAG
+     - DIS_DIRECT_BOOT
+     - DIS_DOWNLOAD_ICACHE
+     - DIS_DOWNLOAD_DCACHE
+     - DIS_DOWNLOAD_MANUAL_ENCRYPT
+
+Burning efuses:
+
+    - 'DIS_USB_JTAG' (Set this bit to disable function of usb switch to jtag in module of usb device) 0b1 -> 0b1
+        The same value for DIS_USB_JTAG is already burned. Do not change the efuse.
+
+    - 'DIS_PAD_JTAG' (Set this bit to disable JTAG in the hard way. JTAG is disabled permanently) 0b1 -> 0b1
+        The same value for DIS_PAD_JTAG is already burned. Do not change the efuse.
+
+    - 'SOFT_DIS_JTAG' (Set these bits to disable JTAG in the soft way (odd number 1 means disable ). JTAG can be enabled in HMAC module) 0b111 -> 0b111
+        The same value for SOFT_DIS_JTAG is already burned. Do not change the efuse.
+
+    - 'DIS_DIRECT_BOOT' (Disable direct boot mode) 0b1 -> 0b1
+        The same value for DIS_DIRECT_BOOT is already burned. Do not change the efuse.
+
+    - 'DIS_DOWNLOAD_ICACHE' (Set this bit to disable Icache in download mode (boot_mode[3:0] is 0; 1; 2; 3; 6; 7)) 0b1 -> 0b1
+        The same value for DIS_DOWNLOAD_ICACHE is already burned. Do not change the efuse.
+
+    - 'DIS_DOWNLOAD_DCACHE' (Set this bit to disable Dcache in download mode ( boot_mode[3:0] is 0; 1; 2; 3; 6; 7)) 0b1 -> 0b1
+        The same value for DIS_DOWNLOAD_DCACHE is already burned. Do not change the efuse.
+
+    - 'DIS_DOWNLOAD_MANUAL_ENCRYPT' (Set this bit to disable flash encryption when in download boot modes) 0b0 -> 0b1
+
+
+Check all blocks for burn...
+idx, BLOCK_NAME,          Conclusion
+[00] BLOCK0               is not empty
+        (written ): 0x000000008000000200500000491c0000000f0c0201800300
+        (to write): 0x000000000000000000000000000000000010000000000000
+        (coding scheme = NONE)
+.
+This is an irreversible operation!
+BURN BLOCK0  - OK (all write block bits are set)
+Reading updated efuses...
+Checking efuses...
+Successful
+```
+
+After the firmware is downloaded, all the Flash Encryption and Secure Boot V2 process are completed.
+
+### Running the Firmware
+
+Upon the first power-up startup, the firmware will :
+  - Check whether the Secure Boot V2 feature is enabled
+  - Check whether the Flash Encryption feature is enabled
+  - Then，verify Signed and Encrypted firmware
+  - If the verification succeeds, the firmware will running normally
+
