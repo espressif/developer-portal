@@ -135,7 +135,7 @@ Users can use  [esptool](https://github.com/espressif/esptool) and running the `
 - Running the follows command to generate the `SHA-256` key
 
 ```bash
-espsecure.py generate_flash_encryption_key --keylen 128 flash_encryption_key.bin
+espsecure.py generate_flash_encryption_key --keylen 128 flash_encrypt_key.bin
 ```
 
 - Running the follows command to generate the  `AES-128` key
@@ -144,7 +144,7 @@ Please note:
 - The Flash Download Tool only support `AES-128` key on ESP32-S3, so we recommend to use the `AES-128` key for ESP32-S3 Flash Encryption .
 
 ```bash
-espsecure.py generate_flash_encryption_key flash_encryption_key.bin
+espsecure.py generate_flash_encryption_key flash_encrypt_key.bin
 ```
 
 > When the `--keylen` parameter is not specified, It will generated the `AES-128` key by default
@@ -152,7 +152,7 @@ espsecure.py generate_flash_encryption_key flash_encryption_key.bin
 - Running the follows command to generate the   `AES-256` key
 
 ```bash
-espsecure.py generate_flash_encryption_key --keylen 512 flash_encryption_key.bin
+espsecure.py generate_flash_encryption_key --keylen 512 flash_encrypt_key.bin
 ```
 
 ### How to Obtain [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/host-based-security-workflows.html?highlight=secure_boot_signing_key%20pem#enable-secure-boot-v2-externally) key ?
@@ -205,6 +205,8 @@ On the Software Configuration，you need to enable `Flash Encryption` and `Secur
     [*] Sign binaries during build (NEW)
     (secure_boot_signing_key.pem) Secure boot private signing key (NEW) 
 
+![Enable Secure Boot V2](./img/enable-secure-boot.webp "Enable Secure Boot V2")
+
   - Enable Flash Encryption
     [*] Enable flash encryption on boot (READ DOCS FIRST) 
         Size of generated XTS-AES key (AES-128 (256-bit key))  ---> 
@@ -213,14 +215,21 @@ On the Software Configuration，you need to enable `Flash Encryption` and `Secur
     [*] Check Flash Encryption enabled on app startup (NEW) 
         UART ROM download mode (UART ROM download mode (Permanently disabled (recommended)))  ---> 
 
+![Enable Flash Encryption](./img/enable-flash-encryption.webp "Enable Flash Encryption")
+
   - Enable NVS Encryption
 
     `idf.py menuconfig → Component config → NVS`
     [*] Enable NVS encryption 
 
-Since the Flash Encryption and Secure Boot V2 feature will increase the size of the bootloader firmware, so you need to increase the partition table offset(Default is `0x8000`) setting. As follows:
+![Enable NVS Encryption](./img/nvs-encryption.webp "Enable NVS Encryption")
+
+
+Since the Flash Encryption and Secure Boot V2 function will increase the size of the bootloader firmware, so you need to increase the partition table offset(Default is `0x8000`) setting. As follows:
 
 `idf.py menuconfig → Partition Table → (0xF000) Offset of partition table`
+
+![Increase Partition Table Offset](./img/partition-table-offset.webp "Increase Partition Table Offset")
 
 
 ### Compile the project to get the compiled firmware
@@ -233,16 +242,22 @@ idf.py build
 
 Because of the secure boot function is enabled. After compiled , you will get the `bootloader.bin` and `bootloader-unsigned.bin` and `app.bin` and `app-unsigned.bin` and other partition firmware bin files. The `bootloader.bin` and `app.bin` are signed firmware. The `bootloader-unsigned.bin` and `app-unsigned.bin` are unsigned firmware. We need to downlaod the signed firmware and other partition firmware bin files.
 
-Through the compilation completion log, you can see the firmware path and firmware download address. The firmware and firmware download address are need to be imported to the Flash Download tool . As follows:
+From the compilation completion log, you can see the firmware path and firmware download address. The firmware and firmware download address are need to be imported to the Flash Download tool . As follows:
+
+![Firmware Offset Adress](./img/firmware-offset-address.webp "Firmware Offset Address")
+
+![Firmware PATH](./img/firmware-path.webp "Firmware PATH")
 
 
 ### [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash)   Configuration
 
-Put the `Flash Encryption Key` and the `digest of the Secure boot V2 public key` into the `flash_download_tool\bin` directory. As follows：
+Put the `Flash Encryption Key` and the `digest of the Secure boot V2 public key` into the `flash_download_tool\secure` directory. As follows：
 
+![Secure Keys](./img/secure-keys.webp "Secure Keys")
 
-In the `configure\esp32s3\security.conf` configuration file of the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) , enable the `Flash Encryption` and `Secure Boot V2` configuration option . As follows:
+In the `configure\esp32s3\security.conf` configuration file of the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) , enable the `Flash Encryption` and `Secure Boot V2` configuration option . 
 
+![Security Config File](./img/flash-security-config-file.webp "Security Config File")
 
 The security configurations to be modified are as follows:
 
@@ -282,13 +297,16 @@ dis_download_manual_encrypt = True
 
 After restart the [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash) ，it is will read the  `configure\esp32s3\security.conf`  configuration informations. As follows：
 
+![Flash Download Tool Boot Security Config](./img/flash-download-tool-boot-security-config.webp "Flash Download Tool Boot Security Config")
+
 
 ### Import all firmware to be Downloaded
 
 According to partition table setting, add all the firmware and firmware downloade address . As follows:
 
-### Downloading all firmware
+![Add Bin Files](./img/bin-file.webp "Add Bin Files")
 
+### Downloading all firmware
 
 The Flash download tool will write the `Flash encryption key`  and  `Secure boot V2 Key public key digest` to the chip `eFuse BLOCK` during the firmware downloading process.
 - And wirting the（`SPI_BOOT_CRYPT_CNT`） eFuse bit to enable `Flash Encryption` and writing the `SECURE_BOOT_EN` eFuse bit to enable `Secure Boot V2`.
