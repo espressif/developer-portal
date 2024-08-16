@@ -22,3 +22,11 @@ jobs:
             .
           # Fail action on broken links
           fail: true
+
+      - name: Suggestions
+        if: failure()
+        run: |
+          echo -e "\nPlease review the links reported in Link Checker step above."
+          echo -e "If a link is valid but fails due to a CAPTCHA challenge, IP blocking, login requirements, etc.,
+          consider adding such links to .lycheeignore file to bypass future checks.\n"
+          exit 1
