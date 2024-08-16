@@ -1,0 +1,32 @@
+name: Cron job to check links
+
+# Schedule to run the link checker every Monday at 2:00 AM UTC
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch: # Allow manual runs
+
+jobs:
+  cron-check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: |
+            --no-progress
+            --include-fragments
+            --exclude-path ./themes/
+            --exclude-path ./layouts/
+            .
+
+      - name: Suggestions
+        if: failure()
+        run: |
+          echo -e "\nPlease review the links reported in Link Checker step above."
+          echo -e "If a link is valid but fails due to a CAPTCHA challenge, IP blocking, login requirements, etc.,
+          consider adding such links to .lycheeignore file to bypass future checks.\n"
+          exit 1
