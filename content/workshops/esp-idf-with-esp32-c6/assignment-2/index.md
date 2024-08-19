@@ -245,7 +245,7 @@ Let's get the generic BSP [examples/generic_button_led](https://components.espre
 
 **Alternative way**
 
-If you are using the terminal, you can run this command that will create a new project from the example.
+If you are using the terminal, you can run the command below to create a new project from the example.
 
 ```bash
 idf.py create-project-from-example "espressif/esp_bsp_generic^1.2.0:generic_button_led"
