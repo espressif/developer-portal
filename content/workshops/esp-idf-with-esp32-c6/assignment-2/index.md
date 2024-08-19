@@ -274,7 +274,7 @@ Since we are using the generic BSP, we need to set the configuration parameters 
 
 - LED connected to the **GPIO8** via RMT (addressable)
 
-Open the file `sdkconfig` to open the configuration.
+The configuration parameters can be set in the file `sdkconfig`.
 
 **If the `sdkconfig` file is not in the project folder, you will need to first build the project. This file is only created after the first build.**
 
