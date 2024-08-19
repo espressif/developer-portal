@@ -300,34 +300,36 @@ The security configurations to be modified are as follows:
 
 ```c
 [SECURE BOOT]
-secure_boot_en = True                  
-public_key_digest_path = .\bin\public_key_digest.bin
-public_key_digest_block_index = 0
+secure_boot_en = True                                    \\ Enable Secure Boot         
+public_key_digest_path = .\bin\public_key_digest.bin     \\ Setting public_key_digest.bin path for Secure Boot
+public_key_digest_block_index = 0                        \\ Index of the eFuse block where the public key digest file is stored. Default: 0.
 
 [FLASH ENCRYPTION]
-flash_encryption_en = True
-reserved_burn_times = 0
-flash_encrypt_key_block_index = 1
+flash_encryption_en = True                               \\ Enable Flash Encryption
+reserved_burn_times = 0                                  \\ Configures how many times [0 in this case when config Flash Encryption Release mode on the software] are reserved for the flashing operation
+flash_encrypt_key_block_index = 1                     \\ Index of the eFuse block where the Flash Encrypt Key file is stored. Default: 0. Range: 0~4. Note that this option can only be set to 0 for ESP32-C2. 
 
 [SECURE OTHER CONFIG]
-flash_encryption_use_customer_key_enable = True
-flash_encryption_use_customer_key_path = .\bin\flash_encrypt_key.bin
-flash_force_write_enable = True
+flash_encryption_use_customer_key_enable = True          \\ Configures whether to enable the use of a customer-specified encryption key
+flash_encryption_use_customer_key_path = .\bin\flash_encrypt_key.bin          \\ Setting customer-specified Flash Encryption key file path
+flash_force_write_enable = True                          \\ Configures whether to skip encryption and secure boot checks during flashing. If it is set to False (default), an error message may pop up when attempting to flash products with enabled flash encryption or secure boot.
 
 [FLASH ENCRYPTION KEYS LOCAL SAVE]
 keys_save_enable = False
 encrypt_keys_enable = False
 encrypt_keys_aeskey_path = 
 
+// On the first boot, the flash encryption process burns by default the following eFuses:
+
 [ESP32S3 EFUSE BIT CONFIG]
-dis_usb_jtag = True
-hard_dis_jtag = True
-soft_dis_jtag = 7
-dis_usb_otg_download_mode = False
-dis_direct_boot = True
-dis_download_icache = True
-dis_download_dcache = True
-dis_download_manual_encrypt = True
+dis_usb_jtag = True                       \\ Configures whether to disable USB JTAG
+hard_dis_jtag = True                      \\ Configures whether to hard-disable JTAG
+soft_dis_jtag = 7                         \\ Configures whether to soft-disable JTAG
+dis_usb_otg_download_mode = False         \\ Configures whether to disable USB OTG download
+dis_direct_boot = True                    \\ Configures whether to disable direct boot mode
+dis_download_icache = True                \\ Configures whether to disable the entire MMU flash instruction cache when running in UART bootloader mode
+dis_download_dcache = True                \\ Configures whether to disable the entire MMU flash data cache in the UART bootloader mode
+dis_download_manual_encrypt = True        \\ Configures whether to disable flash encryption operation when running in UART bootloader boot mode
 ```
 
 ## Restart the [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash)  
