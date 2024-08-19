@@ -311,7 +311,7 @@ flash_encrypt_key_block_index = 1
 
 [SECURE OTHER CONFIG]
 flash_encryption_use_customer_key_enable = True
-flash_encryption_use_customer_key_path = .\bin\flash_encryption_key.bin
+flash_encryption_use_customer_key_path = .\bin\flash_encrypt_key.bin
 flash_force_write_enable = True
 
 [FLASH ENCRYPTION KEYS LOCAL SAVE]
