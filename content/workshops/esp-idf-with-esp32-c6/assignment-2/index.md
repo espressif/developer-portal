@@ -276,7 +276,7 @@ Since we are using the generic BSP, we need to set the configuration parameters 
 
 The configuration parameters can be set in the file `sdkconfig`.
 
-**If the `sdkconfig` file is not in the project folder, you will need to first build the project. This file is only created after the first build.**
+> **Note**: If the `sdkconfig` file does not exist in the project folder, you need to build the project. This file is only created after the first build.
 
 On the SDK Configuration, go to `Component config` -> `Board Support Package (generic)`
 
