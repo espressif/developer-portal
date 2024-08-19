@@ -20,7 +20,7 @@ cascade:
   showLikes: false
   showViews: false
   disableComments : true
-  showTableOfContents : false
+  showTableOfContents : true
 ---
 
 Welcome to the Espressif workshops! Here you can find workshops prepared by Espressif to the community.
