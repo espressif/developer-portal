@@ -12,7 +12,7 @@ showAuthor: false
 Welcome to the IoT workshop with [ESP RainMaker](https://rainmaker.espressif.com/). The ESP RainMaker was designed to empower you to build, develop, and deploy customized AIoT solutions effortlessly. ESP RainMaker ensures you can achieve your goals with minimal coding and maximum security.
 
 {{< gallery >}}
-  <img src="assets/ESP RainMaker_horizontal.svg" />
+  <img src="assets/ESP-RainMaker_horizontal.svg" />
 {{< /gallery >}}
 
 Join us as we explore how ESP RainMaker can transform your AIoT projects, offering a seamless blend of innovation, security, and scalability. Whether you are looking to streamline maintenance, enhance security, or scale your operations, this workshop will equip you with the knowledge and tools to harness the full potential of ESP RainMaker.
