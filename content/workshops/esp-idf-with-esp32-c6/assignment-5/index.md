@@ -49,7 +49,7 @@ Now you can build and flash (run) the example to your device.
 >
 > `idf.py fullclean`
 
-Before flashing, make sure to do a **flash erase** to avoid connecting to the WiFi with the wrong credentials.
+Before flashing, make sure to do a **flash erase** to avoid connecting to the Wi-Fi with the wrong credentials.
 
 After building your application, open the `ESP-IDF Serial Monitor`.
 
