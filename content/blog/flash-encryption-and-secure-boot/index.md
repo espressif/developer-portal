@@ -507,5 +507,127 @@ After the firmware is downloaded, all the Flash Encryption and Secure Boot V2 pr
 Upon the first power-up startup, the firmware will :
   - Check whether the Secure Boot V2 feature is enabled
   - Check whether the Flash Encryption feature is enabled
+  - Check whether the NVS Encryption feature is enabled
   - Then，verify Signed and Encrypted firmware
   - If the verification succeeds, the firmware will running normally
+
+### The firmware running log at the first time as following:
+
+```c
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+Valid secure boot key blocks: 0
+secure boot verification succeeded
+load:0x3fce3980,len:0x3a1c
+load:0x403c9700,len:0x4
+load:0x403c9704,len:0xcbc
+load:0x403cc700,len:0x52a0
+entry 0x403c9914
+I (73) boot: ESP-IDF v5.2.2-520-g9d6583f763 2nd stage bootloader
+I (73) boot: compile time Aug 16 2024 15:58:33
+I (74) boot: Multicore bootloader
+I (78) boot: chip revision: v0.1
+I (81) boot.esp32s3: Boot SPI Speed : 80MHz
+I (86) boot.esp32s3: SPI Mode       : DIO
+I (91) boot.esp32s3: SPI Flash Size : 8MB
+I (96) boot: Enabling RNG early entropy source...
+I (101) boot: Partition Table:
+I (105) boot: ## Label            Usage          Type ST Offset   Length
+I (112) boot:  0 nvs              WiFi data        01 02 00010000 00004000
+I (120) boot:  1 otadata          OTA data         01 00 00014000 00002000
+I (127) boot:  2 phy_init         RF data          01 01 00016000 00001000
+I (135) boot:  3 factory          factory app      00 00 00020000 00100000
+I (142) boot:  4 ota_0            OTA app          00 10 00120000 00100000
+I (150) boot:  5 ota_1            OTA app          00 11 00220000 00100000
+I (157) boot:  6 nvs_key          NVS keys         01 04 00320000 00001000
+I (165) boot:  7 custom_nvs       WiFi data        01 02 00321000 00006000
+I (173) boot: End of partition table
+I (177) boot: Defaulting to factory image
+I (182) esp_image: segment 0: paddr=00020020 vaddr=3c090020 size=20e68h (134760) map
+I (217) esp_image: segment 1: paddr=00040e90 vaddr=3fc98700 size=047f8h ( 18424) load
+I (221) esp_image: segment 2: paddr=00045690 vaddr=40374000 size=0a988h ( 43400) load
+I (233) esp_image: segment 3: paddr=00050020 vaddr=42000020 size=81db8h (531896) map
+I (339) esp_image: segment 4: paddr=000d1de0 vaddr=4037e988 size=09cd0h ( 40144) load
+I (349) esp_image: segment 5: paddr=000dbab8 vaddr=00000000 size=04518h ( 17688)
+I (353) esp_image: Verifying image signature...
+I (354) secure_boot_v2: Verifying with RSA-PSS...
+I (360) secure_boot_v2: Signature verified successfully!
+I (371) boot: Loaded app from partition at offset 0x20000
+I (371) secure_boot_v2: enabling secure boot v2...
+I (374) secure_boot_v2: secure boot v2 is already enabled, continuing..
+I (382) boot: Checking flash encryption...
+I (386) flash_encrypt: flash encryption is enabled (0 plaintext flashes left)
+I (394) boot: Disabling RNG early entropy source...
+I (411) cpu_start: Multicore app
+I (421) cpu_start: Pro cpu start user code
+I (421) cpu_start: cpu freq: 160000000 Hz
+I (421) cpu_start: Application information:
+I (424) cpu_start: Project name:     wifi_softAP
+I (430) cpu_start: App version:      v5.2.2-520-g9d6583f763
+I (436) cpu_start: Compile time:     Aug 16 2024 15:58:16
+I (442) cpu_start: ELF file SHA256:  d89b197be...
+Warning: checksum mismatch between flashed and built applications. Checksum of built application is 6d559abf84b1d704bc99214866ff8708cf910cc472ec5ec9ca1557ca7d430710
+I (447) cpu_start: ESP-IDF:          v5.2.2-520-g9d6583f763
+I (454) cpu_start: Min chip rev:     v0.0
+I (458) cpu_start: Max chip rev:     v0.99
+I (463) cpu_start: Chip rev:         v0.1
+I (468) heap_init: Initializing. RAM available for dynamic allocation:
+I (475) heap_init: At 3FCA0AF8 len 00048C18 (291 KiB): RAM
+I (481) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM
+I (487) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM
+I (494) heap_init: At 600FE010 len 00001FD8 (7 KiB): RTCRAM
+I (501) spi_flash: detected chip: generic
+I (504) spi_flash: flash io: dio
+I (509) flash_encrypt: Flash encryption mode is RELEASE
+I (515) efuse: Batch mode of writing fields is enabled
+W (520) secure_boot: Unused SECURE_BOOT_DIGEST1 should be revoked. Fixing..
+W (528) secure_boot: Unused SECURE_BOOT_DIGEST2 should be revoked. Fixing..
+I (536) efuse: BURN BLOCK0
+I (541) efuse: BURN BLOCK0 - OK (all write block bits are set)
+I (546) efuse: Batch mode. Prepared fields are committed
+I (551) secure_boot: Fixed
+I (555) nvs_sec_provider: NVS Encryption - Registering Flash encryption-based scheme...
+I (564) sleep: Configure to isolate all GPIO pins in sleep state
+I (570) sleep: Enable automatic switching of GPIO sleep configuration
+I (578) main_task: Started on CPU0
+I (588) main_task: Calling app_main()
+I (628) nvs: NVS partition "nvs" is encrypted.
+I (628) wifi softAP: ESP_WIFI_MODE_AP
+I (628) pp: pp rom version: e7ae62f
+I (628) net80211: net80211 rom version: e7ae62f
+I (658) wifi:wifi driver task: 3fcaae94, prio:23, stack:6656, core=0
+I (658) wifi:wifi firmware version: e60360a19
+I (658) wifi:wifi certification version: v7.0
+I (658) wifi:config NVS flash: enabled
+I (658) wifi:config nano formating: disabled
+I (668) wifi:Init data frame dynamic rx buffer num: 32
+I (668) wifi:Init static rx mgmt buffer num: 5
+I (678) wifi:Init management short buffer num: 32
+I (678) wifi:Init dynamic tx buffer num: 32
+I (678) wifi:Init static tx FG buffer num: 2
+I (688) wifi:Init static rx buffer size: 1600
+I (688) wifi:Init static rx buffer num: 10
+I (698) wifi:Init dynamic rx buffer num: 32
+I (698) wifi_init: rx ba win: 6
+I (698) wifi_init: tcpip mbox: 32
+I (708) wifi_init: udp mbox: 6
+I (708) wifi_init: tcp mbox: 6
+I (708) wifi_init: tcp tx win: 5760
+I (718) wifi_init: tcp rx win: 5760
+I (718) wifi_init: tcp mss: 1440
+I (728) wifi_init: WiFi IRAM OP enabled
+I (728) wifi_init: WiFi RX IRAM OP enabled
+I (1258) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10
+W (1258) phy_init: failed to load RF calibration data (0x1102), falling back to full calibration
+W (1318) phy_init: saving new calibration data because of checksum failure, mode(2)
+I (1338) wifi:mode : softAP (68:b6:b3:4e:3f:f1)
+I (1388) wifi:Total power save buffer number: 16
+I (1388) wifi:Init max length of beacon: 752/752
+I (1398) wifi:Init max length of beacon: 752/752
+I (1398) wifi softAP: wifi_init_softap finished. SSID:myssid password:mypassword channel:1
+I (1398) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1
+I (1408) main_task: Returned from app_main()
+```
