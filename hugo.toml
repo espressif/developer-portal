@@ -1,0 +1,9 @@
+baseURL = "https://developer.espressif.com/"
+# [en, zh-cn, fr, ...] determines default content language
+defaultContentLanguage = "en"
+# language code
+languageCode = "en"
+title = "Espressif Developer Portal"
+
+# Change the default theme to be use when building the site with Hugo
+theme = "blowfish"
