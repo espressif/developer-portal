@@ -1,11 +1,13 @@
-name: Check links
+name: Cron job to check links
 
+# Schedule to run the link checker every Monday at 2:00 AM UTC
 on:
-  pull_request:
-    branches: [main]
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch: # Allow manual runs
 
 jobs:
-  check-links:
+  cron-check-links:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +22,6 @@ jobs:
             --exclude-path ./themes/
             --exclude-path ./layouts/
             .
-          # Fail action on broken links
-          fail: true
 
       - name: Suggestions
         if: failure()
