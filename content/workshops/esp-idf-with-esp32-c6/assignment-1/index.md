@@ -1,6 +1,6 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 1"
-date: 2024-06-03T00:00:00+01:00
+title: "ESP-IDF with ESP32-C6 Workshop - Assignment 1: Install the Espressif-IDE"
+date: 2024-06-30T00:00:00+01:00
 showTableOfContents: false
 series: ["WS001"]
 series_order: 2
