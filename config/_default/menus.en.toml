@@ -10,50 +10,55 @@
 # overridden by providing a weight value. The menu will then be
 # ordered by weight from lowest to highest.
 
-[[main]]
-  name = "Awesome"
-  weight = 10
+#[[main]]
+#  name = "Awesome"
+#  weight = 10
 
-[[main]]
-  name = "Arduino"
-  parent = "Awesome"
-  pageRef = "pages/arduino"
-  weight = 10
+#[[main]]
+#  name = "Arduino"
+#  parent = "Awesome"
+#  pageRef = "pages/arduino"
+#  weight = 10
 
-[[main]]
-  name = "ESP-IDF"
-  parent = "Awesome"
-  pageRef = "pages/esp-idf"
-  weight = 10
+#[[main]]
+#  name = "ESP-IDF"
+#  parent = "Awesome"
+#  pageRef = "pages/esp-idf"
+#  weight = 10
 
-[[main]]
-  name = "IDEs"
-  parent = "Awesome"
-  pageRef = "pages/ides"
-  weight = 10
+#[[main]]
+#  name = "IDEs"
+#  parent = "Awesome"
+#  pageRef = "pages/ides"
+#  weight = 10
 
-[[main]]
-  name = "Rust"
-  parent = "Awesome"
-  pageRef = "pages/rust"
-  weight = 10
+#[[main]]
+#  name = "Rust"
+#  parent = "Awesome"
+#  pageRef = "pages/rust"
+#  weight = 10
 
-[[main]]
-  name = "NuttX"
-  parent = "Awesome"
-  pageRef = "pages/nuttx"
-  weight = 10
+#[[main]]
+#  name = "NuttX"
+#  parent = "Awesome"
+#  pageRef = "pages/nuttx"
+#  weight = 10
 
-[[main]]
-  name = "Zephyr"
-  parent = "Awesome"
-  pageRef = "pages/zephyr"
-  weight = 10
+#[[main]]
+#  name = "Zephyr"
+#  parent = "Awesome"
+#  pageRef = "pages/zephyr"
+#  weight = 10
 
 [[main]]
   name = "Blog"
   pageRef = "blog"
   weight = 12
+
+[[main]]
+  name = "Workshops"
+  pageRef = "workshops"
+  weight = 13
 
 [[main]]
   name = "Events"
