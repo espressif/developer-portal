@@ -18,4 +18,5 @@ cascade:
     showViews : false
     groupByYear : true
     disableComments : true
+    showTableOfContents : false
 ---

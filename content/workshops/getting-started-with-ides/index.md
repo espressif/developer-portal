@@ -5,6 +5,7 @@ disableComments : true
 tags: ["Workshop"]
 series: ["IDE"]
 series_order: 1
+draft: true
 authors:
   - pedro-minatel
 ---

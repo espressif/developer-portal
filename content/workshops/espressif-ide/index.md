@@ -2,7 +2,7 @@
 title: "Espressif-IDE Workshop"
 date: 2024-06-03T00:00:00+01:00
 disableComments : true
-tags: ["Workshop"]
+tags: ["Workshop", "ESP-IDF", "ESP32-C6", "Espressif IDE"]
 series: ["IDE"]
 series_order: 2
 authors:
