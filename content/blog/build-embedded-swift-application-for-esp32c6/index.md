@@ -46,23 +46,23 @@ First, let's see the whole build process in Asciinema recording:
    Let's clone the project and configure `TOOLCHAINS` environment variable with the version of the installed Swift 6.
 
 
-  {{< tabs groupId="config" >}}
-    {{% tab name="macOS" %}}
+    {{< tabs groupId="config" >}}
+      {{% tab name="macOS" %}}
 ```shell
 git clone git@github.com:apple/swift-embedded-examples.git --single-branch --branch main
 #export TOOLCHAINS=org.swift.600202406111a
 export TOOLCHAINS=$(plutil -extract CFBundleIdentifier raw /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 cd swift-embedded-examples/esp32-led-strip-sdk
 ```
-    {{% /tab %}}
+      {{% /tab %}}
 
-    {{% tab name="Linux" %}}
+      {{% tab name="Linux" %}}
 ```shell
 git clone git@github.com:apple/swift-embedded-examples.git --single-branch --branch main
 cd swift-embedded-examples/esp32-led-strip-sdk
 ```
-    {{% /tab %}}
-  {{< /tabs >}}
+      {{% /tab %}}
+    {{< /tabs >}}
 
 
 2. **Set the Target**:
