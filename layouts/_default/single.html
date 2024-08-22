@@ -67,7 +67,7 @@
         lg:top-[140px]{{ else }}lg:top-10{{ end }}">
 
         {{ if and (.Params.showTableOfContents | default (.Site.Params.article.showTableOfContents | default false)) (in
-        .TableOfContents "<ul") }} {{ partial "back-to-parent.html" . }} {{ partial "toc.html" . }} {{ end }} {{ if .Site.Params.article.showRelatedPosts |
+        .TableOfContents "<ul") }} {{ partial "toc.html" . }} {{ end }} {{ if .Site.Params.article.showRelatedPosts |
           default false }} sd {{ end }} </div>
       </div>
       {{ end }}
