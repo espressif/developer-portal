@@ -1,0 +1,21 @@
+/* This makes text in code blocks smaller than body text */
+.highlight, code {
+  font-size: 0.85rem;
+}
+
+/* This makes text in TOC smaller than body text */
+#TableOfContents li {
+  font-size: 0.85rem;
+}
+
+/* This reduces font in article summaries */
+.py-1 {
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+/* For bullet points to stand out in a list, the line heights inside and
+   between bullet points should differ. This reduces the inside height */
+   li {
+  line-height: 1.65;
+}
