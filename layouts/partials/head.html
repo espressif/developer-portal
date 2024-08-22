@@ -47,6 +47,8 @@
   {{ end }}
   {{ $bundleCSS := $assets.Get "css" | resources.Concat "css/main.bundle.css" | resources.Minify | resources.Fingerprint
   "sha512" }}
+  {{ $cssCustom := resources.Get "css/custom.css" }}
+
   <link type="text/css" rel="stylesheet" href="{{ $bundleCSS.RelPermalink }}"
     integrity="{{ $bundleCSS.Data.Integrity }}" />
   {{ $jsAppearance := resources.Get "js/appearance.js" }}
