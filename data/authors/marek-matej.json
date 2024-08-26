@@ -1,0 +1,9 @@
+{
+    "name": "Marek Matej",
+    "image" : "img/authors/marek-matej.webp",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/marekmatej/" },
+        { "github": "https://github.com/marekmatej" }
+    ]
+}
