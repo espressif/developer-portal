@@ -21,7 +21,7 @@ ESP-Toothbrush is an smart electric toothbrush which driver by the ESP32-C2 chip
 
 For this project, we have developed a clear hardware framework, which is as follows:
 
-![ESP-Toothbrush Hardware Framework](./img/esp-toothbrush-hardware-framework.webp.webp "ESP-Toothbrush Hardware Framework")
+![ESP-Toothbrush Hardware Framework](./img/esp-toothbrush-hardware-framework.webp "ESP-Toothbrush Hardware Framework")
 
 
 ## ESP-Toothbrush Hareware Design
