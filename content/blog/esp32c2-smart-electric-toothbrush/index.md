@@ -127,18 +127,23 @@ After careful design and repeated testing, we finally finished the production of
 ## Basic Functions
 
 - Support 3-minute regular brushing
+
 ![3-minute Regular Brushing](./img/3-minute-regular-brushing.gif "3-minute Regular Brushing")
 
 - Support double click the button to switch four gear to switch the vibration intensity
+
 ![Switch Modes](./img/switch-modes.gif "Switch Modes")
 
 - Support long press the button to power on and power off to saving power consumption
+
 ![Power On](./img/power-on-off.gif "Power On")
 
 - Support lithium battery power supply and wireless charging
+
 ![Charging](./img/charging.gif "Charging")
 
 - Support to view the battery, time, animation, Bluetooth and WiFi connect to network statu through the LCD screen
+
 ![LCD Dispaly](./img/display.gif "LCD Dispaly")
 
 
@@ -153,4 +158,5 @@ After the ESP-Toothbrush is connected to the WiFi, It is support use the APP (ES
 - Support record daily brushing time and duration: data within a month
 
 ![ESP-Rainmaker Controller](./img/rainmaker-controller.gif "ESP-Rainmaker Controller")
+
 ![ESP-Rainmaker Duration](./img/rainmaker-duration.gif "ESP-Rainmaker Duration")
