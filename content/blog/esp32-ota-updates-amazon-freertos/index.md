@@ -2,16 +2,10 @@
 title: ESP32 OTA Updates — Amazon FreeRTOS
 date: 2018-09-30
 showAuthor: false
-authors: 
-  - Mahavir Jain
+authors:
+  - "mahavir-jain"
+tags: [ "OTA", "Amazon", "FreeRTOS", "security"]
 ---
-[Mahavir Jain](https://medium.com/@mahavirj?source=post_page-----9ffbbb8f4784--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fe94f74442319&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-ota-updates-amazon-freertos-9ffbbb8f4784&user=Mahavir+Jain&userId=e94f74442319&source=post_page-e94f74442319----9ffbbb8f4784---------------------post_header-----------)
-
-[The ESP Journal](https://blog.espressif.com/?source=post_page-----9ffbbb8f4784--------------------------------)
-
---
 
 ESP32 now supports secure Over-the-Air firmware updates with Amazon FreeRTOS. This enables users of ESP32 with Amazon FreeRTOS to:
 
@@ -19,7 +13,7 @@ ESP32 now supports secure Over-the-Air firmware updates with Amazon FreeRTOS. Th
 - Verify authenticity and integrity of new firmware after its deployed
 - Extend OTA update security scheme to take leverage of hardware security features in ESP32
 
-# Working
+## Working
 
 At a high level,
 
@@ -31,14 +25,14 @@ At a high level,
 - At the end, firmware signature gets validated on the device and it gets approved for boot-up.
 - Post boot-up, the OTA agent again interacts with AWS OTA Job for verifying sanity of firmware, and finally the firmware image gets marked as legitimate one, notifying the boot-loader to erase all older firmware instances from the device storage (for not allowing forced rollback).
 
-# Procedure
+## Procedure
 
 Lets quickly walk over the steps for getting the OTA update demo functional on ESP32:
 
-- Please follow the Getting Started Guide for some of the prerequisites as documented at, [__https://docs.aws.amazon.com/freertos/latest/userguide/ota-prereqs.html__ ](https://docs.aws.amazon.com/freertos/latest/userguide/ota-prereqs.html)
-- Refer to [__https://docs.aws.amazon.com/freertos/latest/userguide/ota-code-sign-cert-esp.html__ ](https://docs.aws.amazon.com/freertos/latest/userguide/ota-code-sign-cert-esp.html) for creating code signing profile for the ESP32 platform
-- For downloading firmware to ESP32, refer to [__https://docs.aws.amazon.com/freertos/latest/userguide/ota-download-freertos.html#download-freertos-to-port__ ](https://docs.aws.amazon.com/freertos/latest/userguide/ota-download-freertos.html#download-freertos-to-port)
-- Once the device boots up, the log should look like the one mentioned at, [__https://docs.aws.amazon.com/freertos/latest/userguide/burn-initial-firmware-esp.html__ ](https://docs.aws.amazon.com/freertos/latest/userguide/burn-initial-firmware-esp.html)
+- Please follow the Getting Started Guide for some of the prerequisites as documented at, [https://docs.aws.amazon.com/freertos/latest/userguide/ota-prereqs.html](https://docs.aws.amazon.com/freertos/latest/userguide/ota-prereqs.html)
+- Refer to [https://docs.aws.amazon.com/freertos/latest/userguide/ota-code-sign-cert-esp.html](https://docs.aws.amazon.com/freertos/latest/userguide/ota-code-sign-cert-esp.html) for creating code signing profile for the ESP32 platform
+- For downloading firmware to ESP32, refer to [https://docs.aws.amazon.com/freertos/latest/userguide/ota-download-freertos.html#download-freertos-to-port](https://docs.aws.amazon.com/freertos/latest/userguide/ota-download-freertos.html#download-freertos-to-port)
+- Once the device boots up, the log should look like the one mentioned at, [https://docs.aws.amazon.com/freertos/latest/userguide/burn-initial-firmware-esp.html](https://docs.aws.amazon.com/freertos/latest/userguide/burn-initial-firmware-esp.html)
 - Create an Amazon FreeRTOS OTA Job (by navigating to IoT Core -> Manage -> Jobs -> Create),
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Xx16WJdJZsc0txs9SKt5Og.png)
@@ -53,7 +47,7 @@ Lets quickly walk over the steps for getting the OTA update demo functional on E
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*jTXhXvWlx3y4ood-geOGSg.png)
 
-# Enabling Hardware Security
+## Enabling Hardware Security
 
 The ESP32 port is so structured that the same secure firmware verification mechanism can be used by the ESP32 chipset for enabling [__secure boot__ ](https://docs.espressif.com/projects/esp-idf/en/latest/security/secure-boot.html).
 
