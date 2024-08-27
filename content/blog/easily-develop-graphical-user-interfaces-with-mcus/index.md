@@ -64,4 +64,4 @@ If you're ready to take your GUI development to the next level, download the fre
 - [Download Embedded Wizard](https://www.embedded-wizard.de/download/)
 - [Embedded Wizard Website](https://www.embedded-wizard.de/)
 - [Getting Started with ESP32](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/)
-- [Overview: Embedded Wizard Integration with ESP32](https://www.embedded-wizard.de/espressif-esp32)
+- [Overview: Embedded Wizard Integration with ESP32](https://www.embedded-wizard.de/platforms/espressif-esp32)
