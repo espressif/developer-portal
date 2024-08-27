@@ -61,7 +61,26 @@ After designing the hardware, we pay attention to the placement of each part, to
 
 ## Software Implementation
 
-After finished the hardware design, we focus on the software development to realize the functions of the toothbrush, and ensuring that it is both practical and meets the daily needs of users. We went through multiple rounds of testing to make sure everything worked as expected.
+After finished the hardware design, we focus on the software development to realize the functions of the toothbrush, and ensuring that it is both practical and meets the daily needs of users. 
+
+We can define individual tasks for each functions, For example:
+
+```c
+
+  buzzer_init(BUZZER_PIN_NUM);
+  motor_driver_init(MOTOR_DRIVER_INPUT_A, MOTOR_DRIVER_INPUT_B);
+  power_init();
+
+```
+
+
+
+
+
+
+
+
+We went through multiple rounds of testing to make sure everything worked as expected.
 
 
 
@@ -108,10 +127,20 @@ After careful design and repeated testing, we finally finished the production of
 ## Basic Functions
 
 - Support 3-minute regular brushing
+![3-minute Regular Brushing](./img/3-minute-regular-brushing.gif "3-minute Regular Brushing")
+
 - Support double click the button to switch four gear to switch the vibration intensity
+![Switch Modes](./img/switch-modes.gif "Switch Modes")
+
 - Support long press the button to power on and power off to saving power consumption
+![Power On](./img/power-on-off.gif "Power On")
+
 - Support lithium battery power supply and wireless charging
+![Charging](./img/charging.gif "Charging")
+
 - Support to view the battery, time, animation, Bluetooth and WiFi connect to network statu through the LCD screen
+![LCD Dispaly](./img/display.gif "LCD Dispaly")
+
 
 ## Interactive Functions
 
@@ -122,3 +151,6 @@ After the ESP-Toothbrush is connected to the WiFi, It is support use the APP (ES
 - Support control power on and power off
 - Support setting brushing duration
 - Support record daily brushing time and duration: data within a month
+
+![ESP-Rainmaker Controller](./img/rainmaker-controller.gif "ESP-Rainmaker Controller")
+![ESP-Rainmaker Duration](./img/rainmaker-duration.gif "ESP-Rainmaker Duration")
