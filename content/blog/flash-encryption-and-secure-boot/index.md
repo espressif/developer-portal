@@ -3,7 +3,7 @@ title: "【ESP32-S3】Use ESP Flash Download Tool to finish the Flash Encryption
 date: 2024-08-15T18:00:17+08:00
 showAuthor: false
 authors:
-  - "raffael-rostagno"
+  - "Cai Guanhong"
 tags: ["ESP32-S3", "ESP-IDF", "Flash Encryption", "Secure Boot", "NVS Encryption"]
 ---
 
