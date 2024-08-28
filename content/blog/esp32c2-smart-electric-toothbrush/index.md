@@ -61,17 +61,14 @@ After designing the hardware, we pay attention to the placement of each part, to
 
 ## Software Implementation
 
-After finished the hardware design, we focus on the software development to realize the functions of the toothbrush, and ensuring that it is both practical and meets the daily needs of users. 
+After finished the hardware design, we focus on the software development to realize the complete functions for ESP-Toothbrush, and ensuring that it is both practical and meets the daily needs of users. 
 
-We can define individual tasks for each functions, For example:
+The complete application function is the code fusion of multiple individual application functions, and Espresif provides many application examples for user reference and secondary development.
 
-```c
+For LCD display application, you can refer to the [esp-idf/examples/peripherals/lcd](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/peripherals/lcd) examples. Different interface LCD application implementation code are provided in here. And you can also read the [LCD Screen](https://docs.espressif.com/projects/esp-iot-solution/en/latest/display/lcd/lcd_guide.html#lcd-introduction) user guide for learning.
 
-  buzzer_init(BUZZER_PIN_NUM);
-  motor_driver_init(MOTOR_DRIVER_INPUT_A, MOTOR_DRIVER_INPUT_B);
-  power_init();
+For Motor Driver application, we need to base on the PWM interface to implement it. You can refer to the [esp-idf/examples/peripherals/ledc](esp-idf/examples/peripherals/ledc) exmaples to know how to use the PWM.
 
-```
 
 
 
@@ -81,8 +78,6 @@ We can define individual tasks for each functions, For example:
 
 
 We went through multiple rounds of testing to make sure everything worked as expected.
-
-
 
 
 ## ESP-Rainmaker UI Design
