@@ -3,7 +3,7 @@ title: "Base on ESP32-C2 and ESP-Rainmaker DIY a Smart Electric Toothbrush"
 date: 2024-08-22T17:00:17+08:00
 showAuthor: false
 authors:
-  - "raffael-rostagno"
+  - "Cai Guanhong"
 tags: ["ESP32-C2", "SPI", "LCD", "ESP-Rainmaker", "Toothbrush"]
 ---
 
@@ -67,17 +67,13 @@ The complete application function is the code fusion of multiple individual appl
 
 For LCD display application, you can refer to the [esp-idf/examples/peripherals/lcd](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/peripherals/lcd) examples. Different interface LCD application implementation code are provided in here. And you can also read the [LCD Screen](https://docs.espressif.com/projects/esp-iot-solution/en/latest/display/lcd/lcd_guide.html#lcd-introduction) user guide for learning.
 
-For Motor Driver application, we need to base on the PWM interface to implement it. You can refer to the [esp-idf/examples/peripherals/ledc](esp-idf/examples/peripherals/ledc) exmaples to know how to use the PWM.
+For motor driver and buzzer application, we need to base on the PWM interface to implement it. You can refer to the [esp-idf/examples/peripherals/ledc](esp-idf/examples/peripherals/ledc) exmaples to know how to use the PWM. And you can also read the [LED Control (LEDC)](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-reference/peripherals/ledc.html#led-control-ledc) programming guide.
 
+For battery power monitor ， we need to use the ADC interface. You can refer to the [esp-idf/examples/peripherals/adc/oneshot_read](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/peripherals/adc/oneshot_read) example to know how to use ADC to obtain a oneshot ADC reading. And you can also read the [Analog to Digital Converter (ADC) Oneshot Mode Driver](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-reference/peripherals/adc_oneshot.html?highlight=adc#analog-to-digital-converter-adc-oneshot-mode-driver) programming guide.
 
+For WiFi connection application, the ESP32-C2 device need to be set the WiFi Station mode, and you can refer to the [esp-idf/examples/wifi/getting_started/station](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/wifi/getting_started/station) examplpe to know how to use the Wi-Fi driver for connecting to an Access Point. And you can also read the [WiFi Driver](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-guides/wifi.html#wi-fi-driver) programming guide.
 
-
-
-
-
-
-
-We went through multiple rounds of testing to make sure everything worked as expected.
+For ESP-Rainmaker cloud control applications, we also provide the [esp-rainmaker](https://github.com/espressif/esp-rainmaker) SDK to achieve remote control and monitoring for products. And you can also read the [ESP-Rainmaker Get Started](https://rainmaker.espressif.com/docs/get-started/) to learn it.
 
 
 ## ESP-Rainmaker UI Design
