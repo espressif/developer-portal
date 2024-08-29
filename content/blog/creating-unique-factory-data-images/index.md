@@ -34,7 +34,7 @@ A sample updated partition file is shown below:
 # Note: if you change the phy_init or app partition offset, make sure to change the offset in Kconfig.projbuild
 nvs, data, nvs, 0x9000, 0x6000,
 phy_init, data, phy, 0xf000, 0x1000,
-__fctry, data, nvs, 0x10000, 0x6000,__ factory, app, factory, 0x20000, 1M,
+fctry, data, nvs, 0x10000, 0x6000, factory, app, factory, 0x20000, 1M,
 ```
 
 Notice the line *fctry* that indicates the additional NVS partition. This partitions stores the per-device unique keys programmed into the factory. The first NVS partition continues to be used as the partition for storing user configuration like Wi-Fi network name, passphrase etc.
