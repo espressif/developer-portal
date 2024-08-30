@@ -62,6 +62,25 @@ This is totally up to you how you write the content as long as it is valuable fo
 
 For writing and formatting conventions, the contributors at Espressif usually follow the [Espressif Manual of Style](https://mos.espressif.com/) and the *Chicago Manual of Style*. You might find these guidelines useful, but you are not required to follow them.
 
+### Prepare a featured image
+
+A featured image appears above the article's title. A nice and relevant image attracts readers like a magnet, that is why consider giving more thought to it.
+
+A featured image can be added in the following ways from the highest to lowest priority:
+
+- **Article-specific image file**: In the same folder as your article's `index.md`, place your featured image and make sure its file name includes the substring `feature`, for example: `featured-lcd-screen.webp`.
+- **Image from a URL**: In the article's front matter, add the parameter `featureimage` and assign a URL to it, for example:
+  ```yaml
+  featureimage: "https://espressif.com/logo-guidelines/chinese-horizontal-logo.png"
+  ```
+  This parameter is from Blowfish theme's [Front Matter][blowfish-front-matter].
+- **Generic image file**: If you have no chance to create your own image, try to find a generic image in `assets/img/featured` and assign the path to `featureAsset`, for example:
+  ```yaml
+  featureAsset: "img/featured/image.webp"
+  ```
+
+[blowfish-front-matter]: https://blowfish.page/docs/front-matter/
+
 ### Use additional content types
 
 Apart from the usual content types supported by markdown, such as visuals or code snippets, you can also include:
