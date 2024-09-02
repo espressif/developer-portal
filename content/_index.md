@@ -1,5 +1,5 @@
 ---
-title: "Welcome to Espressif Developer Portal! :tada:"
+title: "Espressif Developer Portal"
 description: "This page is the Espressif Developer Portal."
 disableComments : true
 
@@ -8,6 +8,41 @@ cascade:
     showViews : false
 ---
 
-We are thrilled to have you join our community of innovators and creators in the exciting world of Espressif products! Whether you're a seasoned developer or just starting your journey, this portal is your go-to destination for a treasure trove of information, tutorials, and resources centered around our cutting-edge technologies.
+"Welcome to the [Espressif Systems](https://espressif.com/) Developer Portal—your official hub for all things ESP32 and more. Explore our extensive collection of articles, workshops, and tutorials to enhance your development journey with the latest tools and insights."
 
-Join us on this exciting journey of exploration, innovation, and collaboration. The Espressif Developer Portal is not just a platform; it's a community-driven space where ideas flourish and projects come to life.
+## Featured Article
+
+{{< article link="/blog/meet-espressif-developer-portal/" >}}
+
+<br>
+{{< button href="#button" target="_self" href=/blog/ >}}
+More Articles
+{{< /button >}}
+
+## Workshop Highlight
+
+Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
+
+{{< article link="/workshops/iot-introduction-with-rainmaker/" >}}
+
+<br>
+{{< button href="#button" target="_self" href=/workshops/ >}}
+More Workshops
+{{< /button >}}
+
+## New Chip Support Status for ESP-IDF
+
+Here you can follow the current status of the new chip support for the ESP-IDF.
+
+{{< article link="/pages/chip-support-status/esp32c61/" >}}
+
+## Upcoming Event
+
+Stay tuned for our upcoming events!
+
+{{< article link="/events/devcon24/" >}}
+
+<br>
+{{< button href="#button" target="_self" href=/events/ >}}
+More Events
+{{< /button >}}
