@@ -43,9 +43,8 @@ smartTOCHideUnfocusedChildren = false
   showScrollToTop = true
 
 [homepage]
-  layout = "custom" # valid options: page, profile, hero, card, background, custom
-  # homepageImage = "/img/iceland.jpg" # used in: hero, and card
-  showRecent = false
+  layout = "page" # valid options: page, profile, hero, card, background, custom
+  showRecent = true
   showRecentItems = 6
   showMoreLink = true
   showMoreLinkDest = "blog"
