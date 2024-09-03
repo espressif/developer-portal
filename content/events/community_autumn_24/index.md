@@ -18,14 +18,14 @@ Ano! Tento rok jsme se rozhodli uspořádat dva komunitní eventy. Na základě 
 ### Na co se můžeš těšit:
 
 <article class="gallery">
-  <img src="gallery/RAD_0032.jpg" />
-  <img src="gallery/RAD_0051.jpg" />
-  <img src="gallery/RAD_0060.jpg" />
-  <img src="gallery/RAD_0073.jpg" />
-  <img src="gallery/RAD_0078.jpg" />
-  <img src="gallery/RAD_0503.jpg" />
-  <img src="gallery/RAD_0526.jpg" />
-  <img src="gallery/RAD_0542.jpg" />
+  <img src="gallery/RAD_0032.webp" />
+  <img src="gallery/RAD_0051.webp" />
+  <img src="gallery/RAD_0060.webp" />
+  <img src="gallery/RAD_0073.webp" />
+  <img src="gallery/RAD_0078.webp" />
+  <img src="gallery/RAD_0503.webp" />
+  <img src="gallery/RAD_0526.webp" />
+  <img src="gallery/RAD_0542.webp" />
 </article>
 
 - **Přednášky**: Čekají tě inspirativní přednášky od vývojářů z Espressifu, lokálních firem a zapálených nadšenců do ESP! Přijď si poslechnout nejnovější trendy, tipy a triky přímo od lidí, kteří tvoří budoucnost těchto technologií.
