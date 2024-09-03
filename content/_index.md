@@ -30,7 +30,7 @@ Dive into our latest workshops and master the skills you need to maximize the po
 More Workshops
 {{< /button >}}
 
-## New Chip Support Status for ESP-IDF
+## New Chip Support Status
 
 Here you can follow the current status of the new chip support for the ESP-IDF.
 
