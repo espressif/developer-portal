@@ -28,7 +28,7 @@ Best wishes, John Lee. Senior Customer Support Officer
 
 ## New AIoT Solution Released
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*7HegJ5SobChCigM1.png)
+![](img/february-1.webp)
 
 Espressif’s new development board for applications relating to Artificial Intelligence and the Internet of Things has just been released, together with its accompanying SDK, [ESP-WHO](https://github.com/espressif/esp-who). Its commercial name is [ESP-EYE](https://www.espressif.com/en/products/hardware/esp-eye/overview). This board is based on ESP32, which also integrates a digital microphone, 8 MB of PSRAM and 4 MB of flash. Additionally, it provides an external 2-megapixel camera, which makes the board ideal for face detection, face recognition and speech recognition.
 
@@ -36,7 +36,7 @@ Espressif’s new development board for applications relating to Artificial Inte
 
 ## Espressif’s BLE Mesh SDK Is Now Bluetooth-SIG-certified
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*vui2ZYoyGwiwq3tW.png)
+![](img/february-2.webp)
 
 Espressif is pleased to announce that the ESP BLE-Mesh SDK has been [Bluetooth-SIG-certified](https://launchstudio.bluetooth.com/ListingDetails/76255) as of January 2019, having received what was previously known as the BQB certification. This officially ensures that Espressif’s above-mentioned SDK meets the Bluetooth organization’s standards for global product interoperability and complies with the Bluetooth License Agreement.
 
@@ -44,7 +44,7 @@ Espressif is pleased to announce that the ESP BLE-Mesh SDK has been [Bluetooth-S
 
 ## “washMaster”: A Swiss ESP32-based Laundry Machine
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*w28Zy_HPuV2ON40H.jpg)
+![](img/february-3.webp)
 
 [Schulthess Maschinen AG](https://www.schulthess.ch/en) is a Swiss company that has produced washing machines and dryers for families, hotels and other commercial enterprises for over 170 years. Their latest pioneering product, “The New washMaster”, is an [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)-based laundry machine which provides a state-of-the-art solution to cashless payment systems for laundry rooms in big blocks of flats.
 
@@ -52,7 +52,7 @@ Espressif is pleased to announce that the ESP BLE-Mesh SDK has been [Bluetooth-S
 
 ## Packed Out One-Day ESP32 Event in Thailand
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*HPkngWYqfDhO_ckh.jpg)
+![](img/february-4.webp)
 
 An exciting [one-day event](https://www.facebook.com/events/357123601778174/) took place in Bangkok, Thailand, last Sunday on 3 February. It was dedicated to Espressif’s flagship chip [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and the multiple ways in which it can be used in IoT and AI applications. The event featured prominent speakers from the Thai maker community, attracting scores of attendees.
 

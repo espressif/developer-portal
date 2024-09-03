@@ -59,7 +59,7 @@ Note that RMII REF_CLK needs to be generated externally to ADIN1200 either by an
 
 The result of EVAL-ADIN1200 modification is shown in the figure below.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*fxzfp0UeQ_MxBCed.jpeg)
+![](img/espidf-1.webp)
 
 From software point of view, it’s even simpler.
 

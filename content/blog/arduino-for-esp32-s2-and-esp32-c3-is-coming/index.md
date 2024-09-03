@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - pedro-minatel
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*jQ1CQP5rXCijH1fW7r3yUw.png)
+![](img/arduino-1.webp)
 
 > This tutorial was created based on the Arduino for ESP32 version 2.0.0-alpha1 (preview version) on April 30th, 2021.
 
@@ -35,7 +35,7 @@ See “[how to contribute](https://github.com/espressif/arduino-esp32/blob/maste
 
 > ESP32-S2 is a highly integrated, low-power, single-core Wi-Fi Microcontroller SoC, designed to be secure and cost-effective, with a high performance and a rich set of IO capabilities.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*3i4s48Ad12cpX8jwjwQzoQ.png)
+![](img/arduino-2.webp)
 
 To learn more about the ESP32-S2, click [here](https://www.espressif.com/en/products/socs/esp32-s2)!
 
@@ -43,7 +43,7 @@ To learn more about the ESP32-S2, click [here](https://www.espressif.com/en/prod
 
 > ESP32-C3 is a single-core Wi-Fi and Bluetooth 5 (LE) microcontroller SoC, based on the open-source RISC-V architecture. It strikes the right balance of power, I/O capabilities and security, thus offering the optimal cost-effective solution for connected devices. The availability of Wi-Fi and Bluetooth 5 (LE) connectivity not only makes the device’s configuration easy, but it also facilitates a variety of use-cases based on dual connectivity.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*cQSbiHcVeiib4zhOXMzBmA.png)
+![](img/arduino-3.webp)
 
 To learn more about the ESP32-C3, click [here](https://www.espressif.com/en/products/socs/esp32-c3)!
 
@@ -59,13 +59,13 @@ If you are using the Arduino IDE < 2.0, you can install or update using these st
 
 __File → Preferences__ 
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*53rlcy8SaOmKsTo3TzuHyA.png)
+![](img/arduino-4.webp)
 
 Add the “[__https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_dev_index.json__ ](https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_dev_index.json)”to Additional Boards Manager URLs and click OK.
 
 To install it, go to __Tools → Boards → Boards Manager__  and you will find the __“esp32” by Espressif Systems__  in the list.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*-CWWOAwW2jriAN4lefpF6g.png)
+![](img/arduino-5.webp)
 
 Be sure to select the version 2.0.0-alpha1.
 
@@ -77,13 +77,13 @@ The process for the Arduino IDE 2.0 is very similar to the early version.
 
 __File → Preferences__ 
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*oYAQjRsku_EcaWP1jfAKRA.png)
+![](img/arduino-6.webp)
 
 Add the “[__https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_dev_index.json__ ](https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_dev_index.json)” to Additional Boards Manager URLs and click OK.
 
 To install it, go to __Tools → Boards → Boards Manager__  and you will find the __“esp32” by Espressif Systems__  in the list.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*3hkEYwMazLXYfX-otKSD3g.png)
+![](img/arduino-7.webp)
 
 You can finally start using the ESP32-S2 and ESP32-C3 SoC with Arduino!
 

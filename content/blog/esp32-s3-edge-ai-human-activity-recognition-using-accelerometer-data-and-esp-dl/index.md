@@ -7,7 +7,7 @@ authors:
 ---
 Edge computing is a distributed computing paradigm that brings computation and data storage closer to the device’s location. Edge Artificial Intelligence (edge-AI) is an exciting development within edge computing because it allows traditional technologies to run more efficiently, with higher performance and less power. Trained neural networks are used to make inferences on small devices. The potential [applications areas](https://www.xenonstack.com/blog/edge-ai-use-case) of edge AI includes manufacturing, healthcare, the retail industry, surveillance, smart home, and finance banking.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*j6FI3xqYdRwHXncdkaI-VA.jpeg)
+![](img/esps-1.webp)
 
 > __Espressif System provides a framework ESP-DL that can be used to deploy your high-performance deep learning models on ESP32-S3.__ 
 
@@ -64,7 +64,7 @@ The Project directory should look like this:
 
 We will define our model in the ‘model_define.hpp’ file. Following the steps below with detailed explanation. When open in [Netron](https://netron.app/) our model looks like Figure 1 below.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*1qibjjaT46hpV9dxeJxQMg.png)
+![](img/esps-2.webp)
 
 ## 2.1 Import Libraries
 

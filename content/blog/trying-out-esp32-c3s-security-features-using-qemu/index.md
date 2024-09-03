@@ -25,7 +25,7 @@ Emulator approach provides an advantage to iterate various security configuratio
 
 QEMU is a system-level emulator composed of instruction set emulation, memory and MMU emulation, and peripheral emulation. It also supports various virtual disk formats and networking configurations as well.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*0nswVxf0Nl6Y06S1-l9RfQ.png)
+![](img/trying-1.webp)
 
 This helps us to emulate the complete hardware SoC that includes peripherals emulation as well. Peripherals like eFuses, XTS-AES, RSA play a key role in supporting security features.
 

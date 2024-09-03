@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - esp-bot
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*AOU_NLvYUfZ2NZ0Ra__NlA.png)
+![](img/conversational-1.webp)
 
 If you wish to define your own conversation with your product, this solution is for you. Integrations with Amazon Lex and Google DialogFlow helps you create intuitive conversations between your device and its user.
 

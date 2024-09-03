@@ -27,7 +27,7 @@ Best wishes, John Lee. Senior Customer Support Officer
 
 ## ESP-Jumpstart: Building ESP32 Products Fast
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*wMy2HIk_rTeXMST4.png)
+![](img/april-1.webp)
 
 Espressif has once again responded to the need of IoT makers for quick product development. [ESP-Jumpstart](https://docs.espressif.com/projects/esp-jumpstart/en/latest/introduction.html) is Espressif’s new reference guide which aims to help developers convert their ideas into actual products in the least possible amount of time. It provides users with a complete guide for product development.
 
@@ -35,7 +35,7 @@ Espressif has once again responded to the need of IoT makers for quick product d
 
 ## Google Dialogflow: Embedding Voice into Devices with ESP32
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*iRgms9TEc2WwE6zV.png)
+![](img/april-2.webp)
 
 [Dialogflow](https://cloud.google.com/dialogflow-enterprise/) is a Google service that runs on the Google Cloud Platform, allowing users to build engaging AI-powered conversational interfaces on their products. ESP32 now supports Dialogflow with [Espressif’s Voice-Assistant SDK](https://github.com/espressif/esp-va-sdk), enabling IoT developers to embed natural-language processing in their devices.
 
@@ -43,7 +43,7 @@ Espressif has once again responded to the need of IoT makers for quick product d
 
 ## ESP EYE on WeChat
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*kxJ0J3alTMao-Ptc.png)
+![](img/april-3.webp)
 
 To people living outside China, [Tencent](https://www.tencent.com/en-us/)’s ubiquitous messaging application,[ WeChat](https://www.cnbc.com/2019/02/04/what-is-wechat-china-biggest-messaging-app.html), might be relatively unknown. But to everyone in China, WeChat is much more than just a smartphone app. With more than a billion monthly active users, WeChat is also a powerful marketing tool. Espressif, as a top social-media influencer in the Chinese AIoT industry, has developed its own WeChat mini program (an app within WeChat) that will enhance the use of [ESP-EYE](https://www.espressif.com/en/products/hardware/esp-eye/overview), Espressif’s brand new AI development board.
 
@@ -51,7 +51,7 @@ To people living outside China, [Tencent](https://www.tencent.com/en-us/)’s ub
 
 ## ESP32-based Protection Against Burglars
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*-ir2T0lRTRpLaXdx.png)
+![](img/april-4.webp)
 
 Everyone can agree that even the idea of getting back home and finding it robbed can give you the shivers. [Mitipi](https://www.mitipi.com/en/vision) is a Swiss company that has built “Kevin”, an ESP32-based virtual housemate who will deter any burglars from breaking into your house. [Kevin](https://www.mitipi.com/en/your-safety) will make any burglars lurking around your neighborhood think that you are still at home when you are actually away.
 

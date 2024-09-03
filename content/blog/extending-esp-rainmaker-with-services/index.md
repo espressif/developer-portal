@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - piyush-shah
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*nEkL1xmWZBaPe8WqlESV6Q.png)
+![](img/extending-1.webp)
 
 [*If you have been following the Espressif blogs and announcements, you must already be aware of ESP RainMaker and its various features. If not, please check out the info *[*here*](https://rainmaker.espressif.com/)* so that you get an idea about what ESP RainMaker is before you proceed further*.]
 
@@ -33,11 +33,11 @@ If the overall number of values in diagnostic data is small, it would be ok to d
 
 The above service will show up in the node configuration as this object under the services array:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*1ynig-iVzwHALoRlWK7OEg.png)
+![](img/extending-2.webp)
 
 Similarly, the following will show up in the node parameters object
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*coTlABKakZVciNBhLCGGQg.png)
+![](img/extending-3.webp)
 
 ## Handling Service callbacks
 
@@ -69,7 +69,7 @@ $ ./rainmaker.py getparams <node_id>
 
 It will show up this object:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*DxxnjM1bCTFYf872fhHz7A.png)
+![](img/extending-4.webp)
 
 As you can see here, we could add a new custom functionality in RainMaker without changing/configuring anything in the cloud backend. That’s how the “tunnelling” concept of RainMaker works, making it very extensible.
 

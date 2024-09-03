@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - pedro-minatel
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*tsv7HGKaQD-bptRTGa4SWw.png)
+![](img/espidf-1.webp)
 
 If you are starting on ESP32 development, you will see that the ESP-IDF is the official development framework and [Espressif](https://www.espressif.com) actively maintains it with constant updates.
 
@@ -17,7 +17,7 @@ This guide will introduce some tools that are not commonly used and could help y
 
 To access the documentation reference about the complete Build System, including the idf.py, see: [Build System](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/build-system.html) on our official documentation.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*r52M2Hq85pSd9RcUX180ow.png)
+![](img/espidf-2.webp)
 
 ## ESP-IDF Introduction
 
@@ -72,7 +72,7 @@ The following is the list of the tools available on the ESP-IDF v4.3:
 
 > __Installing ESP-IDF for Windows, Linux and macOS:__ To install the ESP-IDF in your system, you can follow the Getting Started guide in the documentation.See the [Getting Started](https://idf.espressif.com) page to start using ESP-IDF.We also have some tutorials on the Espressif [Official YouTube channel](https://www.youtube.com/c/EspressifSystems).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*QQeIY-j3NB9-OBPwTsZ1eg.png)
+![](img/espidf-3.webp)
 
 ## ESP-IDF Tools
 
@@ -210,7 +210,7 @@ Syntax: idf.py fullclean
 
 Syntax: idf.py menuconfig
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*jFY1tXFuLpu6eMcQvZvarA.png)
+![](img/espidf-4.webp)
 
 - __monitor__  — Display serial output. One of the most used option is the monitor. This option allows you to start the monitoring tool and to display all the output from the device.
 
@@ -238,9 +238,9 @@ Syntax: idf.py set-target
 
 Syntax: idf.py size
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Y1DG0hD311gLHBMHZhpJcg.png)
+![](img/espidf-5.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*j3fDxTv3_eKWaEW1V123ZA.png)
+![](img/espidf-6.webp)
 
 ## ESPTOOL
 

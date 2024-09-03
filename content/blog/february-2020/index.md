@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - esp-bot
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*3pOL3_ugp1kwpOceTdcl6Q.jpeg)
+![](img/february-1.webp)
 
 Hi everyone,
 
@@ -29,7 +29,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## Espressif’s ESP32 SoC Provides a Qualified Platform for Amazon Common Software for Devices
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*533KaoTwQY_uV7Y5.jpg)
+![](img/february-2.webp)
 
 Espressif’s [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) is among the first Systems-on-Chip to support the newly announced [Amazon Common Software for Devices (ACS)](https://developer.amazon.com/acs-devices). The combination of ESP32 hardware with ACS provides accelerated, yet flexible, development for connected devices with a seamless integration of Amazon Device SDKs.
 
@@ -37,7 +37,7 @@ Espressif’s [ESP32](https://www.espressif.com/en/products/hardware/esp32/overv
 
 ## ESP32-S2 SoC, Modules and Dev Boards Go Into Mass Production
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Rls9fxuEwt-wNygp.png)
+![](img/february-3.webp)
 
 With the [ESP32-S2](https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf) chips, modules and development boards going into into mass production from February 2020 onwards, the functional advantages of all these products will become readily available to the entire IoT market. In the course of 2020, Espressif will launch more chips in the ESP32-S series and, at the same time, its simplified version, the ESP32-C series, will also be launched.
 
@@ -45,7 +45,7 @@ With the [ESP32-S2](https://www.espressif.com/sites/default/files/documentation/
 
 ## Espressif Partners with Gigabits
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*iqiLqWDaPTms1uUJ.png)
+![](img/february-4.webp)
 
 Espressif has just launched a collaboration with [Gigabits](http://gigabits.io/), a real-world IoT Sandbox for enterprises, developers, and makers looking to explore various IoT use cases. Gigabits is where the physical world meets the digital world. So, combining the Gigabits IoT platform with the power of[ ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) will enable users to rapidly deploy test environments, explore application spaces, and develop use cases for their business or IoT project.
 

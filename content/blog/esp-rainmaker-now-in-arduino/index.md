@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - piyush-shah
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ctXndTETqL1alORFAxx9dg.png)
+![](img/esp-1.webp)
 
 Since its launch in April 2020, we have been making quite some improvements to [ESP RainMaker](https://rainmaker.espressif.com/), mostly around the feature set. Along with that, we have also been making efforts to make developer on-boarding easier. The [ESP IDF Windows Installer](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#esp-idf-tools-installer) and the [Eclipse](https://github.com/espressif/idf-eclipse-plugin#installing-idf-plugin-using-update-site-url) and [VSCode](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/install.md) integrations especially have been useful for a lot of developers. One common request we still kept getting was support for Arduino, since getting started with it is much more convenient for many developers and it is also easier to migrate from other chips/platforms since the IDE and code structure is familiar.
 
@@ -51,7 +51,7 @@ Once your Arduino is set-up with the ESP32 support, follow these steps
 
 This is the complete list for reference:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*sS_zIiPYpf4jII0eJdIDow.png)
+![](img/esp-2.webp)
 
 2. Now, go to File -> Examples -> Examples for ESP32 Dev Module -> ESP RainMaker -> RMakerSwitch
 

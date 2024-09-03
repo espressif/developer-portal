@@ -9,11 +9,11 @@ We had [announced](/support-for-lts-release-of-aws-iot-device-sdk-for-embedded-c
 
 This beta release of the AWS LTS libraries provided individual examples showcasing usage of a particular AWS IoT related service. It had the following structure:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*W4v2537dYzP6qC12kFhQIg.png)
+![](img/announcing-1.webp)
 
 We are pleased to announce the [stable release](https://github.com/espressif/esp-aws-iot/) of esp-aws-iot on GitHub and a [reference example](https://github.com/FreeRTOS/iot-reference-esp32c3) for the ESP32-C3 developed [in collaboration](https://www.freertos.org/featured-freertos-iot-integration-targeting-an-espressif-esp32-c3-risc-v-mcu/) with the AWS team. The combination of these repositories provides a production-ready starting point for making applications that connect to AWS IoT Core using esp-aws-iot.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*20XGbIWofbzCTdmFILVVzg.png)
+![](img/announcing-2.webp)
 
 The main features of this release are listed below:
 

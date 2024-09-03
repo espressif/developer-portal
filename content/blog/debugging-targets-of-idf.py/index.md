@@ -19,7 +19,7 @@ Debugging commands are available, as well, to make the JTAG configuration easier
 
 idf.py flash monitor openocd gdbgui
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*lByLpF3XCFfPYGt5e7qILA.gif)
+![](img/debugging-1.webp)
 
 This command does several things:- flashes the application to the development board- opens [IDF Monitor](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/tools/idf-monitor.html) to observe serial output- starts OpenOCD debugger and a [gdbgui](https://www.gdbgui.com/) debug server- opens a web browser, where [gdbgui](https://www.gdbgui.com/) interface is displayed.
 
@@ -31,7 +31,7 @@ idf.py now implements the actions described below. For instructions on setting u
 
 Runs OpenOCD in a console with configuration defined in the environment or via command line.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*4x-mpcPU36rz2k1D0JeA-Q.png)
+![](img/debugging-2.webp)
 
 By default, it is assumed that ESP32 WROVER-KIT board with 3.3V flash is used. This configuration also works with an ESP32 Ethernet Kit and many other boards. To override the default, set OPENOCD_COMMANDS environment variable or pass an --openocd-commands argument.
 
@@ -39,13 +39,13 @@ By default, it is assumed that ESP32 WROVER-KIT board with 3.3V flash is used. T
 
 Starts the __*gdb*__  in the current active console with the project’s elf file.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Qsu05yP8Eca2L5MNRhqTkg.png)
+![](img/debugging-3.webp)
 
 ## idf.py gdbtui
 
 Starts the __*gdb*__  the same way as above, but with the --tui argument allowing very simple source code view in a textual user interface mode.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*eV1ydA3F8vOigGZNH4i02w.png)
+![](img/debugging-4.webp)
 
 ## idf.py gdbgui
 
@@ -61,7 +61,7 @@ An example of a very useful combination is shown below with the corresponding sc
 idf.py gdbgui monitor openocd
 ```
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*2vC1dUfWrQsujG-NODpUWQ.png)
+![](img/debugging-5.webp)
 
 This command starts OpenOCD in the background, while it opens [gdbgui](https://www.gdbgui.com/) in a browser and the IDF-monitor in the active console window, allowing the user to observe serial output and debug it at the same time. When the monitor exits with Ctrl + ], all debugging actions are terminated and cleaned up.
 

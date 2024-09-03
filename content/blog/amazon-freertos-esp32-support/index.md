@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - mahavir-jain
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*dhVv6pIQdqo3ypiDNMOhzA.png)
+![](img/amazon-1.webp)
 
 ## Preface
 
@@ -20,7 +20,7 @@ In this article we will discuss about —
 
 Let us dig deeper in architecture of this offering in the context of ESP32 -
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*jCVeIM0_wndMdL9JkJNujw.png)
+![](img/amazon-2.webp)
 
 - Upstream or vanilla FreeRTOS had no support for theESP32 architecture (Xtensa LX6 dual core CPU). Support for this architecture is now available in the [__FreeRTOS V10 kernel__ ](https://github.com/aws/amazon-freertos/tree/master/lib/FreeRTOS/portable/ThirdParty/GCC/Xtensa_ESP32). As of now it only supports single core mode of operation.
 - A slightly modified version of the [__ESP-IDF__ ](https://github.com/espressif/esp-idf/) is part of the Amazon FreeRTOS SDK itself. This IDF has all the required components including, hardware abstraction layer, Wi-Fi driver and other components that *do not conflict* with the ones already available in Amazon FreeRTOS SDK (e.g. Networking Stack, TLS stack etc.). Such a self contained package allows easier certification process as well.

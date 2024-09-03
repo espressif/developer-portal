@@ -52,17 +52,17 @@ Espressif-IDE Installer for Windows OS is available [here](https://dl.espressif.
 
 Installation instructions are similar to what is described [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#esp-idf-tools-installer) for the ESP-IDF Tools installer. Always prefer *Full Installation *during the setup.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*iOu2eUIUT-ztR-wG9BUmGg.png)
+![](img/espressif-1.webp)
 
 Once the installation completes you could launch the Espressif-IDE from the desktop shortcut and this will pre-configure everything required to build the ESP-IDF project.
 
 When you launch the IDE for the first time it will pop up with the Welcome page!
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Tf6Pw9jYjmw86Dn1hUcqDA.png)
+![](img/espressif-2.webp)
 
 To verify Installed tools version and product information in general, you could navigate to the *Espressif *menu and click on the *Product Information *option.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*vDH9cN4u5Z9jzXg_ZzSXqg.png)
+![](img/espressif-3.webp)
 
 Once you’re able to see all the tools, IDF_PATH, IDF_PYTHON_PATH, PATH, and other environment information correctly in the console, you are set to get started with the HelloWorld project!
 

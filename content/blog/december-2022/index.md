@@ -24,21 +24,21 @@ Among these remarkable contributors, Espressif will present its own unique achie
 
 You still have time to book an appointment with Espressif’s team at CES 2023, so you can get all the information you need about our products and services. Just click on the photograph below and provide the required information.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*khnNjRWIuZh3ylyO.png)
+![](img/december-1.webp)
 
 Keep reading this month’s newsletter, so you can learn more exciting news from Espressif:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Jzq6SqYFF-dqqZfo.png)
+![](img/december-2.webp)
 
 [__Espressif Launches Matter-Related Services__ ](https://www.espressif.com/en/news/Pre-provisioning_Matter)Espressif’s new Matter-compatible Device Certificate Generation and Pre-provisioning Services aim to reduce manufacturing complexities while also safeguarding CSA standards.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*mq1ZmxiUCU0PRkLg.png)
+![](img/december-3.webp)
 
 [__ESP-IDF Release v5.0 Is a Major Update__ ](https://www.espressif.com/en/news/ESP-IDFv5)
 
 ESP-IDF v5.0 is a major update for ESP-IDF v4.x., and is the latest stable release. It is mostly compatible with apps written for ESP-IDF v4.x, but there are some breaking changes and removal of deprecated functionality, as well.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*qlrjEBBg8SzSQkx4.png)
+![](img/december-4.webp)
 
 [__Get Hands-On Experience with RISC-V, Using ESP32-C3__ ](https://www.espressif.com/en/media_overview/news/risc-v-with-esp32-c3)
 

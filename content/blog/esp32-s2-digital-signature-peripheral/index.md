@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - aditya-patwardhan
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*KyAhkdqXatYk9MY1YO85Tw.jpeg)
+![](img/esps-1.webp)
 
 The [Transport Layer Security(TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) is an integral part of the IoT world. It facilitates a secure way of communication between the IoT device and the cloud service. The TLS uses asymmetric key cryptography for security that consists of a private key and corresponding public key (certificate). As the name suggests public key is shared with everyone and the private key is kept secured on the IoT device. It is pivotal to keep the private key secure in order to protect the identity of the IoT device. This article explains how to keep the device private key secure with the Digital Signature peripheral present in Espressif’s SoCs.
 
@@ -17,7 +17,7 @@ The DS peripheral makes use of the eFuse Controller available on the ESP32-S2 ch
 
 The ESP32-S2 has a total of 11 eFuse blocks each of the size of 256 bits. The eFuse block no.4 to block no.9 out of the total 11 blocks are available as key blocks and can be used to program a 256 bit key. All the blocks in the eFuse are one time programmable. Also, once a key is programmed in one of these key blocks, the software read operation on that block can be disabled. Thus making the key accessible only to the hardware of the ESP32-S2 chip.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*IwKNKFryTkUYXcNwy1kQJA.png)
+![](img/esps-2.webp)
 
 The eFuse key blocks shown above can be used for multiple purposes e.g. Digital Signature, Flash Encryption, Secure Boot etc.
 
@@ -27,7 +27,7 @@ As you might have noticed, only a 256 bit key can be stored in a key block of th
 
 The process to secure RSA private key involves multiple steps. Note that all the technical steps are not mentioned here for simplicity. Please refer to the [DS documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/api-reference/peripherals/ds.html) in the ESP-IDF programming guide for more details. The following diagram explains the process in a simple manner.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*W3nlNtNnNMJXwnUMrCfQmQ.png)
+![](img/esps-3.webp)
 
 As the above diagram shows, the process to secure the RSA private key and use the DS peripheral follows these steps -
 

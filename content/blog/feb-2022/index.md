@@ -15,25 +15,25 @@ Espressif is committed to constantly enhancing the capabilities of its software 
 
 Other topics you can read about in this month’s newsletter include:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Cyrq3nw-6c9_smVr.png)
+![](img/feb-1.webp)
 
 [__New Features of the ESP-IDF-VS Code Extension__ ](https://www.espressif.com/en/news/ESP-IDF_VS_Code_Extension)
 
 The [ESP-IDF extension of Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) aims at helping developers write code based on [ESP-IDF](https://www.espressif.com/en/products/sdks/esp-idf) and Espressif SoCs. In the following article, you can find the latest features we have added.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*IySO2Cgv5MZYuyuG.png)
+![](img/feb-2.webp)
 
 [__ESP32-C3-based M5Stamp C3U Released__ ](https://www.espressif.com/en/news/M5Stamp_C3U)
 
 The [ESP32-C3](https://www.espressif.com/en/products/socs/esp32-c3)-based [M5Stamp C3U](https://shop.m5stack.com/collections/m5stack-new-arrival/products/m5stamp-c3u-5pcs) has just been released. With a 32-bit RISC-V microcontroller, a 400 KB internal RAM, and a 4 MB Flash, it operates at a maximum clock frequency of 160 MHz, facilitating a variety of use cases.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*RwkkmqkXEZBSSRjp.png)
+![](img/feb-3.webp)
 
 [__AirTag-like Device Based on ESP32__ ](https://www.espressif.com/en/news/ESP32Tag)
 
 Get to know how independent maker, Eric Nam, created the [ESP32Tag](https://www.youtube.com/watch?v=_Bu3lw49m5s), which works similarly to Apple’s AirTag!
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*ECJoxaglfd_4rycr.png)
+![](img/feb-4.webp)
 
 [__E__ ](https://www.espressif.com/en/news/ESP32_Security_Camera)[__SP32-Powered DIY Smartwatch__ ](https://www.espressif.com/en/news/MutantW)
 

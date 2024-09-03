@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - adwait-patankar
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*DB1MVfoKvRaanJaa9Vikpw.png)
+![](img/esp-1.webp)
 
 ESP Insights was released in its Beta in July 2021 and is being actively used by the ESP developer community. You can read more about it in the blog post [Introducing ESP Insights](/introducing-esp-insights-7d85a1383d21). With this new version of the ESP Insights service, we introduce following new features, plus a few UI enhancements and stability fixes.
 
@@ -51,25 +51,25 @@ The latest version of ESP Insights introduces group analytics, that provides ins
 - Compare the firmware insights across different versions of a project
 - A very high-level insights starting at a project level and can be drilled down to an event category
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*CmsgjXy5jUabgYbxI6V4Qg.png)
+![](img/esp-2.webp)
 
 A few examples of group based data that you can observe:
 
 - Counts grouped by events (for e.g., Errors) for a particular project and version, in a selected time interval. You can change the interval to hour or aggregate to week or a month interval
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ayV33yuy4--ell1bgoVHYA.png)
+![](img/esp-3.webp)
 
 - Distribution of event counts (for e.g., crash counts) for a group in a selected time interval.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*yywKFAYu4tlIsSGqFX7FtA.png)
+![](img/esp-4.webp)
 
 - Distribution of event (for e.g. Reboot reason) counts for a group in a selected time interval. You can drill down further on the reboot reason and get to the nodes which are reporting the particular event.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*cpdsBL6ZXg2krYRAOCYP5g.png)
+![](img/esp-5.webp)
 
 - Count of unique nodes which are reporting certain events (reboots / errors / warnings) in a selected time interval
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*4TOm67stGH2YAUX61i3qBw.png)
+![](img/esp-6.webp)
 
 - List of top nodes having the most number of events and can be drilled down to category level
 

@@ -21,7 +21,7 @@ When a certificate is revoked, all the certificate’s issued under it, includin
 
 Matter will support the revocation of PAI and DACs via CRLs.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*n4o7gcH4c7L82-dL8N4jAQ.png)
+![](img/matter-1.webp)
 
 ## __The User Experience__ 
 
@@ -47,7 +47,7 @@ A CRL is a signed blob that has a list of certificates that are issued by the CA
 
 Below is an example of what a CRL will have.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*of3F7hyt2zYB6iXkrU9kJg.png)
+![](img/matter-2.webp)
 
 In the above CRL, the certificate with serial number “*490B5C02EAF6285B60D5344076AA7204*” is revoked because of “*Key Compromise*”, where the serial number acts as a unique identifier for the certificate the CA issued.
 

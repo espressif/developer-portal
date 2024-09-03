@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - esp-bot
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*mT6S5R-AoJTqHpdZRgp30Q.png)
+![](img/espidf-1.webp)
 
 Use Espressif’s IoT Development Framework to build a complete product. Right from network configuration, to local or remote access, OTA firmware upgrades, certification and manufacturing, we have got you covered. You may refer to [ESP-Jumpstart](https://medium.com/the-esp-journal/jumpstart-iot-product-development-on-esp32-2d2b981e9c3f) for more details.
 

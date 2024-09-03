@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - esp-bot
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ftIyBPi61uUvxd6YWq4EUg.png)
+![](img/esp-1.webp)
 
 ESP ZeroCode allows device makers to instantly specify, build and launch connected products, right through their browsers. A wide variety of products such as lightbulbs, lighting fixtures, led strips, sockets, switches, roller blinds, refrigerators, laundry washers, thermostats and more are supported.
 

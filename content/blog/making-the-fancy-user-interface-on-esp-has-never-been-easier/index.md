@@ -15,7 +15,7 @@ The [SquareLine Studio](https://squareline.io/) is a visual multiplatform (Mac O
 
 After launching the SquareLine Studio and creating a new project (or open example project), there is main editor view (Figure 1). In the middle of the screen is one or more screens in the size of the output LCD display. On the left side is a list of widgets added on the screen in well-arranged __hierarchy__ . Under the hierarchy is list of __available widgets__  but there aren’t all of widgets from LVGL, only most of them. On the right side are three tabs. The important is __Inspector__ and very helpful can be __Font manager__  too. Inspector is changing for each selected widget on the screen and allows make appearance changing of the widget. There is __Events__ part too, where can be added an event for selected widget. There are lot of events for selection from click to gestures. Font manager can make LVGL font from any TTF font file and there can be selected only some characters for spare the memory. On the bottom of the application, there are two tabs, __Assets__ for all media files in the project and __Console__ , where is the whole history of info, warning and error messages.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*knQcWmoN7vpYwxFqo6YBSw.png)
+![](img/making-1.webp)
 
 The play button on top right corner on the main screen enables simulator - all widgets actions and animations. You can try there, how yours UI will be react.
 
@@ -27,15 +27,15 @@ SquareLine studio version 1.1 introduce new feature — __board templates__ . Th
 
 Espressif has prepared two boards in SquareLine Studio for you: [__ESP-BOX__ ](https://github.com/espressif/esp-bsp/tree/master/esp-box) and [__ESP-WROVER-KIT__ ](https://github.com/espressif/esp-bsp/tree/master/esp_wrover_kit). You can select the board after launch the application in Create tab and then in Espressif tab (Figure 2). Each board has pre-filled size of screen, rotation and color depth, which is corresponding with [ESP-BSP](https://github.com/espressif/esp-bsp) which is used in generated code.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*RwCzxzFLR1yvlsHdHx6t5w.png)
+![](img/making-2.webp)
 
 When you select the board, you can see empty screen on the main view of the application. This empty screen has same size like the display on the selected board. Now, you can drag-and-drop some widgets, put the texts and set events. For example something like in the figure 3.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*0UjwYKDwRnOWw1s_CaRgJQ.png)
+![](img/making-3.webp)
 
 After creating the template files (Export->Create Template Project) and exporting UI files (Export->Export UI Files), you can compile and flash the project by following the same steps, as you are used to with another Espressif’s examples (if you are using ESP-IDF). On the ESP-BOX it will look like in the figure 4.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*hSkWMF65eLWt1EzTToUWjg.jpeg)
+![](img/making-4.webp)
 
 ## Is SquareLine Studio for free?
 

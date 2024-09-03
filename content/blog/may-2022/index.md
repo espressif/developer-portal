@@ -21,19 +21,19 @@ We look forward to welcoming more enterprises that will choose to take advantage
 
 Other topics you can read about in this month’s newsletter include:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*SCAst889cpxSLjIn.png)
+![](img/may-1.webp)
 
 [__Announcing an AWS IoT Reference Example for ESP32-C3__ ](https://www.espressif.com/en/news/AWS_IoT_Ref_eg_ESP32-C3)
 
 Espressif is pleased to announce [the stable release](https://github.com/espressif/esp-aws-iot/) of esp-aws-iot on GitHub and a [reference example](https://github.com/FreeRTOS/iot-reference-esp32c3) for the ESP32-C3, developed [in collaboration](https://www.freertos.org/featured-freertos-iot-integration-targeting-an-espressif-esp32-c3-risc-v-mcu/) with the AWS team. The combination of these repositories provides a production-ready starting point for making applications that connect to AWS IoT Core, using esp-aws-iot.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*VXJui2cCLNwrIEYX.png)
+![](img/may-2.webp)
 
 [__Update on Espressif’s Support for Zephyr__ ](https://www.espressif.com/en/news/Zephyr_updates)
 
 Since tracking the development of [Espressif’s support](https://www.espressif.com/en/news/new_operating_systems_in_ESP32)for Zephyr through [commits](https://github.com/espressif/esp-idf/issues) is somewhat painful, this article aims to provide a clear update on the features we have added recently, and clarify the direction of Espressif’s support for this project in the future.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*nPrdDih9IEv2VntB.png)
+![](img/may-3.webp)
 
 [__The First Makerspace in Siem Riep!__ ](https://www.espressif.com/en/news/Makers_Siem_Riep)
 
