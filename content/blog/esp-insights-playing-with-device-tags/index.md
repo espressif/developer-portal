@@ -1,16 +1,10 @@
 ---
-title: ESP Insights: Playing with Device Tags
+title: "ESP Insights: Playing with Device Tags"
 date: 2022-09-07
 showAuthor: false
 authors: 
   - adwait-patankar
 ---
-[Adwait Patankar](https://medium.com/@adwaitpatankar?source=post_page-----ece2c3691712--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fb31acf34f5e6&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-insights-playing-with-device-tags-ece2c3691712&user=Adwait+Patankar&userId=b31acf34f5e6&source=post_page-b31acf34f5e6----ece2c3691712---------------------post_header-----------)
-
---
-
 In today’s world which is completely engulfed in social media, the notion of tags is not new. Most of the media publicly shared on the social network is tagged (or to be more accurate, hash-tagged) with something or the other. With that familiarity in mind, we thought of introducing the concept of tagging to the ESP devices, that should help users categorise or search their devices faster on the ESP Insights Dashboard.
 
 ## What is tagging?

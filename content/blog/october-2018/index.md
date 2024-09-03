@@ -1,16 +1,10 @@
 ---
-title: October 2018
+title: "October 2018"
 date: 2018-10-02
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----b4ba4de2cba--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Foctober-2018-b4ba4de2cba&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----b4ba4de2cba---------------------post_header-----------)
-
---
-
 Welcome to our October Newsletter
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*x7de18Fx2of0M3TR.jpg)

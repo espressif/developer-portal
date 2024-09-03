@@ -1,16 +1,10 @@
 ---
-title: ESP32 Device Provisioning: Configuring Custom Data
+title: "ESP32 Device Provisioning: Configuring Custom Data"
 date: 2019-10-11
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----2e9c17aa4d51--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-device-provisioning-configuring-custom-data-2e9c17aa4d51&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----2e9c17aa4d51---------------------post_header-----------)
-
---
-
 One of the common requirements I have seen is, during the initial device provisioning, configuring some device specific custom data on the device. This could be something as easy as assigning a user-friendly name to the device, or something like initialising the Alexa credentials on the device.
 
 The unified provisioning infrastructure within the ESP-IDF/ESP-Jumpstart allows for this mechanism with ease.

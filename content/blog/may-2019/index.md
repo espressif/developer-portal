@@ -1,16 +1,10 @@
 ---
-title: May 2019
+title: "May 2019"
 date: 2019-05-26
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----d3c07ddcefe9--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmay-2019-d3c07ddcefe9&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----d3c07ddcefe9---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 The beginning of May found us celebrating not only this year’s Labor Day Festival, which was a four-day public holiday in China, but also the new phase of Espressif’s collaborations with Google and Microsoft. Our popular [ESP32-DevKitC](https://www.espressif.com/en/products/hardware/esp32-devkitc/overview) now enables an easy evaluation and development for [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)-based products connected to the [Google Cloud IoT Core](https://cloud.google.com/iot-core/). Similarly, our [ESP32-Azure IoT Kit](https://www.espressif.com/en/products/hardware/esp32-azure-kit) is dedicated to supporting [Microsoft’s Azure IoT cloud services](https://azure.microsoft.com/en-us/overview/iot/). We have recently added “Joint Development” to our dropdown menu under the “Products” tab on the landing page of our website, in order to offer our customers a detailed presentation of the two development kits mentioned above. You can also find a short description below.

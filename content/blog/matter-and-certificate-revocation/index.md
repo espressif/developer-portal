@@ -1,16 +1,10 @@
 ---
-title: Matter and Certificate Revocation
+title: "Matter and Certificate Revocation"
 date: 2023-10-23
 showAuthor: false
 authors: 
   - deepakumar-v-u
 ---
-[Deepakumar V U](https://medium.com/@deepakumarvu?source=post_page-----e8d5d29fef94--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F43f454c48747&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmatter-and-certificate-revocation-e8d5d29fef94&user=Deepakumar+V+U&userId=43f454c48747&source=post_page-43f454c48747----e8d5d29fef94---------------------post_header-----------)
-
---
-
 [Espressif Matter Series](/matter-38ccf1d60bcd) #10
 
 In the previous blogs, we discussed various aspects of Matter. One of which was the Matter Security Model. Matter’s Security Model is based on PKI infrastructure, a widely used security model for securing communications and establishing trust and identity in the digital world. (To know more about Matter’s Security Model you can read this [blog](/matter-security-model-37f806d3b0b2)).

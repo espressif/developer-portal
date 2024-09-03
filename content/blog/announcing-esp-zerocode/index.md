@@ -1,16 +1,10 @@
 ---
-title: Announcing ESP ZeroCode
+title: "Announcing ESP ZeroCode"
 date: 2023-08-20
 showAuthor: false
 authors: 
   - chirag-atal
 ---
-[Chirag Atal](https://medium.com/@chiragatal?source=post_page-----301201c24cba--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F481addc4adbc&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fannouncing-esp-zerocode-301201c24cba&user=Chirag+Atal&userId=481addc4adbc&source=post_page-481addc4adbc----301201c24cba---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Yx1jrTb_8QWhVqW8501kcA.png)
 
 Today Espressif is launching the ESP ZeroCode. This is a web application that lets you quickly prepare Matter-certifiable firmware, as per your requirements, in just a few clicks. You describe the kind of product you wish to create, the features you want to have, and its hardware configuration, that’s it. You can instantly try out the generated firmware on the physical hardware. If you don’t like something, you go back and tweak it all you want. This is truly a magical experience, try creating a product now at the [ESP ZeroCode Console](https://zerocode.espressif.com/).

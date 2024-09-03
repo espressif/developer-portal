@@ -1,16 +1,10 @@
 ---
-title: Building a Smart Curtains System with the ESP32
+title: "Building a Smart Curtains System with the ESP32"
 date: 2022-11-23
 showAuthor: false
 authors: 
   - marek-fiala
 ---
-[Marek Fiala](https://medium.com/@mfialaf?source=post_page-----150fcbf853d2--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1fa254e57333&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fsmart-curtains-system-150fcbf853d2&user=Marek+Fiala&userId=1fa254e57333&source=post_page-1fa254e57333----150fcbf853d2---------------------post_header-----------)
-
---
-
 Recently, I’ve been sitting behind my computer, which is unluckily situated against a window. Sharp late-afternoon sunlight made me think about some intelligent system that recognizes this light and closes the curtains. As home automation has become more and more widespread in recent years, there are many options available on the market that solve most of the common problems we have daily. However, talking about intelligent curtains systems, most of the available solutions require replacing the whole curtains’ holders like rods or rails. I wanted to develop a system adaptable to curtains that are already in use.
 
 After several sketches, modeling attempts, and soldering experiments, this is what I came up with:

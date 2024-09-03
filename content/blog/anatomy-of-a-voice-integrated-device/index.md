@@ -1,16 +1,10 @@
 ---
-title: Anatomy of a Voice-Integrated Device
+title: "Anatomy of a Voice-Integrated Device"
 date: 2018-08-12
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----e48703e0ec20--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fanatomy-of-a-voice-controlled-device-e48703e0ec20&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----e48703e0ec20---------------------post_header-----------)
-
---
-
 Recently I have seen significant interest from OEMs in embedding voice assistants, like Alexa, directly into their products. Not just linking with a voice-assistant using a cloud to cloud integration, but by having the product itself be voice-enabled (with microphones and speakers).
 
 For example, a washing machine with a voice interface for starting it, or a smart switch with “Echo” embedded into it.

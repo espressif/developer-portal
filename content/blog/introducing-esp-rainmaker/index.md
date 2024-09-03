@@ -1,16 +1,10 @@
 ---
-title: Introducing ESP RainMaker
+title: "Introducing ESP RainMaker"
 date: 2020-04-15
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----8fa968bbb2de--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fintroducing-esp-rainmaker-8fa968bbb2de&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----8fa968bbb2de---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*uy2eShWZ8qIQmd-eLRQdwA.png)
 
 Today we announced [ESP RainMaker](https://rainmaker.espressif.com). This is another step forward for Espressif to enable makers to build connected devices and access them through phone apps, 3rd party services or voice assistants, quickly, without having to manage the infrastructure.

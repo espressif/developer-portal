@@ -1,16 +1,10 @@
 ---
-title: March 2020
+title: "March 2020"
 date: 2020-04-06
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----5b43e4bf478a--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmarch-2020-5b43e4bf478a&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----5b43e4bf478a---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 As the COVID-19 crisis spreads rapidly all around the world our thoughts are with those who keep fighting the global pandemic. Now that the epicenter of infections has moved westward, we want to send a message of hope from China to all our partners, our customers and our international community of supporters. __Things will get better!__ 

@@ -1,16 +1,10 @@
 ---
-title: ESP32-S2: Digital Signature Peripheral
+title: "ESP32-S2: Digital Signature Peripheral"
 date: 2021-02-03
 showAuthor: false
 authors: 
   - aditya-patwardhan
 ---
-[Aditya Patwardhan](https://medium.com/@aditya.patwardhan?source=post_page-----7e70bf6dde88--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F925ade5b5b1a&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-s2-digital-signature-peripheral-7e70bf6dde88&user=Aditya+Patwardhan&userId=925ade5b5b1a&source=post_page-925ade5b5b1a----7e70bf6dde88---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*KyAhkdqXatYk9MY1YO85Tw.jpeg)
 
 The [Transport Layer Security(TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) is an integral part of the IoT world. It facilitates a secure way of communication between the IoT device and the cloud service. The TLS uses asymmetric key cryptography for security that consists of a private key and corresponding public key (certificate). As the name suggests public key is shared with everyone and the private key is kept secured on the IoT device. It is pivotal to keep the private key secure in order to protect the identity of the IoT device. This article explains how to keep the device private key secure with the Digital Signature peripheral present in Espressif’s SoCs.

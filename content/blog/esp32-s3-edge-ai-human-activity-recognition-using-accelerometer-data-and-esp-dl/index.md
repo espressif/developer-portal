@@ -1,16 +1,10 @@
 ---
-title: ESP32-S3 Edge-AI｜Human Activity Recognition Using Accelerometer Data and ESP-DL
+title: "ESP32-S3 Edge-AI｜Human Activity Recognition Using Accelerometer Data and ESP-DL"
 date: 2023-06-06
 showAuthor: false
 authors: 
   - ali-hassan-shah
 ---
-[ALI HASSAN SHAH](https://medium.com/@engg.alibukharai?source=post_page-----3afa97ca553c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fc690030496b1&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-s3-edge-ai-human-activity-recognition-using-accelerometer-data-and-esp-dl-3afa97ca553c&user=ALI+HASSAN+SHAH&userId=c690030496b1&source=post_page-c690030496b1----3afa97ca553c---------------------post_header-----------)
-
---
-
 Edge computing is a distributed computing paradigm that brings computation and data storage closer to the device’s location. Edge Artificial Intelligence (edge-AI) is an exciting development within edge computing because it allows traditional technologies to run more efficiently, with higher performance and less power. Trained neural networks are used to make inferences on small devices. The potential [applications areas](https://www.xenonstack.com/blog/edge-ai-use-case) of edge AI includes manufacturing, healthcare, the retail industry, surveillance, smart home, and finance banking.
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*j6FI3xqYdRwHXncdkaI-VA.jpeg)

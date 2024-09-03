@@ -1,16 +1,10 @@
 ---
-title: DFU — Using the native USB on ESP32-S2 for flashing the firmware
+title: "DFU — Using the native USB on ESP32-S2 for flashing the firmware"
 date: 2021-03-23
 showAuthor: false
 authors: 
   - pedro-minatel
 ---
-[Pedro Minatel](https://medium.com/@minatel?source=post_page-----b2c4af3335f1--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fea25448e3ab5&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fdfu-using-the-native-usb-on-esp32-s2-for-flashing-the-firmware-b2c4af3335f1&user=Pedro+Minatel&userId=ea25448e3ab5&source=post_page-ea25448e3ab5----b2c4af3335f1---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*OGYnunK59RjJf8T9iCXuwA.png)
 
 Since the [ESP32-S2](https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf) was released, a notable new functionality got everyone’s attention: the USB host and device capabilities. This new functionality adds a new world in terms of possibilities and cool stuff that could be made using USB and it’s a game changer in many projects.

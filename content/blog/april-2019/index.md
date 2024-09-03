@@ -1,16 +1,10 @@
 ---
-title: April 2019
+title: "April 2019"
 date: 2019-04-04
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----8047cc87424e--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fapril-2019-8047cc87424e&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----8047cc87424e---------------------post_header-----------)
-
---
-
 Welcome to our April Newsletter
 
 Hi everyone,

@@ -1,16 +1,10 @@
 ---
-title: Espressif Thread Border Router
+title: "Espressif Thread Border Router"
 date: 2023-06-14
 showAuthor: false
 authors: 
   - shu-chen
 ---
-[Shu Chen](https://medium.com/@chenshu?source=post_page-----d56dea3b2c80--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Ffeb379dca2c7&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fespressif-thread-border-router-d56dea3b2c80&user=Shu+Chen&userId=feb379dca2c7&source=post_page-feb379dca2c7----d56dea3b2c80---------------------post_header-----------)
-
---
-
 We are glad to announce that the Espressif Thread Border Router (ESP Thread BR) solution has received [certification](https://www.espressif.com/sites/default/files/Espressif%20Thread%20Border%20Router%20Thread%20V1.3%20Interoperability%20Certification_0.pdf) from the Thread Group, and the accompanying development kit has now been officially released.
 
 This blog post will delve into the technical aspects of the solution and explore the benefits it offers, facilitating faster time-to-market for our customers’ products.

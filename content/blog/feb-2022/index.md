@@ -1,16 +1,10 @@
 ---
-title: Feb 2022
+title: "Feb 2022"
 date: 2022-02-28
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----3446dd72bcf2--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Ffeb-2022-3446dd72bcf2&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----3446dd72bcf2---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 [Version 4.4](https://github.com/espressif/esp-idf/releases/tag/v4.4) of Espressif’s IoT Development Framework (ESP-IDF v4.4) has recently been released, adding full support for the [ESP32-S3 SoC](https://www.espressif.com/en/products/socs/esp32-s3) and preliminary support for the [ESP32-H2 SoC](https://www.espressif.com/en/news/ESP32-H2_Thread_and_Zigbee_certified).

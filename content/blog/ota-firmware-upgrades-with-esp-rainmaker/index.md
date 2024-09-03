@@ -1,16 +1,10 @@
 ---
-title: OTA Firmware Upgrades with ESP RainMaker
+title: "OTA Firmware Upgrades with ESP RainMaker"
 date: 2020-05-24
 showAuthor: false
 authors: 
   - piyush-shah
 ---
-[Piyush Shah](https://medium.com/@shahpiyushv?source=post_page-----99bf48e80288--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F57464183000e&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fota-firmware-upgrades-with-esp-rainmaker-99bf48e80288&user=Piyush+Shah&userId=57464183000e&source=post_page-57464183000e----99bf48e80288---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Zb2E3Od6Q9_EhHLehYh3JA.jpeg)
 
 Any Internet of Things (IoT) system is incomplete if it does not have a facility of upgrading the firmware remotely (also called Over The Air firmware upgrades). The [ESP IDF](https://github.com/espressif/esp-idf) offers a very simple interface for [OTA upgrade using a secure HTTP connection](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_https_ota.html). However, the following things still remain unaddressed, as they are out of scope of the firmware development framework and require some infrastructural support:

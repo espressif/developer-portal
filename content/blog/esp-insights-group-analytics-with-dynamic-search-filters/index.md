@@ -1,16 +1,10 @@
 ---
-title: ESP Insights: Group Analytics with Dynamic Search Filters
+title: "ESP Insights: Group Analytics with Dynamic Search Filters"
 date: 2022-08-08
 showAuthor: false
 authors: 
   - adwait-patankar
 ---
-[Adwait Patankar](https://medium.com/@adwaitpatankar?source=post_page-----4fd48c17c5b9--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fb31acf34f5e6&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-insights-group-analytics-with-dynamic-search-filters-4fd48c17c5b9&user=Adwait+Patankar&userId=b31acf34f5e6&source=post_page-b31acf34f5e6----4fd48c17c5b9---------------------post_header-----------)
-
---
-
 It’s been a few months, since we first introduced our Group Analytics feature in the ESP Insights. Group Analytics allows a wholistic view of your devices in the field, categorised or grouped either by their behavioural pattern viz. reporting certain type of crashes or reboots because of certain errors or even non-erroneous conditions. Devices could be even grouped at a very high level by their characteristics like the firmware application and the version they carry.
 
 The first version of Group Analytics however provided a limited set of pre-defined grouping options. Refer to the [blog](https://www.espressif.com/en/news/ESP_Insights_New_Features) for more details.

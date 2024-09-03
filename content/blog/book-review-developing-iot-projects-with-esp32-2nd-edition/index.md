@@ -1,16 +1,10 @@
 ---
-title: Book review: Developing IoT Projects with ESP32 (2nd Edition)
+title: "Book review: Developing IoT Projects with ESP32 (2nd Edition)"
 date: 2024-01-29
 showAuthor: false
 authors: 
   - juraj-michálek
 ---
-[Juraj Michálek](https://medium.com/@juraj.michalek?source=post_page-----facdef7545bb--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fd08a49ba2bb9&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fbook-review-developing-iot-projects-with-esp32-2nd-edition-facdef7545bb&user=Juraj+Mich%C3%A1lek&userId=d08a49ba2bb9&source=post_page-d08a49ba2bb9----facdef7545bb---------------------post_header-----------)
-
---
-
 “Developing IoT Projects with ESP32” by Vedat Ozan Oner serves as a key guide, especially in its second edition, which has been thoughtfully updated to reflect the latest trends in IoT development.
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*wzpDybTFz6FjChQ-6u6Anw.png)

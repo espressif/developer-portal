@@ -1,16 +1,10 @@
 ---
-title: Embedding Voice into Devices with ESP32
+title: "Embedding Voice into Devices with ESP32"
 date: 2019-03-10
 showAuthor: false
 authors: 
   - hrishikesh-dhayagude
 ---
-[Hrishikesh Dhayagude](https://medium.com/@dhrishi?source=post_page-----107d9211633c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fd9449153a291&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fembedding-voice-into-devices-with-esp32-107d9211633c&user=Hrishikesh+Dhayagude&userId=d9449153a291&source=post_page-d9449153a291----107d9211633c---------------------post_header-----------)
-
---
-
 ESP32 already supported being a fully functional [Alexa client](https://github.com/espressif/esp-va-sdk/blob/master/README-Alexa.md), a voice assistant.
 
 ESP32 now also supports [Dialogflow](https://dialogflow.com/), a voice-enabled conversational interface from Google. It enables IoT users to include a natural language user interface in their devices.

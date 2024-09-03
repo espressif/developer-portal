@@ -1,16 +1,10 @@
 ---
-title: Aug 2022
+title: "Aug 2022"
 date: 2022-09-10
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----df38986c985d--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Faug-2022-df38986c985d&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----df38986c985d---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Espressif is taking part in the upcoming Maker Faire in [Prague on 17–18 September](https://makerfaire.cz/prague-2/)____ 2022, and in [Brno on 22–23 October](https://makerfaire.cz/brno-3/). Maker Faire is a family-friendly showcase of inventions and creativity that gathers technology enthusiasts, crafters, and educators from the Czech Republic and abroad. Makers come to show their creations and visitors get the opportunity to try new gadgets firsthand. This technology festival is the perfect combination of sciences, traditional crafts, the latest technological trends and design.

@@ -1,16 +1,10 @@
 ---
-title: June 2020
+title: "June 2020"
 date: 2020-07-27
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----44f455db36d3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjune-2020-44f455db36d3&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----44f455db36d3---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 We’ve got some exciting news for you this month! In response to our customers’ requests, we have just launched [ESP-Hosted](https://github.com/espressif/esp-hosted). This is a project which addresses our customers’ requirement to use ESP32 as a connectivity module with Linux-based host controllers.

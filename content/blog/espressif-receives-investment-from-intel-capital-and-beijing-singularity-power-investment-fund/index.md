@@ -1,16 +1,10 @@
 ---
-title: Espressif Receives Investment from Intel Capital and Beijing Singularity Power Investment Fund
+title: "Espressif Receives Investment from Intel Capital and Beijing Singularity Power Investment Fund"
 date: 2018-05-08
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----82bb5dd4d54b--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fespressif-receives-investment-from-intel-capital-and-beijing-singularity-power-investment-fund-82bb5dd4d54b&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----82bb5dd4d54b---------------------post_header-----------)
-
---
-
 Espressif Systems (or “Espressif”), a leading global IoT semiconductor company, announced today that it has received investment co-led by Intel Capital and Beijing Singularity Power Investment Fund L.P. (SPC).
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*czlw-cO2XFDWMBjt.jpeg)

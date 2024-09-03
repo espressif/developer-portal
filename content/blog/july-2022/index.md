@@ -1,16 +1,10 @@
 ---
-title: July 2022
+title: "July 2022"
 date: 2022-08-07
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----30eb7129a207--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjuly-2022-30eb7129a207&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----30eb7129a207---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 From 3 until 6 August 2022, Espressif is taking part in the [Guangzhou International Lighting Exhibition (GILE)](https://guangzhou-international-lighting-exhibition.hk.messefrankfurt.com/guangzhou/en/planning-preparation/exhibitors.html), which is the most highly regarded platform for the LED and lighting industry, as it provides a unique chance for all industry players to communicate, cooperate and create valuable business opportunities. You can find Espressif’s delegation in Zone B, Hall 10.2, booth D48. Please scan the QR code in the picture below, to register and get your ticket.

@@ -1,16 +1,10 @@
 ---
-title: Feb 2023
+title: "Feb 2023"
 date: 2023-02-15
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----8bec06a5453b--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Ffeb-2023-8bec06a5453b&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----8bec06a5453b---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Exciting times lie ahead, as Espressif Systems will be an official exhibitor at [Embedded World 2023](https://www.embedded-world.de/en/exhibit). So, between 14 and 16 March 2023, Espressif’s team will be in Nuremberg, Germany, among 720 exhibitors from 39 countries. The Embedded World exhibition-and-conference brings the entire embedded community together once a year, providing a unique overview of some state-of-the-art technologies in the industry.

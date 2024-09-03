@@ -1,16 +1,10 @@
 ---
-title: Local Network Access via HTTP Server
+title: "Local Network Access via HTTP Server"
 date: 2018-10-13
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----fb7fcfc3d67e--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Flocal-network-access-via-http-server-fb7fcfc3d67e&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----fb7fcfc3d67e---------------------post_header-----------)
-
---
-
 So you have your smart device on your end-user’s home network. Now you would want your user to access your device over the local network. That’s what we will look at in this post.
 
 Let’s say you are building a smart plug, and you want to toggle the power on or off on your plug. We will create a HTTP URI */power *on your device.

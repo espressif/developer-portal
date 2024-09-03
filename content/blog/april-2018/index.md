@@ -1,16 +1,10 @@
 ---
-title: April 2018
+title: "April 2018"
 date: 2018-05-07
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----7720e7014d2e--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fapril-2018-7720e7014d2e&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----7720e7014d2e---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*EPT5FobGgpZKqngDu2-JNA.jpeg)
 
 Hi everyone, The month of April is an exciting one for Espressif, since it is our birthday month. This year, in particular, we are celebrating the tenth birthday of our company on 29 April, and we plan our celebrations to extend even in May! Many things have coincided with this occasion, making our tenth anniversary even more special.

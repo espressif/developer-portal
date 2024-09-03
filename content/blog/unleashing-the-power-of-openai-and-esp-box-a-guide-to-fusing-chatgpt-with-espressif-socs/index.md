@@ -1,16 +1,10 @@
 ---
-title: Unleashing the Power of OpenAI and ESP-BOX: A Guide to Fusing ChatGPT with Espressif SOCs
+title: "Unleashing the Power of OpenAI and ESP-BOX: A Guide to Fusing ChatGPT with Espressif SOCs"
 date: 2023-06-12
 showAuthor: false
 authors: 
   - ali-hassan-shah
 ---
-[ALI HASSAN SHAH](https://medium.com/@engg.alibukharai?source=post_page-----fba0b2d2c4f2--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fc690030496b1&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Funleashing-the-power-of-openai-and-esp-box-a-guide-to-fusing-chatgpt-with-espressif-socs-fba0b2d2c4f2&user=ALI+HASSAN+SHAH&userId=c690030496b1&source=post_page-c690030496b1----fba0b2d2c4f2---------------------post_header-----------)
-
---
-
 The world is witnessing a technological revolution, and OpenAI is at the forefront of this change. One of its most exciting innovations is ChatGPT — that utilizes natural language processing to create more engaging and intuitive user experiences. The integration of OpenAI APIs with IoT devices has opened up a world of possibilities.
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*TtnelePsITOPSyKX2HQ3aQ.jpeg)

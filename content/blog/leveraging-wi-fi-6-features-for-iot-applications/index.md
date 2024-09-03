@@ -1,16 +1,10 @@
 ---
-title: Leveraging Wi-Fi 6 Features for IoT Applications
+title: "Leveraging Wi-Fi 6 Features for IoT Applications"
 date: 2023-06-13
 showAuthor: false
 authors: 
   - anant-raj-gupta
 ---
-[Anant Raj Gupta](https://medium.com/@ehaarjee?source=post_page-----c23cc6a548aa--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F86f1508bfacc&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fleveraging-wi-fi-6-features-for-iot-applications-c23cc6a548aa&user=Anant+Raj+Gupta&userId=86f1508bfacc&source=post_page-86f1508bfacc----c23cc6a548aa---------------------post_header-----------)
-
---
-
 In recent years, connected devices have become increasingly prevalent in our daily lives. From smart home devices to industrial automation systems, IoT technology is transforming the way we interact with the world around us. As IoT devices continue to proliferate, the need for reliable, high-capacity, and low-power wireless connectivity has become paramount. This is where Wi-Fi 6 (also known as 802.11ax) comes in, and its adoption in residential and enterprise settings reflects this need.
 
 According to a report by the __Wi-Fi Alliance__ , Wi-Fi 6 reached 50% market adoption more rapidly than any of the previous Wi-Fi generations. This was fuelled by the demand for high-quality Wi-Fi and more efficient, reliable connectivity [1]. Global tech market advisory firm __ABI Research__  expects Wi-Fi 6 access points to increase from 9% of total Wi-Fi consumer premise equipment (CPE) shipments in 2020 to account for nearly 81% of the entire total Wi-Fi market in 2026 [2].

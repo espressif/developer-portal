@@ -1,16 +1,10 @@
 ---
-title: What’s New with ESP ZeroCode
+title: "What’s New with ESP ZeroCode"
 date: 2024-04-28
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----1199e0c577fc--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fwhats-new-with-esp-zerocode-1199e0c577fc&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----1199e0c577fc---------------------post_header-----------)
-
---
-
 *The Fastest Way to Launch Matter-enabled Products*
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Jih0ZTef8x5U-B5NmU9gMw.png)

@@ -1,16 +1,10 @@
 ---
-title: Matter: Clusters, Attributes, Commands
+title: "Matter: Clusters, Attributes, Commands"
 date: 2021-11-30
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----82b8ec1640a0--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmatter-clusters-attributes-commands-82b8ec1640a0&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----82b8ec1640a0---------------------post_header-----------)
-
---
-
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #2*
 
 [This is article #2 in the [Espressif Matter Series](/matter-38ccf1d60bcd) of articles. You may read the first part [here](/what-does-matter-mean-to-you-fa3bb53a7793).]

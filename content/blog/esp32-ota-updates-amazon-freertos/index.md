@@ -1,16 +1,10 @@
 ---
-title: ESP32 OTA Updates — Amazon FreeRTOS
+title: "ESP32 OTA Updates — Amazon FreeRTOS"
 date: 2018-09-30
 showAuthor: false
 authors: 
   - mahavir-jain
 ---
-[Mahavir Jain](https://medium.com/@mahavirj?source=post_page-----9ffbbb8f4784--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fe94f74442319&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-ota-updates-amazon-freertos-9ffbbb8f4784&user=Mahavir+Jain&userId=e94f74442319&source=post_page-e94f74442319----9ffbbb8f4784---------------------post_header-----------)
-
---
-
 ESP32 now supports secure Over-the-Air firmware updates with Amazon FreeRTOS. This enables users of ESP32 with Amazon FreeRTOS to:
 
 - Deploy new firmware on ESP32 in secure manner (single or group of devices, along with dynamic addition of new/re-provisioned device)

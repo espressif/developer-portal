@@ -1,16 +1,10 @@
 ---
-title: ESP32-C2 and Why It Matter-s
+title: "ESP32-C2 and Why It Matter-s"
 date: 2022-04-18
 showAuthor: false
 authors: 
   - teo-swee-ann
 ---
-[Teo Swee Ann](https://medium.com/@teosweeann_65399?source=post_page-----bcf4d7d0b2c6--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4c3c8300aca5&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-c2-and-why-it-matter-s-bcf4d7d0b2c6&user=Teo+Swee+Ann&userId=4c3c8300aca5&source=post_page-4c3c8300aca5----bcf4d7d0b2c6---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*XNuruOnvm_geYSCEbvfTJw.jpeg)
 
 As many would have heard, Shanghai is now undergoing a major lockdown and quarantine due to COVID-19. In the midst of this lockdown, we received our production wafers of ESP32-C2, and proceeded with the verifications. Due to the quarantine, we have faced some logistics problems, but slowly, we have improvised, worked out solutions and continue to move ahead with the ramp up of this product. And thanks to Espressifers from Brazil, Czech Republic, India and Singapore, the integration of ESP32-C2 into ESP-IDF and ESP-RainMaker continues at full speed.

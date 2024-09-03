@@ -1,16 +1,10 @@
 ---
-title: Command — Response Framework in ESP RainMaker
+title: "Command — Response Framework in ESP RainMaker"
 date: 2024-07-31
 showAuthor: false
 authors: 
   - piyush-shah
 ---
-[Piyush Shah](https://medium.com/@shahpiyushv?source=post_page-----5e8273db7d22--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F57464183000e&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fcommand-response-framework-in-esp-rainmaker-5e8273db7d22&user=Piyush+Shah&userId=57464183000e&source=post_page-57464183000e----5e8273db7d22---------------------post_header-----------)
-
---
-
 [*If you have been following the Espressif blogs and announcements, you must already be aware of ESP RainMaker and its various features. If not, please check out the info *[*here*](https://rainmaker.espressif.com/)* so that you get an idea about what ESP RainMaker is before you proceed further*.]
 
 Admin users in ESP RainMaker can look at some basic node data like type, model, firmware version, etc. and push OTA firmware upgrades. They can view additional diagnostics data if linked with ESP Insights. However, there was no way for them to send some data to the nodes. The [set params](https://swaggerapis.rainmaker.espressif.com/#/Node%20Parameter%20Operations/updatenodestate) operations were available to only end users.

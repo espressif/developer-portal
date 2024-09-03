@@ -1,16 +1,10 @@
 ---
-title: ESP Privilege Separation — A Case Study
+title: "ESP Privilege Separation — A Case Study"
 date: 2022-07-05
 showAuthor: false
 authors: 
   - shubham-kulkarni
 ---
-[Shubham Kulkarni](https://medium.com/@shubham.kulkarni165?source=post_page-----8726ab95f20c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fc119fdc19526&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-privilege-separation-a-case-study-8726ab95f20c&user=Shubham+Kulkarni&userId=c119fdc19526&source=post_page-c119fdc19526----8726ab95f20c---------------------post_header-----------)
-
---
-
 In the [previous post](/introducing-esp-privilege-separation-aa57a02c36e4), we introduced ESP Privilege Separation, a framework to achieve “user-kernel” separation and isolation on ESP32-C3 SoC. There are multiple ways of applying this framework to your project. This post presents a case study of integrating ESP-RainMaker, a real-world IoT application, with the ESP Privilege Separation framework.
 
 ESP-RainMaker offers a complete ecosystem to build connected AIoT products. Please refer to [this link](https://rainmaker.espressif.com) for more details.

@@ -1,16 +1,10 @@
 ---
-title: Eclipse Plugin for ESP-IDF
+title: "Eclipse Plugin for ESP-IDF"
 date: 2020-04-17
 showAuthor: false
 authors: 
   - kondal-kolipaka
 ---
-[Kondal Kolipaka](https://medium.com/@kondal.kolipaka?source=post_page-----bd69a6c9dd3c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4f2e7eb30782&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Feclipse-plugin-for-esp-idf-bd69a6c9dd3c&user=Kondal+Kolipaka&userId=4f2e7eb30782&source=post_page-4f2e7eb30782----bd69a6c9dd3c---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*tfL5JCoRfBMbqPqNXhscDQ.png)
 
 ESP-IDF Eclipse Plugin brings developers an easy-to-use Eclipse-based development environment for developing ESP32 based IoT applications.

@@ -1,16 +1,10 @@
 ---
-title: May 2021
+title: "May 2021"
 date: 2021-05-27
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----92bd7d6767de--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmay-2021-92bd7d6767de&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----92bd7d6767de---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 At the beginning of the month, Espressif’s Founder and CEO, Mr Teo Swee-Ann, gave an interview to the [Electronic Engineering Times (EETimes)](https://www.eetimes.com/nl-archive/EE-Times-Weekend-210501.html), a leading news and analysis magazine about the latest technologies and business developments in the global electronics industry. In this interview, readers had the opportunity to learn more about Teo Swee-Ann, who holds 40 patents in circuit design and AIoT technology, is an avid Go player, a classical guitarist, a husband, and a father of four wonderful children.

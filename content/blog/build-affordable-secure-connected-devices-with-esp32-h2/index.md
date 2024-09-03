@@ -1,16 +1,10 @@
 ---
-title: Build affordable Secure connected devices with ESP32-H2
+title: "Build affordable Secure connected devices with ESP32-H2"
 date: 2023-05-11
 showAuthor: false
 authors: 
   - anant-raj-gupta
 ---
-[Anant Raj Gupta](https://medium.com/@ehaarjee?source=post_page-----b8d542df8cb4--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F86f1508bfacc&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fbuild-affordable-secure-connected-devices-with-esp32-h2-b8d542df8cb4&user=Anant+Raj+Gupta&userId=86f1508bfacc&source=post_page-86f1508bfacc----b8d542df8cb4---------------------post_header-----------)
-
---
-
 The awareness, as well as the associated concerns, about connected device security, is ever-increasing. With the European Union’s [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/library/cyber-resilience-act) also coming into effect soon, it has become ever so important to have security features built-in to the devices in hardware.
 
 The Espressif ESP32-H2 has been built to provide an affordable security solution to all and thus integrates a variety of security features. The ESP32-H2 Platform security considerations can be broadly classified into the following categories.

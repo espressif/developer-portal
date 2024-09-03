@@ -1,18 +1,10 @@
 ---
-title: Arduino ESP32 support version 2.0.0 is out!
+title: "Arduino ESP32 support version 2.0.0 is out!"
 date: 2021-08-31
 showAuthor: false
 authors: 
   - pedro-minatel
 ---
-## Arduino ESP32 support version 2.0.0 is out!
-
-[Pedro Minatel](https://medium.com/@minatel?source=post_page-----1b4de762228e--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fea25448e3ab5&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Farduino-esp32-support-version-2-0-0-is-out-1b4de762228e&user=Pedro+Minatel&userId=ea25448e3ab5&source=post_page-ea25448e3ab5----1b4de762228e---------------------post_header-----------)
-
---
-
 Arduino is definitely one of the most popular embedded development frameworks, and this popularity is mostly due to its simplicity and huge community.
 
 This popularity is also shared with the ESP32. When the first support was introduced for the ESP8266, Espressif saw the full potential about using Arduino on the SoCs, and all the possibilities for creating IoT products as easier as before.

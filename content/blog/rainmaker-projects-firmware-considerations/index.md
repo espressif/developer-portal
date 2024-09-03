@@ -1,16 +1,10 @@
 ---
-title: RainMaker Projects: Firmware Considerations
+title: "RainMaker Projects: Firmware Considerations"
 date: 2020-05-01
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----e50ee6d9271e--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Frainmaker-projects-firmware-considerations-e50ee6d9271e&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----e50ee6d9271e---------------------post_header-----------)
-
---
-
 Recently we released [ESP RainMaker](https://rainmaker.espressif.com) that easily allows makers to build connected devices. Beyond the part of connecting with the phone applications, the way the applications are structured makes it much easier to build an easy to distribute firmware. Many of these features are the guidelines that are part of the [ESP-Jumpstart](https://docs.espressif.com/projects/esp-jumpstart/en/latest/) framework. Let’s look at some of these features.
 
 ## Wi-Fi Network Configuration

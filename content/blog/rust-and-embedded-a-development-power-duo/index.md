@@ -1,16 +1,10 @@
 ---
-title: Rust + Embedded: A Development Power Duo
+title: "Rust + Embedded: A Development Power Duo"
 date: 2023-04-19
 showAuthor: false
 authors: 
   - juraj-sadel
 ---
-[Juraj Sadel](https://medium.com/@jurajsadel?source=post_page-----db43dae21206--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F753822abc60c&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Frust-embedded-a-development-power-duo-db43dae21206&user=Juraj+Sadel&userId=753822abc60c&source=post_page-753822abc60c----db43dae21206---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*akAtao9tbHBQ8W8TmBuDsA.png)
 
 __Beginning of Rust__ 

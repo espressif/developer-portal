@@ -1,16 +1,10 @@
 ---
-title: Releasing LTS of AWS IoT Device SDK for Embedded C on ESP32
+title: "Releasing LTS of AWS IoT Device SDK for Embedded C on ESP32"
 date: 2021-08-25
 showAuthor: false
 authors: 
   - dhaval-gujar
 ---
-[Dhaval Gujar](https://medium.com/@dhavalgujar?source=post_page-----8eeeea28b79b--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fdcb6fdff94e2&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fsupport-for-lts-release-of-aws-iot-device-sdk-for-embedded-c-on-esp32-8eeeea28b79b&user=Dhaval+Gujar&userId=dcb6fdff94e2&source=post_page-dcb6fdff94e2----8eeeea28b79b---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*VaSThQDVirRo9_Yj-b42rA.png)
 
 Since 2017, Espressif SoCs have been capable of connecting to the AWS IoT Core and related services. There are two ways to connect Espressif Wi-Fi SoCs to the AWS IoT Core.

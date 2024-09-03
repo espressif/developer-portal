@@ -1,16 +1,10 @@
 ---
-title: Amazon FreeRTOS — ESP32 Support
+title: "Amazon FreeRTOS — ESP32 Support"
 date: 2018-06-19
 showAuthor: false
 authors: 
   - mahavir-jain
 ---
-[Mahavir Jain](https://medium.com/@mahavirj?source=post_page-----9874a4412a21--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fe94f74442319&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Famazon-freertos-esp32-support-9874a4412a21&user=Mahavir+Jain&userId=e94f74442319&source=post_page-e94f74442319----9874a4412a21---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*dhVv6pIQdqo3ypiDNMOhzA.png)
 
 ## Preface
@@ -30,7 +24,6 @@ Let us dig deeper in architecture of this offering in the context of ESP32 -
 
 - Upstream or vanilla FreeRTOS had no support for theESP32 architecture (Xtensa LX6 dual core CPU). Support for this architecture is now available in the [__FreeRTOS V10 kernel__ ](https://github.com/aws/amazon-freertos/tree/master/lib/FreeRTOS/portable/ThirdParty/GCC/Xtensa_ESP32). As of now it only supports single core mode of operation.
 - A slightly modified version of the [__ESP-IDF__ ](https://github.com/espressif/esp-idf/) is part of the Amazon FreeRTOS SDK itself. This IDF has all the required components including, hardware abstraction layer, Wi-Fi driver and other components that *do not conflict* with the ones already available in Amazon FreeRTOS SDK (e.g. Networking Stack, TLS stack etc.). Such a self contained package allows easier certification process as well.
-- Another major change is that this port uses FreeRTOS’ native TCP/IP stack, rather than the LwIP stack from ESP-IDF. This has been enabled using the [__network interfacing layer__ ](https://github.com/aws/amazon-freertos/blob/master/lib/FreeRTOS-Plus-TCP/source/portable/NetworkInterface/esp32/NetworkInterface.c) that glues the FreeRTOS TCP/IP stack with ESP32’s Wi-Fi driver. More details about ESP32's networking architecture have been covered in this [__post__ ](https://medium.com/@mahavirj/esp-idf-wifi-networking-3eaebd11eb43).
 - The [__WiFi portability__ ](https://github.com/aws/amazon-freertos/blob/master/lib/wifi/portable/espressif/esp32_devkitc_esp_wrover_kit/aws_wifi.c) layer acts as an abstraction, providing consistent application interface between different vendor platforms. Mostly the API for this layer helps in Wi-Fi interface/state management (Station and SoftAP) and power management.
 - Another abstration layer is the secure socket layer shown above. It provides consistent application interface between different vendor’s network platforms (some of the vendors use custom Networking Stack) and interfacing with the mbedTLS stack.
 

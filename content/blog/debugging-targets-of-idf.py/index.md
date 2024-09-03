@@ -1,16 +1,10 @@
 ---
-title: Debugging Targets of idf.py
+title: "Debugging Targets of idf.py"
 date: 2020-06-24
 showAuthor: false
 authors: 
   - david-cermak
 ---
-[David-Cermak](https://medium.com/@cermak_29192?source=post_page-----1a7896f2c579--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F30d553f23ddc&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fdebugging-targets-of-idf-py-1a7896f2c579&user=David-Cermak&userId=30d553f23ddc&source=post_page-30d553f23ddc----1a7896f2c579---------------------post_header-----------)
-
---
-
 This article outlines a quick and easy way to start a debugger from the command line. More specifically, it discusses the debugging targets of idf.py, which have been added to ESP-IDF from v4.2. At the time of writing, IDF v4.2 is not released yet, but you can try out this feature on the master branch.
 
 ## Why Do We (Not) Debug

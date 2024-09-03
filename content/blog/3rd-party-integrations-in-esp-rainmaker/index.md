@@ -1,16 +1,10 @@
 ---
-title: 3rd Party Integrations in ESP RainMaker
+title: "3rd Party Integrations in ESP RainMaker"
 date: 2020-06-30
 showAuthor: false
 authors: 
   - piyush-shah
 ---
-[Piyush Shah](https://medium.com/@shahpiyushv?source=post_page-----3ea4df6afa3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F57464183000e&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2F3rd-party-integrations-in-esp-rainmaker-3ea4df6afa3&user=Piyush+Shah&userId=57464183000e&source=post_page-57464183000e----3ea4df6afa3---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*gpf1R6rG-WZfoTCfubQIpg.jpeg)
 
 IoT, in general, has come a long away. During the very early stage, there was browser based control and monitoring, which, though more convenient than non-IoT devices, had a very narrow market. With the advent of Smartphones, IoT devices became much more easier to use and mass adoption became a possibility. However, the real push was given by the advent of various eco-systems and Voice assistants like Siri, Alexa and Google Assistant. Controlling by just asking verbally is much more natural than opening some app in a smartphone and tapping buttons.

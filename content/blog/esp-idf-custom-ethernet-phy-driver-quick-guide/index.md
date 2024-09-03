@@ -1,16 +1,10 @@
 ---
-title: ESP-IDF Custom Ethernet PHY Driver Quick Guide
+title: "ESP-IDF Custom Ethernet PHY Driver Quick Guide"
 date: 2022-11-27
 showAuthor: false
 authors: 
   - ondrej-kosta
 ---
-[Ondrej Kosta](https://medium.com/@ondrej.kosta?source=post_page-----45f9d23de0ad--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F99dc2f822eec&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-idf-custom-ethernet-phy-driver-quick-guide-45f9d23de0ad&user=Ondrej+Kosta&userId=99dc2f822eec&source=post_page-99dc2f822eec----45f9d23de0ad---------------------post_header-----------)
-
---
-
 *“I would like to start a new product design with my favorite chip but it’s out of stock! Oh, no! I’ll have to design a new layout and develop new drivers for it!”* Every designer knows that feeling very well these days…
 
 The good news is you don’t have to worry about a such thing anymore, at least in terms of ESP-IDF Ethernet PHY driver support. In this article, I’ll demonstrate to you how simple it is to create a new Ethernet PHY driver.

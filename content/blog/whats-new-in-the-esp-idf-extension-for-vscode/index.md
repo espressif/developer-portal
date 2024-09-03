@@ -1,16 +1,10 @@
 ---
-title: What’s new in the ESP-IDF extension for VSCode
+title: "What’s new in the ESP-IDF extension for VSCode"
 date: 2022-01-30
 showAuthor: false
 authors: 
   - brian-ignacio
 ---
-[Brian Ignacio](https://medium.com/@brian.ignacio?source=post_page-----7f571c24414f--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F536b762c637&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fwhats-new-in-the-esp-idf-extension-for-vscode-7f571c24414f&user=Brian+Ignacio&userId=536b762c637&source=post_page-536b762c637----7f571c24414f---------------------post_header-----------)
-
---
-
 Co-authored with [Kondal Kolipaka](https://medium.com/u/4f2e7eb30782?source=post_page-----7f571c24414f--------------------------------)
 
 The [ESP-IDF extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) aims to help users to write code with Espressif chips using ESP-IDF and other frameworks. We constantly try to improve the extension usability and add features to enhance the user developing experience.

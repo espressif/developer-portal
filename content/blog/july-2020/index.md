@@ -1,16 +1,10 @@
 ---
-title: July 2020
+title: "July 2020"
 date: 2020-07-27
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----409f681dbde4--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjuly-2020-409f681dbde4&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----409f681dbde4---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 You might remember that a rather short while ago we launched [ESP RainMaker](https://www.espressif.com/en/news/ESP-RainMaker), Espressif’s end-to-end platform which enables makers to realize their IoT ideas faster and without the hassle of managing the infrastructure involved in this process. Today, we are pleased to announce that we have recently added a number of features to this platform. So, ESP RainMaker now supports ESP32 too, on top of ESP32-S2, with which our end-to-end platform was initially launched. It also supports BLE-based Wi-Fi provisioning for ESP32. Another new feature is the recently-released, third-party voice integrations with Alexa and Google Voice Assistant skills, which enable your ESP RainMaker-based devices to be controlled with voice commands.

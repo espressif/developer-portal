@@ -1,16 +1,10 @@
 ---
-title: A CEO’s Experience During the nCoV Crisis — Part II : On the Ground
+title: "A CEO’s Experience During the nCoV Crisis — Part II : On the Ground"
 date: 2020-02-12
 showAuthor: false
 authors: 
   - teo-swee-ann
 ---
-[Teo Swee Ann](https://medium.com/@teosweeann_65399?source=post_page-----63a207292af6--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4c3c8300aca5&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fa-ceos-experience-during-the-ncov-crisis-part-ii-on-the-ground-63a207292af6&user=Teo+Swee+Ann&userId=4c3c8300aca5&source=post_page-4c3c8300aca5----63a207292af6---------------------post_header-----------)
-
---
-
 *As Espressif is a company with their main offices in China, the recent coronavirus outbreak has affected us as well. CEO Teo Swee Ann gives an update of the situation in Shanghai.*
 
 After I landed in Shanghai from Singapore on 10 Feb, the first thing I did was to get to the company. Thirty of our staff are reporting for work today. Along the way, I noticed that the traffic has been greatly reduced. It is understandable that with the COVID-19 crisis unfolding, most trips to Shanghai have been cancelled.

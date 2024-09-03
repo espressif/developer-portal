@@ -1,16 +1,10 @@
 ---
-title: Memory Availability Comparison between ESP32 and ESP32-C3
+title: "Memory Availability Comparison between ESP32 and ESP32-C3"
 date: 2021-04-25
 showAuthor: false
 authors: 
   - amey-inamdar
 ---
-[Amey Inamdar](https://medium.com/@iamey?source=post_page-----10f2e65f055e--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F96a9b11b7090&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmemory-availability-comparison-between-esp32-and-esp32-c3-10f2e65f055e&user=Amey+Inamdar&userId=96a9b11b7090&source=post_page-96a9b11b7090----10f2e65f055e---------------------post_header-----------)
-
---
-
 Espressif launched ESP32-C3 at the end of 2020. It’s very well received and now it’s already in the mass production state. ESP32-C3 provides Wi-Fi and Bluetooth LE connectivity for applications in the most cost-effective way. For the users of ESP32 who use it for Wi-Fi and/or BLE connectivity, ESP32-C3 is a possible upgrade option provided other requirements match. So let’s first take a look at the comparison of ESP32 and ESP32-C3 from that perspective.
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*2iISQnChp1avKjiTyOhzYQ.png)

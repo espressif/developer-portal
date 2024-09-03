@@ -1,16 +1,10 @@
 ---
-title: ESP Insights: In-depth device metrics
+title: "ESP Insights: In-depth device metrics"
 date: 2022-04-28
 showAuthor: false
 authors: 
   - adwait-patankar
 ---
-[Adwait Patankar](https://medium.com/@adwaitpatankar?source=post_page-----152b6a5ceb6c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fb31acf34f5e6&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-insights-in-depth-device-metrics-152b6a5ceb6c&user=Adwait+Patankar&userId=b31acf34f5e6&source=post_page-b31acf34f5e6----152b6a5ceb6c---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*taJflqX0r3ayYxLrS31VBg.png)
 
 In the earlier version of the ESP Insights Dashboard users could check and analyse device reported metrics, for only up to the past 3 hours.

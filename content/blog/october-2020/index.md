@@ -1,16 +1,10 @@
 ---
-title: October 2020
+title: "October 2020"
 date: 2020-11-17
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----d206d288b0d3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Foctober-202-d206d288b0d3&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----d206d288b0d3---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 We are really happy about the successful outcome of the webinar we jointly organised with Amazon Web Services this month. It was an online event which took place on Tuesday, 27 October 2020. The main objective of this webinar was to demonstrate how to build voice-interactive products with AVS Integration for AWS IoT Core, using Espressif’s [ESP32-Vaquita-DSPG](https://www.espressif.com/en/news/ESP32-Vaquita-DSPG_and_SDK) development kit.

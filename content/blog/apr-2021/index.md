@@ -1,16 +1,10 @@
 ---
-title: Apr 2021
+title: "Apr 2021"
 date: 2021-04-30
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----c203e4859326--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fapr-2021-c203e4859326&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----c203e4859326---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 [RISC-V Days Tokyo](http://riscv-association.jp/en/risc-v-days-tokyo-2021-spring-en/) is Japan’s largest live online RISC-V event, featuring presentations, virtual demo booths, and an online press conference. RISC-V Days Tokyo aims to bring together leading RISC-V technologies and products, key persons and engineers, while providing business opportunities for product recognition, collaboration among companies, and exchange of information among industry experts. Last year’s event attracted a total of 1,053 participants from 11 countries.

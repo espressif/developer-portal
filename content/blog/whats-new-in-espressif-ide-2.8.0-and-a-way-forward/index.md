@@ -1,16 +1,10 @@
 ---
-title: What’s New in Espressif-IDE 2.8.0 and a Way Forward
+title: "What’s New in Espressif-IDE 2.8.0 and a Way Forward"
 date: 2023-02-01
 showAuthor: false
 authors: 
   - kondal-kolipaka
 ---
-[Kondal Kolipaka](https://medium.com/@kondal.kolipaka?source=post_page-----a21ee9d5201b--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4f2e7eb30782&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fwhats-new-in-espressif-ide-2-8-0-and-a-way-forward-a21ee9d5201b&user=Kondal+Kolipaka&userId=4f2e7eb30782&source=post_page-4f2e7eb30782----a21ee9d5201b---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*J9F8Vqb3BtFMHzi5rW4vow.png)
 
 [Espressif-IDE 2.8.0](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v2.8.0) was released recently, featuring a Partition table editor NVS Partition Editor along with enhancements in the Debugger Configuration and many more bug fixes to stabilize and improve the overall quality of the plugin.

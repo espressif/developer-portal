@@ -1,16 +1,10 @@
 ---
-title: May 2020
+title: "May 2020"
 date: 2020-05-28
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----2a6f86f22c05--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmay-2020-2a6f86f22c05&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----2a6f86f22c05---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 May has been a busy and exciting month for all of us at Espressif! Our 2020 online and offline courses, based on [ESP-Jumpstart](https://www.espressif.com/en/news/ESP_Jumpstart), have just been released. These courses are part of our outreach program for [Chinese graduates and final-year College students ](https://mp.weixin.qq.com/s/6D_JKP0AX-dWZDvMzV6Hug)who are interested in pursuing an engineering career. We want to introduce them to the world of engineering through ESP32, while showing them the diverse career opportunities the Espressif is able to offer. In response to our uncertain times, the online part of our program has been especially designed as an all-inclusive learning opportunity for Chinese graduates either within the country or abroad, since their physical presence is not required for the completion of the course.

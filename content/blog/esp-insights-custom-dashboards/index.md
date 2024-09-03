@@ -1,18 +1,10 @@
 ---
-title: ESP Insights : Custom Dashboards
+title: "ESP Insights : Custom Dashboards"
 date: 2022-08-16
 showAuthor: false
 authors: 
   - adwait-patankar
 ---
-## ESP Insights Dashboard
-
-[Adwait Patankar](https://medium.com/@adwaitpatankar?source=post_page-----fff3396b2dba--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fb31acf34f5e6&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-insights-custom-dashboards-fff3396b2dba&user=Adwait+Patankar&userId=b31acf34f5e6&source=post_page-b31acf34f5e6----fff3396b2dba---------------------post_header-----------)
-
---
-
 The core purpose of ESP Insights Dashboard has always been to help quickly identify a group of nodes which are showing similar behaviour patterns with the help of powerful search filters. Further it helps the user to reach to a particular node and help diagnose the reason behind the node showing a certain behaviour. The user can then check the event logs or point in time metrics and system variable values and correlate any diagnostic information at hand. More in detail about group analytics and search filters can be found [here](/esp-insights-group-analytics-with-dynamic-search-filters-4fd48c17c5b9).
 
 ## The need for custom dashboards

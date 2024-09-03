@@ -1,16 +1,10 @@
 ---
-title: ESP32’s Family Memory Map 101
+title: "ESP32’s Family Memory Map 101"
 date: 2023-09-25
 showAuthor: false
 authors: 
   - marek-matej
 ---
-[Marek Matej](https://medium.com/@marek.matej?source=post_page-----97c9e29937a3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fc69db53d18b2&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32s-family-memory-map-101-97c9e29937a3&user=Marek+Matej&userId=c69db53d18b2&source=post_page-c69db53d18b2----97c9e29937a3---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*b_S_gcC8y07ht95wpB1PCA.png)
 
 The performance and memory capabilities of the microcontrollers are increasing, and so is their complexity, especially when the users are responsible for mapping external memory chips such as Flash or SPIRAM by configuring a memory management unit.

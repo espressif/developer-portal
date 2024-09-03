@@ -1,16 +1,10 @@
 ---
-title: Introducing ESP Insights
+title: "Introducing ESP Insights"
 date: 2021-07-05
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----7d85a1383d21--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fintroducing-esp-insights-7d85a1383d21&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----7d85a1383d21---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*0yDrXc-NOcErMch8VHpNVQ.jpeg)
 
 Today we are announcing ESP Insights.

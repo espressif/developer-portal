@@ -1,16 +1,10 @@
 ---
-title: OpenAI Component | Accelerating the integration of OpenAI APIs in projects
+title: "OpenAI Component | Accelerating the integration of OpenAI APIs in projects"
 date: 2023-07-24
 showAuthor: false
 authors: 
   - ali-hassan-shah
 ---
-[ALI HASSAN SHAH](https://medium.com/@engg.alibukharai?source=post_page-----e5fa87998126--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fc690030496b1&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fopenai-component-accelerating-the-integration-of-openai-apis-in-projects-e5fa87998126&user=ALI+HASSAN+SHAH&userId=c690030496b1&source=post_page-c690030496b1----e5fa87998126---------------------post_header-----------)
-
---
-
 Integrating OpenAI capabilities into projects has become increasingly trends in today’s fast-paced technological landscape. [OpenAI](https://platform.openai.com/docs/api-reference) offers a wide range of powerful APIs for natural language processing. However, the process of integrating these APIs can be complex and time-consuming, often requiring substantial effort and expertise. To simplify this integration process, we introduce the [OpenAI Component](https://github.com/espressif/esp-iot-solution/tree/master/components), a powerful library that streamlines the incorporation of OpenAI APIs into projects.
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*AoJSsmWQ8-XL8iD_GOtlEQ.jpeg)

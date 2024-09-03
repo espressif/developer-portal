@@ -1,16 +1,10 @@
 ---
-title: November 2020
+title: "November 2020"
 date: 2020-11-30
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----6f5df57c27b8--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fnovember-2020-6f5df57c27b8&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----6f5df57c27b8---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Earlier this week, the news about the upcoming release of ESP32-C3, Espressif’s single-core, RISC-V-based, Wi-Fi and Bluetooth LE 5.0 MCU, took the online maker community by storm. We’re delighted to know that so many people are eager to find out more about Espressif’s new products! That’s why we’re including in this month’s newsletter [a comprehensive article](https://www.espressif.com/en/news/ESP32_C3) about ESP32-C3 along with the relevant [datasheet](https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf).

@@ -1,16 +1,10 @@
 ---
-title: January 2019
+title: "January 2019"
 date: 2019-02-04
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----5e46a7bb4a92--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjanuary-2019-5e46a7bb4a92&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----5e46a7bb4a92---------------------post_header-----------)
-
---
-
 Welcome to our January Newsletter__*Our News. Our World*__ 
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*OzNFLT2HkDc1fK0Y.png)

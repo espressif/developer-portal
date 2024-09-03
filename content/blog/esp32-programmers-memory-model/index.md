@@ -1,16 +1,10 @@
 ---
-title: ESP32 Programmers’ Memory Model
+title: "ESP32 Programmers’ Memory Model"
 date: 2020-07-02
 showAuthor: false
 authors: 
   - amey-inamdar
 ---
-[Amey Inamdar](https://medium.com/@iamey?source=post_page-----259444d89387--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F96a9b11b7090&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-programmers-memory-model-259444d89387&user=Amey+Inamdar&userId=96a9b11b7090&source=post_page-96a9b11b7090----259444d89387---------------------post_header-----------)
-
---
-
 Internal memory of the MCU is probably the most precious resource as it occupies maximum area in the chip. The newer application use-cases have ever increasing memory requirement. For making the most of the hardware, understanding of the memory architecture and optimising of the memory for application’s use-case becomes important. Especially with the ESP32 SoC architecture that includes communication subsystems (Wi-Fi and BT/BLE) that requires certain memory to operate, it becomes necessary for the application to understand the requirements and tune their memory.
 
 We often get questions about available memory headroom for the application; and there is no easy answer to that question unless we go into the details of the use-case. But when developers understand the details about memory layout, system requirements and the common methods to optimise, we have seen that ESP32 can accommodate quite a variety of interesting application use-cases.

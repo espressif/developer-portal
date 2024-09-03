@@ -1,16 +1,10 @@
 ---
-title: Accelerate Your IoT Development with the Espressif WebIDE
+title: "Accelerate Your IoT Development with the Espressif WebIDE"
 date: 2023-04-17
 showAuthor: false
 authors: 
   - brian-ignacio
 ---
-[Brian Ignacio](https://medium.com/@brian.ignacio?source=post_page-----a4ed0b459884--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F536b762c637&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Faccelerate-your-iot-development-with-the-espressif-webide-a4ed0b459884&user=Brian+Ignacio&userId=536b762c637&source=post_page-536b762c637----a4ed0b459884---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*1GF1xfDWpFJsj2AZgY5Eug.png)
 
 The [__Espressif Web IDE__ ](https://github.com/espressif/idf-web-ide) is an implementation of the [__Eclipse Theia__ ](https://theia-ide.org) framework with the [ESP-IDF extension for Visual Studio Code](https://github.com/espressif/vscode-esp-idf-extension) and few additional tools. You can see it in action in the Espressif DevCon22 presentation below.

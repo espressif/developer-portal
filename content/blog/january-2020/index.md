@@ -1,16 +1,10 @@
 ---
-title: January 2020
+title: "January 2020"
 date: 2020-01-23
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----3e7ef0ca141a--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjanuary-2020-3e7ef0ca141a&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----3e7ef0ca141a---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ILvjHA9FZKGedTeQCA8lyA.jpeg)
 
 Happy New Year to all!

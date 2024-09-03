@@ -1,16 +1,10 @@
 ---
-title: HomeKit on Espressif’s ESP32
+title: "HomeKit on Espressif’s ESP32"
 date: 2019-02-10
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----d73f197ec722--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fhomekit-on-espressifs-esp32-d73f197ec722&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----d73f197ec722---------------------post_header-----------)
-
---
-
 IoT is not one thing, it means different things to different people. So also, there are so many ways of building connected products. And that means there are so many questions for every aspect of your connected product:
 
 - What communication protocols do we use?
@@ -62,6 +56,5 @@ Our SDK continues to evolve with every new customer that uses the SDK, and every
 - Register for HomeKit SDK access (MFi Account Number Mandatory): [https://www.espressif.com/en/company/contact/pre-sale-questions-crm?js-from=homekit](https://www.espressif.com/en/company/contact/pre-sale-questions-crm?js-from=homekit)
 - Mass Manufacturing Utility: [https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/storage/mass_mfg.html](https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/storage/mass_mfg.html)
 - Manufacturing Data Partitions: [https://medium.com/the-esp-journal/building-products-creating-unique-factory-data-images-3f642832a7a3](https://medium.com/the-esp-journal/building-products-creating-unique-factory-data-images-3f642832a7a3)
-- API Design and Simplicity: [https://medium.com/@kedars/on-api-design-and-simplicity-305f8dc45fa1](https://medium.com/@kedars/on-api-design-and-simplicity-305f8dc45fa1)
 
 All product names, trademarks and registered trademarks are property of their respective owners.

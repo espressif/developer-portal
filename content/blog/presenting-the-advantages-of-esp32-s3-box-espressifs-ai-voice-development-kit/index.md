@@ -1,16 +1,10 @@
 ---
-title: Presenting the Advantages of ESP32-S3-BOX, Espressif’s AI Voice Development Kit
+title: "Presenting the Advantages of ESP32-S3-BOX, Espressif’s AI Voice Development Kit"
 date: 2021-11-22
 showAuthor: false
 authors: 
   - amey-inamdar
 ---
-[Amey Inamdar](https://medium.com/@iamey?source=post_page-----56852737e229--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F96a9b11b7090&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fpresenting-the-advantages-of-esp32-s3-box-espressifs-ai-voice-development-kit-56852737e229&user=Amey+Inamdar&userId=96a9b11b7090&source=post_page-96a9b11b7090----56852737e229---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*EbJw152nwAvXqJdov5oJ4A.png)
 
 Espressif Systems has recently released an AI voice development kit dubbed ESP32-S3-BOX, based on ESP32-S3 Wi-Fi + Bluetooth 5 (LE) SoC. It provides a platform for developing the control of smart devices with offline and online voice assistants. ESP32-S3-BOX is ideal for developing AIoT applications with reconfigurable AI voice functions, such as smart speakers, and IoT devices that achieve human-computer voice interaction directly. Not only does ESP32-S3-BOX address connectivity use cases, but it also targets various machine-learning (AI on the edge) and HMI application scenarios. ESP32-S3-BOX comes in an attractive form-factor that differentiates it from regular PCB development boards, since users can quickly build with it applications that are fairly close to actual end products. Furthermore, ESP32-S3-BOX functions as a versatile and extensible development kit that facilitates a multitude of interesting use-cases, the most characteristic of which we will examine in this blogpost.

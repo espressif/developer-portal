@@ -1,16 +1,10 @@
 ---
-title: August 2018
+title: "August 2018"
 date: 2018-08-06
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----5fafba71b6ce--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Faugust-2018-5fafba71b6ce&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----5fafba71b6ce---------------------post_header-----------)
-
---
-
 ## Fake News About Espressif Systems…Again!
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Fz2lr5y6PJOqbmsp.png)

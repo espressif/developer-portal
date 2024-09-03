@@ -1,16 +1,10 @@
 ---
-title: Extending ESP RainMaker with “Services”
+title: "Extending ESP RainMaker with “Services”"
 date: 2022-01-12
 showAuthor: false
 authors: 
   - piyush-shah
 ---
-[Piyush Shah](https://medium.com/@shahpiyushv?source=post_page-----9ccb82dfb9b7--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F57464183000e&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fextending-esp-rainmaker-with-services-9ccb82dfb9b7&user=Piyush+Shah&userId=57464183000e&source=post_page-57464183000e----9ccb82dfb9b7---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*nEkL1xmWZBaPe8WqlESV6Q.png)
 
 [*If you have been following the Espressif blogs and announcements, you must already be aware of ESP RainMaker and its various features. If not, please check out the info *[*here*](https://rainmaker.espressif.com/)* so that you get an idea about what ESP RainMaker is before you proceed further*.]

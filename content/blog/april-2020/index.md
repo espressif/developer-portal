@@ -1,16 +1,10 @@
 ---
-title: April 2020
+title: "April 2020"
 date: 2020-05-04
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----7036e763ce7c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fapril-2020-7036e763ce7c&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----7036e763ce7c---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Espressif is known for its keen sense of corporate social responsibility. We have long supported low-power, green technologies, while we have also based our entire business model on the idea of democratizing technology with open-source software .

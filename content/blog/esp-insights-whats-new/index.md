@@ -1,16 +1,10 @@
 ---
-title: ESP Insights — What’s new
+title: "ESP Insights — What’s new"
 date: 2022-01-26
 showAuthor: false
 authors: 
   - adwait-patankar
 ---
-[Adwait Patankar](https://medium.com/@adwaitpatankar?source=post_page-----abecaff2f8c8--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fb31acf34f5e6&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-insights-whats-new-abecaff2f8c8&user=Adwait+Patankar&userId=b31acf34f5e6&source=post_page-b31acf34f5e6----abecaff2f8c8---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*DB1MVfoKvRaanJaa9Vikpw.png)
 
 ESP Insights was released in its Beta in July 2021 and is being actively used by the ESP developer community. You can read more about it in the blog post [Introducing ESP Insights](/introducing-esp-insights-7d85a1383d21). With this new version of the ESP Insights service, we introduce following new features, plus a few UI enhancements and stability fixes.

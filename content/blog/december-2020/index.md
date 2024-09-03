@@ -1,16 +1,10 @@
 ---
-title: December 2020
+title: "December 2020"
 date: 2021-01-11
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----65f36cb08baf--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fdecember-2020-65f36cb08baf&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----65f36cb08baf---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 We hope you are enjoying this year’s holiday season. All of us at Espressif would like to send you our positive energy, along with our warmest wishes for health and happiness in 2021! As ever, we shall continue working hard, trying to give you the best in the field of AIoT.

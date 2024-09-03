@@ -1,16 +1,10 @@
 ---
-title: June 2022
+title: "June 2022"
 date: 2022-07-10
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----b1d6fd013c4c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjune-2022-b1d6fd013c4c&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----b1d6fd013c4c---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Last month (21–23 June), Espressif Systems was delighted to participate in the [20th edition of embedded world](https://www.embedded-world.de/en/news/press-releases/2022-embedded-closing-report-jp1ycrjfx7_pireport). With over 3,900 online and onsite attendees *embedded world* proved that it is the leading trade fair of the international embedded community. More than 720 exhibitors from 39 countries presented their latest developments in embedded technologies, ranging from components, modules and complete development boards to operating systems and software tools, as well as services for embedded systems.

@@ -1,16 +1,10 @@
 ---
-title: Matter: Distributed Compliance Ledger (DCL)
+title: "Matter: Distributed Compliance Ledger (DCL)"
 date: 2022-03-24
 showAuthor: false
 authors: 
   - shu-chen
 ---
-[Shu Chen](https://medium.com/@chenshu?source=post_page-----4013c2376e7--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Ffeb379dca2c7&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmatter-distributed-compliance-ledger-dcl-4013c2376e7&user=Shu+Chen&userId=feb379dca2c7&source=post_page-feb379dca2c7----4013c2376e7---------------------post_header-----------)
-
---
-
 [Espressif Matter Series](/matter-38ccf1d60bcd) #8
 
 As Matter promised, Device Manufacturers (Vendors) don’t have to build their own Phone APP or Cloud service if they don’t want to. A Matter device will be able to work with all Matter enabled ecosystems seamlessly.

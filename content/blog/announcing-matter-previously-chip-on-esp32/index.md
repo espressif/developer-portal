@@ -1,16 +1,10 @@
 ---
-title: Announcing Matter (previously ‘CHIP’) on ESP32
+title: "Announcing Matter (previously ‘CHIP’) on ESP32"
 date: 2021-05-25
 showAuthor: false
 authors: 
   - hrishikesh-dhayagude
 ---
-[Hrishikesh Dhayagude](https://medium.com/@dhrishi?source=post_page-----84164316c0e3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fd9449153a291&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fannouncing-matter-previously-chip-on-esp32-84164316c0e3&user=Hrishikesh+Dhayagude&userId=d9449153a291&source=post_page-d9449153a291----84164316c0e3---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*6SmRnmN49BKqaxYRVYR9Qg.jpeg)
 
 ## Introduction

@@ -1,16 +1,10 @@
 ---
-title: Trying out ESP32-C3’s security features using QEMU
+title: "Trying out ESP32-C3’s security features using QEMU"
 date: 2024-04-04
 showAuthor: false
 authors: 
   - harshal-patil
 ---
-[Harshal Patil](https://harshalpatil5.medium.com/?source=post_page-----6f90a0e44efe--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F98e40cc0c953&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Ftrying-out-esp32-c3s-security-features-using-qemu-6f90a0e44efe&user=Harshal+Patil&userId=98e40cc0c953&source=post_page-98e40cc0c953----6f90a0e44efe---------------------post_header-----------)
-
---
-
 ## Overview
 
 ESP32 series of SoCs supports multiple [security features ](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/security/security.html)like trusted boot, flash encryption, secure storage etc. There are also dedicated peripherals to support use-cases like HMAC and digital signature. For most of these features the eFuse storage in the ESP32-C3 is responsible for storing the private keys and also the configuration bits.

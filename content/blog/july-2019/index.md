@@ -1,16 +1,10 @@
 ---
-title: July 2019
+title: "July 2019"
 date: 2019-07-28
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----c2f5898618be--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjuly-2019-c2f5898618be&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----c2f5898618be---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Summer is getting hotter by the day here in Shanghai, but it seems that the only effect it is having is our steaming ahead with __a new series of chips based on ESP8285__ . The already existing version of ESP8285 features complete and self-contained Wi-Fi networking capabilities, fast switching between sleep and wakeup modes, adaptive radio biasing, advance signal processing, spur cancelation and RF co-existence, to mention only a few of its sophisticated characteristics.

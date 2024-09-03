@@ -1,16 +1,10 @@
 ---
-title: August 2021
+title: "August 2021"
 date: 2021-08-27
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----155ab81b311d--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Faugust-2021-155ab81b311d&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----155ab81b311d---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Earlier this month, a workshop focusing on ESP32 applications took place in the [Milwaukee School of Engineering](http://www.msoe.edu/), a non-profit university in Winsconsin, USA. The workshop was run by Peter Haydock, founding director of [Gearbox Labs](https://gearboxlabs.org/), which produce project-based STEM and STEAM resources. The workshop was part of [Building2Learn](http://www.building2learn.org/), which is an innovative program connecting engineering, construction and manufacturing industries to Milwaukee’s next generation of talent.

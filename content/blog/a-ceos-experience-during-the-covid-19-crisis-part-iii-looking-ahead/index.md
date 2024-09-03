@@ -1,16 +1,10 @@
 ---
-title: A CEO’s Experience During the COVID-19 Crisis — Part III : Looking Ahead
+title: "A CEO’s Experience During the COVID-19 Crisis — Part III : Looking Ahead"
 date: 2020-03-07
 showAuthor: false
 authors: 
   - teo-swee-ann
 ---
-[Teo Swee Ann](https://medium.com/@teosweeann_65399?source=post_page-----19e7e88b6965--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4c3c8300aca5&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fa-ceos-experience-during-the-covid-19-crisis-part-iii-looking-ahead-19e7e88b6965&user=Teo+Swee+Ann&userId=4c3c8300aca5&source=post_page-4c3c8300aca5----19e7e88b6965---------------------post_header-----------)
-
---
-
 *The COVID-19 situation is developing rapidly, and the CEO of Espressif, Teo Swee Ann, gives a short update of the situation and some considerations of the future.*
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*m39ArDZbkoQOZEcuaiRiyQ.png)

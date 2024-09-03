@@ -1,16 +1,10 @@
 ---
-title: Secure Signing Using External HSM
+title: "Secure Signing Using External HSM"
 date: 2023-02-09
 showAuthor: false
 authors: 
   - mahavir-jain
 ---
-[Mahavir Jain](https://medium.com/@mahavirj?source=post_page-----ebe855a2f2ef--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fe94f74442319&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fsecure-signing-using-external-hsm-ebe855a2f2ef&user=Mahavir+Jain&userId=e94f74442319&source=post_page-e94f74442319----ebe855a2f2ef---------------------post_header-----------)
-
---
-
 ## Overview
 
 ESP32 series of chips supports secure boot scheme to allow only trusted firmware to execute from its flash storage. However, this requires careful management of the secure signing key, it must be generated and stored in a secure manner by the signing entity.

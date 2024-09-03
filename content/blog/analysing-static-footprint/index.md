@@ -1,16 +1,10 @@
 ---
-title: Analysing Static Footprint
+title: "Analysing Static Footprint"
 date: 2018-05-13
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----eceb73fb9f2d--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fanalysing-static-footprint-eceb73fb9f2d&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----eceb73fb9f2d---------------------post_header-----------)
-
---
-
 The ESP32 is equipped with a 512KB of SRAM. While this may seem quite small, it can pack a lot of punch in this compact form if used well.
 
 As we use the various components and its features in our application firmware, the linker pulls in different functions and variables from these components. The linker will typically optimise out entities that aren’t being used (or referenced) from the current application firmware. So, depending upon what you do in your application, the contribution from various components to your footprint changes.

@@ -1,16 +1,10 @@
 ---
-title: Espressif’s Alexa SDK v1.0b1!
+title: "Espressif’s Alexa SDK v1.0b1!"
 date: 2018-09-24
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----326f13c862f6--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fespressifs-alexa-sdk-v1-0b1-326f13c862f6&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----326f13c862f6---------------------post_header-----------)
-
---
-
 The Espressif’s Alexa SDK v1.0b1 is now available on github here: [https://github.com/espressif/esp-avs-sdk](https://github.com/espressif/esp-avs-sdk)
 
 This is a low-footprint C-based SDK that includes support for all of the following features:

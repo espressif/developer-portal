@@ -1,16 +1,10 @@
 ---
-title: October 2019
+title: "October 2019"
 date: 2019-11-07
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----b6c8cb2b72b1--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Foctober-2019-b6c8cb2b72b1&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----b6c8cb2b72b1---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Z9iknEIdKQZXcFyG.png)
 
 Hi everyone,

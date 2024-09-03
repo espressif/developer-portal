@@ -1,16 +1,10 @@
 ---
-title: Arduino for ESP32-S2 and ESP32-C3 is coming!
+title: "Arduino for ESP32-S2 and ESP32-C3 is coming!"
 date: 2021-06-08
 showAuthor: false
 authors: 
   - pedro-minatel
 ---
-[Pedro Minatel](https://medium.com/@minatel?source=post_page-----f36d79967eb8--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fea25448e3ab5&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Farduino-for-esp32-s2-and-esp32-c3-is-coming-f36d79967eb8&user=Pedro+Minatel&userId=ea25448e3ab5&source=post_page-ea25448e3ab5----f36d79967eb8---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*jQ1CQP5rXCijH1fW7r3yUw.png)
 
 > This tutorial was created based on the Arduino for ESP32 version 2.0.0-alpha1 (preview version) on April 30th, 2021.

@@ -1,16 +1,10 @@
 ---
-title: October 2021
+title: "October 2021"
 date: 2021-11-07
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----1ebb97d9e53b--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Foctober-2021-1ebb97d9e53b&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----1ebb97d9e53b---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Last week __Amazon announced__ [__Alexa Connect Kit SDK (ACK SDK)__ ](https://developer.amazon.com/en-US/blogs/alexa/device-makers/2021/10/new-alexa-connect-kit-sdk-for-smart-home-devices), a software package that enables Original Design Manufacturers (ODMs) and System Integrators (SIs) to build their own ACK-based modules and differentiated, Alexa-compatible, smart-device solutions without having to worry about managing cloud services, building an app, or writing an Alexa skill.

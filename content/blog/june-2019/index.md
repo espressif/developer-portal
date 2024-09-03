@@ -1,16 +1,10 @@
 ---
-title: June 2019
+title: "June 2019"
 date: 2019-06-11
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----bb5bfcbb5d3f--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjune-2019-bb5bfcbb5d3f&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----bb5bfcbb5d3f---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Celebrating the [Dragon Boat Festival](https://en.wikipedia.org/wiki/Dragon_Boat_Festival) on 7–9 June is not the only reason we feel energetic and refreshed this week. More importantly, our new chip, ESP32-S2, will soon come out, as we have [recently announced](https://www.espressif.com/en/news/espressif-announces-%E2%80%A8esp32-s2-secure-wi-fi-mcu).

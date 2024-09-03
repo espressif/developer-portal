@@ -1,16 +1,10 @@
 ---
-title: Matter: Thread Border Router in Matter
+title: "Matter: Thread Border Router in Matter"
 date: 2022-01-04
 showAuthor: false
 authors: 
   - shu-chen
 ---
-[Shu Chen](https://medium.com/@chenshu?source=post_page-----240838dc4779--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Ffeb379dca2c7&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmatter-thread-border-router-in-matter-240838dc4779&user=Shu+Chen&userId=feb379dca2c7&source=post_page-feb379dca2c7----240838dc4779---------------------post_header-----------)
-
---
-
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #5*
 
 In the [Previous Articles](/matter-38ccf1d60bcd), we talked about Matter from several aspects. Today, let’s start with a foundational concept of Matter: __IP-based__ .

@@ -1,16 +1,10 @@
 ---
-title: Introducing ESP Privilege Separation
+title: "Introducing ESP Privilege Separation"
 date: 2022-06-19
 showAuthor: false
 authors: 
   - sachin-parekh
 ---
-[Sachin Parekh](https://medium.com/@sachin.parekh?source=post_page-----aa57a02c36e4--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Ffbf6b7e86d64&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fintroducing-esp-privilege-separation-aa57a02c36e4&user=Sachin+Parekh&userId=fbf6b7e86d64&source=post_page-fbf6b7e86d64----aa57a02c36e4---------------------post_header-----------)
-
---
-
 Typically, applications on microcontrollers (MCU) are developed as monolithic firmware. We have been discussing on achieving “user-kernel” separation with appropriate execution privileges, like general purpose OS, on MCUs.
 
 The crux of this was to make the end application development easier without worrying about the underlying changes in the system, like how applications on desktop/mobile phones are developed: the underlying operating system handles the critical functionalities, and the end application can use the interface exposed by the operating system.

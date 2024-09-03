@@ -1,16 +1,10 @@
 ---
-title: March 2019
+title: "March 2019"
 date: 2019-03-11
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----8e99ef181dd7--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmarch-2019-8e99ef181dd7&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----8e99ef181dd7---------------------post_header-----------)
-
---
-
 Welcome to our March Newsletter
 
 __*Our News. Our World Join Us!*__ 

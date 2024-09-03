@@ -1,16 +1,10 @@
 ---
-title: ESP32: TLS (Transport Layer Security) And IoT Devices
+title: "ESP32: TLS (Transport Layer Security) And IoT Devices"
 date: 2018-10-24
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----3ac93511f6d8--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-tls-transport-layer-security-and-iot-devices-3ac93511f6d8&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----3ac93511f6d8---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ihcefbmq3r38UKcps5kw-Q.png)
 
 TLS is the security component in the familiar *https *protocol,* *that we rely on for security on the Internet. A TLS connection between a device and the server ensures that the data exchange between them is secured from the multiple threats possible over an untrusted medium. The TLS connection typically includes mutual authentication of the communicating parties, secure key exchange, symmetric encryption and message integrity checks.

@@ -1,16 +1,10 @@
 ---
-title: Matter: Bridge for Non-Matter Devices
+title: "Matter: Bridge for Non-Matter Devices"
 date: 2021-12-14
 showAuthor: false
 authors: 
   - shu-chen
 ---
-[Shu Chen](https://medium.com/@chenshu?source=post_page-----d3b7f003a004--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Ffeb379dca2c7&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmatter-bridge-for-non-matter-devices-d3b7f003a004&user=Shu+Chen&userId=feb379dca2c7&source=post_page-feb379dca2c7----d3b7f003a004---------------------post_header-----------)
-
---
-
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #4*
 
 Several big IoT ecosystems have announced integrated support for Matter, e.g., Amazon, Apple, Google and Samsung. It’s exciting to expect that more and more devices from multiple brands work natively together, under a bigger Matter ecosystem.

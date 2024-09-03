@@ -1,16 +1,10 @@
 ---
-title: Espressif IDE and What’s new in v2.4.0 — Part 1
+title: "Espressif IDE and What’s new in v2.4.0 — Part 1"
 date: 2022-03-01
 showAuthor: false
 authors: 
   - kondal-kolipaka
 ---
-[Kondal Kolipaka](https://medium.com/@kondal.kolipaka?source=post_page-----7ea84340a819--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4f2e7eb30782&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fespressif-ide-and-whats-new-in-v2-4-0-part-1-7ea84340a819&user=Kondal+Kolipaka&userId=4f2e7eb30782&source=post_page-4f2e7eb30782----7ea84340a819---------------------post_header-----------)
-
---
-
 Espressif IDE is an Integrated Development Environment(IDE) based on Eclipse CDT for developing IoT Applications from end to end using the ESP-IDF(IoT Development Framework). It’s a standalone, customized IDE built specifically for ESP-IDF. Espressif IDE comes with the latest IDF Eclipse plugins, essential Eclipse CDT plugins, OpenOCD Plugins, and other third-party plugins from the Eclipse platform to support building ESP-IDF applications.
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*3cbDdrBkW_8HP-C4GrIx0A.jpeg)

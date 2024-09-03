@@ -1,16 +1,10 @@
 ---
-title: Wi-Fi Certification with ESP32
+title: "Wi-Fi Certification with ESP32"
 date: 2018-08-11
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----311e09dd06ff--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fwi-fi-certification-with-esp32-311e09dd06ff&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----311e09dd06ff---------------------post_header-----------)
-
---
-
 A fair number of questions come up regarding Wi-Fi certification for Wi-Fi enabled IoT products. Here is an attempt to answer some of the relevant ones.
 
 Wi-Fi certification is a program by Wi-Fi Alliance that ensures that products that pass certification adhere to the interoperability and security requirements as laid out in the standard. It tests for *protocol* compliance.

@@ -1,16 +1,10 @@
 ---
-title: Espressif IDE and What’s new in v2.4.0 — Part 2
+title: "Espressif IDE and What’s new in v2.4.0 — Part 2"
 date: 2022-03-01
 showAuthor: false
 authors: 
   - kondal-kolipaka
 ---
-[Kondal Kolipaka](https://medium.com/@kondal.kolipaka?source=post_page-----e3b6c8de185c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4f2e7eb30782&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fespressif-ide-and-whats-new-in-v2-4-0-part-2-e3b6c8de185c&user=Kondal+Kolipaka&userId=4f2e7eb30782&source=post_page-4f2e7eb30782----e3b6c8de185c---------------------post_header-----------)
-
---
-
 This section will talk about Espressif IDE installation options that are available and platforms supported.
 
 Espressif IDE supports Windows, macOS, and Linux platforms. Please find the download links below to get started.

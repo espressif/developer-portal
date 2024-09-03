@@ -1,16 +1,10 @@
 ---
-title: December 2018
+title: "December 2018"
 date: 2018-12-04
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----14dc5d4d940c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fdecember-2018-14dc5d4d940c&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----14dc5d4d940c---------------------post_header-----------)
-
---
-
 Welcome to our December Newsletter
 
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*L7sPwjKXq13PVwiT.png)

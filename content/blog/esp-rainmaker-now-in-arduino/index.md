@@ -1,16 +1,10 @@
 ---
-title: ESP RainMaker now in Arduino
+title: "ESP RainMaker now in Arduino"
 date: 2021-06-14
 showAuthor: false
 authors: 
   - piyush-shah
 ---
-[Piyush Shah](https://medium.com/@shahpiyushv?source=post_page-----cf1474526172--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F57464183000e&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-rainmaker-now-in-arduino-cf1474526172&user=Piyush+Shah&userId=57464183000e&source=post_page-57464183000e----cf1474526172---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ctXndTETqL1alORFAxx9dg.png)
 
 Since its launch in April 2020, we have been making quite some improvements to [ESP RainMaker](https://rainmaker.espressif.com/), mostly around the feature set. Along with that, we have also been making efforts to make developer on-boarding easier. The [ESP IDF Windows Installer](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#esp-idf-tools-installer) and the [Eclipse](https://github.com/espressif/idf-eclipse-plugin#installing-idf-plugin-using-update-site-url) and [VSCode](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/install.md) integrations especially have been useful for a lot of developers. One common request we still kept getting was support for Arduino, since getting started with it is much more convenient for many developers and it is also easier to migrate from other chips/platforms since the IDE and code structure is familiar.

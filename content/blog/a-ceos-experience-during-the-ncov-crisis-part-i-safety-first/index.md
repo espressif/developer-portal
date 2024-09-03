@@ -1,16 +1,10 @@
 ---
-title: A CEO’s Experience During the nCoV Crisis — Part I: Safety First
+title: "A CEO’s Experience During the nCoV Crisis — Part I: Safety First"
 date: 2020-02-09
 showAuthor: false
 authors: 
   - teo-swee-ann
 ---
-[Teo Swee Ann](https://medium.com/@teosweeann_65399?source=post_page-----c584a3fdddec--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4c3c8300aca5&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fa-ceos-experience-during-the-ncov-crisis-part-i-safety-first-c584a3fdddec&user=Teo+Swee+Ann&userId=4c3c8300aca5&source=post_page-4c3c8300aca5----c584a3fdddec---------------------post_header-----------)
-
---
-
 *As Espressif is a company with their main offices in China, the recent coronavirus outbreak has affected us as well. Even though there is an obvious impact on the way we work, the blow is cushioned because we have offices outside of China. Additionally, the way our IT is structured allows most of our staff to work from home, and even for the jobs that do need people to be at the office, there are ways to work around the current issues. CEO Teo Swee Ann gives some insight the thought process behind the decisions made.*
 
 It was approaching Chinese New Year. I had just left for Okinawa on 24th Jan 2020, from Shanghai with my family — a planned vacation during the Chinese New Year celebration that we were looking forward to. In fact, it had been more than 2 years, since I last had a holiday together with my family.

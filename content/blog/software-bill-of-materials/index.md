@@ -1,16 +1,10 @@
 ---
-title: Software Bill of Materials
+title: "Software Bill of Materials"
 date: 2023-11-02
 showAuthor: false
 authors: 
   - mahavir-jain
 ---
-[Mahavir Jain](https://medium.com/@mahavirj?source=post_page-----b1282a58e617--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fe94f74442319&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fsoftware-bill-of-materials-b1282a58e617&user=Mahavir+Jain&userId=e94f74442319&source=post_page-e94f74442319----b1282a58e617---------------------post_header-----------)
-
---
-
 ## Overview
 
 The “software bill of materials” (SBOM) has emerged as a key building block in software security and [software supply chain](https://en.wikipedia.org/wiki/Software_supply_chain) risk management. An SBOM is a comprehensive list of all the software components, dependencies, and metadata associated with an application.

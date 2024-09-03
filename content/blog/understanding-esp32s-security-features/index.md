@@ -1,16 +1,10 @@
 ---
-title: Understanding ESP32’s Security Features
+title: "Understanding ESP32’s Security Features"
 date: 2018-05-31
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----14483e465724--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Funderstanding-esp32s-security-features-14483e465724&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----14483e465724---------------------post_header-----------)
-
---
-
 [This document discusses security features for ESP32v3. If you are looking for the security features of the latest [ESP32-S2](https://www.espressif.com/en/news/espressif-announces-%E2%80%A8esp32-s2-secure-wi-fi-mcu) SoC, that article is available [here](https://medium.com/the-esp-journal/esp32-s2-security-improvements-5e5453f98590).]
 
 The ESP32v3 has two interesting features, secure boot and flash encryption. Let’s have a quick overview of these features.

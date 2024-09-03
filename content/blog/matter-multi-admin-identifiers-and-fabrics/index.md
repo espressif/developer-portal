@@ -1,16 +1,10 @@
 ---
-title: Matter: Multi-Admin, Identifiers, and Fabrics
+title: "Matter: Multi-Admin, Identifiers, and Fabrics"
 date: 2022-01-18
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----a291371af365--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmatter-multi-admin-identifiers-and-fabrics-a291371af365&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----a291371af365---------------------post_header-----------)
-
---
-
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #6*
 
 [This is article #6 in the [Espressif Matter Series](/matter-38ccf1d60bcd) of articles. You may read the first part [here](/what-does-matter-mean-to-you-fa3bb53a7793).]

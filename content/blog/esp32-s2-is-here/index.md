@@ -1,16 +1,10 @@
 ---
-title: ESP32-S2 Is Here!
+title: "ESP32-S2 Is Here!"
 date: 2020-03-10
 showAuthor: false
 authors: 
   - teo-swee-ann
 ---
-[Teo Swee Ann](https://medium.com/@teosweeann_65399?source=post_page-----104a5173e2b3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F4c3c8300aca5&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-s2-is-here-104a5173e2b3&user=Teo+Swee+Ann&userId=4c3c8300aca5&source=post_page-4c3c8300aca5----104a5173e2b3---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*yTO0fPa2qE1E16PFNRPBpw.png)
 
 ## Why Is ESP32-S2 Significant?

@@ -1,16 +1,10 @@
 ---
-title: Running Alexa CPP SDK on ESP32
+title: "Running Alexa CPP SDK on ESP32"
 date: 2018-05-18
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----991051b2ce52--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Frunning-alexa-cpp-sdk-on-esp32-991051b2ce52&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----991051b2ce52---------------------post_header-----------)
-
---
-
 Back in late 2017, when Amazon launched their C++ SDK for Alexa, we thought it would be fun to port the SDK on ESP32. It not only will showcase the powerful development tools and execution environment that ESP32 currently has, but it will also be a great way to run Alexa on ESP32.
 
 We recently launched a beta preview of this [Alexa on ESP32](https://github.com/espressif/esp-avs-sdk) on github.

@@ -1,16 +1,10 @@
 ---
-title: Accelerating Matter Device Manufacturing
+title: "Accelerating Matter Device Manufacturing"
 date: 2023-02-19
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----2fcce0a0592a--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Faccelerating-matter-device-manufacturing-2fcce0a0592a&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----2fcce0a0592a---------------------post_header-----------)
-
---
-
 [Espressif Matter Series](/matter-38ccf1d60bcd) #9
 
 Given the latest developments in the IoT industry, there is a strong rush towards building Matter enabled smart devices. (If you are new to Matter, please read up about Matter in our series of blog posts [here](/matter-38ccf1d60bcd)).

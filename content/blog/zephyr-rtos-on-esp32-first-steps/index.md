@@ -1,16 +1,10 @@
 ---
-title: Zephyr RTOS on ESP32 —First Steps
+title: "Zephyr RTOS on ESP32 —First Steps"
 date: 2021-02-24
 showAuthor: false
 authors: 
   - glauber-ferreira
 ---
-[Glauber Ferreira](https://medium.com/@glaubermaroto?source=post_page-----2185c0d56250--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fec6483d82f2b&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fzephyr-rtos-on-esp32-first-steps-2185c0d56250&user=Glauber+Ferreira&userId=ec6483d82f2b&source=post_page-ec6483d82f2b----2185c0d56250---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*yyC5ZPSpUSEvVfpN.png)
 
 > __Attention:__  The installation process outlined in this article has become obsolete. To ensure accurate and up-to-date instructions, kindly consult the [new installation link](https://docs.zephyrproject.org/latest/develop/getting_started/index.html). Your understanding is greatly appreciated.

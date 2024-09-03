@@ -1,16 +1,10 @@
 ---
-title: Matter Security Model
+title: "Matter Security Model"
 date: 2022-02-24
 showAuthor: false
 authors: 
   - guo-jiacheng
 ---
-[Guo Jiacheng](https://medium.com/@guojiacheng?source=post_page-----37f806d3b0b2--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fa9076cc2ee72&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmatter-security-model-37f806d3b0b2&user=Guo+Jiacheng&userId=a9076cc2ee72&source=post_page-a9076cc2ee72----37f806d3b0b2---------------------post_header-----------)
-
---
-
 [Espressif Matter Series](/matter-38ccf1d60bcd) #7
 
 Matter is a protocol designed with security and privacy in mind. Cryptography is widely adopted in Matter to ensure:

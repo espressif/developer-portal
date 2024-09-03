@@ -1,16 +1,10 @@
 ---
-title: April 2022
+title: "April 2022"
 date: 2022-05-01
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----db1f3eb229e0--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fapril-2022-db1f3eb229e0&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----db1f3eb229e0---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 As many of you may have already heard, Shanghai is currently undergoing a major lockdown due to COVID-19. In the midst of this lockdown, we received our production wafers of ESP32-C2, and proceeded with verification. Quarantine rules have caused us some logistics problems, but gradually we managed to find solutions and go ahead with ramping up the design and production of this chip. Also, thanks to Espressifers from Brazil, the Czech Republic, India and Singapore, the integration of ESP32-C2 into ESP-IDF and ESP-RainMaker continues at full speed.

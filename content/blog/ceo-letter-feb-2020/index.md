@@ -1,16 +1,10 @@
 ---
-title: CEO Letter: Feb 2020
+title: "CEO Letter: Feb 2020"
 date: 2020-02-08
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----a56bf583598c--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fceo-letter-feb-2020-a56bf583598c&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----a56bf583598c---------------------post_header-----------)
-
---
-
 Dear all,
 
 2019 has been an eventful year for Espressif; we went [IPO](https://www.espressif.com/en/news/Espressif_IPO) and we launched the new [ESP32-S](https://www.espressif.com/en/products/hardware/socs) series of chips that enable making secure, connected devices with high performance at affordable cost.

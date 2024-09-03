@@ -1,16 +1,10 @@
 ---
-title: Announcing ESP ZeroCode ExL Module
+title: "Announcing ESP ZeroCode ExL Module"
 date: 2023-11-12
 showAuthor: false
 authors: 
   - amey-inamdar
 ---
-[Amey Inamdar](https://medium.com/@iamey?source=post_page-----6f90fa89abe6--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F96a9b11b7090&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-zerocode-exl-module-powered-by-aws-iot-expresslink-simplifying-matter-compatible-6f90fa89abe6&user=Amey+Inamdar&userId=96a9b11b7090&source=post_page-96a9b11b7090----6f90fa89abe6---------------------post_header-----------)
-
---
-
 *Announcing ESP ZeroCode ExL powered by AWS IoT ExpressLink — Simplifying Matter-compatible Cloud-connected Devices*
 
 As a part of our efforts to make the development of Matter protocol-enabled devices easy, Espressif [announced](https://www.espressif.com/en/news/ESP-ZeroCode_Modules) ESP ZeroCode modules and ESP ZeroCode Console earlier this year. These ESP ZeroCode modules are well-suited for Matter connectivity for simple devices such as lighting fixtures, switches, sockets, blind controllers, and sensors. You can use ESP ZeroCode Console to configure, evaluate, and order ESP ZeroCode modules.

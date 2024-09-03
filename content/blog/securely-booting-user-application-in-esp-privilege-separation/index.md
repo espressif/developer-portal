@@ -1,16 +1,10 @@
 ---
-title: Securely booting user application in ESP Privilege Separation
+title: "Securely booting user application in ESP Privilege Separation"
 date: 2023-02-18
 showAuthor: false
 authors: 
   - sachin-parekh
 ---
-[Sachin Parekh](https://medium.com/@sachin.parekh?source=post_page-----2522ace5a268--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Ffbf6b7e86d64&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fsecurely-booting-user-application-in-esp-privilege-separation-2522ace5a268&user=Sachin+Parekh&userId=fbf6b7e86d64&source=post_page-fbf6b7e86d64----2522ace5a268---------------------post_header-----------)
-
---
-
 In the [previous post](https://medium.com/the-esp-journal/ota-firmware-updates-with-esp-privilege-separation-3b676b49459), we demonstrated the ability to independently update the user application in the ESP Privilege Separation framework. With the separation and isolation of the protected app and user app, it becomes convenient to decouple the ownership of each of these apps and their updates. This also potentially allows the possibility of having multiple user applications for a single protected application, somewhat like an “application store” for user app. As the functionality of these applications increases, the security of these apps becomes mandatory.
 
 In this post, we will describe the secure boot mechanism implemented for the user application. This mechanism ensures that only the trusted and authorized user application can execute on the device.

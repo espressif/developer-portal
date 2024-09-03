@@ -1,16 +1,10 @@
 ---
-title: September 2021
+title: "September 2021"
 date: 2021-11-07
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----63d16d437db5--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fseptember-2021-63d16d437db5&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----63d16d437db5---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 A few weeks ago, the [Bluetooth SIG Blog](https://www.bluetooth.com/blog/how-espressif-built-a-bluetooth-mesh-to-unlock-the-infinite-potential-of-the-iot/) interviewed Teo Swee Ann, Espressif Systems’ founder and CEO, who shared his insight into the current and future use cases of Espressif’s open-source Bluetooth mesh protocol stack. [ESP-BLE-MESH](https://www.espressif.com/en/products/sdks/esp-idf/esp-ble-mesh) is widely used across smart-home, smart-lighting, and smart-industry environments.

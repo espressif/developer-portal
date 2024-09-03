@@ -1,16 +1,10 @@
 ---
-title: ESP RainMaker and Serverless
+title: "ESP RainMaker and Serverless"
 date: 2020-05-26
 showAuthor: false
 authors: 
   - amey-inamdar
 ---
-[Amey Inamdar](https://medium.com/@iamey?source=post_page-----d144d8a71987--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F96a9b11b7090&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp-rainmaker-and-serverless-d144d8a71987&user=Amey+Inamdar&userId=96a9b11b7090&source=post_page-96a9b11b7090----d144d8a71987---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*YAS-IDAfh-sdpNc0ibRUjw.png)
 
 Recently, we launched ESP RainMaker, that provides a way for developers to build devices with readymade cloud, phone apps and voice assistant support. In this context, designing and implementing an IoT cloud service was a significant part of the efforts and we wanted to ensure that it met some of the key criteria that we had laid out.

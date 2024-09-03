@@ -1,16 +1,10 @@
 ---
-title: Blink LED on ESP32 with RTOS NuttX
+title: "Blink LED on ESP32 with RTOS NuttX"
 date: 2020-11-30
 showAuthor: false
 authors: 
   - sara-monteiro
 ---
-[Sara Monteiro](https://medium.com/@saramonteirosouza44?source=post_page-----d33c7dc62156--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F6d272ea832ca&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fblink-led-on-esp32-with-rtos-nuttx-d33c7dc62156&user=Sara+Monteiro&userId=6d272ea832ca&source=post_page-6d272ea832ca----d33c7dc62156---------------------post_header-----------)
-
---
-
 ![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*j-XGptYZE3DQ9tV1vJY2Iw.png)
 
 ## Introduction

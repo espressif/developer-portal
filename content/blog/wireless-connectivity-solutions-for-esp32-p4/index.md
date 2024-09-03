@@ -1,16 +1,10 @@
 ---
-title: Wireless Connectivity Solutions for ESP32-P4
+title: "Wireless Connectivity Solutions for ESP32-P4"
 date: 1970-01-01
 showAuthor: false
 authors: 
   - anant-raj-gupta
 ---
-[Anant Raj Gupta](https://medium.com/@ehaarjee?source=post_page-----8c64ca156a81--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F86f1508bfacc&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fwireless-connectivity-solutions-for-esp32-p4-8c64ca156a81&user=Anant+Raj+Gupta&userId=86f1508bfacc&source=post_page-86f1508bfacc----8c64ca156a81---------------------post_header-----------)
-
---
-
 The ESP32-P4 is a powerful system-on-chip (SoC) from Espressif, designed for high-performance applications that demand robust features. While the ESP32-P4 offers a range of advanced capabilities, it does not have integrated wireless connectivity and may require additional connectivity solutions to meet the diverse needs of modern embedded systems. Espressif provides three main connectivity solutions for the ESP32-P4: __ESP-AT__ , __ESP-Hosted__ , and __ESP-Extconn__ . Let’s explore each solution's advantages, limitations, and use cases.
 
 ## __ESP-AT__ 

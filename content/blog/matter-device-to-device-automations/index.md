@@ -1,16 +1,10 @@
 ---
-title: Matter: Device-to-Device Automations
+title: "Matter: Device-to-Device Automations"
 date: 2021-12-07
 showAuthor: false
 authors: 
   - hrishikesh-dhayagude
 ---
-[Hrishikesh Dhayagude](https://medium.com/@dhrishi?source=post_page-----bdbb32365350--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fd9449153a291&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmatter-device-to-device-automations-bdbb32365350&user=Hrishikesh+Dhayagude&userId=d9449153a291&source=post_page-d9449153a291----bdbb32365350---------------------post_header-----------)
-
---
-
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #3*
 
 [This is article #3 in the [Espressif Matter Series](/matter-38ccf1d60bcd) of articles. You may read the second part [here](/matter-clusters-attributes-commands-82b8ec1640a0).]

@@ -1,16 +1,10 @@
 ---
-title: Creating Unique Factory Data Images
+title: "Creating Unique Factory Data Images"
 date: 2018-05-01
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----3f642832a7a3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fbuilding-products-creating-unique-factory-data-images-3f642832a7a3&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----3f642832a7a3---------------------post_header-----------)
-
---
-
 A common requirement while building a device is to have some unique information programmed into the device at the time of manufacturing. This information could be a unique serial number, or a unique MAC address ; or it could be a unique secret like the default password, or the HomeKit pairing pin.
 
 We have seen quite a number of ways that customers have achieved this.

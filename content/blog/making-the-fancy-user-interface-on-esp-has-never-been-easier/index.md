@@ -1,16 +1,10 @@
 ---
-title: Making the Fancy User Interface on ESP Has Never Been Easier!
+title: "Making the Fancy User Interface on ESP Has Never Been Easier!"
 date: 2022-09-11
 showAuthor: false
 authors: 
   - vilem-zavodny
 ---
-[Vilem Zavodny](https://medium.com/@vilem.zavodny?source=post_page-----e44e79c0ae3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fa48886fe8de1&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fmaking-the-fancy-user-interface-on-esp-has-never-been-easier-e44e79c0ae3&user=Vilem+Zavodny&userId=a48886fe8de1&source=post_page-a48886fe8de1----e44e79c0ae3---------------------post_header-----------)
-
---
-
 If you tried to make some fancy UI without any graphic library, you know, how hard it is. Fortunately, there are lot of graphical libraries for making fancy UI on our screens. One of the often used is [LVGL](http://lvgl.io), which is supported on ESP microcontrollers. Usually, when we wanted to use graphical library like [LVGL](http://lvgl.io), we had to know API functions and how to combine it to reach fancy UI. It isn’t true anymore!
 
 There is a tool called [SquareLine Studio](https://squareline.io/), which can help making better and fancy UI without any other knowledge of the [LVGL API](https://docs.lvgl.io/master/index.html).

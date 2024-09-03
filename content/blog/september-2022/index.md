@@ -1,16 +1,10 @@
 ---
-title: September 2022
+title: "September 2022"
 date: 2023-01-01
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----5d0a09a8b990--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fseptember-2022-5d0a09a8b990&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----5d0a09a8b990---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 We are very excited this month, as we are hard at work preparing for Espressif Systems’ first online conference, [Espressif DevCon2022](https://devcon.espressif.com/), which will hopefully become an annual tradition. The event will be broadcast live on 19 and 20 October 2022, starting at 10:00am (Central European Summer Time) and finishing at 20:00 on both days.

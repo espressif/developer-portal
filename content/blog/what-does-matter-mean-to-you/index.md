@@ -1,16 +1,10 @@
 ---
-title: What does Matter mean to you?
+title: "What does Matter mean to you?"
 date: 2021-11-23
 showAuthor: false
 authors: 
   - kedar-sovani
 ---
-[Kedar Sovani](https://kedars.medium.com/?source=post_page-----fa3bb53a7793--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F1d2175c72923&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fwhat-does-matter-mean-to-you-fa3bb53a7793&user=Kedar+Sovani&userId=1d2175c72923&source=post_page-1d2175c72923----fa3bb53a7793---------------------post_header-----------)
-
---
-
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #1*
 
 You may have recently read about the newly introduced standard, [Matter](https://medium.com/the-esp-journal/announcing-matter-previously-chip-on-esp32-84164316c0e3). Matter is an initiative of the [Connectivity Standards Alliance](http://csa-iot.org/), and developed through collaboration amongst all the leaders of the IoT industry.

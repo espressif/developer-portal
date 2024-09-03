@@ -1,16 +1,10 @@
 ---
-title: Announcing AWS IoT Reference Example for ESP32-C3
+title: "Announcing AWS IoT Reference Example for ESP32-C3"
 date: 2022-05-11
 showAuthor: false
 authors: 
   - dhaval-gujar
 ---
-[Dhaval Gujar](https://medium.com/@dhavalgujar?source=post_page-----6587daf735d0--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fdcb6fdff94e2&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fannouncing-aws-iot-reference-example-for-esp32-c3-6587daf735d0&user=Dhaval+Gujar&userId=dcb6fdff94e2&source=post_page-dcb6fdff94e2----6587daf735d0---------------------post_header-----------)
-
---
-
 We had [announced](/support-for-lts-release-of-aws-iot-device-sdk-for-embedded-c-on-esp32-8eeeea28b79b) the availability of AWS IoT LTS libraries for ESP32 in beta in esp-aws-iot repository in August, 2021. Since then, many of our customers and independent developers have been using these libraries that we have ported and writing applications based on the examples.
 
 This beta release of the AWS LTS libraries provided individual examples showcasing usage of a particular AWS IoT related service. It had the following structure:

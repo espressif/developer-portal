@@ -1,16 +1,10 @@
 ---
-title: ESP32 Memory Analysis — Case Study
+title: "ESP32 Memory Analysis — Case Study"
 date: 2020-06-01
 showAuthor: false
 authors: 
   - mahavir-jain
 ---
-[Mahavir Jain](https://medium.com/@mahavirj?source=post_page-----eacc75fe5431--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fe94f74442319&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fesp32-memory-analysis-case-study-eacc75fe5431&user=Mahavir+Jain&userId=e94f74442319&source=post_page-e94f74442319----eacc75fe5431---------------------post_header-----------)
-
---
-
 Memory has significant impact on silicon cost as well as die size, hence from hardware perspective having optimal size is important and from software perspective being able to utilise it to fullest is crucial.
 
 In this post we will discuss some upcoming features and commonly available configuration options (knobs) in ESP-IDF to allow __end__  __application__  to utilise various internal memory regions in most optimal way.

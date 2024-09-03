@@ -1,16 +1,10 @@
 ---
-title: December 2022
+title: "December 2022"
 date: 2023-01-01
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----c3ded5e4f510--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fdecember-2022-c3ded5e4f510&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----c3ded5e4f510---------------------post_header-----------)
-
---
-
 Happy holidays everyone!
 
 On behalf of all employees and the Board of Directors, I am sending you my warmest wishes for a restful, peaceful and meaningful holiday season. We truly hope that 2023 will be a better year for everyone! Despite its difficulties, 2022 was an especially productive year for us at Espressif, during which we reached new milestones that we can be proud of. We will present these at the Consumer Electronics Show (CES 2023) in Las Vegas, USA, from [5 to 8 January, 2023](https://www.ces.tech/).

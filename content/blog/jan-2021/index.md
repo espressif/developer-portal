@@ -1,16 +1,10 @@
 ---
-title: Jan 2021
+title: "Jan 2021"
 date: 2021-01-26
 showAuthor: false
 authors: 
   - esp-bot
 ---
-[ESP BOT](https://medium.com/@espbot?source=post_page-----7081da5e5da8--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F71611a95e5c4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fjan-2021-7081da5e5da8&user=ESP+BOT&userId=71611a95e5c4&source=post_page-71611a95e5c4----7081da5e5da8---------------------post_header-----------)
-
---
-
 Hi everyone,
 
 Espressif’s Founder and CEO, Teo Swee Ann, [recently gave an interview to EEWeb](https://www.eeweb.com/esp32-solutions-enable-ai-for-iot-interview-with-espressif-systems-ceo/), the go-to website for users of electronic design tools. Discussing Espressif’s plans for Artificial Intelligence, Teo Swee Ann said: “We will be introducing our low-cost AI-enabled line of products early in 2021, based on the ESP32-S series of chips, starting with [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3). For AI chips, it is not enough to build the hardware; the algorithm is equally important because we do not expect average Makers to collect enough training samples and roll their own AI networks now. So, we will be populating our GitHub repositories with more AI code. We have been internally testing ESP32-S3 and we are able to achieve state-of-the-art performance for tasks such as beam forming, wake-word recognition and offline command recognition.”

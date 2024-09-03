@@ -1,16 +1,10 @@
 ---
-title: Rust on Espressif chips — 18-10-2021
+title: "Rust on Espressif chips — 18-10-2021"
 date: 2021-10-17
 showAuthor: false
 authors: 
   - scott-mabin
 ---
-[Scott Mabin](https://medium.com/@mabez?source=post_page-----92beee7951b3--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2F2b1db0a498a4&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Frust-on-espressif-chips-18-10-2021-92beee7951b3&user=Scott+Mabin&userId=2b1db0a498a4&source=post_page-2b1db0a498a4----92beee7951b3---------------------post_header-----------)
-
---
-
 This article was written by Scott Mabin and originally posted [on his blog](https://mabez.dev/).
 
 Now I am working at Espressif I plan on publishing updates roughly every quarter just to keep the community in the loop around the esp rust effort.

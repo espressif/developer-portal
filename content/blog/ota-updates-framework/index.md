@@ -1,16 +1,10 @@
 ---
-title: OTA Updates Framework
+title: "OTA Updates Framework"
 date: 2020-12-22
 showAuthor: false
 authors: 
   - mahavir-jain
 ---
-[Mahavir Jain](https://medium.com/@mahavirj?source=post_page-----ab5438e30c12--------------------------------)
-
-[Follow](https://medium.com/m/signin?actionUrl=https%3A%2F%2Fmedium.com%2F_%2Fsubscribe%2Fuser%2Fe94f74442319&operation=register&redirect=https%3A%2F%2Fblog.espressif.com%2Fota-updates-framework-ab5438e30c12&user=Mahavir+Jain&userId=e94f74442319&source=post_page-e94f74442319----ab5438e30c12---------------------post_header-----------)
-
---
-
 In this post we will discuss the design and internal workings of Over-The-Air (OTA) Updates framework in ESP-IDF.
 
 We shall also cover some of the features from OTA updates, focused around __reliability__  and __security__  that can help to build better IoT products with ESP32.
