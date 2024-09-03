@@ -32,7 +32,7 @@ More Workshops
 
 ## New Chip Support Status
 
-Here you can follow the current status of the new chip support for the ESP-IDF.
+Here you can follow the current status of the new chip support in various Espressif SDKs and frameworks.
 
 {{< article link="/pages/chip-support-status/esp32c61/" >}}
 
