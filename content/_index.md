@@ -10,7 +10,7 @@ cascade:
 
 "Welcome to the [Espressif Systems](https://espressif.com/) Developer Portal—your official hub for all good things, such as the ESP32 and more. Explore our extensive collection of articles, workshops, and tutorials to enhance your development journey with the latest tools and insights."
 
-## Featured Article
+## Featured Articles
 
 {{< article link="/blog/meet-espressif-developer-portal/" >}}
 
