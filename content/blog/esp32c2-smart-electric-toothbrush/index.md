@@ -112,7 +112,7 @@ In order to make the ESP-Toothbrush look good and practical, we polished its app
 
 After careful design and repeated testing, we finally finished the production of this smart toothbrush. Now, let's enjoy the final product, which is both practical and beautiful.
 
-![ESP-Toothbrush Display](./img/esp-toothbrush-dispaly.webp "ESP-Toothbrush Display")
+{{< video src="video/esp-toothbrush-display-en" >}}
 
 
 ## Basic Functions
