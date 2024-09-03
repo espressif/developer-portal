@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - esp-bot
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*NGYvf18_Xodt-L-MKP4xlQ.jpeg)
+![](img/matter-1.webp)
 
 Matter is an initiative of the [Connectivity Standards Alliance](http://csa-iot.org/), and developed through collaboration amongst all the leaders of the IoT industry.
 

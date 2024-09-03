@@ -9,7 +9,7 @@ authors:
 
 After I landed in Shanghai from Singapore on 10 Feb, the first thing I did was to get to the company. Thirty of our staff are reporting for work today. Along the way, I noticed that the traffic has been greatly reduced. It is understandable that with the COVID-19 crisis unfolding, most trips to Shanghai have been cancelled.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ADgzxMezQSKSfa31XouI4Q.png)
+![](img/a-1.webp)
 
 There is a sense of surreality because when you pass by all the familiar places, most of them are empty, though the lights are still on. I quickly got back to reality, once I entered the office; I had a long meeting with the company secretary on various matters regarding regulations, finances and status of our colleagues, now scattered in various cities, and evaluated the situation and our options. The discussion centered on things that are in general so detailed and convoluted that they would warrant a face-to-face meeting.
 
@@ -17,7 +17,7 @@ There is a sense of surreality because when you pass by all the familiar places,
 
 On 11 Feb, I decided to buy food for myself and experience the situation. I hailed a cab on my phone using Didi (the Chinese equivalent of Uber), and went to a nearby open mall.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*3I1eaam9oR-KF0Imb8jDLw.png)
+![](img/a-2.webp)
 
 Despite being devoid of visitors, shops are still making business via online platforms and food deliveries. This is one major differences between a megacity like Shanghai and any other megacities in the world: one can do practically everything via phone Apps such as WeChat, Alipay, Meituan, Starbucks, etc, without having to handle any paper currency or credit cards or even leaving your home.
 
@@ -29,13 +29,13 @@ Yesterday, I was told that I would not be allowed into the company, as I had emb
 
 So since yesterday, I have had been working from home, going out only to have my meals.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*_VPwLZ_pdTLUAriOwjmpxg.png)
+![](img/a-3.webp)
 
 Besides the option of ordering food using online platforms, many restaurants are open in the normal sense of the word, albeit with some rules. For instance, I have had my lunch at an Italian eatery today (picture above) while working on my circuits and running simulations via remote access. I was however, the only person at the restaurant (I sat in the open) for that two hours, except for food delivery guys who dropped by every so often to pick up their orders. I finally left because it was too windy for me to have my WeChat teleconference.
 
 > Despite the strict quarantine measures and disruptions, Shanghai city hums along with quiet resolve and expansive tenacity, rapidly adjusting herself to the new circumstances — there have had been no disruption to water, electricity and food, and streets continue to be maintained. Somehow, even the cats in the vicinity of our workplace get fed too.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*J-dNZD9Rtq5xXUgUNutwfg.png)
+![](img/a-4.webp)
 
 ## Restoring Functions
 

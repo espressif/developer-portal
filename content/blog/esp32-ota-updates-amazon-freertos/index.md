@@ -33,17 +33,17 @@ Lets quickly walk over the steps for getting the OTA update demo functional on E
 - Once the device boots up, the log should look like the one mentioned at, [__https://docs.aws.amazon.com/freertos/latest/userguide/burn-initial-firmware-esp.html__ ](https://docs.aws.amazon.com/freertos/latest/userguide/burn-initial-firmware-esp.html)
 - Create an Amazon FreeRTOS OTA Job (by navigating to IoT Core -> Manage -> Jobs -> Create),
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Xx16WJdJZsc0txs9SKt5Og.png)
+![](img/esp-1.webp)
 
 - Select “Sign a new firmware image for me” option,
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*v5Ntbw7yC2h3IylKeukRaw.png)
+![](img/esp-2.webp)
 
 - Create code signing profile, please select ESP32 platform here and provide certificates created earlier,
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*oTtGcMrg428uljWnD3oCdw.png)
+![](img/esp-3.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*jTXhXvWlx3y4ood-geOGSg.png)
+![](img/esp-4.webp)
 
 ## Enabling Hardware Security
 

@@ -30,25 +30,25 @@ The modules ESP32-WROVER and ESP32-WROOM-32D are already certified with Wi-Fi Al
 - For any certification, you have to first be a member of Wi-Fi Alliance. Details about membership levels, cost and benefits is available [here](https://www.wi-fi.org/membership).
 - Once you are a member, login to the certification system and click on __New Derivative Product Certification.__ 
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*q1E76PDptDJrfJTcfgSx3A.png)
+![](img/wifi-1.webp)
 
 - Choose the *Source Company* as Espressif Inc (If you are using Espressif’s WFA certified modules). Choose your organisation’s name as the *Target Company*.
 - Choose the* Product* that you are deriving from. If you are using Espressif’s WFA certified module, you may use __WFA77915 for ESP32-WROVER__ , or __WFA77387 for ESP32-WROOM__ .
 - Go to the next page:__Product Information__ 
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*u4sG02sDeRDWUDbx93XWQw.png)
+![](img/wifi-2.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*0zV0k1VNzcTK0EroiB0mDA.png)
+![](img/wifi-3.webp)
 
 - Mention any changes you may have done to the subsystems as indicated in the page.
 - Go to the next page: __Product Designators__ 
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*1tXJ_Y9iqvs-ctCKskZ_GA.png)
+![](img/wifi-4.webp)
 
 - Fill in the appropriate designators for your product. Select the closest matching *Primary Product Category*. For example, if your product is a refrigerator, select Refrigerator from the list. If applicable, also select the *Secondary Product Category*.
 - Go to the next page: __Review Application__ 
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*rIYgiaIslHPlK25Jhjat1Q.png)
+![](img/wifi-5.webp)
 
 - Make sure everything is in order, make the payment and submit the application.
 - The WFA staff will review the submission and if everything is in order, will grant you the Wi-Fi certification.

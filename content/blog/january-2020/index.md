@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - esp-bot
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ILvjHA9FZKGedTeQCA8lyA.jpeg)
+![](img/january-1.webp)
 
 Happy New Year to all!
 
@@ -31,7 +31,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## ESP32 Fault Injection Vulnerability — Impact Analysis
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*e4KAl1DI4dpsApbU.jpg)
+![](img/january-2.webp)
 
 Security researchers have recently described a fault injection attack on ESP32, which may result in some security compromise and unintended disclosure of information. However, [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)’s security design remains safe for the vast majority of our products. Click on the link below to learn how.
 
@@ -39,7 +39,7 @@ Security researchers have recently described a fault injection attack on ESP32, 
 
 ## ESP32 Is Now Bluetooth LE 5.0-Certified
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*j1XX3yRqmw586r6s.png)
+![](img/january-3.webp)
 
 Espressif’s flagship chip, ESP32, has recently passed the SIG [Bluetooth LE 5.0 certification](https://launchstudio.bluetooth.com/ListingDetails/98048). This affirms that the protocol version supported by the ESP32 microcontroller has been upgraded from Bluetooth LE 4.2 to Bluetooth LE 5.0, which has higher stability and compatibility.
 
@@ -47,7 +47,7 @@ Espressif’s flagship chip, ESP32, has recently passed the SIG [Bluetooth LE 5.
 
 ## More Espressif Products Get Qualified for Amazon:FreeRTOS
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*VucI_VrZ1dS5gdYm.png)
+![](img/january-4.webp)
 
 An increasing number of Espressif products are being qualified for Amazon:FreeRTOS. It was only yesterday (30th Dec.) that our AI dev board, [ESP-EYE](https://www.espressif.com/en/products/hardware/esp-eye/overview), as well as our [ESP32-WROOM-32SE](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32se_datasheet_en.pdf)module got qualified, while last month our [ESP32-SOLO-1](https://www.espressif.com/sites/default/files/documentation/esp32-solo-1_datasheet_en.pdf) module got qualified as well.
 

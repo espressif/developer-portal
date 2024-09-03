@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - piyush-shah
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*gpf1R6rG-WZfoTCfubQIpg.jpeg)
+![](img/rd-1.webp)
 
 IoT, in general, has come a long away. During the very early stage, there was browser based control and monitoring, which, though more convenient than non-IoT devices, had a very narrow market. With the advent of Smartphones, IoT devices became much more easier to use and mass adoption became a possibility. However, the real push was given by the advent of various eco-systems and Voice assistants like Siri, Alexa and Google Assistant. Controlling by just asking verbally is much more natural than opening some app in a smartphone and tapping buttons.
 
@@ -27,7 +27,7 @@ Once you build and flash the Lightbulb/Switch example, provision your board and 
 
 - Open the Alexa app on your phone, go to Skills and Games in the menu and search for ESP RainMaker.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*SsIwUMlN8qxwefmoB1G07A.jpeg)
+![](img/rd-2.webp)
 
 - Select the skill, tap on “Enable to Use” and provide your RainMaker credentials.
 - Once the account linking is successful, allow Alexa to discover your devices.
@@ -41,7 +41,7 @@ Once you build and flash the Lightbulb/Switch example, provision your board and 
 - Search for ESP RainMaker and sign in using your RainMaker credentials.
 - Once the Account linking is successful, your RainMaker devices will show up and you can start using them.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*nNmV4ly-4simENKrfBSCGg.jpeg)
+![](img/rd-3.webp)
 
 - Some users may not see the list like above, but the devices should show up in the device list in the Google Home app.
 

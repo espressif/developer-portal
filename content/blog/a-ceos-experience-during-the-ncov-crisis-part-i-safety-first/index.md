@@ -85,7 +85,7 @@ We have taken measures to keep Espressif going and to keep everyone within Espre
 
 We are also ready to contribute to the fight against the virus with IOT technology, such with our low cost AI enabled voice recognition (hands free) solution ESP-SKAÏNET and soon to be announced ESP-RAINMAKER. __@Makers, please share your ideas!__  We will help support any IOT solutions that help control the epidemic.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*IHIIR1okx8QRo-EOX0MyZQ.png)
+![](img/a-1.webp)
 
 Teo Swee Ann, CEO Espressif Systems
 

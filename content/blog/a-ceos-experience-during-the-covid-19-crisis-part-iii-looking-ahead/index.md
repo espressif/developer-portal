@@ -7,11 +7,11 @@ authors:
 ---
 *The COVID-19 situation is developing rapidly, and the CEO of Espressif, Teo Swee Ann, gives a short update of the situation and some considerations of the future.*
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*m39ArDZbkoQOZEcuaiRiyQ.png)
+![](img/a-1.webp)
 
 The COVID-19 situation continues to unfold fast and globally. It has reached Europe, Japan, South Korea, and the United States, and on the minds of many is whether COVID-19’s advance will be arrested by warmer weather or if a cure or vaccine will be found.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*93zxsMh33jbZCJNhm4FLuA.png)
+![](img/a-2.webp)
 
 ## Update
 
@@ -19,7 +19,7 @@ In Espressif, the COVID-19 situation has imposed upon us many changes, such as h
 
 Here are some of the statistics: 97% of our staff in China are now back to work, of which about 23% are working from home. 2.5% are at home under quarantine, most of whom will return this coming week.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*CtmgGI9LqY-M26pZJaInRg.png)
+![](img/a-3.webp)
 
 ## Making Chips
 

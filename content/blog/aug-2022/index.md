@@ -9,7 +9,7 @@ Hi everyone,
 
 Espressif is taking part in the upcoming Maker Faire in [Prague on 17–18 September](https://makerfaire.cz/prague-2/)____ 2022, and in [Brno on 22–23 October](https://makerfaire.cz/brno-3/). Maker Faire is a family-friendly showcase of inventions and creativity that gathers technology enthusiasts, crafters, and educators from the Czech Republic and abroad. Makers come to show their creations and visitors get the opportunity to try new gadgets firsthand. This technology festival is the perfect combination of sciences, traditional crafts, the latest technological trends and design.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*XFa8F58tU-tlAmnL.png)
+![](img/aug-1.webp)
 
 The Maker Faire in Prague will be celebrating its fifth year in 2022, and will take place in the Prague Market Hall, a magnificent space where visitors will be able to find Espressif’s delegation among many others. The international programme of the Festival will take place both indoors and outdoors, where dozens of makers will showcase their projects. Visitors will have the opportunity to get involved in several workshops and installations.
 
@@ -21,25 +21,25 @@ So, those of you who happen to be in Prague and Brno, on 17–18 September and 2
 
 Keep reading this month’s newsletter, so you can also learn about:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*VSyA4dab37oeluZF.png)
+![](img/aug-2.webp)
 
 [__Light+Building Trade Fair Oct. ‘22__ ](https://www.espressif.com/en/news/ESP_Light_Building)
 
 From From October 2 to 6, Espressif will participate in the 2022 Autumn Edition of the [Light + Building Trade Fair](https://light-building.messefrankfurt.com/frankfurt/en.html) in Frankfurt am Main, showcasing a wide range of smart-home and lighting solutions.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*SIIRzoaMk71UCLOt.png)
+![](img/aug-3.webp)
 
 [__Package Delivery Detection with ESP-Based Computer Vision__ ](https://www.espressif.com/en/news/ESP_Package_Delivery_Detection)
 
 Identify when packages or boxes arrive on your doorstep with a computer-vision project that combines [ESP-EYE](https://www.espressif.com/en/products/devkits/esp-eye/overview), Espressif’s development board for image recognition and audio processing, as well as the [Edge Impulse Studio](https://docs.edgeimpulse.com/experts/parcel-detection).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*CKHb8FdcBP2z4SF0.jpg)
+![](img/aug-4.webp)
 
 [__ESP-Hosted Reduces Cost and Complexity of IoT Devices__ ](https://www.espressif.com/en/news/ESP-Hosted_solution)
 
 This article focuses on the many advantages of ESP-Hosted, our open-source solution which uses Espressif SoCs and modules as communication co-processors.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*eGLSS20XfmkzO9ep.png)
+![](img/aug-5.webp)
 
 [__ESP Badge for the 2022 Fri3d Camp__ ](https://www.espressif.com/en/news/Fri3d_Camp_badge)
 

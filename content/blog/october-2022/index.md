@@ -11,11 +11,11 @@ Espressif’s first official online conference is about to get started. We will 
 
 A nearly six-month preparation is reaching its culmination with a rich program. You can expect __over 30 talks__  on topics including Matter, RainMaker, ESP-IDF, Privilege Separation, Embedded Rust, Components Manager, Board Support Packages, third-party frameworks, and more! The speakers who are also Espressif engineers include: Scott Mabin, Darian Leung, Brian Ignacio, Marius Vikhammer with Sudeep Mohanty, Yi Ying, David Cermak, Rodrigo Garcia, Ricardo Tafas with Sylvio Alves, Tomas Rezucha, Zim Kalinowski, Sergei Silnov, Denys Almazov, Mahavir Jain with Sachin Parekh, Sonika Rathi with Yogesh Mantri, Adwait Patankar along with Vikram Dattu and Shubham Rastogi, Piyush Shah, Radim Karniš, Martin Gaño, Juraj Michálek with Sergio Gasquez, Jakob Hasse, Alan Carvalho, and finally Chen Shu along with Hrishikesh Dhayagude and Shubham Patil.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*e-xcoHTjwQAjGe73.png)
+![](img/october-1.webp)
 
 The daily schedule of the conference is divided into four sections lasting two hours each. Every presentation is allocated a 30-minute slot which will comprise a talk and a five-minute Q&A session at the end of it. A 15-minute break will follow each two-hour section. At the end of each day, we will have a __15-minute General Q&A session__  for any questions from the audience. This will be handled by __Espressif’s Director of Technical Marketing Amey Inamdar, and Senior Director of Engineering Kedar Sovani at the end of the first day at 19:30 CEST.__  The General Q&A session at the end of the second day will be handled by __Espressif’s VP of Software Platforms Ivan Grokhotkov at 19:45 CEST.__  Then, at the end of the entire conference, __Espressif’s Developer Advocate and Conference Organiser Pedro Minatel will share with us his closing remarks at 20:00 CEST.__  We will kick off our conference with none other than __Espressif’s Founder and CEO, Teo Swee Ann, who will deliver his welcome speech__ . Teo Swee Ann needs no special introductions. He established Espressif in 2008 and __his name has become synonymous with technological innovation ever since.__  It is always interesting to listen to what he has to say. __Our second keynote speaker is going to be our VP of Software Platforms Ivan Grokhotkov, who will talk us through all the new features of ESP-IDF v5.0., at 10:00am on Thursday, 21 October.__ 
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*2DwMZ_p1OnnTtagJ.png)
+![](img/october-2.webp)
 
 *Watch our conference trailer by clicking on the *[*photo above*](https://youtu.be/2p5TyOu2an4)*.*
 

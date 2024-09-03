@@ -19,7 +19,7 @@ The eFUSE plays an important role in the functioning of these security features.
 
 The ESP32 has a 1024-bit eFUSE, which is a one-time programmable memory. This eFUSE is divided into 4 blocks of 256-bits each.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*rdkPRcarzGclUakh0QARDQ.png)
+![](img/understanding-1.webp)
 
 Of primary interest to us right now are blocks 1 and 2. These blocks store keys for flash encryption and secure boot respectively. Also, once the keys are stored in the eFUSE, it can be configured such that any software running on ESP32 cannot read (or update) these keys (__disable software readout__ ). Once enabled, only the ESP32 hardware can read and use these keys for ensuring secure boot and flash encryption.
 
@@ -29,13 +29,13 @@ Of primary interest to us right now are blocks 1 and 2. These blocks store keys 
 
 This is achieved by building a chain of trust from the hardware, to the software bootloader to the application firmware.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*V21pBvviI9wthV__3cm6Pg.png)
+![](img/understanding-2.webp)
 
 ## Validating the Software Bootloader
 
 The Bootloader image, as stored in flash, contains the following logical parts:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*xLKOkCQtqY5l-7SsW6Q0uw.png)
+![](img/understanding-3.webp)
 
 - __Bootloader Image:__ This is the bootloader executable that contains the bootloader
 - __RSA Signature:__  This is the RSA3072 based signature of the bootloader image.
@@ -51,7 +51,7 @@ In the previous step, the Bootloader is confirmed to be trusted. Once trust is e
 
 The Bootloader will now, in turn, validate the Application Firmware. The validation of application firmware is exactly similar to that of the bootloader as shown below.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Ed2mNWPod1vGimKjQuzucw.png)
+![](img/understanding-4.webp)
 
 And that’s how secure boot on ESP32 works.
 
@@ -61,7 +61,7 @@ And that’s how secure boot on ESP32 works.
 
 When flash encryption is enabled, all memory-mapped read accesses to flash are transparently, and at-runtime, decrypted. The flash controller uses the AES key stored in the eFUSE to perform the AES decryption. Similarly, any memory-mapped write operation causes the corresponding data to be transparently encrypted before being written to flash.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*dEkbSbsiiQGJorj4ZbdYYw.png)
+![](img/understanding-5.webp)
 
 Because the key is locked into the eFUSE, only the hardware can use it to decrypt the contents of the flash.
 

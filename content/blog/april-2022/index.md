@@ -17,19 +17,19 @@ __Thus, if you need a small, simple and cheap SoC that is able to provide your a
 
 Other topics you can read about in this month’s newsletter include:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*9WmLW-5GvFL_-qxp.png)
+![](img/april-1.webp)
 
 [__Introducing the ESP USB Bridge__ ](https://www.espressif.com/en/news/ESP32-C2)
 
 The [ESP USB Bridge](https://github.com/espressif/esp-usb-bridge) is an ESP-IDF project utilizing [ESP32-S2](https://www.espressif.com/en/products/socs/esp32-s2) or [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) to create a link between a computer and a target microcontroller. It can serve as a replacement for USB-to-UART chips, e.g. CP210x.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*ksQe5cbjZVxl-xRV.png)
+![](img/april-2.webp)
 
 [__AnalogLamb’s Version of ESP32-S3 Offers a 2 MP Camera, a Mic, and Two LCDs__ ](https://www.espressif.com/en/news/Maple_Eye_ESP32-S3)
 
 [AnalogLamb’s Maple Eye ESP32-S3](https://www.analoglamb.com/product/maple-eye-esp32-s3-board-with-camera-and-lcds/) is a Wi-Fi-and-Bluetooth dev board based on Espressif’s [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3)dual-core Xtensa LX7 microcontroller. Additionally, it is equipped with one 2MP camera, one microphone, and two LCDs placed on each side of the board.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Uj-ANMHlzzRdEQYB.png)
+![](img/april-3.webp)
 
 [__Tracer: An ESP32-Powered Wearable for Things!__ ](https://www.espressif.com/en/news/ESP32_Tracer)
 

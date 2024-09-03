@@ -7,7 +7,7 @@ authors:
 ---
 Welcome to our November Newsletter
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*RS_S_E5PlPhO1SU7.png)
+![](img/november-1.webp)
 
 Hi everyone,
 
@@ -31,7 +31,7 @@ Senior Customer Support Officer
 
 ## ESP Solutions at Japan’s 4th IoT/M2M Expo
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*wj75eNFjYJtp7FzJ.jpg)
+![](img/november-2.webp)
 
 Espressif’s distributor in Japan, [Midoriya Electric](https://www.midoriya.co.jp/eng/), participated in the 4th IoT/M2M Expo, in Makuhari Messe, which took place on October 24–26. This was part of Japan’s [IT Week](https://www.japan-it.jp/ja-jp.html), which is a world-leading IT show that has become the most comprehensive business-to-business IT exhibition in Japan. This year the show was the biggest one in its history, in terms of the number of exhibitors and professional visitors from the industry.  asdf
 
@@ -39,7 +39,7 @@ Espressif’s distributor in Japan, [Midoriya Electric](https://www.midoriya.co.
 
 ## Mini Dishwasher Powered by ESP32
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*MDtklUqPu4t3USdj.jpg)
+![](img/november-3.webp)
 
 “Throw in the sponge. Adopt Bob!” This is the motto of [Daan.Tech](http://daan.tech/), a French start-up whose goal is to usher in a new era of smart home appliances. Bob is a newly-designed ultra-compact dishwasher which offers the ultimate solution for people with space-constrained kitchens and an irreversible aversion to washing dishes by hand. Needless to say, of course, that “Bob” is built around Espressif’s powerful [ESP32-WROOM-32](https://www.espressif.com/en/products/hardware/esp-wroom-32/overview) module, which can bring to life a variety of projects, ranging from low-power sensor networks to the most demanding tasks.
 
@@ -47,7 +47,7 @@ Espressif’s distributor in Japan, [Midoriya Electric](https://www.midoriya.co.
 
 ## Espressif at the Hackaday Supercon 2018
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Qw-PCpaqQv7qUHB3.jpg)
+![](img/november-4.webp)
 
 Every year, the Hackaday Super-conference attracts huge numbers of hardware hackers, makers, engineers and enthusiasts from around the world. Hundreds of people gather for the organized talks and workshops, as well as the unplanned challenges, conversations and discoveries that make [Supercon](https://hackaday.io/superconference/) the ultimate hardware conference.
 
@@ -55,7 +55,7 @@ Every year, the Hackaday Super-conference attracts huge numbers of hardware hack
 
 ## The ESP32 Security Bug Bounty Is Still On!
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*NeWfFjLxILLvgLLL.png)
+![](img/november-5.webp)
 
 Do you like searching for security bugs? Do you want to earn some extra cash? Are you a fan of Espressif Systems and ESP32? If the answer to all these questions is positive, then you should definitely consider participating in our bug-reporting program, the [ESP32 Security Bug Bounty](https://esp32.com/viewtopic.php?f=10&t=1572&p=7266)! We had a similar program about [ESP8266](https://bbs.espressif.com/viewtopic.php?f=20&t=288), which lasted from March 2015 until July 2018. Our ESP32 Bug Bounty started in March 2017 and is still on!
 

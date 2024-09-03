@@ -7,7 +7,7 @@ authors:
 ---
 Welcome to our October Newsletter
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*x7de18Fx2of0M3TR.jpg)
+![](img/october-1.webp)
 
 Hi everyone,
 
@@ -29,7 +29,7 @@ Senior Customer Support Officer
 
 ## ESP32 Developer Trainings in the USA
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*JC8FpLAvLcTTxI9z.jpg)
+![](img/october-2.webp)
 
 Espressif is partnering with Grid Connect for the first time to host developer trainings on ESP32 in Chicago and San Francisco. These hands-on, in-depth trainings will focus on building end-products using Espressif’s IoT Development Framework (ESP-IDF). These 2-day trainings will cover the latest [version of the ESP-IDF (v3.1)](https://github.com/espressif/esp-idf/releases/tag/v3.1) and will be given by Espressif engineers.
 
@@ -37,7 +37,7 @@ Espressif is partnering with Grid Connect for the first time to host developer t
 
 ## Alexa on ESP32
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*xlDVEuxCHx_2EKwH.png)
+![](img/october-3.webp)
 
 Espressif’s Alexa SDK has just been released, providing an implementation of Amazon’s Alexa Voice Service for the [ESP32 microcontroller](https://www.espressif.com/en/products/hardware/esp32/overview). This is meant to facilitate developers to evaluate ESP32-based devices integrating Alexa, such as speakers and IoT devices.
 
@@ -45,7 +45,7 @@ Espressif’s Alexa SDK has just been released, providing an implementation of A
 
 ## New Book on ESP32 by Best-Selling Author Erik Bartmann
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*qYURd8ZHnHRRmL6N.jpg)
+![](img/october-4.webp)
 
 [Erik Bartmann](https://www.erik-bartmann.de/) is an experienced maker and writer with several bestselling books about programming and electronics under his belt. After the success of *Das ESP8266 Praxisbuch *(The ESP8266 Practice Book)* *in 2016, Erik gave us its sequel, *Das ESP32 Praxisbuch *(The ESP32 Practice Book), in July 2018. In his usual reader-friendly way, Erik illustrates step by step the great variety of projects that anyone can create with [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview).
 
@@ -53,7 +53,7 @@ Espressif’s Alexa SDK has just been released, providing an implementation of A
 
 ## Ph0xx: ESP32 Badge Turned Into Robot
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*eaZ0IeQrRfuSBT3x.jpg)
+![](img/october-5.webp)
 
 Have you been to a hackathon or a high-tech event lately? Did they give you a digital badge that was interactive, hackable and reusable? Pretty cool, huh? Well, did you actually do something with your badge after the event, or did you put it in a dark desk drawer? If the latter is the case, the ESP32 Badge which can be turned into a bipedal robot might give you some inspiration as to what to do with your own badge.
 

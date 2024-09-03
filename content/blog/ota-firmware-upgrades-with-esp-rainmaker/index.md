@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - piyush-shah
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Zb2E3Od6Q9_EhHLehYh3JA.jpeg)
+![](img/ota-1.webp)
 
 Any Internet of Things (IoT) system is incomplete if it does not have a facility of upgrading the firmware remotely (also called Over The Air firmware upgrades). The [ESP IDF](https://github.com/espressif/esp-idf) offers a very simple interface for [OTA upgrade using a secure HTTP connection](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_https_ota.html). However, the following things still remain unaddressed, as they are out of scope of the firmware development framework and require some infrastructural support:
 

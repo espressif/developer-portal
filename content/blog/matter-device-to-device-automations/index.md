@@ -13,7 +13,7 @@ In the previous article we looked at the data model of Matter. Today, let us tal
 
 This is a very interesting usecase that is not easily possible through the existing ecosystem protocols. Matter easily enables this. This doesn’t require intermediation from any cloud or phone apps to make it happen. Instead, it is all facilitated directly over the local network.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*B_HImQPnRCfK6RKBqWVq-g.jpeg)
+![](img/matter-1.webp)
 
 As mentioned in the data model article, every Matter cluster has a cluster server, and a cluster client counterpart. The communication happens between the client and server of the same cluster. As can be seen above, the OnOff cluster client on the switch can talk with the OnOff cluster server on the light to turn it on or off. And the end-user can configure which device can talk to which device(s) in their home.
 
@@ -25,7 +25,7 @@ There are two ways through which device-to-device interaction can be accomplishe
 
 Let’s go back to our example of the switch controlling the light that is shown above. For this, the switch additionally needs to have a Binding cluster server that offers the binding service. After a user binds the light to the switch, an action (on or off) on the switch results into corresponding action on the light. This scenario is illustrated below:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*U854xZnv59FRNcbzHAoAqA.jpeg)
+![](img/matter-2.webp)
 
 Similarly, a Dimmer Switch needs to have an OnOff client, a Level Control client and a Binding server to control a dimmable light.
 
@@ -35,7 +35,7 @@ This method facilitates receiving data reports from a publisher to a subscriber.
 
 The thermostat and occupancy sensor usecase mentioned above can be realised after the thermostat __subscribes to attributes__ of the sensor. First the user binds the thermostat to the occupancy sensor. Once done, the thermostat can subscribe to the sensor attributes and receive data periodically as well as when there is an activity (change in sensor attributes). This scenario is illustrated below:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*-3jfMtoyO2kIyCpOolNw1A.jpeg)
+![](img/matter-3.webp)
 
 This was an example of subscribing to attributes. Devices could also __subscribe to events__ . In the data model article, we talked about clusters having attributes and commands. Here, we introduce events which are also a part of clusters. Events capture every single change and convey it to the subscribed entity. A few examples of events include switch pressed, long press, and door opened.
 

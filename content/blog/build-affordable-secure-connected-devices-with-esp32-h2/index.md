@@ -22,13 +22,13 @@ These security features are implemented using a variety of different HW accelera
 
 Secure Boot protects a device from running any unauthorized (i.e., unsigned) code by checking that each piece of software being booted is signed. On an ESP32-H2, these pieces of software include the second stage bootloader and each application binary. Note that the first stage bootloader does not require signing as it is ROM code and thus cannot be changed.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*5GMXx5XFj1EcLUtj_eE2fQ.png)
+![](img/build-1.webp)
 
 The Secure Boot process on the ESP32-H2 involves the following steps:
 
 The ESP32-H2 has provisions to choose between an RSA-PSS or ECDSA-based secure boot verification scheme. ECDSA provides similar security strength compared to RSA with shorter key lengths. Current estimates suggest that ECDSA with curve P-256 has an approximate equivalent strength to RSA with 3072-bit keys. However, ECDSA signature verification takes considerably more time compared to RSA signature verification.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*nJOM-4ku2vc2I2LltTMeuQ.png)
+![](img/build-2.webp)
 
 The RSA-PSS or ECDSA public key is stored in the eFuse on the device. The corresponding RSA-PSS or ECDSA private key is kept at a secret place and is never accessed by the device. Up to three public keys can be generated and stored in the chip during manufacturing. ESP32-H2 provides the facility to permanently revoke individual public keys.
 
@@ -38,7 +38,7 @@ Flash encryption is intended to encrypt the contents of the ESP32-H2’s off-chi
 
 When flash encryption is enabled, all memory-mapped read accesses to flash are transparently, and at runtime, decrypted. The ESP32-H2 uses the XTS-AES block cipher mode with a 256-bit key size for flash encryption. The flash controller uses the key stored in the eFUSE to perform the decryption. Similarly, any memory-mapped write operation causes the corresponding data to be transparently encrypted before being written to flash.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*NJ36iuzWC4RI07iJpNoukw.png)
+![](img/build-3.webp)
 
 During the development stage, there is a frequent need to program different plaintext flash images and test the flash encryption process. This requires that Firmware Download mode can load new plaintext images as many times as needed. However, during the manufacturing or production stages, Firmware Download mode should not be allowed to access flash contents for security reasons. Hence, two different flash encryption configurations were created.
 
@@ -56,7 +56,7 @@ The ESP32-H2 contains a 4096-bit eFuse memory, out of which 1792 bits are reserv
 
 The permission management of ESP32-H2 can be divided into two parts: __PMP (Physical Memory Protection)__  and __APM (Access Permission Management)__ .
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*nC7pOVDAcLPVXhscKaQdCw.png)
+![](img/build-4.webp)
 
 PMP manages the CPU’s access to all address spaces. APM does not manage the CPU’s access to ROM and SRAM. If the CPU needs to access ROM and HP SRAM, it needs permission only from PMP; if it needs to access to other address spaces, it needs to pass PMP’s permission management first and then the APM’s. If the PMP check fails, APM check will not be triggered.
 

@@ -18,7 +18,7 @@ In this post we will discuss some upcoming features and commonly available confi
 
 ## ESP32: Internal Memory Breakup
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*GX1WDpWbR4mdhsF5N1VZdg.png)
+![](img/esp-1.webp)
 
 - As can be seen from above memory layout, there are various memory regions internal to silicon and of different clock speed.
 - For single core use-cases, we get additional 32K of instruction memory, which otherwise would have acted as cache for APP CPU core.

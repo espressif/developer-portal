@@ -17,30 +17,30 @@ Today, let’s talk about the Bridge feature in Matter.
 
 A Bridge serves to allow the use of non-Matter IoT devices in a Matter ecosystem (Matter Fabric). It enables the consumer to keep using these non-Matter devices together with their Matter devices.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*IOfjWhJZ9QvSS_glb5DGcw.png)
+![](img/matter-1.webp)
 
 The non-Matter devices are exposed as Bridged Devices to Nodes in the Matter ecosystem. The Bridge device performs the translation between Matter and other protocols so that the Matter nodes can communicate with the Bridged Devices.
 
 Below is an example of Matter-Zigbee Bridge, it bridges two Zigbee lights to Matter ecosystem:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*JMliH3B14JTFUaGCZFaGjA.png)
+![](img/matter-2.webp)
 
 ## __Bridge Data Model__ 
 
 In the previous article [Matter: Clusters, Attributes, Commands](/matter-clusters-attributes-commands-82b8ec1640a0), we talked about the Matter Data Model, below is a Data Model example of a Matter Bridge device.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*xUIoURpXd_10wZIvw7tZYQ.png)
+![](img/matter-3.webp)
 
 - On Endpoint 0, the device type is defined as Bridge. The PartsList field lists all endpoints for bridged devices, each endpoint represents one device at the non-Matter side of the bridge.
 - The Descriptor cluster on each endpoint provides information about the particular Bridged Device.
 
 A Bridge may also contain native Matter functionality, for example, it may itself be a smart Thermostat having both Wi-Fi and Zigbee connection. The Thermostat is native Matter functionality, it is capable of sending heating and/or cooling requirement notifications to a heating/cooling unit. While the other endpoints represent the Bridged Devices.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*oRuvnusPkJDFLqmJCkbSZQ.png)
+![](img/matter-4.webp)
 
 Now, let’s look into the Matter-Zigbee Bridge example we mentioned in previous section.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*N0DUQ69Ed1-tH3YVgdsIVA.png)
+![](img/matter-5.webp)
 
 Here is the workflow to control a Zigbee device on the phone with Matter protocol:
 
@@ -67,8 +67,8 @@ Espressif, as an active member that supports Matter from the beginning, can offe
 
 We offer both Matter-Zigbee and Matter-BLE Mesh bridge solutions with full functional software SDK support. A Matter-Zigbee Bridge uses two SoCs (Wi-Fi + 802.15.4), they are connected via a serial interface like UART or SPI, while a Matter-BLE Mesh Bridge can be done on single SoC with both Wi-Fi and BLE interfaces.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*6TO13fzMLPs2Ia8b0Sil3g.png)
+![](img/matter-6.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*r_5x4LnVjtckBmAiQbZzSg.png)
+![](img/matter-7.webp)
 
 If you are interested in our Matter Bridge solutions, please contact our [customer support team](https://www.espressif.com/en/contact-us/sales-questions).

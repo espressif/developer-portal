@@ -5,23 +5,23 @@ showAuthor: false
 authors: 
   - chirag-atal
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Yx1jrTb_8QWhVqW8501kcA.png)
+![](img/announcing-1.webp)
 
 Today Espressif is launching the ESP ZeroCode. This is a web application that lets you quickly prepare Matter-certifiable firmware, as per your requirements, in just a few clicks. You describe the kind of product you wish to create, the features you want to have, and its hardware configuration, that’s it. You can instantly try out the generated firmware on the physical hardware. If you don’t like something, you go back and tweak it all you want. This is truly a magical experience, try creating a product now at the [ESP ZeroCode Console](https://zerocode.espressif.com/).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*QrZXmX5_xZsKcefl26Nw_Q.jpeg)
+![](img/announcing-2.webp)
 
 Once you are satisfied, you can directly place orders, and get the ESP ZeroCode modules delivered to you. The ESP ZeroCode modules are pre-flashed with the firmware and all the contents required to make this a fully functional Matter device. All the complexities of unique manufacturing and programming are already taken care of.
 
 With ESP ZeroCode, you skip the development, as well as the maintenance phase of a typical product cycle. You directly manufacture and launch your products in the market. Espressif continues to maintain the firmware with the latest updates and security fixes to ensure that your in-field devices are always secure and Matter compatible.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*b8cfp8T_9mTcBbLw0z57JQ.png)
+![](img/announcing-3.webp)
 
 ## Exceptional End-User Experience
 
 All ESP ZeroCode modules are Matter certified, they work out of the box with any other Matter ecosystem of your choice. For all these platforms your users do not need a separate phone app to talk to these devices. The devices can be configured and controlled directly through leading ecosystem vendor apps or through the respective voice assistants; guaranteeing the best experience your users can have with your products.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*9ktiaUGzrJa5QAyRhGqniw.png)
+![](img/announcing-4.webp)
 
 ## Cost-optimized
 
@@ -43,7 +43,7 @@ This means all you have to do is mount these modules on your PCBs, apply the cor
 
 The ESP ZeroCode modules are so certified that you may use the *Matter* badge on your product packaging (actual logos may vary). This logo helps the consumers choose products which they can be assured of having Matter compliance and hence greater interoperability.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*t0-FJk0sLg40OE1y05_kZA.png)
+![](img/announcing-5.webp)
 
 The ESP ZeroCode modules are, optionally, certified to work well with ecosystem vendors as well. This allows for more seamless integration with these ecosystems. If opted, additional badges of __Works with Apple Home,__ and __Works With Google Home,__ may be used on your product packaging subject to your product meeting the guidelines as highlighted in the respective programs
 
@@ -55,7 +55,7 @@ Additionally, the firmware is closely aligned with Matter’s open-source reposi
 
 ## Supported Device Types
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*bvpoUQQZDf-Lvthowvd9JA.png)
+![](img/announcing-6.webp)
 
 Today, the ESP ZeroCode portal supports a wide variety of devices including light bulbs, panels, downlights, lamps, LED strips, switches, wall sockets, and blind controllers among others. For all these devices, you may choose either Wi-Fi or 802.15.4/Thread-based connectivity.
 

@@ -7,7 +7,7 @@ authors:
 ---
 Espressif launched ESP32-C3 at the end of 2020. It’s very well received and now it’s already in the mass production state. ESP32-C3 provides Wi-Fi and Bluetooth LE connectivity for applications in the most cost-effective way. For the users of ESP32 who use it for Wi-Fi and/or BLE connectivity, ESP32-C3 is a possible upgrade option provided other requirements match. So let’s first take a look at the comparison of ESP32 and ESP32-C3 from that perspective.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*2iISQnChp1avKjiTyOhzYQ.png)
+![](img/memory-1.webp)
 
 The users who have used ESP32 have a common question about how does 400 KB SRAM compare against 520 KB SRAM of ESP32 as many of the times memory availability is a critical factor for embedded applications. In this article, I provide overview of enhancements done related to memory management in ESP32-C3 and show how __ESP32-C3 can provide better or the same memory headroom in comparison with ESP32__  for various application use-cases.
 
@@ -15,9 +15,9 @@ The users who have used ESP32 have a common question about how does 400 KB SRAM 
 
 ## Dynamic IRAM-DRAM Split
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*J4W46UFrCKbUv_JUSo6QeQ.png)
+![](img/memory-2.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*FA5NH-BPXaRGWuKnIWTffA.png)
+![](img/memory-3.webp)
 
 The above two diagrams show memory maps of ESP32 and ESP32-C3 respectively. As you can see, ESP32 has static IRAM-DRAM partitioning where 192KB SRAM is used as IRAM and then remaining 328KB SRAM is used as DRAM. Part of IRAM (32 or 64KB) is used as flash cache. Then linker script is used to fill IRAM with the code that can’t be in the flash memory due to functional or performance reasons. The unused IRAM beyond this, remains unused* by the application.
 
@@ -39,7 +39,7 @@ With the above mentioned 3 reasons, ESP32-C3 can provide more effective memory u
 
 I have ensured that the configuration is same between ESP32 and ESP32-C3 as far as possible. Also the same SDK version (IDF version 4.3-beta3) has been used to run the applications on these SoCs.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ppW4nmycALk-rClhhVHDWg.png)
+![](img/memory-4.webp)
 
 Looking at the above table, it is clear that:
 

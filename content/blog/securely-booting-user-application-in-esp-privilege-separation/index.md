@@ -21,7 +21,7 @@ The framework supports secure boot for both of these apps. Protected app and use
 
 Secure boot for protected application follows the secure boot scheme of the traditional application in ESP-IDF.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ChYG-9gypX_qa3z_dI4oow.png)
+![](img/securely-1.webp)
 
 The overview of secure boot process is as follows:
 
@@ -49,6 +49,6 @@ __User app:__
 
 The verification flow of this scheme is as follows:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*7fi-E-i0tX1XPvWiLkdikw.png)
+![](img/securely-2.webp)
 
 For more details about the implementation, please refer to the [Secure boot](https://docs.espressif.com/projects/esp-privilege-separation/en/latest/esp32c3/technical-details/secure_boot.html#) section in the ESP Privilege Separation documentation.

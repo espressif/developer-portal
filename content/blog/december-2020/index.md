@@ -11,37 +11,37 @@ We hope you are enjoying this year’s holiday season. All of us at Espressif wo
 
 We are bidding farewell to 2020 with some really exciting news. Espressif’s Founder and CEO, [Teo Swee Ann, was recently appointed](https://www.espressif.com/en/news/Espressif-CEO-Becomes-Member-of-SMU-IAC) as a member of the International Advisory Council at the Singapore Management University (SMU). The [SMU International Advisory Council](https://www.smu.edu.sg/about/international-advisory-council) comprises experts from China, Indonesia, Malaysia, Myanmar, the Philippines, Thailand, and Vietnam. The Council’s mission is to develop the SMU’s international collaboration with governments, business leaders and academics both in Asia and globally. Teo Swee Ann’s contribution to the SMU International Advisory Council will stem from his expertise in the wireless chip industry, which spans more than two decades.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*StfgInKx4NnU4wvd.png)
+![](img/december-1.webp)
 
 Other topics you can read about in this month’s newsletter include:
 
 [__AWS Launched an ESP32-Powered IoT Educational Kit__ ](https://www.espressif.com/en/news/AWS_IoT_EduKit)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*YYxDFhw-wtPtuMI4.png)
+![](img/december-2.webp)
 
 Amazon Web Services introduced the ESP32-powered AWS IoT EduKit — an easy way to learn how to build IoT applications, with [ESP RainMaker](https://rainmaker.espressif.com/) and [ESP Alexa SDKs](https://www.espressif.com/en/solutions/audio-solutions/esp-avs-for-aws-iot).
 
 [__ESP32 at the Heart of Nuvia’s Energy Management Platform__ ](https://www.espressif.com/en/news/ESP32_Nuvia)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*NffRUGKLAh4vVkue.png)
+![](img/december-3.webp)
 
 Nuvia’s [ESP32-powered](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf), smart thermostats have taken the Turkish market by storm.
 
 [__Flowcode v9.0 Supports ESP32__ ](https://www.espressif.com/en/news/ESP_Flowcode)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*8LtKKIfIi8kNPDpK.png)
+![](img/december-4.webp)
 
 In the latest version of Flowcode v9.0, there is full support for Espressif’s [ESP32 MCUs](https://www.espressif.com/en/products/socs/esp32). At the same time, ESP32 is completely free within the Flowcode ecosystem.
 
 [__Maypole: ESP32-Based Open-Source Hardware for Wireless Collaboration__ ](https://www.espressif.com/en/news/Maypole_ESP32)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*i-wzbmPudDwd22Sc.png)
+![](img/december-5.webp)
 
 The [ESP32-based](https://www.espressif.com/sites/default/files/documentation/esp32-pico-d4_datasheet_en.pdf) Maypole looks like a USB stick. However, when it is configured appropriately, it turns any USB port into a hub for wireless collaboration.
 
 [__ESP-WIFI-MESH-Powered, Self-Service, Smart-Laundry Facility__ ](https://www.espressif.com/en/news/ESP_WIFI_MESH_Ujing)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*o1DfNLqXWmhz4T_i.jpg)
+![](img/december-6.webp)
 
 The fruit of Espressif and Ujing’s recent collaboration is an [ESP-WIFI-MESH-powered](https://www.espressif.com/en/products/sdks/esp-wifi-mesh/overview), self-service, smart-laundry facility. It was recently launched on campus at Jiangnan University.
 

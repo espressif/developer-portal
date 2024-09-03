@@ -17,25 +17,25 @@ Other topics you can read about in this month’s newsletter include:
 
 [__ESP32-Powered PDP-11 Minicomputer__ ](https://www.espressif.com/en/news/news/ESP32-Powered_PDP-11)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*w1YubldpG1xYUch0.png)
+![](img/jan-1.webp)
 
 Espressif’s Software and Technical Marketing Manager, Jeroen Domburg, otherwise known as Sprite_tm, has just built an [ESP32-powered](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-wrover-kit.html), ultra-compact [replica](http://spritesmods.com/?art=minipdp11) of a Digital DEC VT-102 terminal emulating a PDP-11 running 2.11BSD.
 
 [__Line-us: An ESP8266-Based Drawing Robot__ ](https://www.espressif.com/en/news/Line-us)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*kfB8gioi0xf4h-N-.png)
+![](img/jan-2.webp)
 
 [Line-us](http://www.line-us.com/) is a small, portable, [ESP8266-based](https://www.espressif.com/en/products/socs/esp8266) robot which draws using a real pen on paper. The free app that goes with Line-us lets you draw, send messages, share sketchbooks or collect artworks from others!
 
 [__Agromon: Smart Agriculture Using ESP32-WROOM-32U__ ](https://www.espressif.com/en/news/Agromon)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Lx4vG9YXZZDE9Phw.png)
+![](img/jan-3.webp)
 
 [Agromon](https://www.wondernica.com/agromon.html#) is a wireless transmitter based on [ESP32-WROOM-32U](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf) and designed for agricultural IoT applications. As a plug-and-play device, Agromon can be easily installed and used. By simply plugging in the sensors included in the package, the device is ready for use.
 
 [__MorphESP 240: A New ESP32-S2 Board by Morpheans__ ](https://www.espressif.com/en/news/MorphESP_240)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*iB8zsmVf0jFGmD43.png)
+![](img/jan-4.webp)
 
 [Morpheans](http://www.morpheans.com/), a French startup, are introducing MorphESP 240, an easy-to-use dev board that is compatible with Arduino and CircuitPython. MorphESP 240 is based on [ESP32-S2](https://www.espressif.com/en/products/socs/esp32-s2) and comes with a built-in, high-resolution, IPS-color display.
 

@@ -24,7 +24,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## ESP-IDF v3.2 Released
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*0zVgMPGSYszimY74.jpg)
+![](img/may-1.webp)
 
 The latest version of Espressif’s IoT Development Framework, [ESP-IDF v3.2](https://github.com/espressif/esp-idf/releases/v3.2), has just been released. This is part of our commitment to improve our IoT solutions, based on the results of our quality assurance procedures and the feedback we receive from the community of developers who use our chips.
 
@@ -32,7 +32,7 @@ The latest version of Espressif’s IoT Development Framework, [ESP-IDF v3.2](ht
 
 ## ekey UNO: No More Keys with ESP32-WROVER
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*3mIi2-O4sf34BGBp.png)
+![](img/may-2.webp)
 
 The [ekey UNO](https://www.ekey-uno.net/) finger scanner is an innovative security system that has been based on Espressif’s [ESP32-WROVER](https://www.espressif.com/sites/default/files/documentation/esp32-wrover_datasheet_en.pdf) module. This biometric security solution has been developed in Austria by [ekey](https://www.ekey.net/en_US/about_ekey/), a top European company that creates high-tech access solutions. Since 2002, ekey has been entrusted by private households, leading companies and public organizations providing fire and rescue services.
 
@@ -40,7 +40,7 @@ The [ekey UNO](https://www.ekey-uno.net/) finger scanner is an innovative securi
 
 ## New “LyraT-Mini” To Be Launched Soon
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*UkAZJf6laj5GogXp.png)
+![](img/may-3.webp)
 
 Espressif has developed an [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)-based audio development board which will be part of the [Lyra series](https://www.espressif.com/en/products/hardware/development-boards). The distinctive characteristics of the new board are its mini size (hence the name “LyraT-Mini”) and its single-mic wake-up interrupt. Moreover, it has a simple hardware architecture, a very competitive price and an excellent keyword recognition rate.
 
@@ -48,7 +48,7 @@ Espressif has developed an [ESP32](https://www.espressif.com/en/products/hardwar
 
 ## The Complete ESP32 Projects Guide
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*s0MYqQWi90JLeS_7.png)
+![](img/may-4.webp)
 
 Prof. Dogan is a seasoned electrical engineer and an IET Fellow. He has recently written a book about [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview), which has been published by [Elektor](https://www.elektor.com/). The book’s title is [*The Complete ESP32 Projects Guide*](https://www.elektor.com/the-complete-esp32-projects-guide) and it contains 59 projects based on Espressif’s popular [ESP32-DevKitC development board](https://www.espressif.com/en/products/hardware/esp32-devkitc/overview).
 

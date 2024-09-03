@@ -11,7 +11,7 @@ The ESP32-P4 is a powerful system-on-chip (SoC) from Espressif, designed for hig
 
 [ESP-AT](https://github.com/espressif/esp-at) allows the ESP32-P4 to connect with external wireless modules using AT commands. It’s a simple and effective way to integrate wireless connectivity without extensive software development.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*3ZwSnO8nZL2KHI9cVVBMmQ.png)
+![](img/wireless-1.webp)
 
 __Advantages__ :- Simple and easy to use, with a well-established AT command interface- Supports a wide range of WiFi and Bluetooth features- Readily available and widely used in the Espressif ecosystem- Some minor customization is possible on the AT interface to add new commands.
 
@@ -23,7 +23,7 @@ __Applications and Scenarios__ :- Suitable for simple IoT devices or application
 
 [ESP-Hosted-FG](https://github.com/espressif/esp-hosted) provides a standard 802.3 (Ethernet) network interface to the host. This setup ensures the microcontroller can handle more complex or demanding processes without compromising wireless performance.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*mi45lI8wq4ss1wDLguQtKg.png)
+![](img/wireless-2.webp)
 
 __Advantages:__ - Provides flexibility in choosing different interfaces based on the performance requirement of the application- Supports advanced wireless features compared to ESP-AT like VLAN, Multiple Network interfaces, Network and performance tuning configurations, etc. - Source code in open-source and the slave can be customized to utilize other features of the SoC like peripherals, GPIOs, etc.
 
@@ -35,7 +35,7 @@ __Applications and Scenarios:__ - Suitable for complex IoT devices or applicatio
 
 [ESP-Extconn](https://github.com/espressif/esp-extconn) provides external wireless connectivity(Wi-Fi & Bluetooth) for ESP chips that do not have built-in wireless capabilities. This component's APIs are compatible with the Wi-Fi and Bluetooth component APIs in the ESP-IDF.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*kCQIOHzZIbilQqsD84tZ8A.png)
+![](img/wireless-3.webp)
 
 __Advantages__ :- Provides the most flexible and extensible connectivity solution- Allows for ease of integration with the main application logic due to familiarity with the ESP-IDF wireless components APIs.
 
@@ -45,7 +45,7 @@ __Applications and Scenarios:__ - Ideal for applications where the main applicat
 
 ## Comparison of the different solutions:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*q_jyNhPOMYi8JWQl49-_YA.png)
+![](img/wireless-4.webp)
 
 ## Choosing the Right Solution
 

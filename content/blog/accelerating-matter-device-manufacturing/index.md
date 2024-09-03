@@ -33,7 +33,7 @@ For implementing this, Espressif uses 2 components:
 
 This ensures that the entire process is maintained and operated with the highest levels of security and compliance.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*QWMY8VLw-miQmu2ulsuFrQ.png)
+![](img/accelerating-1.webp)
 
 ## 2. Uniqueness
 
@@ -41,7 +41,7 @@ Matter manufacturing requires a few unique objects to be programmed on each devi
 
 As you may be aware, mass flashing common images on a high volume run is fairly easy. Having to program unique images per-device becomes costlier. Additionally, mapping those unique images, to the corresponding QR Code, that should be pasted on each device, is another task.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*g5AAdQqXBLtDHvOChkqCsg.png)
+![](img/accelerating-2.webp)
 
 Espressif’s Matter Pre-Provisioning Service will configure the modules with the DACs and the appropriate authentication credentials that are required for the proper operation of Matter. We will provide a manifest file that captures the details that are configured on all the modules. This typically includes information about the MAC Address of modules, serial numbers, if any, and the corresponding QR Codes that should go along with these modules.
 

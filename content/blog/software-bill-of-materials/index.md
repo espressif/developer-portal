@@ -33,7 +33,7 @@ SBOM data needs to be presented in consistent and digestible formats. Some forma
 
 Simple conceptual SBOM tree for wifi_provisioning component from ESP-IDF looks like below:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*0e3Rufb8-nU-px5RM6htJg.png)
+![](img/software-1.webp)
 
 ## SPDX
 
@@ -41,7 +41,7 @@ Simple conceptual SBOM tree for wifi_provisioning component from ESP-IDF looks l
 
 The image below outlines what data can be found in an SPDX document.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*FKOMwJwXJqTbwsRq.png)
+![](img/software-2.webp)
 
 ## ESP-IDF-SBOM
 
@@ -49,7 +49,7 @@ The image below outlines what data can be found in an SPDX document.
 
 ## SBOM Generator Workflow
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*gDN-5UHIsn4vxNnwQx2TDg.png)
+![](img/software-3.webp)
 
 Brief tool workflow goes like:
 

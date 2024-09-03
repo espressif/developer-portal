@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - esp-bot
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*F2ujo1fsogfW76Ml.png)
+![](img/november-1.webp)
 
 Hi everyone,
 
@@ -28,7 +28,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## Espressif’s ESP32-based Internet Phone Solution
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*6-KSCrAuZ-Vgf_up.png)
+![](img/november-2.webp)
 
 Espressif has just released an Internet Phone [solution,](https://github.com/espressif/esp-adf/tree/master/examples/advanced_examples/voip) which is based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and the Voice over Internet Protocol (VoIP), but also functions as an example of how to operate voice-controlled devices. This application is really cost-effective, with a great performance, supporting voice wake-up, voice interaction, voicemail service, music on demand, etc.
 
@@ -36,7 +36,7 @@ Espressif has just released an Internet Phone [solution,](https://github.com/esp
 
 ## ESP8266 Now Supporting China Mobile’s And-link Platform
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*GBkc4Cpm5jW4nodh.png)
+![](img/november-3.webp)
 
 [China Mobile](https://www.cmi.chinamobile.com/en/front-page) is one of the biggest Chinese telecommunications corporations and also one of the world’s largest mobile network operators with about 100 million subscribers. The [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) series of modules is now available on China Mobile’s And-link platform, which enables users to develop smart-home solutions with the power of ESP8266.
 
@@ -44,7 +44,7 @@ Espressif has just released an Internet Phone [solution,](https://github.com/esp
 
 ## ESP8266 Now Supporting China Telecom’s IoT Platform
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*D6tAQ-1YigKgVgqA.png)
+![](img/november-4.webp)
 
 [China Telecom](https://www.chinatelecomglobal.com/), one of the biggest Chinese telecommunications corporations, is at the forefront of IoT technology and drives the digital transformation of industries in China and beyond. Espressif has now partnered with China Telecom, as the powerful [ESP8266 WROOM series of modules](https://www.espressif.com/en/products/hardware/esp-wroom-02/overview) is at the epicenter of Zhijia platform’s operation. China Telecom’s Zhijia platform enables programmers to develop and test smart-home devices.
 
@@ -52,7 +52,7 @@ Espressif has just released an Internet Phone [solution,](https://github.com/esp
 
 ## ESP32-CAM and Other Cool Projects on RNT
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*KlsIlLUGnSDPePRi.png)
+![](img/november-5.webp)
 
 Rui Santos from Random Nerd Tutorials recently posted a very interesting entry on his blog. It shows [how to build a web server with the ESP32-CAM board](https://randomnerdtutorials.com/esp32-cam-take-photo-display-web-server/) that allows you to send a command to take a photo and visualize the latest captured photo in your browser, having saved it first in SPIFFS.
 

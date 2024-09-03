@@ -81,13 +81,13 @@ The package will be generated into __espressif__ folder in __output_folder__ . T
 
 After launching the SquareLine Studio, you should see your board in the Create tab and Espressif tab. There should be your board name, description and image.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*8pMZdE4980CeZWY3S_njXw.png)
+![](img/developing-1.webp)
 
 ## Conclusion
 
 Now, you can create your own project with the custom board. You can use a lot of widgets from LVGL. I can give the recommendation to you, don’t use zoom in image, if it is not necessary, resize image in another image editor and use in full size. The zoom function can be slower and the bigger image can take a lot of the size of the microcontroller flash memory.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*5URISIooM2P_NFZ0TvqikA.png)
+![](img/developing-2.webp)
 
 When your project is done, then export the template by selecting __Export->Create Template Project__  in the main menu and export UI files by __Export->Export UI Files__  in the main menu.
 
@@ -97,6 +97,6 @@ The last step is build and flash by command like this:
 idf.py -p COM34 flash monitor
 ```
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*zk3iD7HXiRn-sO7pop73KA.jpeg)
+![](img/developing-3.webp)
 
 The second recommendation is, don’t forget to change the size of the factory partition in the partitions.csv file and change the flash size of your selected module in menuconfig, when you are using bigger images. Or you will see that the built application is too big and there is no space for downloading it.

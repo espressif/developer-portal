@@ -28,7 +28,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## Espressif Celebrates Its IPO and Presents a New Series of Chips
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*PlXtDYsvRYwDOP0c.png)
+![](img/july-1.webp)
 
 [Espressif](https://www.espressif.com/) was one of the 25 companies that traded on the day when Shanghai Stock Exchange’s (SSE) STAR Market, the NASDAQ-style technology board, made its debut. Hence, July 22 has been a day of historical significance for the development of Espressif. We celebrated our successful Initial Public Offering in a glorious event at Kerry Hotel, in Pudong, Shanghai, where we also officially presented a new series of chips, ESP32-S2, which will be released shortly.
 
@@ -36,7 +36,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## Espressif Now Offers Module Pre-Provisioning Services
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*XxNddp7Iu4Q0OkxY.png)
+![](img/july-2.webp)
 
 [Espressif](https://www.espressif.com/) customers can now take advantage of a new service that will enable them to reduce manufacturing complexities and time to market. Espressif modules are adequately prepared and equipped with Public Key Infrastructure (PKI) at the manufacturing level, so they can provide out-of-the-box secure communication with IoT cloud services. Espressif’s pre-provisioned modules enable users to connect their products to their cloud of choice quickly, easily and securely.
 
@@ -44,7 +44,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## DFRobot’s Espressif-based Products Foster IoT Learning Community
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*AfsHOTNUsxropFVp.png)
+![](img/july-3.webp)
 
 [DFRobot](https://www.dfrobot.com/index.php?route=information%2Finformation&information_id=4) is an [Espressif](https://www.espressif.com/) partner that specializes in robotics and open-source hardware. They have a product catalog that includes more than a thousand components and widgets, such as sensors, robotic platforms, communication modules, and 3D printers. They have modeled several of their products around [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) and [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview), fostering a strong community of IoT learning.
 
@@ -52,7 +52,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## ESPcopter: An ESP8266-based Programmable Mini Drone
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*K19mmVM6br7n4SGf.jpg)
+![](img/july-4.webp)
 
 Are you interested in learning programming, but have no such background and are skeptical about taking the plunge? Are you a programmer already, wishing to specialize in IoT applications? Do you want to learn how to fly a drone? If you’ve given at least one “yes” to the above-mentioned questions, then you have to check out [ESPcopter](https://arikovani.com/en/projects/programlanabilir-mini-drone/detail), an [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview)-based programmable mini drone like no other!
 

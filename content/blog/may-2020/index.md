@@ -27,7 +27,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## ESP Apple HomeKit ADK Launched
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*RVuHrDdMn_xDQDOL.png)
+![](img/may-1.webp)
 
 [HomeKit](https://developer.apple.com/homekit/) is a framework developed by Apple for controlling and communicating with connected accessories in a userʼs smart home, where iOS devices are being operated. The [ESP Apple HomeKit ADK](https://github.com/espressif/esp-apple-homekit-adk) is a port of Apple’s open-source [HomeKit ADK](https://github.com/apple/HomeKitADK), which can be used on ESP32 and ESP32-S2 for a number of AIoT projects.
 
@@ -35,7 +35,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## Powerful ESP Module by Edge Devices
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*WeFHv4P8MlhGaPl-.png)
+![](img/may-2.webp)
 
 The US American start-up, [Edge Devices](https://edgedevices.io/), has chosen Espressif’s ESP32-DevKitC-D32 for its new “ESP Module”, an all-in-one device for microcontroller-based projects. ESP32-DevKitC-D32 is actually based on the ESP32-WROOM-32D module. This way, makers who prefer a lightweight architecture can enjoy all [the benefits of the ESP32 technology](https://www.espressif.com/en/products/socs/esp32/overview), which lies at the heart of the ESP Module.
 
@@ -43,7 +43,7 @@ The US American start-up, [Edge Devices](https://edgedevices.io/), has chosen Es
 
 ## ESP_8_BIT: Serving Some ESP32-based Nostalgia
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*4IjXJkUoO81CQd7T.png)
+![](img/may-3.webp)
 
 When all you need is a little escape from today’s disconcerting reality, [ESP_8_BIT](https://esp32.com/viewtopic.php?f=2&t=15565&p=59571#p59571) is the gadget you should turn to! With [Rossum](https://github.com/rossumur)’s new creation, you can enjoy Atari 8-bit computers, Nintendo Entertainment System (NES) and Sega Master System (SMS) game consoles on your television with nothing more than an ESP32 and a sense of nostalgia.
 

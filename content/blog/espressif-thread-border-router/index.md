@@ -19,13 +19,13 @@ As defined in the [Thread Border Router White Paper](https://www.threadgroup.org
 
 ESP Thread BR solution is based on the combination of Espressif’s Wi-Fi and 802.15.4 SoCs, built on the ESP-IDF and open-source OpenThread stack.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*6ueD7H5zTUwhZlfqsrf0Lw.png)
+![](img/espressif-1.webp)
 
 Unlike the well-known [ot-br-posix](https://github.com/openthread/ot-br-posix) solution that is Linux/Unix-based, the ESP Thread BR is built on the ESP-IDF framework, incorporating integrated components such as Wi-Fi and 802.15.4 stacks, LwIP, mDNS, and more.
 
 In the solution, the Host Wi-Fi SoC operates the Espressif Thread BR and OpenThread Core stack, while the 802.15.4 SoC runs the OpenThread RCP (Radio Co-processor). Communication between the two is established through the [Spinel protocol](https://openthread.io/platforms/co-processor#spinel_protocol).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Ia8izsw9sc6BzWxlW383Jg.png)
+![](img/espressif-2.webp)
 
 ## ESP Thread BR Features
 
@@ -77,4 +77,4 @@ The Espressif Thread BR SDK is available on GitHub:
 
 The Hardware reference design and dev kits are also available ([link](https://www.aliexpress.com/item/1005005688193617.html?spm=5261.ProductManageOnline.0.0.56162ddbyxG7Gb)):
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*A04EHQ-NGAFKMo4dBHNJjg.png)
+![](img/espressif-3.webp)

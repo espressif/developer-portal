@@ -7,7 +7,7 @@ authors:
 ---
 Welcome to our December Newsletter
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*L7sPwjKXq13PVwiT.png)
+![](img/december-1.webp)
 
 Hi everyone,
 
@@ -27,7 +27,7 @@ Senior Customer Support Officer
 
 ## ESP32 Supports BLE in Amazon FreeRTOS
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*WDxA-aK5UiGkTG4S.png)
+![](img/december-2.webp)
 
 At the end of last month, [Amazon Web Services](https://aws.amazon.com/) (AWS) announced the beta version of Amazon FreeRTOS BLE, a feature that makes it possible for embedded developers to securely connect [ESP32 dev boards](https://www.espressif.com/en/products/hardware/development-boards), or other a:FreeRTOS devices that use Bluetooth Low Energy, to AWS IoT through Android or iOS devices. ESP32 provides one of the first few platforms supporting the BLE feature in a:FreeRTOS.
 
@@ -35,7 +35,7 @@ At the end of last month, [Amazon Web Services](https://aws.amazon.com/) (AWS) a
 
 ## MicroEJ Now Supports ESP32 Chipsets
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*EdNr8V-ZPjbCq_wv.png)
+![](img/december-3.webp)
 
 [MicroEJ](http://www.microej.com/) is a Paris-based software vendor of cost-effective solutions for embedded IoT devices. It seems that [Espressif](https://www.espressif.com/)’s collaboration with MicroEJ was only a matter of time, since both companies are committed to providing secure products in markets where software applications require high performance, compact size, energy efficiency and cost-effective development.
 
@@ -43,7 +43,7 @@ At the end of last month, [Amazon Web Services](https://aws.amazon.com/) (AWS) a
 
 ## Espressif Products at electronica 2018
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*6j2Ffbe3o9dtUOtD.jpg)
+![](img/december-4.webp)
 
 The 2018 “[electronica](https://electronica.de/)”, an international trade fair and conference for electronics, took place in Munich last month and [Espressif’s latest series of products](https://www.espressif.com/en/products/hardware) were presented by [Macnica](https://www.macnica.eu/node/261), Espressif’s distributor in Europe. This was one of the most important events in the electronics industry, as more than 3,100 exhibitors from over 50 countries provided an insight into the electronics of the future with their solutions and products. It was the biggest gathering in the history of this event which is held in Munich every two years since 1964.
 
@@ -51,7 +51,7 @@ The 2018 “[electronica](https://electronica.de/)”, an international trade fa
 
 ## The ESPaper Calendar App
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*OidDttMAdImtc2EV.jpg)
+![](img/december-5.webp)
 
 Christmas is fast approaching and we couldn’t think of a better gift than the ESPaper Calendar App from [ThingPulse](https://thingpulse.com/). Recently, Marcel and Dani have been hard at work to deliver a new application for their 2.9" ESPaper Plus Kit, the [ESPaper Calendar](https://calendar.espaper.com/). It lets you manage shared resources such as meeting rooms and shared desks by connecting it to a cloud calendar.
 

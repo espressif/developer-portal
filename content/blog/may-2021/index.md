@@ -15,7 +15,7 @@ Talking about his leadership style, Teo Swee-Ann characterized it as “variable
 
 You can read Teo Swee-Ann’s entire interview [here](https://www.eetimes.com/nl-archive/EE-Times-Weekend-210501.html).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*uzK-gNRJqmOzW_fZ.png)
+![](img/may-1.webp)
 
 *Teo Swee-Ann: Espressif’s Founder and CEO*
 
@@ -23,25 +23,25 @@ Other topics you can read about in this month’s newsletter include:
 
 [__Launching ESP32-WROOM-DA__ ](https://www.espressif.com/en/news/ESP32-WROOM-DA)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*hCOsTWGRZ9hL3uRb.png)
+![](img/may-2.webp)
 
 With two complementary PCB antennas, ESP32-WROOM-DA is Espressif’s new module for high-quality, long-range communication, while being pin-to-pin compatible with [ESP32-WROOM-32E](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf).
 
 [__How to Use ‘Matter’ on ESP32__ ](https://www.espressif.com/en/news/Matter_on_ESP32)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*x1VkrCuq5f1Rnu5p.png)
+![](img/may-3.webp)
 
 [Matter](https://buildwithmatter.com/) is an industry-unifying standard, guided by the [Connectivity Standards Alliance](https://csa-iot.org/), for devices that have to be connected reliably, securely and seamlessly. Espressif has been part of the Matter initiative since its early days. In the following article we discuss the ways in which you can easily build your first Matter app on an [ESP32](https://www.espressif.com/en/products/socs/esp32).
 
 [__‘IoT Cricket’: An ESP8266-based Wi-Fi Module by ‘Things On Edge’__ ](https://www.espressif.com/en/news/IoT_Cricket)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*wEvPdeECHTc9CqmR.png)
+![](img/may-4.webp)
 
 [IoT Cricket](https://www.thingsonedge.com/product-page/wifi-cricket) is an [ESP8266-based](https://www.espressif.com/en/products/socs/esp8266), easy-to-use Wi-Fi module created by the UK-based company ‘Things On Edge’. This module enables users to build various IoT devices within minutes, and power them directly on batteries, with literally no code and programming.
 
 [__E3K: An ESP32-powered Bio-sensing Platform by WallySci__ ](https://www.espressif.com/en/news/E3K)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*RMYLkO84GIcuanTc.png)
+![](img/may-5.webp)
 
 [E3K](https://www.crowdsupply.com/wallysci/e3k#details-top) is an [ESP32-powered](https://www.espressif.com/en/products/devkits/esp32-devkitc) device that is especially designed for students and researchers. It aims at providing an affordable, fully open-source, wireless framework for an intuitive understanding of bio-signals originated from the human heart, muscles, and brain.
 

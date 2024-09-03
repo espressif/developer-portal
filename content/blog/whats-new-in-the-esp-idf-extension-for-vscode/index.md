@@ -21,7 +21,7 @@ The __ESP-IDF: QEMU Manager__ command____ will____ run the current project appli
 
 Find more information on this feature in [here](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/QEMU.md).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*KddnYM6-M2lbLi7t.png)
+![](img/whats-1.webp)
 
 __Partition Table Editor__ 
 
@@ -31,11 +31,11 @@ To see the partitions of the current serial port, execute the __ESP-IDF: Refresh
 
 When you can click on any partition, either you can flash a .bin file to this partition or launch the __ESP-IDF: Partition Table Editor UI__ to edit the partition table. You could also right-click on the .bin file to flash it to one of the partitions in the Device partition explorer.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*fLqEWKSH5ox_i9KB.png)
+![](img/whats-2.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*XQBx540fub-E2XGa.png)
+![](img/whats-3.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*qzQxKu9DCdXpgYb2.png)
+![](img/whats-4.webp)
 
 __Importing an existing ESP-IDF Project__ 
 
@@ -45,7 +45,7 @@ __Integrated ESP-IDF Component registry__
 
 [IDF Component registry](https://components.espressif.com/) is integrated into the extension and this allows users to add a component to your project. Run the __ESP-IDF: Show Component registry__ command____ to launch components page.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*S1M6JjSh7PXG0Gxt.png)
+![](img/whats-5.webp)
 
 IDF Component Registry running in Visual Studio Code
 
@@ -53,14 +53,14 @@ __Welcome Page__
 
 Added a new welcome page with documentation links and buttons for basic features of the extension. You can run the __ESP-IDF: Welcome__  command to launch it.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*Ub8Gfi64XBz1rdaN.png)
+![](img/whats-6.webp)
 
 __Other notable improvements and features__ 
 
 - Use gdb commands directly for Heap tracing. Before we were using openOCD TCL commands to start and stop the heap tracing but now we are using gdb commands with a gdb file instead. To learn more about heap tracing please review the [ESP-IDF documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/heap_debug.html#heap-tracing) and the [heap tracing extension tutorial](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/heap_tracing.md).
 - Added idf-size.py output after build task. This is done after executing the __ESP-IDF: Build your project__  or__ESP-IDF: Build, flash and start a monitor__ command. This will help users to understand the amount of memory used in their applications and [reduce the binary size](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/performance/size.html).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*TCrJivHHqNgp0Zw4.png)
+![](img/whats-7.webp)
 
 - Added JTAG flashing type in the Build, flash and monitor command. Before it was only using UART flashing, but now it will use the flash type defined in the __idf.flashType__ configuration setting.
 - Added the __Configure project for coverage__  command to set the required values in your project’s sdkconfig file to enable code coverage for your project. This is necessary if you want to enable the code coverage feature in the extension as shown in the [code coverage tutorial](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/code_coverage.md).
@@ -69,7 +69,7 @@ __Other notable improvements and features__
 - Use Espressif download mirrors for the extension setup wizard. Now if downloading from Github is slow in your location you can choose the download server in the __ESP-IDF: Configure ESP-IDF extension__  setup wizard.
 - Added serial port and IDF target in the VSCode status bar and add the commands to change them on click.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*D9nQAXazWfRNy8EP.png)
+![](img/whats-8.webp)
 
 - Now users are allowed to configure pre-build, post-build, pre-flash, post flash, and custom tasks (with status bar icon for the custom task) with added configuration settings. You can use the __idf.preBuildTask__  to define a task before the build task, the __idf.postBuildTask__  after the build task, the __idf.preFlashTask__ before the flash task and the__idf.postFlashTask__ after the flash task. There is also an __idf.customTask__ which can be used with the __ESP-IDF: Execute custom task__ (which has a status bar icon).
 - Now you should be able to control the settings to enable/disable notifications for extension commands completion and show the task output when hidden. Using the __idf.notificationSilentMode__ configuration setting to true will hide VSCode notifications from this extension such as *Build Successful* and *flash done* and show the task output directly.

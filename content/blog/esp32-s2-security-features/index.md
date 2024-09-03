@@ -15,7 +15,7 @@ Detailed ESP32-S2 [datasheet](https://www.espressif.com/sites/default/files/docu
 
 *Secure Boot* allows the ESP32-S2 to boot only trusted code. The BootROM (which can’t be modified and is trusted) verifies the software bootloader and software bootloader then verifies the application firmware to be trusted (authenticated) one. This is transitive trust model to ensure that the application is fully trusted.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*1p3Aomf5YQXKxJbmD2X1Og.png)
+![](img/esps-1.webp)
 
 ESP32 BootROM uses a digest programmed in the eFUSE for validating the software bootloader. This digest based authentication uses AES symmetric encryption and SHA secure digest algorithm internally.
 

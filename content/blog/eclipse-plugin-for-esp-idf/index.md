@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - kondal-kolipaka
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*tfL5JCoRfBMbqPqNXhscDQ.png)
+![](img/eclipse-1.webp)
 
 ESP-IDF Eclipse Plugin brings developers an easy-to-use Eclipse-based development environment for developing ESP32 based IoT applications.
 
@@ -21,13 +21,13 @@ We have recently released 1.0.1 to the public. Check [here](https://github.com/e
 
 The IDF Eclipse Plugin is available from the Eclipse Marketplace. To get started, users need to download the [Eclipse CDT](https://www.eclipse.org/downloads/packages/release/2020-03/r/eclipse-ide-cc-developers-includes-incubating-components) from the Eclipse downloads page. The Eclipse CDT can be installed with the new Eclipse installer, or the CDT package can be downloaded directly. Once that’s set up, the [Marketplace](https://marketplace.eclipse.org/content/esp-idf-eclipse-plugin) client can be used to search for and install the ESP-IDF Eclipse Plugin.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*CdzBsglHUV3PfvAwIvcESw.png)
+![](img/eclipse-2.webp)
 
 You can also install the IDF Eclipse Plugin into the existing Eclipse CDT using the plugin update site URL [https://dl.espressif.com/dl/idf-eclipse-plugin/updates/latest/](https://dl.espressif.com/dl/idf-eclipse-plugin/updates/latest/)
 
 You can find the detailed instructions [here](https://github.com/espressif/idf-eclipse-plugin#espressif-idf-eclipse-plugins)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*RWNoUXOU2GbWn9f1K8MApA.png)
+![](img/eclipse-3.webp)
 
 Espressif believes in the open-source approach and we have made code open for the plugin as well [https://github.com/espressif/idf-eclipse-plugin](https://github.com/espressif/idf-eclipse-plugin). We really welcome any kind of contribution that one can provide.
 
@@ -51,11 +51,11 @@ Eclipse CDT with IDF Eclipse Plugin supports end-to-end workflow to develop ESP3
 
 ## Eclipse CDT Workbench with IDF Eclipse Plugin
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*LnKycOt1ZjYbTlzOr05-tA.png)
+![](img/eclipse-4.webp)
 
 ## Components Based Design
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*AFlBJ9hpn-Q2qWKP55Kp3A.png)
+![](img/eclipse-5.webp)
 
 ## Demo
 

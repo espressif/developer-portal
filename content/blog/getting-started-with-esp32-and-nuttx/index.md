@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - sara-monteiro
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*j-XGptYZE3DQ9tV1vJY2Iw.png)
+![](img/getting-1.webp)
 
 ## Introduction
 
@@ -186,7 +186,7 @@ sudo picocom /dev/ttyUSB0 -b 115200
 
 NOTE: adjust the USB port according to your configuration.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*DXgY_u-Ln01PfSyZ)
+![](img/getting-2.webp)
 
 ## Next Steps
 
@@ -242,7 +242,7 @@ It builds and downloads the application and bootloader and partition table binar
 
 If after running the command *make menuconfig* you get the message like in the image below, it means that your terminal is too small. Just expand the screen and run it again.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*1S6mYFLIc1oSgNSV)
+![](img/getting-3.webp)
 
 ## References
 

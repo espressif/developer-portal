@@ -15,7 +15,7 @@ The command — response framework introduced in ESP RainMaker now provides a ne
 
 A high level workflow is shown here:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*IqHcJxL5OZUspSi_xaXRCA.png)
+![](img/command-1.webp)
 
 To explain in short,
 

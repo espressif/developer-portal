@@ -7,7 +7,7 @@ authors:
 ---
 The world is witnessing a technological revolution, and OpenAI is at the forefront of this change. One of its most exciting innovations is ChatGPT — that utilizes natural language processing to create more engaging and intuitive user experiences. The integration of OpenAI APIs with IoT devices has opened up a world of possibilities.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*TtnelePsITOPSyKX2HQ3aQ.jpeg)
+![](img/unleashing-1.webp)
 
 __*In this article, we will explore the potential of ChatGPT with ESP-BOX, a powerful combination that can take IoT devices to the next level.*__ 
 
@@ -17,7 +17,7 @@ __*In this article, we will explore the potential of ChatGPT with ESP-BOX, a pow
 
 The [ESP-BOX](https://github.com/espressif/esp-box) is a new generation AIoT development platform that includes the ESP32-S3-BOX and ESP32-S3-BOX-Lite development boards. These boards are based on the [ESP32-S3](https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP32-S3%22]}) Wi-Fi + Bluetooth 5 (LE) SoC and provide a flexible and customizable solution for developing AIoT applications that integrate with various sensors, controllers, and gateways.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*fPJ4iUMbzT1PEwFTBs2AFw.png)
+![](img/unleashing-2.webp)
 
 > The ESP-BOX is packed with a wide range of features that make it an ideal AIoT development platform. Let’s take a closer look at some of the key features
 
@@ -29,7 +29,7 @@ Developing a Voice-Controlled Chatbot using ESP-BOX and OpenAI APIs.
 
 This case study outlines the development process for a voice-controlled chatbot that utilizes the combination of ESP-BOX and OpenAI API. The system is capable of receiving speech commands from users, displaying them on the screen, and processing them through the OpenAI APIs to generate a response. The response is then displayed on the screen and played through the ESP-BOX. The step-by-step workflow provides a detailed explanation of how to integrate these technologies to create an efficient and effective voice-controlled chatbot.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*VW7mOI2ZChjdwXvwQHFXkw.png)
+![](img/unleashing-3.webp)
 
 ## Environment Setup
 
@@ -471,6 +471,6 @@ For display we uses LVGL, an open-source embedded graphics library that is gaini
 
 The integration of OpenAI’s ChatGPT with Espressif’s ESP-BOX has opened up new possibilities for creating powerful and intelligent IoT devices. The ESP-BOX provides a flexible and customizable AIoT development platform with features like far-field voice interaction, offline speech commands recognition, and a reusable GUI framework. By combining these capabilities with the OpenAI API, developers can create voice-controlled chatbots and enhance user experiences in IoT applications.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*UM036OkLmVtxKHGfvVR1vQ.gif)
+![](img/unleashing-4.webp)
 
 Don’t forget to check out [Espressif Systems](https://www.espressif.com/)’ [GitHub ](https://github.com/orgs/espressif/repositories)repository for more open-source demos on [ESP-IoT-Solution](https://github.com/espressif/esp-iot-solution), [ESP-SR](https://github.com/espressif/esp-sr), and [ESP-BOX](https://github.com/espressif/esp-box). The source code for this project will be found [__*here*__ ](https://github.com/espressif/esp-box/tree/master/examples)*.* As part of our future plans, we aim to introduce a component for the OpenAI API that will offer a user-friendly functions.

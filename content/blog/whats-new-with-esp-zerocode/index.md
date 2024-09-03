@@ -7,7 +7,7 @@ authors:
 ---
 *The Fastest Way to Launch Matter-enabled Products*
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Jih0ZTef8x5U-B5NmU9gMw.png)
+![](img/whats-1.webp)
 
 It’s been about 8 months since we launched [ESP ZeroCode](https://zerocode.espressif.com). For all these months, continuous interest and customer activity has kept us busy. Let’s look at some of the highlights of what’s new with ESP ZeroCode.
 

@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - pedro-minatel
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*dbXiztatGuXD-jTj1l4dpQ.png)
+![](img/how-1.webp)
 
 ## __Introduction__ 
 
@@ -139,7 +139,7 @@ The extended NVS will be used to store the device configuration and any other sm
 
 Another partition that we will create is to store files and any other large data. For that partition, we will use the SPIFFS format.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*hgXnDYSeUm2zmuenMOCv_g.png)
+![](img/how-2.webp)
 
 In this demo, our [__development board is based on ESP32__ ](https://docs.espressif.com/projects/esp-idf/en/release-v4.2/esp32/hw-reference/esp32/get-started-devkitc.html) and equipped with a 8MB flash memory.
 
@@ -158,7 +158,7 @@ nvs_ext,* *data, nvs, 0x620000, 0x10000,*
 
 The graphical representation of the partition table is the following:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*DMKg2gBw4VkVYkRinDyZoA.png)
+![](img/how-3.webp)
 
 The *storage* will be used with SPIFFS and the *nvs_ext* for extra NVS data storage.
 
@@ -227,15 +227,15 @@ ESP-IDF VS Code Extension embeds various tools to aid in development. One of tho
 
 To start the Partition Table Editor, first open the Command Palette and type *Partition Table Editor UI *to open the editor interface (to open the command menu press F1).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*xDXz1-Q6YjDwzeWt0F5s3A.png)
+![](img/how-4.webp)
 
 Now you can start creating your Partition Table structure by filling the same fields described in the last section.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*g8URCuXAWVMYV1adUphUIQ.png)
+![](img/how-5.webp)
 
 After creating the partition table structure, you can save the CSV file to your project, build the binary and flash it to your board.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*4r0WQ6wouKU9b8lVFyuEgg.png)
+![](img/how-6.webp)
 
 If you are interested, watch the get started with the ESP-IDF VS Code Extension video-tutorial:
 

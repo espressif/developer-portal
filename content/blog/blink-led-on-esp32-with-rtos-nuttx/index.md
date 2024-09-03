@@ -5,7 +5,7 @@ showAuthor: false
 authors: 
   - sara-monteiro
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*j-XGptYZE3DQ9tV1vJY2Iw.png)
+![](img/blink-1.webp)
 
 ## Introduction
 
@@ -28,11 +28,11 @@ make menuconfig
 
 To add the driver for the LED, navigate to* Device Drivers-> LED Support *and select* LED Driver and Generic Lower Half LED Driver* (Click y). In this step you are adding the driver for the LED.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*-0_mp7omntJvLe9k)
+![](img/blink-2.webp)
 
 Return to the home menu via ‘Exit’. Just use the side arrows and ‘Enter’. Finally, to add the example, navigate to *Application Configuration-> Examples* and select *Led Driver Example.*
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*zYW0SJ_vCxtG1a5O)
+![](img/blink-3.webp)
 
 Exit the menu via “Exit” and save the configuration.
 
@@ -66,11 +66,11 @@ Access the serial terminal and execute the command leds. This command will run t
 sudo picocom /dev/ttyUSB0 -b 115200
 ```
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*3breweuiaUIY_52Q)
+![](img/blink-4.webp)
 
 Congratulations! From now on you should be seeing the LED blinking! If you want to return to the terminal, reset the ESP32 by pressing the DevKit EN button. If you do not have a built-in led, connect an LED to pin 2 and associate a resistor in series (between 100 Ω to 1 k Ω).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*SOl1UurywMsLvszV.gif)
+![](img/blink-5.webp)
 
 Tip:
 

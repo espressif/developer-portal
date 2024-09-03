@@ -9,7 +9,7 @@ Recently, I’ve been sitting behind my computer, which is unluckily situated ag
 
 After several sketches, modeling attempts, and soldering experiments, this is what I came up with:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*erjK3UfE7_eJ5a3aqc_2kw.jpeg)
+![](img/building-1.webp)
 
 ## Assembly
 
@@ -26,13 +26,13 @@ All parts used in this project should be easy to buy in any hardware/electronics
 
 A key feature to call this system automated is the reed switch. After plugging the system into electricity, it automatically starts moving the curtains. Neodymium magnets are placed on the belt, which are detected with the reed switch when the system is fully opened or closed. That’s how the system is initialized and ready to move to certain positions.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*xDObwGUpywSECZceTGimow.png)
+![](img/building-2.webp)
 
 I’ve created a custom PCB board to connect all these parts. The schematics diagram can be found in [the GitHub repo](https://github.com/mfialaf/ESP32-Smart-curtains-system/blob/945a8c5d69c5ee703012a8d527f10580258dfe39/pictures/connection_schematics_diagram.png). For better manipulation and modularity, all the peripherals are connected with JST XH connectors and pin sockets soldered to PCB.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Q9-uwEK_KYBzvuF_ocYr6Q.png)
+![](img/building-3.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*Xb5YAhl-qlsJ9NJuQBDOaQ.png)
+![](img/building-4.webp)
 
 ## __Software__ 
 
@@ -40,7 +40,7 @@ I decided to implement three control modes. When one of these modes is active, t
 
 Communication between the user and the system is ensured by Home Assistant. Home Assistant runs as a server on a local network to which the ESP32 connects and communicates using the MQTT protocol (MQTT Broker extension in Home Assistant).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*ivQsYDjRZSXnBRLV6wsXhw.png)
+![](img/building-5.webp)
 
 Every transferred value has its MQTT topic, like: *light, temperature, position, etc. *Most of the messages are just *Integers*, which are easy to send. But *timeTable* sends more than just a number, so the message must be serialized. In my case, into JSON format.
 
@@ -57,17 +57,17 @@ void Week::processRequrst(DynamicJsonDocument doc)
 
 Home Assistant provides friendly GUI, where the user can change and set values of desired modes. When the whole system is fully initialized, there is an asynchronous function *callback*, that process an incoming message and based on the topic changes the relevant values. The program cycles in an infinite loop and processes the position of the curtains based on the active mode, sensor values and actual position. It also reads new sensor data every 15 seconds, which is sent to the server.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*tliZWXFVMtIUkNODj_WAkg.png)
+![](img/building-6.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*6aGcxM9Ef_HDET_QNUzE-Q.png)
+![](img/building-7.webp)
 
 ## __Mechanics__ 
 
 For easy adaptation to existing curtains, I designed 3D models of required holders that can be attached to the curtain rod. 3D models were made in [Fusion 360](https://www.autodesk.com/products/fusion-360/overview) and can also be found in the repository.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*yipNPZUf8mpGRyTcbIyRKQ.png)
+![](img/building-8.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*C8hgy7QdKurn_wpx8dq0LA.png)
+![](img/building-9.webp)
 
 ## __Testing__ 
 

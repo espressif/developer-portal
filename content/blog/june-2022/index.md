@@ -22,31 +22,31 @@ Below you can watch the relevant video we presented at *embedded world *2022:
 
 Furthermore, from 20 to 23 June 2022, the CSA Connectivity Standards Alliance held [a members’ meeting](https://csa-iot.org/event/alliance-member-meeting/) in San Diego, USA, where professionals from across the globe came together to develop Alliance standards, through networking and collaboration across multiple working groups. Espressif, as an active member of the CSA Alliance and among the first contributors to the Matter project, was there showcasing its [one-stop Matter solution](https://www.espressif.com/en/news/ESP_Matter_Solution). This is based on a whole range of Espressif SoC series, a production-ready [ESP-Matter SDK](https://github.com/espressif/esp-matter), and ESP RainMaker’s Matter integration, which enables Cloud-based management for Matter devices. Please [click here](https://docs.espressif.com/projects/esp-matter/en/main/esp32/introduction.html) to get all the details on Espressif’s one-stop Matter solution.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*LNkhndW0UsMdqFvn.png)
+![](img/june-1.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*bIaxxdNrxMnPrf4j.png)
+![](img/june-2.webp)
 
 Other topics you can read about in this month’s newsletter include:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*LlPgN6zEXdFjoXnN.png)
+![](img/june-3.webp)
 
 [__Introducing ESP32-C5__ ](https://www.espressif.com/en/news/ESP32-C5)
 
 Espressif’s ESP32-C5 is the industry’s first RISC-V SoC solution that supports a 2.4 and 5 GHz dual-band Wi-Fi 6, along with Bluetooth LE, for high-efficiency wireless transmissions.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*DskOQ5A6-iLO6S6d.png)
+![](img/june-4.webp)
 
 [__Espressif’s One-Stop Matter Solution__ ](https://www.espressif.com/en/news/ESP_Matter_Solution)
 
 Espressif’s one-stop Matter solution can simplify and accelerate the development process of Matter products significantly.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*5mLg8HGCSd3NQMTY.png)
+![](img/june-5.webp)
 
 [__Espressif’s AWS IoT ExpressLink Module__ ](https://www.espressif.com/en/news/Espressif_AWS_IoT_ExpressLink_Module_GA)
 
 Espressif, in partnership with Amazon Web Services, is proud to announce the general availability of its new connectivity module with built-in support for the [AWS IoT ExpressLink](https://aws.amazon.com/iot-expresslink/) specification.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*GgNU1qb15QlOTm4I.png)
+![](img/june-6.webp)
 
 [__Espressif Collaborates with PlatformIO Labs__ ](https://www.espressif.com/en/news/PlatformIO_ESP_collaboration)
 

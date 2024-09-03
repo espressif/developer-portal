@@ -5,13 +5,13 @@ showAuthor: false
 authors: 
   - kedar-sovani
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*uy2eShWZ8qIQmd-eLRQdwA.png)
+![](img/introducing-1.webp)
 
 Today we announced [ESP RainMaker](https://rainmaker.espressif.com). This is another step forward for Espressif to enable makers to build connected devices and access them through phone apps, 3rd party services or voice assistants, quickly, without having to manage the infrastructure.
 
 The ESP RainMaker is a collection of [device-agent SDK](https://github.com/espressif/esp-rainmaker), a transparent cloud application and [iOS](https://apps.apple.com/us/app/esp-rainmaker/id1497491540)/[Android](https://play.google.com/store/apps/details?id=com.espressif.rainmaker&hl=en_IN) phone apps. This lets developers write the firmware and instantaneously interact with it through the phone-apps, or through other services.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*IlD7DkGoidsGG8Ssu-ZtnQ.jpeg)
+![](img/introducing-2.webp)
 
 ## Developer Workflow
 
@@ -43,7 +43,7 @@ Basically,
 
 Correspondingly the phone apps will show the following while accessing the device:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*uqN942-kStK3CnkMDt8K4g.png)
+![](img/introducing-3.webp)
 
 ## Light
 
@@ -55,7 +55,7 @@ A list of these standard types is available here: [https://rainmaker.espressif.c
 
 The phone apps then redraw themselves to match what is written in the firmware:
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*PcZRH9HR8P29v0C3EhnOlg.jpeg)
+![](img/introducing-4.webp)
 
 ## Bridges
 

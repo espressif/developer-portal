@@ -5,11 +5,11 @@ showAuthor: false
 authors: 
   - pedro-minatel
 ---
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*OGYnunK59RjJf8T9iCXuwA.png)
+![](img/dfu-1.webp)
 
 Since the [ESP32-S2](https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf) was released, a notable new functionality got everyone’s attention: the USB host and device capabilities. This new functionality adds a new world in terms of possibilities and cool stuff that could be made using USB and it’s a game changer in many projects.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*DRb-bsli07F8gX_PGGGbBA.png)
+![](img/dfu-2.webp)
 
 But one of the uses for this peripheral is to upload the firmware without any external IC or programmer. This can be done directly by using the USB DFU mechanism.
 
@@ -41,18 +41,18 @@ If you’re not using this version or above, please consider updating your envir
 
 For this example, we will use the [ESP32-Saola-1 v1.2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/hw-reference/esp32s2/user-guide-saola-1-v1.2.html) development board.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*zAlc4Coq_3AlYCjnssFsxQ.png)
+![](img/dfu-3.webp)
 
 As you can see, the Saola board doesn’t have the connector for the native USB, only for the external USB-to-UART. To use the native interface, you need to connect a breakout USB cable as follows:
 
 - __USB D- to GPIO19__ 
 - __USB D+ to GPIO20__ 
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*FK4SepshTAN24FCOKB39XA.jpeg)
+![](img/dfu-4.webp)
 
 You can use an old USB to do this by striping the wires and soldering to the pin header or using a breadboard to make it easier. In most of the cables, the D+ is the green and the D- is the white wire.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*NxnRmMk9hS1-5IHOED5cVA.png)
+![](img/dfu-5.webp)
 
 > Be careful if you are going to use the USB 5V to power the board. Make sure that you’re connecting the 5V on the pin marked as 5V in the ESP32-Saola dev kit.
 
@@ -84,21 +84,21 @@ You can do this by following these steps:
 
 Go to __*Component config*__  menu.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*-PCFm3VtRSAdccttuk-LZQ.png)
+![](img/dfu-6.webp)
 
 Select __*ESP System Settings*__  or __*Common ESP-related*__  (if ESP-IDF is the v4.2).
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*vRLxf_iaiJMX0a9VzZXLwA.png)
+![](img/dfu-7.webp)
 
 __*Change the Channel*__  __*for console output*__  to USB CDC.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*4hJPXm0nP83bUbOjfbmyJg.png)
+![](img/dfu-8.webp)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*24OC66y5wsWYVWBlyc6aHA.png)
+![](img/dfu-9.webp)
 
 Save and exit the configuration menu build and flash the firmware.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/1*XZJsS7xf8kuRGf8d-Z6gJA.png)
+![](img/dfu-10.webp)
 
 ## __Example Video__ 
 

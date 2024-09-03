@@ -11,31 +11,31 @@ Have you noticed the newest addition to our services? We are very excited about 
 
 So, if you would like us to make sure that your self-designed, Espressif-based product achieves optimal performance, please provide us with its circuit schematic and PCB design for a technical review. Together with this, you should also [fill in and submit the relevant online form](https://www.espressif.com/en/contact-us/circuit-schematic-pcb-design-review). Then, our experienced team of engineers will carry out this review. Rest assured they will come up with suggestions specifically tailored to your product, while also paying particular attention to the confidentiality that this process entails.
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*_vXZqYAjVTjEHbra.png)
+![](img/march-1.webp)
 
 Other topics you can read about in this month’s newsletter include:
 
 [__ESP32-C3-DevKitM-1 Available Soon__ ](https://www.espressif.com/en/news/ESP32-C3-DevKitM-1)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*KHQbgAOJs0kscaE0.png)
+![](img/march-2.webp)
 
 [ESP32-C3-DevKitM-1](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html) is an entry-level development board based on [ESP32-C3-MINI-1](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf), a module named like this because of its small size. This board provides a full range of Wi-Fi and Bluetooth LE functions. It is expected to hit the stores in the second half of April 2021.
 
 [__NebuLink NLC1242: An ESP32-Powered Data Acquisition System by SLS__ ](https://www.espressif.com/en/news/NebuLink)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*OsWrV4EhoaDCE_hh.png)
+![](img/march-3.webp)
 
 NLC1242 is an [ESP32-based](https://www.espressif.com/en/products/modules/esp32) advanced data acquisition system designed to bridge the gap between end-user applications and sensors. Functioning both wirelessly and seamlessly, NLC1242 drives the exchange of data between sensors and the cloud.
 
 [__ESP32-Powered Heart Rate and Pulse Oximetry Monitoring with MAX30102__ ](https://www.espressif.com/en/news/ESP32_and_MAX30102)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*d7qUZsEYOZKBQZX2.png)
+![](img/march-4.webp)
 
 Francesco Azzola, from a blog entitled “[Surviving with Android](https://www.survivingwithandroid.com/esp32-heart-rate-pulse-oximetery-with-max30102/)’, has just posted a really interesting tutorial which demonstrates the way in which we can use [ESP32](https://www.espressif.com/en/products/socs/esp32) to monitor someone’s heart rate and pulse oximetry.
 
 [__Fibonacci256: A Mesmerizing ESP8266-based Piece of Art__ ](https://www.espressif.com/en/news/Fibonacci256)
 
-![](https://miro.medium.com/v2/resize:fit:640/format:webp/0*SPLOgLHyjlTrd5fN.png)
+![](img/march-5.webp)
 
 Jason Coon from the [Evil Genius Labs LLC](https://www.tindie.com/stores/jasoncoon/) has created several LED art pieces in a Fibonacci pattern. Jason’s latest work, Fibonacci256, is an [ESP8266-powered](https://www.espressif.com/en/products/socs/esp8266), 166mm disc, with 256 RGB LEDs that are surface-mounted in a flower-like Fibonacci layout.
 
