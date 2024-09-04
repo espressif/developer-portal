@@ -72,7 +72,6 @@ If you have an issue to report about any of the ESP32-C61 features, please creat
 - GPSPI
   - :hourglass_flowing_sand: GPSPI sleep retention (IDF-10375)
   - :white_check_mark: [SPI Master driver](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c61/api-reference/peripherals/spi_master.html)
-    - Segment Configured Transaction (SCT) mode
   - :white_check_mark: SPI Slave HD driver
   - :white_check_mark: SPI Slave driver
 - :white_check_mark: GPTimer driver
