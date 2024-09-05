@@ -2,7 +2,8 @@
 title: "Accelerate Your IoT Development with the Espressif WebIDE"
 date: 2023-04-17
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - brian-ignacio
 ---
 ![](img/accelerate-1.webp)

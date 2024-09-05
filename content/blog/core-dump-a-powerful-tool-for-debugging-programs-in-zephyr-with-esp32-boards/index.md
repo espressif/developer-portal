@@ -2,7 +2,8 @@
 title: "Core Dump: A Powerful Tool for Debugging Programs in Zephyr with ESP32 Boards"
 date: 2023-07-27
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - lucas-tamborrino
 ---
 ![](img/core-1.webp)

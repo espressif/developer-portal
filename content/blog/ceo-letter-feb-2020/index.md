@@ -2,7 +2,8 @@
 title: "CEO Letter: Feb 2020"
 date: 2020-02-08
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 Dear all,

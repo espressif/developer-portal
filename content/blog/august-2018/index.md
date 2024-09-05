@@ -2,7 +2,8 @@
 title: "August 2018"
 date: 2018-08-06
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 ## Fake News About Espressif Systems…Again!

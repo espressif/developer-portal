@@ -2,7 +2,8 @@
 title: "Embedding Voice into Devices with ESP32"
 date: 2019-03-10
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - hrishikesh-dhayagude
 ---
 ESP32 already supported being a fully functional [Alexa client](https://github.com/espressif/esp-va-sdk/blob/master/README-Alexa.md), a voice assistant.

@@ -2,7 +2,8 @@
 title: "Amazon FreeRTOS — ESP32 Support"
 date: 2018-06-19
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - mahavir-jain
 ---
 ![](img/amazon-1.webp)

@@ -2,7 +2,8 @@
 title: "Announcing ESP ZeroCode"
 date: 2023-08-20
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - chirag-atal
 ---
 ![](img/announcing-1.webp)

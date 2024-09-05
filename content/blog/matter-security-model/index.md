@@ -2,7 +2,8 @@
 title: "Matter Security Model"
 date: 2022-02-24
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - guo-jiacheng
 ---
 [Espressif Matter Series](/matter-38ccf1d60bcd) #7

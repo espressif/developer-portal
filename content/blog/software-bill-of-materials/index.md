@@ -2,7 +2,8 @@
 title: "Software Bill of Materials"
 date: 2023-11-02
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - mahavir-jain
 ---
 ## Overview

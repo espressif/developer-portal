@@ -2,7 +2,8 @@
 title: "ESP32-C2 and Why It Matter-s"
 date: 2022-04-18
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - teo-swee-ann
 ---
 ![](img/espc-1.webp)

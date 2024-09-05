@@ -2,7 +2,8 @@
 title: "ESP32-S2: Digital Signature Peripheral"
 date: 2021-02-03
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - aditya-patwardhan
 ---
 ![](img/esps-1.webp)

@@ -2,7 +2,8 @@
 title: "OTA Firmware Upgrades with ESP RainMaker"
 date: 2020-05-24
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - piyush-shah
 ---
 ![](img/ota-1.webp)

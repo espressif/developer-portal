@@ -2,7 +2,8 @@
 title: "ESP RainMaker"
 date: 2020-12-06
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 ![](img/esp-1.webp)

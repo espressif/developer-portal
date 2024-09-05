@@ -2,7 +2,8 @@
 title: "Rust + Embedded: A Development Power Duo"
 date: 2023-04-19
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - juraj-sadel
 ---
 ![](img/rust-1.webp)

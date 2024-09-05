@@ -2,7 +2,8 @@
 title: "Matter: Multi-Admin, Identifiers, and Fabrics"
 date: 2022-01-18
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #6*

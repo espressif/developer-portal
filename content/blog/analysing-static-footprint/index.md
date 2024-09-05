@@ -2,7 +2,8 @@
 title: "Analysing Static Footprint"
 date: 2018-05-13
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 The ESP32 is equipped with a 512KB of SRAM. While this may seem quite small, it can pack a lot of punch in this compact form if used well.

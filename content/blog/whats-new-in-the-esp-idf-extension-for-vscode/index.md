@@ -2,7 +2,8 @@
 title: "What’s new in the ESP-IDF extension for VSCode"
 date: 2022-01-30
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - brian-ignacio
 ---
 Co-authored with [Kondal Kolipaka](https://medium.com/u/4f2e7eb30782?source=post_page-----7f571c24414f--------------------------------)

@@ -2,6 +2,7 @@
 title: "Maximizing Wi-Fi Throughput: Fine-Tuning Zephyr for Peak Performance with ESP32 SoCs in IoT Applications"
 date: 2024-06-24T14:29:12+08:00
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - "marcio-ribeiro"
 tags: ["ESP32-S3", "Zephyr", "Wi-Fi"]

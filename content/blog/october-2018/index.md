@@ -2,7 +2,8 @@
 title: "October 2018"
 date: 2018-10-02
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 Welcome to our October Newsletter

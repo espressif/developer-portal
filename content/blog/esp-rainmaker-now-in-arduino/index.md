@@ -2,7 +2,8 @@
 title: "ESP RainMaker now in Arduino"
 date: 2021-06-14
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - piyush-shah
 ---
 ![](img/esp-1.webp)

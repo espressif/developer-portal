@@ -2,7 +2,8 @@
 title: "ESP32’s Family Memory Map 101"
 date: 2023-09-25
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - marek-matej
 ---
 ![](img/esps-1.webp)

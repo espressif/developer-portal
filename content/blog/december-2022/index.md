@@ -2,7 +2,8 @@
 title: "December 2022"
 date: 2023-01-01
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 Happy holidays everyone!

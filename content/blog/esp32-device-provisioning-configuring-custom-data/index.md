@@ -2,7 +2,8 @@
 title: "ESP32 Device Provisioning: Configuring Custom Data"
 date: 2019-10-11
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 One of the common requirements I have seen is, during the initial device provisioning, configuring some device specific custom data on the device. This could be something as easy as assigning a user-friendly name to the device, or something like initialising the Alexa credentials on the device.

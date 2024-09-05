@@ -2,7 +2,8 @@
 title: "October 2019"
 date: 2019-11-07
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 ![](img/october-1.webp)

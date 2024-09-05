@@ -2,7 +2,8 @@
 title: "OTA Updates Framework"
 date: 2020-12-22
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - mahavir-jain
 ---
 In this post we will discuss the design and internal workings of Over-The-Air (OTA) Updates framework in ESP-IDF.

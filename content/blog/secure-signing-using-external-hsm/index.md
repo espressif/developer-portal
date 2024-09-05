@@ -2,7 +2,8 @@
 title: "Secure Signing Using External HSM"
 date: 2023-02-09
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - mahavir-jain
 ---
 ## Overview

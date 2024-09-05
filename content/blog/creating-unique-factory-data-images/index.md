@@ -2,7 +2,8 @@
 title: "Creating Unique Factory Data Images"
 date: 2018-05-01
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 A common requirement while building a device is to have some unique information programmed into the device at the time of manufacturing. This information could be a unique serial number, or a unique MAC address ; or it could be a unique secret like the default password, or the HomeKit pairing pin.

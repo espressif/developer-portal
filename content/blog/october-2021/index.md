@@ -2,7 +2,8 @@
 title: "October 2021"
 date: 2021-11-07
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 Hi everyone,

@@ -2,7 +2,8 @@
 title: "Matter: Thread Border Router in Matter"
 date: 2022-01-04
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - shu-chen
 ---
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #5*

@@ -2,7 +2,8 @@
 title: "How to use Wokwi Simulator with Espressif-IDE"
 date: 2023-04-16
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kondal-kolipaka
 ---
 The [Espressif IDE](https://github.com/espressif/idf-eclipse-plugin/blob/master/docs/Espressif-IDE.md) version [2.9.0](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v2.9.0) has recently been released, introducing a new feature for the Espressif community who want to use the Wokwi simulator directly from within the IDE.

@@ -2,6 +2,7 @@
 title: "Meet the Espressif Developer Portal"
 date: 2024-05-13T11:11:42+08:00
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - "kirill-chalov"
 ---

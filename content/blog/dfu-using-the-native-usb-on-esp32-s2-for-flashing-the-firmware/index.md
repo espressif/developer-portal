@@ -2,7 +2,8 @@
 title: "DFU — Using the native USB on ESP32-S2 for flashing the firmware"
 date: 2021-03-23
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - pedro-minatel
 ---
 ![](img/dfu-1.webp)

@@ -2,7 +2,8 @@
 title: "Secure boot with auto-signing in ESP RainMaker OTA"
 date: 2024-07-29
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - piyush-shah
 ---
 Security is one of the most important aspects of any IoT system and at Espressif, we take it very seriously. The ESP RainMaker platform offers a secure way to onboard a device onto Wi-Fi network and then control and monitor it through cloud. However, the security of the hardware itself is also critical for the overall system to be secure. Espressif MCUs come with various security features like [secure boot](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/security/secure-boot-v2.html), [flash encryption](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/security/flash-encryption.html), etc.

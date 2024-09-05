@@ -2,7 +2,8 @@
 title: "Matter: Distributed Compliance Ledger (DCL)"
 date: 2022-03-24
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - shu-chen
 ---
 [Espressif Matter Series](/matter-38ccf1d60bcd) #8

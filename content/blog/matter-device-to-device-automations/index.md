@@ -2,7 +2,8 @@
 title: "Matter: Device-to-Device Automations"
 date: 2021-12-07
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - hrishikesh-dhayagude
 ---
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #3*

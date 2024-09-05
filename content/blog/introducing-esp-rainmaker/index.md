@@ -2,7 +2,8 @@
 title: "Introducing ESP RainMaker"
 date: 2020-04-15
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 ![](img/introducing-1.webp)

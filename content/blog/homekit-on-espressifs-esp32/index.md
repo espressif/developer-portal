@@ -2,7 +2,8 @@
 title: "HomeKit on Espressif’s ESP32"
 date: 2019-02-10
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 IoT is not one thing, it means different things to different people. So also, there are so many ways of building connected products. And that means there are so many questions for every aspect of your connected product:

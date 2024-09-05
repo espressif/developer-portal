@@ -2,7 +2,8 @@
 title: "Reducing costs and complexity for deploying connected devices with ESP-Hosted"
 date: 2022-07-31
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - anant-raj-gupta
 ---
 Connecting your devices to the cloud is a topic which is actively discussed across multiple industries as it is not a hidden fact that there are numerous advantages to doing so. To name a few common advantages across various industries —

@@ -2,7 +2,8 @@
 title: "What does Matter mean to you?"
 date: 2021-11-23
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #1*

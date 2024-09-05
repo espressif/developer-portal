@@ -2,7 +2,8 @@
 title: "ESP Insights: Playing with Device Tags"
 date: 2022-09-07
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - adwait-patankar
 ---
 In today’s world which is completely engulfed in social media, the notion of tags is not new. Most of the media publicly shared on the social network is tagged (or to be more accurate, hash-tagged) with something or the other. With that familiarity in mind, we thought of introducing the concept of tagging to the ESP devices, that should help users categorise or search their devices faster on the ESP Insights Dashboard.

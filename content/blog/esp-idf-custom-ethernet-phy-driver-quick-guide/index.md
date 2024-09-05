@@ -2,7 +2,8 @@
 title: "ESP-IDF Custom Ethernet PHY Driver Quick Guide"
 date: 2022-11-27
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - ondrej-kosta
 ---
 *“I would like to start a new product design with my favorite chip but it’s out of stock! Oh, no! I’ll have to design a new layout and develop new drivers for it!”* Every designer knows that feeling very well these days…

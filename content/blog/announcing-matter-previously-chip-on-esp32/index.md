@@ -2,7 +2,8 @@
 title: "Announcing Matter (previously ‘CHIP’) on ESP32"
 date: 2021-05-25
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - hrishikesh-dhayagude
 ---
 ![](img/announcing-1.webp)

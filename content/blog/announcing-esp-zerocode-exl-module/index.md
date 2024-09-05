@@ -2,7 +2,8 @@
 title: "Announcing ESP ZeroCode ExL Module"
 date: 2023-11-12
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - amey-inamdar
 ---
 *Announcing ESP ZeroCode ExL powered by AWS IoT ExpressLink — Simplifying Matter-compatible Cloud-connected Devices*

@@ -2,7 +2,8 @@
 title: "Understanding ESP32’s Security Features"
 date: 2018-05-31
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 [This document discusses security features for ESP32v3. If you are looking for the security features of the latest [ESP32-S2](https://www.espressif.com/en/news/espressif-announces-%E2%80%A8esp32-s2-secure-wi-fi-mcu) SoC, that article is available [here](https://medium.com/the-esp-journal/esp32-s2-security-improvements-5e5453f98590).]

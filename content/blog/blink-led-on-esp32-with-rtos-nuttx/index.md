@@ -2,7 +2,8 @@
 title: "Blink LED on ESP32 with RTOS NuttX"
 date: 2020-11-30
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - sara-monteiro
 ---
 ![](img/blink-1.webp)

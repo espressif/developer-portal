@@ -2,7 +2,8 @@
 title: "Build affordable Secure connected devices with ESP32-H2"
 date: 2023-05-11
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - anant-raj-gupta
 ---
 The awareness, as well as the associated concerns, about connected device security, is ever-increasing. With the European Union’s [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/library/cyber-resilience-act) also coming into effect soon, it has become ever so important to have security features built-in to the devices in hardware.

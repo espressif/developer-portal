@@ -2,6 +2,7 @@
 title: "Book review: Developing IoT Projects with ESP32 (2nd Edition)"
 date: 2024-01-29
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - juraj-michalek
 ---

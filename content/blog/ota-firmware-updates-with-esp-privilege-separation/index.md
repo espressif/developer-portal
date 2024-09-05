@@ -2,7 +2,8 @@
 title: "OTA Firmware Updates with ESP Privilege Separation"
 date: 2023-01-29
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - sachin-parekh
 ---
 Over-The-Air (OTA) firmware update is one of the most important feature of any connected device. It enables the developers to ship out new features and bug fixes by remotely updating the application. In ESP Privilege Separation, there are two applications — protected_app and user_app for which the framework provides the ability to independently update both the application binaries. In this post we will describe the independent OTA update feature under ESP Privilege Separation.

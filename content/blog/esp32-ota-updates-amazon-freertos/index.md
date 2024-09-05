@@ -2,7 +2,8 @@
 title: "ESP32 OTA Updates — Amazon FreeRTOS"
 date: 2018-09-30
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - mahavir-jain
 ---
 ESP32 now supports secure Over-the-Air firmware updates with Amazon FreeRTOS. This enables users of ESP32 with Amazon FreeRTOS to:

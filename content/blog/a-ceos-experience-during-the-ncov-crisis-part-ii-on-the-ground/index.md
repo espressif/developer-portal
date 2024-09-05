@@ -2,7 +2,8 @@
 title: "A CEO’s Experience During the nCoV Crisis — Part II : On the Ground"
 date: 2020-02-12
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - teo-swee-ann
 ---
 *As Espressif is a company with their main offices in China, the recent coronavirus outbreak has affected us as well. CEO Teo Swee Ann gives an update of the situation in Shanghai.*

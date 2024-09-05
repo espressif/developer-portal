@@ -2,7 +2,8 @@
 title: "ESP Insights — What’s new"
 date: 2022-01-26
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - adwait-patankar
 ---
 ![](img/esp-1.webp)

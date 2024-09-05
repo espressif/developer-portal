@@ -2,7 +2,8 @@
 title: "November 2018"
 date: 2018-11-11
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 Welcome to our November Newsletter

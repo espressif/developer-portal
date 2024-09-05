@@ -2,7 +2,8 @@
 title: "Matter and Certificate Revocation"
 date: 2023-10-23
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - deepakumar-v-u
 ---
 [Espressif Matter Series](/matter-38ccf1d60bcd) #10

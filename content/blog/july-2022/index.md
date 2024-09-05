@@ -2,7 +2,8 @@
 title: "July 2022"
 date: 2022-08-07
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 Hi everyone,

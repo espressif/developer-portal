@@ -2,7 +2,8 @@
 title: "Matter"
 date: 2021-11-30
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 ![](img/matter-1.webp)

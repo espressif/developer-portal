@@ -3,6 +3,7 @@ title: "Using ESP-NOW in Arduino"
 date: 2024-08-06T09:00:24-03:00
 tags: ["Arduino", "ESP-NOW", "Wireless", "Wi-Fi", "ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6"]
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - "lucas-vaz"
 ---

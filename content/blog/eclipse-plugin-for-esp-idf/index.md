@@ -2,7 +2,8 @@
 title: "Eclipse Plugin for ESP-IDF"
 date: 2020-04-17
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kondal-kolipaka
 ---
 ![](img/eclipse-1.webp)

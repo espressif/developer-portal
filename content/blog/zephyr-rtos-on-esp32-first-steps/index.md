@@ -2,7 +2,8 @@
 title: "Zephyr RTOS on ESP32 —First Steps"
 date: 2021-02-24
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - glauber-ferreira
 ---
 ![](img/zephyr-1.webp)

@@ -2,7 +2,8 @@
 title: "ESP32 Memory Analysis — Case Study"
 date: 2020-06-01
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - mahavir-jain
 ---
 Memory has significant impact on silicon cost as well as die size, hence from hardware perspective having optimal size is important and from software perspective being able to utilise it to fullest is crucial.

@@ -2,7 +2,8 @@
 title: "Local Network Access via HTTP Server"
 date: 2018-10-13
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 So you have your smart device on your end-user’s home network. Now you would want your user to access your device over the local network. That’s what we will look at in this post.

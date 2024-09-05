@@ -2,7 +2,8 @@
 title: "July 2019"
 date: 2019-07-28
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 Hi everyone,

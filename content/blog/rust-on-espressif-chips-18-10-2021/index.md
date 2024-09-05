@@ -2,7 +2,8 @@
 title: "Rust on Espressif chips — 18-10-2021"
 date: 2021-10-17
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - scott-mabin
 ---
 This article was written by Scott Mabin and originally posted [on his blog](https://mabez.dev/).

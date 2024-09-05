@@ -2,7 +2,8 @@
 title: "ESP ZeroCode"
 date: 2023-11-12
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 ![](img/esp-1.webp)

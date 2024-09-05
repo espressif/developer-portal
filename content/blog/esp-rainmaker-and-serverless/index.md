@@ -2,7 +2,8 @@
 title: "ESP RainMaker and Serverless"
 date: 2020-05-26
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - amey-inamdar
 ---
 ![](img/esp-1.webp)

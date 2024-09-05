@@ -2,7 +2,8 @@
 title: "A CEO’s Experience During the COVID-19 Crisis — Part III : Looking Ahead"
 date: 2020-03-07
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - teo-swee-ann
 ---
 *The COVID-19 situation is developing rapidly, and the CEO of Espressif, Teo Swee Ann, gives a short update of the situation and some considerations of the future.*

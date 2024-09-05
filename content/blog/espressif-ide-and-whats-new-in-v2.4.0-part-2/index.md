@@ -2,7 +2,8 @@
 title: "Espressif IDE and What’s new in v2.4.0 — Part 2"
 date: 2022-03-01
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kondal-kolipaka
 ---
 This section will talk about Espressif IDE installation options that are available and platforms supported.

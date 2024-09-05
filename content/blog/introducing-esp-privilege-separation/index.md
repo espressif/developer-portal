@@ -2,7 +2,8 @@
 title: "Introducing ESP Privilege Separation"
 date: 2022-06-19
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - sachin-parekh
 ---
 Typically, applications on microcontrollers (MCU) are developed as monolithic firmware. We have been discussing on achieving “user-kernel” separation with appropriate execution privileges, like general purpose OS, on MCUs.

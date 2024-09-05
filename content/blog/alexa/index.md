@@ -2,7 +2,8 @@
 title: "Alexa"
 date: 2018-10-24
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 ![](img/alexa-1.webp)

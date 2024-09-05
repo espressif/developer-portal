@@ -2,7 +2,8 @@
 title: "Feb 2023"
 date: 2023-02-15
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - esp-bot
 ---
 Hi everyone,

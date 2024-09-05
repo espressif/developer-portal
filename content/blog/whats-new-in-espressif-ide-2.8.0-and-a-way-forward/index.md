@@ -2,7 +2,8 @@
 title: "What’s New in Espressif-IDE 2.8.0 and a Way Forward"
 date: 2023-02-01
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kondal-kolipaka
 ---
 ![](img/whats-1.webp)

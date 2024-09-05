@@ -2,7 +2,8 @@
 title: "Releasing LTS of AWS IoT Device SDK for Embedded C on ESP32"
 date: 2021-08-25
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - dhaval-gujar
 ---
 ![](img/releasing-1.webp)

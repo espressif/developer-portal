@@ -2,7 +2,8 @@
 title: "Introducing ESP Insights"
 date: 2021-07-05
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 ![](img/introducing-1.webp)

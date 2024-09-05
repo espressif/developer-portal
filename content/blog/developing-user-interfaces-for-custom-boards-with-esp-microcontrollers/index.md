@@ -2,7 +2,8 @@
 title: "Developing User Interfaces for Custom Boards with ESP microcontrollers"
 date: 2022-10-10
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - vilem-zavodny
 ---
 A few weeks ago in [this article](/making-the-fancy-user-interface-on-esp-has-never-been-easier-e44e79c0ae3) we have introduced SquareLine Studio and how it can be used to develop user interfaces. This feature was available only for Espressif’s boards. But what if we wanted to use this tool for our custom designed board based on an ESP chip with a custom LCD? Here is the solution!

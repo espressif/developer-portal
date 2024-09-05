@@ -2,6 +2,7 @@
 title: "Simplify Your Embedded Projects with ESP-BSP"
 date: 2024-06-18
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "juraj-michalek"
 tags: ["Embedded Systems", "ESP32", "ESP32-S3", "Espressif", "BSP"]

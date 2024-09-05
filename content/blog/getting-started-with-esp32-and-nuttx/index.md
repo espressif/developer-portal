@@ -2,7 +2,8 @@
 title: "Getting Started with ESP32 and NuttX"
 date: 2020-11-30
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - sara-monteiro
 ---
 ![](img/getting-1.webp)

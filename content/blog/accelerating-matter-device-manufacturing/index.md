@@ -2,7 +2,8 @@
 title: "Accelerating Matter Device Manufacturing"
 date: 2023-02-19
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 [Espressif Matter Series](/matter-38ccf1d60bcd) #9

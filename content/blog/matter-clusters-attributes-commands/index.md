@@ -2,7 +2,8 @@
 title: "Matter: Clusters, Attributes, Commands"
 date: 2021-11-30
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #2*

@@ -2,7 +2,8 @@
 title: "ESP32-S2 Is Here!"
 date: 2020-03-10
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - teo-swee-ann
 ---
 ![](img/esps-1.webp)

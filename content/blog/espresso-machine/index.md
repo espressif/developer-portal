@@ -2,6 +2,7 @@
 title: "Espresso Machine PID controller using ESP32 and RainMaker"
 date: 2024-06-19T10:18:17+08:00
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - "raffael-rostagno"
 tags: ["ESP32", "ESP-IDF", "RainMaker"]

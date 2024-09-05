@@ -2,7 +2,8 @@
 title: "ESP32: TLS (Transport Layer Security) And IoT Devices"
 date: 2018-10-24
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 ![](img/esp-1.webp)

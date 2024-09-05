@@ -2,7 +2,8 @@
 title: "ESP-IDF Development Tools Guide — Part I"
 date: 2021-06-08
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - pedro-minatel
 ---
 ![](img/espidf-1.webp)

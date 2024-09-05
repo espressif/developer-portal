@@ -2,7 +2,8 @@
 title: "Anatomy of a Voice-Integrated Device"
 date: 2018-08-12
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 Recently I have seen significant interest from OEMs in embedding voice assistants, like Alexa, directly into their products. Not just linking with a voice-assistant using a cloud to cloud integration, but by having the product itself be voice-enabled (with microphones and speakers).

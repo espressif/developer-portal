@@ -2,7 +2,8 @@
 title: "Matter: Bridge for Non-Matter Devices"
 date: 2021-12-14
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - shu-chen
 ---
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #4*

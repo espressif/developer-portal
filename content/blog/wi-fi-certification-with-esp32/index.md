@@ -2,7 +2,8 @@
 title: "Wi-Fi Certification with ESP32"
 date: 2018-08-11
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 A fair number of questions come up regarding Wi-Fi certification for Wi-Fi enabled IoT products. Here is an attempt to answer some of the relevant ones.

@@ -2,7 +2,8 @@
 title: "ESP USB Bridge"
 date: 2022-04-13
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - roland-dobai
 ---
 The [ESP USB Bridge](https://github.com/espressif/esp-usb-bridge) is an [ESP-IDF](https://github.com/espressif/esp-idf) project utilizing an ESP32-S2 (or optionally, an ESP32-S3) chip to create a bridge between a computer and a target microcontroller. It can serve as a replacement for USB-to-UART chips (e.g. CP210x).
