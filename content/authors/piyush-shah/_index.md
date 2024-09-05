@@ -1,3 +1,3 @@
 ---
-name: Piyush Shah
+title: Piyush Shah
 ---

@@ -1,3 +1,3 @@
 ---
-name: Lucas Tamborrino
+title: Lucas Tamborrino
 ---

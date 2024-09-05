@@ -1,3 +1,3 @@
 ---
-name: Vilem Zavodny
+title: Vilem Zavodny
 ---

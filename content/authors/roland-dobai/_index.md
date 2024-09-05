@@ -1,3 +1,3 @@
 ---
-name: Roland Dobai
+title: Roland Dobai
 ---

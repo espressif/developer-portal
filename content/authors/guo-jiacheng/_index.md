@@ -1,3 +1,3 @@
 ---
-name: Guo Jiacheng
+title: Guo Jiacheng
 ---

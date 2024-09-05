@@ -1,3 +1,3 @@
 ---
-name: Scott Mabin
+title: Scott Mabin
 ---

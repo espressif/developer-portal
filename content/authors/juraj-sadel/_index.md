@@ -1,3 +1,3 @@
 ---
-name: Juraj Sadel
+title: Juraj Sadel
 ---

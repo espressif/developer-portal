@@ -1,3 +1,3 @@
 ---
-name: Aditya Patwardhan
+title: Aditya Patwardhan
 ---

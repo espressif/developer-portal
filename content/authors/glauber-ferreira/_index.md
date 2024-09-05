@@ -1,3 +1,3 @@
 ---
-name: Glauber Ferreira
+title: Glauber Ferreira
 ---

@@ -1,3 +1,3 @@
 ---
-name: Ali Hassan Shah
+title: Ali Hassan Shah
 ---

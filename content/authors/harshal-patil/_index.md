@@ -1,3 +1,3 @@
 ---
-name: Harshal Patil
+title: Harshal Patil
 ---

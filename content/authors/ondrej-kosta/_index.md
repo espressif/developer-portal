@@ -1,3 +1,3 @@
 ---
-name: Ondrej Kosta
+title: Ondrej Kosta
 ---

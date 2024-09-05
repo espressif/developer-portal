@@ -1,3 +1,3 @@
 ---
-name: Dhaval Gujar
+title: Dhaval Gujar
 ---

@@ -1,3 +1,3 @@
 ---
-name: Marek Fiala
+title: Marek Fiala
 ---

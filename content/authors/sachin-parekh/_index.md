@@ -1,3 +1,3 @@
 ---
-name: Sachin Parekh
+title: Sachin Parekh
 ---

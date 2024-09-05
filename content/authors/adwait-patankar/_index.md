@@ -1,3 +1,3 @@
 ---
-name: Adwait Patankar
+title: Adwait Patankar
 ---

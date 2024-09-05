@@ -1,3 +1,3 @@
 ---
-name: Esp Bot
+title: Esp Bot
 ---

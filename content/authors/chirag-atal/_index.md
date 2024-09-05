@@ -1,3 +1,3 @@
 ---
-name: Chirag Atal
+title: Chirag Atal
 ---

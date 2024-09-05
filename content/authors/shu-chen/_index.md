@@ -1,3 +1,3 @@
 ---
-name: Shu Chen
+title: Shu Chen
 ---

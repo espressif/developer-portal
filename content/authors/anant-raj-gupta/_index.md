@@ -1,3 +1,3 @@
 ---
-name: Anant Raj Gupta
+title: Anant Raj Gupta
 ---

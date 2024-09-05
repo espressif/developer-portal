@@ -1,3 +1,3 @@
 ---
-name: David Cermak
+title: David Cermak
 ---

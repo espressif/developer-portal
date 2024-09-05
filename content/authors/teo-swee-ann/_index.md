@@ -1,3 +1,3 @@
 ---
-name: Teo Swee Ann
+title: Teo Swee Ann
 ---

@@ -1,3 +1,3 @@
 ---
-name: Amey Inamdar
+title: Amey Inamdar
 ---

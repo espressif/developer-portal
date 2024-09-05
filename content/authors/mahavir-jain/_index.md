@@ -1,3 +1,3 @@
 ---
-name: Mahavir Jain
+title: Mahavir Jain
 ---
