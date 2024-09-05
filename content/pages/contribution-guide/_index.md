@@ -3,11 +3,12 @@ title: "Contribution guide"
 date: 2024-04-29T19:22:05+08:00
 description: "This post covers all the aspects of contributing to the Espressif Developer Portal"
 tags: ["Contribute"]
+
 ---
 
 For now, the Contribution Guide offers the following materials:
 
-- [Content contribution workflow](content-contrib-workflow "Content contribution workflow")
+- [Contribution workflow](contrib-workflow "Contribution workflow")
 - [Content writing workflow](content-writing-workflow "Content writing workflow")
 
 These workflows might be applicable partially or fully to the [contribution scenarios](#contribution-scenarios).

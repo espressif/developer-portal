@@ -1,5 +1,5 @@
 ---
-title: "Content contribution workflow"
+title: "Contribution workflow"
 date: 2024-04-30T14:25:09+08:00
 tags: ["Contribute"]
 showAuthor: false
@@ -9,7 +9,7 @@ authors:
 
 ## Overview
 
-The content contribution diagram below shows how contributions can be done to [espressif / developer-portal][], marked as **Public Upstream**. It is Developer Portal's public GitHub repo.
+The contribution diagram below shows how contributions can be done to [espressif / developer-portal][], marked as **Public Upstream**. It is Developer Portal's public GitHub repo.
 
 [espressif / developer-portal]: https://github.com/espressif/developer-portal "Espressif Developer Portal"
 
