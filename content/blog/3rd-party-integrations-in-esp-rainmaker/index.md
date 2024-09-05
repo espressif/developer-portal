@@ -2,7 +2,8 @@
 title: "3rd Party Integrations in ESP RainMaker"
 date: 2020-06-30
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - piyush-shah
 ---
 ![](img/rd-1.webp)

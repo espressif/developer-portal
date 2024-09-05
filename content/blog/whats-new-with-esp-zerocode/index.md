@@ -2,7 +2,8 @@
 title: "What’s New with ESP ZeroCode"
 date: 2024-04-28
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - kedar-sovani
 ---
 *The Fastest Way to Launch Matter-enabled Products*

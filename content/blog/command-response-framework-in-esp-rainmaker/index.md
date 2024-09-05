@@ -2,7 +2,8 @@
 title: "Command — Response Framework in ESP RainMaker"
 date: 2024-07-31
 showAuthor: false
-authors: 
+featureAsset: "img/featured/featured-espressif.webp"
+authors:
   - piyush-shah
 ---
 [*If you have been following the Espressif blogs and announcements, you must already be aware of ESP RainMaker and its various features. If not, please check out the info *[*here*](https://rainmaker.espressif.com/)* so that you get an idea about what ESP RainMaker is before you proceed further*.]
