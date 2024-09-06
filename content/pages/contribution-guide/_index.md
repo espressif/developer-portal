@@ -9,7 +9,7 @@ tags: ["Contribute"]
 For now, the Contribution Guide offers the following materials:
 
 - [Contribution workflow](contrib-workflow "Contribution workflow")
-- [Content writing workflow](content-writing-workflow "Content writing workflow")
+- [Writing content](writing-content "Writing content")
 
 These workflows might be applicable partially or fully to the [contribution scenarios](#contribution-scenarios).
 

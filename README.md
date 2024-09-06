@@ -16,7 +16,7 @@ If you want to contribute to this project, it would be nice to see the rendered 
 See also the Contribution Guide articles:
 
 - [Contribution workflow](./content/pages/contribution-guide/contrib-workflow/index.md)
-- [Content writing workflow](./content/pages/contribution-guide/content-writing-workflow/index.md)
+- [Writing content](./content/pages/contribution-guide/writing-content/index.md)
 
 
 ## Use pre-commit

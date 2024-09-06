@@ -1,5 +1,5 @@
 ---
-title: "Content writing workflow"
+title: "Writing content"
 date: 2024-04-29T14:25:01+08:00
 tags: ["Contribute"]
 showTableOfContents: true
