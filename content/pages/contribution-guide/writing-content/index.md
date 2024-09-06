@@ -138,7 +138,7 @@ Some explanations:
 
 For a real example, see this [page](../../../blog/build-embedded-swift-application-for-esp32c6/#building-an-example-project).
 
-As you can see, the `tabs` shortcode has **the parameter** `groupId`. It creates association between all tabbed code blocks bearing the same `groupId` on a webpage. This is very useful, for example, if you have a tutorial covering multiple operating systems -- once you choose a certain tab, all associated code blocks will switch to the same tab.
+As you can see, the `tabs` shortcode has **the parameter** `groupId`. It creates association between all tabbed code blocks bearing the same `groupId` on a webpage. Once you choose a certain tab, all associated code blocks will switch to the same tab. It can be useful in tutorials covering multiple operating systems, programming lanugages, etc.
 
 You can also easily **indent a tabbed code block**, by preceding the `tabs` and `tab` shortcodes with the required number of spaces. This is exactly what was [done][indented-tabbed-code-block] in the linked example above.
 
@@ -146,9 +146,11 @@ You can also easily **indent a tabbed code block**, by preceding the `tabs` and 
 
 ### Diagrams as code
 
-- [Diagrams as code](https://gohugo.io/content-management/diagrams/)
-  - Mermaid diagrams are supported, for an example see the raw version of [this page](../contrib-workflow "Contribution workflow")
+A number of [Diagrams as code](https://gohugo.io/content-management/diagrams/) formats are supported, including [Mermaid](https://mermaid.js.org/).
 
+For example, a Mermaid diagram is used on [this page](../contrib-workflow "Contribution workflow") (see also the [raw version][contrib-workflow-raw]).
+
+[contrib-workflow-raw]: https://github.com/espressif/developer-portal/blob/main/content/pages/contribution-guide/content-contrib-workflow/index.md?plain=1#L16-L41
 
 ### Asciinema casts
 
