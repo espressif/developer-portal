@@ -40,7 +40,7 @@ Here you can follow the current status of the new chip support in various Espres
 
 Stay tuned for our upcoming events!
 
-{{< article link="/events/devcon24/" >}}
+{{< article link="/events/community-autumn-24-czechia-brno/" >}}
 
 <br>
 {{< button href="#button" target="_self" href=/events/ >}}
