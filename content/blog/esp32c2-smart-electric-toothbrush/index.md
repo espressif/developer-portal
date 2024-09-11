@@ -1,155 +1,195 @@
 ---
-title: "Base on ESP32-C2 and ESP-Rainmaker DIY a Smart Electric Toothbrush"
+title: "DIY Smart Electric Toothbrush using ESP32-C2 and RainMaker"
 date: 2024-08-22T17:00:17+08:00
 showAuthor: false
 authors:
   - "Cai Guanhong"
-tags: ["ESP32-C2", "SPI", "LCD", "ESP-Rainmaker", "Toothbrush"]
+tags: ["ESP32-C2", "SPI", "LCD", "ESP-Rainmaker", "Toothbrush", "DIY"]
 ---
-
 
 ## Introduction
 
-Open the first step with a smart teeth cleaning from a thoughtful and creative idea. Our goal is not only to make a smart toothbrush, but also to create an oral health companion that combines innovative technology with deep human care. We believe that through careful design and constant technological innovation, we can bring more comfortable and personalized dental cleaning experience to your life.
+For most people, one of the first tasks of the day is toothbrushing. This task is usually done by a conventional nylon toothbrush, [invented in 1938](https://www.loc.gov/everyday-mysteries/technology/item/who-invented-the-toothbrush-and-when-was-it-invented/) but used in different forms and materials even before.
+
+Today, you can easily find electronic toothbrushes and some start toothbrushes that helps you to keep track how you are brushing your tooth.
+
+Our goal here is not just to build a smart toothbrush, but to create a true oral health companion—one that combines cutting-edge technology with user-centric design. Through careful innovation, we aim to deliver a more comfortable, personalized dental care experience for everyday life.
 
 ### Overview of ESP-Toothbrush
 
-ESP-Toothbrush is an smart electric toothbrush which driver by the ESP32-C2 chip from Espressif. It integrates a 0.96 inch LCD display with SPI interface to display informations such as battery level, networking status, brushing time and brushing status. The ESP-Toothbrush have only one button to drive the ultrasonic motor of the toothbrush head and a buzzer to play the prompt tone. In addition, the ESP-Toothbrush supports connect to WiFi and access to ESP-RainMaker, which allows to view detailed brushing data and configure the toothbrush through the ESP-RainMaker APP on the phone. Finally, it supports the use of USB Type-C for firmware flashing and charging, as well as charging via a magnetic stylus.
+The ESP-Toothbrush is a smart electric toothbrush powered by the ESP32-C2 chip from Espressif. It features a 0.96-inch LCD display with an SPI interface, displaying important information such as battery level, network connectivity, brushing time, and brushing status.
 
+Designed with simplicity in mind, the ESP-Toothbrush has a single button to activate its ultrasonic motor and a buzzer for audio prompts. Additionally, it connects to Wi-Fi and integrates with ESP-RainMaker, allowing users to track detailed brushing data and configure the toothbrush via the ESP-RainMaker app on their smartphone.
 
-### ESP-Toothbrush Hardware Framework
+For ease of use, the toothbrush includes a USB Type-C port for both firmware updates and charging. It also supports charging via a magnetic stylus, offering flexibility and convenience.
 
-For this project, we have developed a clear hardware framework, which is as follows:
+### Block Diagram
 
-![ESP-Toothbrush Hardware Framework](./img/esp-toothbrush-hardware-framework.webp "ESP-Toothbrush Hardware Framework")
+The block diagram for the ESP-ToothBrush project clearly outlines the key functional components and how they interact. The main sections include:
 
+![ESP-Toothbrush Block Diagram](./img/esp-toothbrush-hardware-framework.webp "ESP-Toothbrush Block Diagram")
 
-## ESP-Toothbrush Hareware Design
+#### Power Supply Modes
 
-In order to translate our ideas into reality, for each functional module of the smart toothbrush, we need to design the hardware schematic. This process is critical, we need to plan the layout of each circuit carefully and the selection of electronic components to ensure the reliability and optimal performance of the circuit, laying the foundation for the final assembly and testing. For hardware design instructions, please refer to "[ESP Hardware Design Guidelines](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32c2/index.html#esp-hardware-design-guidelines)".
+The ESP-ToothBrush supports two versatile power supply modes, ensuring flexibility and reliability:
 
-![ESP-Toothbrush Hareware Design](./img/esp-toothbrush-hareware-design.webp "ESP-Toothbrush Hareware Design")
+- **18350 Lithium Battery (Default Power Supply, Recommended):**
+The toothbrush is primarily powered by a rechargeable 18350 lithium battery, offering portability and long-lasting use. This battery is the recommended power source due to its high energy density and suitability for compact devices like the ESP-ToothBrush.
 
-ESP-ToothBrush supports two power supply modes:
+- **USB Power Supply (via ESP32-C2 USB Interface):**
+Alternatively, the toothbrush can be powered through its USB Type-C interface, connected directly to the ESP32-C2. This interface is not only used for power supply but also enables convenient charging of the 18350 lithium battery when connected to a USB power source, making it a dual-purpose port for both power and charging.
 
-  - 18350 Lithium battery (Default power supply, Recommended)
-  - Use ESP32-C2's USB interface for power supply, and also used for charging the 18350 lithium battery
+#### Description of Different Circuit Blocks
 
-Description of different circuit blocks:
+- **Battery Manager:**
+The TP4056 chip is used for battery management, providing charging functionality while preventing overcharge and overdischarge. It also includes reverse connection protection. The CHRG pin is pulled up via a 10K resistor. During charging, the CHRG pin is at a low level, while in other states, it is high. The CHRG pin is connected to the ESP32-C2's GPIO5, enabling the microcontroller to monitor the battery's charging status by detecting the GPIO5 pin's level.
 
-  - `Battery Manager` : TP4056 chip is used for battery management to achieve charging function, while preventing overcharge and overdischarge, and has anti-reverse connection protection function. The CHRG pin is pulled up through a 10K resistor. When the battery is charged, the CHRG pin is low level, and the other states are high level. The TP4056 chip's CHRG pin is connected to the ESP32-C2's GPIO5 to identify the battery charging status by detecting the level status of the GPIO5 pin.
-  - `Battery Power Monitor` : Since the maximum range of ESP32-C2 ADC is 0-3.3V, and the 18350 lithium battery voltage can reach up to 4.2V, which is already more than 3.3V, so we use two equivalent resistors to divide the battery voltage in here. Then the battery voltage is obtained through the ESP32-C2 ADC (GPIO4 corresponds to ADC channel 4), and the measured voltage value is multiplied by 2 to obtain the actual battery voltage, thus achieving to monitor the battery power.
-  - `LDO Voltage Regulator` : The HE9073A33M5R LDO chip with a wide input voltage range is used to regulate the voltage of the lithium battery to 3.3V to supply power to the chip and other peripherals.
-  - `LCD` : A 0.96 inch (80*160) LCD screen is used to display informations, such as battery level, networking status, brushing time and brushing status.
-  - `Motor Driver` : The TC118S DC motor driver chip is used to drive the ultrasonic vibration motor, which has the advantages of low power consumption and low cost.
-  - `USB-UART Bridge` : Use a CP2102N USB to UART chip and through USB Type-C port to burn program and debugging.
-  - `Button` : Set a unique button to switch the working mode of the toothbrush.
-  - `Beep` : Use a passive buzzer to realize the sound prompt function.
+- **Battery Power Monitor:**
+The ESP32-C2's ADC (Analog-to-Digital Converter) operates within a range of 0–3.3V, while the 18350 lithium battery can reach up to 4.2V, which exceeds this limit. To safely measure the battery voltage, two equivalent resistors are used to divide the battery voltage. The divided voltage is read by the ESP32-C2's ADC on GPIO4 (channel 4). The measured value is then multiplied by 2 to determine the actual battery voltage, allowing for real-time monitoring of the battery's power level.
 
-The hardware BOM table can be downloaded in here.
+- **LDO Voltage Regulator:**
+The HE9073A33M5R LDO (Low Dropout) voltage regulator chip is employed to convert the lithium battery's variable input voltage to a stable 3.3V output. This supplies power to the ESP32-C2 and its peripherals, ensuring consistent operation across different battery levels.
 
-## ESP-Toothbrush PCB Layout
+- **LCD:**
+A 0.96-inch LCD screen (80x160 resolution) is used to display key information such as battery level, network status, brushing time, and brushing status. The display communicates with the ESP32-C2 via an SPI interface for fast and efficient data transmission.
 
-After designing the hardware, we pay attention to the placement of each part, to ensure that they work well,  but also to ensure that the entire device is small. We carefully adjusted to get every part just right,  without compromising performance or increase unnecessary PCB size.
+- **Motor Driver:**
+The ultrasonic motor is driven by the TC118S DC motor driver chip, known for its low power consumption and cost efficiency. This chip is ideal for controlling the toothbrush’s ultrasonic vibration motor with precision.
+
+- **USB-UART Bridge:**
+A CP2102N USB-to-UART bridge is used for programming and debugging the ESP32-C2. It interfaces via a USB Type-C port, providing a modern, high-speed connection for flashing firmware and debugging the system.
+
+- **Button:**
+A single multifunctional button is implemented to switch between different operating modes of the toothbrush, simplifying user interaction and control.
+
+- **Buzzer:**
+A passive buzzer is used to provide audio feedback and prompts. This component plays specific sounds to notify the user of status changes or important actions, enhancing the user experience.
+
+## Hardware Design
+
+For each functional module of the smart toothbrush, we need to develop detailed hardware schematics. This step is crucial to ensure that every part of the circuit operates reliably and efficiently. The design process will involve careful planning of the layout for each circuit, along with the strategic selection of electronic components to optimize the performance and stability of the system.
+
+![ESP-Toothbrush Hardware Design](./img/esp-toothbrush-hareware-design.webp "ESP-Toothbrush Hardware Design")
+
+For further guidance on the best practices and specific requirements for the ESP32-C2 and its associated components, please refer to the official [ESP Hardware Design Guidelines](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32c2/index.html#esp-hardware-design-guidelines). These guidelines provide in-depth information on layout strategies, power supply recommendations, and more to ensure the successful design and implementation of hardware projects using
+
+## PCB Layout
+
+Once the hardware design is complete, we focus on the precise placement of each component to ensure optimal functionality while maintaining a compact overall design. Every element is carefully positioned to maximize performance without increasing the PCB size unnecessarily. Through meticulous adjustments, we achieve a balance between functionality, efficiency, and minimal space, ensuring that all components work seamlessly together in a small form factor.
+
+**Layout**
 
 ![ESP-Toothbrush PCB Layout](./img/esp-toothbrush-pcb-layrat.webp "ESP-Toothbrush PCB Layout")
 
+**Front**
+
 ![ESP-Toothbrush PCB Front](./img/esp-toothbrush-pcb-front.webp "ESP-Toothbrush PCB Front")
+
+**Back**
 
 ![ESP-Toothbrush PCB Back](./img/esp-toothbrush-pcb-back.webp "ESP-Toothbrush PCB Back")
 
+## 3D Design
 
-## Software Implementation
+To ensure the ESP-Toothbrush is both visually appealing and practical, we developed its design using 3D printing. The design process went through several iterations, refining both the form and function to create a final product that is not only ergonomic but also user-friendly.
 
-After finished the hardware design, we focus on the software development to realize the complete functions for ESP-Toothbrush, and ensuring that it is both practical and meets the daily needs of users. 
-
-The complete application function is the code fusion of multiple individual application functions, and Espresif provides many application examples for user reference and secondary development.
-
-For LCD display application, you can refer to the [esp-idf/examples/peripherals/lcd](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/peripherals/lcd) examples. Different interface LCD application implementation code are provided in here. On the software, we use the [espressif/esp_lv_spng](https://components.espressif.com/components/espressif/esp_lv_spng/versions/0.1.0) component to display PNG images on the LCD, which can be decoded in more optimal way on embedded systems. And you can also read the [LCD Screen](https://docs.espressif.com/projects/esp-iot-solution/en/latest/display/lcd/lcd_guide.html#lcd-introduction) user guide for learning.
-
-For motor driver and buzzer application, we need to base on the PWM interface to implement it. You can refer to the [esp-idf/examples/peripherals/ledc](esp-idf/examples/peripherals/ledc) exmaples to know how to use the PWM. And you can also read the [LED Control (LEDC)](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-reference/peripherals/ledc.html#led-control-ledc) programming guide. When using the PWM driven buzzer to achieve the beep, we used the [hayschan/buzzer](https://components.espressif.com/components/hayschan/buzzer/versions/1.0.0) component to achieve it, which saved a lot of time for my software development and achieved the better beep effect.
-
-For battery power monitor ， we need to use the ADC interface. You can refer to the [esp-idf/examples/peripherals/adc/oneshot_read](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/peripherals/adc/oneshot_read) example to know how to use ADC to obtain a oneshot ADC reading. And you can also read the [Analog to Digital Converter (ADC) Oneshot Mode Driver](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-reference/peripherals/adc_oneshot.html?highlight=adc#analog-to-digital-converter-adc-oneshot-mode-driver) programming guide.
-
-For WiFi connection application, the ESP32-C2 device need to be set the WiFi Station mode, and you can refer to the [esp-idf/examples/wifi/getting_started/station](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/wifi/getting_started/station) examplpe to know how to use the Wi-Fi driver for connecting to an Access Point. And you can also read the [WiFi Driver](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-guides/wifi.html#wi-fi-driver) programming guide.
-
-For ESP-Rainmaker cloud control applications, we also provide the [esp-rainmaker](https://github.com/espressif/esp-rainmaker) SDK to achieve remote control and monitoring for products. On the software usage, you can call [espressif/esp_rainmaker](https://components.espressif.com/components/espressif/esp_rainmaker/versions/1.4.0) component directly. For more user guide, you can read the [ESP-Rainmaker Get Started](https://rainmaker.espressif.com/docs/get-started/) to learn it.
-
-
-## ESP-Rainmaker UI Design
-
-Details determine success or failure, the user's experience is first. Based on this toothbrush, we connected to the ESP-Rainmaker cloud, and we designed the UI of the esp-rainmaker app carefully to ensure that every interaction with the toothbrush is intuitive and smooth.
-
-ESP-RainMaker is a lightweight IoT cloud computing software that is deeply integrated with Amazon Cloud Technologies' serverless architecture. Based on the serverless architecture, ESP-RainMaker has great flexibility in data storage space and transmission capacity, and can dynamically assign tasks to the cloud server according to the actual data traffic, effectively reducing the pressure of data storage on the cloud.
-
-For more information about ESP-RainMaker, please refer to the [ESP-RainMaker Introduction](https://rainmaker.espressif.com/docs/intro/).
-
-On ESP-RainMaker APP, we achieved the following interface:
-
-- Create low battery pop-up and home screen on ESP-Rainmaker interface
-
-![ESP-Rainmaker Home Page](./img/rainmaker-home-page.webp "ESP-Rainmaker Home Page")
-
-- Create a brushing time log on ESP-RainMaker interface
-
-![Brushing Time Page](./img/brushing-time-page.webp "Brushing Time Page")
-
-- Create a ESP-Toothbrush control interface
-
-![ESP-Toothbrush Control Page](./img/toothbrush-control-page.webp "ESP-Toothbrush Control Page")
-
-
-## ESP-Toothbrush 3D Design
-
-In order to make the ESP-Toothbrush look good and practical, we polished its appearance with a 3D printer. This process was revised several times to ensure that the final design was both aesthetically pleasing and user-friendly.
+Each revision was aimed at enhancing both the aesthetic and practical aspects of the toothbrush, resulting in a sleek and functional device.
 
 ![ESP-Toothbrush 3D Part](./img/toothbrush-3D-part.webp "ESP-Toothbrush 3D Part")
 
 ![ESP-Toothbrush 3D Model](./img/toothbrush-3D_model.webp "ESP-Toothbrush 3D Model")
 
+## Software Implementation
+
+After the hardware design, we focus on the software development to ensure the ESP-Toothbrush is both functional and practical for everyday use. The software integrates various individual functions, utilizing multiple resources provided by Espressif for seamless operation.
+
+- **LCD Display:**
+To implement the LCD functionality, we used the example codes provided in the [ESP-IDF examples](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/peripherals/lcd), which cover various LCD interfaces. We also used the [esp_lv_spng](https://components.espressif.com/components/espressif/esp_lv_spng/versions/0.1.0) component to efficiently display PNG images on the LCD. The [LCD Screen User Guide](https://docs.espressif.com/projects/esp-iot-solution/en/latest/display/lcd/lcd_guide.html#lcd-introduction) offers additional insights into LCD integration.
+
+- **Motor Driver and Buzzer:**
+The motor driver and buzzer are controlled via the PWM interface. Espressif provides a [LEDC example](esp-idf/examples/peripherals/ledc) that demonstrates how to implement PWM for such applications. The [LEDC Programming Guide](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-reference/peripherals/ledc.html#led-control-ledc) offers further details. For controlling the buzzer, we utilized the [hayschan/buzzer](https://components.espressif.com/components/hayschan/buzzer/versions/1.0.0) component to simplify the software development and achieve better sound effects.
+
+- **Battery Power Monitoring:**
+We implemented battery voltage monitoring using the ADC interface, referring to the [ADC oneshot read example](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/peripherals/adc/oneshot_read). The [ADC Oneshot Mode Driver Guide](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-reference/peripherals/adc_oneshot.html?highlight=adc#analog-to-digital-converter-adc-oneshot-mode-driver) provides further instructions on how to read ADC data in oneshot mode.
+
+- **Wi-Fi Connection:**
+For the WiFi functionality, the ESP32-C2 is set to WiFi Station mode. You can refer to the WiFi Station example to learn how to connect to an Access Point. The WiFi Driver Guide provides additional information for setting up WiFi connections.
+
+- **ESP-RainMaker Integration:**
+For cloud control and monitoring, the ESP-Rainmaker SDK allows remote control of the toothbrush. You can directly use the esp_rainmaker component for integration, and refer to the ESP-Rainmaker Get Started Guide for detailed instructions.
+
+## ESP-Rainmaker 
+
+Now it's time to connect the toothbrush to the [ESP RainMaker](https://rainmaker.espressif.com/).
+
+### UI Design
+
+In designing the ESP-Toothbrush, we prioritized the user's experience, ensuring that every interaction with the device is intuitive and seamless. By connecting the toothbrush to the ESP-RainMaker cloud, we carefully crafted the UI of the ESP-RainMaker app to provide smooth, user-friendly control over the toothbrush’s features.
+
+ESP-RainMaker is a lightweight IoT cloud solution that is tightly integrated with Amazon Cloud Technologies' serverless architecture. This serverless framework offers tremendous flexibility in data storage and transmission, dynamically allocating resources based on actual traffic. This design minimizes the strain on cloud storage, ensuring efficient and scalable performance as data demands grow.
+
+For more information about ESP-RainMaker and its capabilities, refer to the official [ESP-RainMaker Introduction](https://rainmaker.espressif.com/docs/intro/).
+
+On ESP-RainMaker mobile application side, following interfaces were created:
+
+- Low battery pop-up and home screen on ESP-Rainmaker interface
+
+![ESP-RainMaker Home Page](./img/rainmaker-home-page.webp "ESP-RainMaker Home Page")
+
+- Brushing time log on ESP-RainMaker interface
+
+![Brushing Time Page](./img/brushing-time-page.webp "Brushing Time Page")
+
+- Control interface
+
+![ESP-Toothbrush Control Page](./img/toothbrush-control-page.webp "ESP-Toothbrush Control Page")
 
 ## Product Display
 
-After careful design and repeated testing, we finally finished the production of this smart toothbrush. Now, let's enjoy the final product, which is both practical and beautiful.
+After meticulous design and extensive testing, we have successfully completed the production of the ESP-Toothbrush. The final product is a perfect blend of practicality and aesthetic appeal. Now, let’s take a moment to appreciate the sleek and functional design that brings cutting-edge technology into your daily routine.
 
-<video width="640" height="480" controls>
-  <source src="https://developer.espressif.com/media/esp-toothbrush-display-en.mp4" type="video/mp4">
-</video>
+Please see the video below for a closer look at the final product in action.
 
+{{< youtube I1pfMs4v71w >}}
 
 ## Basic Functions
 
-- Support 3-minute regular brushing
+- 3-minute regular brushing.
 
 ![3-minute Regular Brushing](./img/3-minute-regular-brushing.gif "3-minute Regular Brushing")
 
-- Support double click the button to switch four gear to switch the vibration intensity
+- Double click the button to switch four gear to switch the vibration intensity.
 
 ![Switch Modes](./img/switch-modes.gif "Switch Modes")
 
-- Support long press the button to power on and power off to saving power consumption
+- Long press the button to power on and power off to saving power consumption.
 
 ![Power On](./img/power-on-off.gif "Power On")
 
-- Support lithium battery power supply and wireless charging
+- Lithium battery power supply and wireless charging.
 
 ![Charging](./img/charging.gif "Charging")
 
-- Support to view the battery, time, animation, Bluetooth and WiFi connect to network statu through the LCD screen
+- Feature to view the battery, time, animation, Bluetooth and Wi-Fi connect to network status through the LCD screen.
 
 ![LCD Dispaly](./img/display.gif "LCD Dispaly")
 
-
 ## Interactive Functions
 
-After the ESP-Toothbrush is connected to the WiFi, It is support use the APP (ESP-Rainmaker) todo the following interaction:
+Once the ESP-Toothbrush is connected to WiFi, it can be controlled via the ESP-Rainmaker app to perform the following interactive functions:
 
-- Support monitor the battery level: low battery reminder below 20%
-- Supports switch brushing mode: four gear vibration intensity setting
-- Support control power on and power off
-- Support setting brushing duration
-- Support record daily brushing time and duration: data within a month
+-  **Battery Monitoring:** Monitor the battery level with a low battery reminder when below 20%.
+-  **Brushing Mode Control:** Switch between four vibration intensity levels.
+-  **Power Control:** Remotely turn the toothbrush on or off.
+-  **Brushing Duration Setting:** Customize the brushing duration according to user preferences.
+-  **Brushing History Tracking:** Record daily brushing time and duration, with data stored for up to a month.
 
 ![ESP-Rainmaker Controller](./img/rainmaker-controller.gif "ESP-Rainmaker Controller")
 
 ![ESP-Rainmaker Duration](./img/rainmaker-duration.gif "ESP-Rainmaker Duration")
+
+## Conclusion
+
+The ESP-Toothbrush combines smart technology with everyday practicality, offering a seamless and personalized dental care experience. Through careful hardware design, intuitive software integration, and interactive features, it brings convenience and innovation to oral hygiene.
+
+With WiFi connectivity and ESP-Rainmaker support, users can easily control and monitor their brushing habits, making it a truly modern solution for daily care.
