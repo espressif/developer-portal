@@ -1,5 +1,5 @@
 ---
-title: "[Upcoming Event] Espressif Summit Brazil 2024"
+title: "Espressif Summit Brazil 2024"
 date: 2024-06-10
 draft: false
 description: "Espressif Systems Summit in Brazil"
