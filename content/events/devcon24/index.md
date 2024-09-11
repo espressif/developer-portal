@@ -7,16 +7,12 @@ tags: ["event", "announcement", "devcon"]
 showDate : false
 ---
 
-{{< badge >}}
-New event!
-{{< /badge >}}
-
 ## DevCon24
 
 Espressif DevCon24, the third edition of Developers conference made by Developers for Developers!
 
 {{< alert icon="eye">}}
-**The DevCon24, will take place online from September 3 to 5, 13.00 - 18.00 CEST.**
+**The DevCon24, was broadcasted online from September 3 to 5, 13.00 - 18.00 CEST.**
 {{< /alert >}}
 
 During the three-day online conference, we provided you with nearly 30 talks created by Espressif technical experts, covering a wide range of topics, including Thread, Matter, ESP-IDF, Arduino Core for ESP32, ESP RainMaker Cloud solution, RUST and more.
