@@ -4,7 +4,7 @@ date: 2018-05-08
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
-  - esp-bot
+  - developer-portal
 ---
 Espressif Systems (or “Espressif”), a leading global IoT semiconductor company, announced today that it has received investment co-led by Intel Capital and Beijing Singularity Power Investment Fund L.P. (SPC).
 

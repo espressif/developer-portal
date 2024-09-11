@@ -4,7 +4,7 @@ date: 2019-02-04
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
-  - esp-bot
+  - developer-portal
 ---
 Welcome to our February Newsletter
 

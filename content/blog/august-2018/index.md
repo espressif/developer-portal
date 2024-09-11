@@ -4,7 +4,7 @@ date: 2018-08-06
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
-  - esp-bot
+  - developer-portal
 ---
 ## Fake News About Espressif Systems…Again!
 

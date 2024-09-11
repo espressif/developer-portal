@@ -4,7 +4,7 @@ date: 2018-11-11
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
-  - esp-bot
+  - developer-portal
 ---
 Welcome to our November Newsletter
 

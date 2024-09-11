@@ -4,7 +4,7 @@ date: 2020-12-06
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
-  - esp-bot
+  - developer-portal
 ---
 ![](img/esp-1.webp)
 
