@@ -3,7 +3,7 @@ title: "DIY Smart Electric Toothbrush using ESP32-C2 and RainMaker"
 date: 2024-08-22T17:00:17+08:00
 showAuthor: false
 authors:
-  - "Cai Guanhong"
+  - "cai-guanhong"
 tags: ["ESP32-C2", "SPI", "LCD", "ESP-Rainmaker", "Toothbrush", "DIY"]
 ---
 
@@ -42,7 +42,7 @@ Alternatively, the toothbrush can be powered through its USB Type-C interface, c
 #### Description of Different Circuit Blocks
 
 - **Battery Manager:**
-The TP4056 chip is used for battery management, providing charging functionality while preventing overcharge and overdischarge. It also includes reverse connection protection. The CHRG pin is pulled up via a 10K resistor. During charging, the CHRG pin is at a low level, while in other states, it is high. The CHRG pin is connected to the ESP32-C2's GPIO5, enabling the microcontroller to monitor the battery's charging status by detecting the GPIO5 pin's level.
+The TP4056 chip is used for battery management, providing charging functionality while preventing over charge and over discharge. It also includes reverse connection protection. The CHRG pin is pulled up via a 10K resistor. During charging, the CHRG pin is at a low level, while in other states, it is high. The CHRG pin is connected to the ESP32-C2's GPIO5, enabling the microcontroller to monitor the battery's charging status by detecting the GPIO5 pin's level.
 
 - **Battery Power Monitor:**
 The ESP32-C2's ADC (Analog-to-Digital Converter) operates within a range of 0–3.3V, while the 18350 lithium battery can reach up to 4.2V, which exceeds this limit. To safely measure the battery voltage, two equivalent resistors are used to divide the battery voltage. The divided voltage is read by the ESP32-C2's ADC on GPIO4 (channel 4). The measured value is then multiplied by 2 to determine the actual battery voltage, allowing for real-time monitoring of the battery's power level.
@@ -116,7 +116,7 @@ We implemented battery voltage monitoring using the ADC interface, referring to 
 For the WiFi functionality, the ESP32-C2 is set to WiFi Station mode. You can refer to the WiFi Station example to learn how to connect to an Access Point. The WiFi Driver Guide provides additional information for setting up WiFi connections.
 
 - **ESP-RainMaker Integration:**
-For cloud control and monitoring, the ESP-Rainmaker SDK allows remote control of the toothbrush. You can directly use the esp_rainmaker component for integration, and refer to the ESP-Rainmaker Get Started Guide for detailed instructions.
+For cloud control and monitoring, the ESP-Rainmaker SDK allows remote control of the toothbrush. You can directly use the [ESP RainMaker](https://components.espressif.com/components/espressif/esp_rainmaker) component for integration, and refer to the ESP-Rainmaker Get Started Guide for detailed instructions.
 
 ## ESP-Rainmaker 
 
@@ -172,7 +172,7 @@ Please see the video below for a closer look at the final product in action.
 
 - Feature to view the battery, time, animation, Bluetooth and Wi-Fi connect to network status through the LCD screen.
 
-![LCD Dispaly](./img/display.gif "LCD Dispaly")
+![LCD Display](./img/display.gif "LCD Dispaly")
 
 ## Interactive Functions
 
