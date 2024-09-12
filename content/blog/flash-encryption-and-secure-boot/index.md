@@ -1,26 +1,28 @@
 ---
-title: "【ESP32-S3】Use ESP Flash Download Tool to finish the Flash Encryption + Secure Boot + NVS Encryption"
+title: "Using the ESP Flash Download Tool to finish the Flash Encryption + Secure Boot + NVS Encryption"
 date: 2024-08-15T18:00:17+08:00
 showAuthor: false
 authors:
-  - "Cai Guanhong"
+  - "cai-guanhong"
 tags: ["ESP32-S3", "ESP-IDF", "Flash Encryption", "Secure Boot", "NVS Encryption"]
 ---
 
-
 ## Introduction
 
-This document records the implementation of "[Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) + [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2) + [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption)" functions on the ESP32-S3 using the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash).
+This tutorial is a step-by-step guide on how to set the "[Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) plus the [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2) and [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption)" functions on the ESP32-S3 using the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash).
 
-### Overview of [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption)
+## Flash Encryption Overview
 
-[Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption)  is used to encrypted the firmware in the external Flash chip used with ESP32 series products, which can protect the security of applications firmware. For more instructions, please read the [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) user guide.
+[Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) is a crucial security feature for ESP32 series products, designed to encrypt the firmware stored on the external Flash chip. This encryption protects the integrity and confidentiality of the firmware, safeguarding your application against unauthorized access, tampering, or reverse-engineering. Flash Encryption is especially important in scenarios where secure data transmission and firmware protection are essential.
 
+For more detailed instructions and configuration steps, please refer to the official [Flash Encryption User Guide](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/)
 
-### Products that Support `Flash Encryption`
+### Supported SoCs
 
-| Chip | Supported Key Types |
-|--|--|
+Here is the list of SoCs that supports the **Flash Encryption** and the supported key types.
+
+| Chip                                                                                                            | Supported Key Types       |
+|-----------------------------------------------------------------------------------------------------------------|---------------------------|
 | [ESP32](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32/security/flash-encryption.html#flash)       | XTS_AES_128               |
 | [ESP32-S2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s2/security/flash-encryption.html#flash)  | XTS_AES_128 & XTS_AES_256 |
 | [ESP32-S3](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash)  | XTS_AES_128 & XTS_AES_256 |
@@ -29,18 +31,19 @@ This document records the implementation of "[Flash Encryption](https://docs.esp
 | [ESP32-C6](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32c6/security/flash-encryption.html#flash)  | XTS_AES_128               |
 | [ESP32-H2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32h2/security/flash-encryption.html#flash)  | XTS_AES_128               |
 
+Each SoC in the ESP32 family uses a hardware-accelerated 256-bit AES-XTS encryption key to protect the data stored in external flash. These keys are securely stored in the One-Time Programmable (OTP) memory of the chip and are inaccessible from user applications.
 
-- Verify Flash  Encryption code：[esp-idf/components/bootloader_support/src/flash_encrypt.c](https://github.com/espressif/esp-idf/blob/v5.2.1/components/bootloader_support/src/flash_encrypt.c)
+> **Note:** This guide will focus on the **ESP32-S3** and its Flash Encryption features, providing step-by-step instructions tailored for this SoC.
 
-- Flash Encryption Test Example：[esp-idf/examples/security/flash_encryption](https://github.com/espressif/esp-idf/tree/v5.2.1/examples/security/flash_encryption)
+## Secure Boot V2 Overview
 
+**Secure Boot V2** is a security feature that ensures a device only runs authorized, signed code. It protects against unauthorized code execution by verifying the digital signature of each piece of software during the boot process. This prevents the execution of malicious or tampered firmware and helps maintain the integrity of the device.
 
-### Overview of [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2)
+For more detailed instructions and configuration steps, please refer to the official [Secure Boot V2 User Guide](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2).
 
-Secure Boot protects a device from running any unauthorized (i.e., unsigned) code by checking that each piece of software that is being booted is signed. For more instructions, please read the [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2) user guide.
+### Supported SoCs
 
-
-### Products that Support `Secure Boot`
+Here is the list of SoCs that supports the **Secure Boot V2** and the supported version.
 
 |  Product  |  Secure Boot Version  |
 |--|--|
@@ -52,21 +55,27 @@ Secure Boot protects a device from running any unauthorized (i.e., unsigned) cod
 | ESP32-C6 All versions | [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32c6/security/secure-boot-v2.html#secure-boot-v2) （RSA-PSS or ECDSA）     |
 | ESP32-H2 All versions | [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32h2/security/secure-boot-v2.html#secure-boot-v2) （RSA-PSS or ECDSA）     |
 
+## NVS Encryption Overview
 
-### Overview of [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption)
+**NVS Encryption** provides secure storage for sensitive data in the Non-Volatile Storage (NVS) system of ESP32 devices. It supports two primary encryption schemes: the [HMAC Peripheral-Based Scheme](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption-hmac-peripheral-based-scheme) and the [Flash Encryption-Based Scheme](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption-flash-encryption-based-scheme). These schemes ensure that sensitive information, such as device credentials or user data, is encrypted before being written to flash memory.
 
-NVS Encryption supports [HMAC Peripheral-Based Schem](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption-hmac-peripheral-based-scheme) and [Flash Encryption-Based Schemes](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption-flash-encryption-based-scheme). For more instructions, please read the [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) user guide.
+For more detailed information, refer to the [NVS Encryption User Guide](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption).
 
-In this case, the [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) is based on the [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption)  scheme. 
+In this guide, we will focus on the **NVS Encryption** that is based on the [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) scheme, which leverages the same mechanism used for securing firmware in the external flash.
 
+## Step-by-step Guide
 
+This guide will walk you through enabling Flash Encryption and Secure Boot V2 on the ESP32-S3, enhancing the security of your application.
 
+> **Warning:** Be careful when following this guide. Once you "burn" the eFuse, this operation **cannot** be reverted. eFuses are one-time programmable, and any changes made to them are permanent.
 
-## Create a partition table for your project.
+### 1 - Create a Partition Table for Your Project
 
-A single ESP chip's Flash can contain multiple apps, as well as many different kinds of data (calibration data, filesystems, parameter storage, etc). For this reason ， we need to create a partition table to plan the Flash space properly for our project. For partitioned table instructions, please read [Partition Tables](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-guides/partition-tables.html#partition-tables) user guide.
+The Flash memory on a single ESP chip can store multiple applications and various types of data, including calibration data, filesystems, and parameter storage. To organize this effectively, it's necessary to create a partition table that defines how the Flash space will be allocated for your project. Proper partitioning ensures that your application has the necessary space for both code and data storage.
 
-In this case, suppose the partition table setting as follows:
+For detailed partition table instructions, please refer to the [Partition Tables User Guide](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-guides/partition-tables.html#partition-tables).
+
+In this guide, we'll use the following partition table setup:
 
 ```c
 # Name,   Type, SubType, Offset,   Size, Flags
@@ -82,13 +91,14 @@ nvs_key,  data, nvs_keys, 0x320000 , 0x1000 , encrypted
 custom_nvs, data, nvs, 0x321000    , 0x6000 ,
 ```
 
-This partition table setting includes two `NVS` partitions, the default `nvs` and the `custom_nvs` partition.
+This partition table setting includes two `NVS` partitions, the default `nvs` and the `custom_nvs` partitions.
 
-- The default `nvs` partition is used to store per-device PHY calibration data (different to initialisation data) and store Wi-Fi data if the esp_wifi_set_storage(WIFI_STORAGE_FLASH) initialization function is used. As well as write data through the [nvs_set](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_flash.html#api) API on the software. This `nvs` partition does not need to download the corresponding `nvs.bin` when the firmware downloading. The default `nvs` partition will be `encrypted` while writing data to the `nvs` partition via the [nvs_set](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/api-reference/storage/nvs_flash.html#api)  API (Note: The [nvs_get](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_flash.html#_CPPv410nvs_get_i812nvs_handle_tPKcP6int8_t) (read) API does not support NVS encryption).
+- The default `nvs` partition is used to store per-device PHY calibration data (different to initialization data) and store Wi-Fi data if the `esp_wifi_set_storage(WIFI_STORAGE_FLASH)` initialization function is used. As well as write data through the [nvs_set](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_flash.html#api) API on the software. This `nvs` partition does not need to download the corresponding `nvs.bin` when the firmware is downloaded.
+The default `nvs` partition will be `encrypted` while writing data to the `nvs` partition via the [nvs_set](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/api-reference/storage/nvs_flash.html#api)  API (Note: The [nvs_get](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_flash.html#_CPPv410nvs_get_i812nvs_handle_tPKcP6int8_t) (read) API does not support NVS encryption).
 
 - The `custom_nvs` partition can used to store multiple files which by the `custom_nvs.csv` file managed . The types of files that can be managed can refer to the [CSV File Format](https://docs.espressif.com/projects/esp-idf/en/release-v5.1/esp32/api-reference/storage/nvs_partition_gen.html#csv-file-format)  instructions. And the `custom_nvs.bin` needs to be `encrypted` with `nvs_key` and downloaded the `encrypt_custom_nvs.bin` to the `custom_nvs` partition. Use a `custom_nvs.csv` file to Manage multiple files as follows:
 
-```c
+```text
 key,type,encoding,value
 server_cert,namespace,,
 server_cert,file,binary,E:\esp\test\customized\server_cert\server_cert.crt
@@ -108,43 +118,55 @@ With [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/es
 - [Otadata](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/system/ota.html?highlight=ota#ota-data-partition)
 - All [app type](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-guides/partition-tables.html#subtype) partitions
 
-> The [NVS key partition](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encr-key-partition) (`nvs_key` partition) is used to store the `nvs_key`, and the `nvs_key` is used to encrypt the `nvs` type partitions. In this case ， they are default `nvs` partition and the `custom_nvs` partition.
+> The [NVS key partition](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encr-key-partition) (`nvs_key` partition) is used to store the `nvs_key`, and the `nvs_key` is used to encrypt the `nvs` type partitions. In this case，default `nvs` and the `custom_nvs` partitions.
 
 Other types of data can be encrypted conditionally:
 
 - Any partition marked with the `encrypted` flag in the partition table. For details, see [Encrypted Partition Flag](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#encrypted-partition-flag).
 - If Secure Boot is enabled，the `public key digest` will be `encrypted`.
 
-If you are using the ESP32 series chip and want to enable the  [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) and [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2) and [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) functions , from the perspective of mass production environment, we recommend using the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) to complete all process.
+**Flash Download Tool**
 
-Utilizing the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) to complete the [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) and [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2) and [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) functions have the following advantages on the operational steps :
+If you are using the ESP32 series chip and want to enable [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption), [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2), and [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) for mass production, we recommend using the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) to automate the process.
 
-- Once the firmware download is completed, all the security and encrypted process are also finished.
-- When the chip is powered on for the first time, it is will runing the `ciphertext firmware` directly.
-- The risk of `Power Failure` or `Power Supply Instability` in security and encrypted processes can be avoided.
+Using the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) for enabling these security features offers several advantages:
 
-Using the  [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) to complete [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) and [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2) and [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) functions steps are as follows:
+- Once the firmware download is completed, the Flash Encryption, Secure Boot, and NVS Encryption processes are automatically finalized.
+- Upon the first power-up, the device will directly run the **encrypted firmware**.
+- Risks related to power failure or instability during the encryption and security processes are minimized.
 
-- First, you need to obtain the corresponding keys for Flash encryption and Secure boot and NVS encryption.
-- Next, you need to enable the [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption) and [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2) and [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) functions configuration option on the software and get the signed firmware.
-- Then, if you need to download `custom_nvs.bin` when you download all firmware, you will also need to manually encrypt `custom_nvs.bin`.
+The operational steps for using the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) to enable [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption), [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2), and [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) are as follows:
 
+1. **Obtain the Necessary Keys**:
+   - Before starting, you need to generate or obtain the encryption keys for Flash Encryption, Secure Boot, and NVS Encryption.
 
-## Obtain the different keys
+2. **Enable Security Features in the Software**:
+   - Configure the [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#flash-encryption), [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2), and [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/storage/nvs_encryption.html#nvs-encryption) options in your project and ensure your firmware is signed appropriately.
 
-## How to Obtain different types of [Flash Encryption Keys](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#pregenerated-flash-encryption-key) ?
+3. **Encrypt and Flash the Firmware**:
+   - When downloading the firmware, make sure to manually encrypt the `custom_nvs.bin` if needed. This file must be encrypted separately if it contains sensitive data.
 
-Users can use  [esptool](https://github.com/espressif/esptool) and running the `espsecure.py generate_flash_encryption_key` commands to generate the different types Flash Encryption keys . As follows:
+By following these steps, you can securely provision and encrypt your ESP32 devices in a mass production environment using the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash).
 
-> You can use `espsecure.py generate_flash_encryption_key --help` command to query the commands instructions.
+### 2 - Obtain the different keys
 
-- Running the follows command to generate the `SHA-256` key
+How to Obtain different types of [Flash Encryption Keys](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/flash-encryption.html#pregenerated-flash-encryption-key)?
+
+Users can use the [esptool](https://github.com/espressif/esptool) by running the `generate_flash_encryption_key` commands to generate the different types Flash Encryption keys.
+
+You can use command with `--help` to query the commands instructions:
+
+```bash
+espsecure.py generate_flash_encryption_key --help
+```
+
+Run the following command to generate the `SHA-256` key:
 
 ```bash
 espsecure.py generate_flash_encryption_key --keylen 128 flash_encrypt_key.bin
 ```
 
-- Running the follows command to generate the  `AES-128` key
+To generate the `AES-128` key, run
 
 Please note:
 
@@ -162,7 +184,7 @@ espsecure.py generate_flash_encryption_key flash_encrypt_key.bin
 espsecure.py generate_flash_encryption_key --keylen 512 flash_encrypt_key.bin
 ```
 
-### How to Obtain [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/host-based-security-workflows.html?highlight=secure_boot_signing_key%20pem#enable-secure-boot-v2-externally) key ?
+#### How to Obtain [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/host-based-security-workflows.html?highlight=secure_boot_signing_key%20pem#enable-secure-boot-v2-externally) key ?
 
 Base on the `ESP32S3`  chip to enable [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/secure-boot-v2.html#secure-boot-v2) function will requires a [rsa3072](https://docs.espressif.com/projects/esp-idf/zh_CN/release-v5.0/esp32/security/secure-boot-v2.html#generating-secure-boot-signing-key) type key.
 
@@ -180,7 +202,7 @@ Alternatively, you can also install the [OpenSSL](https://www.openssl.org/source
 openssl genrsa -out secure_boot_signing_key.pem 3072
 ```
 
-### How to Obtain [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/host-based-security-workflows.html?highlight=secure_boot_signing_key%20pem#enable-secure-boot-v2-externally) public key digest?
+#### How to Obtain [Secure Boot V2](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/security/host-based-security-workflows.html?highlight=secure_boot_signing_key%20pem#enable-secure-boot-v2-externally) public key digest?
 
 When enable Secure Boot V2 function on  [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash)  ， you need to add the Secure Boot V2 Key Digest. So you need to base on the Secure Boot V2 Key to generate the digest of the `public key`.  Please see: [Enable Secure Boot V2 Externally](https://docs.espressif.com/projects/esp-idf/zh_CN/v5.2.1/esp32/security/host-based-security-workflows.html?highlight=secure_boot_signing_key%20pem#enable-secure-boot-v2-externally).
 
@@ -192,7 +214,7 @@ For example:
 espsecure.py digest_rsa_public_key --keyfile secure_boot_signing_key.pem --output public_key_digest.bin
 ```
 
-### How to Obtain `nvs_key` ?
+#### How to Obtain `nvs_key` ?
 
 You can use the `nvs partition tool` （[esp-idf/components/nvs_flash/nvs_partition_generator](https://github.com/espressif/esp-idf/tree/v5.1.2/components/nvs_flash/nvs_partition_generator)）and running the `nvs_partition_gen.py`  command to obtain the `nvs_key` file. 
 
@@ -204,7 +226,7 @@ For example:
 python E:\esp\Espressif\frameworks\esp-idf-5.2.1\esp-idf\components\nvs_flash\nvs_partition_generator\nvs_partition_gen.py generate-key --keyfile nvs_key.bin
 ```
 
-### How to use `nvs_key` to encrypt the `custom_nvs.csv` file ?
+#### How to use `nvs_key` to encrypt the `custom_nvs.csv` file ?
 
 If you need to download `custom_nvs.bin` when you download all firmware, you also need to manually encrypt `custom_nvs.bin` use `nvs_key`. You can running the follows command to use `nvs_key.bin` to encrypt the `custom_nvs.csv`  file and get the encrypted `encrypt_custom_nvs.bin`.
 
@@ -216,87 +238,94 @@ python E:\esp\Espressif\frameworks\esp-idf-5.2.1\esp-idf\components\nvs_flash\nv
 
 > - `0x6000` is size of `encrypt_custom_nvs.bin` firmware
 
-## Software Configuration
+### 3 - Software Configuration
 
-On the Software Configuration，you need to enable `Flash Encryption` and `Secure Boot V2` and `NVS  Encryption` setting.
+On the Software Configuration side，you will need to enable `Flash Encryption`, `Secure Boot V2` and `NVS  Encryption` setting.
 
-`idf.py menuconfig → Security features`
-  
-- Enable Seucre Boot 
-    [*] Enable hardware Secure Boot in bootloader (READ DOCS FIRST)
-        Select secure boot version (Enable Secure Boot version 2)  --->
-    [*] Sign binaries during build (NEW)
-    (secure_boot_signing_key.pem) Secure boot private signing key (NEW) 
+```bash
+idf.py menuconfig
+```
+
+Go to `Security features` then set the options as the image below:
 
 ![Enable Secure Boot V2](./img/enable-secure-boot.webp "Enable Secure Boot V2")
 
 Please note you need to add the `secure_boot_signing_key.pem` path.
 
-- Enable Flash Encryption
-    [*] Enable flash encryption on boot (READ DOCS FIRST) 
-        Size of generated XTS-AES key (AES-128 (256-bit key))  ---> 
-        Enable usage mode (Release)  ---> 
-    [*] Encrypt only the app image that is present in the partition of type app (NEW) 
-    [*] Check Flash Encryption enabled on app startup (NEW) 
-        UART ROM download mode (UART ROM download mode (Enabled (not recommended)))  --->
+Set the `Enable Flash Encryption` options:
 
 ![Enable Flash Encryption](./img/enable-flash-encryption.webp "Enable Flash Encryption")
 
-- `Flash Encryption` support `Release` or `Development (NOT SECURE)` mode.
-    - When select the Flash Encryption `Release` mode, It is will setting the `SPI_BOOT_CRYPT_CNT` eFuse bit to `0b111`. The `Release` mode is recommended for mass production.
-	- When select the Flash Encryption `Development (NOT SECURE)` mode, It is will setting the `SPI_BOOT_CRYPT_CNT` eFuse bit to `0b001`.  If select the  `Development (NOT SECURE)` mode, the chip support provides one chance for disable Flash encryption . After enabled  Flash Encryption `Development (NOT SECURE)` mode, if you want to disable the Flash Encryption , you can running the follows command to disable the Flash Encryption.
+#### Flash Encryption Modes
 
-    ```bash
-	espefuse.py -p port burn_efuse SPI_BOOT_CRYPT_CNT 0x3
-	```
+`Flash Encryption` supports two modes: `Release` and `Development (NOT SECURE)`.
 
-    - Because of the Flash Download Tool only support AES-128 on ESP32-S3, so select the AES-128 key on the software.
-    - At the same time, please pay attention to the `UART ROM download mode`  setting. If you do not want to disable the download mode, it is recommended to select `UART ROM download mode (Enabled (not recommended))`  configuration. Different download modes configuration options instructions can refer to [CONFIG_SECURE_UART_ROM_DL_MODE](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/kconfig.html#config-secure-uart-rom-dl-mode) instructions.
+- **Release Mode**: 
+   - When `Release` mode is selected, the `SPI_BOOT_CRYPT_CNT` eFuse bit is set to `0b111`, permanently enabling Flash Encryption. This mode is **recommended for mass production**, as it provides full security by locking the encryption settings after the first flash.
+  
+- **Development Mode (NOT SECURE)**: 
+   - In `Development (NOT SECURE)` mode, the `SPI_BOOT_CRYPT_CNT` eFuse bit is set to `0b001`. This mode allows for testing and debugging, offering the flexibility to flash firmware multiple times with encryption enabled. However, this mode is **not secure** and is intended only for development purposes. 
+   - If Flash Encryption is enabled in `Development (NOT SECURE)` mode, there is one chance to disable it. To disable Flash Encryption after it has been enabled in this mode, you can run the following command:
 
-- Enable NVS Encryption
+```bash
+espefuse.py -p port burn_efuse SPI_BOOT_CRYPT_CNT 0x3
+```
 
-    `idf.py menuconfig → Component config → NVS`
-    [*] Enable NVS encryption 
+Because the Flash Download Tool only supports AES-128 on the ESP32-S3, you should select the **AES-128** key option in the software.
+
+Additionally, pay attention to the `UART ROM download mode` setting. If you prefer not to disable the download mode, it is recommended to select the configuration option **UART ROM download mode (Enabled, not recommended)**. For more details on different download mode configuration options, refer to the [CONFIG_SECURE_UART_ROM_DL_MODE](https://docs.espressif.com/projects/esp-idf/en/v5.2.1/esp32s3/api-reference/kconfig.html#config-secure-uart-rom-dl-mode) documentation.
+
+#### Enable NVS Encryption
+
+To enable the `NVS Encryption`, set the following in the configuration menu:
+
+Go to `Component config → NVS` and set the `Enable NVS encryption`.
 
 ![Enable NVS Encryption](./img/nvs-encryption.webp "Enable NVS Encryption")
 
-## Increase the partition table offset
+#### Increase the partition table offset
 
 Since the Flash Encryption and Secure Boot V2 function will increase the size of the bootloader firmware, so you need to increase the partition table offset(Default is `0x8000`) setting. As follows:
 
-`idf.py menuconfig → Partition Table → (0xF000) Offset of partition table`
+Go to `Partition Table` and set the offset to `(0xF000)` in the `Offset of partition table`.
 
 ![Increase Partition Table Offset](./img/partition-table-offset.webp "Increase Partition Table Offset")
 
+#### Build the project
 
-## Compile the project to get the compiled firmware
+Now you need to build the project to get the compiled firmware.
 
-Then , you need compile the project to get the compiled firmware.
+Run the build command:
 
 ```bash
 idf.py build
 ```
 
-Because of the secure boot function is enabled. After compiled , you will get the `bootloader.bin` and `bootloader-unsigned.bin` and `app.bin` and `app-unsigned.bin` and other partition firmware bin files. The `bootloader.bin` and `app.bin` are signed firmware. The `bootloader-unsigned.bin` and `app-unsigned.bin` are unsigned firmware. We need to downlaod the signed firmware and other partition firmware bin files.
+Since the secure boot function is enabled, after compilation, you will generate several firmware files, including `bootloader.bin`, `bootloader-unsigned.bin`, `app.bin`, `app-unsigned.bin`, and other partition firmware files.
 
-From the compilation completion log, you can see the firmware path and firmware download address. The firmware and firmware download address are need to be imported to the Flash Download tool . As follows:
+The `bootloader.bin` and `app.bin` are signed firmware, while `bootloader-unsigned.bin` and `app-unsigned.bin` are the unsigned versions. You need to download the **signed** firmware files (`bootloader.bin` and `app.bin`) along with the other partition firmware files.
 
-![Firmware Offset Adress](./img/firmware-offset-address.webp "Firmware Offset Address")
+From the compilation log, you can find the firmware file paths and the corresponding download addresses. These firmware files and their download addresses need to be imported into the Flash Download Tool, as shown below:
 
-![Firmware PATH](./img/firmware-path.webp "Firmware PATH")
+![Firmware Offset Addresses](./img/firmware-offset-address.webp "Firmware Offset Addresses")
 
+Firmware paths:
 
-## [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash)   Configuration
+![Firmware path](./img/firmware-path.webp "Firmware path")
 
-Put the `Flash Encryption Key` and the `digest of the Secure boot V2 public key` into the `flash_download_tool\secure` directory. As follows：
+## 4 - Flash Download Tool Configuration
+
+On this step, we will show how to configure the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) with the generated keys. This tool is only available for **Windows**.
+
+First, put the `Flash Encryption Key` and the `digest of the Secure boot V2 public key` into the `flash_download_tool\secure` directory, as following：
 
 ![Secure Keys](./img/secure-keys.webp "Secure Keys")
 
-In the `configure\esp32s3\security.conf` configuration file of the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash) , enable the `Flash Encryption` and `Secure Boot V2` configuration option . 
+In the `configure\esp32s3\security.conf` configuration file of the [Flash Download Tool](https://www.espressif.com/en/support/download/other-tools?keys=flash), enable the `Flash Encryption` and `Secure Boot V2` configuration options.
 
 ![Security Config File](./img/flash-security-config-file.webp "Security Config File")
 
-The security configurations to be modified are as follows:
+The security configurations to be modified are:
 
 ```c
 [SECURE BOOT]
@@ -332,26 +361,32 @@ dis_download_dcache = True                \\ Configures whether to disable the e
 dis_download_manual_encrypt = True        \\ Configures whether to disable flash encryption operation when running in UART bootloader boot mode
 ```
 
-## Restart the [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash)  
+### Restart the Flash Download Tool
 
-After restart the [Flash Download Tools](https://www.espressif.com/en/support/download/other-tools?keys=flash) ，it is will read the  `configure\esp32s3\security.conf`  configuration informations. As follows：
+Before proceeding with the process, restart the **Flash Download Tool** software. After restarting, the new configuration file located in `configure\esp32s3\security.conf` will be read, and the updated configuration will be loaded.
+
+If everything is working correctly, a warning message will be displayed:
 
 ![Flash Download Tool Boot Security Config](./img/flash-download-tool-boot-security-config.webp "Flash Download Tool Boot Security Config")
 
+Now you can click `OK`.
 
-## Import all firmware to be Downloaded
+## Import All Firmware to be Downloaded
 
-According to partition table setting, add all the firmware and firmware downloade address . As follows:
+Based on the partition table settings, add all the firmware files and their respective download addresses. The interface should look similar to the following:
 
 ![Add Bin Files](./img/bin-file.webp "Add Bin Files")
 
-## Downloading all firmware
+## Downloading All Firmware
 
-The Flash download tool will write the `Flash encryption key`  and  `Secure boot V2 Key public key digest` to the chip `eFuse BLOCK` during the firmware downloading process.
-- And wirting the（`SPI_BOOT_CRYPT_CNT`） eFuse bit to enable `Flash Encryption` and writing the `SECURE_BOOT_EN` eFuse bit to enable `Secure Boot V2`.
-- Then writing all （`configure\esp32s3\security.conf` ）`[ESP32S3 EFUSE BIT CONFIG]` configuration setting to chip eFuse. As follows log from black box :
+During the firmware download process, the Flash Download Tool will write the following to the chip's eFuse blocks:
+- The `Flash encryption key` and the `Secure Boot V2 public key digest`.
+- The `SPI_BOOT_CRYPT_CNT` eFuse bit will be set to enable **Flash Encryption**, and the `SECURE_BOOT_EN` eFuse bit will be set to enable **Secure Boot V2**.
+- The tool will also apply all configuration settings from the `configure\esp32s3\security.conf` file to the chip's eFuses.
 
-```c
+You will see a log similar to the one below from the tool's output:
+
+```text
 test offset :  0 0x0
 case ok
 test offset :  61440 0xf000
@@ -490,32 +525,34 @@ Checking efuses...
 Successful
 ```
 
-After the firmware is downloaded, all the Flash Encryption and Secure Boot V2 process are completed. The firmware download process will complete the following process:
+After the firmware is downloaded, the Flash Encryption and Secure Boot V2 processes are completed. The firmware download process performs the following steps:
 
-- Writing the  `Secure boot V2 Key public key digest`  to chip eFuse `BLOCK_KEY0 （KEY_PURPOSE_0）`
-- Writing the  `Flash Encryption key`  to chip eFuse `BLOCK_KEY1 （KEY_PURPOSE_1）`
-- Wirting the（`SPI_BOOT_CRYPT_CNT`） eFuse bit to `0b111`
-- Writing the `SECURE_BOOT_EN` eFuse bit to `0b1`
-- Writing the `DIS_USB_JTAG`  eFuse bit to `0b1`
-- Writing the `DIS_PAD_JTAG` eFuse bit to `0b1`
-- Writing the `SOFT_DIS_JTAG` eFuse bit to `0b111`
-- Writing the `DIS_DIRECT_BOOT` eFuse bit to `0b1`
-- Writing the `DIS_DOWNLOAD_ICACHE` eFuse bit to `0b1`
-- Writing the `DIS_DOWNLOAD_DCACHE` eFuse bit to `0b1`
-- Writing the `DIS_DOWNLOAD_MANUAL_ENCRYPT` eFuse bit to `0b1`
+- Writing the `Secure Boot V2 public key digest` to chip eFuse `BLOCK_KEY0 (KEY_PURPOSE_0)`
+- Writing the `Flash Encryption key` to chip eFuse `BLOCK_KEY1 (KEY_PURPOSE_1)`
+- Setting the `SPI_BOOT_CRYPT_CNT` eFuse bit to `0b111` to enable Flash Encryption
+- Setting the `SECURE_BOOT_EN` eFuse bit to `0b1` to enable Secure Boot V2
+- Setting the `DIS_USB_JTAG` eFuse bit to `0b1` to disable USB JTAG
+- Setting the `DIS_PAD_JTAG` eFuse bit to `0b1` to disable PAD JTAG
+- Setting the `SOFT_DIS_JTAG` eFuse bit to `0b111` to disable JTAG functionality
+- Setting the `DIS_DIRECT_BOOT` eFuse bit to `0b1` to disable direct boot
+- Setting the `DIS_DOWNLOAD_ICACHE` eFuse bit to `0b1` to disable instruction cache during download
+- Setting the `DIS_DOWNLOAD_DCACHE` eFuse bit to `0b1` to disable data cache during download
+- Setting the `DIS_DOWNLOAD_MANUAL_ENCRYPT` eFuse bit to `0b1` to disable manual encryption during download
 
 ## Running the Firmware
 
-Upon the first power-up startup, the firmware will :
-  - Check whether the Secure Boot V2 feature is enabled
-  - Check whether the Flash Encryption feature is enabled
-  - Check whether the NVS Encryption feature is enabled
-  - Then，verify Signed and Encrypted firmware
-  - If the verification succeeds, the firmware will running normally
+During the first startup (power-up), the firmware will go through the following checks:
 
-### The firmware running log at the first time as following:
+- Verify if the **Secure Boot V2** feature is enabled.
+- Verify if the **Flash Encryption** feature is enabled.
+- Verify if the **NVS Encryption** feature is enabled.
+- Validate the **signed and encrypted firmware**.
 
-```c
+If all checks and verification processes succeed, the firmware will run normally.
+
+The firmware running log on the first startup will appear as follows:
+
+```text
 ESP-ROM:esp32s3-20210327
 Build:Mar 27 2021
 rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
@@ -633,3 +670,19 @@ I (1398) wifi softAP: wifi_init_softap finished. SSID:myssid password:mypassword
 I (1398) esp_netif_lwip: DHCP server started on interface WIFI_AP_DEF with IP: 192.168.4.1
 I (1408) main_task: Returned from app_main()
 ```
+
+## Conclusion
+
+Enabling Flash Encryption, Secure Boot V2, and NVS Encryption on the ESP32-S3 is critical for ensuring the security and integrity of your firmware and data. By following this guide, you can successfully configure and implement these features in both development and production environments. Utilizing tools like the Flash Download Tool simplifies the process, making it efficient and secure, especially in mass production settings. Always verify your configurations and ensure that the correct eFuse settings are applied, as they are irreversible.
+
+For further exploration and testing, refer to the provided code examples and documentation links.
+
+## References
+
+For more information on implementing and verifying Flash Encryption, as well as practical examples, refer to the following resources:
+
+- **Verify Flash Encryption Code**: Detailed source code for verifying the Flash Encryption process can be found in the ESP-IDF repository:
+  [esp-idf/components/bootloader_support/src/flash_encrypt.c](https://github.com/espressif/esp-idf/blob/v5.2.1/components/bootloader_support/src/flash_encrypt.c)
+
+- **Flash Encryption Test Example**: A comprehensive example demonstrating Flash Encryption in action is available in the ESP-IDF examples section:
+  [esp-idf/examples/security/flash_encryption](https://github.com/espressif/esp-idf/tree/v5.2.1/examples/security/flash_encryption)
