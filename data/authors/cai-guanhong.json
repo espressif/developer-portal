@@ -1,0 +1,8 @@
+{
+    "name": "Cai Guanhong",
+    "image" : "img/authors/espressif.png",
+    "bio": "Espressif Systems",
+    "social": [
+        { "link": "https://espressif.com/"}
+    ]
+}
