@@ -113,10 +113,10 @@ The motor driver and buzzer are controlled via the PWM interface. Espressif prov
 We implemented battery voltage monitoring using the ADC interface, referring to the [ADC oneshot read example](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/peripherals/adc/oneshot_read). The [ADC Oneshot Mode Driver Guide](https://docs.espressif.com/projects/esp-idf/en/v5.3/esp32c2/api-reference/peripherals/adc_oneshot.html?highlight=adc#analog-to-digital-converter-adc-oneshot-mode-driver) provides further instructions on how to read ADC data in oneshot mode.
 
 - **Wi-Fi Connection:**
-For the WiFi functionality, the ESP32-C2 is set to WiFi Station mode. You can refer to the WiFi Station example to learn how to connect to an Access Point. The WiFi Driver Guide provides additional information for setting up WiFi connections.
+For the WiFi functionality, the ESP32-C2 is set to WiFi Station mode. You can refer to the [WiFi Station](https://github.com/espressif/esp-idf/tree/release/v5.3/examples/wifi/getting_started/station) example to learn how to connect to an Access Point. The [WiFi Driver](https://docs.espressif.com/projects/esp-idf/en/v5.3.1/esp32c2/api-guides/wifi.html#wi-fi-driver) Guide provides additional information for setting up WiFi connections.
 
 - **ESP-RainMaker Integration:**
-For cloud control and monitoring, the ESP-Rainmaker SDK allows remote control of the toothbrush. You can directly use the [ESP RainMaker](https://components.espressif.com/components/espressif/esp_rainmaker) component for integration, and refer to the ESP-Rainmaker Get Started Guide for detailed instructions.
+For cloud control and monitoring, the [ESP-Rainmaker](https://github.com/espressif/esp-rainmaker) SDK allows remote control of the toothbrush. You can directly use the [ESP RainMaker](https://components.espressif.com/components/espressif/esp_rainmaker) component for integration, and refer to the [ESP-Rainmaker Get Started](https://rainmaker.espressif.com/docs/get-started/) Guide for detailed instructions.
 
 ## ESP-Rainmaker 
 
