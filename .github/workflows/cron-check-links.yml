@@ -22,6 +22,8 @@ jobs:
             --exclude-path ./themes/
             --exclude-path ./layouts/
             .
+          # Fail action on broken links
+          fail: true
 
       - name: Suggestions
         if: failure()
