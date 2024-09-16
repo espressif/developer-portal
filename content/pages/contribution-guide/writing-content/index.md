@@ -1,7 +1,8 @@
 ---
-title: "Content writing workflow"
+title: "Writing content"
 date: 2024-04-29T14:25:01+08:00
 tags: ["Contribute"]
+showTableOfContents: true
 showAuthor: false
 authors:
   - "kirill-chalov"
@@ -11,7 +12,7 @@ authors:
 
 There are the following prerequisites before you start writing content:
 
-- Decide how you want to contribute by choosing the [content contribution workflow](../content-contrib-workflow "Content contribution workflow") and get a copy of the [espressif / developer-portal][] repo
+- Decide how you want to contribute by choosing the [contribution workflow](../contrib-workflow "Contribution workflow") and get a copy of the [espressif / developer-portal][] repo
 - To view the built version of the website, [install](https://gohugo.io/installation/) Hugo in your environment and go through [Getting started](https://gohugo.io/getting-started/) if required
 
 [espressif / developer-portal]: https://github.com/espressif/developer-portal "Espressif Developer Portal"
@@ -62,7 +63,7 @@ This is totally up to you how you write the content as long as it is valuable fo
 
 For writing and formatting conventions, the contributors at Espressif usually follow the [Espressif Manual of Style](https://mos.espressif.com/) and the *Chicago Manual of Style*. You might find these guidelines useful, but you are not required to follow them.
 
-### Prepare a featured image
+## Prepare a featured image
 
 A featured image appears above the article's title. A nice and relevant image attracts readers like a magnet, that is why consider giving more thought to it.
 
@@ -81,20 +82,88 @@ A featured image can be added in the following ways from the highest to lowest p
 
 [blowfish-front-matter]: https://blowfish.page/docs/front-matter/
 
-### Use additional content types
+## Use additional content types
 
-Apart from the usual content types supported by markdown, such as visuals or code snippets, you can also include:
-
-- [Diagrams as code](https://gohugo.io/content-management/diagrams/)
-  - Mermaid diagrams are supported, for an example see the raw version of [this page](../content-contrib-workflow "Content contribution workflow")
-- Youtube videos using [Hugo shortcodes](https://gohugo.io/content-management/shortcodes/#youtube)
-- [asciinema casts](../asciinema-casts "asciinema casts")
+Apart from the usual content types supported by markdown, such as visuals or code blocks, you can use other content types enabled by Hugo shortcodes. This section briefly introduces them.
 
 If you need other types of content, either create a discussion on GitHub or offer a PR with the required functionality. It will be very much appreciated!
+
+
+### Images
+
+
+
+
+### Code blocks with tabs
+
+Tabbed code blocks look neat:
+
+{{< tabs groupId="config" >}}
+  {{% tab name="Linux" %}}
+```md
+Linux code block
+```
+  {{% /tab %}}
+  {{% tab name="macOS" %}}
+Update homebrew, then run:
+```md
+macOS code block
+```
+  {{% /tab %}}
+{{< /tabs >}}
+
+At the same time, the markup is very simple:
+
+````md
+{{</* tabs groupId="config" */>}}
+  {{%/* tab name="Linux" */%}}
+```md
+Linux code block
+```
+  {{%/* /tab */%}}
+  {{%/* tab name="macOS" */%}}
+Update homebrew, then run:
+```md
+macOS code block
+```
+  {{%/* /tab */%}}
+{{</* /tabs */>}}
+````
+
+Some explanations:
+
+- Use the `tabs` shortcode to create a tabbed code block
+- Use the nested `tab` shortcode to create as many tabs as you need
+- Within a tab, place any markdown content you want, it will be rendered like any other markdown content
+
+For a real example, see this [page](../../../blog/build-embedded-swift-application-for-esp32c6/#building-an-example-project).
+
+As you can see, the `tabs` shortcode has **the parameter** `groupId`. It creates association between all tabbed code blocks bearing the same `groupId` on a webpage. Once you choose a certain tab, all associated code blocks will switch to the same tab. It can be useful in tutorials covering multiple operating systems, programming lanugages, etc.
+
+You can also easily **indent a tabbed code block**, by preceding the `tabs` and `tab` shortcodes with the required number of spaces. This is exactly what was [done][indented-tabbed-code-block] in the linked example above.
+
+[indented-tabbed-code-block]: https://github.com/espressif/developer-portal/blob/bfc7ee90bfc434bd1b1577a0fd1635a3923391d1/content/blog/build-embedded-swift-application-for-esp32c6/index.md?plain=1#L49-L65
+
+### Diagrams as code
+
+A number of [Diagrams as code](https://gohugo.io/content-management/diagrams/) formats are supported, including [Mermaid](https://mermaid.js.org/).
+
+For example, a Mermaid diagram is used on [this page](../contrib-workflow "Contribution workflow") (see also the [raw version][contrib-workflow-raw]).
+
+[contrib-workflow-raw]: https://github.com/espressif/developer-portal/blob/main/content/pages/contribution-guide/content-contrib-workflow/index.md?plain=1#L16-L41
+
+### Asciinema casts
+
+[asciinema casts](../asciinema-casts "asciinema casts")
+
+
+### Video
+
+Youtube videos using [Hugo shortcodes](https://gohugo.io/content-management/shortcodes/#youtube)
 
 
 ## Ask for review
 
 To publish your content on the Espressif Developer Portal, please create a discussion in [espressif / developer-portal][] invite reviewers from Espressif so that they can make sure your content is in-line with Espressif's writing conventions.
 
-After the review is done, create a PR following the [content contribution workflow](../content-contrib-workflow "Content contribution workflow").
+After the review is done, create a PR following the [contribution workflow](../contrib-workflow "Contribution workflow").
