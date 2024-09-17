@@ -1,0 +1,10 @@
+{
+    "name": "Vilém Závodný",
+    "image": "img/authors/espressif.png",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/zavovi/" },
+        { "github": "https://github.com/espzav" },
+        { "link": "https://www.zavavov.cz/" }
+    ]
+}
