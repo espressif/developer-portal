@@ -10,7 +10,7 @@ authors:
 ## Introduction
 
 In today’s fast-paced world of IoT and embedded systems, creating an intuitive and responsive Graphical User Interface (GUI) can make or break the user experience of your product. Espressif’s powerful microcontrollers, like the ESP32-S2 or the ESP32-S3, offer incredible capabilities for embedded applications. However, developing a professional-grade GUI that leverages these capabilities can be challenging. That’s where Embedded Wizard comes into play. Embedded Wizard is an award-winning GUI development solution by independent software company TARA Systems that enables engineers to create high-performance, visually appealing interfaces with ease. In this article, we'll explore how Embedded Wizard integrates seamlessly with Espressif's ecosystem, helping you to rapidly create and deploy stunning GUIs on your ESP32-based projects.
-www
+
 {{< figure src="img/embedded-wizard.webp" alt="Alt text" caption="Easily Develop Graphical User Interfaces (GUIs) with Espressif Microcontrollers (MCUs) - Picture" >}}
 
 ## Why Choose Embedded Wizard for Your Espressif Project?
