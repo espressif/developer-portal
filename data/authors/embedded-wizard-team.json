@@ -1,0 +1,13 @@
+{
+  "name": "Embedded Wizard Team",
+  "bio": "TARA Systems GmbH",
+  "social": [
+    {
+      "linkedin": "https://www.linkedin.com/showcase/embedded-wizard"
+    },
+    {
+      "link": "https://www.embedded-wizard.de/"
+    }
+  ],
+  "image" : "img/authors/embedded-wizard-team.webp"
+}
