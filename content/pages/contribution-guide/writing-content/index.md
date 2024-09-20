@@ -63,7 +63,7 @@ This is totally up to you how you write the content as long as it is valuable fo
 
 For writing and formatting conventions, the contributors at Espressif usually follow the [Espressif Manual of Style](https://mos.espressif.com/) and the *Chicago Manual of Style*. You might find these guidelines useful, but you are not required to follow them.
 
-## Prepare a featured image
+### Prepare a featured image
 
 A featured image appears above the article's title. A nice and relevant image attracts readers like a magnet, that is why consider giving more thought to it.
 
@@ -80,18 +80,74 @@ A featured image can be added in the following ways from the highest to lowest p
   featureAsset: "img/featured/image.webp"
   ```
 
+Please have your featured image converted to WebP as requested in [Use WebP for raster images](#use-webp-for-raster-images).
+
 [blowfish-front-matter]: https://blowfish.page/docs/front-matter/
 
 ## Use additional content types
 
-Apart from the usual content types supported by markdown, such as visuals or code blocks, you can use other content types enabled by Hugo shortcodes. This section briefly introduces them.
+Apart from the usual content types supported by markdown, such as visuals or code blocks, you can use other content types enabled by Hugo shortcodes. This section briefly introduces the most relevant shortcodes implemented on the Espressif Developer Portal.
 
-If you need other types of content, either create a discussion on GitHub or offer a PR with the required functionality. It will be very much appreciated!
+In addition to that, you can also use the standard Hugo [embedded shortcodes](https://gohugo.io/content-management/shortcodes/#embedded-shortcodes) and [Blowfish theme shortcodes](https://blowfish.page/docs/shortcodes/).
+
+If you need other content types or shortcodes implemented, either create a discussion on GitHub or offer a PR with the required functionality. It will be very much appreciated!
 
 
 ### Images
 
+#### Adding images
 
+You can add an image using a standard markdown syntax:
+
+```md
+![Alt text](path/to/image.webp "Optional tooltip")
+```
+
+However, the Blowfish theme used on this website provides the [figure](https://blowfish.page/docs/shortcodes/#figure) shortcode that offers more control over image display and render. An example of a shortcode is given below, but more parameters are available:
+
+```md
+{{</* figure
+    src="image.webp"
+    alt=""
+    caption=""
+    */>}}
+```
+
+By default, the Blowfish theme optimizes the images for different device resolutions. For some images, the processing **adds grey background**. To fix it, disable the processing of such images by adding the parameter `default="false"` to the figure shortcode.
+
+
+#### Use WebP for raster images
+
+For raster images, please use the WebP format only. The Developer Portal's CI blocks the images in PNG anf JPEG format.
+
+The WebP format was chosen for the following reasons:
+
+- The images in WebP are comparable in quality to PNG and JPEG but are 5-7 times smaller in size
+- Smaller image size is important
+  - It prevents the git repo from growing out of proportion very fast
+  - It allows serving web pages faster
+
+To convert your images to WebP, use one of the following ways:
+
+- Use [imagemagick](https://imagemagick.org/script/download.php):
+
+  ```sh
+  convert image.jpg -quality 60 image.webp
+  ```
+- Use [cwebp](https://developers.google.com/speed/webp/download):
+
+  ```sh
+  cwebp -q 60 image.jpg -o image.webp
+  ```
+
+The quality value `60` usually yields good results. For very good quality, you can use the value `80`.
+
+
+### Asciinema casts
+
+[Asciinema](https://asciinema.org/) allows you to record terminal sessions using a lightweight text-based format.
+
+If you want to use an asciinema cast in your article, see [asciinema casts](../asciinema-casts "asciinema casts").
 
 
 ### Code blocks with tabs
@@ -144,22 +200,42 @@ You can also easily **indent a tabbed code block**, by preceding the `tabs` and 
 
 [indented-tabbed-code-block]: https://github.com/espressif/developer-portal/blob/bfc7ee90bfc434bd1b1577a0fd1635a3923391d1/content/blog/build-embedded-swift-application-for-esp32c6/index.md?plain=1#L49-L65
 
+
 ### Diagrams as code
 
 A number of [Diagrams as code](https://gohugo.io/content-management/diagrams/) formats are supported, including [Mermaid](https://mermaid.js.org/).
 
 For example, a Mermaid diagram is used on [this page](../contrib-workflow "Contribution workflow") (see also the [raw version][contrib-workflow-raw]).
 
-[contrib-workflow-raw]: https://github.com/espressif/developer-portal/blob/main/content/pages/contribution-guide/content-contrib-workflow/index.md?plain=1#L16-L41
-
-### Asciinema casts
-
-[asciinema casts](../asciinema-casts "asciinema casts")
+[contrib-workflow-raw]: https://github.com/espressif/developer-portal/blob/main/content/pages/contribution-guide/contrib-workflow/index.md?plain=1#L16-L41
 
 
 ### Video
 
-Youtube videos using [Hugo shortcodes](https://gohugo.io/content-management/shortcodes/#youtube)
+To embed a YouTube video in your article, use the [Hugo shortcode](https://gohugo.io/content-management/shortcodes/#youtube).
+
+
+## Use pre-commit
+
+This project has a [pre-commit][] hook that can perform the following checks:
+
+- Enforce coding standards and best practices in the project's codebase
+- Check links using [lychee][]
+  - **Important**: this check requires Docker as a dependency, please make sure it is installed
+
+[pre-commit]: https://pre-commit.com/
+[lychee]: https://github.com/lycheeverse/lychee
+
+If you want to use pre-commit, in your project folder, run:
+
+```sh
+# Install requirements
+pip install -r requirements.txt
+# Set up git hook scripts
+pre-commit install
+# Remove git hook scripts (if not needed)
+pre-commit uninstall
+```
 
 
 ## Ask for review
