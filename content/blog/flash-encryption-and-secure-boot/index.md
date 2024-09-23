@@ -1,6 +1,6 @@
 ---
 title: "Using the ESP Flash Download Tool to finish the Flash Encryption + Secure Boot + NVS Encryption"
-date: 2024-08-15T18:00:17+08:00
+date: 2024-09-23T18:00:17+08:00
 showAuthor: false
 authors:
   - "cai-guanhong"
