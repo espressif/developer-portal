@@ -40,6 +40,8 @@ Effective revocation mechanisms can disable devices misusing compromised keys, e
 
 Espressif’s [Matter Pre-Provisioning Service](/accelerating-matter-device-manufacturing-2fcce0a0592a) allows you to order modules from Espressif that are securely pre-programmed with the unique details (DAC) that every Matter device needs to have. To ensure trust and reliability, our solution will soon support PAI and DAC revocation too.
 
+---
+
 Now that we understand how revocation can help every stakeholder in the Matter Ecosystem, let’s deep-dive into some technical details.
 
 ## What is CRL?
