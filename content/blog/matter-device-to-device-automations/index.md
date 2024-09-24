@@ -22,7 +22,7 @@ For this interaction to happen, the switch should know the details about the lig
 
 There are two ways through which device-to-device interaction can be accomplished:
 
-## __1. Synchronous Control__ 
+## 1. Synchronous Control
 
 Let’s go back to our example of the switch controlling the light that is shown above. For this, the switch additionally needs to have a Binding cluster server that offers the binding service. After a user binds the light to the switch, an action (on or off) on the switch results into corresponding action on the light. This scenario is illustrated below:
 
@@ -30,7 +30,7 @@ Let’s go back to our example of the switch controlling the light that is shown
 
 Similarly, a Dimmer Switch needs to have an OnOff client, a Level Control client and a Binding server to control a dimmable light.
 
-## __2. Asynchronous Notification (Subscribe-Report)__ 
+## 2. Asynchronous Notification (Subscribe-Report)
 
 This method facilitates receiving data reports from a publisher to a subscriber. The subscriber can __subscribe to attributes and/or events__  on the publisher.
 

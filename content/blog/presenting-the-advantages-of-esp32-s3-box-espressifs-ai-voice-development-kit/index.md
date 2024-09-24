@@ -20,7 +20,7 @@ Now, let’s look at some of the most important use cases that are readily suppo
 
 ![](img/presenting-3.webp)
 
-## __Online and Offline Voice Assistant__ 
+## Online and Offline Voice Assistant
 
 ESP32-S3-BOX features an online and offline voice assistant which can be used as either a stand-alone voice assistant, or a voice-enablement module that can be integrated into other devices.
 
@@ -28,13 +28,13 @@ For every high-quality voice assistant, a high-performance audio front-end and a
 
 Espressif’s [ESP-Skainet](https://github.com/espressif/esp-skainet) SDK provides a reliable offline voice assistant that enables developers to configure up to 200 commands. Espressif’s [Alexa for IoT SDK](https://github.com/espressif/esp-va-sdk) provides an easy way to integrate the Alexa functionality into IoT devices. Both of these assistants are available on ESP32-S3-BOX, thus addressing any developer requirements for offline and online voice assistants. Practical examples of these will be made available shortly.
 
-## __HMI Touch Screen__ 
+## HMI Touch Screen
 
 ![](img/presenting-4.webp)
 
 ESP32-S3-BOX has a 320x240 capacitive touch screen that can be used for HMI applications, such as control panels. ESP32-S3 SoC’s improved PSRAM interface and computing power support a touch screen with a high refresh rate. Espressif has integrated [LVGL](https://github.com/espressif/esp-iot-solution/blob/release/v1.1/documents/hmi_solution/littlevgl/littlevgl_guide_en.md) into its SDK, as a component, thus making it easy for developers to evaluate and port LVGL into their product designs. LVGL is a free and open-source graphics library, providing users with everything they need for creating an embedded GUI in ESP32-S3-BOX, with easy-to-use graphical elements and advanced visual effects, including animations and anti-aliasing.
 
-## __Smart Gateways__ 
+## Smart Gateways
 
 ESP32-S3-BOX can support several Espressif chip series through its Pmod™ headers, so that developers can easily build a smart gateway and integrate into it various communication protocols. This ensures connectivity for a variety of devices in a seamless way.
 
@@ -50,7 +50,7 @@ ESP32-S3-BOX can also work as a Wi-Fi/Bluetooth gateway. After it connects to th
 
 In addition, ESP32-S3-BOX also supports multiple third-party cloud platforms to ensure device interoperability in different ecosystems. With the help of Espressif’s one-stop AIoT could platform, [ESP RainMaker®](https://rainmaker.espressif.com), developers can use phone apps to communicate with ESP32-S3-BOX, configure GPIO pins at will, customize voice commands, and upgrade firmware via OTA. With ESP RainMaker and ESP-S3-BOX, you can convert any offline product into a connected product, just by using the Pmod™ interface. Bridge support in the ESP RainMaker integration also extends ESP-S3-BOX’s capability to control devices easily, with BLE or 802.15.4 radio, via the cloud.
 
-## __Extensible Pmod™ Interface__ 
+## Extensible Pmod™ Interface
 
 ![](img/presenting-8.webp)
 
@@ -63,7 +63,7 @@ ESP32-S3-BOX also provides two Pmod™-compatible headers (with 16 programmable 
 - Connect to a USB OTG module to achieve various USB applications involving a camera, 4G networking, a Wi-Fi USB disk, a USB touchpad, etc.
 - Connect to a camera module to make ESP32-S3-BOX support face detection and recognition
 
-## __Additional Resources__ 
+## Additional Resources
 
 Espressif provides developers with full access to its open-source technical resources, i.e. the ESP32-S3-BOX [hardware reference design and user guide](https://github.com/espressif/esp-box), [LVGL guide](https://github.com/espressif/esp-iot-solution/blob/release/v1.1/documents/hmi_solution/littlevgl/littlevgl_guide_en.md), [ESP-SR speech-recognition model library](https://github.com/espressif/esp-sr/tree/66e21f6cc384d6b4aec077c187ebb0f5fbb4c5ff) (including the wake-work detection model, speech-command recognition model, and acoustic algorithms), as well as [ESP-DL deep-learning library](https://github.com/espressif/esp-dl/blob/master/README.md) that provides APIs for Neural Network (NN) Inference, Image Processing, Math Operations and some Deep Learning Models. Furthermore, [Espressif’s IoT Development Framework (ESP-IDF)](https://www.espressif.com/en/products/sdks/esp-idf) simplifies secondary development around ESP32-S3-BOX, and supports high-performance AI applications to run on the board, thus speeding up time-to-market for the end product. Please, keep watching this space, because we shall update specific example pointers shortly.
 

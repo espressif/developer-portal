@@ -30,13 +30,13 @@ Traditionally, any ESP-IDF application on an Espressif SoCs is built as a single
 
 ## Technical Details
 
-## __1. Application bootup__ 
+## 1. Application bootup
 
 ![](img/introducing-2.webp)
 
 In ESP Privilege Separation, the bootup flow is like ESP-IDF application bootup flow, the Boot ROM (1st stage bootloader) verifies and loads the 2nd stage ESP-IDF bootloader from the flash. The 2nd stage bootloader then verifies and loads the protected application. Protected application checks for valid user application header in flash and if found, it sets appropriate permissions and tries to verify and load the user application.
 
-## __2. World controller and Permission control__ 
+## 2. World controller and Permission control
 
 The most important piece of this framework is achieving the separation of privileges and enforcing permissions. This is achieved using World controller and Permission Controller peripherals in ESP32-C3. Permission controller manages the permissions and World controller manages execution environment, where each World has its own permission configuration. Currently, we have 2 Worlds; World0 and World1.World0 is the secure (protected) environment and World1 is the non-secure (user) environment.
 
@@ -54,7 +54,7 @@ If non-secure World tries to write to any address in range A, then a violation i
 - Switching from Secure to Non-Secure World:CPU can be switched to non-secure world by configuring the address in World controller register. When CPU tries to execute the configured address, it will transparently switch and execute in the non-secure world.
 - Switching from Non-secure to Secure World:CPU can only switch from non-secure to secure world via interrupts or exceptions. Any interrupt in the system will cause the CPU to switch to secure world.
 
-## __4. Memory Layout__ 
+## 4. Memory Layout
 
 With the permissions enforced, the next step is to split the memory.
 
@@ -91,7 +91,7 @@ We have maintained ESP-IDF API consistency, for most of the components, across p
 
 With the permissions and the memory split in place, there can be scenarios where the user app, either intentionally or unintentionally, tries to access the forbidden region of protected environment. In this case, the permission controller raises a violation interrupt which can be handled in the protected application. The benefits of having the permissions enforced is that the protected space memory and hence the protected application is not hampered by any (mis)behavior of the user application. In the framework, we have provision for the protected application to register a handler for cases where any exception occurs in the user application. In this handler, we can gather some vital information and handle the exception accordingly.
 
-## __8. Device drivers__ 
+## 8. Device drivers
 
 The user application might need access to peripherals (SPI, I2C, etc.) to communicate with external devices and sensors. In this framework, we have implemented device drivers in protected application and exposed it to user application through standard I/O system calls (open, read, write, etc.). This allows us to implement multiple device drivers through a common set of system calls.
 

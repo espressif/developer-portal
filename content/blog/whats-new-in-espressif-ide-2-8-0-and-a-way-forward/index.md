@@ -16,7 +16,7 @@ Espressif-IDE 2.8.0 is bundled with the Eclipse CDT 2022–09 package and it has
 
 ## Here are the new features and improvements added in the 2.8.0 release
 
-## __Partition Table Editor__ 
+## Partition Table Editor
 
 Eclipse Plugin offers UI for editing your [partition table](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/partition-tables.html) and flash it to your chip, instead of editing the CSV files directly. This offer editing the existing Partition table and creating a new one.
 
@@ -24,7 +24,7 @@ Eclipse Plugin offers UI for editing your [partition table](https://docs.espress
 
 To launch the Partition editor
 
-## __NVS Table Editor__ 
+## NVS Table Editor
 
 NVS Table Editor can help you to edit [NVS Partition](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/storage/nvs_partition_gen.html?highlight=nvs+partition#introduction) CSV file, and generate encrypted and non-encrypted partitions through UI without interacting directly with the CSV files.
 
@@ -34,7 +34,7 @@ Eclipse plugin uses the [nvs_partition_gen.py](https://github.com/espressif/esp-
 
 To launch the NVS Partition editor
 
-## __Multiple Build configurations__ 
+## Multiple Build configurations
 
 The plugin offers to configure the customized build configuration settings using the __Build Settings__  tab in the launch configuration wizard. This would enable the user to define the multiple build configurations with different settings — for example, debug and release configurations.
 
@@ -42,7 +42,7 @@ There were issues reported earlier on this where changing additional CMake Argum
 
 ![](img/whats-4.webp)
 
-## __GDB Client Remote Timeout__ 
+## GDB Client Remote Timeout
 
 There were numerous reports from clients saying that GDB Client was unable to connect with the default timeout which was 2 seconds that is to wait for the remote target to respond, otherwise, it use to drop the GDB connection with an error.
 
@@ -52,7 +52,7 @@ Now the default GDB Client remote timeout is set for 20 seconds! You could see t
 
 ![](img/whats-6.webp)
 
-## __Below are the most notable bug fixes in the new version__ 
+## Below are the most notable bug fixes in the new version
 
 Please find more about other [bug fixes](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v2.8.0) that were part of 2.8.0.
 

@@ -48,7 +48,7 @@ We also extended our portfolio of partnerships. All ESP ZeroCode products can no
 
 We also collaborated with Amazon with Alexa Connect Kit (ACK) for Matter and created ZeroCode devices using the ACK for Matter. Through the ESP ZeroCode portal, you can now choose ACK for Matter as a solution for the firmware of your devices.
 
-## __Device Catalogue__ 
+## Device Catalogue
 
 As Matter standard evolved from v1.0 to v1.1 and v1.2, it kept introducing support for new device types. We have kept pace with the standard’s evolution and have been incorporating newer device types and a variety of device drivers in our product catalogue.
 

@@ -10,7 +10,7 @@ Espressif IDE is an Integrated Development Environment(IDE) based on Eclipse CDT
 
 ![](img/espressif-1.webp)
 
-## __Key features of Espressif IDE__ 
+## Key features of Espressif IDE
 
 - Easy-to-use IDE built on Eclipse CDT environment
 - Specifically built for ESP-IDF application development
@@ -38,11 +38,11 @@ Espressif IDE is an Integrated Development Environment(IDE) based on Eclipse CDT
 - Extensible IDE for other third-party plugins from Eclipse eco-system
 - Host operating systems supported: Windows, macOS, and Linux
 
-## __What’s new with the v2.4.0 release?__ 
+## What’s new with the v2.4.0 release?
 
 With our recent release of v2.4.0/2.4.1, we have released a bunch of new features, enhancements, and notable bug fixes which greatly improve the quality of the plugin also improve user productivity!
 
-## __Source code navigation and linking esp-idf components__ 
+## Source code navigation and linking esp-idf components
 
 IDE offers integrated esp-idf components as part of the projects. When an IDF project is built all the dependent esp-idf components (based on the compile_commands.json) will be linked to the project with folder name *esp_idf_components*.
 
@@ -50,13 +50,13 @@ This will help in two ways. First, the user should be able to browse through the
 
 ![](img/espressif-2.webp)
 
-## __Indexer Improvements__ 
+## Indexer Improvements
 
 One of the challenging issue with the IDE was unresolved headers and indexer problems. Though the project was able to build successfully the eclipse plugin was used to show errors in the source code editors. With the v2.4.0 release, we have optimized the indexer to find the headers based on the compile_commands.json defined components and resolve the functions.
 
 As soon as the build finishes, the plugin will trigger linking esp-idf components and indexing all the files listed in it. This might take a couple of seconds based on the host system. These files located in the *esp_idf_components *folder are linked virtually to the esp-idf components folder and this list is refreshed every time after the build.
 
-## __Application level tracing__ 
+## Application level tracing
 
 ESP-IDF provides a useful feature for program behavior analysis called [Application Level Tracing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/api-guides/app_trace.html?). IDE has UI, that allows using start, stop tracing commands and process received data. To familiarize yourself with this library, you can use the [app_trace_to_host](https://github.com/espressif/esp-idf/tree/master/examples/system/app_trace_to_host) project.
 
@@ -78,13 +78,13 @@ When the output file is generated, you can click on the Start parse button and y
 
 Additional information can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/api-guides/app_trace.html?).
 
-## __Application memory usage in the build console__ 
+## Application memory usage in the build console
 
 Keeping track of memory usage is an important aspect of IoT applications. Now after the build, you should be able to see the application RAM and flash usage information.
 
 ![](img/espressif-5.webp)
 
-## __ESP-IDF Components Registry__ 
+## ESP-IDF Components Registry
 
 IDE offers to browse and install[ esp-idf components](https://components.espressif.com/) from the IDF registry and allows you to integrate them into your existing ESP-IDF project.
 
@@ -94,7 +94,7 @@ From the window, you can click on the Install button to add that component to th
 
 ![](img/espressif-6.webp)
 
-## __GDBStub Debugging__ 
+## GDBStub Debugging
 
 IDE offers to diagnose and debug esp-idf applications using GDBStub debugging on-chip when it’s in panic mode.
 
@@ -118,7 +118,7 @@ You can view the registers stack trace and even view the value of variables in t
 
 ![](img/espressif-9.webp)
 
-## __Espressif Menu__ 
+## Espressif Menu
 
 All the plugin contributed menu items are moved into the Espressif Menu and this will improve the user experience and easy accessibility!
 

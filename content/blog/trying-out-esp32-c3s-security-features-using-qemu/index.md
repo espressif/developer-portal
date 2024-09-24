@@ -47,7 +47,7 @@ We will use a [demo example](https://github.com/Harshal5/esp-idf-security-exampl
 
 Let us check out the boot internal first boot-up workflow:
 
-## __Installing QEMU release versions__ 
+## Installing QEMU release versions
 
 ```
 # Linux

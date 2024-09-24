@@ -35,7 +35,7 @@ I’ve created a custom PCB board to connect all these parts. The schematics dia
 
 ![](img/building-4.webp)
 
-## __Software__ 
+## Software
 
 I decided to implement three control modes. When one of these modes is active, the functionality is as follows:
 
@@ -62,7 +62,7 @@ Home Assistant provides friendly GUI, where the user can change and set values o
 
 ![](img/building-7.webp)
 
-## __Mechanics__ 
+## Mechanics
 
 For easy adaptation to existing curtains, I designed 3D models of required holders that can be attached to the curtain rod. 3D models were made in [Fusion 360](https://www.autodesk.com/products/fusion-360/overview) and can also be found in the repository.
 
@@ -70,14 +70,14 @@ For easy adaptation to existing curtains, I designed 3D models of required holde
 
 ![](img/building-9.webp)
 
-## __Testing__ 
+## Testing
 
 After assembling all parts into a prototype, came the moment of truth: How is it going to work altogether? After some debugging, the moving with all required modes works just fine. One of the problems is that I could not reach the required speed, probably caused by the stepper motor library I used.A future improvement could be motor overload detection. This function is called [StallGuard](https://www.trinamic.com/technology/motor-control-technology/stallguard-and-coolstep/) and is supported by the TMC2209 driver. It can be used to detect a foreign object in the way of curtains to prevent the stepper motor from overloading.
 
-## __Conclusion__ 
+## Conclusion
 
 This project was created as a Bachelor’s degree project at the Faculty of Information Technology, Brno University of Technology. I decided to implement the project in Arduino IDE, because of multiple choices of existing libraries to control time, motor, or WiFi connection. This was my first project using an embedded device and all its belongings like creating PCB, 3D modeling, soldering, etc…
 
-## __Reference__ 
+## Reference
 
 Link to GitHub repo with all used libraries and models can be found here: [Smart curtains system](https://github.com/mfialaf/ESP32-Smart-curtains-system)

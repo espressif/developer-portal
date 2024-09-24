@@ -24,7 +24,7 @@ To work with DFU, you don’t need to install any new software, just the ESP-IDF
 
 If you want to go deeply in the DFU mechanism, see this official specification from USB.org.
 
-## __Using DFU for the first time__ 
+## Using DFU for the first time
 
 To start using the DFU, we first need to check if your IDF version supports the functionality.
 
@@ -38,7 +38,7 @@ To install the ESP-IDF, you can follow the [Getting Started guide](https://docs.
 
 If you’re not using this version or above, please consider updating your environment in order to get this feature working on the ESP32-S2.
 
-## __Electrical connection__ 
+## Electrical connection
 
 For this example, we will use the [ESP32-Saola-1 v1.2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/hw-reference/esp32s2/user-guide-saola-1-v1.2.html) development board.
 
@@ -59,7 +59,7 @@ You can use an old USB to do this by striping the wires and soldering to the pin
 
 After connecting and powering the board, we are able to enter in DFU mode by holding BOOT and pressing and releasing the RST (reset) button.
 
-## __Building the DFU firmware__ 
+## Building the DFU firmware
 
 To build the firmware and upload it over the DFU, the process is a little bit different from a regular firmware, but it is very easy to do it.
 
@@ -101,11 +101,11 @@ Save and exit the configuration menu build and flash the firmware.
 
 ![](img/dfu-10.webp)
 
-## __Example Video__ 
+## Example Video
 
 This is the example video on how to configure and use the DFU on the ESP32-S2 to flash and monitor the ESP32-Saola development kit.
 
-## __Conclusion__ 
+## Conclusion
 
 Taking advantage from the embedded USB peripheral on the ESP32-S2 could save time and money by reducing build of material and space in your project. Embedding the program interface into your project could save time and it’s much more convenient than using an external one with some wires.
 

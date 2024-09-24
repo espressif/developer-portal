@@ -14,7 +14,7 @@ Meanwhile, people may have a question: There are many IoT products in the consum
 
 Today, let’s talk about the Bridge feature in Matter.
 
-## __Matter Bridge Introduction__ 
+## Matter Bridge Introduction
 
 A Bridge serves to allow the use of non-Matter IoT devices in a Matter ecosystem (Matter Fabric). It enables the consumer to keep using these non-Matter devices together with their Matter devices.
 
@@ -26,7 +26,7 @@ Below is an example of Matter-Zigbee Bridge, it bridges two Zigbee lights to Mat
 
 ![](img/matter-2.webp)
 
-## __Bridge Data Model__ 
+## Bridge Data Model
 
 In the previous article [Matter: Clusters, Attributes, Commands](/matter-clusters-attributes-commands-82b8ec1640a0), we talked about the Matter Data Model, below is a Data Model example of a Matter Bridge device.
 
@@ -62,7 +62,7 @@ Some Notes:
 
 This was a typical workflow for bridging to a Zigbee network. The similar concepts will be applicable to other networks that we would be bridging to.
 
-## __Espressif Matter Bridge Solutions__ 
+## Espressif Matter Bridge Solutions
 
 Espressif, as an active member that supports Matter from the beginning, can offer the full spectrum of Matter protocol solutions for end-products with Wi-Fi or Thread connectivity, as well as for Thread Border Router and Bridge solutions using a combination of SoCs.
 

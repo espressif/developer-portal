@@ -8,7 +8,7 @@ authors:
 ---
 ![](img/how-1.webp)
 
-## __Introduction__ 
+## Introduction
 
 When we create a new project using __ESP32__ , sometimes we need to store data in the flash to persist even after a restart or power down. In the past, the most common way to do that was by using EEPROM, with just a few bytes of storage ability which limited it for larger amount of data.
 
@@ -20,7 +20,7 @@ To see all ESP32 family variants, see this ordering information [__link__ ](http
 
 > Important note: This article uses the [ESP-IDF v4.2](https://docs.espressif.com/projects/esp-idf/en/v4.2/esp32/) and all references use this version.
 
-## __Understanding partition tables__ 
+## Understanding partition tables
 
 The partition tables on the ESP32 works very similarly to our computer. Just imagine that you can logically separate data according to the usage by telling the system where certain type of data will be stored on the memory, the type of this partition and, of course, the size.
 
@@ -28,17 +28,17 @@ Using the partition tables, you can have your application stored in one partitio
 
 The default partition scheme is defined by two different major partitions:
 
-## __nvs__ 
+## nvs
 
 The default NVS partition is used to store the unique device PHY calibration, WiFi data, Bluetooth pairing information, and any other value to be stored as NVS format. The default size is 24kB (0x6000 bytes).
 
-## __factory__ 
+## factory
 
 The factory partition stores the application firmware itself. The bootloader uses this partition as the starting point to initialize the application. When using [__OTA__ ](https://docs.espressif.com/projects/esp-jumpstart/en/latest/firmwareupgrade.html), this partition is used only if all OTA partitions are empty, otherwise the actual OTA partition will be used, and the factory partition will be no longer used.
 
 Another usage for this partition is to keep the default application and use the OTA API to change the boot partition in case of factory reset (after updating the device to some OTA partition) or some failure during OTA updates.
 
-## __Use case__ 
+## Use case
 
 The most common usage for a custom partition table is when the firmware needs to be updated remotely by using the Over-The-Air update. This feature requires, at least three additional partitions to store the OTA data (*ota*) and two application (*ota_0* and *ota_1*).
 
@@ -48,7 +48,7 @@ You can also use the extended storage area to store the cloud certificates, ther
 
 The flash memory on the [__ESP32__ ](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf) and [__ESP32-S2__ ](https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf) is limited to up to 16MB. This way, if you need a more than 16MB of flash memory for data storage, you can add a second flash memory or an SDCard to your board.
 
-## __Creating custom partition tables__ 
+## Creating custom partition tables
 
 To start creating new partitions, we need to first understand the partitions’ file structure. The custom partition tables are defined by a CSV file with the following structure:
 
@@ -59,13 +59,13 @@ __# ESP-IDF Partition Table
 
 The CSV file contains 6 columns, defined in the second line in the CSV file.
 
-## __Name__ 
+## Name
 
 The first column is the partition name, and it defines the label of the partition.
 
 The name field doesn’t have special meaning (except to the default NVS partition) but must be meaningful according to the partition usage and the name size should at maximum of 16 chars (larger names will be truncated).
 
-## __Type__ 
+## Type
 
 The second column is the partition type. Currently there are two types: *data* and *app*.
 
@@ -75,7 +75,7 @@ The __*app (0x00)*__  type is used to define the partition that will store the a
 
 Note: The type is defined by the [esp_partition_type_t enumeration](https://docs.espressif.com/projects/esp-idf/en/v4.2/esp32/api-reference/storage/spi_flash.html#_CPPv420esp_partition_type_t).
 
-## __SubType__ 
+## SubType
 
 The third column is the partition sub type and defines the usage of the __*app*__  and __*data*__  partitions.
 
@@ -100,7 +100,7 @@ For the __*app*__  type it can be specified as:
 - __ota_0 to ota_15 (0x10–0x19):__ The *ota_x* *partition* subtype is used for the [Over-the air](https://docs.espressif.com/projects/esp-idf/en/v4.2/esp32/api-reference/system/ota.html) update. The OTA feature requires at least two *ota_x* partition (usually *ota_0* and *ota_1*) and it also requires the *ota* partition to keep the OTA information data.Up to 16 OTA partitions can be defined but only two are needed for basic OTA feature.
 - __test (0x20):__ The *test* partition subtype is used for [__factory test procedures__ ](https://docs.espressif.com/projects/esp-idf/en/v4.2/esp32/api-guides/bootloader.html#bootloader-boot-from-test-firmware).
 
-## __Offset__ 
+## Offset
 
 The fourth column is the memory offset and it defines the partition start address. The offset is defined by the sum of the offset and the size of the earlier partition.
 
@@ -112,13 +112,13 @@ If the size of the bootloader needs to be increased, due any customization on it
 
 If left blank, the offset will be automatically calculated based on the end of the previous partition, including any necessary alignment.
 
-## __Size__ 
+## Size
 
 The fifth column is size and defines the amount of memory to be allocated on the partition. The size can be formatted as decimal, hex numbers (0x prefix), or using unit prefix K (kilo) or M (mega) i.e: 4096 = 4K = 0x1000.
 
 The size is defined in number of bytes and the minimum size is 4kB. The size for larger partitions must be multiple of 4kB. The maximum size is limited by the flash memory size, including all partitions.
 
-## __Flags__ 
+## Flags
 
 The last column in the CSV file is the *flags* and it is currently used to define if the partition will be encrypted by the [__flash encryption__ ](https://docs.espressif.com/projects/esp-idf/en/v4.2/esp32/security/flash-encryption.html) feature.
 
@@ -128,7 +128,7 @@ It is important to mention that for any changes on the partition tables structur
 
 There is a [__tool__ ](https://github.com/espressif/esp-idf/blob/v4.2/components/partition_table/gen_esp32part.py) to create the partition table in binary format manually from the CSV file. This conversion is done automatically during the build process.
 
-## __Demo__ 
+## Demo
 
 To show the usage of custom partition tables, we will create a quite simple demo with an extended NVS partition and one partition for SPIFFS alongside the default partitions and OTA.
 
@@ -240,7 +240,7 @@ After creating the partition table structure, you can save the CSV file to your 
 
 If you are interested, watch the get started with the ESP-IDF VS Code Extension video-tutorial:
 
-## __Common issues (Troubleshooting)__ 
+## Common issues (Troubleshooting)
 
 Some of the most common issues when dealing with partitions are about the alignment and overlapping.
 
@@ -252,11 +252,11 @@ To erase flash, use the following command:
 idf.py -p <COM_PORT> erase_flash
 ```
 
-## __Failed to find X partition…__ 
+## Failed to find X partition…
 
 This issue means that the partition is not found or missing in your partition tables. This could be due to some wrong value on the CSV file, like the wrong type or subtype.
 
-## __Partition overlapping issue__ 
+## Partition overlapping issue
 
 If your partition offset points into an area that belongs to another partition, you will see an error like the following:
 
@@ -264,7 +264,7 @@ CSV Error: Partitions overlap. Partition at line 6 sets offset __0x210000__ . Pr
 
 It means that your partition at line 6 on the CSV should start at __0x220000__  and not at __0x210000__ . To solve this issue, change the value on the CSV file.
 
-## __Memory size issue__ 
+## Memory size issue
 
 The most common issue about the partition size stands for the size alignment.
 
@@ -286,7 +286,7 @@ A smart solution for any alignment issue is to keep the offset blank and let the
 
 For example, if you create a partition table that uses 8MB flash, be sure to change in the project configuration the right amount on the menu ‘*Serial flasher config — → Flash size’*.
 
-## __Conclusion__ 
+## Conclusion
 
 Creating custom partition tables in your project can be advantageous as you reuse available flash memory for extended data storage by customizing the partitions. This technique can avoid usage of external SDCard for extra data storage.
 
@@ -294,6 +294,6 @@ When defining a custom partition table, make sure to use the right amount of dat
 
 That way, you can maximize the flash usage you will not be wasting resources!
 
-## __Reference for Partition Table__ 
+## Reference for Partition Table
 
 Docs: [API Guide — Partition Tables](https://docs.espressif.com/projects/esp-idf/en/v4.2/esp32/api-guides/partition-tables.html)

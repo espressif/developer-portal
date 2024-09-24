@@ -53,7 +53,7 @@ The eFuse is a type of one-time programmable (OTP) memory region which, once pro
 
 The ESP32-H2 contains a 4096-bit eFuse memory, out of which 1792 bits are reserved for custom use and can be utilized by the application. Once the keys are stored in the eFuse, it can be configured such that any software running cannot read these keys, and only the various permitted hardware peripherals can read and use these keys. The eFuse can also be used to control the disabling of USB debug as well as JTAG debug.
 
-## __Memory Protection__ 
+## Memory Protection
 
 The permission management of ESP32-H2 can be divided into two parts: __PMP (Physical Memory Protection)__  and __APM (Access Permission Management)__ .
 

@@ -34,7 +34,7 @@ As previously mentioned, both of these apps can be developed independently so th
 
 We have designed a certificate-based verification mechanism for user app secure boot.
 
-## __Certificate-based verification scheme__ 
+## Certificate-based verification scheme
 
 In this scheme, the protected application is considered trusted and thus the protected app will have some information embedded in its firmware that will be used to verify the authenticity of the user app.
 

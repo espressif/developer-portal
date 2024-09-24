@@ -20,31 +20,31 @@ Our webinar was addressed to Technical Decision Makers in Engineering, Solution 
 
 Other topics you can read about in this month’s newsletter include:
 
-## __ESP HomeKit SDK Opened Up on GitHub__ 
+## ESP HomeKit SDK Opened Up on GitHub
 
 ![](img/october-2.webp)
 
 [ESP HomeKit SDK](https://github.com/espressif/esp-homekit-sdk#esp-homekit-sdk), which is Espressif’s own implementation of the Apple HomeKit, has become available on GitHub and supports [ESP32](https://www.espressif.com/en/products/socs/esp32), [ESP32-S2](https://www.espressif.com/en/products/socs/esp32-s2) and [ESP8266](https://www.espressif.com/en/products/socs/esp8266). So, developers can now create smarter and safer home devices with the ESP HomeKit SDK, taking advantage of Espressif’s full support for all the stages of development, certification and manufacturing.
 
-## __New ESP RainMaker Features__ 
+## New ESP RainMaker Features
 
 ![](img/october-3.webp)
 
 One of the most recent new features we have added to [ESP RainMaker](https://rainmaker.espressif.com/) is the [ESP RainMaker Scheduling](https://rainmaker.espressif.com/docs/scheduling.html). You can now schedule certain actions that will be triggered on your devices at any given time on any specified day or days of the week.
 
-## __ESP32-S2-based FeatherS2 Released__ 
+## ESP32-S2-based FeatherS2 Released
 
 ![](img/october-4.webp)
 
 Unexpected Maker, who is also known as Seon Rozenblum, has officially released [*FeatherS2*](https://unexpectedmaker.com/shop/feathers2-esp32-s2). This is a Feather-compatible development board that has been built around Espressif Systems’ latest [ESP32-S2 microcontroller](https://www.espressif.com/en/products/socs/esp32-s2).
 
-## __SwarmDrive: NickStick’s ESP32-Powered Dev Board for Experimentation and Learning__ 
+## SwarmDrive: NickStick’s ESP32-Powered Dev Board for Experimentation and Learning
 
 ![](img/october-5.webp)
 
 [NickStick](https://www.crowdsupply.com/nickstick)’s SwarmDrive has an [ESP32](https://www.espressif.com/en/products/socs/esp32)-powered board and strong educational documentation. As such, it helps professionals and students alike learn about different commutation algorithms and all the other aspects of electric (BLDC) motors.
 
-## __Rosie: The Robot Maid Using ESP8266__ 
+## Rosie: The Robot Maid Using ESP8266
 
 ![](img/october-6.webp)
 

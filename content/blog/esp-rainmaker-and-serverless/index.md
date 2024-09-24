@@ -32,7 +32,7 @@ The first three architectures required not only building the application, but al
 
 Serverless does not mean that there is no server. It hides the management of the hardware and software infrastructure and provides usable services for the application. The application is also designed to not run on a specific server instance, but is event driven and can make use of the available services.
 
-## __FaaS — Function As A Service__ 
+## FaaS — Function As A Service
 
 In addition to managed services, the Serverless architecture offers “FaaS (Function-as-a-Service)” runtime that allows developers to write code snippets that can work on the data and interact with available services. Developers can use their familiar programming languages (such as Python, node.js and Go) with SDKs to interact with services. FaaS is also charged based on number of executions and time and memory consumption of the runtime.
 

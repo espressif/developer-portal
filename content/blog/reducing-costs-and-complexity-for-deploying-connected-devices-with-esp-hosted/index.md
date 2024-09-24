@@ -46,7 +46,7 @@ __ESP-Hosted is open-source__  and Espressif makes the [source code](https://git
 
 The ESP-Hosted solution is available in two variants as mentioned below. The differentiation factor here is the type of network interface presented to the host and the way Wi-Fi on ESP SoC/module is configured/controlled. Both the variants have their respective host and firmware software.
 
-## __ESP-Hosted-FG__ 
+## ESP-Hosted-FG
 
 This is a first-generation ESP-Hosted solution. This variant provides a standard 802.3 (Ethernet) network interface to the host. In order to achieve this, the host is presented with the following:
 
@@ -56,7 +56,7 @@ This is a first-generation ESP-Hosted solution. This variant provides a standard
 
 The use of the simple 802.3 interface for this solution makes it ideal to be used with MCU hosts. The MCU application can continue to take advantage of the standard TCP/IP stack and prevents significant changes to the host application for using the AT firmware-based approach or integrating the complex 802.11 interface.
 
-## __ESP-Hosted-NG__ 
+## ESP-Hosted-NG
 
 This is the Next-Generation ESP-Hosted solution specifically designed for hosts that run Linux operating system. __*This variant of the solution takes a standard approach while providing a network interface to the host. *__ This allows usage of standard Wi-Fi applications such as wpa_supplicant to be used with ESP SoCs/modules. This solution offers the following:
 

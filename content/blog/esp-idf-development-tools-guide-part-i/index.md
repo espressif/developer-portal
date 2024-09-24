@@ -257,7 +257,7 @@ The esptool.py command syntax is defined below:
 
 Usage: esptool.py [OPTIONS] COMMAND1 [ARGS]... [COMMAND2 [ARGS]...]...
 
-## __Here are some commands:__ 
+## Here are some commands:
 
 - __write_flash__  — Write a binary blob to the device flash.
 

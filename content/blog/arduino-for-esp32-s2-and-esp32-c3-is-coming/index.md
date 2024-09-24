@@ -48,7 +48,7 @@ To learn more about the ESP32-S2, click [here](https://www.espressif.com/en/prod
 
 To learn more about the ESP32-C3, click [here](https://www.espressif.com/en/products/socs/esp32-c3)!
 
-## __How to Get Started?__ 
+## How to Get Started?
 
 If you want to try this new version, you just need to update your ESP32-Arduino install by following these steps.
 

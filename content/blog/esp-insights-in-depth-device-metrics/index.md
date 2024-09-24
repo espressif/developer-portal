@@ -14,7 +14,7 @@ We received developer feedback that they would like to look at the metrics withi
 
 In the latest version of ESP Insights Dashboard, a user can play around the metrics data and analyse the issue in more depth using more granular date and time. Using the zoom in feature, zero-in to a very narrow window. Any impacting events that may have an effect on the metrics data are also highlighted viz. a reboot event or a crash.
 
-## __Date & Time Selector Widget__ 
+## Date & Time Selector Widget
 
 Users can now select a particular day with a date picker widget and using the slider select the time span for which metrics are to be investigated. Data correlation with the event logs and the associated device metrics at that given point of time can be achieved in a much better way now.
 
