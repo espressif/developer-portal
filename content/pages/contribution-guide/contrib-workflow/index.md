@@ -15,11 +15,11 @@ The contribution diagram below shows how contributions can be done to [espressif
 
 ```mermaid
 flowchart RL
-    id1[Public \nUpstream]
-    id2[Private \nmirror]
-    id3[Public \nFork]
-    id4[Private \nmirror]
-    id5[Public \nFork]
+    id1[Public<br>Upstream]
+    id2[Private<br>mirror]
+    id3[Public<br>Fork]
+    id4[Private<br>mirror]
+    id5[Public<br>Fork]
     subgraph sg1 [GitHub]
         id1
         id3
@@ -31,9 +31,9 @@ flowchart RL
     subgraph sg3 [Anywhere]
         id4
     end
-    id2 -- Internal \ncontributions \n(private) ---> id1
-    id3 -. External \ncontributions \n(public) .-> id1
-    id4 -. External \ncontributions \n(private) .-> id5
+    id2 -- Internal<br>contributions<br>(private) ---> id1
+    id3 -. External<br>contributions<br>(public) .-> id1
+    id4 -. External<br>contributions<br>(private) .-> id5
     id5 -.-> id1
     style id1 fill:#99f
     classDef dashedStyle stroke-width:1px,stroke-dasharray: 5 5;

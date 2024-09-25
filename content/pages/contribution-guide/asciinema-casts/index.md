@@ -2,6 +2,7 @@
 title: "asciinema casts"
 date: 2024-03-18T10:55:37+01:00
 tags: ["Contribute"]
+showTableOfContents: true
 showAuthor: false
 authors:
   - "kirill-chalov"
@@ -9,7 +10,7 @@ authors:
 
 ## Overview
 
-You can easily embed asciinema casts on the Developer Portal. asciinema allows you to record terminal sessions using a lightweight text-based format.
+[asciinema](https://asciinema.org/) allows you to record terminal sessions using a lightweight text-based format. You can easily embed asciinema casts on the Developer Portal.
 
 ### Notable features
 
@@ -28,15 +29,26 @@ Use asciinema casts for output logs or to demonstrate things in action. Avoid us
 
 1. Install asciinema and record a terminal session following the [Quick start](https://docs.asciinema.org/manual/cli/quick-start/) guide.
 2. Edit the `.cast` file if required.
-3. Add the .cast file in the same directory as your page.
-4. Add a Hugo shortcode to your page:<br>
-    \{\{< asciinema key="demo" idleTimeLimit="2" speed="1.5" poster="npt:0:09" >\}\}
-    - The file added is `demo.cast`
-    - See also the [asciinema player options](https://docs.asciinema.org/manual/player/options/)
+3. Add the .cast file in the same directory as your article.
+4. Embed a Hugo shortcode in your article.<br>
+    For example, the shortcode below embeds the file `demo.cast` and adjusts some [asciinema player options](https://docs.asciinema.org/manual/player/options/):
+    ```md
+    {{</* asciinema
+      key="demo"
+      idleTimeLimit="2"
+      speed="1.5"
+      poster="npt:0:09"
+    */>}}
+    ```
 
 The above shortcode will be rendered as follows:
 
-{{< asciinema key="demo" idleTimeLimit="2" speed="1.5" poster="npt:0:09" >}}
+{{< asciinema
+  key="demo"
+  idleTimeLimit="2"
+  speed="1.5"
+  poster="npt:0:09"
+>}}
 
 ### How to embed a cast from asciinema.org
 
