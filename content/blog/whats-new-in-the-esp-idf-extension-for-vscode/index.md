@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - brian-ignacio
 ---
-Co-authored with [Kondal Kolipaka](https://medium.com/u/4f2e7eb30782?source=post_page-----7f571c24414f--------------------------------)
+Co-authored with Kondal Kolipaka
 
 The [ESP-IDF extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) aims to help users to write code with Espressif chips using ESP-IDF and other frameworks. We constantly try to improve the extension usability and add features to enhance the user developing experience.
 

@@ -18,8 +18,6 @@ This sparked the motivation to compile a visually rich and informative depiction
 
 ## Table of contents:
 
-· [ESP32](#22d4) ∘ [ROM](#f66c) ∘ [SRAM](#3c73) ∘ [RTC-SRAM](#be12) ∘ [Instruction & data cache](#d89b) ∘ [Peripherals](#fae2) ∘ [eFuse blocks](#efd9)· [ESP32-S2](#e3ec) ∘ [ROM](#2e1b) ∘ [SRAM](#2ebd) ∘ [RTC-SRAM](#1d70) ∘ [Instruction & data cache](#6c66) ∘ [Peripherals](#c443) ∘ [eFuse blocks](#a2bc)· [ESP32-S3](#5fda) ∘ [ROM](#0e7f) ∘ [SRAM](#f83e) ∘ [RTC-SRAM](#112e) ∘ [Instruction & data cache](#50d6) ∘ [Peripherals](#9fdb) ∘ [eFuse blocks](#1859)· [ESP32-C3](#7faf) ∘ [ROM](#0b94) ∘ [SRAM](#9a37) ∘ [RTC-SRAM](#2b51) ∘ [Instruction & data cache](#4b99) ∘ [Peripherals](#a477) ∘ [eFuse blocks](#03b1)· [ESP32-C6](#167e) ∘ [ROM](#d8e8) ∘ [SRAM](#60a4) ∘ [Instruction & data cache](#661b) ∘ [Peripherals](#db28) ∘ [eFuse blocks](#81b0)· [Downloads](#baab)· [Conclusion](#ce4b)
-
 ## ESP32
 
 The ESP32 is the Xtensa LX6 dual-core microcontroller, and it is the oldest SoC from the ESP32’s family of MCUs.
@@ -148,7 +146,7 @@ For further information and all the details about the ESP32-S3 SoC please refer 
 
 The ESP32-C3 is a 32-bit RISC-V microcontroller with the “IMC” extensions. The address space of ESP32-C3 is significantly simpler compared to its Xtensa counterparts. It supports JTAG debugging via the on-chip USB interface.
 
-Zephyr-RTOS support for the ESP32-C3 devkit board can be found [__*here*__ ](https://docs.zephyrproject.org/latest/boards/riscv/esp32c3_devkitm/doc/index.html).
+Zephyr-RTOS support for the ESP32-C3 devkit board can be found [__*here*__ ](https://docs.zephyrproject.org/latest/boards/).
 
 ## ROM
 

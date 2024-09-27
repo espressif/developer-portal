@@ -68,4 +68,4 @@ While the port of these libraries to the ESP32 platform is in beta, they are rea
 
 If you have any questions or face any problems, you can file an issue on [our repository](https://github.com/espressif/esp-aws-iot/tree/release/beta/).
 
-Thanks [Amey Inamdar](https://medium.com/u/96a9b11b7090?source=post_page-----8eeeea28b79b--------------------------------).
+Thanks Amey Inamdar

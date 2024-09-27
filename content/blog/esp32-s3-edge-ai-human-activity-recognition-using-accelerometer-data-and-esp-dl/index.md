@@ -10,13 +10,9 @@ Edge computing is a distributed computing paradigm that brings computation and d
 
 ![](img/esps-1.webp)
 
-> __Espressif System provides a framework ESP-DL that can be used to deploy your high-performance deep learning models on ESP32-S3.__ 
+__Espressif System provides a framework ESP-DL that can be used to deploy your high-performance deep learning models on ESP32-S3.__ 
 
 *In this article, you will understand how to read sensor data and using *[*ESP-DL*](https://github.com/espressif/esp-dl)* to *[*deploy*](https://github.com/espressif/esp-dl/tree/master/tutorial/quantization_tool_example)* a deep-learning model on *[*ESP32-S3*](https://www.espressif.com/en/products/socs/esp32-s3)*.*
-
-## Contents
-
-The article is divided in 4-sections [__1. Model Deployment__ ](#cf2f)____ [__2. Model Define__ ](#04d2)____ [__3. Model Run__ ](#cde6)____ [__4. Future Opportunities__ ](#2e2a)
 
 ## Prerequisite for using ESP-DL
 

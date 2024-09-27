@@ -10,9 +10,7 @@ The world is witnessing a technological revolution, and OpenAI is at the forefro
 
 ![](img/unleashing-1.webp)
 
-__*In this article, we will explore the potential of ChatGPT with ESP-BOX, a powerful combination that can take IoT devices to the next level.*__ 
-
-*This article is structured into three primary sections, each covering essential aspects of the project. The first section delves into*__* *__ *“*[__*ESP-BOX*__ ](#709e)*”, providing details on its features and functionalities. The second section is a “*[__*case study*__ ](#162c)*”*__* *__ *that outline the steps involved in building the project from scratch. The final section, “*[__*conclusion*__ ](#6b5b)*”, provides a list of additional sources of information that readers can explore to deepen their knowledge and understanding of the project.*
+__*In this article, we will explore the potential of ChatGPT with ESP-BOX, a powerful combination that can take IoT devices to the next level.*__
 
 ## ESP-BOX
 
@@ -20,7 +18,7 @@ The [ESP-BOX](https://github.com/espressif/esp-box) is a new generation AIoT dev
 
 ![](img/unleashing-2.webp)
 
-> The ESP-BOX is packed with a wide range of features that make it an ideal AIoT development platform. Let’s take a closer look at some of the key features
+The ESP-BOX is packed with a wide range of features that make it an ideal AIoT development platform. Let’s take a closer look at some of the key features
 
 ## Case Study
 
@@ -36,13 +34,13 @@ This case study outlines the development process for a voice-controlled chatbot 
 
 Setting up a suitable environment and installing the correct version is critical to avoid errors.
 
-- __ESP-IDF__ 
+- __ESP-IDF__
 
 In this demonstration, we’ll be utilizing ESP-IDF version 5.0 (master branch). If you need guidance on how to set up ESP-IDF, please refer to the official [IDF Programming guide](https://docs.espressif.com/projects/esp-idf/en/release-v5.0/esp32/index.html) for detailed information.
 
-__**As of writing of this blog, the current IDF commit head is df9310ada2.*__ 
+__**As of writing of this blog, the current IDF commit head is df9310ada2.*__
 
-- __ChatGPT API__ 
+- __ChatGPT API__
 
 To utilize ChatGPT, a powerful language model based on the GPT-3.5 architecture, you must first obtain a secure API key. This can be achieved by creating an account on the [OpenAI platform](https://openai.com/) and obtaining tokens through creation or purchase. With an API key, you gain access to a wide range of features and capabilities that can be customized to meet your specific needs, such as natural language processing and generation, text completion, and conversation modeling. Follow the [official API reference link](https://platform.openai.com/docs/api-reference).
 
@@ -58,7 +56,7 @@ ESP-SR framework consists of various modules, including the Audio Front-end (AFE
 
 The OpenAI API provides numerous [functions](https://platform.openai.com/docs/api-reference) that developers can leverage to enhance their applications. In our project, we utilized the Audio-to-Text and Completion APIs and implemented them using C-language code based on ESP-IDF. The following section provides a brief overview of the code we employed.
 
-- __Audio to Text__ 
+- __Audio to Text__
 
 To extract text from audio, we utilize HTTPS and OpenAI [Audio API](https://platform.openai.com/docs/api-reference/audio). The following code is used for this task.
 
@@ -151,7 +149,7 @@ Once the “*form_data *”is built, it is set as the post field in the HTTP cli
 
 The function returns an esp_err_t error code, which indicates whether the HTTP request was successful or not.
 
-- __Chat Completion__ 
+- __Chat Completion__
 
 The OpenAI [Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create) is utilized to send HTTPS requests for chat completion. This process involves utilizing the create_chatgpt_request function, which takes in a content parameter representing the input text to the GPT-3.5 model.
 
@@ -203,7 +201,7 @@ The HTTP POST request is then sent using “*esp_http_client_perform()*”, and 
 
 Finally, the HTTP client is cleaned up and the error code is returned.
 
-- __Handling Response__ 
+- __Handling Response__
 
 Callback function “*response_handler *”that is used by the ESP-IDF HTTP client library to handle events that occur during an HTTP request/response exchange.
 
@@ -256,7 +254,7 @@ esp_err_t response_handler(esp_http_client_event_t *evt)
             // Process the raw data
             parsing_data(data, strlen(data));
             // Free memory
-            free(data); 
+            free(data);
             data = NULL;
             data_len = 0;
         }
@@ -279,7 +277,7 @@ In case of “*HTTP_EVENT_ON_FINISH*”, the function prints a message indicatin
 
 Finally, the function returns “*ESP_OK *”indicating that the operation was successful.
 
-- __Parsing Raw Data__ 
+- __Parsing Raw Data__
 
 The JSON [parser component](https://components.espressif.com/components/espressif/json_parser) is utilized to parse the raw response obtained from ChatGPT API and Whisper AI API over HTTPS. To perform this task, a function is used, which employs the parser component. Further details about this tool can be found on [GitHub](https://github.com/espressif/json_parser).
 
@@ -466,7 +464,7 @@ Finally, the “*HTTP_EVENT_ON_FINISH *”event is used to handle the end of the
 
 ## Display
 
-For display we uses LVGL, an open-source embedded graphics library that is gaining popularity for its powerful and visually appealing features and low memory footprints. LVGL has also released a visual drag-and-drop UI editor called [SquareLine](https://squareline.io/) Studio. It’s a powerful tool that makes it easy to create beautiful GUIs for your applications.To integrate LVGL with your project, Espressif Systems provides an official [package manager](https://components.espressif.com/components/lvgl/lvgl) tool. This tool allows you to directly add LVGL and related porting components to your project, saving you time and effort. For more information follow the official [blogs](/making-the-fancy-user-interface-on-esp-has-never-been-easier-e44e79c0ae3) and [documentations](https://docs.lvgl.io/master/index.html).
+For display we uses LVGL, an open-source embedded graphics library that is gaining popularity for its powerful and visually appealing features and low memory footprints. LVGL has also released a visual drag-and-drop UI editor called [SquareLine](https://squareline.io/) Studio. It’s a powerful tool that makes it easy to create beautiful GUIs for your applications.To integrate LVGL with your project, Espressif Systems provides an official [package manager](https://components.espressif.com/components/lvgl/lvgl) tool. This tool allows you to directly add LVGL and related porting components to your project, saving you time and effort. For more information follow the official [blogs](/blog/making-the-fancy-user-interface-on-esp-has-never-been-easier) and [documentations](https://docs.lvgl.io/master/index.html).
 
 ## Conclusion
 
