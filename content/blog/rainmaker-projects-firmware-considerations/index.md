@@ -38,7 +38,7 @@ Implemented like this, the reset-to-factory is nothing but a simple *nvs-erase* 
 
 Many devices want to have some per-device unique information that should be configured at the time of building the device. This may include the unique key that the device’s use to authenticate with the RainMaker service, or any other information like UUID, and other secrets. We don’t want this information to be erased with a *Reset to Factory *action.
 
-The RainMaker infrastructure uses a “[manufacturing](https://medium.com/the-esp-journal/building-products-creating-unique-factory-data-images-3f642832a7a3)” partition for storing such unique information. This ensures that,
+The RainMaker infrastructure uses a “[manufacturing](/blog/building-products-creating-unique-factory-data-images)” partition for storing such unique information. This ensures that,
 
 - this unique information isn’t erased across a reset-to-factory event
 - the device firmware is common across all devices, since all unique information is partitioned out

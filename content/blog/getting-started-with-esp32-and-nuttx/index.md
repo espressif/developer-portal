@@ -14,7 +14,7 @@ This article is part of the “First Steps with ESP32 and NuttX” series. A ser
 
 The first part of the series instructs the preparation of the environment, the compilation, and the building of the Operating System (NuttX) until the firmware upload to the SoC (ESP32).
 
-The second part of the series demonstrates how to run the famous “[Hello World](https://medium.com/the-esp-journal/blink-led-on-esp32-with-rtos-nuttx-d33c7dc62156)” from the Embedded Systems world, i.e., an application that blinks an LED.
+The second part of the series demonstrates how to run the famous “[Hello World](/blog/blink-led-on-esp32-with-rtos-nuttx)” from the Embedded Systems world, i.e., an application that blinks an LED.
 
 This series used the ESP32 DevKit-C v1 development board and the Ubuntu Linux distribution (Ubuntu 18.04.5 LTS). The used NuttX version in this tutorial is the latest from mainline. Although it’s recommended to use the latest stable version, the features that have been implemented for ESP32 are going to be included from release 10.1 on.
 
@@ -191,7 +191,7 @@ NOTE: adjust the USB port according to your configuration.
 
 ## Next Steps
 
-If you made it this far and accessed the NuttX shell, and everything is properly installed and configured, move on to the next article in the series and run the [Blink Led example](https://medium.com/the-esp-journal/blink-led-on-esp32-with-rtos-nuttx-d33c7dc62156)!
+If you made it this far and accessed the NuttX shell, and everything is properly installed and configured, move on to the next article in the series and run the [Blink Led example](/blog/blink-led-on-esp32-with-rtos-nuttx)!
 
 ## NuttX Tips
 

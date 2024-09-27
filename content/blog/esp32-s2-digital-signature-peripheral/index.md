@@ -95,6 +95,6 @@ The ESP-IDF provides the example [mqtt/ssl_ds](https://github.com/espressif/esp-
 
 The example follows all of the above mentioned steps. A detailed explanation of the steps to perform the example is also provided in the [example README](https://github.com/espressif/esp-idf/blob/master/examples/protocols/mqtt/ssl_ds/README.md).
 
-If you would like to know more about TLS security then please see the article [TLS and IOT](https://medium.com/the-esp-journal/esp32-tls-transport-layer-security-and-iot-devices-3ac93511f6d8)
+If you would like to know more about TLS security then please see the article [TLS and IOT](/blog/esp32-tls-transport-layer-security-and-iot-devices)
 
-If you would like to know more about the other security features in the ESP32 series then you can see this article [Understanding ESP32’s Security Features](https://medium.com/the-esp-journal/understanding-esp32s-security-features-14483e465724)
+If you would like to know more about the other security features in the ESP32 series then you can see this article [Understanding ESP32’s Security Features](/blog/understanding-esp32s-security-features)

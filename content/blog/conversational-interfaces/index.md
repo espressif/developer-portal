@@ -10,6 +10,6 @@ authors:
 
 If you wish to define your own conversation with your product, this solution is for you. Integrations with Amazon Lex and Google DialogFlow helps you create intuitive conversations between your device and its user.
 
-- Building Audio Conversations with ESP32: [https://medium.com/the-esp-journal/embedding-voice-into-devices-with-esp32-107d9211633c](https://medium.com/the-esp-journal/embedding-voice-into-devices-with-esp32-107d9211633c)
+- Building Audio Conversations with ESP32: [https://medium.com/the-esp-journal/embedding-voice-into-devices-with-esp32-107d9211633c](/blog/embedding-voice-into-devices-with-esp32)
 
 Please reach out to sales@espressif.com for more details.

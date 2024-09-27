@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - sachin-parekh
 ---
-In the [previous post](https://medium.com/the-esp-journal/ota-firmware-updates-with-esp-privilege-separation-3b676b49459), we demonstrated the ability to independently update the user application in the ESP Privilege Separation framework. With the separation and isolation of the protected app and user app, it becomes convenient to decouple the ownership of each of these apps and their updates. This also potentially allows the possibility of having multiple user applications for a single protected application, somewhat like an “application store” for user app. As the functionality of these applications increases, the security of these apps becomes mandatory.
+In the [previous post](/blog/ota-firmware-updates-with-esp-privilege-separation-3b676b49459), we demonstrated the ability to independently update the user application in the ESP Privilege Separation framework. With the separation and isolation of the protected app and user app, it becomes convenient to decouple the ownership of each of these apps and their updates. This also potentially allows the possibility of having multiple user applications for a single protected application, somewhat like an “application store” for user app. As the functionality of these applications increases, the security of these apps becomes mandatory.
 
 In this post, we will describe the secure boot mechanism implemented for the user application. This mechanism ensures that only the trusted and authorized user application can execute on the device.
 

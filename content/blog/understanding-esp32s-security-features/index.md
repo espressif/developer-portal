@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
 ---
-[This document discusses security features for ESP32v3. If you are looking for the security features of the latest [ESP32-S2](https://www.espressif.com/en/news/espressif-announces-%E2%80%A8esp32-s2-secure-wi-fi-mcu) SoC, that article is available [here](https://medium.com/the-esp-journal/esp32-s2-security-improvements-5e5453f98590).]
+[This document discusses security features for ESP32v3. If you are looking for the security features of the latest [ESP32-S2](https://www.espressif.com/en/news/espressif-announces-%E2%80%A8esp32-s2-secure-wi-fi-mcu) SoC, that article is available [here](/blog/esp32-s2-security-improvements).]
 
 The ESP32v3 has two interesting features, secure boot and flash encryption. Let’s have a quick overview of these features.
 

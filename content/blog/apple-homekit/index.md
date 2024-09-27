@@ -17,4 +17,4 @@ The SDK is available at:
 
 More Details:
 
-- [HomeKit On Espressif’s ESP32](https://medium.com/the-esp-journal/homekit-on-espressifs-esp32-d73f197ec722)
+- [HomeKit On Espressif’s ESP32](/blog/homekit-on-espressifs-esp32)

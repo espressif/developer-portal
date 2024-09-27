@@ -8,28 +8,28 @@ authors:
 ---
 ![](img/espidf-1.webp)
 
-Use Espressif’s IoT Development Framework to build a complete product. Right from network configuration, to local or remote access, OTA firmware upgrades, certification and manufacturing, we have got you covered. You may refer to [ESP-Jumpstart](https://medium.com/the-esp-journal/jumpstart-iot-product-development-on-esp32-2d2b981e9c3f) for more details.
+Use Espressif’s IoT Development Framework to build a complete product. Right from network configuration, to local or remote access, OTA firmware upgrades, certification and manufacturing, we have got you covered. You may refer to [ESP-Jumpstart](/blog/jumpstart-iot-product-development-on-esp32) for more details.
 
 Some other relevant articles:
 
 __Development:__ 
 
-- [Eclipse Plugin for ESP-IDF](https://medium.com/the-esp-journal/eclipse-plugin-for-esp-idf-bd69a6c9dd3c)
+- [Eclipse Plugin for ESP-IDF](/blog/eclipse-plugin-for-esp-idf)
 
 __Features:__ 
 
-- [Local Network Access](https://medium.com/the-esp-journal/local-network-access-via-http-server-fb7fcfc3d67e)
-- [Footprint Analysis](https://medium.com/the-esp-journal/analysing-static-footprint-eceb73fb9f2d)
+- [Local Network Access](/blog/local-network-access-via-http-server)
+- [Footprint Analysis](/blog/analysing-static-footprint)
 
 __Security:__ 
 
-- [ESP32 and Security](https://medium.com/the-esp-journal/understanding-esp32s-security-features-14483e465724)
-- [TLS (Transport Layer Security)](https://medium.com/the-esp-journal/esp32-tls-transport-layer-security-and-iot-devices-3ac93511f6d8)
+- [ESP32 and Security](/blog/understanding-esp32s-security-features)
+- [TLS (Transport Layer Security)](/blog/esp32-tls-transport-layer-security-and-iot-devices)
 
 __Certification:__ 
 
-- [Understanding Wi-Fi Certification](https://medium.com/the-esp-journal/wi-fi-certification-with-esp32-311e09dd06ff)
+- [Understanding Wi-Fi Certification](/blog/wi-fi-certification-with-esp32)
 
 __Manufacturing:__ 
 
-- [Creating Unique Factory Data Images](https://medium.com/the-esp-journal/building-products-creating-unique-factory-data-images-3f642832a7a3)
+- [Creating Unique Factory Data Images](/blog/building-products-creating-unique-factory-data-images)

@@ -56,6 +56,6 @@ Our SDK continues to evolve with every new customer that uses the SDK, and every
 
 - Register for HomeKit SDK access (MFi Account Number Mandatory): [https://www.espressif.com/en/company/contact/pre-sale-questions-crm?js-from=homekit](https://www.espressif.com/en/company/contact/pre-sale-questions-crm?js-from=homekit)
 - Mass Manufacturing Utility: [https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/storage/mass_mfg.html](https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/storage/mass_mfg.html)
-- Manufacturing Data Partitions: [https://medium.com/the-esp-journal/building-products-creating-unique-factory-data-images-3f642832a7a3](https://medium.com/the-esp-journal/building-products-creating-unique-factory-data-images-3f642832a7a3)
+- Manufacturing Data Partitions: [https://medium.com/the-esp-journal/building-products-creating-unique-factory-data-images-3f642832a7a3](/blog/building-products-creating-unique-factory-data-images)
 
 All product names, trademarks and registered trademarks are property of their respective owners.

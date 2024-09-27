@@ -60,11 +60,11 @@ In addition to the networking features, the Espressif Thread BR SDK also support
 
 As the solution involves two SoCs, it requires the download of two matching firmware for over-the-air (OTA) updates. The SDK offers a mechanism that combines the two firmware into a single binary. With a streamlined one-step OTA process, the host SoC will automatically download the RCP firmware to the 802.15.4 SoC during the initial boot.
 
-- __RF Coexistence__ 
+- __RF Coexistence__
 
 The coexistence design is often a challenging aspect for devices that incorporate multiple radios. The Espressif Thread BR addresses this issue by leveraging an integrated hardware and software design, offering the 3-wires PTA Coexistence feature in the SDK. This feature greatly simplifies the complexity of the customer’s application.
 
-- __Web GUI__ 
+- __Web GUI__
 
 Additionally, the SDK offers a user-friendly web-based GUI for easy configuration by the user. Moreover, the provided REST APIs are compliant with the APIs offered by [ot-br-posix](https://github.com/openthread/ot-br-posix), ensuring compatibility and seamless integration.
 

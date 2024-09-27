@@ -12,7 +12,7 @@ authors:
 
 This article is part of the “First Steps with ESP32 and NuttX” series. A series whose objective is to present an overview of the NuttX Operating System and to provide instructions for using NuttX on ESP32.
 
-The [first part](https://medium.com/the-esp-journal/getting-started-with-esp32-and-nuttx-fd3e1a3d182c) of the series showed how to prepare the environment, compile and build the Operating System (NuttX) until uploading the firmware to the SoC (ESP32).
+The [first part](/blog/getting-started-with-esp32-and-nuttx) of the series showed how to prepare the environment, compile and build the Operating System (NuttX) until uploading the firmware to the SoC (ESP32).
 
 This is the second part and will demonstrate how to run the famous “Hello World” from the Embedded Systems world, i.e., an application that blinks a LED. The evaluation board used here is a DevKit v1 and the built-in LED will be used for convenience. If your DevKit does not come with a built-in LED, just connect an LED to pin 2 in series with a resistor as it will be briefly discussed in the execution section.
 
@@ -41,7 +41,7 @@ Exit the menu via “Exit” and save the configuration.
 
 ## Building and Flashing
 
-If you did not add the paths for the cross compiler binaries and for the esptool to PATH permanently as suggested in the [Getting Started](https://medium.com/the-esp-journal/getting-started-with-esp32-and-nuttx-fd3e1a3d182c), run the following commands to load these paths.
+If you did not add the paths for the cross compiler binaries and for the esptool to PATH permanently as suggested in the [Getting Started](/blog/getting-started-with-esp32-and-nuttx), run the following commands to load these paths.
 
 ```
 export PATH=$PATH:/opt/xtensa/xtensa-esp32-elf/bin
@@ -57,7 +57,7 @@ make clean
 make download ESPTOOL_PORT=/dev/ttyUSB0
 ```
 
-NOTE: adjust the USB port according to your configuration. In case this is the first time you are downloading the binaries to ESP32, pass the bootloader and the partition table directory as an argument in the second comand as instructed in the [previous article](https://medium.com/the-esp-journal/getting-started-with-esp32-and-nuttx-fd3e1a3d182c) from this series.
+NOTE: adjust the USB port according to your configuration. In case this is the first time you are downloading the binaries to ESP32, pass the bootloader and the partition table directory as an argument in the second comand as instructed in the [previous article](/blog/getting-started-with-esp32-and-nuttx) from this series.
 
 ## Example Execution
 

@@ -103,6 +103,6 @@ Starting with ESP-IDF release 4.2, we have added an ability to use IRAM for data
 
 ESP-IDF 4.2 provides some ready-made configurations to make effective use of unused IRAM for data such as TLS transmit and receive fragments in single-core mode.
 
-Please checkout [this](https://medium.com/the-esp-journal/esp32-memory-analysis-case-study-eacc75fe5431) blog for a case-study for memory analysis of an AWS-IoT client application and some common optimisation techniques.
+Please checkout [this](/blog/esp32-memory-analysis-case-study) blog for a case-study for memory analysis of an AWS-IoT client application and some common optimisation techniques.
 
 In the next blog, we’ll see more details about how Wi-Fi subsystem and BT subsystem use the memory so that memory availability for the application can be determined. We’ll also see various common use-cases and their memory consumption and possible optimisations for these use-cases. Please stay tuned.

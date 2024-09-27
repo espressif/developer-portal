@@ -12,5 +12,5 @@ Amazon FreeRTOS is an operating system for microcontrollers that extends the Fre
 
 Some relevant articles:
 
-- [Amazon FreeRTOS and ESP32](https://medium.com/the-esp-journal/amazon-freertos-esp32-support-9874a4412a21)
-- [Managing OTA Firmware Upgrades](https://medium.com/the-esp-journal/esp32-ota-updates-amazon-freertos-9ffbbb8f4784)
+- [Amazon FreeRTOS and ESP32](/blog/amazon-freertos-esp32-support)
+- [Managing OTA Firmware Upgrades](/blog/esp32-ota-updates-amazon-freertos)

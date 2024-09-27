@@ -22,5 +22,5 @@ The SDK is available at: [https://github.com/espressif/esp-va-sdk](https://githu
 Some relevant articles:
 
 - [Anatomy of a Voice-Integrated Device](/blog/anatomy-of-a-voice-integrated-device)
-- [Espressif’s AVS SDK Release Announcement](https://medium.com/the-esp-journal/espressifs-alexa-sdk-v1-0b1-326f13c862f6)
+- [Espressif’s AVS SDK Release Announcement](/blog/espressifs-alexa-sdk-v1-0b1)
 - [Espressif’s SDK for AVS integration for AWS IoT](https://www.espressif.com/en/news/ESP32-Vaquita-DSPG_and_SDK?position=0&list=AguoTi8cJOJycmcaOUTvPhV0fqCv3Z6oxZhbrasmZA4)

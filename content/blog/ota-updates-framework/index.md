@@ -237,7 +237,7 @@ CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK=y# Set initial secure version to 0 CONFIG_BO
 
 ## Consideration III — Secure Boot & Flash Encryption
 
-In this section we will see how OTA updates can be coupled with platform security features (more information covered [here](https://medium.com/the-esp-journal/understanding-esp32s-security-features-14483e465724)) in ESP32.
+In this section we will see how OTA updates can be coupled with platform security features (more information covered [here](/blog/understanding-esp32s-security-features)) in ESP32.
 
 - Secure boot allows only trusted firmware to execute by verifying its signature with public key on device.
 - During an OTA update, the firmware image hosted on the server should be signed with ECDSA NIST256p (secure boot v1 scheme) or RSA-3072 (secure boot v2 scheme) based private key. Signature is calculated on SHA256 checksum of firmware image, offering constant time verification, and then it is appended to it.

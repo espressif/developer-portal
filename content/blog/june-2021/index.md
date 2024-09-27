@@ -24,7 +24,7 @@ Other topics you can read about in this month’s newsletter include:
 
 ![](img/june-2.webp)
 
-The [latest additions](https://medium.com/the-esp-journal/new-features-in-esp-rainmaker-cdb4a2f3fdc3) to [ESP RainMaker](https://rainmaker.espressif.com/)’s feature set include node sharing, timezone setting, Arduino support, and node grouping.
+The [latest additions](/blog/new-features-in-esp-rainmaker) to [ESP RainMaker](https://rainmaker.espressif.com/)’s feature set include node sharing, timezone setting, Arduino support, and node grouping.
 
 [__ESP-HMI: Smart Interaction — Boundless Communication__ ](https://www.espressif.com/en/news/esp-hmi)
 

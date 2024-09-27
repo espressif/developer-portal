@@ -33,7 +33,7 @@ __Note:__  Please use ESP-IDF release/v4.4 on the commit “cc71308e2fdce1d6d27f
 
 A convolution neural network is designed using [accelerometer data](https://www.cis.fordham.edu/wisdm/dataset.php) to recognize human activity.
 
-**In this blog we will not focus on the *[*development*](https://www.youtube.com/watch?v=lUI6VMj43PE)* and conversion of neural networks to *[*ESP-Dl format*](https://medium.com/the-esp-journal/hand-gesture-recognition-on-esp32-s3-with-esp-deep-learning-176d7e13fd37)*.*
+**In this blog we will not focus on the *[*development*](https://www.youtube.com/watch?v=lUI6VMj43PE)* and conversion of neural networks to *[*ESP-Dl format*](/blog/hand-gesture-recognition-on-esp32-s3-with-esp-deep-learning)*.*
 
 ## 1.1 ESP-IDF Project Hierarchy
 

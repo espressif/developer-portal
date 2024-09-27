@@ -8,7 +8,7 @@ authors:
 ---
 [*Espressif Matter Series*](/matter-38ccf1d60bcd)* #1*
 
-You may have recently read about the newly introduced standard, [Matter](https://medium.com/the-esp-journal/announcing-matter-previously-chip-on-esp32-84164316c0e3). Matter is an initiative of the [Connectivity Standards Alliance](http://csa-iot.org/), and developed through collaboration amongst all the leaders of the IoT industry.
+You may have recently read about the newly introduced standard, [Matter](/blog/announcing-matter-previously-chip-on-esp32). Matter is an initiative of the [Connectivity Standards Alliance](http://csa-iot.org/), and developed through collaboration amongst all the leaders of the IoT industry.
 
 There is a high level of excitement about Matter and what it aims to achieve. We often hear questions from device-makers and end-users as to how they can benefit from the Matter standard. In this article, let’s look at what does Matter mean to you as an end-user and as a device-maker.
 
