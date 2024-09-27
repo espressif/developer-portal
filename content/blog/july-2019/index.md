@@ -55,7 +55,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ![](img/july-4.webp)
 
-Are you interested in learning programming, but have no such background and are skeptical about taking the plunge? Are you a programmer already, wishing to specialize in IoT applications? Do you want to learn how to fly a drone? If you’ve given at least one “yes” to the above-mentioned questions, then you have to check out [ESPcopter](https://arikovani.com/en/projects/programlanabilir-mini-drone/detail), an [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview)-based programmable mini drone like no other!
+Are you interested in learning programming, but have no such background and are skeptical about taking the plunge? Are you a programmer already, wishing to specialize in IoT applications? Do you want to learn how to fly a drone? If you’ve given at least one “yes” to the above-mentioned questions, then you have to check out ESPcopter, an [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview)-based programmable mini drone like no other!
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESPcopter_ESP8266)
 

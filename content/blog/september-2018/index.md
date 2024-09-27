@@ -10,7 +10,7 @@ authors:
 
 Hi everyone,
 
-It seems that the scorching heat of summer in Shanghai has only fueled our fervor for improving our IoT solutions! We have been hard at work releasing ESP-IDF v3.0.3. This bugfix update is compatible with all apps written for ESP-IDF v.3.0.x. The changes are related to Bluetooth, LWIP, Wi-Fi, System, and Driver. You can check the entire list of changes [here](https://github.com/espressif/esp-idf/releases/tag/v3.0.3), while you can have a look at the [ESP-IDF Programming Guide](https://docs.espressif.com/projects/esp-idf/en/v3.0.3/get-started/index.html) for all the installation instructions.
+It seems that the scorching heat of summer in Shanghai has only fueled our fervor for improving our IoT solutions! We have been hard at work releasing ESP-IDF v3.0.3. This bugfix update is compatible with all apps written for ESP-IDF v.3.0.x. The changes are related to Bluetooth, LWIP, Wi-Fi, System, and Driver. You can check the entire list of changes [here](https://github.com/espressif/esp-idf/releases/tag/v3.0.3), while you can have a look at the [ESP-IDF Programming Guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/) for all the installation instructions.
 
 Additionally, we have recently released [ESP Mesh](https://www.espressif.com/en/products/software/esp-mesh/overview), our latest solution to achieving stable and secure Wi-Fi coverage across big spaces. With ESP Mesh, a Wi-Fi hotspot expands to a whole network with many more nodes than in traditional networks. Furthermore, ESP Mesh is a “self-healing” and automatically formed network, which makes it significantly more stable.
 

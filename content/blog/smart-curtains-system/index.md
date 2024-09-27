@@ -64,7 +64,7 @@ Home Assistant provides friendly GUI, where the user can change and set values o
 
 ## Mechanics
 
-For easy adaptation to existing curtains, I designed 3D models of required holders that can be attached to the curtain rod. 3D models were made in [Fusion 360](https://www.autodesk.com/products/fusion-360/overview) and can also be found in the repository.
+For easy adaptation to existing curtains, I designed 3D models of required holders that can be attached to the curtain rod. 3D models were made in Fusion 360 and can also be found in the repository.
 
 ![](img/building-8.webp)
 

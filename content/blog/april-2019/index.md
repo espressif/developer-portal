@@ -38,7 +38,7 @@ Espressif has once again responded to the need of IoT makers for quick product d
 
 ![](img/april-2.webp)
 
-[Dialogflow](https://cloud.google.com/dialogflow-enterprise/) is a Google service that runs on the Google Cloud Platform, allowing users to build engaging AI-powered conversational interfaces on their products. ESP32 now supports Dialogflow with [Espressif’s Voice-Assistant SDK](https://github.com/espressif/esp-va-sdk), enabling IoT developers to embed natural-language processing in their devices.
+Dialogflow is a Google service that runs on the Google Cloud Platform, allowing users to build engaging AI-powered conversational interfaces on their products. ESP32 now supports Dialogflow with [Espressif’s Voice-Assistant SDK](https://github.com/espressif/esp-va-sdk), enabling IoT developers to embed natural-language processing in their devices.
 
 [*Keep reading*](https://www.espressif.com/en/news/Google_Dialogflow_with_ESP32)
 
@@ -54,7 +54,7 @@ To people living outside China, [Tencent](https://www.tencent.com/en-us/)’s ub
 
 ![](img/april-4.webp)
 
-Everyone can agree that even the idea of getting back home and finding it robbed can give you the shivers. [Mitipi](https://www.mitipi.com/en/vision) is a Swiss company that has built “Kevin”, an ESP32-based virtual housemate who will deter any burglars from breaking into your house. [Kevin](https://www.mitipi.com/en/your-safety) will make any burglars lurking around your neighborhood think that you are still at home when you are actually away.
+Everyone can agree that even the idea of getting back home and finding it robbed can give you the shivers. Mitipi is a Swiss company that has built “Kevin”, an ESP32-based virtual housemate who will deter any burglars from breaking into your house. Kevin will make any burglars lurking around your neighborhood think that you are still at home when you are actually away.
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESP32-based_Protection_Against_Burglars)
 

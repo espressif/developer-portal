@@ -58,7 +58,7 @@ Believe it or not, you can now build an Internet radio player in less than ten m
 
 ![](img/january-5.webp)
 
-Most people think that water contain-ers provide only a good way of keep-ing people hydrated when they are not close to a source of drinking wa-ter. But “Leiyue”, a Shanghai-based startup, has taken water bottles to a whole other level. They have just launched an [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)-based [gadget](http://www.guoyueprint.com/) that combines water bottles with artificial intelligence.
+Most people think that water contain-ers provide only a good way of keep-ing people hydrated when they are not close to a source of drinking wa-ter. But “Leiyue”, a Shanghai-based startup, has taken water bottles to a whole other level. They have just launched an [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)-based gadget that combines water bottles with artificial intelligence.
 
 [Keep Reading](https://www.espressif.com/en/news/U_Cup_The_ESP32_based_Smart_Water_Bottle)
 

@@ -38,7 +38,7 @@ Get to know how independent maker, Eric Nam, created the [ESP32Tag](https://www.
 
 [__E__ ](https://www.espressif.com/en/news/ESP32_Security_Camera)[__SP32-Powered DIY Smartwatch__ ](https://www.espressif.com/en/news/MutantW)
 
-An independent maker known as “rahmanshaber” recently presented an [ESP32-WROOM](https://www.espressif.com/en/products/modules/esp32)-powered, open-source smartwatch, called [MutantW](https://mutantc.gitlab.io/mutantW_V1.html)
+An independent maker known as “rahmanshaber” recently presented an [ESP32-WROOM](https://www.espressif.com/en/products/modules/esp32)-powered, open-source smartwatch, called MutantW.
 
 [Read More >](https://www.espressif.com/en/company/newsroom/news)
 

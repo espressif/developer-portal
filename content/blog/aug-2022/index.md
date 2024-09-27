@@ -8,7 +8,7 @@ authors:
 ---
 Hi everyone,
 
-Espressif is taking part in the upcoming Maker Faire in [Prague on 17–18 September](https://makerfaire.cz/prague-2/)____ 2022, and in [Brno on 22–23 October](https://makerfaire.cz/brno-3/). Maker Faire is a family-friendly showcase of inventions and creativity that gathers technology enthusiasts, crafters, and educators from the Czech Republic and abroad. Makers come to show their creations and visitors get the opportunity to try new gadgets firsthand. This technology festival is the perfect combination of sciences, traditional crafts, the latest technological trends and design.
+Espressif is taking part in the upcoming Maker Faire in [Prague on 17–18 September](https://makerfaire.cz/)____ 2022, and in [Brno on 22–23 October](https://makerfaire.cz/). Maker Faire is a family-friendly showcase of inventions and creativity that gathers technology enthusiasts, crafters, and educators from the Czech Republic and abroad. Makers come to show their creations and visitors get the opportunity to try new gadgets firsthand. This technology festival is the perfect combination of sciences, traditional crafts, the latest technological trends and design.
 
 ![](img/aug-1.webp)
 

@@ -24,25 +24,25 @@ If you have identified that you require Wi-Fi certification, the quickest path i
 
 For additional details about the derivative certification please refer to the [Certifications Overview - Derivative Certificate](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&cd=1&cad=rja&uact=8&ved=2ahUKEwj--t_q_ObcAhWKso8KHRmeBCwQFjAAegQIChAB&url=https%3A%2F%2Fwww.wi-fi.org%2Ffile%2Fcertification-overview-derivative-certifications&usg=AOvVaw0EQuZMH38UR39eYLnP_PX3) document on the Wi-Fi Alliance website.
 
-The modules ESP32-WROVER and ESP32-WROOM-32D are already certified with Wi-Fi Alliance (Certificates in PDF form: [ESP32-WROVER](http://certifications.prod.wi-fi.org/pdf/certificate/public/download?cid=WFA77915), [ESP32-WROOM-32D](http://certifications.prod.wi-fi.org/pdf/certificate/public/download?cid=WFA77387)). If you are using these modules in your product you can use derivative certification for certifying your products. If you are using an ESP32 module from another vendor, please check with them for that module’s Wi-Fi Alliance certification status.
+The modules ESP32-WROVER and ESP32-WROOM-32D are already certified with Wi-Fi Alliance. If you are using these modules in your product you can use derivative certification for certifying your products. If you are using an ESP32 module from another vendor, please check with them for that module’s Wi-Fi Alliance certification status.
 
 ## Steps for Derivative Certification
 
 - For any certification, you have to first be a member of Wi-Fi Alliance. Details about membership levels, cost and benefits is available [here](https://www.wi-fi.org/membership).
-- Once you are a member, login to the certification system and click on __New Derivative Product Certification.__ 
+- Once you are a member, login to the certification system and click on __New Derivative Product Certification.__
 
 ![](img/wifi-1.webp)
 
 - Choose the *Source Company* as Espressif Inc (If you are using Espressif’s WFA certified modules). Choose your organisation’s name as the *Target Company*.
 - Choose the* Product* that you are deriving from. If you are using Espressif’s WFA certified module, you may use __WFA77915 for ESP32-WROVER__ , or __WFA77387 for ESP32-WROOM__ .
-- Go to the next page:__Product Information__ 
+- Go to the next page:__Product Information__
 
 ![](img/wifi-2.webp)
 
 ![](img/wifi-3.webp)
 
 - Mention any changes you may have done to the subsystems as indicated in the page.
-- Go to the next page: __Product Designators__ 
+- Go to the next page: __Product Designators__
 
 ![](img/wifi-4.webp)
 

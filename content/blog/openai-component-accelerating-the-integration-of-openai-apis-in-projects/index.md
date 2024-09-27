@@ -28,7 +28,7 @@ idf.py add-dependency "espressif/Component name^verison"
 
 ## OpenAI Component
 
-To provide developers with comprehensive coverage of [OpenAI API](https://platform.openai.com/docs/api-reference) features, a simple yet powerful ESP-IDF [component](https://components.espressif.com/components/espressif/openai) is introduced. This component offers extensive support, focusing on a wide range of functionalities while excluding file operations and fine-tuning capabilities. There is comprehensive [documentation](https://docs.espressif.com/projects/espressif-esp-iot-solution/en/latest/esp32/ai/openai.html) accessible to assist developers in comprehending the APIs effortlessly.
+To provide developers with comprehensive coverage of [OpenAI API](https://platform.openai.com/docs/api-reference) features, a simple yet powerful ESP-IDF [component](https://components.espressif.com/components/espressif/openai) is introduced. This component offers extensive support, focusing on a wide range of functionalities while excluding file operations and fine-tuning capabilities. There is comprehensive [documentation](https://docs.espressif.com/projects/esp-iot-solution/en/latest/ai/openai.html) accessible to assist developers in comprehending the APIs effortlessly.
 
 ## Usage Example
 

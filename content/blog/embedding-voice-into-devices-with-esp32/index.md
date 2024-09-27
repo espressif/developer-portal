@@ -8,7 +8,7 @@ authors:
 ---
 ESP32 already supported being a fully functional [Alexa client](https://github.com/espressif/esp-va-sdk/blob/master/README-Alexa.md), a voice assistant.
 
-ESP32 now also supports [Dialogflow](https://dialogflow.com/), a voice-enabled conversational interface from Google. It enables IoT users to include a natural language user interface in their devices.
+ESP32 now also supports Dialogflow, a voice-enabled conversational interface from Google. It enables IoT users to include a natural language user interface in their devices.
 
 The differences of Dialogflow w.r.t. voice assistants are
 

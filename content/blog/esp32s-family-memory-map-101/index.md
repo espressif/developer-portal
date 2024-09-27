@@ -72,7 +72,7 @@ The ESP32-S2 microcontroller is the successor of ESP32 and although very similar
 
 One of the improvements from ESP32 is the ability to access external SPI-ram on data and instruction buses, which means it can run programs and access the data.
 
-Zephyr-RTOS support for the ESP32-S2 devkit board can be found [__*here*__ ](https://docs.zephyrproject.org/latest/boards/xtensa/esp32s2_saola/doc/index.html).
+Zephyr-RTOS support for the ESP32-S2 devkit board can be found [__*here*__ ](https://docs.zephyrproject.org/latest/).
 
 ## ROM
 
@@ -112,7 +112,7 @@ For further information and all the details about the ESP32-S2 SoC please refer 
 
 The ESP32-S3 is the latest Xtensa LX7 CPU with a dual-core design. Besides two main cores, it has two ultra-low-power coprocessors based on Risc-V architecture. The SoC has a built-in JTAG debugger accessible via a USB interface. It can access external SPIRAM on data and instruction buses, which means it can run programs and access the data.
 
-Zephyr-RTOS support for the ESP32-S3 devkit board can be found [__*here*__ ](https://docs.zephyrproject.org/latest/boards/xtensa/esp32s3_devkitm/doc/index.html).
+Zephyr-RTOS support for the ESP32-S3 devkit board can be found [__*here*__ ](https://docs.zephyrproject.org/latest/).
 
 ## ROM
 
