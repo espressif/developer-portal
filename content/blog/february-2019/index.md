@@ -8,7 +8,7 @@ authors:
 ---
 Welcome to our February Newsletter
 
-__*Our News. Our World Join Us!*__ 
+__*Our News. Our World Join Us!*__
 
 Hi everyone,
 

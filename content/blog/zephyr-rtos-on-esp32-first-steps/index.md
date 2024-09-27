@@ -16,7 +16,7 @@ Espressif has been expanding support for Zephyr RTOS on ESP32, an extremely popu
 
 ![](img/zephyr-2.webp)
 
-The first thing to do is to prepare Zephyr’s development environment. I briefly list the steps required for Linux (Ubuntu 20.04.1 LTS), for the most up-to-date documentation, and for support for other Operating Systems you can see Zephyr’s official [Getting Started](https://docs.zephyrproject.org/latest/getting_started/index.html) guide and, specifically, you can see most of the original instructions included in this post in the [ESP32 SoC section](https://docs.zephyrproject.org/latest/boards/xtensa/esp32/doc/index.html) of the Zephyr Project documentation.
+The first thing to do is to prepare Zephyr’s development environment. I briefly list the steps required for Linux (Ubuntu 20.04.1 LTS), for the most up-to-date documentation, and for support for other Operating Systems you can see Zephyr’s official [Getting Started](https://docs.zephyrproject.org/latest/getting_started/index.html) guide and, specifically, you can see most of the original instructions included in this post in the [ESP32 SoC section](https://docs.zephyrproject.org/latest/boards/espressif/index.html) of the Zephyr Project documentation.
 
 ## Updating Linux
 

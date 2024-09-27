@@ -34,7 +34,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ![](img/june-2.webp)
 
-[Fracino](https://www.fracino.com/index.html), an award-winning UK manufacturer of cappuccino and espresso machines, chose an [ESP32](https://www.espressif.com/en/products/socs/esp32/overview)-powered mobile app for building an efficient and aesthetically pleasing solution for their client, [Londinium espresso](https://londiniumespresso.com/). The ESP32-based app, which was created by [Blynk IoT](https://blynk.io/clients/londinium-fracino-iot-connected-wifi-espresso-machine-case-study-blynk), controls all the main parameters of the espresso machine effortlessly.
+[Fracino](https://www.fracino.com/index.html), an award-winning UK manufacturer of cappuccino and espresso machines, chose an [ESP32](https://www.espressif.com/en/products/socs/esp32/overview)-powered mobile app for building an efficient and aesthetically pleasing solution for their client, Londinium espresso. The ESP32-based app, which was created by [Blynk IoT](https://blynk.io/clients/londinium-fracino-iot-connected-wifi-espresso-machine-case-study-blynk), controls all the main parameters of the espresso machine effortlessly.
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESP32_Espresso_Machine)
 

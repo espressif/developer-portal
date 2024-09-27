@@ -16,7 +16,7 @@ Additionally, we have recently released [ESP Mesh](https://www.espressif.com/en/
 
 At the same time, Microsoft announced that its Azure IoT Workbench has started supporting Arduino development on ESP32. This is integrated into Microsoft Visual Studio, while also supporting OTA updates from, and data-processing in, the Microsoft Azure cloud. For more information, you can see Microsoft’s announcement [here](https://blogs.msdn.microsoft.com/iotdev/2018/08/13/azure-iot-workbench-now-supports-esp32-devices/).
 
-On a different note, the [2018 IoT Bootcamp by iBHubs in India](https://ibhubs.co/iot-bootcamp/), which was partially sponsored by Espressif, came to a grand closure last month. This event comprised ten comprehensive bootcamps on IoT, which received a huge response from 110 institutions
+On a different note, the 2018 IoT Bootcamp by iBHubs in India, which was partially sponsored by Espressif, came to a grand closure last month. This event comprised ten comprehensive bootcamps on IoT, which received a huge response from 110 institutions
 
 ## Espressif Sponsored the IoT Mini-Conf atPyCon AU 2018
 

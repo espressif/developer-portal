@@ -35,7 +35,7 @@ The latest version of Espressif’s IoT Development Framework, [ESP-IDF v3.2](ht
 
 ![](img/may-2.webp)
 
-The [ekey UNO](https://www.ekey-uno.net/) finger scanner is an innovative security system that has been based on Espressif’s ESP32-WROVER module. This biometric security solution has been developed in Austria by [ekey](https://www.ekey.net/en_US/about_ekey/), a top European company that creates high-tech access solutions. Since 2002, ekey has been entrusted by private households, leading companies and public organizations providing fire and rescue services.
+The [ekey UNO](https://www.ekey-uno.net/) finger scanner is an innovative security system that has been based on Espressif’s ESP32-WROVER module. This biometric security solution has been developed in Austria by [ekey](https://www.ekey.net/), a top European company that creates high-tech access solutions. Since 2002, ekey has been entrusted by private households, leading companies and public organizations providing fire and rescue services.
 
 [*Keep reading*](https://www.espressif.com/en/news/ekey_UNO)
 

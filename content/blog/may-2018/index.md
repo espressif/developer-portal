@@ -36,8 +36,6 @@ Remember last January when we announced that we would organize a contest about E
 
 The latest version of Espressif’s IoT Development Framework, [ESP-IDF v3.0](https://github.com/espressif/esp-idf/releases/tag/v3.0), has just been released. This is part of our commitment to improve our IoT solutions, based on the results of our quality assurance procedures and the feedback we receive from the community of developers who use our chips.
 
-[Keep reading](https://www.espressif.com/en/media_overview/news/esp-idf-30-released?position=1&list=L5pbYNyePvCkj2wAPLAOjKuIWjxM_j71FZziTTDWHYM)
-
 ## ESP-MESH Development Framework Released
 
 ![](img/may-4.webp)

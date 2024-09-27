@@ -38,7 +38,7 @@ ESP32-C3 is a single-core Wi-Fi and Bluetooth LE 5.0 microcontroller unit, based
 
 ![](img/november-5.webp)
 
-Our new [ESP Product Selector](http://products.espressif.com:8000/#/) is an online tool designed to increase development efficiency and reduce the time for business communication. To use it, customers do not need to register with us or download the tool. All they need to do is click on the link and use it, taking advantage of its simple function and multiple benefits.
+Our new [ESP Product Selector](http://products.espressif.com/) is an online tool designed to increase development efficiency and reduce the time for business communication. To use it, customers do not need to register with us or download the tool. All they need to do is click on the link and use it, taking advantage of its simple function and multiple benefits.
 
 [__Aimagin’s ESP32-powered Waijung 2 Released__ ](https://www.espressif.com/en/news/ESP32_Waijung)
 

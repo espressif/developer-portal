@@ -50,7 +50,7 @@ Espressif’s flagship chip, ESP32, has recently passed the SIG [Bluetooth LE 5.
 
 ![](img/january-4.webp)
 
-An increasing number of Espressif products are being qualified for Amazon:FreeRTOS. It was only yesterday (30th Dec.) that our AI dev board, [ESP-EYE](https://www.espressif.com/en/products/hardware/esp-eye/overview), as well as our [ESP32-WROOM-32SE](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32se_datasheet_en.pdf)module got qualified, while last month our [ESP32-SOLO-1](https://www.espressif.com/sites/default/files/documentation/esp32-solo-1_datasheet_en.pdf) module got qualified as well.
+An increasing number of Espressif products are being qualified for Amazon:FreeRTOS. It was only yesterday (30th Dec.) that our AI dev board, [ESP-EYE](https://www.espressif.com/en/products/hardware/esp-eye/overview), as well as our [ESP32-WROOM-32SE](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf)module got qualified, while last month our [ESP32-SOLO-1](https://www.espressif.com/sites/default/files/documentation/esp32-solo-1_datasheet_en.pdf) module got qualified as well.
 
 [*Keep Reading*](https://www.espressif.com/en/news/aFreeRTOS_qualified_ESP)
 

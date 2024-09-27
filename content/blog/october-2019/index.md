@@ -14,11 +14,11 @@ Our friends at [ThingPulse](https://thingpulse.com/about/), Daniel Eichhorn and 
 
 The ThingPulse IoT workshops will cover topics such as:
 
-- [Wi-Fi Weather Station with ESP8266 and Arduino IDE](https://thingpulse.com/workshop-registration/?workshop=Classic+Weather+Station&date=2019-11-16)__(November 16th, 2019)__ This session is aimed at Arduino and ESP8266 beginners with affinity for technology and computer science.
-- [Build and Program a Color Weather Station with ESP8266 and Arduino IDE](https://thingpulse.com/workshop-registration/?workshop=Color+Weather+Station&date=2019-11-30)__(November 30th, 2019)__ Participants will be shown how to solder and then program a weather station with a fancy color touch display.
-- [“You’ve got Mail” — Advanced IoT with ESP32 and Platform IO](https://thingpulse.com/workshop-registration/?workshop=Advanded+IoT&date=2020-01-15)__(January 15th, 2020)__ Attendees will learn about ESP32 features and quirks, as well as how to build a mailbox-to-push-notification sensing device.
+- Wi-Fi Weather Station with ESP8266 and Arduino IDE __(November 16th, 2019)__ This session is aimed at Arduino and ESP8266 beginners with affinity for technology and computer science.
+- Build and Program a Color Weather Station with ESP8266 and Arduino IDE __(November 30th, 2019)__ Participants will be shown how to solder and then program a weather station with a fancy color touch display.
+- “You’ve got Mail” — Advanced IoT with ESP32 and Platform IO __(January 15th, 2020)__ Attendees will learn about ESP32 features and quirks, as well as how to build a mailbox-to-push-notification sensing device.
 
-So, do you -or someone you know- want to learn more about IoT, but don’t know where to start from? Then, the ThingPulse IoT workshops are for you, because they are all about learning, sharing and a having a good time! All you need to do is register [here](https://thingpulse.com/iot-workshops/). Places are limited and filling up quickly. So, hurry up!
+So, do you -or someone you know- want to learn more about IoT, but don’t know where to start from? Then, the ThingPulse IoT workshops are for you, because they are all about learning, sharing and a having a good time! Places are limited and filling up quickly. So, hurry up!
 
 Other topics you can read in this month’s newsletter include:
 

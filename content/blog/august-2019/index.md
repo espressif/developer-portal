@@ -47,7 +47,7 @@ Senior Customer Support Officer
 
 ![](img/august-3.webp)
 
-[Cesanta](https://cesanta.com/), an IoT company based in Dublin, Ireland, has recently launched [mDash](https://mdash.net/docs/quickstart/esp-idf.md), which is an IoT Cloud platform for the administration of various IoT modules. This platform now supports Espressif’s SoCs, [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview), among other chips, offering a number of features that significantly facilitate building IoT applications
+[Cesanta](https://cesanta.com/), an IoT company based in Dublin, Ireland, has recently launched [mDash](https://mdash.net/), which is an IoT Cloud platform for the administration of various IoT modules. This platform now supports Espressif’s SoCs, [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview), among other chips, offering a number of features that significantly facilitate building IoT applications
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESP32_ESP8266_supported_by_mDash)
 

@@ -32,7 +32,7 @@ Espressif’s Software and Technical Marketing Manager, Jeroen Domburg, otherwis
 
 ![](img/jan-3.webp)
 
-[Agromon](https://www.wondernica.com/agromon.html#) is a wireless transmitter based on [ESP32-WROOM-32U](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf) and designed for agricultural IoT applications. As a plug-and-play device, Agromon can be easily installed and used. By simply plugging in the sensors included in the package, the device is ready for use.
+Agromon is a wireless transmitter based on [ESP32-WROOM-32U](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf) and designed for agricultural IoT applications. As a plug-and-play device, Agromon can be easily installed and used. By simply plugging in the sensors included in the package, the device is ready for use.
 
 [__MorphESP 240: A New ESP32-S2 Board by Morpheans__ ](https://www.espressif.com/en/news/MorphESP_240)
 
