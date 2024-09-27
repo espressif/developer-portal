@@ -49,8 +49,6 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 [DFRobot](https://www.dfrobot.com/index.php?route=information%2Finformation&information_id=4) is an [Espressif](https://www.espressif.com/) partner that specializes in robotics and open-source hardware. They have a product catalog that includes more than a thousand components and widgets, such as sensors, robotic platforms, communication modules, and 3D printers. They have modeled several of their products around [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) and [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview), fostering a strong community of IoT learning.
 
-[*Keep Reading*](https://www.espressif.com/en/news/DFRobots_Espressif_based_Products)
-
 ## ESPcopter: An ESP8266-based Programmable Mini Drone
 
 ![](img/july-4.webp)

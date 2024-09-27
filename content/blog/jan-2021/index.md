@@ -20,7 +20,7 @@ Other topics you can read about in this month’s newsletter include:
 
 ![](img/jan-1.webp)
 
-Espressif’s Software and Technical Marketing Manager, Jeroen Domburg, otherwise known as Sprite_tm, has just built an [ESP32-powered](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-wrover-kit.html), ultra-compact [replica](http://spritesmods.com/?art=minipdp11) of a Digital DEC VT-102 terminal emulating a PDP-11 running 2.11BSD.
+Espressif’s Software and Technical Marketing Manager, Jeroen Domburg, otherwise known as Sprite_tm, has just built an [ESP32-powered](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-wrover-kit.html), ultra-compact replica of a Digital DEC VT-102 terminal emulating a PDP-11 running 2.11BSD.
 
 [__Line-us: An ESP8266-Based Drawing Robot__ ](https://www.espressif.com/en/news/Line-us)
 

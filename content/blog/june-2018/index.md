@@ -32,8 +32,6 @@ Senior Customer Support Officer
 
 The Indian branch of Espressif Systems is only a few months old, but it is already highly active, organizing IoT seminars for the local community of developers in Pune. The last session was held at the end of May and it focused on FreeRTOS. Due to popular demand, there will be a complementary session on __Saturday__ , __June 9th__ , __from 10:00am to 1:00pm__ , which aims to cover the wide range of questions that could not be tackled during the first two-hour session. Places are limited, so [register now](https://www.meetup.com/Internet-Of-Things-Pune-IoTPune/events/251196679/) to make sure you can attend this seminar.
 
-[Keep Reading](https://www.espressif.com/en/media_overview/news/iot-seminars-espressif-india-pune?position=0&list=OxOJfQt5u21fP9RX6KD3ZFrxXB7dHwD47Yl5qulW-S4)
-
 ## ESP8266-based DIY Model Airplane
 
 ![](img/june-3.webp)
