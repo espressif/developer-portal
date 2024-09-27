@@ -32,7 +32,7 @@ NLC1242 is an [ESP32-based](https://www.espressif.com/en/products/modules/esp32)
 
 ![](img/march-4.webp)
 
-Francesco Azzola, from a blog entitled “[Surviving with Android](https://www.survivingwithandroid.com/esp32-heart-rate-pulse-oximetery-with-max30102/)’, has just posted a really interesting tutorial which demonstrates the way in which we can use [ESP32](https://www.espressif.com/en/products/socs/esp32) to monitor someone’s heart rate and pulse oximetry.
+Francesco Azzola, from a blog entitled "Surviving with Android", has just posted a really interesting tutorial which demonstrates the way in which we can use [ESP32](https://www.espressif.com/en/products/socs/esp32) to monitor someone’s heart rate and pulse oximetry.
 
 [__Fibonacci256: A Mesmerizing ESP8266-based Piece of Art__ ](https://www.espressif.com/en/news/Fibonacci256)
 

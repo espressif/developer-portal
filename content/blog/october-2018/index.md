@@ -12,7 +12,7 @@ Welcome to our October Newsletter
 
 Hi everyone,
 
-The beginning of autumn has been marked by a bunch of exciting Espressif-related news. First and foremost, we released the latest version of [ESP-IDF v3.1](https://github.com/espressif/esp-idf/releases/tag/v3.1) with improvements on previous features regarding its Wi-Fi and Bluetooth connectivity, as well as its Security Manager Protocol (SMP). At the same time, certain companies in Espressif’s ecosystem introduced new ESP-related features, services and products, including Olimex’s [ESP32 DevKit LiPo](https://time4ee.com/news.php?readmore=409); Atmosphere’s platform update with [Wi-Fi support for ESP32](https://www.atmosphereiot.com/blog/platform-1-1-9.html); the [Sensything ESP32 board](https://www.cnx-software.com/2018/09/26/sensything-esp32-board-multi-sensor-data-acquisition-wi-fi-bluetooth/) with multi-sensor data acquisition, Wi-Fi and Bluetooth; Zerynth’s [combination of IoT and Blockchain, using simple Python on the ESP32-DevKitC](https://www.hackster.io/lana-vulic/combining-iot-and-blockchain-using-simple-python-093746); and, last but not least, we also got a sneak peek of the upcoming [ESP32-powered watch](https://twitter.com/sqfmi/status/1042245367897751552) by [Squarofumi](http://www.sqfmi.com/) on Twitter!
+The beginning of autumn has been marked by a bunch of exciting Espressif-related news. First and foremost, we released the latest version of [ESP-IDF v3.1](https://github.com/espressif/esp-idf/releases/tag/v3.1) with improvements on previous features regarding its Wi-Fi and Bluetooth connectivity, as well as its Security Manager Protocol (SMP). At the same time, certain companies in Espressif’s ecosystem introduced new ESP-related features, services and products, including Olimex’s [ESP32 DevKit LiPo](https://time4ee.com/news.php?readmore=409); Atmosphere’s platform update with [Wi-Fi support for ESP32](https://atmosphereiot.com/); the [Sensything ESP32 board](https://www.cnx-software.com/2018/09/26/sensything-esp32-board-multi-sensor-data-acquisition-wi-fi-bluetooth/) with multi-sensor data acquisition, Wi-Fi and Bluetooth; Zerynth’s [combination of IoT and Blockchain, using simple Python on the ESP32-DevKitC](https://www.hackster.io/lana-vulic/combining-iot-and-blockchain-using-simple-python-093746); and, last but not least, we also got a sneak peek of the upcoming [ESP32-powered watch](https://twitter.com/sqfmi/status/1042245367897751552) by [Squarofumi](http://www.sqfmi.com/) on Twitter!
 
 Additionally, among the most recent independent [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview)-based projects that we distinguished were the [Pluto Quadcopter](https://twitter.com/anujdeshpandey/status/1032936504354471936) by the Indian startup [Drona Aviation](https://www.dronaaviation.com/); a [Code-Review Lamp](https://www.hackster.io/platisd/code-review-lamp-d52e87), notifying developer teams of pending code reviews (this one is for the fellow programmers out there!); the [Amazon Echo (IR) TV Remote](https://www.hackster.io/LIMPINGLIM/amazon-echo-ir-tv-remote-bf2c36); a [Bitcoin-activated power outlet](https://www.hackster.io/cswiger2/bitcoin-activated-power-outlet-ffc679); and an [IoT Pool Monitor](https://www.hackster.io/justind000/iot-pool-monitoring-with-thingsboard-4b0826),
 
@@ -34,8 +34,6 @@ Senior Customer Support Officer
 
 Espressif is partnering with Grid Connect for the first time to host developer trainings on ESP32 in Chicago and San Francisco. These hands-on, in-depth trainings will focus on building end-products using Espressif’s IoT Development Framework (ESP-IDF). These 2-day trainings will cover the latest [version of the ESP-IDF (v3.1)](https://github.com/espressif/esp-idf/releases/tag/v3.1) and will be given by Espressif engineers.
 
-[Keep Reading](https://www.espressif.com/en/news/ESP32%20Developer%20Trainings%20in%20the%20USA?position=0&list=kj28sjF5dc4F6ENc8r67SqH4Yd5dK4m8Xd9ZCBvZgug)
-
 ## Alexa on ESP32
 
 ![](img/october-3.webp)
@@ -49,8 +47,6 @@ Espressif’s Alexa SDK has just been released, providing an implementation of A
 ![](img/october-4.webp)
 
 [Erik Bartmann](https://www.erik-bartmann.de/) is an experienced maker and writer with several bestselling books about programming and electronics under his belt. After the success of *Das ESP8266 Praxisbuch *(The ESP8266 Practice Book)* *in 2016, Erik gave us its sequel, *Das ESP32 Praxisbuch *(The ESP32 Practice Book), in July 2018. In his usual reader-friendly way, Erik illustrates step by step the great variety of projects that anyone can create with [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview).
-
-[Keep Reading](https://www.espressif.com/en/news/New%20Book%20on%20ESP32%20by%20Best-Selling%20Author%20Erik%20Bartmann?position=1&list=lBpPiKCKxDo_pxLtsU-u60pMPJ0lMH2g-85ndysyrfI)
 
 ## Ph0xx: ESP32 Badge Turned Into Robot
 

@@ -12,9 +12,9 @@ May has been a busy and exciting month for all of us at Espressif! Our 2020 onli
 
 We believe that [ESP-Jumpstart](https://docs.espressif.com/projects/esp-jumpstart/en/latest/introduction.html) is the ideal platform for our outreach program, because it simplifies the process of building ESP32-based products. ESP-Jumpstart provides the optimal solution to getting started with product development. It is a comprehensive guide for developers, which helps them quickly achieve the conversion of their ideas into products. ESP-Jumpstart is based on [Espressif’s IoT Development Framework, ESP-IDF,](https://github.com/espressif/esp-idf) and discusses all the necessary steps and best practices for product development in a simple, well-structured and user-friendly way.
 
-On a similar note, our German-speaking friends and supporters will be pleased to know that the* *[*Franzis*](https://www.elektor.de/franzis-maker-kit-fur-esp32)
+On a similar note, our German-speaking friends and supporters will be pleased to know that the **Franzis**
 
-[*Maker Kit for ESP32*](https://www.elektor.de/franzis-maker-kit-fur-esp32) has just been released. This maker kit contains everything you need to get started with microcontroller technology using our flagship SoC, [ESP32](https://www.espressif.com/en/products/socs/esp32/overview). An ESP32 development board along with all the necessary components are included in this kit, so you can start implementing your own applications right away!
+*Maker Kit for ESP32* has just been released. This maker kit contains everything you need to get started with microcontroller technology using our flagship SoC, [ESP32](https://www.espressif.com/en/products/socs/esp32/overview). An ESP32 development board along with all the necessary components are included in this kit, so you can start implementing your own applications right away!
 
 Other topics you can read about in this month’s newsletter include:
 

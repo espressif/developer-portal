@@ -6,3 +6,11 @@ https://www.theembeddedrustacean.com/subscribe
 https://docs.espressif.com/projects/esp-modbus/en/latest/esp32c61/
 # content/blog/nuttx-adding-porting-an-app/index.md
 https://github.com/ARMmbed/mbedtls/archive
+
+# Domains which rejects requests from GitHub Action
+https://www.kickstarter.com
+https://platform.openai.com
+https://openai.com/
+
+# Links from examples
+socket://localhost:5555

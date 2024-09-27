@@ -40,7 +40,7 @@ ESP RainMaker is available in [AWS Marketplace](https://aws.amazon.com/marketpla
 
 [__ESP32-H2 & Thread SDK Officially Recognized as “Thread-Certified 1.3.0 Component”__ ](https://www.espressif.com/en/news/ESP32-H2_Thread_V1.3.0_Certified)
 
-Espressif can now provide its customers with the latest and most rigorously-tested [Thread solutions](https://www.espressif.com/sites/default/files/ESP32-H2%20Thread%20V1.3.0%20Interoperability%20Certification.pdf) (1.3.0).
+Espressif can now provide its customers with the latest and most rigorously-tested [Thread solutions](https://www.espressif.com/en/support/documents/certificates) (1.3.0).
 
 ![](img/november-6.webp)
 

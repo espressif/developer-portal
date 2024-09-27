@@ -40,7 +40,6 @@ The Indian branch of Espressif Systems is only a few months old, but it is alrea
 
 Imagine you are an aviation enthusiast and you have less than 15 US dollars to spend on your hobby. What can you do? Well, an [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview)-based IoT solution might be just right for you! [Ravi Butani](http://www.instructables.com/member/RAVI_BUTANI/), an electronics engineer from India, has devised a [remote-controlled light-weight DIY aircraft](http://www.instructables.com/id/WIFI-CONTROLLED-RC-PLANE/), combining his passion about electronics and aviation. What’s more, his project relies on the power of ESP8266.
 
-[Keep reading](https://www.espressif.com/en/media_overview/news/esp8266-based-wifi-controlled-diy-model-airplane?position=0&list=CjctZJoAuosj2ULOA9i94lMku_YCvy4uUrRffPYOTn4)
 
 ## “La Cool Co.” Wins 2nd Prize at VivaTech 2018
 

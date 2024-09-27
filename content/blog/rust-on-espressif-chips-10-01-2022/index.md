@@ -14,7 +14,7 @@ Now I am working at Espressif I plan on publishing updates roughly every quarter
 
 One of the hardest parts in any community project is onboarding new developers, especially in the early stages of a project where API’s, processes and tooling is changing rapidly; it can be frustrating to work on something one week, and in the next you’re fighting to get it compiling again. We began work on [a book](https://esp-rs.github.io/book/) in which we will try to keep as a source of truth for the Rust esp effort. This will include install instructions, tooling guides, ecosystem overviews and much more.
 
-We have also put together a [road map project](https://github.com/orgs/esp-rs/projects/1) on github, with the aim of managing the project from Espressif’s point of view, but also to allow new contributors to pick up backlog items. Simply comment in the issue if there is something you’d like to take a stab at, we’re more than happy to assist and review. We also host bi-weekly meetings which anyone is welcome to attend, just drop a comment [in the latest discussion thread](https://github.com/esp-rs/rust/discussions).
+We have also put together a [road map project](https://github.com/orgs/esp-rs/projects/2) on github, with the aim of managing the project from Espressif’s point of view, but also to allow new contributors to pick up backlog items. Simply comment in the issue if there is something you’d like to take a stab at, we’re more than happy to assist and review. We also host bi-weekly meetings which anyone is welcome to attend, just drop a comment [in the latest discussion thread](https://github.com/esp-rs/rust/discussions).
 
 ## Using the Rust standard library on Espressif chips
 

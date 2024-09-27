@@ -14,7 +14,7 @@ Hi everyone,
 
 November has already started, but we’re still in a __Halloween__  mood. Luckily it’s not just us! Tricksters and treaters were not simply carving pumpkins and wearing spooky outfits on October 31st. They were also using [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) to make their Halloween costumes even more horrifying!
 
-What’s scarier than a pair of __Uncanny Eyes__ ? Well, the obvious answer is *five* pairs of Uncanny Eyes mounted on skulls and controlled in a way that makes everyone scream. [Laurent](https://www.hackster.io/laurentr) did exactly that and posted the project on [hackster.io](https://www.hackster.io/laurentr/halloween-skull-costume-with-uncanny-eyes-on-esp32-376a13). Powered by [ESP32-DevKitC](https://www.espressif.com/en/products/hardware/esp32-devkitc/overview), Uncanny Eyes achieve maximum effect when they are attached to the bust of a Halloween skull costume. The wearer of the costume seamlessly controls the uncanny eyes, as they transition from random motion to coordinated movements via a hidden device with an analog joystick and buttons. The effect is clearly shown in [this YouTube video](https://www.youtube.com/watch?v=geOpPL3N5Ng).
+What’s scarier than a pair of __Uncanny Eyes__ ? Well, the obvious answer is *five* pairs of Uncanny Eyes mounted on skulls and controlled in a way that makes everyone scream. Laurent did exactly that and posted the project on [hackster.io](https://www.hackster.io/laurentr/halloween-skull-costume-with-uncanny-eyes-on-esp32-376a13). Powered by [ESP32-DevKitC](https://www.espressif.com/en/products/hardware/esp32-devkitc/overview), Uncanny Eyes achieve maximum effect when they are attached to the bust of a Halloween skull costume. The wearer of the costume seamlessly controls the uncanny eyes, as they transition from random motion to coordinated movements via a hidden device with an analog joystick and buttons.
 
 Apart from Halloween, what kept us excited last month was the release of __ESP-WHO__ , which is __Espressif’s face detection and recognition platform based on__ [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview). You will find ESP-WHO to be most helpful if, for example, you want to build a
 
@@ -58,7 +58,7 @@ Every year, the Hackaday Super-conference attracts huge numbers of hardware hack
 
 ![](img/november-5.webp)
 
-Do you like searching for security bugs? Do you want to earn some extra cash? Are you a fan of Espressif Systems and ESP32? If the answer to all these questions is positive, then you should definitely consider participating in our bug-reporting program, the [ESP32 Security Bug Bounty](https://esp32.com/viewtopic.php?f=10&t=1572&p=7266)! We had a similar program about [ESP8266](https://bbs.espressif.com/viewtopic.php?f=20&t=288), which lasted from March 2015 until July 2018. Our ESP32 Bug Bounty started in March 2017 and is still on!
+Do you like searching for security bugs? Do you want to earn some extra cash? Are you a fan of Espressif Systems and ESP32? If the answer to all these questions is positive, then you should definitely consider participating in our bug-reporting program, the [ESP32 Security Bug Bounty](https://esp32.com/viewtopic.php?f=10&t=1572&p=7266)! We had a similar program about ESP8266, which lasted from March 2015 until July 2018. Our ESP32 Bug Bounty started in March 2017 and is still on!
 
 [Keep Reading](https://www.espressif.com/en/news/The_ESP32_Security_Bug_Bounty_Is_Still_On)
 
