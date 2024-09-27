@@ -196,7 +196,7 @@ export ESPPORT=socket://localhost:5555
 espefuse.py -p $ESPPORT --before=no_reset summary
 ```
 
-> Note: While running QEMU in the download mode the serial output can be redirected to a TCP port. As done in the above QEMU command we have used port 5555, thus you need to set the variable ESPPORT to socket://localhost:5555 or use the port directly for all the related operations.
+Note: While running QEMU in the download mode the serial output can be redirected to a TCP port. As done in the above QEMU command we have used port 5555, thus you need to set the variable ESPPORT to socket://localhost:5555 or use the port directly for all the related operations.
 
 You should now be able to view an empty or clean eFuses summary similar to a physical hardware chip.
 
@@ -214,7 +214,7 @@ espefuse.py -p $ESPPORT --before=no_reset burn_key BLOCK_KEY3 hmac_key.bin HMAC_
 
 Once you are done with burning all the required eFuses, you need to close QEMU by entering the “quit” command.
 
-5. __Run the firmware using QEMU__ 
+5. __Run the firmware using QEMU__
 
 We are now ready to run the firmware by running QEMU in the boot mode using the command:
 

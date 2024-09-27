@@ -56,6 +56,6 @@ ESP32-S2 has improved performance of the RSA, ECC and AES hardware accelerators.
 
 ## Resilience to Physical Fault Injection
 
-When malicious user has physical possession of the device, a glitching based fault injection can be used to make device behave in unintended way or to give undesired information out. There has been fault injection attack [listed](https://limitedresults.com/2019/11/pwn-the-esp32-forever-flash-encryption-and-sec-boot-keys-extraction/) for ESP32 V1 SoC that allowed user to compromise security by reading encryption key or bypassing secure boot. ESP32-S2 has additional hardware and software checks in the bootROM that prevent physical voltage glitching. This hardening against physical fault injection attacks may be useful for certain product use-cases.
+When malicious user has physical possession of the device, a glitching based fault injection can be used to make device behave in unintended way or to give undesired information out. There has been fault injection attack for ESP32 V1 SoC that allowed user to compromise security by reading encryption key or bypassing secure boot. ESP32-S2 has additional hardware and software checks in the bootROM that prevent physical voltage glitching. This hardening against physical fault injection attacks may be useful for certain product use-cases.
 
 ESP32-S2 has some additional security features. I’ll write about them adding them to the same blog in the near future. Please stay tuned!
