@@ -30,7 +30,7 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ![](img/march-1.webp)
 
-Espressif announces the availability of [ESP32-Vaquita-DSPG](https://eu.mouser.com/ProductDetail/Espressif-Systems/ESP32-Vaquita-DSPG?qs=GBLSl2Akirv%2FHmysp7SmnQ%3D%3D&srsltid=AfmBOooBsK7Zbz8RbWpTFckkss12dXxMAdljVjX7avprfVbW-j-QE-1T) and its accompanying [SDK](https://www.espressif.com/en/products/software/esp-alexa/avs-for-aws-iot/overview), both of which support AVS integration with the AWS IoT Core. Espressif’s new ESP32-Vaquita-DSPG development kit provides a turnkey solution for easily creating Alexa built-in connected devices that provide voice enablement and AWS-IoT cloud connectivity out of the box.
+Espressif announces the availability of ESP32-Vaquita-DSPG and its accompanying [SDK](https://www.espressif.com/en/products/software/esp-alexa/avs-for-aws-iot/overview), both of which support AVS integration with the AWS IoT Core. Espressif’s new ESP32-Vaquita-DSPG development kit provides a turnkey solution for easily creating Alexa built-in connected devices that provide voice enablement and AWS-IoT cloud connectivity out of the box.
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESP32-Vaquita-DSPG_and_SDK)
 

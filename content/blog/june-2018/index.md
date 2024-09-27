@@ -20,7 +20,7 @@ programs and many more benefits. All this happens in a positive work environment
 
 Furthermore, Espressif Systems is an equal opportunities employer and considers all applicants on the basis of individual merit, regardless of their race, national and ethnic origin, color, religion, age, disability, marital and pregnancy status, gender identity, sexual orientation and any other legally-protected status.
 
-Based on our [recent funding from Intel Capital and the Beijing Singularity Power Investment Fund L.P. (SPC)](https://www.espressif.com/en/media_overview/news/espressif-receives-investment-intel-capital-and-beijing-singularity-power?position=1&list=5Znn2jxt9Y1ovadDbCKX3ypj4HT9GYG3lLxvmuq0cZc), our aim for 2018 is to expand the range of our products, reach new and bigger markets, and deliver our innovative IoT solutions to more people across the world. Our customers, our partners and our supporters are always at the core of our strategic goals. Nothing would be possible without them.
+Based on our recent funding from Intel Capital and the Beijing Singularity Power Investment Fund L.P. (SPC), our aim for 2018 is to expand the range of our products, reach new and bigger markets, and deliver our innovative IoT solutions to more people across the world. Our customers, our partners and our supporters are always at the core of our strategic goals. Nothing would be possible without them.
 
 Best wishes, John Lee
 
@@ -45,14 +45,10 @@ Imagine you are an aviation enthusiast and you have less than 15 US dollars to s
 
 There is considerable media hype surrounding cryptocurrencies nowadays, not least due to the volatility of their value. Those who have invested in them need to instantly get the latest updates on their value, so that they can plan their next moves accordingly. In response to this reality, [Igor Fonseca Albuquerque](https://www.hackster.io/igorF2) has created a highly versatile gadget that is based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview).
 
-[Keep Reading](https://www.espressif.com/en/media_overview/news/esp32-based-smart-wallet?position=2&list=vjy_eO2mVN0qxk8vNZJzln9dRzymrIgMn7Um_cgVU2Q)
-
 ## ESP32-based Smart Wallet
 
 ![](img/june-5.webp)
 
 There is considerable media hype surrounding cryptocurrencies nowadays, not least due to the volatility of their value. Those who have invested in them need to instantly get the latest updates on their value, so that they can plan their next moves accordingly. In response to this reality, [Igor Fonseca Albuquerque](https://www.hackster.io/igorF2) has created a highly versatile gadget that is based on[ESP32](https://www.espressif.com/en/products/hardware/esp32/overview).
-
-[Keep Reading](https://www.espressif.com/en/media_overview/news/esp32-based-smart-wallet?position=2&list=vjy_eO2mVN0qxk8vNZJzln9dRzymrIgMn7Um_cgVU2Q)
 
 *Originally published at *[*mailchi.mp*](https://mailchi.mp/f500229dfb77/espressif-esp-news-june-2018)*.*
