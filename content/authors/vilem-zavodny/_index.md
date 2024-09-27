@@ -1,3 +1,3 @@
 ---
-title: Vilem Zavodny
+title: "Vilém Závodný"
 ---
