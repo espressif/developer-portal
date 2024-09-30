@@ -65,4 +65,6 @@ The agent manages the initial communication required to [associate](https://rain
 
 Additionally the agent syncs the device state. A concept of “device parameters” is used to identify the parameters of the device (power, brightness, speed etc.). Any local changes to these parameters are published to the RainMaker service, while any remote updates are delivered to the application using a callback.
 
+---
+
 Those were some of the highlights of the considerations that have been taken on the RainMaker applications so far. If you have a request to add as a feature, or believe we missed any other considerations, please let us know in the comments below.
