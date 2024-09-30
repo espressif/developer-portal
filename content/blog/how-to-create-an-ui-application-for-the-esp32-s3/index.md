@@ -1,6 +1,6 @@
 ---
 title: "How to Create an UI Application for the ESP32-S3"
-date: 2024-09-30
+date: 2024-09-29
 showAuthor: false
 tags: ["ESP32", "ESP-IDF", "GUI", "Embedded Wizard", "ESP32-S3", "ESP32-S2"]
 featureAsset: "img/featured/featured-embedded-wizard.webp"
@@ -142,6 +142,18 @@ idf.py -p COMxx flash
 idf.py -p COMxx monitor
 ```
 
+Alternatively you can abbreviate it as one command:
+
+```shell
+idf.py -p COMxx build flash monitor
+```
+
+If you update just application code, you can speed up the flashing part by flashing only the application binary:
+
+```shell
+idf.py -p COMxx app-flash monitor
+```
+
 ### Creating your own UI Applications
 
 In order to create your own UI project suitable for the ESP32-S3-BOX, you can [create a new](https://doc.embedded-wizard.de/create-new-project-dialog) project and select the ESP32-S3-BOX project template:
@@ -177,7 +189,9 @@ After generating code, please follow these steps, in order to build your own UI 
 - Start compiling, linking and flashing:
 
 ```shell
-idf.py build idf.py -p COMxx flash idf.py -p COMxx monitor
+idf.py build
+idf.py -p COMxx flash
+idf.py -p COMxx monitor
 ```
 
 Most of the project settings are taken directly out of the generated code, like the color format or the screen orientation. All other settings can be made directly within the file ewconfig.h, which contains general [configuration settings](https://doc.embedded-wizard.de/target-configuration) for the target system.
