@@ -12,7 +12,7 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/meet-espressif-developer-portal/" >}}
+{{< article link="/blog/arduino-esp-now-lib/" >}}
 
 <br>
 {{< button href="#button" target="_self" href=/blog/ >}}
@@ -23,7 +23,7 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/iot-introduction-with-rainmaker/" >}}
+{{< article link="/workshops/espressif-ide/" >}}
 
 <br>
 {{< button href="#button" target="_self" href=/workshops/ >}}
