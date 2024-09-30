@@ -40,7 +40,10 @@ user_1,   app,  user_1,        , 256K,
 
 As the OTA feature is critical to the functioning of the device, the entire OTA functionality is a part of the protected application which protects it from any unintended usage. This also makes the development of user app easier as it does not have to deal with the OTA updates.
 
-![](img/ota-1.webp)
+{{< figure
+    default=true
+    src="img/ota-1.webp"
+    >}}
 
 - User app initiates an OTA update by sending a URL, which contains the latest user app firmware, to the protected app.
 - Protected app does sanity tests on received URL and schedules a job to perform OTA update in background and returns to user app.
@@ -50,7 +53,10 @@ The framework also supports secure OTA where the authenticity of the user applic
 
 ## User App Boot-Up Flow
 
-![](img/ota-2.webp)
+{{< figure
+    default=true
+    src="img/ota-2.webp"
+    >}}
 
 - ESP Privilege Separation boot-up flow is slightly different from the traditional ESP-IDF boot-up flow. The second stage bootloader boots the protected app and the protected app is responsible for booting the user app.
 - The protected app refers the uotadatapartition to select the active user partition.

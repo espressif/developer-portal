@@ -8,7 +8,10 @@ authors:
 ---
 Security is one of the most important aspects of any IoT system and at Espressif, we take it very seriously. The ESP RainMaker platform offers a secure way to onboard a device onto Wi-Fi network and then control and monitor it through cloud. However, the security of the hardware itself is also critical for the overall system to be secure. Espressif MCUs come with various security features like [secure boot](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/security/secure-boot-v2.html), [flash encryption](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/security/flash-encryption.html), etc.
 
-![](img/secure-1.webp)
+{{< figure
+    default=true
+    src="img/secure-1.webp"
+    >}}
 
 The secure boot feature is especially important as it allows only authorised firmware to run on the MCUs. ESP IDF has made enabling secure boot very easy. However, managing the secure boot keys is still the developer’s responsibility. Some questions that commonly come up for our customers include:
 
@@ -28,7 +31,10 @@ The recent addition of “[Secure Signing](https://rainmaker.espressif.com/docs/
 
 The auto-signing feature in ESP RainMaker allows developers to just upload their unsigned firmware to ESP RainMaker, and deploy an OTA firmware upgrade. The ESP RainMaker backend transparently handles the signing with the correct keys during OTA firmware upgrades.
 
-![](img/secure-2.webp)
+{{< figure
+    default=true
+    src="img/secure-2.webp"
+    >}}
 
 If your fleet includes devices that use distinct keys for key verification, ESP RainMaker will ensure that the correctly signed firmware goes to the right device.
 

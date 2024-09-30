@@ -12,7 +12,10 @@ authors:
 
 In the previous article we looked at [what does Matter mean to you](/what-does-matter-mean-to-you-fa3bb53a7793). Today, let’s talk about an important part of Matter, its data model. The data model of Matter defines the typical elements that go into making of a typical Matter *node*. As a device developer, you would typically express the capabilities of your device through this data model.
 
-![](img/matter-1.webp)
+{{< figure
+    default=true
+    src="img/matter-1.webp"
+    >}}
 
 For better understanding, let’s consider we are building a luminaire that has 2 lights: one dimmable, one simple on/off.
 
@@ -20,7 +23,10 @@ For better understanding, let’s consider we are building a luminaire that has 
 
 The following diagram shows a simplistic view of how this can be represented in the Matter’s data model.
 
-![](img/matter-2.webp)
+{{< figure
+    default=true
+    src="img/matter-2.webp"
+    >}}
 
 __Node:__  In our case, the luminaire is a node. This is a uniquely network addressable entity that exposes some functionality. This is typically a physical device that a user can recognise as a whole device.
 
@@ -58,7 +64,10 @@ Every Matter cluster has a Cluster Server, and a Cluster Client counterpart. In 
 
 The following diagram demonstrates this well:
 
-![](img/matter-3.webp)
+{{< figure
+    default=true
+    src="img/matter-3.webp"
+    >}}
 
 - Here a Matter Dimmer Switch implements OnOff and Level Control Cluster __clients__ . These clients talk to the corresponding __servers__  on the light, to control them.
 - We also have a Matter Simple Switch, that only implements an OnOff Cluster client.
@@ -67,9 +76,15 @@ The following diagram demonstrates this well:
 
 Let’s look at some other examples that drive the point home.
 
-![](img/matter-4.webp)
+{{< figure
+    default=true
+    src="img/matter-4.webp"
+    >}}
 
-![](img/matter-5.webp)
+{{< figure
+    default=true
+    src="img/matter-5.webp"
+    >}}
 
 ## The Endpoint 0
 

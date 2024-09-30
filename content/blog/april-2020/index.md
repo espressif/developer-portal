@@ -31,7 +31,10 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## ESP RainMaker Released
 
-![](img/april-1.webp)
+{{< figure
+    default=true
+    src="img/april-1.webp"
+    >}}
 
 Last week, Espressif announced the release of [ESP RainMaker](https://rainmaker.espressif.com/), which has been designed to empower firmware developers with more freedom, creativity and potential than ever before. You can now build connected devices really quickly. With ESP32-S2 and our ESP-IDF open-source SDK you can avoid all the hassle of managing the infrastructure involved in building connected devices.
 
@@ -39,7 +42,10 @@ Last week, Espressif announced the release of [ESP RainMaker](https://rainmaker.
 
 ## ESP32-Korvo Launched
 
-![](img/april-2.webp)
+{{< figure
+    default=true
+    src="img/april-2.webp"
+    >}}
 
 [ESP32-Korvo](https://github.com/espressif/esp-skainet/blob/master/docs/en/hw-reference/esp32/user-guide-esp32-korvo-v1.1.md) is an artificial-intelligence development board based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and [ESP-Skainet](https://www.espressif.com/en/products/software/esp-skainet/overview), Espressif’s speech recognition SDK. ESP32-Korvo features two boards connected with an FPC cable, as well as a multi-microphone array which is suitable for far-field speech recognition applications with a low-power consumption.
 
@@ -47,7 +53,10 @@ Last week, Espressif announced the release of [ESP RainMaker](https://rainmaker.
 
 ## ESP8266 NonOS SDK V3.0.3 Released
 
-![](img/april-3.webp)
+{{< figure
+    default=true
+    src="img/april-3.webp"
+    >}}
 
 Espressif continuously optimizes and updates its SDKs to meet its customers’ needs. That’s why Espressif has just released [ESP8266 NonOS SDK v3.0.3](https://github.com/espressif/ESP8266_NONOS_SDK/releases) . Customers using the ESP8266 NonOS SDK are advised to update their systems to the latest version, v3.0.3.
 
@@ -55,7 +64,10 @@ Espressif continuously optimizes and updates its SDKs to meet its customers’ n
 
 ## M5Stack ATOM: An ESP32-based Portable Development Toolkit
 
-![](img/april-4.webp)
+{{< figure
+    default=true
+    src="img/april-4.webp"
+    >}}
 
 The [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)-based M5Stack ATOM is the smallest development board on the market, measuring only 24×24mm. Designed for portable embedded systems and IoT development projects, [M5Stack ATOM](https://m5stack.com/products/atom-matrix-esp32-development-kit) is truly cost-effective not just because of its small size, but also because it has no integrated battery.
 

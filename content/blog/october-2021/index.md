@@ -16,31 +16,46 @@ On this occasion, __Espressif’s Director of Technical Marketing, Mr. Amey Inam
 
 [Here](https://developer.amazon.com/en-US/blogs/alexa/device-makers/2021/10/new-alexa-connect-kit-sdk-for-smart-home-devices), you can read more about how the new ACK SDK works, and how you can start building with it today.
 
-![](img/october-1.webp)
+{{< figure
+    default=true
+    src="img/october-1.webp"
+    >}}
 
 *Picture courtesy of Amazon’s *[*Device Makers Blog*](https://developer.amazon.com/en-US/blogs/alexa/device-makers/2021/10/new-alexa-connect-kit-sdk-for-smart-home-devices)
 
 Other topics you can read about in this month’s newsletter include:
 
-![](img/october-2.webp)
+{{< figure
+    default=true
+    src="img/october-2.webp"
+    >}}
 
 [__ESP32-H2 Officially Recognised as a “Thread-Certified Component” and a “Zigbee-Compliant Platform”__ ](https://www.espressif.com/en/media_overview/news/esp32-h2-officially-recognized-%C2%A0%E2%80%9Cthread-certified-component%E2%80%9D-and-%E2%80%9Czigbee)
 
 [ESP32-H2](https://www.espressif.com/en/news/ESP32_H2) has been granted the official “[Thread Interoperability Certificate](https://www.espressif.com/sites/default/files/ESP32-H2%20Thread%20Certification.pdf)”, while it has also been certified as a “[Zigbee-Compliant Platform](https://www.espressif.com/sites/default/files/ESP32-H2%20Zigbee%20Compliant%20Platform%20Certification.pdf)”, according to the relevant certification issued by the [Connectivity Standards Alliance (CSA)](https://csa-iot.org/).
 
-![](img/october-3.webp)
+{{< figure
+    default=true
+    src="img/october-3.webp"
+    >}}
 
 [__Golioth Qualified on Espressif’s ESP32__ ](https://www.espressif.com/en/media_overview/news/golioth-qualified-espressif%E2%80%99s-esp32)
 
 [Golioth](https://golioth.io/) has been qualified on [Espressif Systems’ ESP32](https://www.espressif.com/en/products/socs/esp32), which it naturally recommends as the easiest way to get started with Golioth’s own Cloud-connected IoT platform.
 
-![](img/october-4.webp)
+{{< figure
+    default=true
+    src="img/october-4.webp"
+    >}}
 
 [__Support for New Operating Systems in the ESP32 Series of SoCs__ ](https://www.espressif.com/en/media_overview/news/support-new-operating-systems-esp32-series-socs)
 
 [NuttX](https://nuttx.apache.org/) and [Zephyr](https://www.zephyrproject.org/) are now supported on the [ESP32 series of SoCs](https://www.espressif.com/en/products/socs/esp32). Check out how it all happened!
 
-![](img/october-5.webp)
+{{< figure
+    default=true
+    src="img/october-5.webp"
+    >}}
 
 [__VoltLog’s ESP32-Based Tasmota Floor Heating Valve Controller__ ](https://www.espressif.com/en/media_overview/news/voltlog%E2%80%99s-esp32-based-tasmota-floor-heating-valve-controller)
 

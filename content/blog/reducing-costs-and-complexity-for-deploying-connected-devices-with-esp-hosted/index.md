@@ -17,7 +17,10 @@ These well-known advantages are making the technology widely accepted across var
 
 But still, there are challenges for the adoption of the technology with I__ntegration with existing technology__  and __cost of implementation__  remaining two of the biggest barriers as per the *GSMA Intelligence Enterprise IoT Survey[2]*
 
-![](img/reducing-1.webp)
+{{< figure
+    default=true
+    src="img/reducing-1.webp"
+    >}}
 
 __Espressif’s ESP-Hosted__  is a solution to cater to the above two barriers and is aimed to ease the integration complexities by providing standard software interfaces which require no or minimal changes to the existing solutions, as well as, reduce the development timelines significantly by providing open source solution which works “off-the-shelf” thus lowering the development costs.
 
@@ -27,7 +30,10 @@ The latest __ESP-Hosted NG__  solution from Espressif is targeted toward Linux o
 
 ESP-Hosted is an open source solution that provides a way to use Espressif SoCs and modules as a communication co-processor. This solution provides wireless connectivity (Wi-Fi and BT/BLE) to the host microprocessor(MPU) or microcontroller(MCU), allowing it to communicate with other devices. ESP-Hosted communicates with the host processor through commonly available UART, SPI or SDIO peripheral interface.
 
-![](img/reducing-2.webp)
+{{< figure
+    default=true
+    src="img/reducing-2.webp"
+    >}}
 
 This architecture which separates the wireless connectivity module from the main host processing module is beneficial as it adds the wireless connectivity to existing MCU/MPU-based solutions providing the following advantages.
 
@@ -36,7 +42,10 @@ This architecture which separates the wireless connectivity module from the main
 - __Power Saving__  — The main MPU/MCU can remain in low power mode without being interrupted to stay connected to the network. The main host needs to only get involved when there are actual tasks to perform offloading all the connectivity overheads to the connectivity module.
 - __Easier upgrades and Product variants__  — The architecture enables the developers to easily upgrade for better wireless connectivity or have multiple variants of the same product with different connectivity options. Such an example is shown below in which the developer can use the same Host applications and software but have a variety of options for wireless connectivity from Wi-Fi4 to Wi-Fi6 to Wi-Fi6 dual band.
 
-![](img/reducing-3.webp)
+{{< figure
+    default=true
+    src="img/reducing-3.webp"
+    >}}
 
 On top of the above-stated development advantages of the two chip architecture, by choosing the ESP-Hosted solution you also get Espressif’s easy availability of modules and a cost effective solution which has acceptable performance levels for a majority of the applications.
 

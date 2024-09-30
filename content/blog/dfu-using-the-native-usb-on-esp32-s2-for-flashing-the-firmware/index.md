@@ -6,11 +6,17 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - pedro-minatel
 ---
-![](img/dfu-1.webp)
+{{< figure
+    default=true
+    src="img/dfu-1.webp"
+    >}}
 
 Since the [ESP32-S2](https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf) was released, a notable new functionality got everyone’s attention: the USB host and device capabilities. This new functionality adds a new world in terms of possibilities and cool stuff that could be made using USB and it’s a game changer in many projects.
 
-![](img/dfu-2.webp)
+{{< figure
+    default=true
+    src="img/dfu-2.webp"
+    >}}
 
 But one of the uses for this peripheral is to upload the firmware without any external IC or programmer. This can be done directly by using the USB DFU mechanism.
 
@@ -42,18 +48,27 @@ If you’re not using this version or above, please consider updating your envir
 
 For this example, we will use the [ESP32-Saola-1 v1.2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/hw-reference/esp32s2/user-guide-saola-1-v1.2.html) development board.
 
-![](img/dfu-3.webp)
+{{< figure
+    default=true
+    src="img/dfu-3.webp"
+    >}}
 
 As you can see, the Saola board doesn’t have the connector for the native USB, only for the external USB-to-UART. To use the native interface, you need to connect a breakout USB cable as follows:
 
 - __USB D- to GPIO19__ 
 - __USB D+ to GPIO20__ 
 
-![](img/dfu-4.webp)
+{{< figure
+    default=true
+    src="img/dfu-4.webp"
+    >}}
 
 You can use an old USB to do this by striping the wires and soldering to the pin header or using a breadboard to make it easier. In most of the cables, the D+ is the green and the D- is the white wire.
 
-![](img/dfu-5.webp)
+{{< figure
+    default=true
+    src="img/dfu-5.webp"
+    >}}
 
 > Be careful if you are going to use the USB 5V to power the board. Make sure that you’re connecting the 5V on the pin marked as 5V in the ESP32-Saola dev kit.
 
@@ -85,21 +100,36 @@ You can do this by following these steps:
 
 Go to __*Component config*__  menu.
 
-![](img/dfu-6.webp)
+{{< figure
+    default=true
+    src="img/dfu-6.webp"
+    >}}
 
 Select __*ESP System Settings*__  or __*Common ESP-related*__  (if ESP-IDF is the v4.2).
 
-![](img/dfu-7.webp)
+{{< figure
+    default=true
+    src="img/dfu-7.webp"
+    >}}
 
 __*Change the Channel*__  __*for console output*__  to USB CDC.
 
-![](img/dfu-8.webp)
+{{< figure
+    default=true
+    src="img/dfu-8.webp"
+    >}}
 
-![](img/dfu-9.webp)
+{{< figure
+    default=true
+    src="img/dfu-9.webp"
+    >}}
 
 Save and exit the configuration menu build and flash the firmware.
 
-![](img/dfu-10.webp)
+{{< figure
+    default=true
+    src="img/dfu-10.webp"
+    >}}
 
 ## Example Video
 

@@ -16,7 +16,10 @@ There is a high level of excitement about Matter and what it aims to achieve. We
 
 If you are an end-user, Matter will make smart-home much more natural and intuitive for you.
 
-![](img/what-1.webp)
+{{< figure
+    default=true
+    src="img/what-1.webp"
+    >}}
 
 __No More Silos:__ 
 
@@ -26,7 +29,10 @@ So also no more of: “Oh this is an iOS ecosystem device, so my wife on Android
 
 [Amazon](https://developer.amazon.com/en-US/alexa/matter), [Apple](https://developer.apple.com/videos/play/wwdc2021/10298/), [Google](https://blog.google/products/google-nest/four-google-smart-home-updates-matter/) and [Samsung](https://news.samsung.com/global/samsung-smartthings-integrates-matter-into-ecosystem-bringing-matter-device-control-to-multiple-samsung-products) all have announced integrated support for Matter in their latest announcements. So the typical devices that let us interact with smart devices: phones (iOS as well as Android) and voice assistants/smart speakers will support Matter based devices out of the box. *You might not even require a separate phone app to use devices that run Matter.*
 
-![](img/what-2.webp)
+{{< figure
+    default=true
+    src="img/what-2.webp"
+    >}}
 
 __More automation:__  Matter allows effective device-to-device communication without any other intermediary involved. A Matter smart switch or sensor can directly switch on/off a Matter lightbulb (or a group of bulbs), without having to go through any app, cloud or a skill. Once devices are setup, the control happens completely locally over the local network.
 
@@ -38,7 +44,10 @@ Additionally, all the communication happens over the local Wi-Fi/802.15.4 networ
 
 For existing products that use ZigBee or BLE Mesh, Matter bridges can help you make these devices reachable through the Matter ecosystems.
 
-![](img/what-3.webp)
+{{< figure
+    default=true
+    src="img/what-3.webp"
+    >}}
 
 __More ecosytems:__  Solution providers may offer higher level ecosystems based on Matter, that provide additional features to end users. The Matter specification makes it easier for devices to work with multiple ecosystems. So the same device could, *simultaneously*, work with multiple heterogenous ecosystems. What’s more, device vendors themselves [can create their own ecosystems](/matter-multi-admin-identifiers-and-fabrics-a291371af365) (not just restricted to phone OSes or voice assistants) and provide innovative features as part of these ecosystems. Please watch out for a follow-on blog post for more details about Matter Ecosystems.
 

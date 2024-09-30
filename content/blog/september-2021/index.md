@@ -14,29 +14,44 @@ A few weeks ago, the [Bluetooth SIG Blog](https://www.bluetooth.com/blog/how-esp
 
 Teo Swee Ann, then, went on to talk about potential future applications of the Bluetooth mesh technology: “Through the combination of Bluetooth mesh, voice-and-image recognition, smart home sensors, and machine learning, technology will adapt to human needs even better, improving the quality of everyday life even further.” To read the whole of Teo Swee Ann’s interview, click [on the picture below](https://www.espressif.com/en/news/how-espressif-built-a-bluetooth-mesh-to-unlock-the-infinite-potential-of-the-iot).
 
-![](img/september-1.webp)
+{{< figure
+    default=true
+    src="img/september-1.webp"
+    >}}
 
 Other topics you can read about in this month’s newsletter include:
 
-![](img/september-2.webp)
+{{< figure
+    default=true
+    src="img/september-2.webp"
+    >}}
 
 [__Toit’s Cloud-managed Containers on ESP32__ ](https://www.espressif.com/en/news/ESP_Toit)
 
 Secure your code on [ESP32](https://www.espressif.com/en/products/socs/esp32) with lightweight containers, and orchestrate them through [Toit](https://toit.io/)’s cloud API.
 
-![](img/september-3.webp)
+{{< figure
+    default=true
+    src="img/september-3.webp"
+    >}}
 
 [__ESP-USB: Espressif’s Wireless Communication Solution__ ](https://www.espressif.com/en/news/ESP-USB)
 
 A USB interface is integrated into Espressif’s [ESP32-S](https://www.espressif.com/en/products/socs/esp32-s2) series of SoCs, enabling video streaming over Wi-Fi, accessing the Internet through a 4G hotspot, connecting to a wireless USB disk, and [many other applications](https://www.youtube.com/watch?v=RQOhrgRd7N8&t=25s).
 
-![](img/september-4.webp)
+{{< figure
+    default=true
+    src="img/september-4.webp"
+    >}}
 
 [__Adding Vision to ESP32 with Edge Impulse__ ](https://www.espressif.com/en/news/ESP32_EdgeImpulse)
 
 You only need a few lines of additional code to run powerful machine-learning algorithms on [ESP32](https://www.espressif.com/en/products/socs/esp32), especially if you also use the Arduino framework and [Edge Impulse](https://www.edgeimpulse.com/blog/add-sight-to-your-esp32).
 
-![](img/september-5.webp)
+{{< figure
+    default=true
+    src="img/september-5.webp"
+    >}}
 
 [__UDOO KEY Combines RP2040 and ESP32 in a New AI Dev Board__ ](https://www.espressif.com/en/news/UDOO_KEY)
 

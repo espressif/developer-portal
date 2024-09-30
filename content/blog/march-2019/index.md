@@ -10,7 +10,10 @@ Welcome to our March Newsletter
 
 __*Our News. Our World Join Us!*__ 
 
-![](img/march-1.webp)
+{{< figure
+    default=true
+    src="img/march-1.webp"
+    >}}
 
 Hi everyone,
 
@@ -35,7 +38,10 @@ Best wishes, John Lee. Senior Customer Support Officer
 
 ## “Empathy Swarm”: An Art-and-Science Project Sponsored by Espressif
 
-![](img/march-2.webp)
+{{< figure
+    default=true
+    src="img/march-2.webp"
+    >}}
 
 Espressif has sponsored a project that is on the verge between arts and sciences. It is named “[Empathy Swarm](http://hochschuh-donovan.com/portfolio/empathy-swarm/)” and it examines the ways in which non-anthropomorphic robots can learn, but also instigate, feelings of empathy and compassion. The people behind the project are [Katrin Hochschuh](http://k.hochschuh.de/) and [Adam Donovan](http://adamdonovan.net/). Espressif’s contribution has taken the form of a hardware sponsorship based on the [ESP32-WROVER-B (IPEX)](https://www.espressif.com/sites/default/files/documentation/esp32-wrover-b_datasheet_en.pdf) and the [ESP32-PICO-D4](https://www.espressif.com/sites/default/files/documentation/esp32-pico-d4_datasheet_en.pdf) modules.
 
@@ -43,7 +49,10 @@ Espressif has sponsored a project that is on the verge between arts and sciences
 
 ## Energy-Efficient Lighting Solution with ESP Mesh
 
-![](img/march-3.webp)
+{{< figure
+    default=true
+    src="img/march-3.webp"
+    >}}
 
 Have you ever wondered how wasteful it is to leave the office without turning the lights off or have only few employees working during the night and yet keep the lights on across the entire company? Likewise, is it not very inefficient to use big meeting rooms day and night without a system adjusting the lights to users’ actual needs? Automation is the key concept here and [ESP Mesh](https://www.espressif.com/en/products/software/esp-mesh/overview) is Espressif’s technology for energy-efficient lighting systems that respond automatically to users’ needs.
 
@@ -51,7 +60,10 @@ Have you ever wondered how wasteful it is to leave the office without turning th
 
 ## “MoonBot Kit” Based on ESP32-WROOM-32
 
-![](img/march-4.webp)
+{{< figure
+    default=true
+    src="img/march-4.webp"
+    >}}
 
 MoonBot is a do-it-yourself kit for tinkering with modern robotics and artificial intelligence projects. Its vision processor is Espressif’s [ESP32-WROOM-32 module](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf). Whether you are just getting started, or have worked with robots in the past, the MoonBot kit will help you create professional-looking robots with advanced autonomy.
 
@@ -59,7 +71,10 @@ MoonBot is a do-it-yourself kit for tinkering with modern robotics and artificia
 
 ## ESP32-Powered FPV Car
 
-![](img/march-5.webp)
+{{< figure
+    default=true
+    src="img/march-5.webp"
+    >}}
 
 “Simplicity is the key to brilliance”, some people say, and it seems that the [remote-controlled car](https://hackaday.io/project/163542-esp32-wifi-robot) made by the German engineer Maximilian Kern (also known as [Max.K](https://hackaday.io/Max.K)) is a concrete example of this principle. Despite the current trends of producing fairly complicated high-tech gadgets, there is plenty to to be said about simple ones, too, such as Maximilian’s adorable ESP32-driven bot.
 

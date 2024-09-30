@@ -12,7 +12,10 @@ In the [Previous Articles](/matter-38ccf1d60bcd), we talked about Matter from se
 
 Matter defines a common application layer, using __Internet Protocol (IP)__ , that delivers interoperability among devices regardless of the underlying network protocol. At launch, Matter will run on Ethernet, Wi-Fi and Thread.
 
-![](img/matter-1.webp)
+{{< figure
+    default=true
+    src="img/matter-1.webp"
+    >}}
 
 Ethernet and Wi-Fi are all well known networking protocols, while Thread may be new to some people.
 
@@ -20,7 +23,10 @@ In a nutshell, [Thread](https://www.threadgroup.org/) is an __IPv6-based__ , __l
 
 Below is a typical Matter topology:
 
-![](img/matter-2.webp)
+{{< figure
+    default=true
+    src="img/matter-2.webp"
+    >}}
 
 The [Device-to-Device Automations](/matter-device-to-device-automations-bdbb32365350) within local network is a key feature of Matter, it works across Ethernet, Wi-Fi and Thread devices. For instance, a *Thread* Matter switch can directly control a *Wi-Fi* Matter bulb, or the other way around, without any phone-apps/cloud in the middle.
 
@@ -40,7 +46,10 @@ Thread BR configures its Thread partition with an Off-Mesh Routable (OMR) prefix
 
 Vice versa, Thread BR should also inform Thread devices about the routing to Wi-Fi network. Rather than using the IPv6 Neighbor Discovery protocol, prefixes are advertised via Thread Network Data as external route entries.
 
-![](img/matter-3.webp)
+{{< figure
+    default=true
+    src="img/matter-3.webp"
+    >}}
 
 Then both devices in Thread and Wi-Fi networks know about the particular IPv6 prefixes reachable via the Thread BR.
 
@@ -50,7 +59,10 @@ In Matter, the Standard DNS-Based Service Discovery (DNS-SD) is used for Service
 
 But multicast and broadcast are inefficient on wireless mesh networks like Thread. Service Registry Protocol (SRP) is introduced in Thread for service discovery over unicast packets.
 
-![](img/matter-4.webp)
+{{< figure
+    default=true
+    src="img/matter-4.webp"
+    >}}
 
 Normally, Thread BR acts as the SRP server and the Advertising Proxy: Thread devices register their services to Thread BR, and the BR will advertise all the services via Multicast DNS to Wi-Fi network.
 
@@ -62,6 +74,9 @@ Espressif, as an active member that supports Matter from the beginning, we can o
 
 The Thread Border Router SDK is now available from the link: [Thread Border Router Example and SDK](https://github.com/espressif/esp-idf/tree/master/examples/openthread/ot_br). It uses two SoCs (Wi-Fi + 802.15.4) connected via a serial interface like UART or SPI.
 
-![](img/matter-5.webp)
+{{< figure
+    default=true
+    src="img/matter-5.webp"
+    >}}
 
 If you are interested in our Thread Border Router solution, please contact our [customer support team](https://www.espressif.com/en/contact-us/sales-questions).

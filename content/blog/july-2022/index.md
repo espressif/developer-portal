@@ -10,7 +10,10 @@ Hi everyone,
 
 From 3 until 6 August 2022, Espressif is taking part in the [Guangzhou International Lighting Exhibition (GILE)](https://guangzhou-international-lighting-exhibition.hk.messefrankfurt.com/guangzhou/en/planning-preparation/exhibitors.html), which is the most highly regarded platform for the LED and lighting industry, as it provides a unique chance for all industry players to communicate, cooperate and create valuable business opportunities. You can find Espressif’s delegation in Zone B, Hall 10.2, booth D48. Please scan the QR code in the picture below, to register and get your ticket.
 
-![](img/july-1.webp)
+{{< figure
+    default=true
+    src="img/july-1.webp"
+    >}}
 
 By embracing the digital transformation, the lighting industry faces new opportunities in intelligent lighting controls, predictive management, space and occupancy analytics, beacon networking among many other applications that have created additional value to basic lighting fixtures. With this in mind, the theme chosen for the 27th edition of GILE is ‘New Era, New Opportunity’ along with the theme of the fringe programme ‘Turning Ideas Into Action’, which promises to share different ways of thinking about lighting in the new era, as well as how to put those ideas into practice.
 
@@ -26,25 +29,37 @@ So, those of you who happen to be in Guangzhou from 3 to 6 August 2022 do come t
 
 Other topics you can read about in this month’s newsletter include:
 
-![](img/july-2.webp)
+{{< figure
+    default=true
+    src="img/july-2.webp"
+    >}}
 
 [__Launching ESP-RTC__ ](https://www.espressif.com/en/news/ESP-RTC)
 
 ESP-RTC achieves stable, smooth, ultra-low-latency voice-and-video transmission in real time, providing an ideal solution for users who want to build low-cost and low-power audio-and-video products.
 
-![](img/july-3.webp)
+{{< figure
+    default=true
+    src="img/july-3.webp"
+    >}}
 
 [__Announcing the Golioth ESP-IDF SDK__ ](https://www.espressif.com/en/news/Golioth_ESP-IDF_SDK)
 
 Golioth has just released an open-source SDK for the Espressif ESP-IDF, making it easier for Espressif-based projects to securely connect to the Golioth Cloud.
 
-![](img/july-4.webp)
+{{< figure
+    default=true
+    src="img/july-4.webp"
+    >}}
 
 [__Launching the ESP Privilege Separation__ ](https://www.espressif.com/en/news/ESP-Privilege-Separation)
 
 ESP Privilege Separation is designed to prevent user-facing applications from interfering with protected applications and code.
 
-![](img/july-5.webp)
+{{< figure
+    default=true
+    src="img/july-5.webp"
+    >}}
 
 [__ESP RainMaker: Accelerate Your AIoT Business with a Platform You Own__ ](https://www.espressif.com/en/news/ESP-RainMaker_video)
 

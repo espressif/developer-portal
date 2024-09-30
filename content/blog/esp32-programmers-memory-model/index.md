@@ -16,19 +16,28 @@ This blog is intended to provide an overview of ESP32 SoC’s memory layout for 
 
 ## Internal RAM Layout
 
-![](img/esp-1.webp)
+{{< figure
+    default=true
+    src="img/esp-1.webp"
+    >}}
 
 The above diagram shows the ESP32 internal memory (SRAM) layout. The SRAM is divided into 3 memory blocks SRAM0, SRAM1 and SRAM2 (and two small blocks of RTC fast and slow memory which we’ll consider separately later).
 
 The SRAM is used in two ways — one for instruction memory — IRAM(used for code execution — text data) and data memory — DRAM (used for BSS, data, heap). SRAM0 and SRAM1 can be used as a contiguous IRAM whereas SRAM1 and SRAM2 can be used as a contiguous DRAM address space.
 
-![](img/esp-2.webp)
+{{< figure
+    default=true
+    src="img/esp-2.webp"
+    >}}
 
 While SRAM1 can be used as a IRAM and DRAM both, for practical purposes, ESP-IDF uses SRAM1 as DRAM, as it’s generally the data memory that applications fall short of. The above diagram shows the memory map for programmers to consider for their application development where they get 192KB IRAM and 328KB DRAM. While it does not matter much for the application as there is no overlap, please note that the direction of the address range is opposite for IRAM and DRAM address spaces.
 
 ## IRAM Organisation
 
-![](img/esp-3.webp)
+{{< figure
+    default=true
+    src="img/esp-3.webp"
+    >}}
 
 Lets now zoom into the IRAM section.
 
@@ -54,7 +63,10 @@ If the application has such data that can obey these two rules of accesses, it c
 
 ## DRAM Organisation
 
-![](img/esp-4.webp)
+{{< figure
+    default=true
+    src="img/esp-4.webp"
+    >}}
 
 The above diagram shows a typical (simplified) DRAM layout for an application. As the DRAM addresses start at the end of SRAM2, increasing in backward direction, the link time segments allocation happens starting at the end of SRAM2.
 
@@ -69,7 +81,10 @@ There are two regions within the heap (0x3FFE_0000–0x3FFE_0440 — 1088 bytes)
 
 ## DRAM Organisation with BT Enabled
 
-![](img/esp-5.webp)
+{{< figure
+    default=true
+    src="img/esp-5.webp"
+    >}}
 
 When BT functionality is enabled, the BT controller (software and hardware) needs to use a dedicated data memory. This memory is used as data/BSS for the controller as well as for transfer memory for BT packets between the software and hardware. So the linker script reserves 54KB of memory in addition to the default DRAM allocations between 0x3FFB_0000–0x3FFB_DB5C. The application’s data and BSS segment allocations continues after this region.
 
@@ -77,7 +92,10 @@ When only BLE functionality is used by the application, a part of the BT control
 
 ## DRAM Organisation with Trace Memory
 
-![](img/esp-6.webp)
+{{< figure
+    default=true
+    src="img/esp-6.webp"
+    >}}
 
 When the application level tracing is enabled, it reserves a fixed 32 KB memory at the end of DRAM. Note that the above diagram shows the layout with BT disabled. But possibly application can use tracing with BT enabled too and in that case BT controller memory will be reserved as well by the linker script.
 

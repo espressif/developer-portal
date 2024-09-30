@@ -39,7 +39,10 @@ __2. Placement of the ESP-RainMaker agent__ Based on the system call implementat
 
 __3. Component split between protected and user apps__ 
 
-![](img/esp-1.webp)
+{{< figure
+    default=true
+    src="img/esp-1.webp"
+    >}}
 
 The above diagram shows the overview of component split between protected and user apps. All the libraries like ESP-RainMaker, TLS stack, etc. are placed in the protected app and hence it does the bulk of the heavy lifting. User app is a lightweight application consisting of business logic.
 
@@ -49,7 +52,10 @@ __4. System call implementation__ As we have decided to place the ESP-RainMaker 
 
 For example, esp_rmaker_start()* *is one of the APIs exposed by ESP-RainMaker. After we move ESP-RainMaker in the protected app, all the calls to esp_rmaker_start() in the user app’s code will go through the system call interface. The following diagram shows the call trace when esp_rmaker_start() is called from the user app:
 
-![](img/esp-2.webp)
+{{< figure
+    default=true
+    src="img/esp-2.webp"
+    >}}
 
 We can enable this by adding a custom system call as shown below:
 
@@ -87,7 +93,10 @@ __5. User app implementation__ After implementing these system calls, we can use
 
 ## Comparing ESP Privilege Separation application with a traditional application
 
-![](img/esp-3.webp)
+{{< figure
+    default=true
+    src="img/esp-3.webp"
+    >}}
 
 From the above numbers, we can observe that the total binary size of the privilege separation application is the same as that of a traditional application.
 

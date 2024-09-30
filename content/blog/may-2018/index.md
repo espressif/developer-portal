@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/may-1.webp)
+{{< figure
+    default=true
+    src="img/may-1.webp"
+    >}}
 
 Hi everyone,
 
@@ -26,25 +29,37 @@ Senior Customer Support Officer
 
 ## Big Success for the ESP32 Design Contest 2018
 
-![](img/may-2.webp)
+{{< figure
+    default=true
+    src="img/may-2.webp"
+    >}}
 
 Remember last January when we announced that we would organize a contest about ESP32 Design together with [Elektor International Media](https://www.elektor.com/)? After receiving a great number of remarkable entries, our judging panel, which consisted of engineers from Espressif and Elektor, announced the winners at the end of last month. Our judges noted that the programming level of all participating entries was considerably high, which made their task more challenging, but also more intellectually stimulating and exciting.
 
 ## ESP-IDF v3.0 Released
 
-![](img/may-3.webp)
+{{< figure
+    default=true
+    src="img/may-3.webp"
+    >}}
 
 The latest version of Espressif’s IoT Development Framework, [ESP-IDF v3.0](https://github.com/espressif/esp-idf/releases/tag/v3.0), has just been released. This is part of our commitment to improve our IoT solutions, based on the results of our quality assurance procedures and the feedback we receive from the community of developers who use our chips.
 
 ## ESP-MESH Development Framework Released
 
-![](img/may-4.webp)
+{{< figure
+    default=true
+    src="img/may-4.webp"
+    >}}
 
 Further to [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview)’s Wi-Fi [mesh networking](https://www.espressif.com/en/products/software/esp-mesh/overview), Espressif is pleased to announce that this local network topology is now officially supported on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview), as well. [ESP-MDF](https://github.com/espressif/esp-mdf) is the official mesh development framework for ESP32, supporting mesh applications for our flagship chip in the most comprehensive way.
 
 ## Atmospher IoT Starts Supporting ESP32
 
-![](img/may-5.webp)
+{{< figure
+    default=true
+    src="img/may-5.webp"
+    >}}
 
 [Atmosphere IoT](https://developer.atmosphereiot.com/) has just started supporting Espressif Systems’ [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview), with the aim of delivering better, faster and more secure IoT solutions for everyone. First released in January 2015, the innovative cloud platform of Atmosphere IoT has already been used by thousands of developers and OEMs. Adding to this the power of Espressif’s ESP32 will enable developers to build and deploy cloud-enabled embedded applications with optimized cost performance and reduced time-to-market.
 

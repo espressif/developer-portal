@@ -14,7 +14,10 @@ External [HSM](https://en.wikipedia.org/wiki/Hardware_security_module) (Hardware
 
 ## External HSM Signing
 
-![](img/secure-1.webp)
+{{< figure
+    default=true
+    src="img/secure-1.webp"
+    >}}
 
 External HSM offers a standard [PKCS #11](https://en.wikipedia.org/wiki/PKCS_11) based cryptographic interface for availing various services like signing the firmware. With PKCS #11 interface, external HSM could also be a remote cloud HSM based service over the network.
 

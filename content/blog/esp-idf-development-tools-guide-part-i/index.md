@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - pedro-minatel
 ---
-![](img/espidf-1.webp)
+{{< figure
+    default=true
+    src="img/espidf-1.webp"
+    >}}
 
 If you are starting on ESP32 development, you will see that the ESP-IDF is the official development framework and [Espressif](https://www.espressif.com) actively maintains it with constant updates.
 
@@ -18,7 +21,10 @@ This guide will introduce some tools that are not commonly used and could help y
 
 To access the documentation reference about the complete Build System, including the idf.py, see: [Build System](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/build-system.html) on our official documentation.
 
-![](img/espidf-2.webp)
+{{< figure
+    default=true
+    src="img/espidf-2.webp"
+    >}}
 
 ## ESP-IDF Introduction
 
@@ -73,7 +79,10 @@ The following is the list of the tools available on the ESP-IDF v4.3:
 
 > __Installing ESP-IDF for Windows, Linux and macOS:__ To install the ESP-IDF in your system, you can follow the Getting Started guide in the documentation.See the [Getting Started](https://idf.espressif.com) page to start using ESP-IDF.We also have some tutorials on the Espressif [Official YouTube channel](https://www.youtube.com/c/EspressifSystems).
 
-![](img/espidf-3.webp)
+{{< figure
+    default=true
+    src="img/espidf-3.webp"
+    >}}
 
 ## ESP-IDF Tools
 
@@ -211,7 +220,10 @@ Syntax: idf.py fullclean
 
 Syntax: idf.py menuconfig
 
-![](img/espidf-4.webp)
+{{< figure
+    default=true
+    src="img/espidf-4.webp"
+    >}}
 
 - __monitor__  — Display serial output. One of the most used option is the monitor. This option allows you to start the monitoring tool and to display all the output from the device.
 
@@ -239,9 +251,15 @@ Syntax: idf.py set-target
 
 Syntax: idf.py size
 
-![](img/espidf-5.webp)
+{{< figure
+    default=true
+    src="img/espidf-5.webp"
+    >}}
 
-![](img/espidf-6.webp)
+{{< figure
+    default=true
+    src="img/espidf-6.webp"
+    >}}
 
 ## ESPTOOL
 

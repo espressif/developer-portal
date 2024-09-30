@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
 ---
-![](img/introducing-1.webp)
+{{< figure
+    default=true
+    src="img/introducing-1.webp"
+    >}}
 
 Today we are announcing ESP Insights.
 
@@ -21,7 +24,10 @@ In the preview release that we launched today:
 - You can observe __firmware metrics__  like the amount of free heap over a timeline.
 - You can view the current values of certain __variables__ of interest.
 
-![](img/introducing-2.webp)
+{{< figure
+    default=true
+    src="img/introducing-2.webp"
+    >}}
 
 The *Insights agent* in the firmware leverages the Wi-Fi connectivity, and allows devices to post this information to the *Insights cloud*. The Insights cloud collects this information, from all the deployed devices, and compiles them into meaningful representations. Firmware developers can view this information through a web-based dashboard, the *Insights dashboard*.
 
@@ -34,17 +40,26 @@ In multiple discussions with our customers, we noticed a pattern. As software de
 - __Beta test runs__  expose the product to a real-life uncontrolled environment: the development board is packaged into an industrial design and actually deployed in user’s home. The idea of these runs is to get information to your engineering team about firmware stability and issues as might be observed with the user’s environments. ESP Insights allows developers, sitting on their desks, to view stack back-traces and register dumps for firmware running on devices in these runs.
 - __Turn-around time__  for fixing issues is much shorter for developers that have rich information about issues. Most teams spend enormous amounts of time recreating issues based on the scanty user-visible symptoms reported to them. ESP Insights captures and reports details about errors or warnings as observed on the device firmware. Of particular interest are events generated just before a crash. ESP Insights preserves these events across a device reset, so that it is reported to the cloud once the device is back up again.
 
-![](img/introducing-3.webp)
+{{< figure
+    default=true
+    src="img/introducing-3.webp"
+    >}}
 
 ## 2. Fix Issues Before they Snowball
 
 - __Monitoring Device Health__  by tracking key metrics such as available free memory, or largest free block, allow developers to understand the kind of stress the device gets under and plan for these better in their upcoming firmware versions.
 
-![](img/introducing-4.webp)
+{{< figure
+    default=true
+    src="img/introducing-4.webp"
+    >}}
 
 - __Detailed Crash Backtraces__ on the ESP Insights console allow developers to start working on issues even before customers may notice them.
 
-![](img/introducing-5.webp)
+{{< figure
+    default=true
+    src="img/introducing-5.webp"
+    >}}
 
 ## Integration with ESP RainMaker
 

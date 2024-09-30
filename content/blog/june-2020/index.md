@@ -24,7 +24,10 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## ATOM Echo: ESP32-based Miniature Programmable Smart Speaker by M5Stack
 
-![](img/june-1.webp)
+{{< figure
+    default=true
+    src="img/june-1.webp"
+    >}}
 
 [M5Stack’s ATOM Echo](https://m5stack.com/collections/m5-atom/products/atom-echo-smart-speaker-dev-kit) is a tiny programmable smart speaker. It makes full use of [ESP32](https://www.espressif.com/en/products/socs/esp32/overview)’s IoT power, while the design of ATOM Echo is based on the M5ATOM series of products. Its slim design measures only 24x24x17mm, so the gadget itself can be easily carried anywhere. At the same time, its premium finish gives it a sleek appearance.
 
@@ -32,7 +35,10 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## ESP32-based Wi-Fi-connected Espresso Machine
 
-![](img/june-2.webp)
+{{< figure
+    default=true
+    src="img/june-2.webp"
+    >}}
 
 [Fracino](https://www.fracino.com/index.html), an award-winning UK manufacturer of cappuccino and espresso machines, chose an [ESP32](https://www.espressif.com/en/products/socs/esp32/overview)-powered mobile app for building an efficient and aesthetically pleasing solution for their client, Londinium espresso. The ESP32-based app, which was created by [Blynk IoT](https://blynk.io/clients/londinium-fracino-iot-connected-wifi-espresso-machine-case-study-blynk), controls all the main parameters of the espresso machine effortlessly.
 
@@ -40,7 +46,10 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## Alexa-controlled Air Cooler with ESP8266
 
-![](img/june-3.webp)
+{{< figure
+    default=true
+    src="img/june-3.webp"
+    >}}
 
 [Ashok](https://ashokr.com/), the founder of [Embedded Club](https://www.instagram.com/embeddedclub/), a community of makers in India, focused on embedded programming / design, STEM trainings, application development and 2D/3D animations, has come up with really cool project. He hacked the remote control of an air cooler, using [ESP8266](https://www.espressif.com/en/products/socs/esp8266/overview). More importantly, though, this project demonstrates that any infrared remote control can be hacked in the same way!
 

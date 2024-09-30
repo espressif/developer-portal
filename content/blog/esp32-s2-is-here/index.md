@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - teo-swee-ann
 ---
-![](img/esps-1.webp)
+{{< figure
+    default=true
+    src="img/esps-1.webp"
+    >}}
 
 ## Why Is ESP32-S2 Significant?
 
@@ -14,7 +17,10 @@ We launched the ESP32-S2 chip and we are excited to announce that it is in mass 
 
 All these features add up to be a self-contained small form factor connected interactive secure computing and sensor device with a small LCD, such as a thermostat or a smart light switch.
 
-![](img/esps-2.webp)
+{{< figure
+    default=true
+    src="img/esps-2.webp"
+    >}}
 
 ## Radio
 
@@ -26,13 +32,19 @@ ESP32-S2 also has leading receiver sensitivity of -97 dBm. With the combination 
 
 Importantly ESP32-S2 maintains this performance from -40°C to 105°C facilitating the applications such as light bulbs and industrial sensors.
 
-![](img/esps-3.webp)
+{{< figure
+    default=true
+    src="img/esps-3.webp"
+    >}}
 
 ## GPIOs (Lots Of It)
 
 __ESP32-S2__ has 43 programmable GPIOs with all the standard peripheral support including USB-OTG. These standard peripheral enable different sensors and actuators interfacing. 14 IO pins can be configured for capacitive touch sense. This paired with available LCD interface can enable HMI interface for your devices. Availability of audio interfaces and sufficient compute power and memory expandability allows building streaming media solutions.
 
-![](img/esps-4.webp)
+{{< figure
+    default=true
+    src="img/esps-4.webp"
+    >}}
 
 ## Touch Sensors and HMI
 

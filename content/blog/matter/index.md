@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/matter-1.webp)
+{{< figure
+    default=true
+    src="img/matter-1.webp"
+    >}}
 
 Matter is an initiative of the [Connectivity Standards Alliance](http://csa-iot.org/), and developed through collaboration amongst all the leaders of the IoT industry.
 

@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - dhaval-gujar
 ---
-![](img/releasing-1.webp)
+{{< figure
+    default=true
+    src="img/releasing-1.webp"
+    >}}
 
 Since 2017, Espressif SoCs have been capable of connecting to the AWS IoT Core and related services. There are two ways to connect Espressif Wi-Fi SoCs to the AWS IoT Core.
 
@@ -18,7 +21,10 @@ The second way of connecting an Espressif Wi-Fi SoC to the AWS IoT Core, is by u
 
 On that account, we have just launched support for the 202103.00 release of the SDK in beta, for Espressif boards: [https://github.com/espressif/esp-aws-iot/tree/release/beta](https://github.com/espressif/esp-aws-iot/tree/release/beta)
 
-![](img/releasing-2.webp)
+{{< figure
+    default=true
+    src="img/releasing-2.webp"
+    >}}
 
 At the time of writing this article, the beta release supports the following __AWS Standard LTS libraries__ :
 

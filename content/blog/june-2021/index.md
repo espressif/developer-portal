@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/june-1.webp)
+{{< figure
+    default=true
+    src="img/june-1.webp"
+    >}}
 
 Hi everyone,
 
@@ -22,18 +25,27 @@ Other topics you can read about in this month’s newsletter include:
 
 [__New ESP RainMaker Features__ ](https://www.espressif.com/en/news/new_ESPRainMaker_features)
 
-![](img/june-2.webp)
+{{< figure
+    default=true
+    src="img/june-2.webp"
+    >}}
 
 The [latest additions](/blog/new-features-in-esp-rainmaker) to [ESP RainMaker](https://rainmaker.espressif.com/)’s feature set include node sharing, timezone setting, Arduino support, and node grouping.
 
 [__ESP-HMI: Smart Interaction — Boundless Communication__ ](https://www.espressif.com/en/news/esp-hmi)
 
-![](img/june-3.webp)
+{{< figure
+    default=true
+    src="img/june-3.webp"
+    >}}
 
 [ESP-HMI](https://www.espressif.com/en/solutions/hmi/esp-hmi) is Espressif’s high-performance and low-cost solution for enabling smart interaction between people and AIoT devices.
 
 [__ESPGateway: A Powerful ESP32-based Device by ThingPulse__ ](https://www.espressif.com/en/news/ESPGateway)
 
-![](img/june-4.webp)
+{{< figure
+    default=true
+    src="img/june-4.webp"
+    >}}
 
 Connecting two [ESP32 SoCs](https://www.espressif.com/en/products/socs/esp32) via a serial connection, attaching an external (Wi-Fi) antenna to each of them, and tucking them away in a pretty enclosure opens up a number of [interesting opportunities](https://thingpulse.com/product/espgateway/).

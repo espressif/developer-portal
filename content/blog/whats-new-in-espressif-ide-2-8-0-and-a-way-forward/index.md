@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kondal-kolipaka
 ---
-![](img/whats-1.webp)
+{{< figure
+    default=true
+    src="img/whats-1.webp"
+    >}}
 
 [Espressif-IDE 2.8.0](https://github.com/espressif/idf-eclipse-plugin/releases/tag/v2.8.0) was released recently, featuring a Partition table editor NVS Partition Editor along with enhancements in the Debugger Configuration and many more bug fixes to stabilize and improve the overall quality of the plugin.
 
@@ -20,7 +23,10 @@ Espressif-IDE 2.8.0 is bundled with the Eclipse CDT 2022–09 package and it has
 
 Eclipse Plugin offers UI for editing your [partition table](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/partition-tables.html) and flash it to your chip, instead of editing the CSV files directly. This offer editing the existing Partition table and creating a new one.
 
-![](img/whats-2.webp)
+{{< figure
+    default=true
+    src="img/whats-2.webp"
+    >}}
 
 To launch the Partition editor
 
@@ -30,7 +36,10 @@ NVS Table Editor can help you to edit [NVS Partition](https://docs.espressif.com
 
 Eclipse plugin uses the [nvs_partition_gen.py](https://github.com/espressif/esp-idf/blob/2707c95a5f/components/nvs_flash/nvs_partition_generator/nvs_partition_gen.py) utility from esp-idf for creating a binary file based on key-value pairs provided in the editor.
 
-![](img/whats-3.webp)
+{{< figure
+    default=true
+    src="img/whats-3.webp"
+    >}}
 
 To launch the NVS Partition editor
 
@@ -40,17 +49,26 @@ The plugin offers to configure the customized build configuration settings using
 
 There were issues reported earlier on this where changing additional CMake Arguments in one configuration is reflected in the other configuration so there is no way one could configure different settings and this release address this [issue](https://github.com/espressif/idf-eclipse-plugin/pull/669).
 
-![](img/whats-4.webp)
+{{< figure
+    default=true
+    src="img/whats-4.webp"
+    >}}
 
 ## GDB Client Remote Timeout
 
 There were numerous reports from clients saying that GDB Client was unable to connect with the default timeout which was 2 seconds that is to wait for the remote target to respond, otherwise, it use to drop the GDB connection with an error.
 
-![](img/whats-5.webp)
+{{< figure
+    default=true
+    src="img/whats-5.webp"
+    >}}
 
 Now the default GDB Client remote timeout is set for 20 seconds! You could see this in the new OpenOCD Debugger configuration window.
 
-![](img/whats-6.webp)
+{{< figure
+    default=true
+    src="img/whats-6.webp"
+    >}}
 
 ## Below are the most notable bug fixes in the new version
 

@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - pedro-minatel
 ---
-![](img/how-1.webp)
+{{< figure
+    default=true
+    src="img/how-1.webp"
+    >}}
 
 ## Introduction
 
@@ -140,7 +143,10 @@ The extended NVS will be used to store the device configuration and any other sm
 
 Another partition that we will create is to store files and any other large data. For that partition, we will use the SPIFFS format.
 
-![](img/how-2.webp)
+{{< figure
+    default=true
+    src="img/how-2.webp"
+    >}}
 
 In this demo, our [__development board is based on ESP32__ ](https://docs.espressif.com/projects/esp-idf/en/release-v4.2/esp32/hw-reference/esp32/get-started-devkitc.html) and equipped with a 8MB flash memory.
 
@@ -159,7 +165,10 @@ nvs_ext,* *data, nvs, 0x620000, 0x10000,*
 
 The graphical representation of the partition table is the following:
 
-![](img/how-3.webp)
+{{< figure
+    default=true
+    src="img/how-3.webp"
+    >}}
 
 The *storage* will be used with SPIFFS and the *nvs_ext* for extra NVS data storage.
 
@@ -228,15 +237,24 @@ ESP-IDF VS Code Extension embeds various tools to aid in development. One of tho
 
 To start the Partition Table Editor, first open the Command Palette and type *Partition Table Editor UI *to open the editor interface (to open the command menu press F1).
 
-![](img/how-4.webp)
+{{< figure
+    default=true
+    src="img/how-4.webp"
+    >}}
 
 Now you can start creating your Partition Table structure by filling the same fields described in the last section.
 
-![](img/how-5.webp)
+{{< figure
+    default=true
+    src="img/how-5.webp"
+    >}}
 
 After creating the partition table structure, you can save the CSV file to your project, build the binary and flash it to your board.
 
-![](img/how-6.webp)
+{{< figure
+    default=true
+    src="img/how-6.webp"
+    >}}
 
 If you are interested, watch the get started with the ESP-IDF VS Code Extension video-tutorial:
 

@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - lucas-tamborrino
 ---
-![](img/core-1.webp)
+{{< figure
+    default=true
+    src="img/core-1.webp"
+    >}}
 
 [Zephyr OS](https://www.zephyrproject.org/) is an open-source, scalable, and adaptable real-time operating system (RTOS) for multiple hardware platforms, including [Espressif’s](https://www.espressif.com/) SoCs ESP32, ESP32S2, ESP32C3, and ESP32S3. Zephyr OS provides a wide range of features for embedded systems development, including support for generating and analyzing core dumps on unrecoverable software errors.
 

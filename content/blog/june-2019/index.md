@@ -29,7 +29,10 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## Microsoft’s Plug-and-Play with the ESP32-Azure IoT Kit
 
-![](img/june-1.webp)
+{{< figure
+    default=true
+    src="img/june-1.webp"
+    >}}
 
 Espressif’s [ESP32-Azure IoT Kit](https://www.espressif.com/en/products/hardware/esp32-azure-kit) has been granted a certification that makes it an integral part of [Microsoft’s Plug-and-Play program](https://azure.microsoft.com/en-us/blog/azure-iot-at-build-making-iot-solutions-easier-to-develop-more-powerful-to-use/), which has been designed to bring the ease of “Plug and Play” to IoT devices. With Microsoft’s Plug and Play, developers can plug virtually any peripheral into a Windows PC without having to worry about drivers.
 
@@ -37,7 +40,10 @@ Espressif’s [ESP32-Azure IoT Kit](https://www.espressif.com/en/products/hardwa
 
 ## AWS and Espressif’s Workshop in the USA
 
-![](img/june-2.webp)
+{{< figure
+    default=true
+    src="img/june-2.webp"
+    >}}
 
 On 4 June, Espressif and AWS co-hosted a hands-on [workshop](https://www.eventbrite.com/e/aws-espressif-workshop-palo-alto-2019-registration-61864312825)focused on developing IoT solutions using Amazon FreeRTOS and ESP32 development boards, such as [ESP32-DevKitC](https://www.espressif.com/en/products/hardware/esp32-devkitc/overview) and [ESP-WROVER-KIT-VB](https://www.espressif.com/en/products/hardware/esp-wrover-kit/overview). Embedded developers learned about the AWS IoT suite of services and built firmware for the management of typical IoT appliances.
 
@@ -45,7 +51,10 @@ On 4 June, Espressif and AWS co-hosted a hands-on [workshop](https://www.eventbr
 
 ## Espressif Sponsors Pycom’s #GOINVENT World Series of Workshops
 
-![](img/june-3.webp)
+{{< figure
+    default=true
+    src="img/june-3.webp"
+    >}}
 
 [Pycom](https://pycom.io/) has been an Espressif partner since 2017. They provide IoT platforms with end-to-end solutions that can fit any project. Pycom has recently started a series of workshops aiming to engage with the worldwide community of IoT makers. Espressif could not but support them in this fantastic initiative.
 
@@ -53,7 +62,10 @@ On 4 June, Espressif and AWS co-hosted a hands-on [workshop](https://www.eventbr
 
 ## Create 8-bit Tunes with ESP8266!
 
-![](img/june-4.webp)
+{{< figure
+    default=true
+    src="img/june-4.webp"
+    >}}
 
 [Chiptune](https://en.wikipedia.org/wiki/Chiptune), also known as chip music or 8-bit music, is a style of synthesized electronic music made using the programmable sound generator (PSG) sound chips in vintage arcade machines, computers and video game consoles. However, you can now create cool [8-bit tunes](https://www.hackster.io/ericBcreator/a-m-p-arduino-music-player-8013b6?utm_campaign=new_projects&utm_content=2&utm_medium=email&utm_source=hackster&utm_term=project_name), using an [ESP8266 dev board](https://www.espressif.com/en/products/hardware/esp8266ex/overview).
 

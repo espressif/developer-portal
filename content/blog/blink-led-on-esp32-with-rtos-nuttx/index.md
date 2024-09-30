@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - sara-monteiro
 ---
-![](img/blink-1.webp)
+{{< figure
+    default=true
+    src="img/blink-1.webp"
+    >}}
 
 ## Introduction
 
@@ -29,11 +32,17 @@ make menuconfig
 
 To add the driver for the LED, navigate to* Device Drivers-> LED Support *and select* LED Driver and Generic Lower Half LED Driver* (Click y). In this step you are adding the driver for the LED.
 
-![](img/blink-2.webp)
+{{< figure
+    default=true
+    src="img/blink-2.webp"
+    >}}
 
 Return to the home menu via ‘Exit’. Just use the side arrows and ‘Enter’. Finally, to add the example, navigate to *Application Configuration-> Examples* and select *Led Driver Example.*
 
-![](img/blink-3.webp)
+{{< figure
+    default=true
+    src="img/blink-3.webp"
+    >}}
 
 Exit the menu via “Exit” and save the configuration.
 
@@ -67,11 +76,17 @@ Access the serial terminal and execute the command leds. This command will run t
 sudo picocom /dev/ttyUSB0 -b 115200
 ```
 
-![](img/blink-4.webp)
+{{< figure
+    default=true
+    src="img/blink-4.webp"
+    >}}
 
 Congratulations! From now on you should be seeing the LED blinking! If you want to return to the terminal, reset the ESP32 by pressing the DevKit EN button. If you do not have a built-in led, connect an LED to pin 2 and associate a resistor in series (between 100 Ω to 1 k Ω).
 
-![](img/blink-5.webp)
+{{< figure
+    default=true
+    src="img/blink-5.webp"
+    >}}
 
 Tip:
 

@@ -16,7 +16,10 @@ That said, the aim of Espressif DevCon2022 is to bring together the global commu
 
 You can expect more than 30 talks on such topics as Matter, ESP RainMaker, ESP-IDF, Privilege Separation, Embedded Rust, Components Manager, Board Support Packages, third-party frameworks, and more! This conference is open to anyone with a stable connection to the internet at no cost whatsoever. However, prospective attendees need to [register in advance](https://www.espressif.com/en/devcon/register). As ever, Espressif actively supports the spreading of tech knowledge far and wide to people from all walks of life, thus contributing to the democratization of technology.
 
-![](img/september-1.webp)
+{{< figure
+    default=true
+    src="img/september-1.webp"
+    >}}
 
 Our keynote speakers include Espressif’s Founder and CEO, Teo Swee Ann, and Espressif’s VP of Software Platforms, Ivan Grokhotkov, while we also have invited speakers from Microsoft, Arduino, Adafruit, Golioth, Toit, and Wokwi. Their presentations will be complemented by those of dozens of Espressif engineers whose expertise will keep our global audience spellbound. To view the entire program of the conference and [fill in the registration form](https://www.espressif.com/en/devcon/register), please visit the official website of [Espressif DevCon2022](https://devcon.espressif.com/).
 
@@ -24,25 +27,37 @@ We can’t wait to chat with as many of you as possible on 19 and 20 October! If
 
 Keep reading this month’s newsletter, so you can also learn about:
 
-![](img/september-2.webp)
+{{< figure
+    default=true
+    src="img/september-2.webp"
+    >}}
 
 [__Espressif Is Now a QuickTrack Solution Provider Certified by Wi-Fi Alliance__ ](https://www.espressif.com/en/news/ESP_QuickTrack)
 
 With [ESP32-C2](https://www.espressif.com/en/products/socs/esp32-c2) as a QuickTrack-qualified solution, Espressif has made it easier for its customers to achieve Wi-Fi CERTIFIEDTM status for their products.
 
-![](img/september-3.webp)
+{{< figure
+    default=true
+    src="img/september-3.webp"
+    >}}
 
 [__Impressive UIs for ESP Projects with SquareLine Studio__ ](https://www.espressif.com/en/news/ESP_UIs_SquareLine_Studio)
 
 By following [our guide](/making-the-fancy-user-interface-on-esp-has-never-been-easier-e44e79c0ae3) and using the free-for-personal-use SquareLine Studio you can create a great-looking user interface for your next ESP project with ease.
 
-![](img/september-4.webp)
+{{< figure
+    default=true
+    src="img/september-4.webp"
+    >}}
 
 [__ESP32-S2/S3/C3 Now Supported by Arduino Cloud__ ](https://www.espressif.com/en/news/ESP_Arduino_Cloud)
 
 [Arduino](https://blog.arduino.cc/2022/09/16/arduino-cloud-extends-esp32-support-to-s2-s3-c3-devices/) is committed to making the list of devices it supports on its platforms grow; hence, ESP32-S2, S3, and C3 have been added to this list.
 
-![](img/september-5.webp)
+{{< figure
+    default=true
+    src="img/september-5.webp"
+    >}}
 
 [__ESP32-DevKitC V4 with Dual-Antenna Module Hits the Market__ ](https://www.espressif.com/en/news/ESP32_DevKitC_V4_available)
 

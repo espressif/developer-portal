@@ -18,7 +18,10 @@ When we typically say “__Alexa__ , what is the time”, the word “Alexa” i
 
 The typical journey of the record path is as shown below:
 
-![](img/anatomy-1.webp)
+{{< figure
+    default=true
+    src="img/anatomy-1.webp"
+    >}}
 
 The sounds that the device hears using the microphone are typically processed to perform noise and echo cancellation first.
 
@@ -32,7 +35,10 @@ The cloud interprets the user’s command and then instructs the device to stop 
 
 So how do the above components map to typical hardware components? Let’s quickly check below:
 
-![](img/anatomy-2.webp)
+{{< figure
+    default=true
+    src="img/anatomy-2.webp"
+    >}}
 
 A combination of connectivity processors and digital signal processors can be used to achieve this.
 
@@ -46,7 +52,10 @@ Depending upon the use-case at hand, the appropriate selection can be made for s
 
 In most cases, the playback path is fairly simple.
 
-![](img/anatomy-3.webp)
+{{< figure
+    default=true
+    src="img/anatomy-3.webp"
+    >}}
 
 In its simplest form, the playback path consists of the ESP32, acting as a client, fetching the encoded audio data (MP3, AAC etc), decoding it and forwarding the samples to a DAC which then drives a speaker.
 

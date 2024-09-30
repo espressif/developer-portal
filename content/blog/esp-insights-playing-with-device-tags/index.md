@@ -22,17 +22,26 @@ If the devices are to be categorised based on the firmware version viz. Version:
 
 The image below showcases how the device level tags (if applied) are enlisted on the node reports page below the stats section.
 
-![](img/esp-1.webp)
+{{< figure
+    default=true
+    src="img/esp-1.webp"
+    >}}
 
 Click on any of the listed tags, user is taken to the Group Analytics page with an automatic search filter applied for the the clicked tag name. All the devices carrying the selected tag are displayed in the nodes listing.
 
-![](img/esp-2.webp)
+{{< figure
+    default=true
+    src="img/esp-2.webp"
+    >}}
 
 As mentioned earlier, the users can also explicitly apply search filters based on node tags from the Group Analytics Dynamic Search Filters and list out device matching the search criteria. For e.g. Search all devices of type bulb.
 
 The *Property* input box also supports auto-suggest based on the available tags as applied to the devices of the logged-in user. The *Value* input box also supports auto-suggest based on the values already present for the selected tag property.
 
-![](img/esp-3.webp)
+{{< figure
+    default=true
+    src="img/esp-3.webp"
+    >}}
 
 ## Tag Management
 
@@ -40,13 +49,19 @@ Now that we know we know that the users can tag their own devices, let’s take 
 
 On the selected node, now the users should see a new tab called “__*Tags*__ ” along side the Node Report, Metrics and Variables tabs.
 
-![](img/esp-4.webp)
+{{< figure
+    default=true
+    src="img/esp-4.webp"
+    >}}
 
 The __*Tags*__  tab enlists all the existing tags. User is able to add or remove tags from this page. The tag is added or removed only for the selected node.
 
 User has to enter a combination of Tag Name and Tag Value. Both of these are case-sensitive and each input field has a restriction of 15 characters.
 
-![](img/esp-5.webp)
+{{< figure
+    default=true
+    src="img/esp-5.webp"
+    >}}
 
 There is a ‘Delete’ option available in front of the each listed tag. User can delete or disassociate one tag at a time.
 

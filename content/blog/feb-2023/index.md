@@ -12,7 +12,10 @@ Exciting times lie ahead, as Espressif Systems will be an official exhibitor at 
 
 This year, Espressif will focus on three areas mainly:
 
-![](img/feb-1.webp)
+{{< figure
+    default=true
+    src="img/feb-1.webp"
+    >}}
 
 Espressif’s team in Nuremberg will demonstrate our unique combination of high-performance hardware, software, and complete solutions, with which we make it easy for our customers to build Matter-enabled smart-home devices of various types. In fact, [Espressif provides the most comprehensive such solutions](https://www.espressif.com/solutions/device-connectivity/esp-matter-solution), including support for Wi-Fi or Thread end-point devices, Thread Border Routers, and Matter gateway reference designs. [Espressif’s SDK for Matter](https://github.com/espressif/esp-matter) is based on the official open-source Matter SDK, and includes an easy-to-use API as well as all the required mass-production tools. Then, [the ESP-ZeroCode module](https://www.espressif.com/en/solutions/device-connectivity/esp-matter-solution), based on ESP32-C3/C2/H2, provides Matter connectivity out-of-the-box.
 
@@ -28,31 +31,46 @@ So, if you happen to be in Nuremberg from 14 to 16 March, don’t forget to get 
 
 Keep reading this month’s newsletter, so you can learn more exciting news from Espressif:
 
-![](img/feb-2.webp)
+{{< figure
+    default=true
+    src="img/feb-2.webp"
+    >}}
 
 [__Espressif Launches HMI Smart Displays__ ](https://www.espressif.com/en/solutions/hmi/smart-displays)
 
 Espressif’s HMI smart displays, based on [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3)and [ESP32-C3](https://www.espressif.com/en/products/socs/esp32-c3), are designed to support RGB and SPI interfaces, respectively. These solutions ensure smart interaction and unlimited communication!
 
-![](img/feb-3.webp)
+{{< figure
+    default=true
+    src="img/feb-3.webp"
+    >}}
 
 [__Espressif Has Revealed ESP32-P4__ ](https://www.espressif.com/en/news/ESP32-P4)
 
 At last month’s CES in Las Vegas, Espressif revealed ESP32-P4 and it went viral! Our new high-performance MCU is designed for IO-rich, HMI and AIoT applications. For all the details, click on the link above.
 
-![](img/feb-4.webp)
+{{< figure
+    default=true
+    src="img/feb-4.webp"
+    >}}
 
 [__ESP32-C6 Officially Available__ ](https://www.espressif.com/en/news/ESP32-C6_Available)
 
 [ESP32-C6](https://www.espressif.com/en/products/socs/esp32-c6) is Espressif’s Wi-Fi 6 SoC that combines 2.4 GHz Wi-Fi 6, Bluetooth 5 (LE) and the 802.15.4 protocol. It is our first Wi-Fi 6 SoC achieving an industry-leading RF performance, with reliable security features and multiple memory resources for AIoT products.
 
-![](img/feb-5.webp)
+{{< figure
+    default=true
+    src="img/feb-5.webp"
+    >}}
 
 [__ESP-Based Products Earn Matter 1.0 Certification__ ](https://www.espressif.com/en/news/Matter1.0_Certified)
 
 Espressif Systems (SSE: 688018.SH) is pleased to announce that the company has successfully completed the [Matter 1.0 certification](https://www.espressif.com/sites/default/files/ESP32-C%20Matter%201.0%20Certification.pdf) program. Build your Matter devices with ease using Espressif SoCs (the entire ESP32 and ESP32-C series, as well as ESP32-S3).
 
-![](img/feb-6.webp)
+{{< figure
+    default=true
+    src="img/feb-6.webp"
+    >}}
 
 [__ESP32-Based Smart Watch__ ](https://www.espressif.com/en/news/ESP32_Watch)
 

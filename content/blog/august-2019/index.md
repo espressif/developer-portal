@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/august-1.webp)
+{{< figure
+    default=true
+    src="img/august-1.webp"
+    >}}
 
 Hi everyone,
 
@@ -37,7 +40,10 @@ Senior Customer Support Officer
 
 ## Espressif’s New Smart Voice Assistant, ESP-Skainet, Released
 
-![](img/august-2.webp)
+{{< figure
+    default=true
+    src="img/august-2.webp"
+    >}}
 
 [ESP-Skainet](https://github.com/espressif/esp-skainet) is a new voice-interaction development framework based on Espressif’s flagship chip, [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview). The new development framework supports voice wake-up and multiple offline speech-recognition commands. With ESP-Skainet, users can easily build applications based on wake-word detection and speech-recognition commands.
 
@@ -45,7 +51,10 @@ Senior Customer Support Officer
 
 ## ESP32 and ESP8266 Supported by Cesanta’s mDash Cloud Platform
 
-![](img/august-3.webp)
+{{< figure
+    default=true
+    src="img/august-3.webp"
+    >}}
 
 [Cesanta](https://cesanta.com/), an IoT company based in Dublin, Ireland, has recently launched [mDash](https://mdash.net/), which is an IoT Cloud platform for the administration of various IoT modules. This platform now supports Espressif’s SoCs, [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview), among other chips, offering a number of features that significantly facilitate building IoT applications
 
@@ -53,7 +62,10 @@ Senior Customer Support Officer
 
 ## Espressif and Temboo Partner to Empower Everyone to Benefit from the Internet of Things
 
-![](img/august-4.webp)
+{{< figure
+    default=true
+    src="img/august-4.webp"
+    >}}
 
 The new partnership between [Espressif Systems](http://www.espressif.com/) and [Temboo](https://temboo.com/) is meant to give IoT developers the opportunity to research, design and build the next generation of connected products with access to sensor data. This will further bridge the gap between the physical and the digital world by using the Internet of Things more effectively.
 
@@ -61,7 +73,10 @@ The new partnership between [Espressif Systems](http://www.espressif.com/) and [
 
 ## Animated Pixel Art with ESP8266
 
-![](img/august-5.webp)
+{{< figure
+    default=true
+    src="img/august-5.webp"
+    >}}
 
 If you are a maker and also into pixel-art renditions of iconic video-game characters, then this article is for you! It’s time to unleash your creativity by making your own animated pixel-frame depicting your favorite character. All you need is an [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) and Ryan Bates’s tutorial.
 

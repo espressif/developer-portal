@@ -10,7 +10,10 @@ Hi everyone,
 
 Espressif is taking part in the [Smart Home Expo](https://www.smarthomeexpo.in/why-smart-home-expo.php) next month in Mumbai, India, which will take place at the Jio World Convention Centre, on 20–21 April 2022. The Smart Home Expo is India’s largest comprehensive trade show and conference that demonstrates the best smart-home technology from across the globe. With over 100+ brands, the exhibition is bound to be an action-packed event featuring the latest market trends, game-changing smart-home technology, live demos, new product launches, technical seminars, as well as exciting new opportunities. The Smart Home Expo in 2022 will also showcase automation technology for offices and hotels.
 
-![](img/march-1.webp)
+{{< figure
+    default=true
+    src="img/march-1.webp"
+    >}}
 
 Espressif Systems’ participation in the Smart Home Expo will showcase our brand as a one-stop, AIoT solution-provider of not just innovative hardware evidenced by our various series of SoCs, but also of SDKs, Firmware, Cloud backend, phone apps, and voice integrations. The main products we want to highlight in this exhibition are [ESP32-C3](https://www.espressif.com/en/products/socs/esp32-c3) (our single-core Wi-Fi-and-Bluetooth 5 LE SoC based on the open-source RISC-V architecture), [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) (our dual-core XTensa LX7 MCU with AI capabilities), and [ESP RainMaker](https://rainmaker.espressif.com/) (our complete system for building AIoT products).
 
@@ -20,19 +23,28 @@ So, those of you who will be in Mumbai on 20–21 April 2022 do come to Espressi
 
 Other topics you can read about in this month’s newsletter include:
 
-![](img/march-2.webp)
+{{< figure
+    default=true
+    src="img/march-2.webp"
+    >}}
 
 [__Smarten Up Your Life with ESP32-S3-BOX!__ ](https://www.espressif.com/en/news/ESP32-S3-BOX_video)
 
 To address our customers’ diverse needs, [Espressif’s AI voice-development kit](https://www.espressif.com/en/news/ESP32-S3-BOX) now comes in two versions: ESP32-S3-BOX and ESP32-S3-BOX-Lite, a rather simplified variant of the former, but with three additional customizable function buttons. Furthermore, the latest version of [ESP-Skainet](https://www.espressif.com/en/solutions/audio-solutions/esp-skainet/overview) supports two new functions____ which can materialize a more efficient interactive experience tailored to users’ needs.
 
-![](img/march-3.webp)
+{{< figure
+    default=true
+    src="img/march-3.webp"
+    >}}
 
 [__Ferrous Systems and Espressif’s Rust Training on ESP32__ ](https://www.espressif.com/en/news/ESP_RUST_training)
 
 To consolidate the rising popularity of Rust, Espressif and [Ferrous Systems](https://ferrous-systems.com/) are preparing a complete training program for developers using [ESP32](https://www.espressif.com/en/products/socs/esp32). This Rust [training](https://github.com/ferrous-systems/espressif-trainings) focuses on IoT applications in a way that is suitable for new and experienced embedded developers alike.
 
-![](img/march-4.webp)
+{{< figure
+    default=true
+    src="img/march-4.webp"
+    >}}
 
 [__Render HTML and CSS on ESP32 Directly__ ](https://www.espressif.com/en/news/HTML_CSS_renderer)
 

@@ -8,7 +8,10 @@ authors:
 ---
 “Developing IoT Projects with ESP32” by Vedat Ozan Oner serves as a key guide, especially in its second edition, which has been thoughtfully updated to reflect the latest trends in IoT development.
 
-![](img/book-1.webp)
+{{< figure
+    default=true
+    src="img/book-1.webp"
+    >}}
 
 Targeted at C++ developers who want to create powerful applications using the ESP-IDF. The book explains step by step the complexities of IoT development with the ESP32. Vedat Ozan Oner, the author, is recognized for his passion for IoT, ability of making tricky topics easy to understand.
 

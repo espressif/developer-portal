@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - juraj-sadel
 ---
-![](img/rust-1.webp)
+{{< figure
+    default=true
+    src="img/rust-1.webp"
+    >}}
 
 __Beginning of Rust__ 
 
@@ -14,7 +17,10 @@ __Beginning of Rust__
 
 Almost eighteen years later, Rust has become the hottest new language in the world with more and more people interested every year. In __Q1 2020__  there were around __600,000__  Rust developers and in __Q1 2022__  the number increased to __2.2 million__  [[4](https://yalantis.com/blog/rust-market-overview/)]. Huge tech companies like Mozilla, Dropbox, Cloudflare, Discord, Facebook(Meta), Microsoft, and others are using Rust in their codebase.
 
-![](img/rust-2.webp)
+{{< figure
+    default=true
+    src="img/rust-2.webp"
+    >}}
 
 In the past six years, the Rust language remained the most “loved” programming language based on [[5](https://insights.stackoverflow.com/survey/2021#most-loved-dreaded-and-wanted)].
 
@@ -181,7 +187,10 @@ __When you might want to use bare-metal__
 - __Real-time constraints or time-critical applications__ : If your embedded system requires real-time performance or low-latency response times because std can introduce unpredictable delays and overhead that can affect real-time performance.
 - __Custom requirements__ : bare-metal allows more customization and fine-grained control over the behavior of an application, which can be useful in specialized or non-standard environments.
 
-![](img/rust-3.webp)
+{{< figure
+    default=true
+    src="img/rust-3.webp"
+    >}}
 
 __TL;DR Should I switch from C to Rust?__ 
 

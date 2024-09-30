@@ -26,7 +26,10 @@ The __SPIRAM__  (external SPI memory) is heavily used for many of these buffers 
 
 In terms of memory, we try to keep around 15–20KB of free main memory, and the SPIRAM is about half-way (2MB) full.
 
-![](img/running-1.webp)
+{{< figure
+    default=true
+    src="img/running-1.webp"
+    >}}
 
 ## Footprint
 

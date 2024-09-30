@@ -8,13 +8,19 @@ authors:
 ---
 Espressif Systems (or “Espressif”), a leading global IoT semiconductor company, announced today that it has received investment co-led by Intel Capital and Beijing Singularity Power Investment Fund L.P. (SPC).
 
-![](img/espressif-1.webp)
+{{< figure
+    default=true
+    src="img/espressif-1.webp"
+    >}}
 
 Espressif Systems’ Founder and CEO Swee Ann Teo (1st from left) and the CEOs of other invested companies
 
 Espressif helps power the devices that are key to the Internet-of-Things (IoT) industry. The company’s IoT chipsets provide dual-mode connectivity (Wi-Fi & BT/BLE), powered by a 32-bit, single- or dual-core processor in all-in-one SoCs with excellent price performance. Gartner profiled Espressif in the category of “Cool Vendors in ‘IoT Thingification’ 2016,” and Techno Systems Research Co. Ltd, a Japan market research company, ranked Espressif first in the MCU Embedded WiFi sector in 2017. With highly integrated MCU embedded Wi-Fi solutions, such as the popular ESP32 and ESP8266, Espressif achieved sales of one hundred million IoT chipsets by the end of 2017. This new round of investment is another milestone in Espressif’s development and will strengthen the company’s R&D capabilities and help increase its market influence.
 
-![](img/espressif-2.webp)
+{{< figure
+    default=true
+    src="img/espressif-2.webp"
+    >}}
 
 Espressif Systems’ Founder and CEO Swee Ann Teo at the Intel Capital Global Summit
 

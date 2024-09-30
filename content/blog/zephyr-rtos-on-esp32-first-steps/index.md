@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - glauber-ferreira
 ---
-![](img/zephyr-1.webp)
+{{< figure
+    default=true
+    src="img/zephyr-1.webp"
+    >}}
 
 > __Attention:__  The installation process outlined in this article has become obsolete. To ensure accurate and up-to-date instructions, kindly consult the [new installation link](https://docs.zephyrproject.org/latest/develop/getting_started/index.html). Your understanding is greatly appreciated.
 
@@ -14,7 +17,10 @@ Zephyr is a very low footprint RTOS maintained by the Linux Foundation and porte
 
 Espressif has been expanding support for Zephyr RTOS on ESP32, an extremely popular SoC among hobbyists but also widely used in commercial applications. Since its release, this SoC became famous for integrating both Wifi and Bluetooth stacks on a single chip and for being very cost-competitive. In this post, all the required steps to prepare your host’s environment to use Zephyr on ESP32 will be explained. In the end, we will run a __hello world__  application to validate our setup. In this step-by-step guide, the __ESP32 DevKitC__  board will be used.
 
-![](img/zephyr-2.webp)
+{{< figure
+    default=true
+    src="img/zephyr-2.webp"
+    >}}
 
 The first thing to do is to prepare Zephyr’s development environment. I briefly list the steps required for Linux (Ubuntu 20.04.1 LTS), for the most up-to-date documentation, and for support for other Operating Systems you can see Zephyr’s official [Getting Started](https://docs.zephyrproject.org/latest/getting_started/index.html) guide and, specifically, you can see most of the original instructions included in this post in the [ESP32 SoC section](https://docs.zephyrproject.org/latest/boards/espressif/index.html) of the Zephyr Project documentation.
 
@@ -166,7 +172,10 @@ sudo minicom -s
 
 After __minicom__  is opened, chose the __serial port setup__  option and set it to __115200 8N1__ .
 
-![](img/zephyr-3.webp)
+{{< figure
+    default=true
+    src="img/zephyr-3.webp"
+    >}}
 
 ## Flashing the binary
 
@@ -180,7 +189,10 @@ In older ESP32 DevKitC boards, the chip may run to standby mode until the __BOOT
 
 If you have been following everything up to this point, after some ESP32’s boot messages, you should see the expected hello message.
 
-![](img/zephyr-4.webp)
+{{< figure
+    default=true
+    src="img/zephyr-4.webp"
+    >}}
 
 There you have it! Your development environment was properly configured and you have run your first application using Zephyr on ESP32!
 

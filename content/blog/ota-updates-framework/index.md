@@ -39,7 +39,10 @@ __Important points to note:__
 
 Visual representation of above configuration for 4MiB flash part is shown below:
 
-![](img/ota-1.webp)
+{{< figure
+    default=true
+    src="img/ota-1.webp"
+    >}}
 
 ## Application Image Format
 
@@ -69,7 +72,10 @@ __Few important fields to note:__
 
 ## Software Architecture
 
-![](img/ota-2.webp)
+{{< figure
+    default=true
+    src="img/ota-2.webp"
+    >}}
 
 Above is __simplified__  diagram that highlights some key components in an application from ESP-IDF that deals with OTA updates. In most cases, application needs to interact with public interface of [__esp_https_ota__ ](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_https_ota.html#api-reference) and [__app_update__ ](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/ota.html#api-reference)____ components only.
 
@@ -101,7 +107,10 @@ if (ret == ESP_OK) {
 
 Simplified workflow for OTA update looks like below:
 
-![](img/ota-3.webp)
+{{< figure
+    default=true
+    src="img/ota-3.webp"
+    >}}
 
 - Server authentication ensures that firmware is downloaded from trusted entity.
 - Based on version information in downloaded image header, device can decide to perform upgrade.
@@ -118,13 +127,19 @@ Two entities play an important role in OTA update process, the boot-loader and t
 
 Following is a simplified flowchart for decision making involved during OTA update in an application. Also it shows how boot-loader picks up newly updated firmware after OTA update.
 
-![](img/ota-4.webp)
+{{< figure
+    default=true
+    src="img/ota-4.webp"
+    >}}
 
 ## Flash Layout Transition
 
 For normal OTA update scenario, flash layout transition is rather simple. It goes through following stages:
 
-![](img/ota-5.webp)
+{{< figure
+    default=true
+    src="img/ota-5.webp"
+    >}}
 
 ## Stage 1
 
@@ -149,13 +164,19 @@ The firmware rollback feature provides an ability to rollback to the previous kn
 - Unlike normal OTA update workflow, rollback case involves few intermittent states before marking firmware as valid.
 - Transition from new firmware to valid or invalid is handled by both application and boot-loader.
 
-![](img/ota-6.webp)
+{{< figure
+    default=true
+    src="img/ota-6.webp"
+    >}}
 
 ## Flash Layout Transition
 
 For rollback enabled OTA update scenario, flash layout transition goes through following stages:
 
-![](img/ota-7.webp)
+{{< figure
+    default=true
+    src="img/ota-7.webp"
+    >}}
 
 ## Stage 1
 
@@ -189,7 +210,10 @@ Firmware functionality can be decided based on various checkpoints within it.
 - Connection to WiFi network
 - Connection to OTA server
 
-![](img/ota-8.webp)
+{{< figure
+    default=true
+    src="img/ota-8.webp"
+    >}}
 
 Connection to OTA server being the best possible option, as it ensures possibility of next OTA update. However this may need some changes on cloud agent side as well, which can acknowledge communication from device firmware. Once firmware reaches to desired checkpoint successfully, it can invoke earlier mentioned API to cancel rollback process and continue further execution.
 
@@ -201,7 +225,10 @@ Rollback offers an ability to go back to previous working firmware but sometimes
 
 Anti-rollback is a feature that allows to execute firmware __only-if__ the____ *security version* embedded within it is greater than the one programmed in the device’s EFuse (one-time-programmable memory). Certain bits (up-to 32) can be reserved to store the *security version* in EFuse. It is ensured that this is kept in sync with the one embedded in the firmware image by both the application and boot-loader during startup.
 
-![](img/ota-9.webp)
+{{< figure
+    default=true
+    src="img/ota-9.webp"
+    >}}
 
 Above image illustrates idea of grouping firmware based on their security versions.
 

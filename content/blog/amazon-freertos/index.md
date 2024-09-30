@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/amazon-1.webp)
+{{< figure
+    default=true
+    src="img/amazon-1.webp"
+    >}}
 
 Amazon FreeRTOS is an operating system for microcontrollers that extends the FreeRTOS kernel with libraries that make it easy to connect devices to AWS services like AWS IoT Core and AWS GreenGrass. ESP32 is a certified and fully supported platform for Amazon FreeRTOS.
 

@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - teo-swee-ann
 ---
-![](img/espc-1.webp)
+{{< figure
+    default=true
+    src="img/espc-1.webp"
+    >}}
 
 As many would have heard, Shanghai is now undergoing a major lockdown and quarantine due to COVID-19. In the midst of this lockdown, we received our production wafers of ESP32-C2, and proceeded with the verifications. Due to the quarantine, we have faced some logistics problems, but slowly, we have improvised, worked out solutions and continue to move ahead with the ramp up of this product. And thanks to Espressifers from Brazil, Czech Republic, India and Singapore, the integration of ESP32-C2 into ESP-IDF and ESP-RainMaker continues at full speed.
 

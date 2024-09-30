@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - brian-ignacio
 ---
-![](img/accelerate-1.webp)
+{{< figure
+    default=true
+    src="img/accelerate-1.webp"
+    >}}
 
 The [__Espressif Web IDE__ ](https://github.com/espressif/idf-web-ide) is an implementation of the [__Eclipse Theia__ ](https://theia-ide.org) framework with the [ESP-IDF extension for Visual Studio Code](https://github.com/espressif/vscode-esp-idf-extension) and few additional tools. You can see it in action in the Espressif DevCon22 presentation below.
 

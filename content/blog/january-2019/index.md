@@ -8,7 +8,10 @@ authors:
 ---
 Welcome to our January Newsletter__*Our News. Our World*__ 
 
-![](img/january-1.webp)
+{{< figure
+    default=true
+    src="img/january-1.webp"
+    >}}
 
 Happy New Year everyone!
 
@@ -32,7 +35,10 @@ John Lee. Senior Customer Support Officer
 
 ## ESP-ADF v1.0 Released
 
-![](img/january-2.webp)
+{{< figure
+    default=true
+    src="img/january-2.webp"
+    >}}
 
 Espressif is resolutely expanding in the field of AI solutions, introducing [ESP-ADF v1.0](https://github.com/espressif/esp-adf) (Espressif’s Audio Development Framework). ESP-ADF is an open-source platform that can be used for developing a variety of audio applications, ranging from connected speakers to story-telling toys. ESP-ADF works on top of ESP-IDF, the commonly-used base SDK for ESP32. ESP-ADF provides flexible and reusable components that allow users to build their own audio-enabled products of varying complexity levels.
 
@@ -40,7 +46,10 @@ Espressif is resolutely expanding in the field of AI solutions, introducing [ESP
 
 ## ESP32 Modules Support LittlevGL and μGFX
 
-![](img/january-3.webp)
+{{< figure
+    default=true
+    src="img/january-3.webp"
+    >}}
 
 [ESP32 modules](https://www.espressif.com/en/products/hardware/modules) of the WROOM and WROVER series have incorporated two new libraries, LittlevGL and *μ*GFX. [LittlevGL](https://littlevgl.com/) is an open-source graphics library providing various features for creating an embedded Graphical User Interface (GUI), with beautiful visual effects and a low memory footprint. [*μ*GFX](https://ugfx.io/index) is a lightweight embedded library for displays and touchscreens, providing everything required to build a fully-featured embedded GUI.
 
@@ -48,7 +57,10 @@ Espressif is resolutely expanding in the field of AI solutions, introducing [ESP
 
 ## ESP32 Internet Radio Player
 
-![](img/january-4.webp)
+{{< figure
+    default=true
+    src="img/january-4.webp"
+    >}}
 
 Believe it or not, you can now build an Internet radio player in less than ten minutes and with approximately $30! Nick Koumaris and his popular educational platform, [educ8s](https://educ8s.tv/), have come up with this cool project which is based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview). Educ8s consists of a [website ](https://educ8s.tv/about/)and a [YouTube channel](https://www.youtube.com/channel/UCxqx59koIGfGRRGeEm5qzjQ) which is dedicated to developing high-quality videos about DIY hardware and software projects.
 
@@ -56,7 +68,10 @@ Believe it or not, you can now build an Internet radio player in less than ten m
 
 ## “U Cup”: The ESP32-Based Smart Water Bottle
 
-![](img/january-5.webp)
+{{< figure
+    default=true
+    src="img/january-5.webp"
+    >}}
 
 Most people think that water contain-ers provide only a good way of keep-ing people hydrated when they are not close to a source of drinking wa-ter. But “Leiyue”, a Shanghai-based startup, has taken water bottles to a whole other level. They have just launched an [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)-based gadget that combines water bottles with artificial intelligence.
 

@@ -10,11 +10,17 @@ Hi everyone,
 
 Earlier this week, the news about the upcoming release of ESP32-C3, Espressif’s single-core, RISC-V-based, Wi-Fi and Bluetooth LE 5.0 MCU, took the online maker community by storm. We’re delighted to know that so many people are eager to find out more about Espressif’s new products! That’s why we’re including in this month’s newsletter [a comprehensive article](https://www.espressif.com/en/news/ESP32_C3) about ESP32-C3 along with the relevant [datasheet](https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf).
 
-![](img/november-1.webp)
+{{< figure
+    default=true
+    src="img/november-1.webp"
+    >}}
 
 ESP32-C3 is, of course, part of our [MINI series](https://www.espressif.com/en/news/ESP32_S2_MINI_series) of modules, which we announced back in August 2020, as you might remember. So, here’s some more news about the MINI series: the engineering samples of ESP32-S2-MINI-1/1U, ESP32-MINI-1 and ESP32-PICO-MINI-02 are now available on [Espressif’s official sample provider webpage](https://www.espressif.com/en/contact-us/get-samples). Make sure you order your samples today, so you can start working on your new ESP projects as quickly as possible!
 
-![](img/november-2.webp)
+{{< figure
+    default=true
+    src="img/november-2.webp"
+    >}}
 
 Also, if you’re getting into a Christmassy mood already, you can order a couple of more samples and give them to your maker friends as a gift. We can guarantee they will love them! __Espressif’s MINI series__  of modules are __an ideal choice__  for a wide variety of application scenarios relating to the __Internet of Things, wearable electronics and smart home__ .
 
@@ -24,31 +30,46 @@ We’re really excited that dozens of registered projects have been submitted by
 
 __*Good luck to all the participants!*__ 
 
-![](img/november-3.webp)
+{{< figure
+    default=true
+    src="img/november-3.webp"
+    >}}
 
 Other topics you can read about in this month’s newsletter include:
 
 [__Introducing ESP32-C3__ ](https://www.espressif.com/en/news/ESP32_C3)
 
-![](img/november-4.webp)
+{{< figure
+    default=true
+    src="img/november-4.webp"
+    >}}
 
 ESP32-C3 is a single-core Wi-Fi and Bluetooth LE 5.0 microcontroller unit, based on the open-source RISC-V architecture. It strikes the right balance of power, I/O capabilities and security, thus offering the optimal cost-effective solution for connected devices. The availability of Wi-Fi and Bluetooth LE 5.0 connectivity makes the device configuration easy, while also enabling a variety of dual connectivity use-cases.
 
 [__ESP Product Selector Launched__ ](https://www.espressif.com/en/news/ESP_Product_Selector)
 
-![](img/november-5.webp)
+{{< figure
+    default=true
+    src="img/november-5.webp"
+    >}}
 
 Our new [ESP Product Selector](http://products.espressif.com/) is an online tool designed to increase development efficiency and reduce the time for business communication. To use it, customers do not need to register with us or download the tool. All they need to do is click on the link and use it, taking advantage of its simple function and multiple benefits.
 
 [__Aimagin’s ESP32-powered Waijung 2 Released__ ](https://www.espressif.com/en/news/ESP32_Waijung)
 
-![](img/november-6.webp)
+{{< figure
+    default=true
+    src="img/november-6.webp"
+    >}}
 
 Waijung 2 is [Aimagin](https://www.aimagin.com/)’s next generation model-based development platform for embedded systems, which automatically generates C code from Simulink model files, compiles it, and downloads .bin to [ESP32](https://www.espressif.com/en/products/socs/esp32) MCUs. Waijung 2 speeds up complex stand-alone and IoT device development, since there is no need for writing a single line of C or HTML code.
 
 [__ESP32-powered BBC Doctor Who HiFive Inventor Coding Kit__ ](https://www.espressif.com/en/news/ESP32_BBC)
 
-![](img/november-7.webp)
+{{< figure
+    default=true
+    src="img/november-7.webp"
+    >}}
 
 Industry leading partners, Tynker and BBC Learning, have taken coding to the next level with the revolutionary new [ESP32](https://www.espressif.com/en/products/socs/esp32)-powered [BBC Doctor Who HiFive Inventor Coding Kit](https://www.amazon.com/dp/B08L9Q91JH/ref=as_li_ss_tl). It comes with a Wi-Fi & Bluetooth combo MCU board, along with guided lessons aimed at teaching children how to use Block Coding and MicroPython for IoT applications.
 

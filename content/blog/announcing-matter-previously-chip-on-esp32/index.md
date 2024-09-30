@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - hrishikesh-dhayagude
 ---
-![](img/announcing-1.webp)
+{{< figure
+    default=true
+    src="img/announcing-1.webp"
+    >}}
 
 ## Introduction
 
@@ -16,7 +19,10 @@ Espressif has been a part of the Matter initiative since early days, and we have
 
 ## Architecture
 
-![](img/announcing-2.webp)
+{{< figure
+    default=true
+    src="img/announcing-2.webp"
+    >}}
 
 As illustrated above, Matter defines the application layer that will be deployed on devices and controllers as well as supported IPv6-based networks to help achieve the interoperability goals. Matter will initially support Wi-Fi and Thread for core communications and Bluetooth Low Energy (BLE) to simplify device commissioning and setup.
 
@@ -38,7 +44,10 @@ Let’s look at the steps to try the above examples on ESP32.
 
 We use Espressif IoT Development Framework (ESP-IDF) [release v4.3](https://github.com/espressif/esp-idf/releases/tag/v4.3) to try this out.
 
-![](img/announcing-3.webp)
+{{< figure
+    default=true
+    src="img/announcing-3.webp"
+    >}}
 
 ## Build the Python Controller
 

@@ -8,7 +8,10 @@ authors:
 ---
 Espressif IDE is an Integrated Development Environment(IDE) based on Eclipse CDT for developing IoT Applications from end to end using the ESP-IDF(IoT Development Framework). It’s a standalone, customized IDE built specifically for ESP-IDF. Espressif IDE comes with the latest IDF Eclipse plugins, essential Eclipse CDT plugins, OpenOCD Plugins, and other third-party plugins from the Eclipse platform to support building ESP-IDF applications.
 
-![](img/espressif-1.webp)
+{{< figure
+    default=true
+    src="img/espressif-1.webp"
+    >}}
 
 ## Key features of Espressif IDE
 
@@ -48,7 +51,10 @@ IDE offers integrated esp-idf components as part of the projects. When an IDF pr
 
 This will help in two ways. First, the user should be able to browse through the esp-idf source code directly under the eclipse project explorer. Second, It allows navigating to the function definitions by pressing *F3* or *ctrl+ click*(in macOS *command+click*) on the function name.
 
-![](img/espressif-2.webp)
+{{< figure
+    default=true
+    src="img/espressif-2.webp"
+    >}}
 
 ## Indexer Improvements
 
@@ -66,7 +72,10 @@ After debug configuration is created, right-click on the project in the project 
 
 It can take a while to open the application level tracing dialog because the OpenOCD server starts first, so you don’t need to start it externally. At the very top of the application-level trace dialog, there are auto-configured fields that you can change for the trace start command.
 
-![](img/espressif-3.webp)
+{{< figure
+    default=true
+    src="img/espressif-3.webp"
+    >}}
 
 Trace Processing Script and Start Parsing Command are used to parse the output file. The first one is used to provide the path to the parsing script, by default it is logtrace_proc.py from esp-idf. In the second field, you can check the resulting parsing command and edit it if it’s necessary. By default, this field is automatically configured to match $IDF_PATH/tools/esp_app_trace/logtrace_proc.py/path/to/trace/file/path/to/program/elf/file.
 
@@ -74,7 +83,10 @@ The Start parse button is disabled until a dump file is available. To generate i
 
 When the output file is generated, you can click on the Start parse button and you will see parse script output in the eclipse console.
 
-![](img/espressif-4.webp)
+{{< figure
+    default=true
+    src="img/espressif-4.webp"
+    >}}
 
 Additional information can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/api-guides/app_trace.html?).
 
@@ -82,7 +94,10 @@ Additional information can be found [here](https://docs.espressif.com/projects/e
 
 Keeping track of memory usage is an important aspect of IoT applications. Now after the build, you should be able to see the application RAM and flash usage information.
 
-![](img/espressif-5.webp)
+{{< figure
+    default=true
+    src="img/espressif-5.webp"
+    >}}
 
 ## ESP-IDF Components Registry
 
@@ -92,7 +107,10 @@ Right-click on the project from project explorer in which you want to add the co
 
 From the window, you can click on the Install button to add that component to the project. To get to the readme file for that component you can click on *More Info* which will open the browser link to the readme file of that component.
 
-![](img/espressif-6.webp)
+{{< figure
+    default=true
+    src="img/espressif-6.webp"
+    >}}
 
 ## GDBStub Debugging
 
@@ -100,7 +118,10 @@ IDE offers to diagnose and debug esp-idf applications using GDBStub debugging on
 
 To enable GDBStub debugging for a project you need to enable it first in the *sdkconfig*. Launch the sdkconfig in project root by double-clicking on it which will open the configuration editor. Expand the *Component Config* section and select *ESP System Settings*. From the settings on the right for *Panic Handler behavior* select the *GDBStub on Panic* option from the list
 
-![](img/espressif-7.webp)
+{{< figure
+    default=true
+    src="img/espressif-7.webp"
+    >}}
 
 Now you will be taken to the GDBStub debugger automatically when you connect the serial monitor and there is a panic for this example create a template *hello_world* project and add the following lines in the main c file.
 
@@ -110,19 +131,28 @@ Now add these two lines just above *esp_restart()* function *global_var = 25; as
 
 The final file should be something like this.
 
-![](img/espressif-8.webp)
+{{< figure
+    default=true
+    src="img/espressif-8.webp"
+    >}}
 
 Build and flash the project and launch the serial monitor. On line number *45* we are signaling for a failing assert which will put the chip in panic mode and when that line reaches you will be prompted to switch the perspective to debug mode and the chip will be halted, remember that this is a panic mode and you cannot continue the execution from here you will have to stop and restart the chip through IDF commands or simply restart the serial monitor.
 
 You can view the registers stack trace and even view the value of variables in the stack frame. To exit the debug session simply press the *stop* button.
 
-![](img/espressif-9.webp)
+{{< figure
+    default=true
+    src="img/espressif-9.webp"
+    >}}
 
 ## Espressif Menu
 
 All the plugin contributed menu items are moved into the Espressif Menu and this will improve the user experience and easy accessibility!
 
-![](img/espressif-10.webp)
+{{< figure
+    default=true
+    src="img/espressif-10.webp"
+    >}}
 
 ## Eclipse 2021–12 Support
 

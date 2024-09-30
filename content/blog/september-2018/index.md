@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/september-1.webp)
+{{< figure
+    default=true
+    src="img/september-1.webp"
+    >}}
 
 Hi everyone,
 
@@ -20,7 +23,10 @@ On a different note, the 2018 IoT Bootcamp by iBHubs in India, which was partial
 
 ## Espressif Sponsored the IoT Mini-Conf atPyCon AU 2018
 
-![](img/september-2.webp)
+{{< figure
+    default=true
+    src="img/september-2.webp"
+    >}}
 
 Espressif always tries and supports important events in the international maker community. One of them is [PyCon AU](https://2018.pycon-au.org/), Australia’s national conference for the Python Programming Community. This year it took place in Sydney on August 24th — 28th. Espressif was delighted to be part of this event by sponsoring the one-day mini-conference that was dedicated to the Internet of Things. This [event](https://2018.pycon-au.org/internet-of-things-track/)included presentations and demonstrations of how Python powers IoT devices, applications and services.
 
@@ -28,7 +34,10 @@ Espressif always tries and supports important events in the international maker 
 
 ## Zerynth Tutorials on ESP32-based Devices
 
-![](img/september-3.webp)
+{{< figure
+    default=true
+    src="img/september-3.webp"
+    >}}
 
 Zerynth is a middleware for IoT and Industry 4.0 solutions. It speeds up IoT development and enables Python for microcontrollers. In recent weeks, Zerynth has been publishing some really interesting articles focused on ESP32-based devices. For instance, their CW02 development board is based on Espressif’s [ESP32-WROOM-32](https://www.espressif.com/en/products/hardware/esp-wroom-32/overview) module.
 
@@ -36,7 +45,10 @@ Zerynth is a middleware for IoT and Industry 4.0 solutions. It speeds up IoT dev
 
 ## WiFiBoy32
 
-![](img/september-4.webp)
+{{< figure
+    default=true
+    src="img/september-4.webp"
+    >}}
 
 WiFiBoy32 is a portable game console and IoT DevKit based on Espressif’s [ESP32-WROOM-32](https://www.espressif.com/en/products/hardware/esp-wroom-32/overview)module. The platform also features a pair of 8-pin GPIOs, along with SPI, DAC, I2S, ADC, and VP/VN connections. It also sports six large gaming/multi-purpose buttons, select and start buttons, as well as Program/Reset buttons, a micro USB, and a 2.4-inch (240 x 320) color SPI TFT LCD display.
 
@@ -44,7 +56,10 @@ WiFiBoy32 is a portable game console and IoT DevKit based on Espressif’s [ESP3
 
 ## ESP32 WiPhone
 
-![](img/september-5.webp)
+{{< figure
+    default=true
+    src="img/september-5.webp"
+    >}}
 
 A new project presented on[hackaday.io](https://hackaday.io/project/159811-esp32-wiphone) has piqued our interest. It is an open-source phone which has been made for placing and transmitting telephone calls over the Internet. It is based on an [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview)microprocessor and runs a type of software that is compatible with Arduino. The ESP32-WiPhone measures approximately 120mm x 65mm x 12mm and has a 2.4” LCD screen.
 

@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/october-1.webp)
+{{< figure
+    default=true
+    src="img/october-1.webp"
+    >}}
 
 Hi everyone,
 
@@ -33,7 +36,10 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## ESP-BLE-MESH Is Now Fully Certified by Bluetooth-SIG
 
-![](img/october-2.webp)
+{{< figure
+    default=true
+    src="img/october-2.webp"
+    >}}
 
 Espressif is pleased to announce that [ESP-BLE-MESH has been fully certified by the Bluetooth Special Interest Group (SIG)](https://launchstudio.bluetooth.com/ListingDetails/94304) as of September 2019. This officially ensures that our embedded software solution meets the Bluetooth SIG standards for global product interoperability, and complies with the organization’s License Agreement.
 
@@ -41,7 +47,10 @@ Espressif is pleased to announce that [ESP-BLE-MESH has been fully certified by 
 
 ## ESP32 Launched Into Space
 
-![](img/october-3.webp)
+{{< figure
+    default=true
+    src="img/october-3.webp"
+    >}}
 
 Nico Maas, an IT Engineer and Ground Controller from the Microgravity User Support Center (MUSC) at the German Aerospace Center (DLR), worked with a team of other researchers on [developing](https://aip.scitation.org/doi/full/10.1063/1.5118855) a new commercial off-the-shelf on-board computer platform for sounding rockets. This experiment was based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and resulted in Espressif’s flagship chip being launched into space!
 
@@ -49,7 +58,10 @@ Nico Maas, an IT Engineer and Ground Controller from the Microgravity User Suppo
 
 ## ESP8266 Listed on Tencent Cloud
 
-![](img/october-4.webp)
+{{< figure
+    default=true
+    src="img/october-4.webp"
+    >}}
 
 Tencent is a Chinese multinational conglomerate specializing in various Internet-related services and products, entertainment, Artificial Intelligence and the Internet of Things, both in China and abroad. Espressif’s Cloud IoT AT firmware now supports the quick connection of the powerful [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) module to [IoT Explorer](https://cloud.tencent.com/product/iotexplorer), which is Tencent’s Cloud IoT platform.
 
@@ -57,7 +69,10 @@ Tencent is a Chinese multinational conglomerate specializing in various Internet
 
 ## ESP32-based Smart Devices Win Innovation-of-the-Year Award in India
 
-![](img/october-5.webp)
+{{< figure
+    default=true
+    src="img/october-5.webp"
+    >}}
 
 Sirena Technologies Private Limited, a partner company of Espressif’s, won the “Alexa Voice Service — Innovation of the Year” award at last month’s Alexa Vox Conference in New Delhi, India. The Alexa Adaptor and Smart Speaker are two award-winning smart voice products, both of whom use Espressif’s [ESP32 chip](https://www.espressif.com/en/products/hardware/esp32/overview).
 

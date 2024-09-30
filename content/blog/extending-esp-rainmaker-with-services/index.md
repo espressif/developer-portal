@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - piyush-shah
 ---
-![](img/extending-1.webp)
+{{< figure
+    default=true
+    src="img/extending-1.webp"
+    >}}
 
 [*If you have been following the Espressif blogs and announcements, you must already be aware of ESP RainMaker and its various features. If not, please check out the info *[*here*](https://rainmaker.espressif.com/)* so that you get an idea about what ESP RainMaker is before you proceed further*.]
 
@@ -34,11 +37,17 @@ If the overall number of values in diagnostic data is small, it would be ok to d
 
 The above service will show up in the node configuration as this object under the services array:
 
-![](img/extending-2.webp)
+{{< figure
+    default=true
+    src="img/extending-2.webp"
+    >}}
 
 Similarly, the following will show up in the node parameters object
 
-![](img/extending-3.webp)
+{{< figure
+    default=true
+    src="img/extending-3.webp"
+    >}}
 
 ## Handling Service callbacks
 
@@ -70,7 +79,10 @@ $ ./rainmaker.py getparams <node_id>
 
 It will show up this object:
 
-![](img/extending-4.webp)
+{{< figure
+    default=true
+    src="img/extending-4.webp"
+    >}}
 
 As you can see here, we could add a new custom functionality in RainMaker without changing/configuring anything in the cloud backend. That’s how the “tunnelling” concept of RainMaker works, making it very extensible.
 

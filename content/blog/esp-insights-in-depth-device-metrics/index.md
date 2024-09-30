@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - adwait-patankar
 ---
-![](img/esp-1.webp)
+{{< figure
+    default=true
+    src="img/esp-1.webp"
+    >}}
 
 In the earlier version of the ESP Insights Dashboard users could check and analyse device reported metrics, for only up to the past 3 hours.
 
@@ -18,13 +21,19 @@ In the latest version of ESP Insights Dashboard, a user can play around the metr
 
 Users can now select a particular day with a date picker widget and using the slider select the time span for which metrics are to be investigated. Data correlation with the event logs and the associated device metrics at that given point of time can be achieved in a much better way now.
 
-![](img/esp-2.webp)
+{{< figure
+    default=true
+    src="img/esp-2.webp"
+    >}}
 
 ## Event Metric Correlation
 
 It is always better to check how a certain event occurrence impacts the metrics values reported by the device or vice-versa. For e.g. after an out of memory situation causing a crash or on reboot, the free heap size memory gets back to the expected baseline state
 
-![](img/esp-3.webp)
+{{< figure
+    default=true
+    src="img/esp-3.webp"
+    >}}
 
 Also on clicking on the vertical event bar, the details of the event (viz. timestamp and the reason and where the crash occurred) are now displayed.
 
@@ -34,6 +43,9 @@ The plotted time series graph now also has the zoom-in capabilities to zero-in o
 
 You may also use the time range selector at the top to fine-tune the timeframe.
 
-![](img/esp-4.webp)
+{{< figure
+    default=true
+    src="img/esp-4.webp"
+    >}}
 
 Try out the new detailed metrics insights by accessing and analysing the device metrics data on the [ESP Insights Dashboard](https://dashboard.insights.espressif.com).

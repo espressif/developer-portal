@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/april-1.webp)
+{{< figure
+    default=true
+    src="img/april-1.webp"
+    >}}
 
 Hi everyone, The month of April is an exciting one for Espressif, since it is our birthday month. This year, in particular, we are celebrating the tenth birthday of our company on 29 April, and we plan our celebrations to extend even in May! Many things have coincided with this occasion, making our tenth anniversary even more special.
 
@@ -24,25 +27,37 @@ Best wishes,John LeeSenior Customer Support Officer
 
 ## Mexico’s “Talent Land 2018” with an ESP8266 Badge
 
-![](img/april-2.webp)
+{{< figure
+    default=true
+    src="img/april-2.webp"
+    >}}
 
 On 2 April Talent Land 2018 started. This is the largest innovation and entrepreneurship event that takes place in Mexico every year. It is a five-day event addressed to the maker community in Latin America, attracting talented young developers, investors, institutions and recruiters who meet up, share knowledge and strengthen the community’s development. What’s more, this year there is a limited-edition badge designed specifically for Talent Land 2018, which is based on our very own [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview).
 
 ## Voice-Controlled Relay with ESP32 and ESP8266
 
-![](img/april-3.webp)
+{{< figure
+    default=true
+    src="img/april-3.webp"
+    >}}
 
 Rui Santos has just published on his very interesting RNT blog a [tutorial](https://www.randomnerdtutorials.com/alexa-echo-with-esp32-and-esp8266/)through which readers can learn how to control [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) or [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) with voice commands, using Amazon’s Alexa. The RNT blog helps makers, hobbyists and engineers build projects about electronics. In this particular tutorial, Rui uses the example of controlling two 12V lamps, with a relay. He also shows how to physically control these lamps, using a wireless 433 MHz switch on a wall.
 
 ## ESP8266-based GO-4 Smart-Home Arduino Bot
 
-![](img/april-4.webp)
+{{< figure
+    default=true
+    src="img/april-4.webp"
+    >}}
 
 Ahmed Azouz, an Egyptian software engineer, has developed an application that uses the ESP8266 IoT technology to control home appliances remotely over the internet. Ahmed said on hackster.io, where his project is published in full: “There is a small technological marvel called [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview) and it is a great tool for enabling your project’s access to the internet. You can plug it into an Arduino easily and control it over the internet from anywhere in the world via its unique IP address!”
 
 ## ESP8266-Controlled Smart-Parking
 
-![](img/april-5.webp)
+{{< figure
+    default=true
+    src="img/april-5.webp"
+    >}}
 
 “[Astro](https://www.hackster.io/90426/smart-park-with-astro-6fe898?utm_campaign=new_projects&utm_content=1&utm_medium=email&utm_source=hackster&utm_term=project_name)” is a smart-parking system created by [Priyanka Joshi](https://www.hackster.io/priyanka-joshi), a graduate student at the University of Texas at Dallas majoring in Computer Science with specialization in Intelligent Systems, and Shubham Pradeep Kothari. Astro was created to save drivers’ time and fuel wastage, while looking for parking space, which can be quite an arduous task in densely populated urban areas. Of course, the whole project has been based on our powerful [ESP8266](https://www.espressif.com/en/products/hardware/esp8266ex/overview).
 

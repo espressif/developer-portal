@@ -14,7 +14,10 @@ The unified provisioning infrastructure within the ESP-IDF/ESP-Jumpstart allows 
 
 The communication mechanism for the unified provisioning is depicted in the following block diagram:
 
-![](img/esp-1.webp)
+{{< figure
+    default=true
+    src="img/esp-1.webp"
+    >}}
 
 This is the protocol stack that is used during the initial provisioning of the device. From the bottom to the top:
 
@@ -67,7 +70,10 @@ esp_err_t custom_prov_config_data_handler(uint32_t session_id, const
 
 ## Phone Application
 
-![](img/esp-2.webp)
+{{< figure
+    default=true
+    src="img/esp-2.webp"
+    >}}
 
 This API can now be called from any client like a phone application. The client will make calls to this API, just like it makes to the other APIs of the network configuration infrastructure.
 

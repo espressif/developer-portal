@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
 ---
-![](img/esp-1.webp)
+{{< figure
+    default=true
+    src="img/esp-1.webp"
+    >}}
 
 Recently, we launched ESP RainMaker, that provides a way for developers to build devices with readymade cloud, phone apps and voice assistant support. In this context, designing and implementing an IoT cloud service was a significant part of the efforts and we wanted to ensure that it met some of the key criteria that we had laid out.
 
@@ -24,7 +27,10 @@ __Runtime Reconfiguration Pattern__ — A static device configuration in the clo
 
 Defining these criteria helped us to evaluate available architectures or paradigms and select the one that is a closest-fit for our criteria.
 
-![](img/esp-2.webp)
+{{< figure
+    default=true
+    src="img/esp-2.webp"
+    >}}
 
 The first three architectures required not only building the application, but also to maintain the infrastructure at various level. While elastic containers provide some level of scalability, it too required building and maintaining a distributed system with its own nuances. That’s where the Serverless deployment stood out and it was certainly worth a consideration.
 

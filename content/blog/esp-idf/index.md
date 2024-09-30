@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/espidf-1.webp)
+{{< figure
+    default=true
+    src="img/espidf-1.webp"
+    >}}
 
 Use Espressif’s IoT Development Framework to build a complete product. Right from network configuration, to local or remote access, OTA firmware upgrades, certification and manufacturing, we have got you covered. You may refer to [ESP-Jumpstart](/blog/jumpstart-iot-product-development-on-esp32) for more details.
 

@@ -14,11 +14,20 @@ In many projects, the Wi-Fi network’s credentials (SSID/Password) are embedded
 
 RainMaker applications utilise the [Wi-Fi Provisioning](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/provisioning/provisioning.html) firmware component, that lets users configure the Wi-Fi SSID/passphrase into the device securely over the SoftAP/BLE interface. This configuration can easily be done by users with iOS/Android phone apps. The phone applications for both, iOS and Android, with full source-code, are available for easy customisation and integration.
 
-![](img/rainmaker-1.webp)
+{{< figure
+    default=true
+    src="img/rainmaker-1.webp"
+    >}}
 
-![](img/rainmaker-2.webp)
+{{< figure
+    default=true
+    src="img/rainmaker-2.webp"
+    >}}
 
-![](img/rainmaker-3.webp)
+{{< figure
+    default=true
+    src="img/rainmaker-3.webp"
+    >}}
 
 ## QR Code — Security with Proof of Possession
 

@@ -16,7 +16,10 @@ We started off with a PoC on ESP32 and realized that there were limitations in i
 
 Traditionally, any ESP-IDF application on an Espressif SoCs is built as a single monolithic firmware without any separation between the “core” components (Operating System, Networking, etc.) and the “application” or “business” logic. In the ESP Privilege Separation framework, we split the firmware image into two separate and independent binaries: protected and user application.
 
-![](img/introducing-1.webp)
+{{< figure
+    default=true
+    src="img/introducing-1.webp"
+    >}}
 
 ## Highlights of ESP Privilege Separation
 
@@ -32,7 +35,10 @@ Traditionally, any ESP-IDF application on an Espressif SoCs is built as a single
 
 ## 1. Application bootup
 
-![](img/introducing-2.webp)
+{{< figure
+    default=true
+    src="img/introducing-2.webp"
+    >}}
 
 In ESP Privilege Separation, the bootup flow is like ESP-IDF application bootup flow, the Boot ROM (1st stage bootloader) verifies and loads the 2nd stage ESP-IDF bootloader from the flash. The 2nd stage bootloader then verifies and loads the protected application. Protected application checks for valid user application header in flash and if found, it sets appropriate permissions and tries to verify and load the user application.
 
@@ -40,7 +46,10 @@ In ESP Privilege Separation, the bootup flow is like ESP-IDF application bootup 
 
 The most important piece of this framework is achieving the separation of privileges and enforcing permissions. This is achieved using World controller and Permission Controller peripherals in ESP32-C3. Permission controller manages the permissions and World controller manages execution environment, where each World has its own permission configuration. Currently, we have 2 Worlds; World0 and World1.World0 is the secure (protected) environment and World1 is the non-secure (user) environment.
 
-![](img/introducing-3.webp)
+{{< figure
+    default=true
+    src="img/introducing-3.webp"
+    >}}
 
 The above diagram shows that:
 
@@ -62,7 +71,10 @@ Internal SRAM:
 
 The following figure represents how the SRAM is split between protected and user application. SRAM is divided into IRAM and DRAM and this split is entirely configurable and dependent upon the usage of the application.
 
-![](img/introducing-4.webp)
+{{< figure
+    default=true
+    src="img/introducing-4.webp"
+    >}}
 
 The DRAM region contains the .data and .bss section of the respective application and the remaining DRAM region is used as heap. In this framework, there is a dedicated heap allocator for each, protected and user application.
 
@@ -72,13 +84,19 @@ External flash:
 
 The following figure represents how the Flash virtual memory is split between protected and user application. Like internal memory split, flash MMU range is divided into .rodata and .text sections and is entirely configurable.
 
-![](img/introducing-5.webp)
+{{< figure
+    default=true
+    src="img/introducing-5.webp"
+    >}}
 
 ## 5. System call interface
 
 Protected application provides a standard “system call” interface through which user application can request access to core services. This uses a special CPU instruction that generates a synchronous exception that hands over the control to a protected application. The system call handler carefully checks the request and performs action accordingly. The following diagram gives an overview of how the system call interface is implemented:
 
-![](img/introducing-6.webp)
+{{< figure
+    default=true
+    src="img/introducing-6.webp"
+    >}}
 
 ## 6. API consistency
 

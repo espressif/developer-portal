@@ -12,11 +12,17 @@ As a part of our efforts to make the development of Matter protocol-enabled devi
 
 In continuation of these efforts, Espressif, in collaboration with Amazon Web Services (AWS), is glad to announce the ESP ZeroCode ExL connectivity module powered by [AWS IoT ExpressLink](https://aws.amazon.com/iot-expresslink/). This module is based on Espressif’s ESP32-C6 system-on-chip (SoC) providing Wi-Fi 6, Bluetooth 5 (LE), and 802.15.4 connectivity. It contains built-in Matter and cloud connectivity software providing a simple [AT commands-based serial interface](https://docs.aws.amazon.com/iot-expresslink/latest/programmersguide/elpg.html) to the host. With such a simplified integration, you can build Matter-compliant, secure IoT devices that connect to AWS IoT Core and other AWS services.
 
-![](img/announcing-1.webp)
+{{< figure
+    default=true
+    src="img/announcing-1.webp"
+    >}}
 
 ## Why ESP ZeroCode ExL?
 
-![](img/announcing-2.webp)
+{{< figure
+    default=true
+    src="img/announcing-2.webp"
+    >}}
 
 - When device makers want to build cloud-connected devices, they have to write and maintain a significant amount of software. It also needs a deep understanding of connectivity, security, OTA upgrades, and device management.
 - The addition of the Matter protocol adds to this making the development, maintenance, and certification even more complex. The ESP ZeroCode ExL module moves this important yet undifferentiated workload onto a separate module, allowing device makers to easily build the hardware interfacing and business logic onto the host MCU.
@@ -44,6 +50,9 @@ ESP ZeroCode ExL modules are security hardened with hardware root of trust based
 
 Espressif provides an easy evaluation through the [ESP ZeroCode Console](https://zerocode.espressif.com/) for the ESP ZeroCode ExL module. You can use any ESP32-C6 development board to quickly try out the functionality completely in the web browser. ESP ZeroCode Console supports a refrigerator, laundry washer, air conditioner, thermostat, and dimmer device types with ESP ZeroCode ExL module. We will be soon expanding on these device types.
 
-![](img/announcing-3.webp)
+{{< figure
+    default=true
+    src="img/announcing-3.webp"
+    >}}
 
 If you need more information about ESP ZeroCode ExL modules, please reach out to us at [zerocode@espressif.com](mailto:zerocode@espressif.com) and we will get back to you as quickly as we can.

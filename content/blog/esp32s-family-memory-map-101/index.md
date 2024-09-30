@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - marek-matej
 ---
-![](img/esps-1.webp)
+{{< figure
+    default=true
+    src="img/esps-1.webp"
+    >}}
 
 The performance and memory capabilities of the microcontrollers are increasing, and so is their complexity, especially when the users are responsible for mapping external memory chips such as Flash or SPIRAM by configuring a memory management unit.
 
@@ -50,7 +53,10 @@ The RTC memories can hold the data during the deep sleep period.
 
 The instruction and data cache address space is a virtual address space where the external memories such as Flash or SPIRAM modules can be accessed by the instruction or the data bus.
 
-![](img/esps-2.webp)
+{{< figure
+    default=true
+    src="img/esps-2.webp"
+    >}}
 
 ## Peripherals
 
@@ -60,7 +66,10 @@ The ESP32 has 41 peripherals. Nearly all peripheral modules can be accessed by e
 
 The eFuse memory is the OTP memory where hardware and encryption settings are stored. Fundamentally, an eFuse is a single bit of non-volatile memory with the restriction that once an eFuse bit is programmed to 1, it can never be reverted to 0.
 
-![](img/esps-3.webp)
+{{< figure
+    default=true
+    src="img/esps-3.webp"
+    >}}
 
 For further information and all the details about the ESP32 SoC please refer to the latest [__*ESP32 Technical Reference Manual*__ ](https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf).
 
@@ -90,7 +99,10 @@ RTC-Fast is r/w memory that can be accessed by the CPU via the instruction and d
 
 The CPU accesses the external memories using the cache. Up to 7.5MB of address space can be accessed via the I-cache. Up to 4MB of address space can be used to access the I-Cache as read-only via the data bus. Up to 10.5MB of address space can be used to access the external Flash or SPIRAM.
 
-![](img/esps-4.webp)
+{{< figure
+    default=true
+    src="img/esps-4.webp"
+    >}}
 
 ## Peripherals
 
@@ -102,7 +114,10 @@ The PeriBus1 features speculative reads to improve performance. This also means 
 
 The eFuse memory consists of 4096 bits of OTP memory where hardware and encryption settings are stored. Fundamentally, an eFuse is a single bit of non-volatile memory with the restriction that once an eFuse bit is programmed to 1, it can never be reverted to 0.
 
-![](img/esps-5.webp)
+{{< figure
+    default=true
+    src="img/esps-5.webp"
+    >}}
 
 For further information and all the details about the ESP32-S2 SoC please refer to the latest [__*ESP32-S2 Technical Reference Manual*__ ](https://espressif.com/sites/default/files/documentation/esp32-s2_technical_reference_manual_en.pdf).
 
@@ -128,7 +143,10 @@ RTC-Slow is r/w memory that can be accessed via the instruction and data bus. RT
 
 The CPUs can access external memories via the cached MMU address space. Memories can be accessed using I-Cache or D-Dache via instruction or data bus respectively.
 
-![](img/esps-6.webp)
+{{< figure
+    default=true
+    src="img/esps-6.webp"
+    >}}
 
 ## Peripherals
 
@@ -138,7 +156,10 @@ The peripherals (modules) can be accessed at their address range using the data 
 
 The eFuse memory consists of 4096 bits of OTP memory where hardware and encryption settings are stored. Fundamentally, an eFuse is a single bit of non-volatile memory with the restriction that once an eFuse bit is programmed to 1, it can never be reverted to 0.
 
-![](img/esps-7.webp)
+{{< figure
+    default=true
+    src="img/esps-7.webp"
+    >}}
 
 For further information and all the details about the ESP32-S3 SoC please refer to the latest [__*ESP32-S3 Technical Reference Manual*__ ](https://www.espressif.com/sites/default/files/documentation/esp32-s3_technical_reference_manual_en.pdf).
 
@@ -164,7 +185,10 @@ RTC-Fast memory is r/w memory that can be accessed via CPU instruction and data 
 
 The ESP32-C3 supports SPI, dual-SPI, quad-SPI, and QPI interfaces to access the external Flash memory. It supports manual encryption and automatic decryption. The external flash can be accessed by the I-Cache or D-Cache on instruction or data bus respectively.
 
-![](img/esps-8.webp)
+{{< figure
+    default=true
+    src="img/esps-8.webp"
+    >}}
 
 ## Peripherals
 
@@ -174,7 +198,10 @@ The CPU can access the peripherals (modules) using the data or instruction bus o
 
 The eFuse memory consists of 4096 bits of OTP memory where hardware and encryption settings are stored. Fundamentally, an eFuse is a single bit of non-volatile memory with the restriction that once an eFuse bit is programmed to 1, it can never be reverted to 0.
 
-![](img/esps-9.webp)
+{{< figure
+    default=true
+    src="img/esps-9.webp"
+    >}}
 
 For further information and all the details about the ESP32-C3 SoC please refer to the latest [__*ESP32-C3 Technical Reference Manual*__ ](https://www.espressif.com/sites/default/files/documentation/esp32-c3_technical_reference_manual_en.pdf).
 
@@ -200,7 +227,10 @@ LP-SRAM is static r/w memory that can be accessed by the HP CPU or LP CPU via th
 
 ESP32-C6 supports SPI, dual-SPI, quad-SPI, or QPI interface to connect external Flash memory. It also supports manual encryption and automatic decryption to protect user data and code.
 
-![](img/esps-10.webp)
+{{< figure
+    default=true
+    src="img/esps-10.webp"
+    >}}
 
 ## Peripherals
 
@@ -210,7 +240,10 @@ The CPU can access the peripherals (modules) using the data or instruction bus o
 
 The eFuse memory consists of 4096 bits of OTP memory where hardware and encryption settings are stored. Fundamentally, an eFuse is a single bit of non-volatile memory with the restriction that once an eFuse bit is programmed to 1, it can never be reverted to 0.
 
-![](img/esps-11.webp)
+{{< figure
+    default=true
+    src="img/esps-11.webp"
+    >}}
 
 For further information and all the details about the ESP32-C6 SoC please refer to the latest [__*ESP32-C6 Technical Reference Manual*__ ](https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf).
 

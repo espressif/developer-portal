@@ -16,25 +16,37 @@ Espressif’s AWS IoT ExpressLink module, ESP32-C3-MINI-1-N4-A, has the [ESP32-C
 
 Other topics you can read about in this month’s newsletter include:
 
-![](img/november-1.webp)
+{{< figure
+    default=true
+    src="img/november-1.webp"
+    >}}
 
 [__Announcing the Availability of Pre-provisioned ESP32-C3, ESP32-S2 and ESP32-S3 Modules__ ](https://www.espressif.com/en/news/C3_S2_S3_Module_Pre-Provisioning_Service)
 
 Espressif’s pre-provisioning service greatly simplifies manufacturing complexity and security management.
 
-![](img/november-2.webp)
+{{< figure
+    default=true
+    src="img/november-2.webp"
+    >}}
 
 [__Limited Sale: Launching ESP32-S3-BOX, a Versatile AI Voice Development Kit for the Smart Speaker Market__ ](https://www.espressif.com/en/news/ESP32-S3-BOX)
 
 ESP32-S3-BOX is based on the [ESP32-S3 SoC](https://www.espressif.com/en/products/socs/esp32-s3) but has an additional 16MB QSPI flash and an 8MB Octal PSRAM.
 
-![](img/november-3.webp)
+{{< figure
+    default=true
+    src="img/november-3.webp"
+    >}}
 
 [__Introducing the ESP32-C3-based Smart Switch__ ](https://www.espressif.com/en/news/ESP-Smart-Switch)
 
 This solution upgrades traditional switches to smart switches, without rewiring, or configuring a gateway. It also combines low power-consumption with reliable and secure Wi-Fi connectivity.
 
-![](img/november-4.webp)
+{{< figure
+    default=true
+    src="img/november-4.webp"
+    >}}
 
 [__ESP32-Powered Electrical Impedance Tomography Toolkit by MIT__ ](https://www.espressif.com/en/news/EIT-kit)
 

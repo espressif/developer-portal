@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
 ---
-![](img/esp-1.webp)
+{{< figure
+    default=true
+    src="img/esp-1.webp"
+    >}}
 
 TLS is the security component in the familiar *https *protocol,* *that we rely on for security on the Internet. A TLS connection between a device and the server ensures that the data exchange between them is secured from the multiple threats possible over an untrusted medium. The TLS connection typically includes mutual authentication of the communicating parties, secure key exchange, symmetric encryption and message integrity checks.
 
@@ -18,7 +21,10 @@ The TLS layer uses a CA certificate to validate that the server is really who it
 
 During a TLS session establishment, the server presents a certificate to the device. One of the pieces of information encoded in this certificate is the server’s domain name (aws.amazon.com). This server’s certificate is signed by a CA (Certifying Authority). A CA certificate (different from the server’s certificate) present on the device helps validate this signature. If the signature is valid, then the server’s certificate is valid, and hence the domain name encoded in the certificate is valid. The TLS layer then ensures that this domain name in the certificate matches the domain name that we have connected to.
 
-![](img/esp-2.webp)
+{{< figure
+    default=true
+    src="img/esp-2.webp"
+    >}}
 
 A TLS connection typically expects a CA certificate to be passed to it as a session establishment parameter. For example in the ESP-IDF, this is the *cacert_pem_buf* parameter in the *esp_tls_cfg_t *structure.
 

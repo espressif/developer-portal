@@ -31,7 +31,10 @@ Best wishes,John Lee.Senior Customer Support Officer
 
 ## Alexa Connect Kit Module with Espressif Released
 
-![](img/july-1.webp)
+{{< figure
+    default=true
+    src="img/july-1.webp"
+    >}}
 
 ESP32-PICO-V3-ZERO, which is also known as the “Alexa Connect Kit (ACK) module with Espressif”, provides an easy way for developers to build Alexa-compatible devices, without worrying about managing cloud services, writing an Alexa Skill, phone applications or complex device firmware. It provides Alexa connectivity and supports features like Frustration-Free Setup and Amazon Dash Replenishment.
 
@@ -39,7 +42,10 @@ ESP32-PICO-V3-ZERO, which is also known as the “Alexa Connect Kit (ACK) module
 
 ## SmartBug: ESP32-based All-in-One Wireless Sensor Module
 
-![](img/july-2.webp)
+{{< figure
+    default=true
+    src="img/july-2.webp"
+    >}}
 
 [TDK SmartBug™](https://invensense.tdk.com/smartbug/) (MD-42688-P) is a module that leverages the power of Espressif’s flagship SoC, [ESP32](https://www.espressif.com/en/products/socs/esp32), while also combining six sensors, a powerful wireless (BLE) MCU, seven algorithm-driven features and a rechargeable battery, all in a small enclosure. Furthermore, SmartBug comes with the option of an Add-On board that includes a Wi-Fi module, an SD card slot and an ultrasonic sensor from TDK.
 
@@ -47,7 +53,10 @@ ESP32-PICO-V3-ZERO, which is also known as the “Alexa Connect Kit (ACK) module
 
 ## New Color Display for ESP32 by Wireless-Tag Technology Co. Ltd
 
-![](img/july-3.webp)
+{{< figure
+    default=true
+    src="img/july-3.webp"
+    >}}
 
 [WT-32-SC01](https://mp.weixin.qq.com/s/Oq2TgxFJRqzn_oM21GVGaA) is an ESP32-based development board with a touch screen, which has recently been launched by Wireless-Tag Technology Co. Ltd. Leveraging the power of [ESP32](https://www.espressif.com/en/products/socs/esp32), the WT-32-SC01 development board is capable of processing full-colour high-resolution images and JPEG decoding.
 
@@ -55,7 +64,10 @@ ESP32-PICO-V3-ZERO, which is also known as the “Alexa Connect Kit (ACK) module
 
 ## Fantastic Offer by ESP32-based Platform Obniz
 
-![](img/july-4.webp)
+{{< figure
+    default=true
+    src="img/july-4.webp"
+    >}}
 
 Nearly a year ago, Japanese IoT company Cambrian Robotics Inc. released the obniz development board, operating system and cloud services, all of which are based on Espressif’s [ESP32-WROOM-32](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf). ObnizOS is the specific software that runs on the obniz development board, enabling its operation via APIs over the obniz cloud. ObnizOS is now available to one device per account for free!
 

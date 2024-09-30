@@ -16,7 +16,10 @@ The command — response framework introduced in ESP RainMaker now provides a ne
 
 A high level workflow is shown here:
 
-![](img/command-1.webp)
+{{< figure
+    default=true
+    src="img/command-1.webp"
+    >}}
 
 To explain in short,
 

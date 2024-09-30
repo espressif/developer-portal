@@ -8,7 +8,10 @@ authors:
 ---
 Integrating OpenAI capabilities into projects has become increasingly trends in today’s fast-paced technological landscape. [OpenAI](https://platform.openai.com/docs/api-reference) offers a wide range of powerful APIs for natural language processing. However, the process of integrating these APIs can be complex and time-consuming, often requiring substantial effort and expertise. To simplify this integration process, we introduce the [OpenAI Component](https://github.com/espressif/esp-iot-solution/tree/master/components), a powerful library that streamlines the incorporation of OpenAI APIs into projects.
 
-![](img/openai-1.webp)
+{{< figure
+    default=true
+    src="img/openai-1.webp"
+    >}}
 
 __*In this article, we will demonstrating how it enables developers to easily add OpenAI capabilities to their projects without having to handle all the implementation tasks.*__ 
 
@@ -18,7 +21,10 @@ __*In this article, we will demonstrating how it enables developers to easily ad
 
 The [__ESP Component Registry__ ](https://components.espressif.com/)____ acts as a central hub for an extensive array of open-source components that can turbocharge your IoT projects. By simply performing a quick search and a few clicks, you can effortlessly obtain the desired components and seamlessly incorporate them into your IDF projects. This efficient workflow expedites your development cycle, enabling you to concentrate on creating groundbreaking IoT solutions without the burden of complex setup procedures.
 
-![](img/openai-2.webp)
+{{< figure
+    default=true
+    src="img/openai-2.webp"
+    >}}
 
 ## Steps to Follow
 
@@ -72,6 +78,9 @@ The [updated version](https://github.com/espressif/esp-box) of the ESP-BOX ChatG
 
 During the initial boot, the first binary is executed, allowing the user to enter secure credentials such as Wi-Fi and OpenAI keys. Once the credentials are entered, the system restarts, and the ChatGPT binary takes control. This binary is responsible for running the ChatGPT functionality, utilizing the secure credentials provided during the initial boot. The workflow for this process is illustrated in the figure below, providing an overview of the overall process.
 
-![](img/openai-3.webp)
+{{< figure
+    default=true
+    src="img/openai-3.webp"
+    >}}
 
 Additionally, users have the option to try out the newer version of the ESP-BOX ChatGPT example using the [ESP-Launchpad](https://espressif.github.io/esp-launchpad/?flashConfigURL=https%3A%2F%2Fraw.githubusercontent.com%2Fespressif%2Fesp-box%2Fmaster%2Flaunch.toml) without the need to compile the project locally on the machines. This option offers a convenient means for individuals to experience the improvements and advancements made in the implementation.

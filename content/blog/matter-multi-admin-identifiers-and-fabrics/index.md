@@ -12,7 +12,10 @@ authors:
 
 In the previous articles we talked about Matter devices communicating with each other by themselves, or Matter devices participating in multiple ecosystems *simultaneously.*
 
-![](img/matter-1.webp)
+{{< figure
+    default=true
+    src="img/matter-1.webp"
+    >}}
 
 As you can see in the image here, this lightbulb is part of 2 distinct ecosystems, green and red. Each of these ecosystems don’t know about the other, and they are powered by 2 separate organisations (Org1 and Org2).
 
@@ -26,7 +29,10 @@ Matter uses PKI to facilitate identity.
 
 Every node in a Matter network has a __Node Operational Certificate (NOC)__ . This X.509 certificate encodes a unique identifier (Node Operational Identifier) that is used to identify this node on the network.
 
-![](img/matter-2.webp)
+{{< figure
+    default=true
+    src="img/matter-2.webp"
+    >}}
 
 When a Matter node is part of multiple ecosystems, it has multiple of these Node Operational Certificates (one for each ecosystem it supports). As you may notice in the diagram below, the lightbulb, has two NOCs and hence has 2 Node Identifiers, *xyz* for the green ecosystem and *PQR* for the red ecosystem.
 
@@ -42,7 +48,10 @@ Now who does the configuration of the Fabric, the NOC and the Root CA Certificat
 
 Every Matter node begins its participation in a Matter network after it is __commissioned__  (the initial configuration of the device) by a __commissioner__  (say a phone app that configures the device).
 
-![](img/matter-3.webp)
+{{< figure
+    default=true
+    src="img/matter-3.webp"
+    >}}
 
 During the process of commissioning, the commissioner will provide the node with the Node Operational Certificate (NOC) and the Trusted Root CA Certificate. This is when we say that the bulb has joined the Matter Fabric green (technically Matter Fabrics have a 64-bit identifier, we are just using *green* for convenience here).
 

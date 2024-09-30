@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - sara-monteiro
 ---
-![](img/getting-1.webp)
+{{< figure
+    default=true
+    src="img/getting-1.webp"
+    >}}
 
 ## Introduction
 
@@ -187,7 +190,10 @@ sudo picocom /dev/ttyUSB0 -b 115200
 
 NOTE: adjust the USB port according to your configuration.
 
-![](img/getting-2.webp)
+{{< figure
+    default=true
+    src="img/getting-2.webp"
+    >}}
 
 ## Next Steps
 
@@ -243,7 +249,10 @@ It builds and downloads the application and bootloader and partition table binar
 
 If after running the command *make menuconfig* you get the message like in the image below, it means that your terminal is too small. Just expand the screen and run it again.
 
-![](img/getting-3.webp)
+{{< figure
+    default=true
+    src="img/getting-3.webp"
+    >}}
 
 ## References
 

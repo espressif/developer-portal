@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/apple-1.webp)
+{{< figure
+    default=true
+    src="img/apple-1.webp"
+    >}}
 
 Espressif’s HomeKit SDK is a fully certified SDK that conforms to the latest HomeKit specification. The SDK is engineered to expose an easy to use API, while also being flexible enough to create a variety of accessories and bridges. Espressif supports the entire workflow from development to certification and manufacturing. This way you can focus on your product, and let the SDK manage HomeKit conformance.
 

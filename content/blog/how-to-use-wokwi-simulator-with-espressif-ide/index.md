@@ -18,11 +18,17 @@ Espressif-IDE provides a development environment for building IoT applications u
 
 Espressif-IDE provides a Wokwi integration plugin that allows the IDE to communicate with the [Wokwi Server](https://github.com/MabezDev/wokwi-server/) over a websocket, enabling the flashing of the .bin file of the project built in the IDE. Based on the chip target and project ID provided by the IDE, the Wokwi server launches the simulator in the system browser for the specified target. As a result, users can view the serial monitor output in the IDE console while communicating with the simulator.
 
-![](img/how-1.webp)
+{{< figure
+    default=true
+    src="img/how-1.webp"
+    >}}
 
 __To use the Wokwi simulator from the Espressif-IDE, you need to follow these simple steps:__ 
 
-![](img/how-2.webp)
+{{< figure
+    default=true
+    src="img/how-2.webp"
+    >}}
 
 __Conclusion__ 
 

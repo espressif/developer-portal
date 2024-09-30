@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 ---
-![](img/alexa-1.webp)
+{{< figure
+    default=true
+    src="img/alexa-1.webp"
+    >}}
 
 Espressif’s Alexa SDK makes building Alexa-powered devices a breeze. These devices have microphones and speaker embedded within the device to provide the full Alexa experience. Alexa features like Conversation, Music Services, Alerts and Reminders are all supported within the SDK. The SDK also provides references phone apps that let you configure the device for the first time.
 

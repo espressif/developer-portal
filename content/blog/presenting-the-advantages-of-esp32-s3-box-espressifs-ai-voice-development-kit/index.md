@@ -6,11 +6,17 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
 ---
-![](img/presenting-1.webp)
+{{< figure
+    default=true
+    src="img/presenting-1.webp"
+    >}}
 
 Espressif Systems has recently released an AI voice development kit dubbed ESP32-S3-BOX, based on ESP32-S3 Wi-Fi + Bluetooth 5 (LE) SoC. It provides a platform for developing the control of smart devices with offline and online voice assistants. ESP32-S3-BOX is ideal for developing AIoT applications with reconfigurable AI voice functions, such as smart speakers, and IoT devices that achieve human-computer voice interaction directly. Not only does ESP32-S3-BOX address connectivity use cases, but it also targets various machine-learning (AI on the edge) and HMI application scenarios. ESP32-S3-BOX comes in an attractive form-factor that differentiates it from regular PCB development boards, since users can quickly build with it applications that are fairly close to actual end products. Furthermore, ESP32-S3-BOX functions as a versatile and extensible development kit that facilitates a multitude of interesting use-cases, the most characteristic of which we will examine in this blogpost.
 
-![](img/presenting-2.webp)
+{{< figure
+    default=true
+    src="img/presenting-2.webp"
+    >}}
 
 First, let’s take a look at the ESP32-S3-BOX specifications. In general, ESP32-S3-BOX is a compact, extensible kit with many features of a finished product. It is equipped with a 2.4-inch display (with a 320 x 240 resolution) integrated with a capacitive touch panel, a Type-C USB interface that supports 5 V of power input and serial/JTAG debugging, and two [Pmod](https://digilent.com/reference/pmod/start)™-compatible headers for connecting peripheral modules that expand the functionality of the original board. The two Pmod™ headers offer 16 programmable GPIOs that are able to provide 3.3 V of power supply to peripherals.
 
@@ -18,7 +24,10 @@ At the core of ESP32-S3-BOX is [ESP32-S3](https://www.espressif.com/en/products/
 
 Now, let’s look at some of the most important use cases that are readily supported by ESP32-S3-BOX.
 
-![](img/presenting-3.webp)
+{{< figure
+    default=true
+    src="img/presenting-3.webp"
+    >}}
 
 ## Online and Offline Voice Assistant
 
@@ -30,7 +39,10 @@ Espressif’s [ESP-Skainet](https://github.com/espressif/esp-skainet) SDK provid
 
 ## HMI Touch Screen
 
-![](img/presenting-4.webp)
+{{< figure
+    default=true
+    src="img/presenting-4.webp"
+    >}}
 
 ESP32-S3-BOX has a 320x240 capacitive touch screen that can be used for HMI applications, such as control panels. ESP32-S3 SoC’s improved PSRAM interface and computing power support a touch screen with a high refresh rate. Espressif has integrated [LVGL](https://github.com/espressif/esp-iot-solution/blob/release/v1.1/documents/hmi_solution/littlevgl/littlevgl_guide_en.md) into its SDK, as a component, thus making it easy for developers to evaluate and port LVGL into their product designs. LVGL is a free and open-source graphics library, providing users with everything they need for creating an embedded GUI in ESP32-S3-BOX, with easy-to-use graphical elements and advanced visual effects, including animations and anti-aliasing.
 
@@ -38,21 +50,33 @@ ESP32-S3-BOX has a 320x240 capacitive touch screen that can be used for HMI appl
 
 ESP32-S3-BOX can support several Espressif chip series through its Pmod™ headers, so that developers can easily build a smart gateway and integrate into it various communication protocols. This ensures connectivity for a variety of devices in a seamless way.
 
-![](img/presenting-5.webp)
+{{< figure
+    default=true
+    src="img/presenting-5.webp"
+    >}}
 
 For instance, we can combine ESP32-S3-BOX with the ESP32-H2 module, which supports 802.15.4 (Thread 1.x/ZigBee 3.x) and Bluetooth 5 (LE), to build a Thread Border Router that connects a low-power Thread network to a Wi-Fi network. The router can also work as a Zigbee gateway, allowing users to control Zigbee devices through [Matter](https://buildwithmatter.com), a connectivity protocol for smart home.
 
-![](img/presenting-6.webp)
+{{< figure
+    default=true
+    src="img/presenting-6.webp"
+    >}}
 
 ESP32-S3-BOX can also work as a Wi-Fi/Bluetooth gateway. After it connects to the Internet via a router, it can share its connection with neighbouring devices via hotspots . By connecting to a mobile network module (e.g. LTE, 5G, NB-IoT) through the Pmod™ headers, ESP32-S3-BOX can also be used as a portable Wi-Fi hotspot that provides neighbouring devices with internet access.
 
-![](img/presenting-7.webp)
+{{< figure
+    default=true
+    src="img/presenting-7.webp"
+    >}}
 
 In addition, ESP32-S3-BOX also supports multiple third-party cloud platforms to ensure device interoperability in different ecosystems. With the help of Espressif’s one-stop AIoT could platform, [ESP RainMaker®](https://rainmaker.espressif.com), developers can use phone apps to communicate with ESP32-S3-BOX, configure GPIO pins at will, customize voice commands, and upgrade firmware via OTA. With ESP RainMaker and ESP-S3-BOX, you can convert any offline product into a connected product, just by using the Pmod™ interface. Bridge support in the ESP RainMaker integration also extends ESP-S3-BOX’s capability to control devices easily, with BLE or 802.15.4 radio, via the cloud.
 
 ## Extensible Pmod™ Interface
 
-![](img/presenting-8.webp)
+{{< figure
+    default=true
+    src="img/presenting-8.webp"
+    >}}
 
 ESP32-S3-BOX also provides two Pmod™-compatible headers (with 16 programmable GPIOs) that support interfacing with various peripherals for flexibly expanding the functions of the board. Here are a few examples of how to use ESP32-S3-BOX in this way:
 

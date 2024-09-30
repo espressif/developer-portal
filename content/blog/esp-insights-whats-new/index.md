@@ -6,7 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - adwait-patankar
 ---
-![](img/esp-1.webp)
+{{< figure
+    default=true
+    src="img/esp-1.webp"
+    >}}
 
 ESP Insights was released in its Beta in July 2021 and is being actively used by the ESP developer community. You can read more about it in the blog post [Introducing ESP Insights](/introducing-esp-insights-7d85a1383d21). With this new version of the ESP Insights service, we introduce following new features, plus a few UI enhancements and stability fixes.
 
@@ -52,25 +55,40 @@ The latest version of ESP Insights introduces group analytics, that provides ins
 - Compare the firmware insights across different versions of a project
 - A very high-level insights starting at a project level and can be drilled down to an event category
 
-![](img/esp-2.webp)
+{{< figure
+    default=true
+    src="img/esp-2.webp"
+    >}}
 
 A few examples of group based data that you can observe:
 
 - Counts grouped by events (for e.g., Errors) for a particular project and version, in a selected time interval. You can change the interval to hour or aggregate to week or a month interval
 
-![](img/esp-3.webp)
+{{< figure
+    default=true
+    src="img/esp-3.webp"
+    >}}
 
 - Distribution of event counts (for e.g., crash counts) for a group in a selected time interval.
 
-![](img/esp-4.webp)
+{{< figure
+    default=true
+    src="img/esp-4.webp"
+    >}}
 
 - Distribution of event (for e.g. Reboot reason) counts for a group in a selected time interval. You can drill down further on the reboot reason and get to the nodes which are reporting the particular event.
 
-![](img/esp-5.webp)
+{{< figure
+    default=true
+    src="img/esp-5.webp"
+    >}}
 
 - Count of unique nodes which are reporting certain events (reboots / errors / warnings) in a selected time interval
 
-![](img/esp-6.webp)
+{{< figure
+    default=true
+    src="img/esp-6.webp"
+    >}}
 
 - List of top nodes having the most number of events and can be drilled down to category level
 
