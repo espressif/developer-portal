@@ -19,6 +19,39 @@ So, here it is. The support for ESP RainMaker in Arduino is now live.
 
 A sample sketch for a [switch](https://github.com/espressif/arduino-esp32/tree/master/libraries/RainMaker/examples/RMakerSwitch) has been included. Let’s quickly look at the code that enables this.
 
+```c
+//GPIO for switch relay
+static int gpio_switch = 16;
+
+// The framework provides some standard device types like switch, lightbulb,
+// fan, temperature-sensor. You may add your own as well.
+static Switch my_switch("Switch", &gpio_switch);
+
+void setup()
+{
+    // Create a RainMaker Node
+    Node my_node = RMaker.initNode("ESP RainMaker Node");
+
+    //Add the switch device to the node
+    my_node.addDevice(my_switch);
+
+    // Add processing callback to the switch (This is what will get called when
+    // the state of the switch is updated using the phone-app or voice-assistants
+    my_switch.addCb(write_callback);
+
+    // Enable RainMaker features to be supported (we enable Schedules and OTA here)
+    RMaker.enableOTA(OTA_USING_PARAMS);
+    RMaker.enableTZService();
+    RMaker.enableSchedule();
+    RMaker.start();
+
+    // Hand-over the control for Wi-Fi Provisioning. If a Wi-Fi network is not yet configured,
+    // this will start the provisioning process, else it will connect to the Wi-Fi network
+    WiFiProv.beginProvision(WIFI_PROV_SCHEME_BLE, WIFI_PROV_SCHEME_HANDLER_FREE_BTDM,
+                                              WIFI_PROV_SECURITY_1, pop, service_name);
+}
+```
+
 With the above few lines of simple code, our fully functional smart switch is ready. The switch can be controlled with the [Android](https://play.google.com/store/apps/details?id=com.espressif.rainmaker) and [iOS](https://apps.apple.com/app/esp-rainmaker/id1497491540) applications, as well as Alexa and Google Voice Assistant skills.
 
 When we execute this code:
@@ -28,6 +61,19 @@ When we execute this code:
 - Once connected, it will connect to the RainMaker cloud, looking for commands to modify its parameter (switch state in this case).
 - The device will also look for commands on the local Wi-Fi network.
 - When somebody changes the switch state using phone apps or voice integrations, the *write_callback()* gets called. This is then implemented as:
+
+```c
+void write_callback(Device *device, Param *param, const param_val_t val, void *priv_data, write_ctx_t *ctx)
+{
+    const char *param_name = param->getParamName();
+
+    if(strcmp(param_name, "Power") == 0) {
+        switch_state = val.val.b;
+        (switch_state == false) ? digitalWrite(gpio_switch, LOW) : digitalWrite(gpio_switch, HIGH);
+        param->updateAndReport(val);
+    }
+}
+```
 
 The function takes the new switch output value and
 
