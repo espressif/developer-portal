@@ -19,6 +19,6 @@ The various articles for RainMaker are available here:
 - [RainMaker Projects: Firmware Considerations](/blog/rainmaker-projects-firmware-considerations)
 - [OTA Firmware Upgrades with ESP RainMaker](/blog/ota-firmware-upgrades-with-esp-rainmaker)
 - [ESP RainMaker and Serverless](/blog/esp-rainmaker-and-serverless)
-- [3rd Party Integrations in ESP RainMaker](/blog/3rd-party-integrations-in-esp-rainmaker-3ea4df6afa3)
+- [3rd Party Integrations in ESP RainMaker](/blog/3rd-party-integrations-in-esp-rainmaker)
 - [ESP RainMaker now in Arduino](/blog/esp-rainmaker-now-in-arduino)
 - [New Features in ESP RainMaker](/blog/new-features-in-esp-rainmaker)
