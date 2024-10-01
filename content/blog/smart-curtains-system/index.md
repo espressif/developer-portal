@@ -99,7 +99,7 @@ For easy adaptation to existing curtains, I designed 3D models of required holde
 
 ## Testing
 
-After assembling all parts into a prototype, came the moment of truth: How is it going to work altogether? After some debugging, the moving with all required modes works just fine. One of the problems is that I could not reach the required speed, probably caused by the stepper motor library I used.A future improvement could be motor overload detection. This function is called [StallGuard](https://www.trinamic.com/technology/motor-control-technology/stallguard-and-coolstep/) and is supported by the TMC2209 driver. It can be used to detect a foreign object in the way of curtains to prevent the stepper motor from overloading.
+After assembling all parts into a prototype, came the moment of truth: How is it going to work altogether? After some debugging, the moving with all required modes works just fine. One of the problems is that I could not reach the required speed, probably caused by the stepper motor library I used.A future improvement could be motor overload detection. This function is called [StallGuard](https://www.analog.com/en/lp/001/building-better-stepper-motor-system.html) and is supported by the TMC2209 driver. It can be used to detect a foreign object in the way of curtains to prevent the stepper motor from overloading.
 
 ## Conclusion
 
