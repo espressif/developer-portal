@@ -22,3 +22,5 @@ The various articles on ESP ZeroCode are available below:
 - [What’s new with ESP ZeroCode](/whats-new-with-esp-zerocode-1199e0c577fc)
 
 ## Podcast
+
+{{< youtube XMh81q81EMA >}}

@@ -17,6 +17,8 @@ __Espressif System provides a framework ESP-DL that can be used to deploy your h
 
 *In this article, you will understand how to read sensor data and using *[*ESP-DL*](https://github.com/espressif/esp-dl)* to *[*deploy*](https://github.com/espressif/esp-dl/tree/master/tutorial/quantization_tool_example)* a deep-learning model on *[*ESP32-S3*](https://www.espressif.com/en/products/socs/esp32-s3)*.*
 
+---
+
 ## Prerequisite for using ESP-DL
 
 Before getting a deep dive into ESP-DL, we assume that readers have knowledge about:
@@ -28,6 +30,8 @@ Before getting a deep dive into ESP-DL, we assume that readers have knowledge ab
 
 __Note:__  Please use ESP-IDF release/v4.4 on the commit “cc71308e2fdce1d6d27fc52d39943f5d0fb83f35” to reproduce the same results
 
+---
+
 ## 1. Model Deployment
 
 A convolution neural network is designed using [accelerometer data](https://www.cis.fordham.edu/wisdm/dataset.php) to recognize human activity.
@@ -38,7 +42,7 @@ A convolution neural network is designed using [accelerometer data](https://www.
 
 The Project directory should look like this:
 
-```
+```shell
 ├── CMakeLists.txt
 ├── components
 │   ├── bus
@@ -73,7 +77,7 @@ We will define our model in the ‘model_define.hpp’ file. Following the steps
 
 Import all the relevant libraries. Please [check here](https://github.com/espressif/esp-dl/tree/master/include/layer) for all the currently supported libraries by [ESP-DL](https://github.com/espressif/esp-dl).
 
-```
+```c
 #pragma once
 #include "dl_layer_model.hpp"
 #include "dl_layer_base.hpp"
@@ -97,8 +101,8 @@ The next step is to declare each layer.
 - Input is not considered a layer so it is not defined here.
 - Except for the output layer, all the layers are declared as private layers.
 
-```
-class ACTIVITY : public Model<int16_t> 
+```c
+class ACTIVITY : public Model<int16_t>
 {
 private:
     Conv2D<int16_t> l1;
@@ -115,11 +119,11 @@ public:
 
 After declaring the layers, Initialize each layer with its weight, biases, activation functions and shape.
 
-```
-ACTIVITY () : 
+```c
+ACTIVITY () :
             l1(Conv2D<int16_t>(-13, get_statefulpartitionedcall_sequential_1_conv2d_2_biasadd_filter(), get_statefulpartitionedcall_sequential_1_conv2d_2_biasadd_bias(), get_statefulpartitionedcall_sequential_1_conv2d_2_biasadd_activation(), PADDING_VALID, {}, 1,1, "l1")),
-            l2(Conv2D<int16_t>(-13, get_statefulpartitionedcall_sequential_1_conv2d_3_biasadd_filter(), get_statefulpartitionedcall_sequential_1_conv2d_3_biasadd_bias(), get_statefulpartitionedcall_sequential_1_conv2d_3_biasadd_activation(), PADDING_VALID, {}, 1,1, "l2")),                       
-            l3(Reshape<int16_t>({1,1,2496},"l2_reshape")), 
+            l2(Conv2D<int16_t>(-13, get_statefulpartitionedcall_sequential_1_conv2d_3_biasadd_filter(), get_statefulpartitionedcall_sequential_1_conv2d_3_biasadd_bias(), get_statefulpartitionedcall_sequential_1_conv2d_3_biasadd_activation(), PADDING_VALID, {}, 1,1, "l2")),
+            l3(Reshape<int16_t>({1,1,2496},"l2_reshape")),
             l4(Conv2D<int16_t>(-11, get_fused_gemm_0_filter(), get_fused_gemm_0_bias(), get_fused_gemm_0_activation(), PADDING_VALID, {}, 1, 1, "l3")),
             l5(Conv2D<int16_t>(-9, get_fused_gemm_1_filter(), get_fused_gemm_1_bias(), NULL, PADDING_VALID,{}, 1,1, "l4")),
             l6(Softmax<int16_t>(-14,"l5")){}
@@ -129,7 +133,7 @@ ACTIVITY () :
 
 The next step is to build each layer. For more information about building layers please check the [build function](https://github.com/espressif/esp-dl/tree/master/include/layer) of each layer.
 
-```
+```c
 void build(Tensor<int16_t> &input)
     {
         this->l1.build(input);
@@ -138,7 +142,6 @@ void build(Tensor<int16_t> &input)
         this->l4.build(this->l3.get_output());
         this->l5.build(this->l4.get_output());
         this->l6.build(this->l5.get_output());
-        
     }
 ```
 
@@ -146,7 +149,7 @@ void build(Tensor<int16_t> &input)
 
 In the end, connect these layers and call them one by one by using a call function. For more information about calling layers please check the c[all function](https://github.com/espressif/esp-dl/tree/master/include/layer) of each layer.
 
-```
+```c
 void call(Tensor<int16_t> &input)
     {
         this->l1.call(input);
@@ -177,7 +180,7 @@ Once our model is built, declare the input to our model and run the model on [ES
 
 ## 3.1 Import libraries
 
-```
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include "esp_system.h"
@@ -195,7 +198,7 @@ Once our model is built, declare the input to our model and run the model on [ES
 
 The input to our neural network is taken from the [MPU6050](https://www.electronicwings.com/sensors-modules/mpu6050-gyroscope-accelerometer-temperature-sensor-module) accelerometer sensor. To read sensor data in real time, we use the [mpu6050 driver](https://components.espressif.com/components/espressif/mpu6050) from espressif. Every 4 seconds, the data will be stored in an array and fed to the network for predictions.
 
-```
+```c
 int input_height = 80;
 int input_width = 3;
 int input_channel = 1;
@@ -219,7 +222,7 @@ extern "C" void app_main(void)
         .scl_pullup_en = GPIO_PULLUP_ENABLE,
         .clk_flags = 0,
     };
-    
+
     conf.master.clk_speed = I2C_MASTER_FREQ_HZ;
     i2c_bus = i2c_bus_create(I2C_MASTER_NUM, &conf);
     mpu6050 = mpu6050_create(i2c_bus, MPU6050_I2C_ADDRESS);
@@ -252,7 +255,7 @@ int16_t *model_input = (int16_t *)dl::tool::malloc_aligned_prefer(input_height*i
 
 Set the data in a tensor to feed the neural network.
 
-```
+```c
 Tensor<int16_t> input;
 
 input.set_element((int16_t *) model_input).set_exponent(input_exponent).set_shape({input_height,input_width,input_channel}).set_auto_free(false);
@@ -262,7 +265,7 @@ input.set_element((int16_t *) model_input).set_exponent(input_exponent).set_shap
 
 Call the model by calling the method forward and passing input to it. Use latency to calculate the time taken by ESP32-S3 to run the neural network.
 
-```
+```c
 ACTIVITY model;
                 dl::tool::Latency latency;
                 latency.start();
@@ -275,7 +278,7 @@ ACTIVITY model;
 
 The output is taken out from the public layer i.e l6. The result can be printed in the terminal.
 
-```
+```c
 float *score = model.l6.get_output().get_element_ptr();
                 float max_score = score[0];
                 int max_index = 0;
@@ -313,7 +316,7 @@ float *score = model.l6.get_output().get_element_ptr();
                     printf("No result");
                 }
                 printf("\n");
-}
+    }
 }
 ```
 

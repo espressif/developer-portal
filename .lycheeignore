@@ -19,8 +19,11 @@ https://www.eeweb.com
 https://www.eetimes.com
 https://www.aliexpress.com
 
-# Servers returning time-to-time 500
+# Domains returning time-to-time 500
 https://www.analog.com
+
+# Domains with frequent time out
+https://www.waveshare.com
 
 # Links from examples
 socket://localhost

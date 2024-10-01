@@ -89,6 +89,8 @@ Other important features introduced in Wi-Fi 6 are focused on increasing the net
 
 ESP32-C6 has an integrated 2.4 GHz Wi-Fi 6 (802.11ax) radio, which is backward compatible with the 802.11b/g/n standard. ESP32-C6 supports the OFDMA mechanism for both uplink and downlink communications, while also supporting MU-MIMO for downlink traffic. Both of these techniques allow working with high efficiency and low latency, even in congested wireless environments. Additionally, the Target Wake Time (TWT) feature of the 802.11ax standard enables ESP32-C6 customers to build battery-operated connected devices that can last for years, while staying connected throughout.
 
+---
+
 In conclusion, Wi-Fi 6 technology offers a range of features and capabilities that can help maximize IoT performance in various settings, from residential homes to large-scale enterprises. The improved capacity, range, and efficiency of Wi-Fi 6 can support the growing number of IoT devices and advanced applications that are increasingly common in today’s connected world. With the use of the Target Wake Time feature, it is now possible to build battery-operated Wi-Fi devices that are always connected.
 
 Furthermore, the enhanced security features of Wi-Fi 6, including WPA3 certification, can help protect against potential security threats and ensure that sensitive data remains secure. As the adoption rate of Wi-Fi 6 technology continues to grow, more and more IoT devices and applications will likely rely on Wi-Fi 6 to deliver optimal performance and security.

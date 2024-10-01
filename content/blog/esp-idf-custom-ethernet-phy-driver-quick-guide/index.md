@@ -26,7 +26,7 @@ The “22.2.4 Management Functions” section of the IEEE 802.3 standard defines
 
 In terms of hardware, it is easiest to start with the EVAL-ADIN1200 evaluation board. This evaluation board only requires a few modifications to be connected to ESP32 via RMII. (You can, of course, start with a new PCB design if you find it more appropriate.)
 
-__Steps to prepare the hardware:__ 
+__Steps to prepare the hardware:__
 
 1) Study materials at the [ADIN1200 product page](https://www.analog.com/en/products/adin1200.html#product-overview) and get familiar with the chip and the evaluation board.
 
@@ -67,7 +67,7 @@ The result of EVAL-ADIN1200 modification is shown in the figure below.
 
 From software point of view, it’s even simpler.
 
-__Steps to create the new Ethernet PHY driver:__ 
+__Steps to create the new Ethernet PHY driver:__
 
 1) Create a copy of *esp_eth_phy_ip101.c* or any other IEEE 802.3 compatible PHY chip source file from the ESP-IDF */components/esp_eth/src/* folder to a new folder.
 
@@ -75,7 +75,7 @@ __Steps to create the new Ethernet PHY driver:__
 
 3) Update the “Vendor Specific Registers” code section with ADIN1200 registers you are planning to use. I’ve only updated the “PHY Status 1 Register” since I’m not planning to use any of the advanced features yet.
 
-```
+```c
 /***************Vendor Specific Register***************/
 /**
  * @brief PHY Status 1 Register
@@ -105,7 +105,7 @@ typedef union {
 
 4) Update expected *oui* and *model* in *adin1200_init()* function based on the content of “PHY Identifier 1/2 Register”* *defined in datasheet.
 
-```
+```c
 /* Check PHY ID */
 uint32_t oui;
 uint8_t model;
@@ -116,8 +116,8 @@ ESP_GOTO_ON_FALSE(oui == 0xa0ef && model == 0x02, ESP_FAIL, err, TAG, "wrong chi
 
 5) Modify the *update_link_duplex_speed()* function to read the actual negotiation result. This information is not standardized under IEEE 802.3 hence all PHY chips differ at this point. ADIN1200 indicates this data in the “PHY Status 1 Register”.
 
-```
-...    
+```c
+...
     ESP_GOTO_ON_ERROR(eth->phy_reg_read(eth, addr, ETH_PHY_ANLPAR_REG_ADDR, &(anlpar.val)), err, TAG, "read ANLPAR failed");
     ESP_GOTO_ON_ERROR(eth->phy_reg_read(eth, addr, ETH_PHY_BMSR_REG_ADDR, &(bmsr.val)), err, TAG, "read BMSR failed");
     eth_link_t link = bmsr.link_status ? ETH_LINK_UP : ETH_LINK_DOWN;
@@ -156,7 +156,7 @@ ESP_GOTO_ON_FALSE(oui == 0xa0ef && model == 0x02, ESP_FAIL, err, TAG, "wrong chi
 
 Now, we just create MAC and PHY objects as we are used to and initialize the ESP-IDF Ethernet driver in our application.
 
-```
+```c
 #include "esp_eth_phy_adin1200.h"
 
 // Init common MAC and PHY configs to default

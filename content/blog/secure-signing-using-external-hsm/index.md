@@ -35,7 +35,7 @@ Please find detailed setup guide for YubiKey host tool and PKCS #11 library setu
 
 Note: Following are verified steps for Ubuntu 22.10 OS
 
-```
+```shell
 # Install esptool 4.5 release along with HSM dependencies
 pip install esptool[hsm]==4.5.dev3
 
@@ -50,7 +50,7 @@ yubico-piv-tool -a generate -s 9c -A ECCP256
 
 Following is a HSM config file that we shall pass to espsecure.py
 
-```
+```shell
 $ cat hsm_cfg.ini
 
 # Config file for the external YubiKey based Hardware Security Module
@@ -73,8 +73,8 @@ label_pubkey = Public key for Digital Signature
 
 Following command helps to sign the binary using configuration supplied in the hsm_cfg.ini file
 
-```
-$ espsecure.py sign_data --version 2 --hsm --hsm-config hsm_cfg.ini --output signed.bin unsigned.bin 
+```shell
+$ espsecure.py sign_data --version 2 --hsm --hsm-config hsm_cfg.ini --output signed.bin unsigned.bin
 
 espsecure.py v4.5-dev
 Trying to establish a session with the HSM.
@@ -97,8 +97,8 @@ Signed 65536 bytes of data from unsigned.bin. Signature sector now has 1 signatu
 
 For sanity purpose, we can verify the signature using public key from the external HSM
 
-```
-$ espsecure.py verify_signature --version 2 --hsm --hsm-config hsm_cfg.ini signed.bin 
+```shell
+$ espsecure.py verify_signature --version 2 --hsm --hsm-config hsm_cfg.ini signed.bin
 
 espsecure.py v4.5-dev
 Trying to establish a session with the HSM.

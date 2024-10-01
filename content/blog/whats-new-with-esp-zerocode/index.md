@@ -41,6 +41,8 @@ We now support 2 different solution types through ESP ZeroCode.
 - __single-chip solution:__  This is the typical solution that we launched with, which today, runs on Wi-Fi (ESP32-C3, ESP32-C2, ESP32) and Thread (ESP32-H2). This solution is the most cost optimised solution and is recommended for all lighting categories.
 - __two-chip (hosted) solution:__  Our ESP ZeroCode ExL is a hosted solution that is ideal for __Appliances__ . Appliances often consider connectivity through a “connectivity co-processor”, and work with it over a UART interface. Our two-chip solution addresses the typical Appliance scenarios, particularly MQTT connectivity to cloud platforms (AWS IoT). Read more about it here: [Announcing ESP ZeroCode ExL](/esp-zerocode-exl-module-powered-by-aws-iot-expresslink-simplifying-matter-compatible-6f90fa89abe6).
 
+---
+
 We also extended our portfolio of partnerships. All ESP ZeroCode products can now be easily certified with all of the following ecosystem programs:
 
 - Works with Alexa
@@ -48,6 +50,8 @@ We also extended our portfolio of partnerships. All ESP ZeroCode products can no
 - Works with Google Home
 - Works with Home Assistant
 - Works with SmartThings
+
+---
 
 We also collaborated with Amazon with Alexa Connect Kit (ACK) for Matter and created ZeroCode devices using the ACK for Matter. Through the ESP ZeroCode portal, you can now choose ACK for Matter as a solution for the firmware of your devices.
 
@@ -86,6 +90,10 @@ A number of optimisations in our manufacturing and certification processes have 
 
 In the fastest case, some of our customers have gone from concept to production-start (including certification) within 3 weeks.
 
+---
+
 All in all, we are taking great strides to make ESP ZeroCode the fastest, most secure and robust tool to launch Matter products. If you are looking to develop and maintain your own Matter-enabled products, with your specific customisation, please head over to [ESP ZeroCode](https://zerocode.espressif.com) to get started.
 
 For additional information about ESP ZeroCode, check out this podcast:
+
+{{< youtube XMh81q81EMA >}}

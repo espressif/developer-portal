@@ -13,9 +13,11 @@ Integrating OpenAI capabilities into projects has become increasingly trends in 
     src="img/openai-1.webp"
     >}}
 
-__*In this article, we will demonstrating how it enables developers to easily add OpenAI capabilities to their projects without having to handle all the implementation tasks.*__ 
+__*In this article, we will demonstrating how it enables developers to easily add OpenAI capabilities to their projects without having to handle all the implementation tasks.*__
 
 *This article consists of three main sections. The initial section “*__*ESP Component Registry*__ *”provides information on step involve in adding appropriate components into your ESP-IDF project. The second section focuses on providing details about the “*__*OpenAI Component”*__ *and the last section gives and update on “*__*ESP-Box*__ * *__*ChatGPT*__ * ” demo example.*
+
+---
 
 ## ESP Component Registry
 
@@ -28,9 +30,11 @@ The [__ESP Component Registry__ ](https://components.espressif.com/)____ acts as
 
 ## Steps to Follow
 
-```
+```shell
 idf.py add-dependency "espressif/Component name^verison"
 ```
+
+---
 
 ## OpenAI Component
 
@@ -40,13 +44,13 @@ To provide developers with comprehensive coverage of [OpenAI API](https://platfo
 
 The first step is to instantiate an object and provide a secure “API key” as a parameter. The OpenAPI key is accessible through the [OPENAI](https://openai.com/) website. To gain access to OpenAI services, you must first create an account, purchase tokens, and obtain your unique API key.
 
-```
+```c
 openai = OpenAICreate(key);
 ```
 
 After creating the OpenAI object, the code calls the chatCompletion API. It sets the required parameters, sends a message (indicating it’s not the last message), and retrieves the generated response for further use or processing.
 
-```
+```c
 chatCompletion = openai->chatCreate(openai);
 chatCompletion->setModel(chatCompletion, "gpt-3.5-turbo");
 chatCompletion->setSystem(chatCompletion, "Code geek");
@@ -62,7 +66,7 @@ char *response = result->getData(result, 0);
 
 Similarly, after instantiating the OpenAI object, the code calls the audioTranscriptionCreate API. It sets the necessary parameters, such as the audio file and language, followed by initiating the audio transcription process. Finally, it retrieves the transcription result for further use or processing.
 
-```
+```c
 audioTranscription = openai->audioTranscriptionCreate(openai);
 audioTranscription->setResponseFormat(audioTranscription, OPENAI_AUDIO_RESPONSE_FORMAT_JSON);
 audioTranscription->setLanguage(audioTranscription,"en");
@@ -71,6 +75,8 @@ char *text = audioTranscription->file(audioTranscription, (uint8_t *)audio, audi
 ```
 
 To explore more APIs and their functionalities, please refer to the [documentation](https://docs.espressif.com/projects/espressif-esp-iot-solution/en/latest/ai/openai.html).
+
+---
 
 ## ESP-BOX ChatGPT Demo Example
 

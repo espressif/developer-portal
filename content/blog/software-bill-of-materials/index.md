@@ -18,7 +18,7 @@ In this blog post, we shall look through the Espressif’s SBOM generator and an
 
 According to National Telecommunications and Information Administration’s (NTIA) SBOM FAQ, the official definition of SBOM goes as follows:
 
-> A Software Bill of Materials (SBOM) is a complete, formally structured list of components, libraries, and modules that are required to build (i.e., compile and link) a given piece of software and the supply chain relationships between them. These components can be open source or proprietary, free or paid, and widely available or restricted access.
+A Software Bill of Materials (SBOM) is a complete, formally structured list of components, libraries, and modules that are required to build (i.e., compile and link) a given piece of software and the supply chain relationships between them. These components can be open source or proprietary, free or paid, and widely available or restricted access.
 
 Key data fields for each component includes:
 
@@ -72,7 +72,7 @@ Brief tool workflow goes like:
 
 Install the tool and checkout its help:
 
-```
+```shell
 $ pip install esp-idf-sbom
 $ esp-idf-sbom --help
 
@@ -105,7 +105,7 @@ options:
 
 Generate the SBOM file:
 
-```
+```shell
 $ cd esp-idf/examples/provisioning/wifi_prov_mgr
 $ idf.py build
 $ esp-idf-sbom create <project description file> --output-file prj.spdx
@@ -115,10 +115,10 @@ The project description file is a path to the project_description.json file, whi
 
 Check SBOM against the security vulnerabilities:
 
-```
+```shell
 $ esp-idf-sbom check prj.spdx
 
-                                        Report summary                                         
+                                        Report summary
 ┌───────────────────────────────────┬─────────────────────────────────────────────────────────┐
 │ Date:                             │ 2023-10-10T08:21:39Z                                    │
 │ Project name:                     │ project-wifi_prov_mgr                                   │
@@ -155,7 +155,7 @@ $ esp-idf-sbom check prj.spdx
 
 
 Packages with No Identified Vulnerabilities
-                        
+
 ┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃        Package        ┃          Version          ┃                   CPE                   ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
@@ -196,6 +196,8 @@ This tool supports multiple formats for the generated output report like JSON, C
 ## Compatibility
 
 SPDX being a standard format for SBOM, also offers compatibility with the external tools. SBOM files generated from esp-idf-sbom can also be scanned using tools like [cve-bin-tool](https://github.com/intel/cve-bin-tool). This offers an added advantage if you already have any external tools integrated in your system and want to take advantage of its specific features (e.g., more extended scan against different CVE databases).
+
+---
 
 ## Summary
 
