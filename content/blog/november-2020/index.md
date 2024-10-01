@@ -71,7 +71,7 @@ Waijung 2 is [Aimagin](https://www.aimagin.com/)’s next generation model-based
     src="img/november-7.webp"
     >}}
 
-Industry leading partners, Tynker and BBC Learning, have taken coding to the next level with the revolutionary new [ESP32](https://www.espressif.com/en/products/socs/esp32)-powered [BBC Doctor Who HiFive Inventor Coding Kit](https://www.amazon.com/dp/B08L9Q91JH/ref=as_li_ss_tl). It comes with a Wi-Fi & Bluetooth combo MCU board, along with guided lessons aimed at teaching children how to use Block Coding and MicroPython for IoT applications.
+Industry leading partners, Tynker and BBC Learning, have taken coding to the next level with the revolutionary new [ESP32](https://www.espressif.com/en/products/socs/esp32)-powered BBC Doctor Who HiFive Inventor Coding Kit. It comes with a Wi-Fi & Bluetooth combo MCU board, along with guided lessons aimed at teaching children how to use Block Coding and MicroPython for IoT applications.
 
 Hope you enjoy reading this month’s newsletter. Keep sending us your messages and requests on [Facebook](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=c4a255994f&e=309e9b0452), [Twitter](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=65227f5ce9&e=309e9b0452), [GitHub](https://github.com/espressif), [Instagram](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=7a5d88fa55&e=309e9b0452), [LinkedIn](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=4a49c35eb3&e=309e9b0452), and [YouTube](https://espressif.us15.list-manage.com/track/click?u=40830afd8eb6f70ab5e47b7a4&id=60d3d0280a&e=309e9b0452).
 

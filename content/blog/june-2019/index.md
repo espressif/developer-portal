@@ -45,7 +45,7 @@ Espressif’s [ESP32-Azure IoT Kit](https://www.espressif.com/en/products/hardwa
     src="img/june-2.webp"
     >}}
 
-On 4 June, Espressif and AWS co-hosted a hands-on [workshop](https://www.eventbrite.com/e/aws-espressif-workshop-palo-alto-2019-registration-61864312825)focused on developing IoT solutions using Amazon FreeRTOS and ESP32 development boards, such as [ESP32-DevKitC](https://www.espressif.com/en/products/hardware/esp32-devkitc/overview) and [ESP-WROVER-KIT-VB](https://www.espressif.com/en/products/hardware/esp-wrover-kit/overview). Embedded developers learned about the AWS IoT suite of services and built firmware for the management of typical IoT appliances.
+On 4 June, Espressif and AWS co-hosted a hands-on workshop focused on developing IoT solutions using Amazon FreeRTOS and ESP32 development boards, such as [ESP32-DevKitC](https://www.espressif.com/en/products/hardware/esp32-devkitc/overview) and [ESP-WROVER-KIT-VB](https://www.espressif.com/en/products/hardware/esp-wrover-kit/overview). Embedded developers learned about the AWS IoT suite of services and built firmware for the management of typical IoT appliances.
 
 [*Keep Reading*](https://www.espressif.com/en/news/AWS_and_Espressif_Workshop)
 
