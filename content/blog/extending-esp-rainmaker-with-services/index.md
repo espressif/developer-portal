@@ -136,14 +136,18 @@ $ ./rainmaker.py setparams --data '{"Diagnostics":{"Trigger":true}}' <node_id>
 
 Once the device gets this command, the device serial console will show up such prints
 
-```shell
-I (74726) esp_rmaker_param: Received params: {"Diagnostics": {"Trigger": true}}I (74726) app_main: Received write request via : CloudI (74726) app_main: Starting DiagnosticsI (74736) esp_rmaker_param: Reporting params: {"Diagnostics":{"Data":{"diag1":true,"diag2":30,"diag3":54.16430,"diag4":"diag"}}}I (74746) esp_rmaker_param: Reporting params: {"Diagnostics":{"Timestamp":1639738352}}
+```log
+I (74726) esp_rmaker_param: Received params: {"Diagnostics": {"Trigger": true}}
+I (74726) app_main: Received write request via : Cloud
+I (74726) app_main: Starting Diagnostics
+I (74736) esp_rmaker_param: Reporting params: {"Diagnostics":{"Data":{"diag1":true,"diag2":30,"diag3":54.16430,"diag4":"diag"}}}
+I (74746) esp_rmaker_param: Reporting params: {"Diagnostics":{"Timestamp":1639738352}}
 ```
 
 You can then query the node parameters to see the results using:
 
 ```shell
-$ ./rainmaker.py getparams <node_id>
+$ ./rainmaker.py getparams \<node_id\>
 ```
 
 It will show up this object:
