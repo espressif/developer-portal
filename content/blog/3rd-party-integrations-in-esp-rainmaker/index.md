@@ -23,6 +23,17 @@ If you are already familiar with ESP RainMaker, you may know that it has the con
 
 The code required to implement the standard devices is very simple. Let us look at a colour light example (led_light) which is already available on [GitHub](https://github.com/espressif/esp-rainmaker/tree/master/examples/led_light). The relevant code snippet below is self explanatory.
 
+```c
+/* Create a standard lightbulb (internally adds name and power as mandatory parameters */
+esp_rmaker_create_lightbulb_device("Light", common_callback, NULL, DEFAULT_POWER);
+/* Add the standard brightness parameter */
+esp_rmaker_device_add_brightness_param("Light", "brightness", DEFAULT_BRIGHTNESS);
+/* Add the standard hue parameter */
+esp_rmaker_device_add_hue_param("Light", "hue", DEFAULT_HUE);
+/* Add the standard saturation parameter */
+esp_rmaker_device_add_saturation_param("Light", "saturation", DEFAULT_SATURATION);
+```
+
 The [switch example on GitHub](https://github.com/espressif/esp-rainmaker/tree/master/examples/switch) is also ready out of the box for Alexa/GVA.
 
 Once you build and flash the Lightbulb/Switch example, provision your board and link to your account using the [ESP RainMaker Phone apps](https://rainmaker.espressif.com/docs/quick-links.html#phone-apps). Give the device some friendly name so that it is easy to identify.
