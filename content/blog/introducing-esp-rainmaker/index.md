@@ -6,6 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
 ---
+
 {{< figure
     default=true
     src="img/introducing-1.webp"
@@ -42,6 +43,23 @@ Let’s quickly look at some examples that will make things clearer.
 
 The simplest example is GPIOs. Let’s say you wish to expose some GPIO controls from your device. Your RainMaker code for this will look like:
 
+```c
+/* Create a device and add the relevant parameters to it */
+esp_rmaker_create_device("ESP32-S2-Saola-1", NULL, gpio_callback, NULL);
+
+esp_rmaker_device_add_param("ESP32-S2-Saola-1", "Red",
+                            esp_rmaker_bool(false), PROP_FLAG_READ | PROP_FLAG_WRITE);
+esp_rmaker_param_add_ui_type("ESP32-S2-Saola-1", "Red", ESP_RMAKER_UI_TOGGLE);
+
+esp_rmaker_device_add_param("ESP32-S2-Saola-1", "Green",
+                            esp_rmaker_bool(false), PROP_FLAG_READ | PROP_FLAG_WRITE);
+esp_rmaker_param_add_ui_type("ESP32-S2-Saola-1", "Green", ESP_RMAKER_UI_TOGGLE);
+
+esp_rmaker_device_add_param("ESP32-S2-Saola-1", "Blue",
+                            esp_rmaker_bool(false), PROP_FLAG_READ | PROP_FLAG_WRITE);
+esp_rmaker_param_add_ui_type("ESP32-S2-Saola-1", "Blue", ESP_RMAKER_UI_TOGGLE);
+```
+
 Basically,
 
 - __esp_rmaker_create_device:__  You define a name for a device and a callback (in this case* gpio_callback*) that will handle the requests when the parameter is modified externally.
@@ -58,6 +76,15 @@ Correspondingly the phone apps will show the following while accessing the devic
 ## Light
 
 You can also use other parameter types, for example let’s look at the light example.
+
+```c
+/* Create a device and add the relevant parameters to it */
+esp_rmaker_create_lightbulb_device("Light", common_callback, NULL, DEFAULT_POWER);
+
+esp_rmaker_device_add_brightness_param("Light", "brightness", DEFAULT_BRIGHTNESS);
+esp_rmaker_device_add_hue_param("Light", "hue", DEFAULT_HUE);
+esp_rmaker_device_add_saturation_param("Light", "saturation", DEFAULT_SATURATION);
+```
 
 In the GPIOs example earlier, we had used a “raw” datatype as *bool*. The RainMaker agent also provides some pre-defined higher level datatypes (standard types). This example uses these higher level APIs for creating the parameters. Note that we could also have written this code using the raw datatype instead, but this is a short-hand utility API.
 
@@ -96,3 +123,5 @@ Support for ESP-RainMaker is currently enabled for ESP32-S2 SoCs. If you have an
 You can also head over to the [ESP RainMaker](https://github.com/espressif/esp-rainmaker) GitHub repository.
 
 We are excited about releasing this, and we hope you find it helpful. We really look forward to what you will do!
+
+{{< youtube Heo18HLgh9g >}}
