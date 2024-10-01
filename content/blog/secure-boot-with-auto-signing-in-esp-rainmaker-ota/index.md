@@ -52,6 +52,8 @@ Once the signing key is created in ESP RainMaker, you need to sign the firmware 
 
 ESP RainMaker provides detailed instruction for flashing and setting up your SoC with the appropriate security configurations for secure boot.
 
+---
+
 The secure signing feature is available in public as well as private RainMaker deployments. Use [backend release 2.1.0](https://customer.rainmaker.espressif.com/docs/rainmaker-releases/#210-22-apr-2024) or later and [frontend release 2.0.1](https://customer.rainmaker.espressif.com/docs/frontend-releases/#201-12-jun-2024) or later for this.
 
 Check out more usage details in the [ESP RainMaker docs](https://rainmaker.espressif.com/docs/secure-signing). Go ahead and use this to secure your RainMaker powered IoT devices. Let us know (at [esp-rainmaker-support@espressif.com](mailto:esp-rainmaker-support@espressif.com)) if you have any queries.

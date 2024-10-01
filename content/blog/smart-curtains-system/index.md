@@ -17,7 +17,7 @@ After several sketches, modeling attempts, and soldering experiments, this is wh
 
 ## Assembly
 
-- Stepper motor NEMA17 with driver [TMC2209](https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2209_Datasheet_V103.pdf) to move the curtains
+- Stepper motor NEMA17 with driver [TMC2209](https://www.analog.com/en/lp/001/trinamic-support.html) to move the curtains
 - [BH1750](https://drive.google.com/file/d/14TgYoCILyeGwoYwKgY8J0QdRMJRrRjMa/view) light sensor that provides information about light intensity
 - [thermistor](https://www.vishay.com/docs/29049/ntcle100.pdf) to control the temperature of the motor to prevent overheating
 - [reed switch](https://standexelectronics.com/wp-content/uploads/OKI_Reed_Switch_ORD213.pdf) whose function is to initialize the curtains
