@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - shu-chen
+tags:
+  -  Matter
+  - Espressif
+  - IoT
+  - ESP32
 ---
 [Espressif Matter Series](/matter-38ccf1d60bcd) #8
 

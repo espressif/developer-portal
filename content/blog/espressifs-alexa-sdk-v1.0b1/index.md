@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - ESP32
+  - Alexa
+  - IoT
+  - Framework
 ---
 The Espressif’s Alexa SDK v1.0b1 is now available on github here: [https://github.com/espressif/esp-avs-sdk](https://github.com/espressif/esp-avs-sdk)
 

@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - dhaval-gujar
+tags:
+  - ESP32
+  - Aws Iot
+  - Embedded Systems
+  - Aws Iot Core
+  - Espressif
 ---
 {{< figure
     default=true
@@ -50,20 +56,20 @@ To simplify the use of these libraries, we have made the following examples avai
 
 Let us take take a look at the *Device Shadow* library and the corresponding example to see how we can use it easily:
 
-> __Note:__  The following section assumes that the reader is familiar with using AWS IoT from the Web console, and has ESP-IDF setup on their computer.If have not setup the AWS IoT Core, follow steps given [here](https://docs.aws.amazon.com/iot/latest/developerguide/iot-gs.html#aws-iot-get-started).[](https://docs.aws.amazon.com/iot/latest/developerguide/iot-gs.html#aws-iot-get-started)If you have not installed ESP-IDF, follow steps given [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/).
+__Note:__  The following section assumes that the reader is familiar with using AWS IoT from the Web console, and has ESP-IDF setup on their computer.If have not setup the AWS IoT Core, follow steps given [here](https://docs.aws.amazon.com/iot/latest/developerguide/iot-gs.html#aws-iot-get-started).[](https://docs.aws.amazon.com/iot/latest/developerguide/iot-gs.html#aws-iot-get-started)If you have not installed ESP-IDF, follow steps given [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/).
 
 Begin by cloning the repository, checking out the `release/beta` branch and updating the submodule.Then, navigate to the Device Shadow example and set the AWS IoT endpoint, identifier and port.
 
-> __Note:__  The example has been tested with ports 8883 and 443. In general, port 8883 is for secured MQTT connections. Port 443 requires the use of the ALPN TLS extension with the ALPN protocol name, which is not required when using port 8883.More on this here: [https://aws.amazon.com/blogs/iot/mqtt-with-tls-client-authentication-on-port-443-why-it-is-useful-and-how-it-works/](https://aws.amazon.com/blogs/iot/mqtt-with-tls-client-authentication-on-port-443-why-it-is-useful-and-how-it-works/)
+__Note:__  The example has been tested with ports 8883 and 443. In general, port 8883 is for secured MQTT connections. Port 443 requires the use of the ALPN TLS extension with the ALPN protocol name, which is not required when using port 8883.More on this here: [https://aws.amazon.com/blogs/iot/mqtt-with-tls-client-authentication-on-port-443-why-it-is-useful-and-how-it-works/](https://aws.amazon.com/blogs/iot/mqtt-with-tls-client-authentication-on-port-443-why-it-is-useful-and-how-it-works/)
 
 Open menuconfig and set the required values.Add the device certificates, as shown [here](https://github.com/espressif/esp-aws-iot/tree/release/beta/examples#configuring-your-device).Finally, build and flash the example onto your Espressif SoC.
 
-```
+```shell
 git clone --recursive https://github.com/espressif/esp-aws-iot
 cd esp-aws-iot
-git checkout release/beta 
-git submodule update --init --recursive 
-cd examples/thing_shadow 
+git checkout release/beta
+git submodule update --init --recursive
+cd examples/thing_shadow
 idf.py menuconfig # Set example and connection configuration here.
 idf.py build flash monitor –p <UART port>
 ```

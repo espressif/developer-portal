@@ -5,6 +5,8 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - pedro-minatel
+tags:
+  - ESP32
 ---
 {{< figure
     default=true

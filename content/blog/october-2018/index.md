@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - ESP-IDF
+  - Instagram
+  - IoT
+  - Newsletter
 ---
 Welcome to our October Newsletter
 

@@ -5,6 +5,10 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - Alexa
+  - Framework
+  - Esp32
 ---
 Recently I have seen significant interest from OEMs in embedding voice assistants, like Alexa, directly into their products. Not just linking with a voice-assistant using a cloud to cloud integration, but by having the product itself be voice-enabled (with microphones and speakers).
 

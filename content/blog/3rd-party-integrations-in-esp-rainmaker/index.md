@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - piyush-shah
+tags:
+  - Espressif
+  - Rainmaker
+  - Alexa
+  - Google Home
 ---
 {{< figure
     default=true

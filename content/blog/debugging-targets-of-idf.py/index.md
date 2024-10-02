@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - david-cermak
+tags:
+  - JTAG
+  - idf.py
+  - Esp32
+  - Debugger
+  - IoT
 ---
 This article outlines a quick and easy way to start a debugger from the command line. More specifically, it discusses the debugging targets of idf.py, which have been added to ESP-IDF from v4.2. At the time of writing, IDF v4.2 is not released yet, but you can try out this feature on the master branch.
 
