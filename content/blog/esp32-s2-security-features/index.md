@@ -8,6 +8,8 @@ authors:
 tags:
   - Security
   - ESP32-S2
+aliases:
+  - esp32-s2-security-improvements
 ---
 Espressif recently [announced](https://www.espressif.com/en/news/espressif-announces-%E2%80%A8esp32-s2-secure-wi-fi-mcu) ESP32-S2 — a new Wi-Fi SoC with additional security features and improvements over some of the ESP32 security features. Given the current state of the security of the connected devices, these are quite meaningful features. This article discusses these changes and what do they mean from security perspective.
 

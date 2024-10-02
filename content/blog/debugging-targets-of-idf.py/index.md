@@ -11,6 +11,8 @@ tags:
   - Esp32
   - Debugger
   - IoT
+aliases:
+  - debugging-targets-of-idf-py
 ---
 This article outlines a quick and easy way to start a debugger from the command line. More specifically, it discusses the debugging targets of idf.py, which have been added to ESP-IDF from v4.2. At the time of writing, IDF v4.2 is not released yet, but you can try out this feature on the master branch.
 
@@ -24,7 +26,9 @@ Many developers who work with ESP-IDF rely on the command line tools for configu
 
 Debugging commands are available, as well, to make the JTAG configuration easier to use. To explore this option, let’s just connect an ESP32 WROVER-KIT, and start building a project by typing:
 
+```shell
 idf.py flash monitor openocd gdbgui
+```
 
 {{< figure
     default=true
@@ -76,7 +80,7 @@ It is possible to combine multiple debugging actions on a single command line, t
 
 An example of a very useful combination is shown below with the corresponding screenshot.
 
-```
+```shell
 idf.py gdbgui monitor openocd
 ```
 
@@ -95,7 +99,9 @@ If you are a “command-line person” or a dedicated IDE user, please __*step*_
 
 - Official documentation of [JTAG Debugging with idf.py](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/jtag-debugging/using-debugger.html#jtag-debugging-with-idf-py)
 - idf.py help or a contextual help related to the specific targets below:
-- idf.py openocd --help
-- idf.py gdb --help
-- idf.py gdbtui --help`
-- idf.py gdbgui --help
+```shell
+idf.py openocd --help
+idf.py gdb --help
+idf.py gdbtui --help
+idf.py gdbgui --help
+```

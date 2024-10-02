@@ -78,3 +78,5 @@ The framework also supports secure OTA where the authenticity of the user applic
 User OTA example is available in the [__ESP Privilege Separation Repository__ ](https://github.com/espressif/esp-privilege-separation/tree/master/examples/esp_user_ota). Please give it a try and feel free to report any issues or feedback by raising an issue tracker on the GitHub repository.
 
 Here’s a video demonstrating a real world use case of user app OTA update using ESP Rainmaker and ESP Privilege Separation.
+
+{{<youtube nBPE36b5zCo >}}

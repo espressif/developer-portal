@@ -10,6 +10,8 @@ tags:
   - Alexa
   - IoT
   - Framework
+aliases:
+  - espressifs-alexa-sdk-v1-0b1
 ---
 The Espressif’s Alexa SDK v1.0b1 is now available on github here: [https://github.com/espressif/esp-avs-sdk](https://github.com/espressif/esp-avs-sdk)
 

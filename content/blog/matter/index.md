@@ -37,10 +37,10 @@ The following articles talk about Matter
 
 The following is a demonstration of the various Matter device classes that are supported by Espressif. This also demonstrates the device binding features of Matter.
 
-{{ < youtube Jr4Lut_NgqA > }}
+{{< youtube Jr4Lut_NgqA >}}
 
 ## Espressif’s Matter Solutions
 
 Look at the various ways Espressif helps you build and deploy Matter devices.
 
-{{ < youtube qFVqWdmFRs0 > }}
+{{< youtube qFVqWdmFRs0 >}}

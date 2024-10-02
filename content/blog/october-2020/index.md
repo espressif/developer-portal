@@ -5,6 +5,8 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+aliases:
+  - october-202
 ---
 Hi everyone,
 

@@ -11,6 +11,8 @@ tags:
   - Embedded Systems
   - Aws Iot Core
   - Espressif
+aliases:
+  - support-for-lts-release-of-aws-iot-device-sdk-for-embedded-c-on-esp32
 ---
 {{< figure
     default=true
