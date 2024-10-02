@@ -11,7 +11,6 @@ tags:
   - Esp32
   - Esp8266
   - Newsletter
-
 ---
 {{< figure
     default=true
