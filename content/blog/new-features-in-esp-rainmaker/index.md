@@ -38,7 +38,7 @@ ESP RainMaker already had support for Timezones on the device side. The various 
 
 ## Arduino Support
 
-Even though we have taken quite some efforts to make developer on-boarding easy, by ways of the [ESP IDF Windows Installer](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#esp-idf-tools-installer) and the Eclipse and VSCode plug-ins, we do understand that a lot of makers/hobbyists would still prefer Arduino due to its simplicity and cross platform support. That’s why we have now added the ESP RainMaker support in Arduino. Check out [ESP RainMaker now in Arduino post](esp-rainmaker-now-in-arduino) for more information.
+Even though we have taken quite some efforts to make developer on-boarding easy, by ways of the [ESP IDF Windows Installer](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#esp-idf-tools-installer) and the Eclipse and VSCode plug-ins, we do understand that a lot of makers/hobbyists would still prefer Arduino due to its simplicity and cross platform support. That’s why we have now added the ESP RainMaker support in Arduino. Check out [ESP RainMaker now in Arduino post](/blog/esp-rainmaker-now-in-arduino) for more information.
 
 ## Node Grouping
 

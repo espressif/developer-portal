@@ -31,7 +31,7 @@ In general, Espressif’s SoCs enable a series of [HMI functions](https://www.es
 
 In Nuremberg, we will also demonstrate[ ESP RainMaker](https://rainmaker.espressif.com/index.html) (Espressif’s one-stop private Cloud platform), along with [ESP Insights](https://www.espressif.com/news/ESP_Insights) (our remote monitoring platform), Espressif’s [AWS IoT ExpressLink](https://www.espressif.com/solutions/device-connectivity/esp-aws-iot-expresslink) module, the [ACK SDK](https://www.espressif.com/solutions/device-connectivity/ack-solution) device, and [ESP-NOW](https://github.com/espressif/esp-now) (our low-power communication protocol).
 
-So, if you happen to be in Nuremberg from 14 to 16 March, don’t forget to get your [free tickets](https://www.embedded-world.de/en/visitor) and visit our booth (Hall 3A, Booth 625). You can also [click here](https://forms.office.com/r/kii2Wy4CcX) to book an appointment with Espressif’s representatives on-site, in case you want to discuss about specific projects, products and services.
+So, if you happen to be in Nuremberg from 14 to 16 March, don’t forget to get your [free tickets](https://www.embedded-world.de/en/visitor) and visit our booth (Hall 3A, Booth 625).
 
 Keep reading this month’s newsletter, so you can learn more exciting news from Espressif:
 
