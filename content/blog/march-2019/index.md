@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Instagram
+  - Internet Of Things
+  - Newsletter
+
 ---
 Welcome to our March Newsletter
 

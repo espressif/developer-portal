@@ -5,6 +5,15 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kondal-kolipaka
+tags:
+  - Espressif-IDE 2.8.0
+  - Espresif-IDE
+  - bug fixes
+  - Espressif Ide
+  - Esp Idf
+  - Espressif
+  - Eclipse
+
 ---
 {{< figure
     default=true

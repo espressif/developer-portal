@@ -5,6 +5,10 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Instagram
+  - Newsletter
+
 ---
 Welcome to our February Newsletter
 

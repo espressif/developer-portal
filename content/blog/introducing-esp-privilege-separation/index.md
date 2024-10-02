@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - sachin-parekh
+tags:
+  - Esp32
+  - IoT
+  - Security
+  - Embedded Systems
+
 ---
 Typically, applications on microcontrollers (MCU) are developed as monolithic firmware. We have been discussing on achieving “user-kernel” separation with appropriate execution privileges, like general purpose OS, on MCUs.
 

@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
+tags:
+  - Esp32
+  - IoT
+  - Matter
+  - Espressif
+  - AWS
+
 ---
 *Announcing ESP ZeroCode ExL powered by AWS IoT ExpressLink — Simplifying Matter-compatible Cloud-connected Devices*
 

@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Instagram
+  - Esp32
+  - Newsletter
+
 ---
 Hi everyone,
 

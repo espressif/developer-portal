@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - API
+  - Esp32
+  - Jumpstart
+  - IoT
+
 ---
 One of the common requirements I have seen is, during the initial device provisioning, configuring some device specific custom data on the device. This could be something as easy as assigning a user-friendly name to the device, or something like initialising the Alexa credentials on the device.
 

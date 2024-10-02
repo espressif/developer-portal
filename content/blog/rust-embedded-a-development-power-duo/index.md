@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - juraj-sadel
+tags:
+  - Rust
+  - Embedded Systems
+  - Esp32
+  - Rust Programming Language
+
 ---
 {{< figure
     default=true

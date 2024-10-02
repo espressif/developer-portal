@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - ondrej-kosta
+tags:
+  - Ethernet
+  - Espressif
+  - Esp32
+  - Programming
+
 ---
 *“I would like to start a new product design with my favorite chip but it’s out of stock! Oh, no! I’ll have to design a new layout and develop new drivers for it!”* Every designer knows that feeling very well these days…
 

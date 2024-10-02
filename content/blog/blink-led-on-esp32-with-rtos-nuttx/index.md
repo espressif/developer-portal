@@ -5,6 +5,10 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - sara-monteiro
+tags:
+  - Nuttx
+  - Esp32
+
 ---
 {{< figure
     default=true

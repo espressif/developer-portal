@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - Matter
+  - Espressif
+  - Esp32
+
 ---
 [Espressif Matter Series](/matter-38ccf1d60bcd) #9
 

@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - here
+  - Internet Of Things
+  - Esp32
+  - Esp8266
+  - Newsletter
+
 ---
 {{< figure
     default=true

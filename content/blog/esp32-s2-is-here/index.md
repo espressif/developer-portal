@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - teo-swee-ann
+tags:
+  - Esp32 S2
+  - Espressif
+  - IoT
+
 ---
 {{< figure
     default=true

@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - ali-hassan-shah
+tags:
+  - IoT
+  - Esp
+  - Esp Box
+  - OpenAI
+  - Espressif
+
 ---
 Integrating OpenAI capabilities into projects has become increasingly trends in today’s fast-paced technological landscape. [OpenAI](https://platform.openai.com/docs/api-reference) offers a wide range of powerful APIs for natural language processing. However, the process of integrating these APIs can be complex and time-consuming, often requiring substantial effort and expertise. To simplify this integration process, we introduce the [OpenAI Component](https://github.com/espressif/esp-iot-solution/tree/master/components), a powerful library that streamlines the incorporation of OpenAI APIs into projects.
 

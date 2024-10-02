@@ -5,6 +5,10 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Esp32
+  - Newsletter
+
 ---
 Welcome to our January Newsletter__*Our News. Our World*__ 
 

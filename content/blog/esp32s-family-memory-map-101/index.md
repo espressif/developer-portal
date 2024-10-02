@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - marek-matej
+tags:
+  - Esp32 Programming
+  - Esp32
+  - IoT
+  - Soc
+
 ---
 {{< figure
     default=true

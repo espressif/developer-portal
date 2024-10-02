@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - hrishikesh-dhayagude
+tags:
+  - release v4.3
+  - Esp32
+  - IoT
+  - Matter
+
 ---
 {{< figure
     default=true

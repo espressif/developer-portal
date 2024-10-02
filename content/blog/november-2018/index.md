@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Instagram
+  - IoT
+  - Esp32
+  - Newsletter
+
 ---
 Welcome to our November Newsletter
 

@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
+tags:
+  - Esp32
+  - IoT
+  - Esp32 Programming
+
 ---
 Espressif launched ESP32-C3 at the end of 2020. It’s very well received and now it’s already in the mass production state. ESP32-C3 provides Wi-Fi and Bluetooth LE connectivity for applications in the most cost-effective way. For the users of ESP32 who use it for Wi-Fi and/or BLE connectivity, ESP32-C3 is a possible upgrade option provided other requirements match. So let’s first take a look at the comparison of ESP32 and ESP32-C3 from that perspective.
 

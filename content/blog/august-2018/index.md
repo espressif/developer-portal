@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - IoT
+  - Esp32
+  - Newsletter
+
 ---
 ## Fake News About Espressif Systems…Again!
 

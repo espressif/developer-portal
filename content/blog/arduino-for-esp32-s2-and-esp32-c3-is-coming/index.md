@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - pedro-minatel
+tags:
+  - Arduino
+  - Espressif
+  - Esp32
+  - Risc V
+  - IoT
+
 ---
 {{< figure
     default=true

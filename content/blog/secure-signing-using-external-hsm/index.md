@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - mahavir-jain
+tags:
+  - Esp32
+  - Security
+  - IoT
+  - Esptool
+
 ---
 ## Overview
 

@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - teo-swee-ann
+tags:
+  - Espressif
+  - Ceo Blog
+  - Esp32
+  - Coronaviruses
+  - Esp Rainmaker
+
 ---
 *As Espressif is a company with their main offices in China, the recent coronavirus outbreak has affected us as well. Even though there is an obvious impact on the way we work, the blow is cushioned because we have offices outside of China. Additionally, the way our IT is structured allows most of our staff to work from home, and even for the jobs that do need people to be at the office, there are ways to work around the current issues. CEO Teo Swee Ann gives some insight the thought process behind the decisions made.*
 

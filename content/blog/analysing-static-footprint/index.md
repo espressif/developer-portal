@@ -5,6 +5,9 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - Building Products
+
 ---
 The ESP32 is equipped with a 512KB of SRAM. While this may seem quite small, it can pack a lot of punch in this compact form if used well.
 

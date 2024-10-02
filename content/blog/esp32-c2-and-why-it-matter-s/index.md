@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - teo-swee-ann
+tags:
+  - Esp32
+  - Espressif
+  - Esp32 C2
+  - Esp32 C6
+  - Ceo Blog
+
 ---
 {{< figure
     default=true

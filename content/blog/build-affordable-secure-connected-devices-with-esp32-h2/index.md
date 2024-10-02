@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - anant-raj-gupta
+tags:
+  - Security
+  - Mcu
+  - Embedded Systems
+  - Matter
+  - Connectivity
+
 ---
 The awareness, as well as the associated concerns, about connected device security, is ever-increasing. With the European Union’s [Cyber Resilience Act](https://digital-strategy.ec.europa.eu/en/library/cyber-resilience-act) also coming into effect soon, it has become ever so important to have security features built-in to the devices in hardware.
 

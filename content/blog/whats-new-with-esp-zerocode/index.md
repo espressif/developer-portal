@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - IoT
+  - Zero Code
+  - Esp32
+  - Espressif
+
 ---
 *The Fastest Way to Launch Matter-enabled Products*
 

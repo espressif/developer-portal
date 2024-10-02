@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - pedro-minatel
+tags:
+  - Espressif
+  - Esp32
+  - IoT
+  - Esp Idf
+
 ---
 {{< figure
     default=true

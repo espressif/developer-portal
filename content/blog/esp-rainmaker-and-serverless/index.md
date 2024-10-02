@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
+tags:
+  - Esp32
+  - Esp32 S2
+  - Rainmaker
+  - Cloud Architecture
+  - Serverless
+
 ---
 {{< figure
     default=true

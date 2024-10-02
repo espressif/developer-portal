@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Rainmaker
+  - Espressif
+  - Esp32
+
 ---
 {{< figure
     default=true

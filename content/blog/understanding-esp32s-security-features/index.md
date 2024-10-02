@@ -5,6 +5,10 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - Security
+  - Building Products
+
 ---
 [This document discusses security features for ESP32v3. If you are looking for the security features of the latest [ESP32-S2](https://www.espressif.com/en/news/espressif-announces-%E2%80%A8esp32-s2-secure-wi-fi-mcu) SoC, that article is available [here](/blog/esp32-s2-security-improvements).]
 

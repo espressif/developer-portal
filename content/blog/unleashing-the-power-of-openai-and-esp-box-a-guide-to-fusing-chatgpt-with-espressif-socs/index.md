@@ -1,10 +1,18 @@
 ---
-title: "Unleashing the Power of OpenAI and ESP-BOX: A Guide to Fusing ChatGPT with Espressif SOCs"
+title: "Unleashing the Power of OpenAI and ESP-BOX: A Guide to Fusing ChatGPT with
+  Espressif SOCs"
 date: 2023-06-12
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - ali-hassan-shah
+tags:
+  - AI
+  - Chatgpt Chatbot
+  - ChatGPT
+  - Esp
+  - OpenAI
+
 ---
 The world is witnessing a technological revolution, and OpenAI is at the forefront of this change. One of its most exciting innovations is ChatGPT — that utilizes natural language processing to create more engaging and intuitive user experiences. The integration of OpenAI APIs with IoT devices has opened up a world of possibilities.
 

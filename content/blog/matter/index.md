@@ -5,6 +5,10 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Matter
+  - IoT
+
 ---
 {{< figure
     default=true

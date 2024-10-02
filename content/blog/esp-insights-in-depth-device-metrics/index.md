@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - adwait-patankar
+tags:
+  - Esp32
+  - IoT
+  - Espinsights
+
 ---
 {{< figure
     default=true

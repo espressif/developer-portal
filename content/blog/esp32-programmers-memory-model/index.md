@@ -5,6 +5,10 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
+tags:
+  - Esp32 Programming
+  - Esp32
+
 ---
 Internal memory of the MCU is probably the most precious resource as it occupies maximum area in the chip. The newer application use-cases have ever increasing memory requirement. For making the most of the hardware, understanding of the memory architecture and optimising of the memory for application’s use-case becomes important. Especially with the ESP32 SoC architecture that includes communication subsystems (Wi-Fi and BT/BLE) that requires certain memory to operate, it becomes necessary for the application to understand the requirements and tune their memory.
 

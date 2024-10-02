@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - anant-raj-gupta
+tags:
+  - Esp32
+  - Espressif
+  - Wifi
+  - IoT
+  - Connectivity
+
 ---
 Connecting your devices to the cloud is a topic which is actively discussed across multiple industries as it is not a hidden fact that there are numerous advantages to doing so. To name a few common advantages across various industries —
 

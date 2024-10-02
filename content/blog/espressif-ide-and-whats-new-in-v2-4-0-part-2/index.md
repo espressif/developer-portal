@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kondal-kolipaka
+tags:
+  - Espressif Ide
+  - Idf Eclipse Plugin
+  - Esp Idf
+  - Espressif
+  - Eclipse
+
 ---
 This section will talk about Espressif IDE installation options that are available and platforms supported.
 

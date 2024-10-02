@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - adwait-patankar
+tags:
+  - Espinsights
+  - Esp32
+  - IoT
+  - Observability
+
 ---
 {{< figure
     default=true

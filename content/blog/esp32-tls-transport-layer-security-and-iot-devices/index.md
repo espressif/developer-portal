@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - Security
+  - IoT
+  - Esp32
+  - Technology
+
 ---
 {{< figure
     default=true

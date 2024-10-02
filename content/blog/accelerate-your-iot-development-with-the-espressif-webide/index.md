@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - brian-ignacio
+tags:
+  - Espressif
+  - Eclipse Theia
+  - Docker
+  - Esp32
+  - Ide
+
 ---
 {{< figure
     default=true

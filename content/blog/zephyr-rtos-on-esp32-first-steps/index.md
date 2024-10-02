@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - glauber-ferreira
+tags:
+  - Esp32
+  - Zephyrrtos
+  - Zephyr
+  - Embedded Systems
+  - Espressif
+
 ---
 {{< figure
     default=true

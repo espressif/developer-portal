@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - Rainmaker
+  - Announcements
+  - Esp32
+
 ---
 
 {{< figure

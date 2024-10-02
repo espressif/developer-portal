@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - adwait-patankar
+tags:
+  - Espinsights
+  - Esp32
+  - IoT
+
 ---
 It’s been a few months, since we first introduced our Group Analytics feature in the ESP Insights. Group Analytics allows a wholistic view of your devices in the field, categorised or grouped either by their behavioural pattern viz. reporting certain type of crashes or reboots because of certain errors or even non-erroneous conditions. Devices could be even grouped at a very high level by their characteristics like the firmware application and the version they carry.
 

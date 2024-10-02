@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - juraj-michalek
+tags:
+  - Books
+  - Esp32
+  - IoT
+  - AI
+
 ---
 “Developing IoT Projects with ESP32” by Vedat Ozan Oner serves as a key guide, especially in its second edition, which has been thoughtfully updated to reflect the latest trends in IoT development.
 

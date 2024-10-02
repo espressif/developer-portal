@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - mahavir-jain
+tags:
+  - Esp32
+  - Esp Idf
+  - IoT
+  - Firmware
+  - Embedded Systems
+
 ---
 In this post we will discuss the design and internal workings of Over-The-Air (OTA) Updates framework in ESP-IDF.
 

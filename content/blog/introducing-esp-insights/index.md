@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - Esp32
+  - Observability
+  - Espinsights
+
 ---
 {{< figure
     default=true

@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Internet Of Things
+  - Esp32
+  - AWS
+  - Newsletter
+
 ---
 Welcome to our December Newsletter
 

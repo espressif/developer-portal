@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Zero Code
+  - AWS
+  - Espressif
+  - Esp32
+
 ---
 {{< figure
     default=true

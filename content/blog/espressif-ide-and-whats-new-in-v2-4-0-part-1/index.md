@@ -5,6 +5,15 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kondal-kolipaka
+tags:
+  - v2.4.0
+  - v2.4.1
+  - Espressif Ide
+  - Idf Eclipse Plugin
+  - Esp Idf
+  - Espressif
+  - Eclipse
+
 ---
 Espressif IDE is an Integrated Development Environment(IDE) based on Eclipse CDT for developing IoT Applications from end to end using the ESP-IDF(IoT Development Framework). It’s a standalone, customized IDE built specifically for ESP-IDF. Espressif IDE comes with the latest IDF Eclipse plugins, essential Eclipse CDT plugins, OpenOCD Plugins, and other third-party plugins from the Eclipse platform to support building ESP-IDF applications.
 

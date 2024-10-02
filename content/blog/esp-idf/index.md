@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
+tags:
+  - Wifi
+  - Esp32
+  - IoT
+  - Technology
+
 ---
 {{< figure
     default=true

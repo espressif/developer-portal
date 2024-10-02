@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - aditya-patwardhan
+tags:
+  - IoT
+  - Security
+  - Embedded Systems
+  - Esp32 S2
+  - Espressif
+
 ---
 {{< figure
     default=true

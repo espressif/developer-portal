@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - brian-ignacio
+tags:
+  - Esp Idf
+  - Espressif
+  - Vscode
+  - Theia
+  - Esp32
+
 ---
 Co-authored with Kondal Kolipaka
 

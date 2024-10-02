@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kondal-kolipaka
+tags:
+  - Esp32
+  - IoT
+  - Eclipse
+  - Plugins
+  - Esp Idf
+
 ---
 {{< figure
     default=true

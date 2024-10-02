@@ -5,6 +5,15 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - harshal-patil
+tags:
+  - latest release
+  - releases section
+  - Esp32
+  - Esp Idf
+  - Security
+  - Emulator
+  - IoT
+
 ---
 ## Overview
 

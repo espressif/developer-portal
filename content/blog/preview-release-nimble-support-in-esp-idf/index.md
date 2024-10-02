@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - hrishikesh-dhayagude
+tags:
+  - Bluetooth
+  - Esp32
+  - IoT
+
 ---
 ESP-IDF now supports Apache Mynewt NimBLE host stack which is ported for the ESP32 platform and FreeRTOS. NimBLE is an open-source Bluetooth Low Energy (BLE) or Bluetooth Smart stack (both host and controller) fully compliant with Bluetooth 5 specifications and with support for BLE Mesh. More details can be found here: [https://mynewt.apache.org/](https://mynewt.apache.org/). NimBLE, being BLE only, is a footprint optimised stack and can be used in a variety of applications involving BLE.
 

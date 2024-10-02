@@ -5,6 +5,10 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
+tags:
+  - Internet Of Things
+  - Esp32
+
 ---
 IoT is not one thing, it means different things to different people. So also, there are so many ways of building connected products. And that means there are so many questions for every aspect of your connected product:
 

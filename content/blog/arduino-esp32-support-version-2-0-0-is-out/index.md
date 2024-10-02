@@ -5,6 +5,15 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - pedro-minatel
+tags:
+  - version 2.0.0
+  - 2.0.0
+  - Espressif
+  - Arduino
+  - Esp32
+  - USB
+  - IoT
+
 ---
 Arduino is definitely one of the most popular embedded development frameworks, and this popularity is mostly due to its simplicity and huge community.
 

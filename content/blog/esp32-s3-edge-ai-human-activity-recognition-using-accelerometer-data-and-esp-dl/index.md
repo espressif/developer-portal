@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - ali-hassan-shah
+tags:
+  - AI
+  - Edge Computing
+  - Neural Networks
+  - Esp
+  - Recognition
+
 ---
 Edge computing is a distributed computing paradigm that brings computation and data storage closer to the device’s location. Edge Artificial Intelligence (edge-AI) is an exciting development within edge computing because it allows traditional technologies to run more efficiently, with higher performance and less power. Trained neural networks are used to make inferences on small devices. The potential [applications areas](https://www.xenonstack.com/blog/edge-ai-use-case) of edge AI includes manufacturing, healthcare, the retail industry, surveillance, smart home, and finance banking.
 

@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - piyush-shah
+tags:
+  - Esp32
+  - Rainmaker
+  - Espressif
+
 ---
 {{< figure
     default=true

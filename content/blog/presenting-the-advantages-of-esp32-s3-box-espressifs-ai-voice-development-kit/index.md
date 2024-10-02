@@ -1,10 +1,31 @@
 ---
-title: "Presenting the Advantages of ESP32-S3-BOX, Espressif’s AI Voice Development Kit"
+title: "Presenting the Advantages of ESP32-S3-BOX, Espressif’s AI Voice Development
+  Kit"
 date: 2021-11-22
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
+tags:
+  - Sign up
+  - Sign in
+  - Sign up
+  - Sign in
+  - Follow
+  - ''
+  - ''
+  - Esp32 S3
+  - Espressif
+  - Ai Voice Assistant
+  - IoT
+  - ''
+  - ''
+  - ''
+  - Follow
+  - ''
+  - Follow
+  - ''
+
 ---
 {{< figure
     default=true

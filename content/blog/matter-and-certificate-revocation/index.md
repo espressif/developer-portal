@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - deepakumar-v-u
+tags:
+  - Esp32
+  - IoT
+  - Matter
+
 ---
 [Espressif Matter Series](/matter-38ccf1d60bcd) #10
 

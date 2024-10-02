@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - hrishikesh-dhayagude
+tags:
+  - Esp32
+  - Dialogflow
+  - IoT
+
 ---
 ESP32 already supported being a fully functional [Alexa client](https://github.com/espressif/esp-va-sdk/blob/master/README-Alexa.md), a voice assistant.
 

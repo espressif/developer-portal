@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - mahavir-jain
+tags:
+  - Esp32
+  - IoT
+  - Embedded Systems
+  - Microcontrollers
+  - Framework
+
 ---
 {{< figure
     default=true

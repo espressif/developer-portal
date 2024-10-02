@@ -5,6 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - scott-mabin
+tags:
+  - Esp32
+  - Rust
+  - Xtensa
+
 ---
 This article was written by Scott Mabin and originally posted [on his blog](https://mabez.dev/).
 

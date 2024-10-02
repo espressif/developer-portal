@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - lucas-tamborrino
+tags:
+  - Zephyr
+  - Core Dump
+  - Debugging Tools
+  - Esp32
+  - Debug
+
 ---
 {{< figure
     default=true

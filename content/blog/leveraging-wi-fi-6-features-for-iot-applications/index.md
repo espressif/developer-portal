@@ -5,6 +5,13 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - anant-raj-gupta
+tags:
+  - IoT
+  - Wi Fi 6
+  - Wi Fi
+  - Low Latency
+  - Low Power
+
 ---
 In recent years, connected devices have become increasingly prevalent in our daily lives. From smart home devices to industrial automation systems, IoT technology is transforming the way we interact with the world around us. As IoT devices continue to proliferate, the need for reliable, high-capacity, and low-power wireless connectivity has become paramount. This is where Wi-Fi 6 (also known as 802.11ax) comes in, and its adoption in residential and enterprise settings reflects this need.
 

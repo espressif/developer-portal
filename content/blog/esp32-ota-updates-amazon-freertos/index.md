@@ -5,6 +5,12 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - mahavir-jain
+tags:
+  - AWS
+  - Esp32
+  - IoT
+  - Framework
+
 ---
 ESP32 now supports secure Over-the-Air firmware updates with Amazon FreeRTOS. This enables users of ESP32 with Amazon FreeRTOS to:
 
