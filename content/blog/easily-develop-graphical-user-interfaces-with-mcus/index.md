@@ -3,6 +3,7 @@ title: "Easily Develop Graphical User Interfaces (GUIs) with Espressif Microcont
 date: 2024-09-17
 showAuthor: false
 tags: ["ESP32", "ESP-IDF", "GUI", "Embedded Wizard", "ESP32-S3", "ESP32-S2"]
+featureAsset: "img/featured/featured-embedded-wizard.webp"
 authors:
     - "embedded-wizard-team"
 ---
