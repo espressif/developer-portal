@@ -1,6 +1,6 @@
 ---
 title: "How to Create an UI Application for the ESP32-S3"
-date: 2024-09-29
+date: 2024-10-02
 showAuthor: false
 tags: ["ESP32", "ESP-IDF", "GUI", "Embedded Wizard", "ESP32-S3", "ESP32-S2"]
 featureAsset: "img/featured/featured-embedded-wizard.webp"
