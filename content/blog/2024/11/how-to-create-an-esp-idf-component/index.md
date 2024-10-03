@@ -1,0 +1,470 @@
+---
+title: "How to create an ESP-IDF component"
+date: 2024-11-25
+showAuthor: false
+authors:
+  - "pedro-minatel"
+tags: ["I2C", "Registry", "Component", "ESP-IDF", "Driver", "Library"]
+---
+
+Developing complex applications using monolithic approach can be a nightmare, but it is common in the embedded systems. If your application is tightly integrated with all the peripheral drivers, business logic, protocols, cloud connectivity, and so on, developing in a collaborative way, maintaining it or, reusing the code in a different project is a very complex challenge.
+
+Thanks to the components on the ESP-IDF, this challenge will be overpassed. The ESP-IDF implements the components architecture, that makes most of the systems functions in a self-contained blocks.
+
+On the ESP-IDF, some components are part of the system and you can use the APIs directly form your application and some components can be added to your project as you need. This article will cover the components you can create and add to your project.
+
+## Writing the ESP-IDF component
+
+In some projects, using the components to detach parts of the application is a good approach. To get start with the component development process, we need to understand the basic structure and how the component will be part of the application.
+
+As covered on the introduction to the ESP Component Registry, the component can be created directly on the application or it can be created in a separated project then added to the application.
+
+{{< article link="/blog/2024/10/what-is-the-esp-registry/" >}}
+
+If the plan is to share the component with other applications, the best approach is to create the component in a new project that will contain just the component and examples if needed.
+
+> Note: This article will not cover how to publish the component on the ESP Component Registry. This will be covered on the next article of this series.
+
+Now it's time to start with the new component. For this article, we will use an I2C temperature and humidity sensor.
+
+### The sensor: SHTC3
+
+For this new component, the sensor will be the [Sensirion SHTC3](https://sensirion.com/products/catalog/SHTC3). This is a I2C temperature and humidity sensor with a typical accuracy of ±2 %RH and ±0.2 °C. To know more about the specifications, please visit the official [product page](https://sensirion.com/products/catalog/SHTC3).
+
+If you don't have this sensor, you can change to any other I2C device. All the information you might need for the new sensor should be provided by the manufacturer, including the device address, registers, etc.
+
+### The Board: ESP32-C3-DevKit-RUST-1
+
+This sensor can be found on the [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) and this is the board that will be used to create the component.
+
+The **ESP32-C3-DevKit-RUST-1** development board has 2 sensors connected to the I2C peripheral on the following GPIOs:
+
+| Signal     | GPIO        |
+|------------|-------------|
+| SDA        | GPIO10      |
+| SCL        | GPIO8       |
+
+All the project files for this board are available on the GitHub.
+
+{{< github repo="esp-rs/esp-rust-board" >}}
+
+### Creating the component
+
+Before creating the component, we will need to create a new project that the component will be part of. If you have already the project, you can skip this step and jump to the component creation.
+
+The component can be created manually or you can use the `idf.py` tool to create all the basic skeleton. We recommend to create the new component by the tool provided by Espressif.
+
+To create the component, we will go through some steps:
+
+1. Create a new project.
+2. Create the new component inside the project.
+3. Write the driver code for the selected sensor.
+
+> We assume that you already have the ESP-IDF version 5.2 or higher installed on your system.
+
+#### Additional content from DevCon23
+
+On the Espressif DevCon23, Ivan Grokhotkov, gave a talk titled: Developing, Publishing, and Maintaining Components for ESP-IDF. You can watch this talk as an additional material for your studies.
+
+{{< youtube D86gQ4knUnc >}}
+
+The Component Manager [documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/) is very comprehensive and you will find all the information you need there, including the [simple component](https://docs.espressif.com/projects/idf-component-manager/en/latest/guides/packaging_components.html#a-simple-esp-idf-component) structure.
+
+#### Create the new project
+
+To create the component, we will use a project as the starting point. This project will be used to test the component.
+
+```bash
+idf.py create-project example-shtc3
+```
+
+Now inside the project folder, let's test the build for the ESP32-C3.
+
+```bash
+cd example-shtc3
+idf.py set-target esp32c3
+idf.py build
+```
+
+If the build finished successfully, now it's time to create the component.
+
+#### Create the new component
+
+Inside the project folder, we need to create a folder called `components`
+
+The process will be done by the CLI (Command-line Interface) tool `idf.py`.
+
+```bash
+idf.py create-component -C components shtc3
+```
+
+After that, the new folder should contain the following structure:
+
+```text
+.
+└── components
+    └── shtc3
+        ├── CMakeLists.txt
+        ├── include
+        │   └── shtc3.h
+        └── shtc3.c
+```
+
+#### Component code
+
+From now on, we will create the required code for the component to get the values from the sensor using I2C peripheral. The focus for the code explanation will be more on the new I2C driver.
+
+To avoid a very long code description, please see the full code on the **SHTC3** component [repository on GitHub](https://github.com/pedrominatel/esp-components/tree/main/shtc3).
+
+{{< github repo="pedrominatel/esp-components" >}}
+
+The basic flow for the component side will be:
+
+- Create the I2C device that will be attached read from the I2C bus.
+  - The I2C bus will be handled by the component example or the project that will use the component.
+- Read the sensor registers
+  - Temperature
+  - Humidity
+  - ID/serial
+- Set the sensor registers
+  - Wake
+  - Sleep
+- Detach the sensor from the bus
+
+On the `include/shtc3.h`:
+
+```c
+#include "driver/i2c_master.h"
+
+#define SHTC3_I2C_ADDR   ((uint8_t)0x70) // I2C address of SHTC3 sensor
+```
+
+The SHTC3 sensor address is `0x70` and there is no address selection, so we can use always the same address.
+
+Create the enumeration to hold the registers that can be read or written to the sensor.
+
+```c
+// SHTC3 register addresses write only
+typedef enum {
+    SHTC3_REG_READ_ID       = 0xEFC8, // Read ID register
+    SHTC3_REG_WAKE          = 0x3517, // Wake up sensor
+    SHTC3_REG_SLEEP         = 0xB098, // Put sensor to sleep
+    SHTC3_REG_SOFT_RESET    = 0x805D  // Soft reset
+} shtc3_register_w_t;
+
+// SHTC3 register addresses read-write
+typedef enum {
+    // Temperature first with clock stretching enabled in normal mode
+    SHTC3_REG_T_CSE_NM  = 0x7CA2,
+    // Humidity first with clock stretching enabled in normal mode
+    SHTC3_REG_RH_CSE_NM = 0x5C24,
+    // Temperature first with clock stretching enabled in low power mode
+    SHTC3_REG_T_CSE_LM  = 0x6458,
+    // Humidity first with clock stretching enabled in low power mode
+    SHTC3_REG_RH_CSE_LM = 0x44DE,
+    // Temperature first with clock stretching disabled in normal mode
+    SHTC3_REG_T_CSD_NM  = 0x7866,
+    // Humidity first with clock stretching disabled in normal mode
+    SHTC3_REG_RH_CSD_NM = 0x58E0,
+    // Temperature first with clock stretching disabled in low power mode
+    SHTC3_REG_T_CSD_LM  = 0x609C,
+    // Humidity first with clock stretching disabled in low power mode
+    SHTC3_REG_RH_CSD_LM = 0x401A
+} shtc3_register_rw_t;
+```
+
+As mentioned before, this project will be based on the new I2C API from ESP-IDF.
+
+Add the `REQUIRES "driver"` to the component `CMakeLists.txt` located inside the component folder `shtc3`.
+
+```text
+idf_component_register(
+    SRCS "shtc3.c"
+    INCLUDE_DIRS "include"
+    REQUIRES "driver"
+)
+```
+
+On the `shtc3.c` file:
+
+We can start by creating the function to handle the I2C device creation, that will be attached to the bus.
+
+```c
+i2c_master_dev_handle_t shtc3_device_create(i2c_master_bus_handle_t bus_handle,
+    const uint16_t dev_addr, const uint32_t dev_speed)
+{
+    i2c_device_config_t dev_cfg = {
+        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+        .device_address = dev_addr,
+        .scl_speed_hz = dev_speed,
+    };
+    i2c_master_dev_handle_t dev_handle;
+    // Add device to the I2C bus
+    ESP_ERROR_CHECK(i2c_master_bus_add_device(bus_handle, &dev_cfg, &dev_handle));
+    return dev_handle;
+}
+```
+
+In this function, the `i2c_master_bus_handle_t` will be provided and then the device will be created and attached to the bus by calling `i2c_master_bus_add_device`.
+
+To create the device, the following settings are required:
+
+- `dev_addr_length`: Device address length, that could it be 7 or 8 bits. Please see this information in the datasheet.
+- `device_address`: Device address.
+- `scl_speed_hz`: Bus clock speed. For normal mode up to 100kHz and fast mode up to 400kHz.
+
+Once the device is attached to the bus, the `i2c_master_dev_handle_t` will be returned to be used on any read or write operation with this sensor.
+
+To remove the device from the bus you can use the function `i2c_master_bus_rm_device`. Let's add to our component.
+
+```c
+esp_err_t shtc3_device_delete(i2c_master_dev_handle_t dev_handle)
+{
+    return i2c_master_bus_rm_device(dev_handle);
+}
+```
+
+To read and write operations, we will use 2 functions:
+
+- `i2c_master_transmit`: Perform a write transaction on the I2C bus.
+- `i2c_master_transmit_receive`: Perform a write-read transaction on the I2C bus.
+
+The function `i2c_master_receive` will be not used on this component. The complete list of functions can be found on the [documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/i2c.html#functions).
+
+On this sensor, the recommended (see datasheet) flow is:
+
+1. Wakeup command
+2. Measurement command
+3. Read out command
+4. Sleep command
+
+Now let's add the register write function to wakeup and sleep:
+
+```c
+static esp_err_t shtc3_wake(i2c_master_dev_handle_t dev_handle)
+{
+    esp_err_t ret;
+    shtc3_register_w_t reg_addr = SHTC3_REG_WAKE;
+    uint8_t read_reg[2] = { reg_addr >> 8, reg_addr & 0xff };
+    ret = i2c_master_transmit(dev_handle, read_reg, 2, -1);
+    ESP_RETURN_ON_ERROR(ret, TAG, "Failed to wake up SHTC3 sensor");
+    return ret;
+}
+```
+
+Sleep:
+
+```c
+static esp_err_t shtc3_sleep(i2c_master_dev_handle_t dev_handle)
+{
+    esp_err_t ret;
+    shtc3_register_w_t reg_addr = SHTC3_REG_SLEEP;
+    uint8_t read_reg[2] = { reg_addr >> 8, reg_addr & 0xff };
+    ret = i2c_master_transmit(dev_handle, read_reg, 2, -1);
+    ESP_RETURN_ON_ERROR(ret, TAG, "Failed to put SHTC3 sensor to sleep"); 
+    return ret;
+}
+```
+
+To read the temperature and humidity from the sensor, now we will use the `i2c_master_transmit_receive` function.
+
+```c
+ esp_err_t shtc3_get_th(i2c_master_dev_handle_t dev_handle,
+          shtc3_register_rw_t reg,
+          float *data1,
+          float *data2)
+{
+    esp_err_t ret;
+    uint8_t b_read[6] = {0};
+    uint8_t read_reg[2] = { reg >> 8, reg & 0xff };
+
+    shtc3_wake(dev_handle);
+    // Read 4 bytes of data from the sensor
+    ret = i2c_master_transmit_receive(dev_handle, read_reg, 2, b_read, 6, 200);
+    ESP_RETURN_ON_ERROR(ret, TAG, "Failed to read data from SHTC3 sensor");
+    shtc3_sleep(dev_handle);
+
+    // Convert the data
+    *data1 = ((((b_read[0] * 256.0) + b_read[1]) * 175) / 65535.0) - 45;
+    *data2 = ((((b_read[3] * 256.0) + b_read[4]) * 100) / 65535.0);
+
+    return ret;
+}
+```
+
+On this function, we will wakeup the sensor, write and read the data (temperature and humidity) and set the sensor to sleep. The conversion from the raw values to the temperature in Celsius and humidity in %RH is also described in the sensor datasheet.
+
+The CRC for the temperature and humidity will be not considered for this example. If you need to implement the CRC, please see the information provided by the manufacturer.
+
+This is a very basic sensor, with no configuration or calibration registers.
+
+#### Testing the component
+
+To test the component, let's go back to the project we have created before or the project you are using for creating this component.
+
+For testing, the application will do:
+
+- Initialize the I2C bus.
+- Create the sensor I2C device.
+- Probe the I2C bus and check the sensor presence.
+- Get the sensor ID.
+- Start a new task to read the sensor every 1000 ms (1 sec).
+
+On the `app_main` function in the `example-shtc3.c` file, add the bus initialization and the device creation functions.
+
+```c
+i2c_master_bus_handle_t i2c_bus_init(uint8_t sda_io, uint8_t scl_io)
+{
+    i2c_master_bus_config_t i2c_bus_config = {
+        .i2c_port = CONFIG_SHTC3_I2C_NUM,
+        .sda_io_num = sda_io,
+        .scl_io_num = scl_io,
+        .clk_source = I2C_CLK_SRC_DEFAULT,
+        .glitch_ignore_cnt = 7,
+        .flags.enable_internal_pullup = true,
+    };
+
+    i2c_master_bus_handle_t bus_handle;
+    ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_config, &bus_handle));
+    ESP_LOGI(TAG, "I2C master bus created");
+    return bus_handle;
+}
+```
+
+The bus initialization is done by the function `i2c_new_master_bus` and the `bus_handle` will be used to create the device on this bus. If you have more devices, you can add to the same bus, but this will be not covered on this article.
+
+```c
+i2c_master_bus_handle_t bus_handle = i2c_bus_init(SHTC3_SDA_GPIO, SHTC3_SCL_GPIO);
+shtc3_handle = shtc3_device_create(bus_handle, SHTC3_I2C_ADDR, CONFIG_SHTC3_I2C_CLK_SPEED_HZ);
+```
+
+Make sure to import the component header file.
+
+```c
+#include "shtc3.h"
+```
+
+Now to proof that the sensor is present in the I2C bus, we can probe and check it before the read and write operations. This probe has the timeout set to 200 ms.
+
+```c
+esp_err_t err = i2c_master_probe(bus_handle, SHTC3_I2C_ADDR, 200);
+```
+
+With the probe result, we can decide if the read task will be created or not.
+
+```c
+if(err == ESP_OK) {
+        ESP_LOGI(TAG, "SHTC3 sensor found");
+        uint8_t sensor_id[2];
+        err = shtc3_get_id(shtc3_handle, sensor_id);
+        ESP_LOGI(TAG, "Sensor ID: 0x%02x%02x", sensor_id[0], sensor_id[1]);
+
+        if(err == ESP_OK) {
+            ESP_LOGI(TAG, "SHTC3 ID read successfully");
+            xTaskCreate(shtc3_read_task, "shtc3_read_task", 4096, NULL, 5, NULL);
+        } else {
+            ESP_LOGE(TAG, "Failed to read SHTC3 ID");
+        }
+
+    } else {
+        ESP_LOGE(TAG, "SHTC3 sensor not found");
+        shtc3_device_delete(shtc3_handle);
+    }
+```
+
+Task to read the sensor.
+
+```c
+void shtc3_read_task(void *pvParameters)
+{
+    float temperature, humidity;
+    esp_err_t err = ESP_OK;
+    shtc3_register_rw_t reg = SHTC3_REG_T_CSE_NM;
+
+    while (1) {
+        err = shtc3_get_th(shtc3_handle, reg, &temperature, &humidity);
+        if(err != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to read data from SHTC3 sensor");
+        } else {
+            ESP_LOGI(TAG, "Temperature: %.2f C, Humidity: %.2f %%", temperature, humidity);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+```
+
+On this task, the sensor will be woken up, the readout will be read and processed, and then the sensor will return to sleep mode.
+
+#### Creating Kconfig (optional)
+
+As a bonus, this component has a dedicated configuration menu using a `Kconfig` file. On this configuration menu, you will be able to set the I2C GPIOs (SDA and SCL), the I2C port number and the bus frequency.
+
+```text
+menu "Driver SHTC3 Sensor"
+            
+    menu "I2C"
+        config SHTC3_I2C_NUM
+            int "I2C peripheral index"
+            default -1
+            range -1 3
+            help
+                For auto select I2C peripheral, set to -1.
+
+        config SHTC3_I2C_SDA
+            int "I2C SDA pin"
+            default 17
+            range 0 55
+            help
+                Set the I2C SDA pin for the data signal.
+
+        config SHTC3_I2C_SCL
+            int "I2C SCL pin"
+            default 18
+            range 0 55
+            help
+                Set the I2C SCL pin for the clock signal.
+
+        config SHTC3_I2C_CLK_SPEED_HZ
+            int "I2C clock speed (Hz)"
+            default 100000
+            range 10000 400000
+            help
+                Set the I2C clock speed in Hz.
+    endmenu
+  
+endmenu
+```
+
+The `Kconfig` file should be placed on the component root directory. To set the values, you can use the command:
+
+```bash
+idf.py menuconfig
+```
+
+Having a component with a clear documentation and at least one example, can make your component frustration free. Developers enjoy when it just works!
+
+### Running the application
+
+To run the application, run the command to `flash` and `monitor` using the `idf.py`. The application will print the temperature and humidity.
+
+{{< asciinema
+  key="component_shtc3"
+  idleTimeLimit="2"
+  speed="1.5"
+  poster="npt:0:09"
+>}}
+
+
+## Conclusion
+
+Writing a new component is highly recommended for improving the project architecture. This is a very powerful approach and can be used for many different types of component, not only for drivers.
+
+In a future article, this component will be added to the [Component Registry](https://components.espressif.com/) to be easily shared across the community.
+
+## Reference
+
+- [ESP-Registry](https://components.espressif.com/)
+- [ESP-Registry Documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/)
+- [Compote Documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/reference/compote_cli.html)
+- [Component Examples](https://github.com/espressif/esp-bsp/tree/master/components)
+- [My Components](https://github.com/pedrominatel/esp-components)
