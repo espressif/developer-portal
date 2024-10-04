@@ -13,8 +13,6 @@ In the [ESP-IDF](https://idf.espressif.com), components are widely used to make 
 
 ## What is ESP-Registry?
 
-To support the high number of components on the ESP-IDF, [Espressif](https://espressif.com) has developed the [ESP-Registry](https://components.espressif.com/), a platform that keeps all components available for anyone to use in a central repository. With the ESP-Registry, users can easily find and install components, use examples, and eventually create and upload their own components.
-
 <figure style="width: 90%; margin: 0 auto; text-align: center;">
     <img
         src="./assets/cm_logo.webp"
@@ -24,6 +22,19 @@ To support the high number of components on the ESP-IDF, [Espressif](https://esp
     />
     <figcaption>ESP-Registry Logo</figcaption>
 </figure>
+
+To support the high number of components on the ESP-IDF, [Espressif](https://espressif.com) has developed the [ESP-Registry](https://components.espressif.com/), a platform that keeps all components available for anyone to use in a central repository. With the ESP-Registry, users can easily find and install components, use examples, and eventually create and upload their own components.
+
+<figure style="width: 90%; margin: 0 auto; text-align: center;">
+    <img
+        src="./assets/esp-registry-main.webp"
+        alt="ESP-Registry  landing page"
+        title="ESP-Registry  landing page"
+        style="width: 100%;"
+    />
+    <figcaption>ESP-Registry landing page</figcaption>
+</figure>
+
 
 Currently (Oct 2024), the Registry has **477 components**, developed by Espressif, partners, and the community.
 
@@ -45,7 +56,7 @@ The main propose for this article is not to describe the Registry and the Compon
 
 > Sharing knowledge is one of the most rewarding things you can do.
 
-Before continuing, the component we will write will be available on GitHub, so this article will be focused on GitHub as our versioning platform and you will need an account in order to publish your own component.
+Before continuing, the component we will write will be available on [GitHub](https://github.com), so this article will be focused on GitHub as our versioning platform and you will need an account in order to publish your own component.
 
 ## Writing an I2C component
 
@@ -208,28 +219,33 @@ The SHTC3 sensor address is `0x70` and there is no address selection, so we can 
 Create the enumeration to hold the registers that can be read or written to the sensor.
 
 ```c
+// SHTC3 register addresses write only
 typedef enum {
+    SHTC3_REG_READ_ID       = 0xEFC8, // Read ID register
+    SHTC3_REG_WAKE          = 0x3517, // Wake up sensor
+    SHTC3_REG_SLEEP         = 0xB098, // Put sensor to sleep
+    SHTC3_REG_SOFT_RESET    = 0x805D  // Soft reset
+} shtc3_register_w_t;
 
-} shtc3_write_register_t;
-
+// SHTC3 register addresses read-write
 typedef enum {
-    // Read temperature first with clock stretching enabled in normal mode
+    // Temperature first with clock stretching enabled in normal mode
     SHTC3_REG_T_CSE_NM  = 0x7CA2,
-    // Read humidity first with clock stretching enabled in normal mode
+    // Humidity first with clock stretching enabled in normal mode
     SHTC3_REG_RH_CSE_NM = 0x5C24,
-    // Read temperature first with clock stretching enabled in low power mode
+    // Temperature first with clock stretching enabled in low power mode
     SHTC3_REG_T_CSE_LM  = 0x6458,
-    // Read humidity first with clock stretching enabled in low power mode
+    // Humidity first with clock stretching enabled in low power mode
     SHTC3_REG_RH_CSE_LM = 0x44DE,
-    // Read temperature first with clock stretching disabled in normal mode
+    // Temperature first with clock stretching disabled in normal mode
     SHTC3_REG_T_CSD_NM  = 0x7866,
-    // Read humidity first with clock stretching disabled in normal mode
+    // Humidity first with clock stretching disabled in normal mode
     SHTC3_REG_RH_CSD_NM = 0x58E0,
-    // Read temperature first with clock stretching disabled in low power mode
+    // Temperature first with clock stretching disabled in low power mode
     SHTC3_REG_T_CSD_LM  = 0x609C,
-    // Read humidity first with clock stretching disabled in low power mode
-    SHTC3_REG_RH_CSD_LM = 0x401A 
-} shtc3_read_register_t;
+    // Humidity first with clock stretching disabled in low power mode
+    SHTC3_REG_RH_CSD_LM = 0x401A
+} shtc3_register_rw_t;
 ```
 
 As mentioned before, this project will be based on the new I2C API from ESP-IDF.
@@ -293,7 +309,7 @@ Now let's add the register write function to wakeup and sleep:
 static esp_err_t shtc3_wake(i2c_master_dev_handle_t dev_handle)
 {
     esp_err_t ret;
-    uint16_t reg_addr = SHTC3_REG_WAKE;
+    shtc3_register_w_t reg_addr = SHTC3_REG_WAKE;
     uint8_t read_reg[2] = { reg_addr >> 8, reg_addr & 0xff };
     ret = i2c_master_transmit(dev_handle, read_reg, 2, -1);
     ESP_RETURN_ON_ERROR(ret, TAG, "Failed to wake up SHTC3 sensor");
@@ -301,14 +317,16 @@ static esp_err_t shtc3_wake(i2c_master_dev_handle_t dev_handle)
 }
 ```
 
+Sleep:
+
 ```c
 static esp_err_t shtc3_sleep(i2c_master_dev_handle_t dev_handle)
 {
     esp_err_t ret;
-    uint16_t reg_addr = SHTC3_REG_SLEEP;
+    shtc3_register_w_t reg_addr = SHTC3_REG_SLEEP;
     uint8_t read_reg[2] = { reg_addr >> 8, reg_addr & 0xff };
     ret = i2c_master_transmit(dev_handle, read_reg, 2, -1);
-    ESP_RETURN_ON_ERROR(ret, TAG, "Failed to put SHTC3 sensor to sleep");
+    ESP_RETURN_ON_ERROR(ret, TAG, "Failed to put SHTC3 sensor to sleep"); 
     return ret;
 }
 ```
@@ -316,26 +334,32 @@ static esp_err_t shtc3_sleep(i2c_master_dev_handle_t dev_handle)
 To read the temperature and humidity from the sensor, now we will use the `i2c_master_transmit_receive` function.
 
 ```c
-esp_err_t shtc3_get_th(i2c_master_dev_handle_t dev_handle, shtc3_register_t reg,
-    float *data1, float *data2)
+ esp_err_t shtc3_get_th(i2c_master_dev_handle_t dev_handle,
+          shtc3_register_rw_t reg,
+          float *data1,
+          float *data2)
 {
     esp_err_t ret;
     uint8_t b_read[6] = {0};
-    uint16_t reg_addr = reg;
-    uint8_t read_reg[2] = { reg_addr >> 8, reg_addr & 0xff };
+    uint8_t read_reg[2] = { reg >> 8, reg & 0xff };
+
     shtc3_wake(dev_handle);
     // Read 4 bytes of data from the sensor
     ret = i2c_master_transmit_receive(dev_handle, read_reg, 2, b_read, 6, 200);
     ESP_RETURN_ON_ERROR(ret, TAG, "Failed to read data from SHTC3 sensor");
     shtc3_sleep(dev_handle);
+
     // Convert the data
     *data1 = ((((b_read[0] * 256.0) + b_read[1]) * 175) / 65535.0) - 45;
     *data2 = ((((b_read[3] * 256.0) + b_read[4]) * 100) / 65535.0);
+
     return ret;
 }
 ```
 
-On this function,w e will wakeup the sensor, write and read the data (temperature and humidity) and set the sensor to sleep. The conversion from the raw values to the temperature in Celsius and humidity in %RH is also described in the sensor datasheet.
+On this function, we will wakeup the sensor, write and read the data (temperature and humidity) and set the sensor to sleep. The conversion from the raw values to the temperature in Celsius and humidity in %RH is also described in the sensor datasheet.
+
+The CRC for the temperature and humidity will be not considered for this example. If you need to implement the CRC, please see the information provided by the manufacturer.
 
 This is a very basic sensor, with no configuration or calibration registers.
 
@@ -343,14 +367,376 @@ This is a very basic sensor, with no configuration or calibration registers.
 
 Adding the examples is highly recommended. This will help developers to understand how to use the component and will let people test it easily.
 
-To include the example, follow the steps:
+To include the example, follow these steps:
 
-1. Create the **examples** folder.
+1. Create the **examples** folder in the component root folder.
+2. Create a new project using `idf.py`.
+
+Inside the `examples` folder, run the command to create a new blank project structure with the name `shtc3`.
+
+```bash
+idf.py create-project shtc3_read
+```
+
+3. Create the example manifest file `idf_component.yml` inside the `shtc_read/main` folder.
+
+```yaml
+dependencies:
+  <github_namespace>/shtc3:
+    version: "*"
+    override_path: '../../../'
+```
+
+Replace the `<github_namespace>` with your GitHub account name or organization.
+
+After that, component folder structure should be something like:
+
+```text
+.
+└── shtc3
+    ├── examples
+    │   └── shtc3_read
+    │       └── CMakeLists.txt
+    │       └── main
+    │           └── CMakeLists.txt
+    │           └── idf_component.yml
+    │           └── shtc3_read.c
+    ├── CMakeLists.txt
+    ├── README.md
+    ├── idf_component.yml
+    ├── licesne.txt
+    ├── include
+    │   └── shtc3.h
+    └── shtc3.c
+```
+
+4. Create the example
+
+Now let's create the component example and test it.
+
+This example will do:
+
+- Initialize the I2C bus.
+- Create the sensor I2C device.
+- Probe the I2C bus and check the sensor presence.
+- Get the sensor ID.
+- Start a new task to read the sensor every 1000 ms.
+
+On the `app_main` function in the `shtc3_read.c` file, add the bus initialization and the device creation functions.
+
+```c
+i2c_master_bus_handle_t i2c_bus_init(uint8_t sda_io, uint8_t scl_io)
+{
+    i2c_master_bus_config_t i2c_bus_config = {
+        .i2c_port = CONFIG_SHTC3_I2C_NUM,
+        .sda_io_num = sda_io,
+        .scl_io_num = scl_io,
+        .clk_source = I2C_CLK_SRC_DEFAULT,
+        .glitch_ignore_cnt = 7,
+        .flags.enable_internal_pullup = true,
+    };
+
+    i2c_master_bus_handle_t bus_handle;
+    ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_config, &bus_handle));
+    ESP_LOGI(TAG, "I2C master bus created");
+    return bus_handle;
+}
+```
+
+The bus initialization is done by the function `i2c_new_master_bus` and the `bus_handle` will be used to create the device on this bus. If you have more devices, you can add to the same bus, but this will be not covered on this article.
+
+```c
+i2c_master_bus_handle_t bus_handle = i2c_bus_init(SHTC3_SDA_GPIO, SHTC3_SCL_GPIO);
+shtc3_handle = shtc3_device_create(bus_handle, SHTC3_I2C_ADDR, CONFIG_SHTC3_I2C_CLK_SPEED_HZ);
+```
+
+Make sure to import the component header file.
+
+```c
+#include "shtc3.h"
+```
+
+Now to proof that the sensor is present in the I2C bus, we can probe and check it before the read and write operations. This probe has the timeout set to 200 ms.
+
+```c
+esp_err_t err = i2c_master_probe(bus_handle, SHTC3_I2C_ADDR, 200);
+```
+
+With the probe result, we can decide if the read task will be created or not.
+
+```c
+if(err == ESP_OK) {
+        ESP_LOGI(TAG, "SHTC3 sensor found");
+        uint8_t sensor_id[2];
+        err = shtc3_get_id(shtc3_handle, sensor_id);
+        ESP_LOGI(TAG, "Sensor ID: 0x%02x%02x", sensor_id[0], sensor_id[1]);
+
+        if(err == ESP_OK) {
+            ESP_LOGI(TAG, "SHTC3 ID read successfully");
+            xTaskCreate(shtc3_read_task, "shtc3_read_task", 4096, NULL, 5, NULL);
+        } else {
+            ESP_LOGE(TAG, "Failed to read SHTC3 ID");
+        }
+
+    } else {
+        ESP_LOGE(TAG, "SHTC3 sensor not found");
+        shtc3_device_delete(shtc3_handle);
+    }
+```
+
+Task to read the sensor.
+
+```c
+void shtc3_read_task(void *pvParameters)
+{
+    float temperature, humidity;
+    esp_err_t err = ESP_OK;
+    shtc3_register_rw_t reg = SHTC3_REG_T_CSE_NM;
+
+    while (1) {
+        err = shtc3_get_th(shtc3_handle, reg, &temperature, &humidity);
+        if(err != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to read data from SHTC3 sensor");
+        } else {
+            ESP_LOGI(TAG, "Temperature: %.2f C, Humidity: %.2f %%", temperature, humidity);
+        }
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+```
+
+On this task, the sensor will be woken up, the readout will be read and processed, and then the sensor will return to sleep mode.
+
+#### Bonus
+
+As a bonus, this component has a dedicated configuration menu using a `Kconfig` file. On this configuration menu, you will be able to set the I2C GPIOs (SDA and SCL), the I2C port number and the bus frequency.
+
+```text
+menu "Driver SHTC3 Sensor"
+            
+    menu "I2C"
+        config SHTC3_I2C_NUM
+            int "I2C peripheral index"
+            default -1
+            range -1 3
+            help
+                For auto select I2C peripheral, set to -1.
+
+        config SHTC3_I2C_SDA
+            int "I2C SDA pin"
+            default 17
+            range 0 55
+            help
+                Set the I2C SDA pin for the data signal.
+
+        config SHTC3_I2C_SCL
+            int "I2C SCL pin"
+            default 18
+            range 0 55
+            help
+                Set the I2C SCL pin for the clock signal.
+
+        config SHTC3_I2C_CLK_SPEED_HZ
+            int "I2C clock speed (Hz)"
+            default 100000
+            range 10000 400000
+            help
+                Set the I2C clock speed in Hz.
+    endmenu
+  
+endmenu
+```
+
+The `Kconfig` file should be placed on the component root directory. To set the values, you can use the command:
+
+```bash
+idf.py menuconfig
+```
 
 Having a component with a clear documentation and at least one example, can make your component frustration free. Developers enjoy when it just works!
 
 ### Publishing the component to the ESP-Registry
 
+Now we have everything needed to read the SHTC3 sensor, we need to publish the component to the Component Registry. To do that, there are 2 ways:
+
+- Manual
+- GitHub Action
+
+The manual procedure can be found in the [Publish the Component](https://docs.espressif.com/projects/idf-component-manager/en/latest/guides/packaging_components.html#publish-the-component) section in the documentation.
+
+Alternatively to the manual procedure, we can use GitHub Actions to publish every new version of the component automatically.
+
+On this article, we will focus on the GitHub Action procedure.
+
+#### GitHub Actions
+
+If you are not familiar with GitHub Actions, you can read the [official documentation](https://github.com/features/actions).
+
+In sum, GitHub Action is a continuous integration and continuous delivery (CI/CD) platform that automates workflows right on in your GitHub repository. You can use GitHub Actions in a vast situations and you can automate for example the component publishing process.
+
+#### Workflow
+
+To use the actions, we need to create a folder on the root directory of your component repository, named `.github` (do not forget the dot).
+
+Inside this folder, create another folder named `workflows`. On this folder, two workflow files will be created.
+
+- `build_examples.yml`: This workflow will build the component example.
+- `upload_components.yml`: This workflow will upload the component to the registry.
+
+The folder structure will be:
+
+```text
+.
+.github
+└── workflows
+    └── build_examples.yml
+    └── upload_components.yml
+└── shtc3
+```
+
+**build_examples.yml**
+
+The build workflow will compile the example with the ESP-IDF version specified in the `idf_ver` and will run when you push to the main branch or create a PR (pull request).
+
+This workflow is important to ensure that the code can be built successfully, preventing any potential issues before uploading the component to the registry.
+
+```yaml
+name: 'build'
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        idf_ver: ["release-v5.3", "latest"]
+    runs-on: ubuntu-22.04
+    container: espressif/idf:${{ matrix.idf_ver }}
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    - name: Install idf-build-apps
+      shell: bash
+      run: |
+        . ${IDF_PATH}/export.sh
+        python3 -m pip install idf-build-apps==2.4.3
+    - name: Build examples
+      shell: bash
+      run: |
+        . ${IDF_PATH}/export.sh
+        idf-build-apps build
+```
+
+**upload_components.yml**
+
+To publish the component, the workflow `upload_component` will process the component by using the [upload-components-ci-action](https://github.com/espressif/upload-components-ci-action).
+
+This workflow will run only when the component is pushed to the main branch. This avoids publishing the component before merging the branch to the main.
+
+An important note is that the action will only publish the component if there is no component published with the same version. This means that you need to change the version in the manifest file before running this workflow.
+
+```yaml
+name: Push components to Espressif Component Service
+
+on:
+    push:
+      branches:
+        - main
+
+jobs:
+  upload_components:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Upload components to component service
+        uses: espressif/upload-components-ci-action@v1
+        with:
+          directories: >
+            shtc3;
+          namespace: "<namespace>"
+          api_token: ${{ secrets.IDF_COMPONENT_API_TOKEN }}
+```
+
+Replace the `namespace` with your GitHub username or organization.
+
+In order to upload the component, you need to provide the API key. This key is a secret and **cannot be public**.
+
+**Create the Action secret**
+
+GitHub has the [secret tokens](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) manager that you can use in the Actions workflow.
+
+To create the API token, go to [tokens](https://components.espressif.com/settings/tokens/) in the Registry and create a new token with `write:components`scope. Make sure to copy the token and store a copy in a safe place. Once you create the token, you will not be able see the full token later.
+
+Now, on your GitHub repository, create a new secret token with the name `IDF_COMPONENT_API_TOKEN` and add the API token as the secret. This secret will be only accessed by the actions inside your repository.
+
+After everything created, you can push all the files to a branch on your repository, test the workflow run and if all goes green (in the actions tab), you can merge and see your component published.
+
+<figure style="width: 90%; margin: 0 auto; text-align: center;">
+    <img
+        src="./assets/esp-registry-shtc3.webp"
+        alt="ESP-Registry SHTC3 Component"
+        title="ESP-Registry SHTC3 Component"
+        style="width: 100%;"
+    />
+    <figcaption>ESP-Registry SHTC3 Component</figcaption>
+</figure>
+
+For this article, the published component can be found in the Registry: [SHTC3](https://components.espressif.com/components/pedrominatel/shtc3/)
+
 ## Using the component
 
+This is the time for testing the published component. For that, we will use the component published for this article, the [SHTC3](https://components.espressif.com/components/pedrominatel/shtc3/).
+
+On the component page, you will see the command from the `idf.py` to add the component to your project. In this case:
+
+```bash
+idf.py add-dependency "pedrominatel/shtc3^1.1.0"
+```
+
+Run this command inside a project that you want to add the component. By running this command, a new `idf_component.yml` will be added to your project with the new requirement/dependency for your project.
+
+In the build output in the console, you will note this:
+
+```text
+Processing 2 dependencies:
+[1/2] pedrominatel/shtc3 (1.1.0)
+[2/2] idf (5.4.0)
+```
+
+Once you build the project, the build system will automatically download all dependencies to a folder called `managed_components`.
+
+If you are not able to see the dependencies or the `managed_components` folder, you can try:
+
+```bash
+idf.py reconfigure
+```
+
+Another way is to create a new project based on the component example.
+
+<figure style="width: 90%; margin: 0 auto; text-align: center;">
+    <img
+        src="./assets/esp-registry-shtc3.webp"
+        alt="ESP-Registry SHTC3 Component example"
+        title="ESP-Registry SHTC3 Component example"
+        style="width: 100%;"
+    />
+    <figcaption>ESP-Registry SHTC3 Component example</figcaption>
+</figure>
+
+```bash
+idf.py create-project-from-example "pedrominatel/shtc3^1.1.0:shtc3_read"
+```
+
+With this command, a new project based on the example will be created. You can just set the target, configure according to your board GPIO, build and flash.
+
 ## Conclusion
+
+Publishing a component is not just about sharing code—it’s about sharing knowledge. When you contribute a component to the registry, you’re helping developers solve challenges and build better solutions. Depending on the impact and adoption of your component, you may gain recognition and appreciation from the developer community.
+
+This article is not just a guide on how to create an I2C component; it’s an encouragement for you to start sharing your work and expertise with others. Every contribution helps build a stronger, more collaborative community.
