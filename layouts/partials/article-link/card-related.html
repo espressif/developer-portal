@@ -21,18 +21,17 @@
       {{ if .Params.featureAsset }}
         {{- $genericImage := .Params.featureAsset -}}
         {{- if not $featured }}{{ $featured = resources.Get $genericImage }}{{ end -}}
-    {{ end }}
+      {{ end }}
 
       {{- if not $featured }}{{ with .Site.Params.defaultFeaturedImage }}{{ $featured = resources.Get . }}{{ end }}{{ end -}}
-      {{ if .Params.hideFeatureImage }}{{ $featured = false }}{{ end }}
       {{- with $featured -}}
       {{ if $disableImageOptimization }}
         {{ with . }}
-        <div class="w-full thumbnail_card nozoom" style="background-image:url({{ .RelPermalink }});"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url({{ .RelPermalink }});"></div>
         {{ end }}
       {{ else }}
         {{ with .Resize "600x" }}
-        <div class="w-full thumbnail_card nozoom" style="background-image:url({{ .RelPermalink }});"></div>
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url({{ .RelPermalink }});"></div>
         {{ end }}
       {{ end }}
       {{- else -}}
