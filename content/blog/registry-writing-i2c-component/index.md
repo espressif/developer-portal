@@ -56,7 +56,9 @@ The main propose for this article is not to describe the Registry and the Compon
 
 > Sharing knowledge is one of the most rewarding things you can do.
 
-Before continuing, the component we will write will be available on [GitHub](https://github.com), so this article will be focused on GitHub as our versioning platform and you will need an account in order to publish your own component.
+Before continuing, the component we will write will be available on this [GitHub repository](https://github.com/pedrominatel/esp-components/tree/main/shtc3), so this article will be focused on GitHub as our versioning platform and you will need an account in order to publish your own component.
+
+You can find more components examples at the [ESP-BSP](https://github.com/espressif/esp-bsp/tree/master/components) repository.
 
 ## Writing an I2C component
 
@@ -82,18 +84,6 @@ The ESP32-C3-DevKit-RUST-1 development board has 2 sensors connected to the I2C 
 All the project files are available on the project GitHub.
 
 {{< github repo="esp-rs/esp-rust-board" >}}
-
-### The new ESP-IDF I2C driver
-
-From the ESP-IDF version 5.2, the I2C driver has been redesigned and we recommend to use this new driver instead of the legacy. Espressif provides the [migration guide](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/migration-guides/release-5.x/5.2/peripherals.html#i2c) and the [I2C peripheral documentation](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/api-reference/peripherals/i2c.html) for reference.
-
-The new features for this new driver includes:
-
-- New initialization mode.
-- Thread safety.
-- The APIs were simplified and some were removed.
-
-Please not if you are still using the legacy driver, update to the new driver since the legacy will be removed in the future.
 
 ### Creating the component
 
@@ -141,15 +131,6 @@ Create the `idf_component.yml` in the component root directory with this content
 
 ```yaml
 version: 1.0.0
-targets:
-  - esp32
-  - esp32s2
-  - esp32s3
-  - esp32c3
-  - esp32c2
-  - esp32c6
-  - esp32h2
-  - esp32p4
 description: SHTC3 Temperature and humidity sensor driver for ESP-IDF
 url:
 repository:
@@ -167,11 +148,11 @@ dependencies:
   idf : ">=5.3"
 ```
 
-- **version**: This contains the component version following the version format `major.minor.patch` (0.0.0).
+- **version**: This contains the component version following the [version format convention](https://docs.espressif.com/projects/idf-component-manager/en/latest/reference/versioning.html#versioning-scheme) `major.minor.patch` (0.0.0~0).
 - **targets**: This is the list of the supported targets.
 - **description**: Brief description about the component.
 - **url**: URL to the component page or company page.
-- **repository**: URL to the GitHub component repository ending with `.git`.
+- **repository**: GitHub component repository with the `https://` or `git@`.
 - **issues**: URL to the place you can open issues for this component.
 - **maintainers**: List of the maintainers with email.
 - **tags**: Tags that might be relevant for searching in the Registry page.
@@ -183,13 +164,15 @@ This component will require the ESP-IDF v5.3 or higher (latest stable release in
 
 Now we need to define the license file. This is a very important step for any open-source project.
 
+You can use the [spdx.org](https://spdx.org/licenses/) license list for reference.
+
 #### Create the README file
 
 #### Component code
 
 From now on, we will create the required code for the component to get the values from the sensor using I2C peripheral. The focus for the code explanation will be more on the new I2C driver.
 
-To avoid a very long code description, please see the full code on the **SHTC3** component repository on GitHub.
+To avoid a very long code description, please see the full code on the **SHTC3** component [repository on GitHub](https://github.com/pedrominatel/esp-components/tree/main/shtc3).
 
 {{< github repo="pedrominatel/esp-components" >}}
 
@@ -507,7 +490,7 @@ void shtc3_read_task(void *pvParameters)
 
 On this task, the sensor will be woken up, the readout will be read and processed, and then the sensor will return to sleep mode.
 
-#### Bonus
+#### Creating Kconfig (optional)
 
 As a bonus, this component has a dedicated configuration menu using a `Kconfig` file. On this configuration menu, you will be able to set the I2C GPIOs (SDA and SCL), the I2C port number and the bus frequency.
 
@@ -612,25 +595,35 @@ on:
 
 jobs:
   build:
+    name: build target
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        idf_ver: ["release-v5.3", "latest"]
-    runs-on: ubuntu-22.04
-    container: espressif/idf:${{ matrix.idf_ver }}
+        espidf_target:
+          - esp32
+          - esp32c3
+          - esp32c6
+          - esp32h2
+          - esp32p4
+          - esp32s2
+          - esp32s3
+        examples_path:
+          - 'shtc3/examples/shtc3_read'
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-    - name: Install idf-build-apps
-      shell: bash
-      run: |
-        . ${IDF_PATH}/export.sh
-        python3 -m pip install idf-build-apps==2.4.3
-    - name: Build examples
-      shell: bash
-      run: |
-        . ${IDF_PATH}/export.sh
-        idf-build-apps build
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+      - name: Build Test Application with ESP-IDF
+        uses: espressif/esp-idf-ci-action@v1.1.0
+        with:
+          esp_idf_version: "latest"
+          target: ${{ matrix.espidf_target }}
+          path: ${{ matrix.examples_path }}
 ```
+
+You can modify this workflow as you wish, like adding more examples to be tested, remove targets that you do not need, or adding different ESP-IDF versions to be tested.
 
 **upload_components.yml**
 
@@ -691,7 +684,7 @@ For this article, the published component can be found in the Registry: [SHTC3](
 
 ## Using the component
 
-This is the time for testing the published component. For that, we will use the component published for this article, the [SHTC3](https://components.espressif.com/components/pedrominatel/shtc3/).
+This is the time for testing the published component. For that, we will use the component published for this article, the [SHTC3](https://components.espressif.com/components/pedrominatel/shtc3/). After your own component is published, you can use the same approach.
 
 On the component page, you will see the command from the `idf.py` to add the component to your project. In this case:
 
@@ -700,6 +693,13 @@ idf.py add-dependency "pedrominatel/shtc3^1.1.0"
 ```
 
 Run this command inside a project that you want to add the component. By running this command, a new `idf_component.yml` will be added to your project with the new requirement/dependency for your project.
+
+Now you can set the target and build the example (in case you are using the ESP32-C3):
+
+```bash
+idf.py set-target esp32c3
+idf.py build flash monitor
+```
 
 In the build output in the console, you will note this:
 
@@ -733,6 +733,14 @@ Another way is to create a new project based on the component example.
 idf.py create-project-from-example "pedrominatel/shtc3^1.1.0:shtc3_read"
 ```
 
+Set the target, build, and flash.
+
+```bash
+cd shtc3_read
+idf.py set-target esp32c3
+idf.py build flash monitor
+```
+
 With this command, a new project based on the example will be created. You can just set the target, configure according to your board GPIO, build and flash.
 
 ## Conclusion
@@ -740,3 +748,11 @@ With this command, a new project based on the example will be created. You can j
 Publishing a component is not just about sharing code—it’s about sharing knowledge. When you contribute a component to the registry, you’re helping developers solve challenges and build better solutions. Depending on the impact and adoption of your component, you may gain recognition and appreciation from the developer community.
 
 This article is not just a guide on how to create an I2C component; it’s an encouragement for you to start sharing your work and expertise with others. Every contribution helps build a stronger, more collaborative community.
+
+## Reference
+
+- [ESP-Registry](https://components.espressif.com/)
+- [ESP-Registry Documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/)
+- [Compote Documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/reference/compote_cli.html)
+- [Component Examples](https://github.com/espressif/esp-bsp/tree/master/components)
+- [My Components](https://github.com/pedrominatel/esp-components)
