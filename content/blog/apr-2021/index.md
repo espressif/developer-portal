@@ -67,4 +67,4 @@ Espressif recently launched [ESP32-S2-HMI-DevKit-1](https://github.com/espressif
     src="img/apr-6.webp"
     >}}
 
-[VocalZoom (VZ)](http://www.vocalzoom.com/), a provider of laser sensors for industry 4.0, has just launched its [ESP32-based](https://www.espressif.com/en/products/socs/esp32)Autonomous Sensors for the Industrial Internet of Things (IIoT).
+VocalZoom (VZ), a provider of laser sensors for industry 4.0, has just launched its [ESP32-based](https://www.espressif.com/en/products/socs/esp32)Autonomous Sensors for the Industrial Internet of Things (IIoT).
