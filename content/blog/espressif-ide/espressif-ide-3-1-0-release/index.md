@@ -63,6 +63,8 @@ Check the full [release notes](https://github.com/espressif/idf-eclipse-plugin/r
 
 To install the new version, you can use one of the three options.
 
+**Plugin**
+
 Installing IDF Plugins using the Update site URL:
 
 - [Plugins online install](https://dl.espressif.com/dl/idf-eclipse-plugin/updates/latest/)
@@ -79,3 +81,10 @@ Download the Espressif IDE for your operating system:
 - [macosx-cocoa-x86_64](https://dl.espressif.com/dl/idf-eclipse-plugin/ide/Espressif-IDE-macosx-cocoa-x86_64-v3.1.0.dmg)
 - [win32.win32.x86_64](https://dl.espressif.com/dl/idf-eclipse-plugin/ide/Espressif-IDE-3.1.0-win32.win32.x86_64.zip)
 - [linux.gtk.x86_64](https://dl.espressif.com/dl/idf-eclipse-plugin/ide/Espressif-IDE-3.1.0-linux.gtk.x86_64.tar.gz)
+- [linux.gtk.aarch64](https://dl.espressif.com/dl/idf-eclipse-plugin/ide/Espressif-IDE-3.1.0-linux.gtk.aarch64.tar.gz)
+
+**ESP-IDF Windows Installer**
+
+- [Download](https://dl.espressif.com/dl/esp-idf/)
+
+Includes the Espressif IDE 3.1.0.
