@@ -2,6 +2,7 @@
 title: "Espressif-IDE v3.0.0 — LSP Support for C/C++ Editor"
 date: 2024-06-28
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 tags: ["News", "Espressif IDE", "LLVM", "Eclipse"]
 authors:
   - "kondal-kolipaka"

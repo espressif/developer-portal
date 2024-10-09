@@ -3,6 +3,7 @@ title: "Getting Started with NuttX and ESP32"
 date: 2024-06-20T16:54:43-03:00
 tags: ["NuttX", "Apache", "ESP32", "POSIX", "Linux"]
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "tiago-medicci"
     - "eren-terzioglu"

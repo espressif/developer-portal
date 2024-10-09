@@ -2,6 +2,7 @@
 title: "Simplified Embedded Rust: A Comprehensive Guide to Embedded Rust Development"
 date: 2024-06-07
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "juraj-michalek"
 tags: ["Rust", "Embedded Systems", "ESP32", "ESP32-C3", "Espressif", "Wokwi", "Book", "Review"]
