@@ -6,3 +6,27 @@ https://www.theembeddedrustacean.com/subscribe
 https://docs.espressif.com/projects/esp-modbus/en/latest/esp32c61/
 # content/blog/nuttx-adding-porting-an-app/index.md
 https://github.com/ARMmbed/mbedtls/archive
+
+# Domains which rejects validation requests from GitHub Action
+https://www.kickstarter.com
+https://platform.openai.com
+https://openai.com/
+https://launchstudio.bluetooth.com
+https://www.linkedin.com/in
+https://www.gartner.com
+https://www.worldwildlife.org
+https://www.eeweb.com
+https://www.eetimes.com
+https://www.aliexpress.com
+https://www.instagram.com
+https://espressif.us15.list-manage.com
+
+# Domains returning time-to-time 500
+https://www.analog.com
+https://educ8s.tv
+
+# Domains with frequent time out
+https://www.waveshare.com
+
+# Links from examples
+socket://localhost

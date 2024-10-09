@@ -2,6 +2,7 @@
 title: "Getting Started With ESP-IDF"
 date: "2024-07-31"
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "cheah-hao-yi"
 tags: ["ESP32", "ESP-IDF", "Tutorial"]

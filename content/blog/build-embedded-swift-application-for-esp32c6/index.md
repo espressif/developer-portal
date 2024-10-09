@@ -2,6 +2,7 @@
 title: "Build Embedded Swift Application for ESP32-C6"
 date: 2024-07-22
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "juraj-michalek"
 tags: ["Embedded Systems", "ESP32-C6", "Espressif", "Swift", "experimental"]

@@ -2,6 +2,7 @@
 title: "How to switch between multiple ESP32 firmware binaries stored in the flash memory"
 date: 2024-07-24
 showAuthor: false
+featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "juraj-michalek"
 tags: ["Embedded Systems", "ESP32", "ESP32-S3", "ESP32-P4", "GUI", "OTA", "Espressif", "BSP"]
