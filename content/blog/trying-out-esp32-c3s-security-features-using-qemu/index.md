@@ -2,7 +2,7 @@
 title: "Trying out ESP32-C3’s security features using QEMU"
 date: 2024-04-04
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-tutorial.webp"
 authors:
   - harshal-patil
 tags:

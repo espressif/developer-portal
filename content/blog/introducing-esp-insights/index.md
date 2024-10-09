@@ -2,7 +2,7 @@
 title: "Introducing ESP Insights"
 date: 2021-07-05
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-insights.webp"
 authors:
   - kedar-sovani
 tags:

@@ -2,7 +2,7 @@
 title: "Arduino for ESP32-S2 and ESP32-C3 is coming!"
 date: 2021-06-08
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-arduino.webp"
 authors:
   - pedro-minatel
 tags:

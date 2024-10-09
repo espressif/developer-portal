@@ -2,7 +2,7 @@
 title: "Command — Response Framework in ESP RainMaker"
 date: 2024-07-31
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyush-shah
 tags:

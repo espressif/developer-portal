@@ -2,7 +2,7 @@
 title: "ESP RainMaker and Serverless"
 date: 2020-05-26
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - amey-inamdar
 tags:
