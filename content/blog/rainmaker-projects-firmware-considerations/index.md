@@ -2,7 +2,7 @@
 title: "RainMaker Projects: Firmware Considerations"
 date: 2020-05-01
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - kedar-sovani
 tags:

@@ -2,7 +2,7 @@
 title: "What’s New with ESP ZeroCode"
 date: 2024-04-28
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-zerocode.webp"
 authors:
   - kedar-sovani
 tags:

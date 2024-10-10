@@ -30,3 +30,7 @@ https://www.waveshare.com
 
 # Links from examples
 socket://localhost
+
+# Bug on Lychee (see later)
+https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP32-S3%22]}
+https://products.espressif.com/#/product-selector?names=&filter={"Series":["ESP32-S3"]}
