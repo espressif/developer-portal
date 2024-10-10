@@ -2,7 +2,7 @@
 title: "Extending ESP RainMaker with “Services”"
 date: 2022-01-12
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyush-shah
 tags:
