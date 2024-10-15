@@ -13,7 +13,7 @@ tags:
   - Observability
 
 ---
-The core purpose of ESP Insights Dashboard has always been to help quickly identify a group of nodes which are showing similar behaviour patterns with the help of powerful search filters. Further it helps the user to reach to a particular node and help diagnose the reason behind the node showing a certain behaviour. The user can then check the event logs or point in time metrics and system variable values and correlate any diagnostic information at hand. More in detail about group analytics and search filters can be found [here](/esp-insights-group-analytics-with-dynamic-search-filters-4fd48c17c5b9).
+The core purpose of ESP Insights Dashboard has always been to help quickly identify a group of nodes which are showing similar behaviour patterns with the help of powerful search filters. Further it helps the user to reach to a particular node and help diagnose the reason behind the node showing a certain behaviour. The user can then check the event logs or point in time metrics and system variable values and correlate any diagnostic information at hand. More in detail about group analytics and search filters can be found [here](/blog/esp-insights-group-analytics-with-dynamic-search-filters).
 
 ## The need for custom dashboards
 

@@ -9,7 +9,7 @@ tags:
   - ''
 
 ---
-We had [announced](/support-for-lts-release-of-aws-iot-device-sdk-for-embedded-c-on-esp32-8eeeea28b79b) the availability of AWS IoT LTS libraries for ESP32 in beta in esp-aws-iot repository in August, 2021. Since then, many of our customers and independent developers have been using these libraries that we have ported and writing applications based on the examples.
+We had [announced](/blog/support-for-lts-release-of-aws-iot-device-sdk-for-embedded-c-on-esp32) the availability of AWS IoT LTS libraries for ESP32 in beta in esp-aws-iot repository in August, 2021. Since then, many of our customers and independent developers have been using these libraries that we have ported and writing applications based on the examples.
 
 This beta release of the AWS LTS libraries provided individual examples showcasing usage of a particular AWS IoT related service. It had the following structure:
 

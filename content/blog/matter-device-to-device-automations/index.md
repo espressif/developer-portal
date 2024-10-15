@@ -11,9 +11,9 @@ tags:
   - Matter
 
 ---
-[*Espressif Matter Series*](/matter-38ccf1d60bcd)* #3*
+[*Espressif Matter Series*](/blog/matter)* #3*
 
-[This is article #3 in the [Espressif Matter Series](/matter-38ccf1d60bcd) of articles. You may read the second part [here](/matter-clusters-attributes-commands-82b8ec1640a0).]
+[This is article #3 in the [Espressif Matter Series](/blog/matter) of articles. You may read the second part [here](/blog/matter-clusters-attributes-commands).]
 
 In the previous article we looked at the data model of Matter. Today, let us talk about how Matter devices within a network can interact with each other leading to useful automations. For instance, you may want a light switch at your home to control one or more light bulbs. Or even a thermostat to turn on or off based on reports from the occupancy sensor.
 
@@ -56,4 +56,4 @@ This was an example of subscribing to attributes. Devices could also __subscribe
 
 This sums up the introduction to device-to-device communication in Matter along with the different ways in which it can be implemented.
 
-This article is a part of a series of articles [*Espressif Matter Series*](/matter-38ccf1d60bcd). You may read the next article that talks about [Matter: Bridge to non-Matter Devices](/matter-bridge-for-non-matter-devices-d3b7f003a004).
+This article is a part of a series of articles [*Espressif Matter Series*](/blog/matter). You may read the next article that talks about [Matter: Bridge to non-Matter Devices](/blog/matter-bridge-for-non-matter-devices).

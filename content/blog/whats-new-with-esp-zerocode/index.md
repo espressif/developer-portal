@@ -45,7 +45,7 @@ Numerous issues for memory footprint, corner cases, commissioning/uncommissionin
 We now support 2 different solution types through ESP ZeroCode.
 
 - __single-chip solution:__  This is the typical solution that we launched with, which today, runs on Wi-Fi (ESP32-C3, ESP32-C2, ESP32) and Thread (ESP32-H2). This solution is the most cost optimised solution and is recommended for all lighting categories.
-- __two-chip (hosted) solution:__  Our ESP ZeroCode ExL is a hosted solution that is ideal for __Appliances__ . Appliances often consider connectivity through a “connectivity co-processor”, and work with it over a UART interface. Our two-chip solution addresses the typical Appliance scenarios, particularly MQTT connectivity to cloud platforms (AWS IoT). Read more about it here: [Announcing ESP ZeroCode ExL](/esp-zerocode-exl-module-powered-by-aws-iot-expresslink-simplifying-matter-compatible-6f90fa89abe6).
+- __two-chip (hosted) solution:__  Our ESP ZeroCode ExL is a hosted solution that is ideal for __Appliances__ . Appliances often consider connectivity through a “connectivity co-processor”, and work with it over a UART interface. Our two-chip solution addresses the typical Appliance scenarios, particularly MQTT connectivity to cloud platforms (AWS IoT). Read more about it here: [Announcing ESP ZeroCode ExL](/blog/esp-zerocode-exl-module-powered-by-aws-iot-expresslink-simplifying-matter-compatible).
 
 ---
 
