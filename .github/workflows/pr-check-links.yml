@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  check-links-feature:
+  check-links:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
