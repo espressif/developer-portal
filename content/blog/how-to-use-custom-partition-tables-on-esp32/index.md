@@ -2,7 +2,6 @@
 title: "How to use custom partition tables on ESP32"
 date: 2021-02-12
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - pedro-minatel
 tags:

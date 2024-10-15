@@ -2,7 +2,7 @@
 title: "ESP Insights: Group Analytics with Dynamic Search Filters"
 date: 2022-08-08
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-insights.webp"
 authors:
   - adwait-patankar
 tags:

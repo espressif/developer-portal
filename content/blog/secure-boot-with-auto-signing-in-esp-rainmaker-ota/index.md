@@ -2,7 +2,7 @@
 title: "Secure boot with auto-signing in ESP RainMaker OTA"
 date: 2024-07-29
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyush-shah
 tags:
