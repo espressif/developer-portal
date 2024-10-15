@@ -20,7 +20,7 @@ aliases:
 
 {{< figure
     default=true
-    src="img/logos/rainmaker.webp"
+    src="rainmaker.webp"
     nozoom=true
 >}}
 
