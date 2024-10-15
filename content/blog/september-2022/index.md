@@ -47,7 +47,7 @@ With [ESP32-C2](https://www.espressif.com/en/products/socs/esp32-c2) as a QuickT
 
 [__Impressive UIs for ESP Projects with SquareLine Studio__ ](https://www.espressif.com/en/news/ESP_UIs_SquareLine_Studio)
 
-By following [our guide](/making-the-fancy-user-interface-on-esp-has-never-been-easier-e44e79c0ae3) and using the free-for-personal-use SquareLine Studio you can create a great-looking user interface for your next ESP project with ease.
+By following [our guide](/blog/making-the-fancy-user-interface-on-esp-has-never-been-easier) and using the free-for-personal-use SquareLine Studio you can create a great-looking user interface for your next ESP project with ease.
 
 {{< figure
     default=true

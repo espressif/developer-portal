@@ -86,4 +86,4 @@ We are currently working on building tools and documentation, to assist our cust
 
 We are excited about this journey, and look forward to hearing how you envision building with Matter.
 
-This article is a part of a series of articles [*Espressif Matter Series*](/blog/matter). You may read the next article that talks about [Matter’s Data Model](/matter-clusters-attributes-commands-82b8ec1640a0).
+This article is a part of a series of articles [*Espressif Matter Series*](/blog/matter). You may read the next article that talks about [Matter’s Data Model](/blog/matter-clusters-attributes-commands).

@@ -12,7 +12,7 @@ tags:
   - Bsp
 
 ---
-A few weeks ago in [this article](/making-the-fancy-user-interface-on-esp-has-never-been-easier-e44e79c0ae3) we have introduced SquareLine Studio and how it can be used to develop user interfaces. This feature was available only for Espressif’s boards. But what if we wanted to use this tool for our custom designed board based on an ESP chip with a custom LCD? Here is the solution!
+A few weeks ago in [this article](/blog/making-the-fancy-user-interface-on-esp-has-never-been-easier) we have introduced SquareLine Studio and how it can be used to develop user interfaces. This feature was available only for Espressif’s boards. But what if we wanted to use this tool for our custom designed board based on an ESP chip with a custom LCD? Here is the solution!
 
 What is the best way to add a custom board into SquareLine Studio? Start with the [*custom_waveshare_7inch* example on from esp-bsp repository on GitHub](https://github.com/espressif/esp-bsp/tree/master/SquareLine/boards/custom_waveshare_7inch). This example is based on the same code as other Espressif’s examples for SquareLine Studio. However there is one big difference. There must be a custom component similar to Espressif’s BSP with main functions for handling the LCD screen and initialization of the LVGL graphic library.
 
