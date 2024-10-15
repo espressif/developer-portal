@@ -1,6 +1,6 @@
 ---
 title: "Wireless Connectivity Solutions for ESP32-P4"
-date: 1970-01-01
+date: 2024-09-20
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
