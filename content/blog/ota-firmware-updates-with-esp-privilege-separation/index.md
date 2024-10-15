@@ -17,7 +17,7 @@ Over-The-Air (OTA) firmware update is one of the most important feature of any c
 
 Over the Air updates in ESP-IDF uses two partition system to achieve fail-safe firmware updates.
 
-We have already covered it in detail in one of our previous blog posts: [OTA update frameworks](/ota-updates-framework-ab5438e30c12)
+We have already covered it in detail in one of our previous blog posts: [OTA update frameworks](/blog/ota-updates-framework)
 
 ## OTA update workflow under ESP Privilege Separation
 

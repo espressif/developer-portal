@@ -41,7 +41,7 @@ Below is an example of Matter-Zigbee Bridge, it bridges two Zigbee lights to Mat
 
 ## Bridge Data Model
 
-In the previous article [Matter: Clusters, Attributes, Commands](/matter-clusters-attributes-commands-82b8ec1640a0), we talked about the Matter Data Model, below is a Data Model example of a Matter Bridge device.
+In the previous article [Matter: Clusters, Attributes, Commands](/blog/matter-clusters-attributes-commands), we talked about the Matter Data Model, below is a Data Model example of a Matter Bridge device.
 
 {{< figure
     default=true

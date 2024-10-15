@@ -31,9 +31,9 @@ __Espressif System provides a framework ESP-DL that can be used to deploy your h
 Before getting a deep dive into ESP-DL, we assume that readers have knowledge about:
 
 - Building and training neural networks. ([Check out the basics of deep learning](https://www.youtube.com/watch?v=WvoLTXIjBYU))
-- ESP-IDF [release/v4.4](https://github.com/espressif/esp-idf/tree/release/v4.4) environment. (For more details, follow [setting-up ESP-IDF environment](https://www.youtube.com/watch?v=byVPAfodTyY) or [tool chain for ESP-IDF](/esp-idf-development-tools-guide-part-i-89af441585b))
+- ESP-IDF [release/v4.4](https://github.com/espressif/esp-idf/tree/release/v4.4) environment. (For more details, follow [setting-up ESP-IDF environment](https://www.youtube.com/watch?v=byVPAfodTyY) or [tool chain for ESP-IDF](/blog/esp-idf-development-tools-guide-part-i))
 - Working knowledge of [basic C](https://www.youtube.com/watch?v=KJgsSFOSQv0&t=12665s) and C++ language
-- Converting model into [ESP-DL formate](/hand-gesture-recognition-on-esp32-s3-with-esp-deep-learning-176d7e13fd37)
+- Converting model into [ESP-DL formate](/blog/hand-gesture-recognition-on-esp32-s3-with-esp-deep-learning)
 
 __Note:__  Please use ESP-IDF release/v4.4 on the commit “cc71308e2fdce1d6d27fc52d39943f5d0fb83f35” to reproduce the same results
 

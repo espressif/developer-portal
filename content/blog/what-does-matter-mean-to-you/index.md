@@ -54,7 +54,7 @@ For existing products that use ZigBee or BLE Mesh, Matter bridges can help you m
     src="img/what-3.webp"
     >}}
 
-__More ecosytems:__  Solution providers may offer higher level ecosystems based on Matter, that provide additional features to end users. The Matter specification makes it easier for devices to work with multiple ecosystems. So the same device could, *simultaneously*, work with multiple heterogenous ecosystems. What’s more, device vendors themselves [can create their own ecosystems](/matter-multi-admin-identifiers-and-fabrics-a291371af365) (not just restricted to phone OSes or voice assistants) and provide innovative features as part of these ecosystems. Please watch out for a follow-on blog post for more details about Matter Ecosystems.
+__More ecosytems:__  Solution providers may offer higher level ecosystems based on Matter, that provide additional features to end users. The Matter specification makes it easier for devices to work with multiple ecosystems. So the same device could, *simultaneously*, work with multiple heterogenous ecosystems. What’s more, device vendors themselves [can create their own ecosystems](/blog/matter-multi-admin-identifiers-and-fabrics) (not just restricted to phone OSes or voice assistants) and provide innovative features as part of these ecosystems. Please watch out for a follow-on blog post for more details about Matter Ecosystems.
 
 __Better security:__ The Matter specification has baked in secure features, agreed and reviewed by the best in the tech industry. This guarantees that devices that pass Matter certification rely on well reviewed and strong industry standards.
 
@@ -80,7 +80,7 @@ __Manufacturer-specific Innovations:__  The Matter specification has an evolving
 
 ## Espressif and Matter
 
-Espressif has been actively working with Matter since its inception. Support for Espressif SoCs is already [available upstream](https://github.com/project-chip/connectedhomeip/tree/master/examples/all-clusters-app/esp32) in the Matter repositories. You may take it for a spin on an ESP32 or ESP32-C3 by following the instructions in [this article](/announcing-matter-previously-chip-on-esp32-84164316c0e3#gettingstarted).
+Espressif has been actively working with Matter since its inception. Support for Espressif SoCs is already [available upstream](https://github.com/project-chip/connectedhomeip/tree/master/examples/all-clusters-app/esp32) in the Matter repositories. You may take it for a spin on an ESP32 or ESP32-C3 by following the instructions in [this article](/blog/announcing-matter-previously-chip-on-esp32#gettingstarted).
 
 We are currently working on building tools and documentation, to assist our customers in every step of the product development process, right from solution architecture, to certification, manufacturing and diagnostics.
 

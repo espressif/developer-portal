@@ -35,7 +35,7 @@ Below is a typical Matter topology:
     src="img/matter-2.webp"
     >}}
 
-The [Device-to-Device Automations](/matter-device-to-device-automations-bdbb32365350) within local network is a key feature of Matter, it works across Ethernet, Wi-Fi and Thread devices. For instance, a *Thread* Matter switch can directly control a *Wi-Fi* Matter bulb, or the other way around, without any phone-apps/cloud in the middle.
+The [Device-to-Device Automations](/blog/matter-device-to-device-automations) within local network is a key feature of Matter, it works across Ethernet, Wi-Fi and Thread devices. For instance, a *Thread* Matter switch can directly control a *Wi-Fi* Matter bulb, or the other way around, without any phone-apps/cloud in the middle.
 
 Now, let’s take a look at the Thread BR that connects Wi-Fi and Thread as an example, and investigate how it supports the (a) bi-directional connectivity and (b) service discovery used in Matter.
 

@@ -67,7 +67,7 @@ The NOC can be signed by an __Intermediate Certificate Authority__  (ICA) or be 
     src="img/matter-3.webp"
     >}}
 
-When the app or another device connects to the device, the certificate information will be exchanged. The devices will trust each other if they share the same root certificate. Devices with same root certficate thus form a Matter [__fabric__ ](/matter-multi-admin-identifiers-and-fabrics-a291371af365). After the certificate information exchange, an encrypted session will be established between the peers.
+When the app or another device connects to the device, the certificate information will be exchanged. The devices will trust each other if they share the same root certificate. Devices with same root certficate thus form a Matter [__fabric__ ](/blog/matter-multi-admin-identifiers-and-fabrics). After the certificate information exchange, an encrypted session will be established between the peers.
 
 ## Bringing it all together: Commissioning
 

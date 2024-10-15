@@ -29,7 +29,7 @@ Let’s understand why such a service is even required and what it offers.
 
 When any Matter device is being commissioned, the commissioning agent (phone app) will ensure that this is a genuine Matter device. This process is called Device Attestation.
 
-For Device Attestation to happen, all Matter devices must have a unique set of certificates, called Device Attestation Certificates (DAC), that are programmed in them (You may read more about DACs in the [Matter Security Model](/matter-security-model-37f806d3b0b2) post). The DACs ascertain that the product, that is being commissioned, genuinely comes from Vendor X.
+For Device Attestation to happen, all Matter devices must have a unique set of certificates, called Device Attestation Certificates (DAC), that are programmed in them (You may read more about DACs in the [Matter Security Model](/blog/matter-security-model) post). The DACs ascertain that the product, that is being commissioned, genuinely comes from Vendor X.
 
 These DACs are X.509 certificates that should chain back to a valid Product Attestation Authority (PAA) that is registered with the Connectivity Standards Alliance (CSA). This ensures that only some authority that is approved by the CSA can generate and distribute these DACs, thus ensuring authenticity of the devices.
 
