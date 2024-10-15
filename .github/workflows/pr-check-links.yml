@@ -20,7 +20,7 @@ jobs:
 
       - name: Dump all links from main
         id: dump_links_from_main
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@v2.0.2
         with:
           args: |
             --dump
@@ -47,7 +47,7 @@ jobs:
         run: cat links-main.txt >> .lycheeignore
 
       - name: Check links
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@v2.0.2
         with:
           args: |
             --no-progress
