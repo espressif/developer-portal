@@ -46,6 +46,9 @@ jobs:
       - name: Append links-main.txt to .lycheeignore
         run: cat links-main.txt >> .lycheeignore
 
+      - name: Check .lycheeignore content
+        run: cat .lycheeignore
+
       - name: Check links
         uses: lycheeverse/lychee-action@v2.0.2
         with:
