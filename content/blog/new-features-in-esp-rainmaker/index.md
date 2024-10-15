@@ -2,7 +2,7 @@
 title: "New Features in ESP RainMaker"
 date: 2021-06-25
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyus-shah
 tags:

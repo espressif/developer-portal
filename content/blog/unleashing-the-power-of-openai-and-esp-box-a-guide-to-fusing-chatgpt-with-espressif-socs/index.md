@@ -25,7 +25,7 @@ __*In this article, we will explore the potential of ChatGPT with ESP-BOX, a pow
 
 ## ESP-BOX
 
-The [ESP-BOX](https://github.com/espressif/esp-box) is a new generation AIoT development platform that includes the ESP32-S3-BOX and ESP32-S3-BOX-Lite development boards. These boards are based on the [ESP32-S3](https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP32-S3%22]}) Wi-Fi + Bluetooth 5 (LE) SoC and provide a flexible and customizable solution for developing AIoT applications that integrate with various sensors, controllers, and gateways.
+The [ESP-BOX](https://github.com/espressif/esp-box) is a new generation AIoT development platform that includes the ESP32-S3-BOX and ESP32-S3-BOX-Lite development boards. These boards are based on the [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) Wi-Fi + Bluetooth 5 (LE) SoC and provide a flexible and customizable solution for developing AIoT applications that integrate with various sensors, controllers, and gateways.
 
 {{< figure
     default=true

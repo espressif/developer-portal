@@ -2,7 +2,7 @@
 title: "ESP Insights: Playing with Device Tags"
 date: 2022-09-07
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-insights.webp"
 authors:
   - adwait-patankar
 tags:

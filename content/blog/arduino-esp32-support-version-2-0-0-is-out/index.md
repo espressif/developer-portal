@@ -2,7 +2,7 @@
 title: "Arduino ESP32 support version 2.0.0 is out!"
 date: 2021-08-31
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-arduino.webp"
 authors:
   - pedro-minatel
 tags:

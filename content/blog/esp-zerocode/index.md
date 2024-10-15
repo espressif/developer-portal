@@ -2,7 +2,7 @@
 title: "ESP ZeroCode"
 date: 2023-11-12
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-zerocode.webp"
 authors:
   - developer-portal
 tags:

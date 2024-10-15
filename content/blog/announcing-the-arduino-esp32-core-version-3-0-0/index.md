@@ -2,7 +2,7 @@
 title: "Announcing the Arduino ESP32 Core version 3.0.0"
 date: 2023-11-02
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-arduino.webp"
 authors:
   - pedro-minatel
 tags:

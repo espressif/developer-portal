@@ -5,22 +5,22 @@ on:
     branches: [main]
 
 jobs:
-  check-links:
+  check-links-feature:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{github.event.pull_request.head.ref}}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Check out main branch
         run: git checkout main
 
       - name: Dump all links from main
         id: dump_links_from_main
-        uses: lycheeverse/lychee-action@v1
+        uses: lycheeverse/lychee-action@v2.0.2
         with:
           args: |
             --dump
@@ -46,8 +46,11 @@ jobs:
       - name: Append links-main.txt to .lycheeignore
         run: cat links-main.txt >> .lycheeignore
 
+      - name: Check .lycheeignore content
+        run: cat .lycheeignore
+
       - name: Check links
-        uses: lycheeverse/lychee-action@v1
+        uses: lycheeverse/lychee-action@v2.0.2
         with:
           args: |
             --no-progress
@@ -55,13 +58,12 @@ jobs:
             --exclude-path ./themes/
             --exclude-path ./layouts/
             .
-          # Fail action on broken links
-          fail: true
+          fail: true  # Fail action if broken links are found
 
       - name: Suggestions
         if: failure()
         run: |
           echo -e "\nPlease review the links reported in the Check links step above."
-          echo -e "If a link is valid but fails due to a CAPTCHA challenge, IP blocking, login requirements, etc.,
-          consider adding such links to .lycheeignore file to bypass future checks.\n"
+          echo -e "If a link is valid but fails due to a CAPTCHA challenge, IP blocking, login requirements, etc.,"
+          echo -e "consider adding such links to the .lycheeignore file to bypass future checks.\n"
           exit 1

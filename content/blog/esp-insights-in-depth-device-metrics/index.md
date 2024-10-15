@@ -2,7 +2,7 @@
 title: "ESP Insights: In-depth device metrics"
 date: 2022-04-28
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-insights.webp"
 authors:
   - adwait-patankar
 tags:

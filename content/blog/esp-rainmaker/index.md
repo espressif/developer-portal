@@ -2,7 +2,7 @@
 title: "ESP RainMaker"
 date: 2020-12-06
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - developer-portal
 tags:
