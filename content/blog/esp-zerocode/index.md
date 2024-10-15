@@ -23,9 +23,9 @@ ESP ZeroCode allows device makers to instantly specify, build and launch connect
 
 The various articles on ESP ZeroCode are available below:
 
-- Matter based connected devices: [Announcing ESP ZeroCode](/announcing-esp-zerocode-301201c24cba)
-- Appliances with Matter and Cloud Connectivity: [Announcing ESP ZeroCode ExL Module](/esp-zerocode-exl-module-powered-by-aws-iot-expresslink-simplifying-matter-compatible-6f90fa89abe6)
-- [What’s new with ESP ZeroCode](/whats-new-with-esp-zerocode-1199e0c577fc)
+- Matter based connected devices: [Announcing ESP ZeroCode](/blog/announcing-esp-zerocode)
+- Appliances with Matter and Cloud Connectivity: [Announcing ESP ZeroCode ExL Module](/blog/esp-zerocode-exl-module-powered-by-aws-iot-expresslink-simplifying-matter-compatible)
+- [What’s new with ESP ZeroCode](/blog/whats-new-with-esp-zerocode)
 
 ## Podcast
 

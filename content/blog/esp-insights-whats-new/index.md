@@ -17,7 +17,7 @@ tags:
     src="img/esp-1.webp"
     >}}
 
-ESP Insights was released in its Beta in July 2021 and is being actively used by the ESP developer community. You can read more about it in the blog post [Introducing ESP Insights](/introducing-esp-insights-7d85a1383d21). With this new version of the ESP Insights service, we introduce following new features, plus a few UI enhancements and stability fixes.
+ESP Insights was released in its Beta in July 2021 and is being actively used by the ESP developer community. You can read more about it in the blog post [Introducing ESP Insights](/blog/introducing-esp-insights). With this new version of the ESP Insights service, we introduce following new features, plus a few UI enhancements and stability fixes.
 
 - Support for HTTPs/REST API based device communication
 - Group Analytics

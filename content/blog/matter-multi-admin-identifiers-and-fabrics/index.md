@@ -11,9 +11,9 @@ tags:
   - Matter
 
 ---
-[*Espressif Matter Series*](/matter-38ccf1d60bcd)* #6*
+[*Espressif Matter Series*](/blog/matter)* #6*
 
-[This is article #6 in the [Espressif Matter Series](/matter-38ccf1d60bcd) of articles. You may read the first part [here](/what-does-matter-mean-to-you-fa3bb53a7793).]
+[This is article #6 in the [Espressif Matter Series](/blog/matter) of articles. You may read the first part [here](/blog/what-does-matter-mean-to-you).]
 
 In the previous articles we talked about Matter devices communicating with each other by themselves, or Matter devices participating in multiple ecosystems *simultaneously.*
 

@@ -66,7 +66,7 @@ Communication between the user and the system is ensured by Home Assistant. Home
 
 Every transferred value has its MQTT topic, like: *light, temperature, position, etc. *Most of the messages are just *Integers*, which are easy to send. But *timeTable* sends more than just a number, so the message must be serialized. In my case, into JSON format.
 
-```
+```c
 void Week::processRequrst(DynamicJsonDocument doc)
 {
     const char *action = doc["action"];

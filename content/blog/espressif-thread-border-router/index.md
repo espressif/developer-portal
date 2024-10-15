@@ -43,21 +43,21 @@ In the solution, the Host Wi-Fi SoC operates the Espressif Thread BR and OpenThr
 
 ## Networking Features
 
-A previous blog [Thread Border Router in Matter](/matter-thread-border-router-in-matter-240838dc4779) introduces the role of the Thread Border Router in Matter scenario. Here are the key networking features supported by the ESP Thread BR:
+A previous blog [Thread Border Router in Matter](/blog/matter-thread-border-router-in-matter) introduces the role of the Thread Border Router in Matter scenario. Here are the key networking features supported by the ESP Thread BR:
 
-- __Bi-directional IPv6 connectivity__ 
+- __Bi-directional IPv6 connectivity__
 
 Enable bi-directional IPv6 communication across Thread and non-Thread networks, it currently supports both Wi-Fi and Ethernet as the backbone link.
 
-- __Service Discovery__ 
+- __Service Discovery__
 
 Implements the functions for bi-directional service discovery, including the Service Registry Protocol (SRP) server, Advertising Proxy, and Discovery Proxy. These functions facilitate zero-configuration discovery of services offered by Thread Devices, as well as services offered by non-Thread devices.
 
-- __Multicast Forwarding__ 
+- __Multicast Forwarding__
 
 Implements the Multicast Listener Discovery v2 (MLDv2) protocol and enables seamless IPv6 multicast across Thread, Wi-Fi, and Ethernet networks.
 
-- __NAT64__ 
+- __NAT64__
 
 The Thread devices can access the IPv4 internet via the ESP Thread BR.
 
@@ -67,7 +67,7 @@ The Thread devices can access the IPv4 internet via the ESP Thread BR.
 
 In addition to the networking features, the Espressif Thread BR SDK also supports multiple useful features for productization.
 
-- __RCP Update__ 
+- __RCP Update__
 
 As the solution involves two SoCs, it requires the download of two matching firmware for over-the-air (OTA) updates. The SDK offers a mechanism that combines the two firmware into a single binary. With a streamlined one-step OTA process, the host SoC will automatically download the RCP firmware to the 802.15.4 SoC during the initial boot.
 

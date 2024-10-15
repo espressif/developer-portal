@@ -11,7 +11,7 @@ tags:
   - IoT
   - ESP32
 ---
-[Espressif Matter Series](/matter-38ccf1d60bcd) #8
+[Espressif Matter Series](/blog/matter) #8
 
 As Matter promised, Device Manufacturers (Vendors) don’t have to build their own Phone APP or Cloud service if they don’t want to. A Matter device will be able to work with all Matter enabled ecosystems seamlessly.
 
@@ -32,7 +32,7 @@ The device information is divided into five databases (it’s called schemas in 
 > Note: Only the URL is stored in DCL, so vendors need to store the OTA images in their own location and only publish the image URL to DCL.
 
 - __Compliance Test Result Schema:__ Provide compliance and test result data about the device.
-- __PAA Schema:__ Provide a list of Product Attestation Authorities Certificates for the approved PAAs (learn more from [Matter security model](/matter-security-model-37f806d3b0b2)).
+- __PAA Schema:__ Provide a list of Product Attestation Authorities Certificates for the approved PAAs (learn more from [Matter security model](/blog/matter-security-model)).
 
 __How will this information be used by Matter ecosystems?__ 
 

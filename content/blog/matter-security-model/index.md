@@ -11,7 +11,7 @@ tags:
   - IoT
 
 ---
-[Espressif Matter Series](/matter-38ccf1d60bcd) #7
+[Espressif Matter Series](/blog/matter) #7
 
 Matter is a protocol designed with security and privacy in mind. Cryptography is widely adopted in Matter to ensure:
 
@@ -67,7 +67,7 @@ The NOC can be signed by an __Intermediate Certificate Authority__  (ICA) or be 
     src="img/matter-3.webp"
     >}}
 
-When the app or another device connects to the device, the certificate information will be exchanged. The devices will trust each other if they share the same root certificate. Devices with same root certficate thus form a Matter [__fabric__ ](/matter-multi-admin-identifiers-and-fabrics-a291371af365). After the certificate information exchange, an encrypted session will be established between the peers.
+When the app or another device connects to the device, the certificate information will be exchanged. The devices will trust each other if they share the same root certificate. Devices with same root certficate thus form a Matter [__fabric__ ](/blog/matter-multi-admin-identifiers-and-fabrics). After the certificate information exchange, an encrypted session will be established between the peers.
 
 ## Bringing it all together: Commissioning
 
@@ -88,4 +88,4 @@ The following diagram contains a typical flow for pairing a Matter device out-of
 
 That summarises how PKI forms an integral part of the Matter specification.
 
-This article is a part of a series of articles [*Espressif Matter Series*](/matter-38ccf1d60bcd).
+This article is a part of a series of articles [*Espressif Matter Series*](/blog/matter).

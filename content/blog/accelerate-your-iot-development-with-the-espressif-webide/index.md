@@ -94,7 +94,7 @@ The Espressif Web IDE uses the [Clang OpenVSX plugin](https://open-vsx.org/exten
 
 ## Conclusion
 
-Give the [Espressif Web IDE](https://github.com/espressif/idf-web-ide) a try and let us know what can we add or improve here! You can also look at our previous post about the [ESP-IDF extension for Visual Studio Code](/whats-new-in-the-esp-idf-extension-for-vscode-7f571c24414f).
+Give the [Espressif Web IDE](https://github.com/espressif/idf-web-ide) a try and let us know what can we add or improve here! You can also look at our previous post about the [ESP-IDF extension for Visual Studio Code](/blog/whats-new-in-the-esp-idf-extension-for-vscode).
 
 ## Related links:
 
