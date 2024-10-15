@@ -11,7 +11,7 @@ tags:
   - IoT
   - ESP32
 ---
-[Espressif Matter Series](/matter-38ccf1d60bcd) #8
+[Espressif Matter Series](/blog/matter) #8
 
 As Matter promised, Device Manufacturers (Vendors) don’t have to build their own Phone APP or Cloud service if they don’t want to. A Matter device will be able to work with all Matter enabled ecosystems seamlessly.
 

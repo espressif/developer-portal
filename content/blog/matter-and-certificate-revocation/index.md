@@ -11,7 +11,7 @@ tags:
   - Matter
 
 ---
-[Espressif Matter Series](/matter-38ccf1d60bcd) #10
+[Espressif Matter Series](/blog/matter) #10
 
 In the previous blogs, we discussed various aspects of Matter. One of which was the Matter Security Model. Matter’s Security Model is based on PKI infrastructure, a widely used security model for securing communications and establishing trust and identity in the digital world. (To know more about Matter’s Security Model you can read this [blog](/matter-security-model-37f806d3b0b2)).
 

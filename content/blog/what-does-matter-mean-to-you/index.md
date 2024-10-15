@@ -11,7 +11,7 @@ tags:
   - Matter
 
 ---
-[*Espressif Matter Series*](/matter-38ccf1d60bcd)* #1*
+[*Espressif Matter Series*](/blog/matter)* #1*
 
 You may have recently read about the newly introduced standard, [Matter](/blog/announcing-matter-previously-chip-on-esp32). Matter is an initiative of the [Connectivity Standards Alliance](http://csa-iot.org/), and developed through collaboration amongst all the leaders of the IoT industry.
 
@@ -86,4 +86,4 @@ We are currently working on building tools and documentation, to assist our cust
 
 We are excited about this journey, and look forward to hearing how you envision building with Matter.
 
-This article is a part of a series of articles [*Espressif Matter Series*](/matter-38ccf1d60bcd). You may read the next article that talks about [Matter’s Data Model](/matter-clusters-attributes-commands-82b8ec1640a0).
+This article is a part of a series of articles [*Espressif Matter Series*](/blog/matter). You may read the next article that talks about [Matter’s Data Model](/matter-clusters-attributes-commands-82b8ec1640a0).

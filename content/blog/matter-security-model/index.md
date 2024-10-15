@@ -11,7 +11,7 @@ tags:
   - IoT
 
 ---
-[Espressif Matter Series](/matter-38ccf1d60bcd) #7
+[Espressif Matter Series](/blog/matter) #7
 
 Matter is a protocol designed with security and privacy in mind. Cryptography is widely adopted in Matter to ensure:
 
@@ -88,4 +88,4 @@ The following diagram contains a typical flow for pairing a Matter device out-of
 
 That summarises how PKI forms an integral part of the Matter specification.
 
-This article is a part of a series of articles [*Espressif Matter Series*](/matter-38ccf1d60bcd).
+This article is a part of a series of articles [*Espressif Matter Series*](/blog/matter).

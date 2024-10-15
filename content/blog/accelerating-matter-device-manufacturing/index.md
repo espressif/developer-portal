@@ -11,9 +11,9 @@ tags:
   - Esp32
 
 ---
-[Espressif Matter Series](/matter-38ccf1d60bcd) #9
+[Espressif Matter Series](/blog/matter) #9
 
-Given the latest developments in the IoT industry, there is a strong rush towards building Matter enabled smart devices. (If you are new to Matter, please read up about Matter in our series of blog posts [here](/matter-38ccf1d60bcd)).
+Given the latest developments in the IoT industry, there is a strong rush towards building Matter enabled smart devices. (If you are new to Matter, please read up about Matter in our series of blog posts [here](/blog/matter)).
 
 We have been actively working on creating solutions that help accelerate our customers to build and launch Matter-enabled devices faster and that too in a cost-effective way. An often overlooked, but important, part of the device production process is how fast can you manufacture devices on the line. This becomes especially important in the case of Matter, which places some unique requirements on each device.
 
@@ -71,4 +71,4 @@ If you opt for this option, you can point us to your signed bootloader and the s
 
 We are very glad to see that this service is proving to be a significant accelerator for customers building Matter-enabled devices. If you are interested in this service, please reach out to [sales@espressif.com](mailto:sales@espressif.com) with your request.
 
-This article is part of a series of articles [*Espressif Matter Series*](/matter-38ccf1d60bcd).
+This article is part of a series of articles [*Espressif Matter Series*](/blog/matter).

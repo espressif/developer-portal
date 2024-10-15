@@ -11,9 +11,9 @@ tags:
   - IoT
 
 ---
-[*Espressif Matter Series*](/matter-38ccf1d60bcd)* #2*
+[*Espressif Matter Series*](/blog/matter)* #2*
 
-[This is article #2 in the [Espressif Matter Series](/matter-38ccf1d60bcd) of articles. You may read the first part [here](/what-does-matter-mean-to-you-fa3bb53a7793).]
+[This is article #2 in the [Espressif Matter Series](/blog/matter) of articles. You may read the first part [here](/what-does-matter-mean-to-you-fa3bb53a7793).]
 
 In the previous article we looked at [what does Matter mean to you](/what-does-matter-mean-to-you-fa3bb53a7793). Today, let’s talk about an important part of Matter, its data model. The data model of Matter defines the typical elements that go into making of a typical Matter *node*. As a device developer, you would typically express the capabilities of your device through this data model.
 
@@ -103,4 +103,4 @@ Finally, earlier we talked about the endpoint 0, this is an endpoint with a “R
 
 This was a short overview of the commonly used elements of the Matter Data Model. Hope it helps you to envision how your device’s capabilities aligns with the Matter Data Model.
 
-This article is a part of a series of articles [*Espressif Matter Series*](/matter-38ccf1d60bcd). You may read the next article that talks about [Matter: Device-to-Device Automations](/matter-device-to-device-automations-bdbb32365350).
+This article is a part of a series of articles [*Espressif Matter Series*](/blog/matter). You may read the next article that talks about [Matter: Device-to-Device Automations](/matter-device-to-device-automations-bdbb32365350).

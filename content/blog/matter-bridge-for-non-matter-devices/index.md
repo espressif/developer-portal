@@ -13,7 +13,7 @@ tags:
   - Esp32
 
 ---
-[*Espressif Matter Series*](/matter-38ccf1d60bcd)* #4*
+[*Espressif Matter Series*](/blog/matter)* #4*
 
 Several big IoT ecosystems have announced integrated support for Matter, e.g., Amazon, Apple, Google and Samsung. It’s exciting to expect that more and more devices from multiple brands work natively together, under a bigger Matter ecosystem.
 

@@ -13,9 +13,9 @@ tags:
   - IoT
 
 ---
-[*Espressif Matter Series*](/matter-38ccf1d60bcd)* #5*
+[*Espressif Matter Series*](/blog/matter)* #5*
 
-In the [Previous Articles](/matter-38ccf1d60bcd), we talked about Matter from several aspects. Today, let’s start with a foundational concept of Matter: __IP-based__ .
+In the [Previous Articles](/blog/matter), we talked about Matter from several aspects. Today, let’s start with a foundational concept of Matter: __IP-based__ .
 
 Matter defines a common application layer, using __Internet Protocol (IP)__ , that delivers interoperability among devices regardless of the underlying network protocol. At launch, Matter will run on Ethernet, Wi-Fi and Thread.
 
