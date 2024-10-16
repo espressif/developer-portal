@@ -5,6 +5,8 @@ tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6"]
 showAuthor: false
 authors:
   - "marek-matej"
+aliases:
+  - esp32s-family-memory-map-101
 ---
 
 
