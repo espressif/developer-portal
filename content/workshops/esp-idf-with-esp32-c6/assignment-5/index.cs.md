@@ -64,11 +64,11 @@ Po sestavení a nahrání aplikace si otevřeme `ESP-IDF Serial Monitor`.
 V aplikaci `ESP BLE provisioning` na vašem mobilním telefonu následujte kroky tak, jak jsou zobrazené níže: 
 
 {{< gallery >}}
-  <img src="../assets/provisioning-app-1.webp" class="grid-w33" />
-  <img src="../assets/provisioning-app-2.webp" class="grid-w33" />
-  <img src="../assets/provisioning-app-3.webp" class="grid-w33" />
-  <img src="../assets/provisioning-app-4.webp" class="grid-w33" />
-  <img src="../assets/provisioning-app-5.webp" class="grid-w33" />
+  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-1.webp" class="grid-w33" />
+  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-2.webp" class="grid-w33" />
+  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-3.webp" class="grid-w33" />
+  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-4.webp" class="grid-w33" />
+  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-5.webp" class="grid-w33" />
 {{< /gallery >}}
 
 QR kód vám vaše vývojová deska vypíše do seriové linky (seriový monitor otevřete příkazem *Monitor* v *ESP-IDF Exploreru*).

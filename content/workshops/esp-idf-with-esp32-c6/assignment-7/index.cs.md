@@ -297,7 +297,7 @@ Pro měření spotřeby používáme vyvyedený konektor J5 a vhodný nástroj, 
 S využitím "velkého" HP jádra je průměrná spotřeba za 10 vteřin zhruba **22.32mA**.
 
 {{< gallery >}}
-  <img src="../assets/ulp-hp-core.webp" />
+  <img src="/workshops/esp-idf-with-esp32-c6/assets/ulp-hp-core.webp" />
 {{< /gallery >}}
 
 **LED blikání s LP jádrem**
@@ -305,7 +305,7 @@ S využitím "velkého" HP jádra je průměrná spotřeba za 10 vteřin zhruba 
 Pokud ale aplikaci přeneseme na LP jádro, rázem spadneme o řád níže: **2.97mA**.
 
 {{< gallery >}}
-  <img src="../assets/ulp-lp-core.webp" />
+  <img src="/workshops/esp-idf-with-esp32-c6/assets/ulp-lp-core.webp" />
 {{< /gallery >}}
 
 Když přepneme jádra, dosáhneme úspory (až) **86.7%** pro stejný úkol. Příklad je ale pouze orientační a reálně hodnoty se samozřejmě budou lišit. 
