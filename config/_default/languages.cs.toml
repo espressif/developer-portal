@@ -26,6 +26,3 @@ title = "Developer Portal"
     { linkedin = "https://www.linkedin.com/company/espressif-systems/" },
     { github = "https://github.com/espressif" },
   ]
-
-[frontmatter]
-  cascade = ["lang.Merge"]

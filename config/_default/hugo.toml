@@ -70,19 +70,3 @@ googleAnalytics = "G-K9NTMXPGN3"
       name = 'fragmentrefs'
       type = 'fragments'
       weight = 10
-
-[languages]
-  [languages.en]
-    languageName = "English"
-    weight = 1
-
-  [languages.cs]
-    languageName = "Čeština"
-    weight = 2
-
-  [languages.zh]
-    languageName = "中文"
-    weight = 3
-
-[frontmatter]
-  cascade = ["lang.Merge"]
