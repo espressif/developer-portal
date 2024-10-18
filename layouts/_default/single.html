@@ -74,12 +74,9 @@
 
       <div class="min-w-0 min-h-0 max-w-fit">
 
-        {{ partial "series.html" . }}
-
         <div class="article-content max-w-prose mb-20">
           {{ .Content | emojify }}
         </div>
-        {{ partial "series-closed.html" . }}
         {{ partial "sharing-links.html" . }}
 
         {{ if (eq (.Site.Params.defaultAppearance | default "light") "light") }}
