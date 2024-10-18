@@ -61,7 +61,7 @@ __**As of writing of this blog, the current IDF commit head is df9310ada2.*__
 
 To utilize ChatGPT, a powerful language model based on the GPT-3.5 architecture, you must first obtain a secure API key. This can be achieved by creating an account on the [OpenAI platform](https://openai.com/) and obtaining tokens through creation or purchase. With an API key, you gain access to a wide range of features and capabilities that can be customized to meet your specific needs, such as natural language processing and generation, text completion, and conversation modeling. Follow the [official API reference link](https://platform.openai.com/docs/api-reference).
 
-__**Maintaining the confidentiality and security of the API key is crucial to prevent unauthorized access to the user’s account and data.*__ 
+__**Maintaining the confidentiality and security of the API key is crucial to prevent unauthorized access to the user’s account and data.*__
 
 ## Adding Offline Speech Recognition
 
@@ -493,3 +493,5 @@ The integration of OpenAI’s ChatGPT with Espressif’s ESP-BOX has opened up n
     >}}
 
 Don’t forget to check out [Espressif Systems](https://www.espressif.com/)’ [GitHub ](https://github.com/orgs/espressif/repositories)repository for more open-source demos on [ESP-IoT-Solution](https://github.com/espressif/esp-iot-solution), [ESP-SR](https://github.com/espressif/esp-sr), and [ESP-BOX](https://github.com/espressif/esp-box). The source code for this project will be found [__*here*__ ](https://github.com/espressif/esp-box/tree/master/examples)*.* As part of our future plans, we aim to introduce a component for the OpenAI API that will offer a user-friendly functions.
+
+See also the [Product Selector](https://products.espressif.com/#/product-selector?names=&filter=%7B%22Series%22%3A%5B%22ESP32-S3%22%5D%7D).
