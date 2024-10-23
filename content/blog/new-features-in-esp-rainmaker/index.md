@@ -4,7 +4,7 @@ date: 2021-06-25
 showAuthor: false
 featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
-  - piyus-shah
+  - piyush-shah
 tags:
   - Rainmaker
   - Espressif
