@@ -29,13 +29,13 @@ The SDK is so structured that it should be easily possible to support other hard
 
 ## Getting Started
 
-Instructions for building, flashing and using the firmware are available here: [https://github.com/espressif/esp-avs-sdk/tree/master/examples/lyrat_alexa](https://github.com/espressif/esp-avs-sdk/tree/master/examples/lyrat_alexa)
+Instructions for building, flashing and using the firmware are available [here](https://github.com/espressif/esp-va-sdk/tree/master/examples).
 
 ## Hands-Free Mode/Wake-Word Engine
 
-The SDK also supports hands-free mode of operation. The example [lyrat_alexa_sr/](https://github.com/espressif/esp-avs-sdk/tree/master/examples/lyrat_alexa_sr) is provided that demonstrates the use in a hands-free mode (activity triggered based on saying ‘Alexa’ instead of pushing a button).
+The SDK also supports hands-free mode of operation. The example [lyrat_alexa_sr/](https://github.com/espressif/esp-va-sdk/tree/master/examples) is provided that demonstrates the use in a hands-free mode (activity triggered based on saying ‘Alexa’ instead of pushing a button).
 
-As discussed in a previous article, [Anatomy of a Voice-Integrated Device](/blog/anatomy-of-a-voice-integrated-device), multiple configurations are possible given the micro-controller, DSP and the wake-word engine. The example [lyrat_alexa_sr/](https://github.com/espressif/esp-avs-sdk/tree/master/examples/lyrat_alexa_sr) demonstrates the scenario where the Alexa client as well as the WWE is running on ESP32.
+As discussed in a previous article, [Anatomy of a Voice-Integrated Device](/blog/anatomy-of-a-voice-integrated-device), multiple configurations are possible given the micro-controller, DSP and the wake-word engine. The example [lyrat_alexa_sr/](https://github.com/espressif/esp-va-sdk/tree/master/examples) demonstrates the scenario where the Alexa client as well as the WWE is running on ESP32.
 
 ## Phone Apps
 

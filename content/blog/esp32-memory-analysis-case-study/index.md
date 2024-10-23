@@ -38,8 +38,8 @@ In this post we will discuss some upcoming features and commonly available confi
 
 ## Case Study — AWS IoT Sample Application
 
-- We will be taking subscribe_publish example from ESP-AWS-IoT [__here__ ](https://github.com/espressif/esp-aws-iot/tree/master/examples/subscribe_publish) as case study to analyse memory utilisation.
-- ESP-IDF provides an API to get minimum free heap or dynamic memory available in system using heap_caps_get_minimum_free_size(). __Our aim would be to maximise this number (for relative analysis) and thus increase the amount of memory available for end application specific business logic (DRAM region to be specific).__ 
+- We will be taking subscribe_publish example from ESP-AWS-IoT [__here__ ](https://github.com/espressif/esp-aws-iot/tree/master/examples/) as case study to analyse memory utilisation.
+- ESP-IDF provides an API to get minimum free heap or dynamic memory available in system using heap_caps_get_minimum_free_size(). __Our aim would be to maximise this number (for relative analysis) and thus increase the amount of memory available for end application specific business logic (DRAM region to be specific).__
 
 ## Default Memory Utilisation
 
@@ -56,10 +56,10 @@ We will be using following patch on top of subscribe_publish example to log dyna
 ```
 Task Heap Utilisation Stats:
 ||  Task         |  Peak DRAM  |   Peak IRAM ||
-||  aws_iot_task |   63124     |     0       || 
-||  tiT          |   3840      |     0       || 
+||  aws_iot_task |   63124     |     0       ||
+||  tiT          |   3840      |     0       ||
 ||  wifi         |   31064     |     0       ||System Heap Utilisation Stats:
-||   Minimum Free DRAM |   Minimum Free IRAM || 
+||   Minimum Free DRAM |   Minimum Free IRAM ||
 ||       152976        |        40276        ||
 ```
 
@@ -78,10 +78,10 @@ CONFIG_FREERTOS_UNICORE=y
 ```
 Task Heap Utilisation Stats:
 ||  Task         |  Peak DRAM  |   Peak IRAM ||
-||  aws_iot_task |   63124     |     0       || 
-||  tiT          |   3892      |     0       || 
+||  aws_iot_task |   63124     |     0       ||
+||  tiT          |   3892      |     0       ||
 ||  wifi         |   31192     |     0       ||System Heap Utilisation Stats:
-||   Minimum Free DRAM |   Minimum Free IRAM || 
+||   Minimum Free DRAM |   Minimum Free IRAM ||
 ||       162980        |        76136        ||
 ```
 
@@ -108,10 +108,10 @@ CONFIG_MBEDTLS_SSL_OUT_CONTENT_LEN=2048
 ```
 Task Heap Utilisation Stats:
 ||  Task         |  Peak DRAM  |   Peak IRAM ||
-||  aws_iot_task |   48784     |     0       || 
-||  tiT          |   3892      |     0       || 
+||  aws_iot_task |   48784     |     0       ||
+||  tiT          |   3892      |     0       ||
 ||  wifi         |   30724     |     0       ||System Heap Utilisation Stats:
-||   Minimum Free DRAM |   Minimum Free IRAM || 
+||   Minimum Free DRAM |   Minimum Free IRAM ||
 ||       177972        |        76136        ||
 ```
 
@@ -137,10 +137,10 @@ CONFIG_MBEDTLS_DYNAMIC_FREE_CONFIG_DATA=y
 ```
 Task Heap Utilization Stats:
 ||  Task         |  Peak DRAM  |   Peak IRAM ||
-||  aws_iot_task |   26268     |     0       || 
-||  tiT          |   3648      |     0       || 
+||  aws_iot_task |   26268     |     0       ||
+||  tiT          |   3648      |     0       ||
 ||  wifi         |   30724     |     0       ||System Heap Utilization Stats:
-||   Minumum Free DRAM |   Minimum Free IRAM || 
+||   Minumum Free DRAM |   Minimum Free IRAM ||
 ||       203648        |        76136        ||
 ```
 
@@ -177,10 +177,10 @@ CONFIG_LWIP_IRAM_OPTIMIZATION=y
 ```
 Task Heap Utilization Stats:
 ||  Task         |  Peak DRAM  |   Peak IRAM ||
-||  aws_iot_task |   26272     |     0       || 
-||  tiT          |   4108      |     0       || 
+||  aws_iot_task |   26272     |     0       ||
+||  tiT          |   4108      |     0       ||
 ||  wifi         |   19816     |     0       ||System Heap Utilization Stats:
-||   Minumum Free DRAM |   Minimum Free IRAM || 
+||   Minumum Free DRAM |   Minimum Free IRAM ||
 ||       213712        |        62920        ||
 ```
 
@@ -210,10 +210,10 @@ CONFIG_ESP32_ALLOW_RTC_FAST_MEM_AS_HEAP=y
 ```
 Task Heap Utilization Stats:
 ||  Task         |  Peak DRAM  |   Peak IRAM ||
-||  aws_iot_task |   26272     |     0       || 
-||  tiT          |   4096      |     0       || 
+||  aws_iot_task |   26272     |     0       ||
+||  tiT          |   4096      |     0       ||
 ||  wifi         |   19536     |     0       ||System Heap Utilization Stats:
-||   Minumum Free DRAM |   Minimum Free IRAM || 
+||   Minumum Free DRAM |   Minimum Free IRAM ||
 ||       221792        |        62892        ||
 ```
 
@@ -230,8 +230,8 @@ In this particular feature from ESP-IDF, above mentioned unaligned accesses have
 
 This memory region can be used in following ways:
 
-- First through heap allocator APIs using special capability field known as __MALLOC_CAP_IRAM_8BIT__ 
-- Second by redirecting DATA/BSS to this region using provided linker attributes, __IRAM_DATA_ATTR__  and __IRAM_BSS_ATTR__ 
+- First through heap allocator APIs using special capability field known as __MALLOC_CAP_IRAM_8BIT__
+- Second by redirecting DATA/BSS to this region using provided linker attributes, __IRAM_DATA_ATTR__  and __IRAM_BSS_ATTR__
 
 Limitations wise:
 
@@ -257,10 +257,10 @@ CONFIG_MBEDTLS_IRAM_8BIT_MEM_ALLOC=y
 ```
 Task Heap Utilization Stats:
 ||  Task         |  Peak DRAM  |   Peak IRAM ||
-||  aws_iot_task |   17960     |     21216   || 
-||  tiT          |   3640      |     0       || 
+||  aws_iot_task |   17960     |     21216   ||
+||  tiT          |   3640      |     0       ||
 ||  wifi         |   19536     |     0       ||System Heap Utilization Stats:
-||   Minumum Free DRAM |   Minimum Free IRAM || 
+||   Minumum Free DRAM |   Minimum Free IRAM ||
 ||       228252        |        40432        ||
 ```
 
@@ -276,5 +276,5 @@ Task Heap Utilization Stats:
 
 ## References
 
-- Modified subscribe_publish example along with final sdkconfig.defaults file can be found [__here__ ](https://github.com/mahavirj/esp-aws-iot/tree/feature/memory_optimizations/examples/subscribe_publish)__.__ 
+- Modified subscribe_publish example along with final sdkconfig.defaults file can be found [__here__ ](https://github.com/mahavirj/esp-aws-iot/tree/feature/memory_optimizations/examples/subscribe_publish)__.__
 - This application should be built against ESP-IDF fork and feature branch from [__here__ ](https://github.com/mahavirj/esp-idf/tree/feature/memory_optimizations)__.__
