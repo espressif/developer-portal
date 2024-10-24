@@ -38,7 +38,7 @@ You can track all work in progress by following our GitHub repository. If you fi
 
 [espressif/arduino-esp32If you want to test ESP32-S2 and/or ESP32-C3 through the board manager, please use the development release link…github.com](https://github.com/espressif/arduino-esp32?source=post_page-----f36d79967eb8--------------------------------)
 
-See “[how to contribute](https://github.com/espressif/arduino-esp32/blob/master/CONTRIBUTING.rst)” for more details on how to help us to improve.
+See “[how to contribute](https://github.com/espressif/arduino-esp32/)” for more details on how to help us to improve.
 
 ## New Supported SoC
 
@@ -70,11 +70,11 @@ If you want to try this new version, you just need to update your ESP32-Arduino 
 
 First, go to our GitHub repository: [arduino-esp32](https://github.com/espressif/arduino-esp32)
 
-__For Arduino IDE < 2.0__ 
+__For Arduino IDE < 2.0__
 
 If you are using the Arduino IDE < 2.0, you can install or update using these steps:
 
-__File → Preferences__ 
+__File → Preferences__
 
 {{< figure
     default=true
@@ -94,11 +94,11 @@ Be sure to select the version 2.0.0-alpha1.
 
 If the version 2.0.0 isn’t in the list, update the JSON link in the “Additional Boards Manager URLs” and restart the Arduino IDE.
 
-__For the Arduino IDE 2.0:__ 
+__For the Arduino IDE 2.0:__
 
 The process for the Arduino IDE 2.0 is very similar to the early version.
 
-__File → Preferences__ 
+__File → Preferences__
 
 {{< figure
     default=true
@@ -116,7 +116,7 @@ To install it, go to __Tools → Boards → Boards Manager__  and you will find 
 
 You can finally start using the ESP32-S2 and ESP32-C3 SoC with Arduino!
 
-__Conclusion__ 
+__Conclusion__
 
 We are all excited with this preview version release to give you the chance to try our new chips using Arduino.
 

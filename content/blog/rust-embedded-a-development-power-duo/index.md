@@ -120,7 +120,7 @@ __What is bare-metal?__
 
 Bare-metal means we do not have any operating system to work with. When a Rust program is compiled with the no_std attribute, it means that the program will not have access to certain features (some are listed in the std chapter). This does not necessarily mean that you cannot use networking or complex data structures with no_std, you can do anything without std that you can do with std but it is more complex and challenging. no_std programs rely on a set of [core](https://doc.rust-lang.org/beta/core/index.html) language features that are available in all Rust environments, for example, data types, control structures or low-level memory management. This approach is useful for embedded programming where memory usage is often constrained and low-level control over hardware is required.
 
-An example, how a [blinky example](https://github.com/esp-rs/esp-hal/blob/main/esp32c3-hal/examples/blinky.rs) running on bare-metal (no operating system) may look like (more examples can be found in [esp-hal](https://github.com/esp-rs/esp-hal/tree/main)):
+An example, how a [blinky example](https://github.com/esp-rs/esp-hal/tree/main) running on bare-metal (no operating system) may look like (more examples can be found in [esp-hal](https://github.com/esp-rs/esp-hal/tree/main)):
 
 ```rust
 #![no_std]
