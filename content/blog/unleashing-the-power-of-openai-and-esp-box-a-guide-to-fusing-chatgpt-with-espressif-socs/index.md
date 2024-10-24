@@ -25,7 +25,7 @@ __*In this article, we will explore the potential of ChatGPT with ESP-BOX, a pow
 
 ## ESP-BOX
 
-The [ESP-BOX](https://github.com/espressif/esp-box) is a new generation AIoT development platform that includes the ESP32-S3-BOX and ESP32-S3-BOX-Lite development boards. These boards are based on the [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) Wi-Fi + Bluetooth 5 (LE) SoC and provide a flexible and customizable solution for developing AIoT applications that integrate with various sensors, controllers, and gateways.
+The [ESP-BOX](https://github.com/espressif/esp-box) is a new generation AIoT development platform that includes the ESP32-S3-BOX and ESP32-S3-BOX-Lite development boards. These boards are based on the [ESP32-S3](https://products.espressif.com/#/product-selector?names=&filter=%7B%22Series%22%3A%5B%22ESP32-S3%22%5D%7D) Wi-Fi + Bluetooth 5 (LE) SoC and provide a flexible and customizable solution for developing AIoT applications that integrate with various sensors, controllers, and gateways.
 
 {{< figure
     default=true
@@ -493,5 +493,3 @@ The integration of OpenAI’s ChatGPT with Espressif’s ESP-BOX has opened up n
     >}}
 
 Don’t forget to check out [Espressif Systems](https://www.espressif.com/)’ [GitHub ](https://github.com/orgs/espressif/repositories)repository for more open-source demos on [ESP-IoT-Solution](https://github.com/espressif/esp-iot-solution), [ESP-SR](https://github.com/espressif/esp-sr), and [ESP-BOX](https://github.com/espressif/esp-box). The source code for this project will be found [__*here*__ ](https://github.com/espressif/esp-box/tree/master/examples)*.* As part of our future plans, we aim to introduce a component for the OpenAI API that will offer a user-friendly functions.
-
-See also the [Product Selector](https://products.espressif.com/#/product-selector?names=&filter=%7B%22Series%22%3A%5B%22ESP32-S3%22%5D%7D).

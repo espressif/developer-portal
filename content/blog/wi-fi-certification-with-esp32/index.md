@@ -27,7 +27,7 @@ If you have identified that you require Wi-Fi certification, the quickest path i
 
 > The benefit of derivative certification is that you won’t have to perform all the Wi-Fi certification tests on your product. You just carry forward the results from the source Wi-Fi module to your product. This saves money and importantly, time, for getting the product certified.
 
-For additional details about the derivative certification please refer to the [Certifications Overview - Derivative Certificate](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&cd=1&cad=rja&uact=8&ved=2ahUKEwj--t_q_ObcAhWKso8KHRmeBCwQFjAAegQIChAB&url=https%3A%2F%2Fwww.wi-fi.org%2Ffile%2Fcertification-overview-derivative-certifications&usg=AOvVaw0EQuZMH38UR39eYLnP_PX3) document on the Wi-Fi Alliance website.
+For additional details about the derivative certification please refer to the [Certifications Overview - Derivative Certificate](https://www.wi-fi.org/system/files/Wi-Fi_CERTIFIED_Derivative_Certifications_Overview_v3.3.pdf) document on the Wi-Fi Alliance website.
 
 The modules ESP32-WROVER and ESP32-WROOM-32D are already certified with Wi-Fi Alliance. If you are using these modules in your product you can use derivative certification for certifying your products. If you are using an ESP32 module from another vendor, please check with them for that module’s Wi-Fi Alliance certification status.
 
@@ -64,7 +64,7 @@ The modules ESP32-WROVER and ESP32-WROOM-32D are already certified with Wi-Fi Al
     >}}
 
 - Fill in the appropriate designators for your product. Select the closest matching *Primary Product Category*. For example, if your product is a refrigerator, select Refrigerator from the list. If applicable, also select the *Secondary Product Category*.
-- Go to the next page: __Review Application__ 
+- Go to the next page: __Review Application__
 
 {{< figure
     default=true
