@@ -1,7 +1,7 @@
 languageCode = "en"
 languageName = "English"
 weight = 1
-title = "Developer Portal"
+title = "Espressif Developer Portal"
 
 [params]
   displayName = "EN"

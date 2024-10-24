@@ -25,7 +25,7 @@ __*In this article, we will explore the potential of ChatGPT with ESP-BOX, a pow
 
 ## ESP-BOX
 
-The [ESP-BOX](https://github.com/espressif/esp-box) is a new generation AIoT development platform that includes the ESP32-S3-BOX and ESP32-S3-BOX-Lite development boards. These boards are based on the [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) Wi-Fi + Bluetooth 5 (LE) SoC and provide a flexible and customizable solution for developing AIoT applications that integrate with various sensors, controllers, and gateways.
+The [ESP-BOX](https://github.com/espressif/esp-box) is a new generation AIoT development platform that includes the ESP32-S3-BOX and ESP32-S3-BOX-Lite development boards. These boards are based on the [ESP32-S3](https://products.espressif.com/#/product-selector?names=&filter=%7B%22Series%22%3A%5B%22ESP32-S3%22%5D%7D) Wi-Fi + Bluetooth 5 (LE) SoC and provide a flexible and customizable solution for developing AIoT applications that integrate with various sensors, controllers, and gateways.
 
 {{< figure
     default=true
@@ -61,7 +61,7 @@ __**As of writing of this blog, the current IDF commit head is df9310ada2.*__
 
 To utilize ChatGPT, a powerful language model based on the GPT-3.5 architecture, you must first obtain a secure API key. This can be achieved by creating an account on the [OpenAI platform](https://openai.com/) and obtaining tokens through creation or purchase. With an API key, you gain access to a wide range of features and capabilities that can be customized to meet your specific needs, such as natural language processing and generation, text completion, and conversation modeling. Follow the [official API reference link](https://platform.openai.com/docs/api-reference).
 
-__**Maintaining the confidentiality and security of the API key is crucial to prevent unauthorized access to the user’s account and data.*__ 
+__**Maintaining the confidentiality and security of the API key is crucial to prevent unauthorized access to the user’s account and data.*__
 
 ## Adding Offline Speech Recognition
 

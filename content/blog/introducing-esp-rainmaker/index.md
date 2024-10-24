@@ -117,7 +117,7 @@ While we make this infrastructure available, we want to be as transparent as pos
 - The ESP32-S2/ESP32 to RainMaker cloud communication details are captured here: [https://rainmaker.espressif.com/docs/node-cloud-comm.html](https://rainmaker.espressif.com/docs/node-cloud-comm.html)
 - The RainMaker agent that implements (in the C language) the above protocol is available at: [https://github.com/espressif/esp-rainmaker](https://github.com/espressif/esp-rainmaker)
 - The REST APIs exposed by the RainMaker cloud are captured in this swagger documentation: [https://swaggerapis.rainmaker.espressif.com](https://swaggerapis.rainmaker.espressif.com). These APIs are used by the phone apps and the Python library to interact with the RainMaker cloud.
-- The Python CLI that uses these APIs is available here: [https://github.com/espressif/esp-rainmaker/tree/master/cli](https://github.com/espressif/esp-rainmaker/tree/master/cli)
+- The Python CLI that uses these APIs is available here: [https://github.com/espressif/esp-rainmaker-cli](https://github.com/espressif/esp-rainmaker-cli)
 
 Feel free to [reach out to us](https://github.com/espressif/esp-rainmaker/issues) if you have any feedback, requests or suggestions for ESP RainMaker.
 

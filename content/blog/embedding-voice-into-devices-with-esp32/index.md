@@ -11,7 +11,7 @@ tags:
   - IoT
 
 ---
-ESP32 already supported being a fully functional [Alexa client](https://github.com/espressif/esp-va-sdk/blob/master/README-Alexa.md), a voice assistant.
+ESP32 already supported being a fully functional [Alexa client](https://github.com/espressif/esp-va-sdk/tree/master/examples/amazon_alexa), a voice assistant.
 
 ESP32 now also supports Dialogflow, a voice-enabled conversational interface from Google. It enables IoT users to include a natural language user interface in their devices.
 
@@ -24,7 +24,7 @@ The differences of Dialogflow w.r.t. voice assistants are
 
 Unlike voice-assistants, Dialogflow let’s you configure every step of the conversation, and it won’t answer other trivia/questions like voice-assistants typically do. For example, a Dialogflow agent for a Laundry project will provide information only about the configurable parameters of the laundry (like state, temperature, wash cycle etc.)
 
-This is now a part of Espressif’s Voice Assistant SDK and is available on github here: [https://github.com/espressif/esp-va-sdk](https://github.com/espressif/esp-va-sdk/blob/master/README-Dialogflow.md). To get started, see [this](https://github.com/espressif/esp-va-sdk/blob/master/README-Dialogflow.md).
+This is now a part of Espressif’s Voice Assistant SDK and is available on github here: [https://github.com/espressif/esp-va-sdk](https://github.com/espressif/esp-va-sdk/tree/master/components/dialogflow-proto). To get started, see [this](https://github.com/espressif/esp-va-sdk/tree/master/components/dialogflow-proto).
 
 The underlying technologies used by the Dialogflow implementation for VA SDK includes:
 

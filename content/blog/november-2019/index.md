@@ -42,7 +42,7 @@ Best wishes,John Lee.Senior Customer Support Officer
     src="img/november-2.webp"
     >}}
 
-Espressif has just released an Internet Phone [solution,](https://github.com/espressif/esp-adf/tree/master/examples/advanced_examples/voip) which is based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and the Voice over Internet Protocol (VoIP), but also functions as an example of how to operate voice-controlled devices. This application is really cost-effective, with a great performance, supporting voice wake-up, voice interaction, voicemail service, music on demand, etc.
+Espressif has just released an Internet Phone [solution,](https://github.com/espressif/esp-adf/tree/master/examples/protocols/voip) which is based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and the Voice over Internet Protocol (VoIP), but also functions as an example of how to operate voice-controlled devices. This application is really cost-effective, with a great performance, supporting voice wake-up, voice interaction, voicemail service, music on demand, etc.
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESP32_VoIP)
 

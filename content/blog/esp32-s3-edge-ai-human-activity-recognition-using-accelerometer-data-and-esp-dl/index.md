@@ -20,9 +20,9 @@ Edge computing is a distributed computing paradigm that brings computation and d
     src="img/esps-1.webp"
     >}}
 
-__Espressif System provides a framework ESP-DL that can be used to deploy your high-performance deep learning models on ESP32-S3.__ 
+__Espressif System provides a framework ESP-DL that can be used to deploy your high-performance deep learning models on ESP32-S3.__
 
-*In this article, you will understand how to read sensor data and using *[*ESP-DL*](https://github.com/espressif/esp-dl)* to *[*deploy*](https://github.com/espressif/esp-dl/tree/master/tutorial/quantization_tool_example)* a deep-learning model on *[*ESP32-S3*](https://www.espressif.com/en/products/socs/esp32-s3)*.*
+*In this article, you will understand how to read sensor data and using *[*ESP-DL*](https://github.com/espressif/esp-dl)* to *[*deploy*](https://github.com/espressif/esp-dl/tree/master/)* a deep-learning model on *[*ESP32-S3*](https://www.espressif.com/en/products/socs/esp32-s3)*.*
 
 ---
 
@@ -82,7 +82,7 @@ We will define our model in the ‘model_define.hpp’ file. Following the steps
 
 ## 2.1 Import Libraries
 
-Import all the relevant libraries. Please [check here](https://github.com/espressif/esp-dl/tree/master/include/layer) for all the currently supported libraries by [ESP-DL](https://github.com/espressif/esp-dl).
+Import all the relevant libraries. Please [check here](https://github.com/espressif/esp-dl/tree/master) for all the currently supported libraries by [ESP-DL](https://github.com/espressif/esp-dl).
 
 ```c
 #pragma once
@@ -138,7 +138,7 @@ ACTIVITY () :
 
 ## 2.4 Building Layers
 
-The next step is to build each layer. For more information about building layers please check the [build function](https://github.com/espressif/esp-dl/tree/master/include/layer) of each layer.
+The next step is to build each layer. For more information about building layers please check the [build function](https://github.com/espressif/esp-dl/tree/master/) of each layer.
 
 ```c
 void build(Tensor<int16_t> &input)
@@ -154,7 +154,7 @@ void build(Tensor<int16_t> &input)
 
 ## 2.5 Call Layers
 
-In the end, connect these layers and call them one by one by using a call function. For more information about calling layers please check the c[all function](https://github.com/espressif/esp-dl/tree/master/include/layer) of each layer.
+In the end, connect these layers and call them one by one by using a call function. For more information about calling layers please check the c[all function](https://github.com/espressif/esp-dl/tree/master/) of each layer.
 
 ```c
 void call(Tensor<int16_t> &input)

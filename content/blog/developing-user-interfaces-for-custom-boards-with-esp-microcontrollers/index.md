@@ -14,13 +14,13 @@ tags:
 ---
 A few weeks ago in [this article](/blog/making-the-fancy-user-interface-on-esp-has-never-been-easier) we have introduced SquareLine Studio and how it can be used to develop user interfaces. This feature was available only for Espressif’s boards. But what if we wanted to use this tool for our custom designed board based on an ESP chip with a custom LCD? Here is the solution!
 
-What is the best way to add a custom board into SquareLine Studio? Start with the [*custom_waveshare_7inch* example on from esp-bsp repository on GitHub](https://github.com/espressif/esp-bsp/tree/master/SquareLine/boards/custom_waveshare_7inch). This example is based on the same code as other Espressif’s examples for SquareLine Studio. However there is one big difference. There must be a custom component similar to Espressif’s BSP with main functions for handling the LCD screen and initialization of the LVGL graphic library.
+What is the best way to add a custom board into SquareLine Studio? Start with the [*custom_waveshare_7inch* example on from esp-bsp repository on GitHub](https://github.com/espressif/esp-bsp/tree/master/SquareLine/boards/v8/custom_waveshare_7inch). This example is based on the same code as other Espressif’s examples for SquareLine Studio. However there is one big difference. There must be a custom component similar to Espressif’s BSP with main functions for handling the LCD screen and initialization of the LVGL graphic library.
 
 For this example we have selected the following LCD display: [WaveShare 7inch 800x480 with RA8875 graphical controller and GT911 touch screen controller](https://www.waveshare.com/7inch-capacitive-touch-lcd-c.htm).
 
 ## 1. Making the custom BSP for your board
 
-First step in preparing the package for the SquareLine Studio is to make a component similar to BSP. You can see implementation for the [7inch WaveShare LCD](https://www.waveshare.com/7inch-capacitive-touch-lcd-c.htm) in our example on [GitHub](https://github.com/espressif/esp-bsp/tree/master/SquareLine/boards/custom_waveshare_7inch), where only important functions are implemented in [__ws_7inch.c__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/components/ws_7inch/ws_7inch.c) file. For other screens, the following functions should be changed:
+First step in preparing the package for the SquareLine Studio is to make a component similar to BSP. You can see implementation for the [7inch WaveShare LCD](https://www.waveshare.com/7inch-capacitive-touch-lcd-c.htm) in our example on [GitHub](https://github.com/espressif/esp-bsp/tree/master/SquareLine/boards/v8/custom_waveshare_7inch), where only important functions are implemented in [__ws_7inch.c__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/components/ws_7inch/ws_7inch.c) file. For other screens, the following functions should be changed:
 
 ```
 /* LCD display initialization */
@@ -43,13 +43,13 @@ esp_err_t bsp_i2c_init(void)
 }
 ```
 
-Second part of making a custom BSP is to edit the header file [__ws_7inch.h__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/components/ws_7inch/include/bsp/ws_7inch.h). This is where are all pin configurations, communication speed configuration and screen size for the board are defined.
+Second part of making a custom BSP is to edit the header file [__ws_7inch.h__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/components/ws_7inch/include/bsp/ws_7inch.h). This is where are all pin configurations, communication speed configuration and screen size for the board are defined.
 
-The last thing you should do is to modify [__CMakeLists.txt__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/components/ws_7inch/CMakeLists.txt) and [__idf_component.yml__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/components/ws_7inch/idf_component.yml), when any filename changes or when you need to use another component for the LCD screen or touch screen. You should modify [__idf_component.yml__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/main/idf_component.yml) in the main project too when the component name is changed.
+The last thing you should do is to modify [__CMakeLists.txt__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/components/ws_7inch/CMakeLists.txt) and [__idf_component.yml__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/components/ws_7inch/idf_component.yml), when any filename changes or when you need to use another component for the LCD screen or touch screen. You should modify [__idf_component.yml__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/main/idf_component.yml) in the main project too when the component name is changed.
 
 ## 2. The board description file and board image
 
-After the custom BSP is done, we can move to update the board description file____ [__manifest.json__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/manifest.json):
+After the custom BSP is done, we can move to update the board description file____ [__manifest.json__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/manifest.json):
 
 ```
 {
@@ -68,11 +68,11 @@ After the custom BSP is done, we can move to update the board description file__
 
 Values __name__ , __version, mcu, short_description__ and __long_description__ are only for displaying your board right in the SquareLine Studio. There can be anything. More important are values __screen_width__ , __screen_height__  and __screen_color_swap__ , which define physical values for your LCD display. The __placeholders__ should be updated with the right values from your custom BSP. The header file path into ____ESP_BOARD_INCLUDE____  and touch screen initialization function into ____ESP_BOARD_I2C_INIT____ .
 
-Second file for update is board image____ [__image.png__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/image.png). There must be a board image in size __380px__  x __300px__ .
+Second file for update is board image____ [__image.png__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/image.png). There must be a board image in size __380px__  x __300px__ .
 
 ## 3. ESP-IDF and LVGL default configuration
 
-If you have any specific changes in IDF configuration or LVGL configuration, you can put it into [__sdkconfig.defaults__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/sdkconfig.defaults) file. The configuration option __CONFIG_LV_COLOR_16_SWAP__  must be same like value in __screen_color_swap__ in [__manifest.json__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/custom_waveshare_7inch/manifest.json) file.
+If you have any specific changes in IDF configuration or LVGL configuration, you can put it into [__sdkconfig.defaults__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/sdkconfig.defaults) file. The configuration option __CONFIG_LV_COLOR_16_SWAP__  must be same like value in __screen_color_swap__ in [__manifest.json__ ](https://github.com/espressif/esp-bsp/blob/master/SquareLine/boards/v8/custom_waveshare_7inch/manifest.json) file.
 
 ## 4. Generate and copy package for SquareLine Studio
 

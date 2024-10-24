@@ -16,7 +16,7 @@ Artificial intelligence transforms the way computers interact with the real worl
 
 Espressif System provides a framework [ESP-DL](https://github.com/espressif/esp-dl) that can be used to deploy your high-performance deep learning models on Espressif chip ESP32-S3.
 
-In this article, we will understand how to use [ESP-DL](https://github.com/espressif/esp-dl) and [deploy](https://github.com/espressif/esp-dl/tree/master/tutorial/quantization_tool_example) a deep-learning model on [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3).
+In this article, we will understand how to use [ESP-DL](https://github.com/espressif/esp-dl) and [deploy](https://github.com/espressif/esp-dl/tree/master/) a deep-learning model on [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3).
 
 
 ## Prerequisite for using ESP-DL
@@ -80,10 +80,10 @@ from keras.layers import Dense, Flatten, Dropout
 print(tf.__version__)
 
 model = Sequential()
-model.add(Conv2D(32, (5, 5), activation='relu', input_shape=(96, 96, 1))) 
+model.add(Conv2D(32, (5, 5), activation='relu', input_shape=(96, 96, 1)))
 model.add(MaxPooling2D((2, 2)))
 model.add(Dropout(0.2))
-model.add(Conv2D(64, (3, 3), activation='relu')) 
+model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(MaxPooling2D((2, 2)))
 model.add(Dropout(0.2))
 model.add(Conv2D(64, (3, 3), activation='relu'))

@@ -113,7 +113,7 @@ However, the Blowfish theme used on this website provides the [figure](https://b
     */>}}
 ```
 
-By default, the Blowfish theme optimizes the images for different device resolutions. For some images, the processing **adds grey background**. To fix it, disable the processing of such images by adding the parameter `default="false"` to the figure shortcode.
+By default, the Blowfish theme optimizes the images for different device resolutions. For some images, the processing **adds grey background**. To fix it, disable the processing of such images by adding the parameter `default="true"` to the figure shortcode.
 
 
 #### Use WebP for raster images

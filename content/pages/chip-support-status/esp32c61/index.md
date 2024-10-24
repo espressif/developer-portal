@@ -205,4 +205,4 @@ If you have an issue to report about any of the ESP32-C61 features, please creat
 If you have an issue to report about any of the ESP32-C61 features, please create an issue in the issue tracker of a respective project.
 
 - :hourglass_flowing_sand: [ESP-AT](https://docs.espressif.com/projects/esp-at/en/latest/esp32c61/index.html) (IDF-10746)
-- :hourglass_flowing_sand: [ESP-Modbus](https://docs.espressif.com/projects/esp-modbus/en/latest/esp32c61/) (IDF-10051)
+- :hourglass_flowing_sand: [ESP-Modbus](https://docs.espressif.com/projects/esp-modbus/en/latest/) (IDF-10051)
