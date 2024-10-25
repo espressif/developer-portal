@@ -42,6 +42,15 @@ Omar Hiari’s "Simplified Embedded Rust" series is a valuable resource for deve
 
 Additionally, while the books are written with the ESP32-C3 in mind, the knowledge and skills gained from these resources are applicable to other Espressif chips, including the newly announced ESP32-P4, ensuring that developers are well-prepared for future projects.
 
+### Recent Developments
+An update has been rolled out on 10/20/2024 to support the latest ESP crate and Rust compiler versions, along with expanded support for more ESP devices. Updates include the following:
+
+- `no-std` edition: compatibility with the `esp-hal` v0.21 crate.
+- `std` edition: compatibility with the `esp-idf-svc` v0.49 crate.
+- `no-std` repositories: new embassy-sync examples added compatible with the `esp-hal-embassy` 0.4.0 crate.
+- `std` and `no-std` repositories: Expanded support for ESP32, ESP32-S2, ESP32-S3, and the existing ESP32-C3.
+- Various typo, code, and reference fixes across both editions.
+
 ### Additional Resources
 - [The Core Library Edition](http://ser-book.com/espnostd)
 - [The Standard Library Edition](http://ser-book.com/espstd)
