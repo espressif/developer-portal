@@ -1,5 +1,5 @@
 ---
-title: "Zephyr RTOS on ESP32 —First Steps"
+title: "Zephyr RTOS on ESP32 — First Steps"
 date: 2021-02-24
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
@@ -18,24 +18,24 @@ tags:
     src="img/zephyr-1.webp"
     >}}
 
-> __Attention:__  The installation process outlined in this article has become obsolete. To ensure accurate and up-to-date instructions, kindly consult the [new installation link](https://docs.zephyrproject.org/latest/develop/getting_started/index.html). Your understanding is greatly appreciated.
+>__Note:__ This article has been reviewd to reflect the latest Zephyr features as of Q4 2024.
 
 Zephyr is a very low footprint RTOS maintained by the Linux Foundation and ported to several architectures. This RTOS has been gaining massive support from many silicon manufacturers and an ever-growing list of contributors on its mainline.
 
-Espressif has been expanding support for Zephyr RTOS on ESP32, an extremely popular SoC among hobbyists but also widely used in commercial applications. Since its release, this SoC became famous for integrating both Wifi and Bluetooth stacks on a single chip and for being very cost-competitive. In this post, all the required steps to prepare your host’s environment to use Zephyr on ESP32 will be explained. In the end, we will run a __hello world__  application to validate our setup. In this step-by-step guide, the __ESP32 DevKitC__  board will be used.
+Espressif has been expanding support for Zephyr RTOS on ESP32, an extremely popular SoC among hobbyists but also widely used in commercial applications. Since its release, this SoC became famous for integrating both Wifi and Bluetooth stacks on a single chip and for being very cost-competitive. In this post, all the required steps to prepare your host’s environment to use Zephyr on ESP32 will be explained. In the end, we will run a __hello world__  application to validate our setup. In this step-by-step guide, the __ESP32 DevKitC_WROVER__  board will be used.
 
 {{< figure
     default=true
     src="img/zephyr-2.webp"
     >}}
 
-The first thing to do is to prepare Zephyr’s development environment. I briefly list the steps required for Linux (Ubuntu 20.04.1 LTS), for the most up-to-date documentation, and for support for other Operating Systems you can see Zephyr’s official [Getting Started](https://docs.zephyrproject.org/latest/getting_started/index.html) guide and, specifically, you can see most of the original instructions included in this post in the [ESP32 SoC section](https://docs.zephyrproject.org/latest/boards/espressif/index.html) of the Zephyr Project documentation.
+The first thing to do is to prepare Zephyr’s development environment. I briefly list the steps required for Linux (Ubuntu 22.04.1 LTS), for the most up-to-date documentation, and for support for other Operating Systems you can see Zephyr’s official [Getting Started](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) guide and, specifically, you can see most of the original instructions included in this post in the [ESP32 SoC section](https://docs.zephyrproject.org/latest/boards/espressif/index.html) of the Zephyr Project documentation.
 
 ## Updating Linux
 
 Before we start, update your repositories list.
 
-```
+```sh
 sudo apt update
 sudo apt upgrade
 ```
@@ -44,47 +44,32 @@ sudo apt upgrade
 
 Run __apt__  to install dependencies:
 
-```
-sudo apt install --no-install-recommends git cmake \
-ninja-build gperf ccache dfu-util device-tree-compiler wget \
-python3-dev python3-pip python3-setuptools python3-tk \
-python3-wheel xz-utils file make gcc gcc-multilib \
-g++-multilib libsdl2-dev
+```sh
+sudo apt install --no-install-recommends \
+git cmake ninja-build gperf ccache dfu-util device-tree-compiler wget \
+python3-dev python3-pip python3-setuptools python3-tk python3-wheel \
+xz-utils file make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
 ```
 
-Check the __CMake__  version on your host.
+Verify the versions of the main dependencie:
 
-```
+```sh
 cmake --version
+python3 --version
+dtc --versio
 ```
 
-If the version displayed is __3.13.1__  or above then skip to the next section. Otherwise, follow these three steps to update CMake:
+The current minimum required versions for this tools are:
 
-Add the Kitware signing key:
-
-```
-wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
-```
-
-Add the Kitware apt repository for your OS release. For Ubuntu 20.04 LTS:
-
-```
-sudo apt-add-repository \
-'deb https://apt.kitware.com/ubuntu/ focal main'
-```
-
-Reinstall CMake
-
-```
-sudo apt update
-sudo apt install cmake
-```
+- CMake: 3.20.5
+- Python: 3.10
+- Devicetree compiler: 1.4.6
 
 ## Getting Zephyr and installing Python dependencies
 
 Install __west__ and ensure that __~/.local/bin__  is part of your __PATH__  environment variable:
 
-```
+```sh
 pip3 install -- user -U west
 echo ‘export PATH=~/.local/bin:”$PATH”’ >> ~/.bashrc
 source ~/.bashrc
@@ -92,59 +77,75 @@ source ~/.bashrc
 
 Here is a worthy observation: west is the tool that manages the entire life-cycle of a Zephyr-based project. This is made clearer below. Now, get Zephyr’s source code:
 
-```
+```sh
 west init ~/zephyrproject
 cd ~/zephyrproject
 west update
 west espressif update
 ```
 
-Be patient, these last commands will fetch Zephyr’s repository and all the HALs (including ESP32’s) already ported to this RTOS. Note that we do not explicitly call a git command to clone the repositories, __west__  takes care of everything. Now, export a Zephyr CMake package. This causes CMake to automatically load some boilerplate code.
-
-```
-west zephyr-export
-```
+Be patient, these last commands will fetch Zephyr’s repository and all the HALs (including Espressif’s) already ported to this RTOS. Note that we do not explicitly call a git command to clone the repositories, __west__  takes care of everything.
 
 Zephyr’s __requirements.txt__  file declares additional Python dependencies. Install them through pip3.
 
-```
+```sh
 pip3 install --user -r \
 ~/zephyrproject/zephyr/scripts/requirements.txt
 ```
 
 ## Installing Zephyr’s toolchain
 
-Zephyr’s SDK adds several additional tools for the host. Download the SDK installer:
+Zephyr’s SDK adds several additional tools for the host. Download and verify the Zephyr SDK bundle:
 
-```
+> __Note:__
+> You can change `0.16.8` to another version in the instructions below if needed; the [Zephyr SDK Releases](https://github.com/zephyrproject-rtos/sdk-ng/tags) page contains all available SDK releases.
+
+```sh
 cd ~
-wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.12.2/zephyr-sdk-0.12.2-x86_64-linux-setup.run
+wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-x86_64.tar.xz
+wget -O - https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/sha256.sum | shasum --check --ignore-missing
+```
+Extract the Zephyr SDK bundle archive:
+
+```sh
+tar xvf zephyr-sdk-0.16.8_linux-x86_64.tar.xz
+```
+> __Note:__
+> It is recommended to extract the Zephyr SDK bundle at one of the following locations:
+> - $HOME
+> - $HOME/.local
+> - $HOME/.local/opt
+> - $HOME/bin
+> - /opt
+> - /usr/local
+>
+> The Zephyr SDK bundle archive contains the `zephyr-sdk-<version>` directory and, when extracted under `$HOME`, the resulting installation path will be `$HOME/zephyr-sdk-<version>`.
+
+Run the Zephyr SDK bundle setup script:
+
+```sh
+cd zephyr-sdk-0.16.8
+./setup.sh
+```
+> __Note:__
+> You only need to run the setup script once after extracting the Zephyr SDK bundle.
+> You must rerun the setup script if you relocate the Zephyr SDK bundle directory after the initial setup.
+
+Install udev rules, which allow you to flash most Zephyr boards as a regular user:
+
+```sh
+sudo cp ~/zephyr-sdk-0.16.8/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d
+sudo udevadm control --reload
+./setup.sh
 ```
 
-Run the installer, this will install the SDK under the __~/zephyr-sdk-0.12.2__  folder.
+##  Installing Espressif binary blobs
 
-```
-chmod +x zephyr-sdk-0.12.2-x86_64-linux-setup.run
-./zephyr-sdk-0.12.2-x86_64-linux-setup.run -- -d ~/zephyr-sdk-0.12.2
-```
+To successfully build your ESP32 application on Zephyr, install Espressif binary blobs:
 
-This is one of the default locations recommended for SDK installation, for other locations check Zephyr’s official documentation.
-
-## Adding ESP32 toolchain to the project
-
-Before building, we need to tell Zephyr where to find the toolchain for ESP32’s Xtensa architecture. Open your terminal, and type the following commands:
-
-```
-export ZEPHYR_TOOLCHAIN_VARIANT="espressif"
-export ESPRESSIF_TOOLCHAIN_PATH="${HOME}/.espressif/tools/xtensa-esp32-elf/esp-2020r3-8.4.0/xtensa-esp32-elf"
-export PATH=$PATH:$ESPRESSIF_TOOLCHAIN_PATH/bin
-```
-
-Alternatively, you can add the above commands to your __~/.bashrc__  configuration file, making those variables available at any time on your current working session. Finally, install the toolchain:
-
-```
+```sh
 cd ~/zephyrproject
-west espressif install
+west blobs fetch hal_espressif
 ```
 
 ## Building the application
@@ -153,70 +154,134 @@ Remember I mentioned __west__  takes part in all stages of a Zephyr’s project 
 
 ```
 cd ~/zephyrproject/zephyr/samples/hello_world
-west build -p auto -b esp32
+west build -b esp32_devkitc_wrover/esp32/procpu zephyr/samples/hello_world --pristine
 ```
-
-If the previous build fails with a message indicating missing Python packages, your OS likely uses __python2.x__ by default. If so, make __python3__  its preferred choice by running the following:
-
-```
-sudo update-alternatives --install \
-/usr/bin/python python /usr/bin/python3 10 && alias pip=pip3
-```
-
-Then, run the build command again.
-
-We will need a serial program utility to see the logs, use the one of your preference. Here I use __minicom__ .
-
-```
-sudo apt install minicom
-```
-
-To open minicom’s serial settings, type this command:
-
-```
-sudo minicom -s
-```
-
-After __minicom__  is opened, chose the __serial port setup__  option and set it to __115200 8N1__ .
-
-{{< figure
-    default=true
-    src="img/zephyr-3.webp"
-    >}}
 
 ## Flashing the binary
 
-Flashing the binary is quite simple, just do the following:
+Flashing the binary is quite simple: use a usb cable to connect you ESP board to you PC usb port and do the following:
 
+```sh
+west flash
 ```
-west flash; minicom
+
+Afer executing the last command you must see the following messages:
+
+```sh
+ninja: no work to do.
+-- west flash: using runner esp32
+-- runners.esp32: reset after flashing requested
+-- runners.esp32: Flashing esp32 chip on None (921600bps)
+esptool.py v4.7.0
+Found 33 serial ports
+Serial port /dev/ttyUSB0
+Connecting....
+Detecting chip type... Unsupported detection protocol, switching and trying again...
+Connecting....
+Detecting chip type... ESP32
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: b0:b2:1c:b4:6b:28
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 921600
+Changed.
+Configuring flash size...
+Auto-detected Flash size: 8MB
+Flash will be erased from 0x00001000 to 0x00020fff...
+Flash params set to 0x0230
+Wrote 131072 bytes at 0x00001000 in 1.8 seconds (590.9 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
 ```
 
-In older ESP32 DevKitC boards, the chip may run to standby mode until the __BOOT__  button is pressed, which triggers the flashing action. Newer boards start flashing immediately.
+Now execute the command:
 
-If you have been following everything up to this point, after some ESP32’s boot messages, you should see the expected hello message.
+```sh
+west espressif monitor
+```
 
-{{< figure
-    default=true
-    src="img/zephyr-4.webp"
-    >}}
 
+If you have been following everything up to this point, after some ESP32’s boot messages, you should see the expected hello message:
+
+```sh
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3ffb0000,len:6412
+ho 0 tail 12 room 4
+load:0x40080000,len:33216
+entry 0x40083a04
+I (31) boot: ESP Simple boot
+I (31) boot: compile time Oct 17 2024 16:55:10
+W (31) boot: Unicore bootloader
+I (31) spi_flash: detected chip: generic
+I (34) spi_flash: flash io: dio
+I (37) boot: chip revision: v3.1
+I (40) boot.esp32: SPI Speed      : 40MHz
+I (44) boot.esp32: SPI Mode       : DIO
+I (47) boot.esp32: SPI Flash Size : 8MB
+I (51) boot: Enabling RNG early entropy source...
+I (55) boot: DRAM: lma 0x00001020 vma 0x3ffb0000 len 0x190c   (6412)
+I (61) boot: IRAM: lma 0x00002934 vma 0x40080000 len 0x81c0   (33216)
+I (67) boot: padd: lma 0x0000ab08 vma 0x00000000 len 0x54f0   (21744)
+I (74) boot: IMAP: lma 0x00010000 vma 0x400d0000 len 0x2eb4   (11956)
+I (80) boot: padd: lma 0x00012ebc vma 0x00000000 len 0xd13c   (53564)
+I (86) boot: DMAP: lma 0x00020000 vma 0x3f400000 len 0xc6c    (3180)
+I (92) boot: Image with 6 segments
+I (95) boot: DROM segment: paddr=00020000h, vaddr=3f400000h, size=00C6Ch (  3180) map
+I (103) boot: IROM segment: paddr=00010000h, vaddr=400d0000h, size=02EB4h ( 11956) map
+
+I (143) heap_runtime: ESP heap runtime init at 0x3ffb40c0 size 175 kB.
+
+*** Booting Zephyr OS build v3.7.0-4642-g4152ab3cbba2 ***
+Hello World! esp32_devkitc_wrover/esp32/procpu
+```
 There you have it! Your development environment was properly configured and you have run your first application using Zephyr on ESP32!
 
 ## Supported Features
 
-ESP32 support for Zephyr is growing. By the time I am writing this post, it includes basic peripherals such as:
+ESP32 support for Zephyr is growing. By the time I am writing this post, it includes the following peripherals and features:
 
 - UART
 - I2C
 - GPIO
-- SPI Master
+- SPI
+- SPI FLASH
+- SPI RAM
 - Timers
+- Wi-FI
+- Bluetooth
+- GPIO
+- TWAI
+- E-Fuse
+- ADC
+- DAC
+- MCPWM
+- LEDPWM
+- PCNT
+- TRNG
+- WATCHDOG
+- ETH MAC
+- SDHC
+- FLASH ENCRIPTION
+- OPENOCD
+- MCUBOOT
 
-WiFi native driver support for ESP32 is also coming to Zephyr’s upstream, you can check it by clicking on its [PR link](https://github.com/zephyrproject-rtos/zephyr/pull/32081). Additionally, please follow [here](https://github.com/zephyrproject-rtos/zephyr/issues/29394) for overall future road-map for ESP32 support.
+Please follow [here](https://github.com/zephyrproject-rtos/zephyr/issues/29394) for overall future road-map for ESP32 support.
 
 ## Summary
 
-In this post, we saw how to set the environment for Zephyr RTOS and how to build a sample project for an ESP32 based board. The whole process has been greatly simplified since Xtensa’s toolchain installation has been incorporated into the west tool commands.
+In this post, we saw how to set the environment for Zephyr RTOS and how to build a sample project for an ESP32 based board.
 
 Stay tuned to Zephyr’s documentation and repository for the most recent supported peripherals. Espressif Team keeps actively working on porting and supporting its SoCs on Zephyr.
+
+
+>__Oct/2024 - Reviewd by Márcio Ribeiro__
