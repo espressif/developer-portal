@@ -114,8 +114,8 @@ flowchart TD
 	subgraph "NV Storage";
 	FP0;
 	end;
-	ROM@{ shape: round, label: "**ROM loader**" };
-	APP@{ shape: round, label: "**Application** </br>*(ESP image format)*" };
+	ROM@{ shape: rounded, label: "**ROM loader**" };
+	APP@{ shape: rounded, label: "**Application** </br>*(ESP image format)*" };
 	FP0@{ shape: das, label: "**Boot&Application** </br> *(Can use entire flash)*</br>*DT_NODE_LABEL(boot_partition)*</br>*DT_NODE_BY_FIXED_PARTITION_LABEL(mcuboot)*" };
 ```
 
@@ -167,9 +167,9 @@ flowchart TD
 	FP0;
 	FP1;
 	end;
-	ROM@{ shape: round, label: "**ROM loader**" };
-	BL2@{ shape: round, label: "**MCUboot** </br>*(ESP image format)*" };
-	APP@{ shape: round, label: "**Application** </br>*(MCUboot format)*" };
+	ROM@{ shape: rounded, label: "**ROM loader**" };
+	BL2@{ shape: rounded, label: "**MCUboot** </br>*(ESP image format)*" };
+	APP@{ shape: rounded, label: "**Application** </br>*(MCUboot format)*" };
 	FP0@{ shape: das, label: "**Boot partition**</br>DT_NODE_LABEL(boot_partition)</br>DT_NODE_BY_FIXED_PARTITION_LABEL(mcuboot)" };
 	FP1@{ shape: das, label: "**Application partition**</br>*DT_NODE_LABEL(slot0_partition)*</br>*DT_NODE_BY_FIXED_PARTITION_LABEL(image_0)*" };
 ```
@@ -227,10 +227,10 @@ flowchart LR
 	A -->|linker| B
 	B -->|post build| C
 	C --> D
-	A@{ shape: round, label: "**Build**</br>*(west build)*" }
-	B@{ shape: round, label: "**.elf**</br>*(objcpy .bin discarded)*" }
-	C@{ shape: round, label: "**esptool.py**</br>*--elf2image*" }
-	D@{ shape: round, label: "**.bin**</br>*(ESP image format)*" }
+	A@{ shape: rounded, label: "**Build**</br>*(west build)*" }
+	B@{ shape: rounded, label: "**.elf**</br>*(objcpy .bin discarded)*" }
+	C@{ shape: rounded, label: "**esptool.py**</br>*--elf2image*" }
+	D@{ shape: rounded, label: "**.bin**</br>*(ESP image format)*" }
 ```
 
 Resulting binary can be loaded to any LMA location (in flash). Its segments will be processed at the location and SRAM will be copied to the corresponding SRAM location, and possible FLASH or SPIRAM segments will be mapped to the virtual address space VMA.
