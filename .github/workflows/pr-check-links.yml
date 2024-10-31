@@ -11,15 +11,27 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 0
 
-      - name: Check out main branch
-        run: git checkout main
+      - name: Fetch all branches
+        run: git fetch --all
 
-      - name: Dump all links from main
-        id: dump_links_from_main
+      - name: Create baseline branch by reverting feature branch changes
+        run: |
+          # Create a copy of the feature branch
+          git checkout -b baseline-copy
+
+          # git checkout ${{ github.event.pull_request.head.sha }}
+
+          # Find the base commit where the feature branch diverged from main
+          base_commit=$(git merge-base origin/main baseline-copy)
+
+          # Reset the new branch to the base commit
+          git reset --hard $base_commit
+
+      - name: Dump all links from baseline-copy
         uses: lycheeverse/lychee-action@v2.0.2
         with:
           args: |
@@ -28,10 +40,10 @@ jobs:
             --exclude-path ./themes/
             --exclude-path ./layouts/
             .
-          output: ./links-main.txt
+          output: ./links-baseline.txt
 
-      - name: Print links-main.txt in main
-        run: cat links-main.txt
+      - name: Print links-baseline.txt
+        run: cat links-baseline.txt
 
       - name: Stash untracked files
         run: git stash push --include-untracked
@@ -43,8 +55,8 @@ jobs:
         # Apply stashed changes, ignore errors if stash is empty
         run: git stash pop || true
 
-      - name: Append links-main.txt to .lycheeignore
-        run: cat links-main.txt >> .lycheeignore
+      - name: Append links-baseline.txt to .lycheeignore
+        run: cat links-baseline.txt >> .lycheeignore
 
       - name: Check .lycheeignore content
         run: cat .lycheeignore
