@@ -15,15 +15,10 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           fetch-depth: 0
 
-      - name: Fetch all branches
-        run: git fetch --all
-
       - name: Create baseline branch by reverting feature branch changes
         run: |
           # Create a copy of the feature branch
           git checkout -b baseline-copy
-
-          # git checkout ${{ github.event.pull_request.head.sha }}
 
           # Find the base commit where the feature branch diverged from main
           base_commit=$(git merge-base origin/main baseline-copy)
@@ -40,25 +35,15 @@ jobs:
             --exclude-path ./themes/
             --exclude-path ./layouts/
             .
-          output: ./links-baseline.txt
-
-      - name: Print links-baseline.txt
-        run: cat links-baseline.txt
-
-      - name: Stash untracked files
-        run: git stash push --include-untracked
+          output: links-baseline.txt
 
       - name: Check out feature branch
         run: git checkout ${{ github.head_ref }}
 
-      - name: Apply stashed changes
-        # Apply stashed changes, ignore errors if stash is empty
-        run: git stash pop || true
-
       - name: Append links-baseline.txt to .lycheeignore
         run: cat links-baseline.txt >> .lycheeignore
 
-      - name: Check .lycheeignore content
+      - name: Print .lycheeignore
         run: cat .lycheeignore
 
       - name: Check links
@@ -79,3 +64,9 @@ jobs:
           echo -e "If a link is valid but fails due to a CAPTCHA challenge, IP blocking, login requirements, etc.,"
           echo -e "consider adding such links to the .lycheeignore file to bypass future checks.\n"
           exit 1
+
+      - name: Clean up all changes
+        if: always()
+        run: |
+          git reset --hard HEAD
+          git clean -df
