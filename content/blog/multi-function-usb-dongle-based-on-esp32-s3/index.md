@@ -20,6 +20,16 @@ After taking photos with a traditional camera, users typically need to remove th
 
 When printing files, users often need to transfer the file from a phone or camera to a computer first, then copy the files from the computer to a USB drive, and finally insert the USB drive into the printer to print. This process is not only tedious but also prone to errors due to the involvement of multiple devices and media, which affects printing efficiency and user experience.
 
+<figure style="width: 90%; margin: 0 auto; text-align: center;">
+    <img
+        src="./img/printing-process.webp"
+        alt="Printing Process"
+        title="Printing Process"
+        style="width: 100%;"
+    />
+    <figcaption>Printing Process</figcaption>
+</figure>
+
 ### Scenario: Sharing Videos with Multiple People
 
 When sharing videos with multiple people, users typically upload the videos to an email service and then enter multiple email addresses for sharing. However, manually entering email addresses is prone to errors and omissions, and email services often have video size limitations, further increasing the complexity of the operation.
@@ -44,13 +54,53 @@ The ESP-Dongle is a multifunctional USB device solution based on the Espressif E
 
 The ESP-Dongle can be used as an ordinary USB disk. Users can plug the ESP-Dongle directly into a phone and quickly read or write all files on the SD card via USB, supporting saving files from the SD card to the phone. It also supports uploading files from the phone to the SD card.
 
+<figure style="width: 100%; margin: 0 auto; text-align: center;">
+    <img
+        src="https://dl.espressif.com/public/usb-disk-high.webp"
+        alt="USB Disk"
+        title="USB Disk"
+        style="width: 100%;"
+    />
+    <figcaption>USB Disk</figcaption>
+</figure>
+
 The ESP-Dongle can also be used as a wireless USB disk to read and write SD card data via Wi-Fi using an HTTP server. Users can power the ESP-Dongle with a power bank and switch to USB wireless mode using the sliding switch. In this mode, the ESP-Dongle will create a Wi-Fi hotspot named `ESP-Wireless-Disk`, allowing multiple phones or computers to connect simultaneously. Users can then browse SD card files or save files to their mobile phones by accessing the ESP-Dongle's HTTP server directly.
+
+<figure style="width: 100%; margin: 0 auto; text-align: center;">
+    <img
+        src="https://dl.espressif.com/public/wireless-disk-high.webp"
+        alt="Wireless Disk"
+        title="Wireless Disk"
+        style="width: 100%;"
+    />
+    <figcaption>Wireless Disk</figcaption>
+</figure>
 
 ### USB Wireless Network Card Mode
 
 Users can insert the ESP-Dongle into a printer, connect their mobile phones to the ESP-Dongle's Wi-Fi hotspot, upload files from the phone via the HTTP server interface, and the printer can read the files directly from the ESP-Dongle for printing.
 
+<figure style="width: 100%; margin: 0 auto; text-align: center;">
+    <img
+        src="https://dl.espressif.com/public/printer-printing-high.webp"
+        alt="Printer"
+        title="Printer"
+        style="width: 100%;"
+    />
+    <figcaption>Printer</figcaption>
+</figure>
+
 The ESP-Dongle can also be used as a Wi-Fi or Bluetooth network adapter. Users can switch the ESP-Dongle's working mode to a wireless network card using the button. After plugging the ESP-Dongle into a computer, the computer can be directly connected to the Internet.
+
+<figure style="width: 100%; margin: 0 auto; text-align: center;">
+    <img
+        src="https://dl.espressif.com/public/wifi-adapter-high.webp"
+        alt="Wi-Fi Adapter"
+        title="Wi-Fi Adapter"
+        style="width: 100%;"
+    />
+    <figcaption>Wi-Fi Adapter</figcaption>
+</figure>
 
 ## ESP-Dongle Hardware System
 
