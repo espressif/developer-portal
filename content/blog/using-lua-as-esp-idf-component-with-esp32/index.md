@@ -2,7 +2,7 @@
 title: "Using Lua as ESP-IDF Component with ESP32"
 date: 2024-10-22
 showAuthor: false
-tags: ["ESP32", "ESP-IDF", "Lua", "Scripting"]
+tags: ["ESP32", "ESP-IDF", "Lua", "Scripting", "Component"]
 authors:
     - "juraj-michalek"
 ---
