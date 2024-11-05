@@ -35,7 +35,7 @@ SquareLine studio version 1.1 introduce new feature — __board templates__ . Th
 
 ## ESP Boards in SquareLine Studio
 
-Espressif has prepared two boards in SquareLine Studio for you: [__ESP-BOX__ ](hhttps://github.com/espressif/esp-bsp/tree/master/bsp/esp-box) and [__ESP-WROVER-KIT__ ](https://github.com/espressif/esp-bsp/tree/master/bsp/esp_wrover_kit). You can select the board after launch the application in Create tab and then in Espressif tab (Figure 2). Each board has pre-filled size of screen, rotation and color depth, which is corresponding with [ESP-BSP](https://github.com/espressif/esp-bsp) which is used in generated code.
+Espressif has prepared two boards in SquareLine Studio for you: [__ESP-BOX__ ](https://github.com/espressif/esp-bsp/tree/master/bsp/esp-box) and [__ESP-WROVER-KIT__ ](https://github.com/espressif/esp-bsp/tree/master/bsp/esp_wrover_kit). You can select the board after launch the application in Create tab and then in Espressif tab (Figure 2). Each board has pre-filled size of screen, rotation and color depth, which is corresponding with [ESP-BSP](https://github.com/espressif/esp-bsp) which is used in generated code.
 
 {{< figure
     default=true
