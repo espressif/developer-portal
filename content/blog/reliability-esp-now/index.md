@@ -1,5 +1,5 @@
 ---
-title: "ESP-NOW protocol in indoor applications"
+title: "Data transmission reliability over ESP-NOW protocol in indoor enviroment"
 date: 2024-11-05T20:56:03+01:00
 showAuthor: false         # Hide default Espressif author
 authors:
