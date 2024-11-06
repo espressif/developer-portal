@@ -27,6 +27,7 @@ defaults:
 
 jobs:
   build-and-deploy:
+    if: github.repository_owner == 'espressif'
     runs-on: ubuntu-latest
     steps:
 
