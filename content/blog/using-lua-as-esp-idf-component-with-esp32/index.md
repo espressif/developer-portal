@@ -122,7 +122,7 @@ To get started with this example, follow these steps
 First, clone the example project from GitHub:
 
 ```shell
-git clone https://github.com/yourusername/esp32-lua-example.git
+git clone https://github.com/georgik/esp32-lua-example.git
 cd esp32-lua-example
 ```
 
