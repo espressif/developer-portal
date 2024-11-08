@@ -12,7 +12,7 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/arduino-esp-now-lib/" >}}
+{{< article link="/blog/multi-function-usb-dongle-based-on-esp32-s3/" >}}
 
 <br>
 {{< button href="#button" target="_self" href=/blog/ >}}
@@ -23,7 +23,7 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/espressif-ide/" >}}
+{{< article link="/workshops/esp-idf-with-esp32-c6/introduction/" >}}
 
 <br>
 {{< button href="#button" target="_self" href=/workshops/ >}}
