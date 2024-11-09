@@ -24,7 +24,7 @@ Generally smart application brings up interconnection of multiple sensors via wi
 
 Communication protocols could be divided to two classes:
 - __Wired Protocols:__ Mostly used between microcontrolers, microprocessors and sensors. Most common are UART, IIC, SPI, and in industrial appliances CAN. 
-- __Wired Protocols:__ Commonly used between sensor nodes, or nodes and processing unit, cloud. Mostly used are Wi-Fi, Zigbee, Bluetooth or Bluetooth Low Energty, Matter, Thread or ESP-NOW. For data transmission over longer distances are implemented LoRa or GSM technologies. 
+- __Wireless Protocols:__ Commonly used between sensor nodes, or nodes and processing unit, cloud. Mostly used are Wi-Fi, Zigbee, Bluetooth or Bluetooth Low Energty, Matter, Thread or ESP-NOW. For data transmission over longer distances are implemented LoRa or GSM technologies. 
 
 ## ESP-NOW vs. Wi-Fi
 
