@@ -1,55 +1,29 @@
-<div id="content"></div>
+<div id="content">Loading...</div>
 
 <script>
   const url = '{{ .Get "url" }}';  // Get the URL from the shortcode parameter
 
-  fetch(url)  // Fetch the JSON data from the parameterized URL
-    .then(response => response.json())
-    .then(jsonData => {
-      let htmlContent = '';
+  // Configure emoji toolkit (JoyPixels)
+  joypixels.emojiSize = '64px'; // Adjust size if needed
 
-      Object.keys(jsonData).forEach(sectionName => {
-        const section = jsonData[sectionName];
-        htmlContent += `<h3>${section.title || sectionName}</h3>`;
+  fetch(url)  // Fetch the markdown content
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error fetching the markdown data');
+      }
+      return response.text();
+    })
+    .then(markdown => {
+      // Convert the markdown to HTML
+      let htmlContent = marked.parse(markdown);
 
-        if (section.items && Array.isArray(section.items)) {
-          htmlContent += '<ul>';
-          section.items.forEach(item => {
-            htmlContent += '<li>';
+      // Replace emoji shortcodes with actual emojis
+      htmlContent = joypixels.shortnameToImage(htmlContent);
 
-            if (item.item) htmlContent += item.item;
-            if (item.name) htmlContent += item.name;
-
-            if (item.subitems && Array.isArray(item.subitems)) {
-              htmlContent += '<ul>';
-              item.subitems.forEach(subitem => {
-                htmlContent += '<li>';
-
-                if (subitem.item) htmlContent += subitem.item;
-
-                if (subitem.subsubitems && Array.isArray(subitem.subsubitems)) {
-                  htmlContent += '<ul>';
-                  subitem.subsubitems.forEach(subsubitem => {
-                    htmlContent += `<li>${subsubitem}</li>`;
-                  });
-                  htmlContent += '</ul>';
-                }
-
-                htmlContent += '</li>';
-              });
-              htmlContent += '</ul>';
-            }
-
-            htmlContent += '</li>';
-          });
-          htmlContent += '</ul>';
-        }
-      });
-
-      // Insert the generated content into the 'content' div
+      // Inject the HTML into the content div
       document.getElementById('content').innerHTML = htmlContent;
     })
     .catch(error => {
-      console.error('Error fetching the JSON data:', error);
+      document.getElementById('content').textContent = 'Error loading markdown content: ' + error.message;
     });
 </script>

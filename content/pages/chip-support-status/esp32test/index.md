@@ -27,4 +27,4 @@ According to the chip mass production plan, the planned support for ESP32test in
 
 If you have an issue to report about any of the ESP32test features, please create an issue in [ESP-IDF GitHub issue tracker](https://github.com/espressif/esp-idf/issues).
 
-{{< chipstatus url="https://developer.espressif.com/persist/chip-support-status/data.json" >}}
+{{< chipstatus url="https://developer.espressif.com/persist/chip-support-status/data.md" >}}
