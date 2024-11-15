@@ -1,4 +1,10 @@
 {{ if .Page.HasShortcode "chipstatus" }}
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/emoji-toolkit@9.0.1/lib/js/joypixels.min.js"></script>
+  <style>
+    .joypixels {
+        display: inline !important; /* Ensure emojis stay inline */
+        vertical-align: top; /* Align with text nicely */
+    }
+  </style>
 {{ end }}
