@@ -3,9 +3,6 @@
 <script>
   const url = '{{ .Get "url" }}';  // Get the URL from the shortcode parameter
 
-  // Configure emoji toolkit (JoyPixels)
-  joypixels.emojiSize = '64px'; // Adjust size if needed
-
   fetch(url)  // Fetch the markdown content
     .then(response => {
       if (!response.ok) {
@@ -16,9 +13,6 @@
     .then(markdown => {
       // Convert the markdown to HTML
       let htmlContent = marked.parse(markdown);
-
-      // Replace emoji shortcodes with actual emojis
-      htmlContent = joypixels.shortnameToImage(htmlContent);
 
       // Inject the HTML into the content div
       document.getElementById('content').innerHTML = htmlContent;
