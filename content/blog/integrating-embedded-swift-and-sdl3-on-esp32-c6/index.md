@@ -135,6 +135,119 @@ func SDL_InitFS() {
 }
 ```
 
+## Drawing Sprites Loaded from Files
+
+With the filesystem initialized and assets stored in the LittleFS partition, we can proceed to load images and render them using SDL3. This section demonstrates how to load a sprite from a file and display it on the screen, providing a foundation for creating interactive graphical applications.
+
+### Loading Images with SDL3
+
+To display images, we need to load them into our application as textures. In our example, we have two types of sprites: coins and dangers (e.g., obstacles). These images are stored in BMP format in the `/assets` directory.
+
+Here's how we load these images:
+
+```swift
+// Initialize SDL_ttf for font rendering
+TTF_Init()
+
+// Load the font
+let font = TTF_OpenFont("/assets/FreeSans.ttf", 42)
+if font == nil {
+    print("Font load failed")
+}
+
+// Load the coin image
+let coinSurface = SDL_LoadBMP("/assets/coin_gold.bmp")
+if coinSurface == nil {
+    print("Failed to load coin image")
+}
+let coinTexture = SDL_CreateTextureFromSurface(renderer, coinSurface)
+SDL_DestroySurface(coinSurface)
+
+// Load the danger image
+let dangerSurface = SDL_LoadBMP("/assets/slime_normal.bmp")
+if dangerSurface == nil {
+    print("Failed to load danger image")
+}
+let dangerTexture = SDL_CreateTextureFromSurface(renderer, dangerSurface)
+SDL_DestroySurface(dangerSurface)
+```
+
+#### Explanation
+
+- Initializing SDL_ttf: We call TTF_Init() to initialize the SDL_ttf library, which is necessary for font rendering.
+- Loading the Font: TTF_OpenFont() loads the font file from the filesystem. In this case, we're using FreeSans.ttf.
+- Loading Images: SDL_LoadBMP() loads BMP images into an SDL_Surface.
+- Creating Textures: SDL_CreateTextureFromSurface() converts the surface into a texture for rendering.
+- Cleaning Up: After creating the texture, we destroy the surface with SDL_DestroySurface() to free memory.
+
+## Displaying a Sprite and Text
+
+
+After initializing the filesystem with LittleFS and setting up SDL, we can proceed to load an image and display it at a fixed position on the screen. Additionally, we'll render some text to display alongside the image. This simple example demonstrates how to work with sprites and text rendering in SDL3 using Embedded Swift.
+
+### Loading and Displaying an Image
+
+First, we'll load an image from the filesystem and create a texture that can be rendered on the screen.
+
+```swift
+// Load the image from the assets directory
+let imageSurface = SDL_LoadBMP("/assets/coin_gold.bmp")
+if imageSurface == nil {
+    print("Failed to load image: \(String(cString: SDL_GetError()))")
+}
+
+// Create a texture from the surface
+let imageTexture = SDL_CreateTextureFromSurface(renderer, imageSurface)
+SDL_DestroySurface(imageSurface)
+```
+
+#### Explanation
+
+- SDL_LoadBMP(): Loads a BMP image file from the specified path into an SDL_Surface.
+- SDL_CreateTextureFromSurface(): Converts the surface into an SDL_Texture, which is optimized for rendering.
+- SDL_DestroySurface(): Frees the memory associated with the surface since it's no longer needed after creating the texture.
+
+Next, we'll define a rectangle that specifies where and how large the image will appear on the screen.
+
+```swift
+// Define the destination rectangle for the image
+var imageRect = SDL_FRect(x: 100.0, y: 80.0, w: 128.0, h: 128.0)
+```
+
+### Rendering Text with SDL_ttf
+
+To display text, we'll use the SDL_ttf library, which allows us to render TrueType fonts.
+
+```swift
+if TTF_Init() != 0 {
+    print("Failed to initialize SDL_ttf: \(String(cString: TTF_GetError()))")
+}
+
+let font = TTF_OpenFont("/assets/FreeSans.ttf", 24)
+if font == nil {
+    print("Failed to load font: \(String(cString: TTF_GetError()))")
+}
+
+// Create the text to render
+let message = "Hello, ESP32!"
+var messageBuffer = Array(message.utf8CString)
+
+// Render the text to a surface
+let textColor = SDL_Color(r: 255, g: 255, b: 255, a: 255)
+let textSurface = TTF_RenderText_Blended(font, &messageBuffer, 0, textColor)
+if textSurface == nil {
+    print("Failed to render text: \(String(cString: TTF_GetError()))")
+}
+
+// Create a texture from the text surface
+let textTexture = SDL_CreateTextureFromSurface(renderer, textSurface)
+SDL_DestroySurface(textSurface)
+
+// Define the destination rectangle for the text
+var textRect = SDL_FRect(x: 80.0, y: 220.0, w: 160.0, h: 40.0)
+```
+
+
 ## Using ESP-BSP for Board Support
 
 To make the application portable across different ESP32 boards, we use the ESP-BSP (Board Support Package). This allows us to switch between boards easily.
