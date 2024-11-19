@@ -13,16 +13,30 @@ Building Graphical Applications with Swift and SDL3 on ESP32
 
 [Embedded Swift](https://www.swift.org/blog/embedded-swift-examples/) brings the power and elegance of the Swift programming language to embedded systems like the ESP32 microcontrollers. In this article, we'll explore how to develop graphical applications for the ESP32-C3 and ESP32-C6 using Swift. We'll demonstrate how to integrate C libraries like SDL3 (Simple DirectMedia Layer 3), commonly used in desktop applications, into your Swift projects. With the help of the ESP-IDF (Espressif IoT Development Framework) and ESP-BSP (Board Support Package), you can create cross-platform applications that run on various ESP32 boards with minimal effort.
 
+### What is Embedded Swift?
+
+Embedded Swift is a subset of the Swift programming language tailored for embedded systems like the ESP32 series microcontrollers from Espressif. Swift, originally developed by Apple, is known for its expressive syntax, safety features, and performance. By bringing Swift to embedded platforms, developers can take advantage of these modern language features when programming resource-constrained devices.
+
 If you're new to Embedded Swift, we recommend to check out first the article [Build Embedded Swift Application for ESP32-C6](/blog/build-embedded-swift-application-for-esp32c6/).
 
 Note: Embedded Swift toolchain supports chips with RISC-V architecture (ESP32-C3, H2, C6, P4). Chips with Xtensa architecture are not supported due to [missing support in LLVM](https://github.com/espressif/llvm-project/issues/4) (ESP32, S2, S3).
+
+### What is SDL3?
+
+SDL3 (Simple DirectMedia Layer 3) is a cross-platform software development library written in C, designed to provide low-level access to audio, keyboard, mouse, joystick, and graphics hardware. It is widely used for creating multimedia applications, games, and graphical user interfaces on various platforms, including Windows, macOS, and Linux.
+
+### Combining Embedded Swift and SDL3
+
+Integrating SDL3 with Embedded Swift on the ESP32 platform allows developers to harness the strengths of both technologies.
+
+Let's explore an example where the main logic is written in Embedded Swift using SDL3 for loading and displaying text and graphical assets.
 
 ## Prerequisites
 
 Before getting started, make sure you have the following tools installed:
 
-Swift 6.1 (nightly): [Download and install Swift](https://www.swift.org/install) for your operating system.
-ESP-IDF 5.5: [Clone the ESP-IDF repository](https://github.com/espressif/esp-idf) and set it up according to the [installation guide](https://github.com/espressif/esp-idf?tab=readme-ov-file#setup-build-environment).
+- Swift 6.1 (nightly): [Download and install Swift](https://www.swift.org/install) for your operating system.
+- ESP-IDF 5.5: [Clone the ESP-IDF repository](https://github.com/espressif/esp-idf) and set it up according to the [installation guide](https://github.com/espressif/esp-idf?tab=readme-ov-file#setup-build-environment).
 
 ## Setting Up the Development Environment
 
@@ -66,13 +80,23 @@ Create a `BridgingHeader.h` file in your project and include the necessary C hea
 
 ```c
 #include <stdio.h>
+
+/* ESP-IDF headers */
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "sdkconfig.h"
+
+/* SDL3 headers */
 #include "SDL3/SDL.h"
 #include "SDL3_ttf/SDL_ttf.h"
+
+/* ESP-IDF pthread support required by SDL3 */
 #include "pthread.h"
+
+/* ESP-BSP Board support package */
 #include "bsp/esp-bsp.h"
+
+/* ESP-IDF filesystem stored in flash memory */
 #include "esp_vfs.h"
 #include "esp_littlefs.h"
 ```
@@ -85,7 +109,7 @@ Our main Swift file, Main.swift, contains the core logic of the application. The
 
 ### Overview of Main.swift
 
-Here's a simplified version of Main.swift:
+Here's a simplified version of Main.swift with initialization of pthread which are supported by ESP-IDF.
 
 ```swift
 @_cdecl("app_main")
@@ -113,7 +137,8 @@ func app_main() {
 
 The app_main function serves as the entry point of the application, initializing SDL and starting the main loop in a separate thread.
 
-Loading Assets with LittleFS
+### Loading Assets with LittleFS
+
 To load fonts and images, we use the LittleFS filesystem. The `FileSystem.swift` file initializes the filesystem, allowing access to assets stored in a flashed partition:
 
 ```swift
