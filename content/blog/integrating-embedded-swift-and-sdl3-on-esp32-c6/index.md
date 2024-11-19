@@ -13,6 +13,8 @@ Building Graphical Applications with Swift and SDL3 on ESP32
 
 [Embedded Swift](https://www.swift.org/blog/embedded-swift-examples/) brings the power and elegance of the Swift programming language to embedded systems like the ESP32 microcontrollers. In this article, we'll explore how to develop graphical applications for the ESP32-C3 and ESP32-C6 using Swift. We'll demonstrate how to integrate C libraries like SDL3 (Simple DirectMedia Layer 3), commonly used in desktop applications, into your Swift projects. With the help of the ESP-IDF (Espressif IoT Development Framework) and ESP-BSP (Board Support Package), you can create cross-platform applications that run on various ESP32 boards with minimal effort.
 
+Note: Embedded Swift toolchain supports chips with RISC-V architecture (ESP32-C3, H2, C6, P4). Chips with Xtensa architecture are not supported due to [missing support in LLVM](https://github.com/espressif/llvm-project/issues/4) (ESP32, S2, S3).
+
 ## Prerequisites
 
 Before getting started, make sure you have the following tools installed:
