@@ -1,0 +1,264 @@
+﻿---
+title: "Integrating Embedded Swift and SDL3 on ESP32-C6"
+date: 2024-11-19
+showAuthor: false
+authors:
+  - "juraj-michalek"
+tags: ["ESP32-C6", "Swift",  "SDL", "Graphics", "Filesystem"]
+---
+
+Building Graphical Applications with Swift and SDL3 on ESP32
+
+## Introduction
+
+[Embedded Swift](https://www.swift.org/blog/embedded-swift-examples/) brings the power and elegance of the Swift programming language to embedded systems like the ESP32 microcontrollers. In this article, we'll explore how to develop graphical applications for the ESP32-C3 and ESP32-C6 using Swift. We'll demonstrate how to integrate C libraries like SDL3 (Simple DirectMedia Layer 3), commonly used in desktop applications, into your Swift projects. With the help of the ESP-IDF (Espressif IoT Development Framework) and ESP-BSP (Board Support Package), you can create cross-platform applications that run on various ESP32 boards with minimal effort.
+
+## Prerequisites
+
+Before getting started, make sure you have the following tools installed:
+
+Swift 6.1 (nightly): [Download and install Swift](https://www.swift.org/install) for your operating system.
+ESP-IDF 5.5: [Clone the ESP-IDF repository](https://github.com/espressif/esp-idf) and set it up according to the [installation guide](https://github.com/espressif/esp-idf?tab=readme-ov-file#setup-build-environment).
+
+## Setting Up the Development Environment
+
+### Install Swift
+
+Download and install [Swift 6.1 (nightly)](https://www.swift.org/install) from the official Swift website. Ensure that the swiftc compiler is available in your system's PATH.
+
+Configure `TOOLCHAINS` environment variable with the version of the installed Swift 6.
+
+
+{{< tabs groupId="config" >}}
+    {{% tab name="macOS" %}}
+```shell
+export TOOLCHAINS=$(plutil -extract CFBundleIdentifier raw /Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2024-10-30-a.xctoolchain/Info.plist)
+```
+    {{% /tab %}}
+
+    {{% tab name="Linux" %}}
+```shell
+export TOOLCHAINS=org.swift.61202410301a
+```
+    {{% /tab %}}
+{{< /tabs >}}
+
+### Install ESP-IDF
+
+```shell
+git clone https://github.com/espressif/esp-idf.git
+cd esp-idf
+./install.sh
+. ./export.sh
+```
+
+## Integrating SDL3 with Embedded Swift
+
+To use SDL3 in your Swift application, we'll use a wrapper component in ESP-IDF that allows integration with C libraries. This is facilitated through a bridging header.
+
+### Using `BridgingHeader.h`
+
+Create a `BridgingHeader.h` file in your project and include the necessary C headers:
+
+```c
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "sdkconfig.h"
+#include "SDL3/SDL.h"
+#include "SDL3_ttf/SDL_ttf.h"
+#include "pthread.h"
+#include "bsp/esp-bsp.h"
+#include "esp_vfs.h"
+#include "esp_littlefs.h"
+```
+
+This header enables your Swift code to interact with the included C libraries.
+
+## Writing the Application
+
+Our main Swift file, Main.swift, contains the core logic of the application. The application initializes SDL, loads graphical assets, handles touch events, and renders sprites on the screen.
+
+### Overview of Main.swift
+
+Here's a simplified version of Main.swift:
+
+```swift
+@_cdecl("app_main")
+func app_main() {
+    print("Initializing SDL3 from Swift.")
+
+    // Initialize pthread attributes
+    var sdl_pthread = pthread_t(bitPattern: 0)
+    var attr = pthread_attr_t()
+
+    pthread_attr_init(&attr)
+    pthread_attr_setstacksize(&attr, 32000) // Set the stack size for the thread
+
+    // Create the SDL thread
+    let ret = pthread_create(&sdl_pthread, &attr, sdl_thread_entry_point, nil)
+    if ret != 0 {
+        print("Failed to create SDL thread")
+        return
+    }
+
+    // Detach the thread
+    pthread_detach(sdl_pthread)
+}
+```
+
+The app_main function serves as the entry point of the application, initializing SDL and starting the main loop in a separate thread.
+
+Loading Assets with LittleFS
+To load fonts and images, we use the LittleFS filesystem. The `FileSystem.swift` file initializes the filesystem, allowing access to assets stored in a flashed partition:
+
+```swift
+func SDL_InitFS() {
+    print("Initializing File System")
+
+    var config = esp_vfs_littlefs_conf_t(
+        base_path: strdup("/assets"),
+        partition_label: strdup("assets"),
+        partition: nil,
+        format_if_mount_failed: 0,
+        read_only: 0,
+        dont_mount: 0,
+        grow_on_mount: 0
+    )
+
+    let result = esp_vfs_littlefs_register(&config)
+    if result != ESP_OK {
+        print("Failed to mount or format filesystem")
+    } else {
+        print("Filesystem mounted")
+    }
+}
+```
+
+## Using ESP-BSP for Board Support
+
+To make the application portable across different ESP32 boards, we use the ESP-BSP (Board Support Package). This allows us to switch between boards easily.
+
+### Configuring `idf_component.yml`
+
+In the `idf_component.yml` file, we specify dependencies and define rules for different boards:
+
+```swift
+dependencies:
+  joltwallet/littlefs: "==1.14.8"
+  georgik/sdl: "==3.1.7~3"
+  georgik/sdl_ttf: "^3.0.0~3"
+  idf:
+    version: ">=5.5.0"
+
+  espressif/esp32_p4_function_ev_board_noglib:
+    version: "3.0.1"
+    rules:
+    - if: "${BUILD_BOARD} == esp32_p4_function_ev_board_noglib"
+
+  espressif/esp32_c3_lcdkit:
+    version: "^1.1.0~1"
+    rules:
+    - if: "${BUILD_BOARD} == esp32_c3_lcdkit"
+
+  espressif/esp_bsp_generic:
+    version: "==1.2.1"
+    rules:
+    - if: "${BUILD_BOARD} == esp_bsp_generic"
+```
+
+This configuration allows us to build the project for different targets using the idf.py command with the @boards/... syntax.
+
+## Building and Running the Application
+
+### Build for ESP32-P4-Function-Ev-Board
+
+```shell
+idf.py @boards/esp32_p4_function_ev_board.cfg flash monitor
+```
+
+## Running the Simulation
+
+You can run the application in an online simulation using Wokwi. This allows you to test the application without physical hardware.
+
+## Using GitHub Actions for CI/CD
+
+To automate the build, test, and release processes of our ESP32 Swift application, we utilize GitHub Actions. Continuous Integration/Continuous Deployment (CI/CD) is essential for maintaining code quality and ensuring that your application works as expected across different environments. In this section, we'll delve into how our CI/CD pipeline is set up, focusing on aspects particularly relevant to embedded developers who may be new to these practices.
+
+### Overview of the CI/CD Pipeline
+
+Our CI/CD process is divided into three main workflows:
+
+- [Build Workflow](https://github.com/georgik/esp32-sdl3-swift-example/blob/main/.github/workflows/build.yml): Compiles the application for different boards and uploads the build artifacts.
+- [Test Workflow](https://github.com/georgik/esp32-sdl3-swift-example/blob/main/.github/workflows/test.yml): Runs simulations using Wokwi to verify that the application functions correctly.
+- [Release Workflow](https://github.com/georgik/esp32-sdl3-swift-example/blob/main/.github/workflows/release.yml): Creates a GitHub release and attaches the compiled binaries.
+
+The key idea is that the build step generates artifacts (compiled binaries), which are then consumed by the test and release steps. This modular approach ensures that each step is isolated and can be debugged or rerun independently.
+
+### Build Workflow
+
+The build workflow automates the compilation of the application for various ESP32 boards. Here's a simplified snippet of the build.yml file with focus on how we install Swift and set up the ESP-IDF action.
+
+- Installing Swift Compiler: Before building the project, we download and install the Swift compiler. This step is crucial because the ESP-IDF action doesn't come with Swift support out of the box.
+- Building with ESP-IDF and Swift: We use the espressif/esp-idf-ci-action GitHub Action to set up the ESP-IDF environment. The command parameter allows us to execute custom build commands, where we specify the build configuration and merge the binaries.
+
+```yaml
+    - name: Install pkg-config
+    run: sudo apt-get update && sudo apt-get install -y pkg-config
+
+    - name: Install Swift Compiler
+    run: |
+        wget https://download.swift.org/development/ubuntu2204/swift-DEVELOPMENT-SNAPSHOT-2024-10-30-a/swift-DEVELOPMENT-SNAPSHOT-2024-10-30-a-ubuntu22.04.tar.gz
+        tar xzf swift-DEVELOPMENT-SNAPSHOT-2024-10-30-a-ubuntu22.04.tar.gz
+        export PATH="$PATH:${{ github.workspace }}/swift-DEVELOPMENT-SNAPSHOT-2024-10-30-a-ubuntu22.04/usr/bin"
+        swiftc --version
+
+    - name: Build with ESP-IDF and Swift
+    uses: espressif/esp-idf-ci-action@v1.1.0
+    with:
+        esp_idf_version: latest
+        target: ${{ env.TARGET }}
+        path: '.'
+        command: |
+        idf.py @boards/${{ matrix.board }}.cfg build &&
+        cd build.${{ matrix.board }} &&
+        esptool.py --chip ${{ env.TARGET }} merge_bin -o ${{ github.event.inputs.prefix }}-${{ matrix.board }}.bin "@flash_args"
+```
+
+### Test Workflow
+
+The test workflow runs simulations of our application using Wokwi, a virtual environment for embedded systems. This step verifies that the application behaves as expected before releasing it.
+
+- Using Wokwi CI Server: We set up the Wokwi CI server, which allows us to run simulations of our firmware.
+
+```yaml
+- name: Use Wokwi CI Server
+  uses: wokwi/wokwi-ci-server-action@v1
+```
+
+Running Simulation with Wokwi: This step runs the actual simulation. Note that we use a secret token `WOKWI_CLI_TOKEN` for authentication with Wokwi's services. You can obtain this token by signing up at [Wokwi CI Dashboard](https://wokwi.com/dashboard/ci) and adding it to your repository's secrets.
+
+```yaml
+- name: Run Simulation with Wokwi
+  uses: wokwi/wokwi-ci-action@v1
+  with:
+    token: ${{ secrets.WOKWI_CLI_TOKEN }}
+    path: boards/${{ matrix.board }}
+    elf: build.${{ matrix.board }}/${{ github.event.inputs.prefix }}-${{ matrix.board }}.bin
+    timeout: 20000
+    expect_text: 'Entering main loop...'
+    fail_text: 'Rebooting...'
+    serial_log_file: 'wokwi-logs-${{ matrix.board }}.txt'
+```
+
+## Conclusion
+
+By integrating Embedded Swift with SDL3 on the ESP32-C3 and ESP32-C6, you can leverage modern programming languages and desktop-class libraries to develop rich graphical applications for embedded systems. The use of ESP-BSP simplifies targeting multiple boards, making your applications more portable.
+
+We encourage you to explore the [GitHub repository](https://github.com/georgik/esp32-sdl3-swift-example) for the full source code and additional details.
+
+## References
+
+- [Swift for ESP32 - Espressif Developer Portal](https://developer.espressif.com/tags/swift/)
+- [Using ESP-BSP with DevKits](https://developer.espressif.com/blog/using-esp-bsp-with-devkits/)
+- [ESP32 SDL3 Swift Example - GitHub](https://github.com/georgik/esp32-sdl3-swift-example)
