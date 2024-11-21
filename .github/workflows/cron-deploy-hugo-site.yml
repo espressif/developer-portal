@@ -2,10 +2,8 @@
 name: Deploy Hugo site to AWS S3 Bucket
 
 on:
-  # Run on pushes to the default branch
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '5 0 * * *'
   # Allow manual runs from the Actions tab
   workflow_dispatch:
 
