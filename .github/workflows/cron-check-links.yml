@@ -4,10 +4,12 @@ name: Cron job to check links
 on:
   schedule:
     - cron: '0 2 * * 1'
-  workflow_dispatch: # Allow manual runs
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
 
 jobs:
   cron-check-links:
+    if: github.repository_owner == 'espressif'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
