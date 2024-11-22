@@ -18,9 +18,11 @@ The full project is available at [GitHub repository](https://github.com/georgik/
 
 Embedded Swift is a subset of the Swift programming language tailored for embedded systems like the ESP32 series microcontrollers from Espressif. Swift, originally developed by Apple, is known for its expressive syntax, safety features, and performance. By bringing Swift to embedded platforms, developers can take advantage of these modern language features when programming resource-constrained devices.
 
-If you're new to Embedded Swift, we recommend to check out first the article [Build Embedded Swift Application for ESP32-C6](/blog/build-embedded-swift-application-for-esp32c6/).
+If you're new to Embedded Swift, we recommend that you start by checking the article [Build Embedded Swift Application for ESP32-C6](/blog/build-embedded-swift-application-for-esp32c6/).
 
+{{< alert >}}
 Note: Embedded Swift toolchain supports chips with RISC-V architecture (ESP32-C3, H2, C6, P4). Chips with Xtensa architecture are not supported due to [missing support in LLVM](https://github.com/espressif/llvm-project/issues/4) (ESP32, S2, S3).
+{{< /alert >}}
 
 ### What is SDL3?
 
@@ -43,7 +45,7 @@ Before getting started, make sure you have the following tools installed:
 
 ### Install Swift
 
-Download and install [Swift 6.1 (nightly)](https://www.swift.org/install) from the official Swift website. Ensure that the swiftc compiler is available in your system's PATH.
+Download and install [Swift 6.1 (nightly)](https://www.swift.org/install) from the official Swift website or use [Swiftly installation tool](https://swiftlang.github.io/swiftly/). Ensure that the `swiftc` compiler is available in your system's PATH.
 
 Configure `TOOLCHAINS` environment variable with the version of the installed Swift 6.
 
@@ -115,11 +117,11 @@ This header enables your Swift code to interact with the included C libraries.
 
 ## Writing the Application
 
-Our main Swift file, Main.swift, contains the core logic of the application. The application initializes SDL, loads graphical assets, handles touch events, and renders sprites on the screen.
+Our main Swift file, `Main.swift`, contains the core logic of the application. The application initializes SDL, loads graphical assets, handles touch events, and renders sprites on the screen.
 
 ### Overview of Main.swift
 
-Here's a simplified version of Main.swift with initialization of pthread required by SDL3. ESP-IDF by default uses vTask, so the solution is to wrap the initial SDL call into pthread.
+Here's a simplified version of `Main.swift` with initialization of pthread required by SDL3. ESP-IDF by default uses vTask, so the solution is to wrap the initial SDL call into pthread.
 
 ```swift
 func sdl_thread_entry_point(arg: UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer? {
@@ -234,13 +236,11 @@ let dangerTexture = SDL_CreateTextureFromSurface(renderer, dangerSurface)
 SDL_DestroySurface(dangerSurface)
 ```
 
-#### Explanation
+#### Explanation of Font Functions
 
 - Initializing [SDL_ttf](https://components.espressif.com/components/georgik/sdl_ttf): We call `TTF_Init()` to initialize the SDL_ttf library, which is necessary for font rendering.
 - Loading the Font: `TTF_OpenFont()` loads the font file from the filesystem. In this case, we're using FreeSans.ttf.
-- Loading Images: `SDL_LoadBMP()` loads BMP images into an SDL_Surface.
 - Creating Textures: `SDL_CreateTextureFromSurface()` converts the surface into a texture for rendering.
-- Cleaning Up: After creating the texture, we destroy the surface with `SDL_DestroySurface()` to free memory.
 
 ## Displaying a Sprite and Text
 
@@ -262,11 +262,11 @@ let imageTexture = SDL_CreateTextureFromSurface(renderer, imageSurface)
 SDL_DestroySurface(imageSurface)
 ```
 
-#### Explanation
+#### Explanation of Image Functions
 
-- SDL_LoadBMP(): Loads a BMP image file from the specified path into an SDL_Surface.
-- SDL_CreateTextureFromSurface(): Converts the surface into an SDL_Texture, which is optimized for rendering.
-- SDL_DestroySurface(): Frees the memory associated with the surface since it's no longer needed after creating the texture.
+- `SDL_LoadBMP()`: Loads a BMP image file from the specified path into an SDL_Surface.
+- `SDL_CreateTextureFromSurface()`: Converts the surface into an SDL_Texture, which is optimized for rendering.
+- `SDL_DestroySurface()`: Frees the memory associated with the surface since it's no longer needed after creating the texture.
 
 Next, we'll define a rectangle that specifies where and how large the image will appear on the screen.
 
@@ -345,7 +345,7 @@ This configuration allows us to build the project for different targets using th
 
 ## Building and Running the Application
 
-### Build for ESP32-P4-Function-Ev-Board
+Build for ESP32-P4-Function-Ev-Board:
 
 ```shell
 idf.py @boards/esp32_p4_function_ev_board.cfg flash monitor
@@ -353,7 +353,9 @@ idf.py @boards/esp32_p4_function_ev_board.cfg flash monitor
 
 ## Running the Simulation
 
-You can run the application in an online simulation using Wokwi. This allows you to test the application without physical hardware.
+You can run the application in an [online simulation using Wokwi](https://wokwi.com/experimental/viewer?diagram=https%3A%2F%2Fraw.githubusercontent.com%2Fgeorgik%2Fesp32-sdl3-swift-example%2Fmain%2Fboards%2Fesp32_p4_function_ev_board%2Fdiagram.json&firmware=https%3A%2F%2Fgithub.com%2Fgeorgik%2Fesp32-sdl3-swift-example%2Freleases%2Fdownload%2Fv1.0.0%2Fesp32-sdl3-swift-example-esp32_p4_function_ev_board.bin). This allows you to test the application without physical hardware.
+
+You can run the simulation also in [VS Code](https://docs.wokwi.com/vscode/getting-started) or [JetBrains IDE](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator) with installed Wokwi plugin. Open `boards/.../diagram.json` and click play button.
 
 ## Using GitHub Actions for CI/CD
 
@@ -371,9 +373,10 @@ The key idea is that the build step generates artifacts (compiled binaries), whi
 
 ### Build Workflow
 
-The build workflow automates the compilation of the application for various ESP32 boards. Here's a simplified snippet of the build.yml file with focus on how we install Swift and set up the ESP-IDF action.
+The build workflow automates the compilation of the application for various ESP32 boards. Here's a simplified snippet of the `build.yml` file with focus on how we install Swift and set up the ESP-IDF action.
 
 - Installing Swift Compiler: Before building the project, we download and install the Swift compiler. This step is crucial because the ESP-IDF action doesn't come with Swift support out of the box.
+
 - Building with ESP-IDF and Swift: We use the espressif/esp-idf-ci-action GitHub Action to set up the ESP-IDF environment. The command parameter allows us to execute custom build commands, where we specify the build configuration and merge the binaries.
 
 ```yaml
@@ -436,3 +439,5 @@ We encourage you to explore the [GitHub repository](https://github.com/georgik/e
 - [Swift for ESP32 - Espressif Developer Portal](https://developer.espressif.com/tags/swift/)
 - [Using ESP-BSP with DevKits](https://developer.espressif.com/blog/using-esp-bsp-with-devkits/)
 - [ESP32 SDL3 Swift Example - GitHub](https://github.com/georgik/esp32-sdl3-swift-example)
+- [VS Code - Wokwi plugin](https://docs.wokwi.com/vscode/getting-started)
+- [JetBrains IDE - Wokwi plugin](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator)
