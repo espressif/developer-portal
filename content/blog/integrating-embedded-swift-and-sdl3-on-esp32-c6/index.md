@@ -118,9 +118,34 @@ Our main Swift file, Main.swift, contains the core logic of the application. The
 
 ### Overview of Main.swift
 
-Here's a simplified version of Main.swift with initialization of pthread which are supported by ESP-IDF.
+Here's a simplified version of Main.swift with initialization of pthread required by SDL3. ESP-IDF by default uses vTask, so the solution is to wrap the initial SDL call into pthread.
 
 ```swift
+func sdl_thread_entry_point(arg: UnsafeMutableRawPointer?) -> UnsafeMutableRawPointer? {
+    // Initialize SDL
+    if SDL_Init(UInt32(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) == false {
+        print("Unable to initialize SDL")
+        return nil
+    }
+    print("SDL initialized successfully")
+
+    guard let window = SDL_CreateWindow(nil, 320, 200, 0) else {
+        return nil
+    }
+
+    // Create SDL renderer
+    guard let renderer = SDL_CreateRenderer(window, nil) else {
+        print("Failed to create renderer")
+        return nil
+    }
+
+    SDL_SetRenderDrawColor(renderer, 22, 10, 33, 255)
+    SDL_RenderClear(renderer)
+    SDL_RenderPresent(renderer)
+
+    // ... Main loop
+}
+
 @_cdecl("app_main")
 func app_main() {
     print("Initializing SDL3 from Swift.")
@@ -143,8 +168,6 @@ func app_main() {
     pthread_detach(sdl_pthread)
 }
 ```
-
-The app_main function serves as the entry point of the application, initializing SDL and starting the main loop in a separate thread.
 
 ### Loading Assets with LittleFS
 
@@ -212,14 +235,13 @@ SDL_DestroySurface(dangerSurface)
 
 #### Explanation
 
-- Initializing SDL_ttf: We call TTF_Init() to initialize the SDL_ttf library, which is necessary for font rendering.
-- Loading the Font: TTF_OpenFont() loads the font file from the filesystem. In this case, we're using FreeSans.ttf.
-- Loading Images: SDL_LoadBMP() loads BMP images into an SDL_Surface.
-- Creating Textures: SDL_CreateTextureFromSurface() converts the surface into a texture for rendering.
-- Cleaning Up: After creating the texture, we destroy the surface with SDL_DestroySurface() to free memory.
+- Initializing [SDL_ttf](https://components.espressif.com/components/georgik/sdl_ttf): We call `TTF_Init()` to initialize the SDL_ttf library, which is necessary for font rendering.
+- Loading the Font: `TTF_OpenFont()` loads the font file from the filesystem. In this case, we're using FreeSans.ttf.
+- Loading Images: `SDL_LoadBMP()` loads BMP images into an SDL_Surface.
+- Creating Textures: `SDL_CreateTextureFromSurface()` converts the surface into a texture for rendering.
+- Cleaning Up: After creating the texture, we destroy the surface with `SDL_DestroySurface()` to free memory.
 
 ## Displaying a Sprite and Text
-
 
 After initializing the filesystem with LittleFS and setting up SDL, we can proceed to load an image and display it at a fixed position on the screen. Additionally, we'll render some text to display alongside the image. This simple example demonstrates how to work with sprites and text rendering in SDL3 using Embedded Swift.
 
@@ -297,7 +319,7 @@ In the `idf_component.yml` file, we specify dependencies and define rules for di
 ```swift
 dependencies:
   joltwallet/littlefs: "==1.14.8"
-  georgik/sdl: "==3.1.7~3"
+  georgik/sdl: "==3.1.7~6"
   georgik/sdl_ttf: "^3.0.0~3"
   idf:
     version: ">=5.5.0"
