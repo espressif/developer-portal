@@ -56,7 +56,16 @@ export TOOLCHAINS=$(plutil -extract CFBundleIdentifier raw /Library/Developer/To
 
     {{% tab name="Linux" %}}
 ```shell
-export TOOLCHAINS=org.swift.61202410301a
+# Make sure to have ninja installed
+sudo apt install ninja-build
+
+# Installation using Swiftly - https://swiftlang.github.io/swiftly/
+curl -L https://swiftlang.github.io/swiftly/swiftly-install.sh | bash
+
+swiftly install main-snapshot
+
+# Other option is to set TOOLCHAINS environment variable manually
+# export TOOLCHAINS=org.swift.61202410301a
 ```
     {{% /tab %}}
 {{< /tabs >}}
