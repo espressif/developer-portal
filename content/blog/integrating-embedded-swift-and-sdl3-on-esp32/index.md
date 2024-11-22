@@ -4,10 +4,11 @@ date: 2024-11-22
 showAuthor: false
 authors:
   - "juraj-michalek"
-tags: ["ESP32-P4", "ESP32-C6", "ESP32-C3", "Swift",  "SDL", "Graphics", "Filesystem", "Experimental"]
+tags: ["ESP32-P4", "ESP32-C6", "ESP32-C3", "Swift", "CI/CD",  "SDL", "Graphics", "Filesystem", "Experimental"]
 ---
 
-Building Graphical Applications with Swift and SDL3 on ESP32-P4, ESP32-C3, ESP32-C6.
+The article explains how to build graphical application with Embedded Swift and SDL3 on ESP32-P4, ESP32-C3, ESP32-C6.
+The full project is available at [GitHub repository](https://github.com/georgik/esp32-sdl3-swift-example).
 
 ## Introduction
 
