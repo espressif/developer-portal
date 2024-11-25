@@ -1,7 +1,7 @@
 ---
 title: "ESP32's family Memory Map 101"
 date: 2024-08-20T18:56:49+02:00
-tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6"]
+tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6", "Zephyr"]
 showAuthor: false
 authors:
   - "marek-matej"
