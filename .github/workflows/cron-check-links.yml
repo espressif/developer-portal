@@ -1,4 +1,4 @@
-name: Cron job to check links
+name: Cron job to check links weekly
 
 # Schedule to run the link checker every Monday at 2:00 AM UTC
 on:

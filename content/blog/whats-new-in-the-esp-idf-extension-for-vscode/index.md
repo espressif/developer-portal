@@ -19,7 +19,7 @@ The [ESP-IDF extension for Visual Studio Code](https://marketplace.visualstudio.
 
 The latest features we have added are:
 
-__ESP-IDF QEMU integration__ 
+__ESP-IDF QEMU integration__
 
 [QEMU](https://www.qemu.org/) is an open-source machine emulator commonly used to emulate operating systems and many hardware devices. Espressif has a [QEMU fork](https://github.com/espressif/qemu) with ESP32 as a possible target which can be used to emulate in software the behavior of a real ESP32 device.
 
@@ -27,14 +27,14 @@ We added this QEMU fork in a Dockerfile used with the project template file .dev
 
 The __ESP-IDF: QEMU Manager__ command____ will____ run the current project application binary in an emulated ESP32. If you execute the __ESP-IDF: Monitor QEMU device__ it will open____ a monitor session to observe the application output. You can also use __ESP-IDF: Launch QEMU debug session__  command to start a debug session as shown below.
 
-Find more information on this feature in [here](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/QEMU.md).
+Find more information on this feature in [here](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/qemu.html).
 
 {{< figure
     default=true
     src="img/whats-1.webp"
     >}}
 
-__Partition Table Editor__ 
+__Partition Table Editor__
 
 Now you should be able to get partition table information for the device connected and be allowed to select any .bin file to flash to a given partition.
 
@@ -57,11 +57,11 @@ When you can click on any partition, either you can flash a .bin file to this pa
     src="img/whats-4.webp"
     >}}
 
-__Importing an existing ESP-IDF Project__ 
+__Importing an existing ESP-IDF Project__
 
 Added the __Import ESP-IDF Project__ command to the extension. This command will copy an existing ESP-IDF project and add *.vscode* configuration and *.devcontainer* files into a new project to be saved in a given location and project name.
 
-__Integrated ESP-IDF Component registry__ 
+__Integrated ESP-IDF Component registry__
 
 [IDF Component registry](https://components.espressif.com/) is integrated into the extension and this allows users to add a component to your project. Run the __ESP-IDF: Show Component registry__ command____ to launch components page.
 
@@ -72,7 +72,7 @@ __Integrated ESP-IDF Component registry__
 
 IDF Component Registry running in Visual Studio Code
 
-__Welcome Page__ 
+__Welcome Page__
 
 Added a new welcome page with documentation links and buttons for basic features of the extension. You can run the __ESP-IDF: Welcome__  command to launch it.
 
@@ -81,9 +81,9 @@ Added a new welcome page with documentation links and buttons for basic features
     src="img/whats-6.webp"
     >}}
 
-__Other notable improvements and features__ 
+__Other notable improvements and features__
 
-- Use gdb commands directly for Heap tracing. Before we were using openOCD TCL commands to start and stop the heap tracing but now we are using gdb commands with a gdb file instead. To learn more about heap tracing please review the [ESP-IDF documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/heap_debug.html#heap-tracing) and the [heap tracing extension tutorial](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/heap_tracing.md).
+- Use gdb commands directly for Heap tracing. Before we were using openOCD TCL commands to start and stop the heap tracing but now we are using gdb commands with a gdb file instead. To learn more about heap tracing please review the [ESP-IDF documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/heap_debug.html#heap-tracing) and the [heap tracing extension tutorial](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/heap-tracing.html).
 - Added idf-size.py output after build task. This is done after executing the __ESP-IDF: Build your project__  or__ESP-IDF: Build, flash and start a monitor__ command. This will help users to understand the amount of memory used in their applications and [reduce the binary size](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/performance/size.html).
 
 {{< figure
@@ -92,7 +92,7 @@ __Other notable improvements and features__
     >}}
 
 - Added JTAG flashing type in the Build, flash and monitor command. Before it was only using UART flashing, but now it will use the flash type defined in the __idf.flashType__ configuration setting.
-- Added the __Configure project for coverage__  command to set the required values in your project’s sdkconfig file to enable code coverage for your project. This is necessary if you want to enable the code coverage feature in the extension as shown in the [code coverage tutorial](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/code_coverage.md).
+- Added the __Configure project for coverage__  command to set the required values in your project’s sdkconfig file to enable code coverage for your project. This is necessary if you want to enable the code coverage feature in the extension as shown in the [code coverage tutorial](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/coverage.html).
 - Using portable git and python in the extension setup workflow for Windows users. Now Windows users don’t need to install any prerequisites when configuring the extension using the __ESP-IDF: Configure ESP-IDF extension__  setup wizard.
 - Enable and disable CMakeLists.txt SRCS field update whenever .c files are created or deleted. Use the i__df.enableUpdateSrcsToCMakeListsFile__  configuration setting to enable and disable it.
 - Use Espressif download mirrors for the extension setup wizard. Now if downloading from Github is slow in your location you can choose the download server in the __ESP-IDF: Configure ESP-IDF extension__  setup wizard.
@@ -127,7 +127,7 @@ The extension is far from complete. We are continuously improving existing and a
 ## Related links
 
 - [Make a feature request or report an issue with the extension](https://github.com/espressif/vscode-esp-idf-extension/issues/new/choose)
-- [Extension tutorials](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/toc.md)
+- [Extension tutorials](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/index.html)
 - [ESP32 IDE Forum](https://esp32.com/viewforum.php?f=40)
 
 Espressif also offers an __esp-idf plugin for eclipse__  enthusiasts, please check this out [here](https://github.com/espressif/idf-eclipse-plugin)!

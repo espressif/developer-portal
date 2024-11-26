@@ -64,7 +64,7 @@ To start debugging the project, do the following:
 * Flash (command palette: **ESP-IDF: Flash your Project**)
 * In the `Run` menu, press `Start debugging`.
 
-You can also check how to use the new debugger by following the [debug tutorial](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/tutorial/debugging.md).
+You can also check how to use the new debugger by following the [debug tutorial](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/debugproject.html).
 
 The following figure shows an active debug session with the Eclipse CDT GDB Debug Adapter in VS Code. You can see the list of variables, call stack, breakpoints, debug console and debug controls such as step in, step out, etc.
 
@@ -77,7 +77,7 @@ The following figure shows an active debug session with the Eclipse CDT GDB Debu
 
 ### Advanced configuration of Eclipse CDT GDB Debug Adapter
 
-There are many configurable options to customize the debug adapter if desired. You can view a deeper description in the [debugging documentation](https://github.com/espressif/vscode-esp-idf-extension/blob/master/docs/DEBUGGING.md).
+There are many configurable options to customize the debug adapter if desired. You can view a deeper description in the [debugging documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/debugproject.html).
 
 ## ESP-IDF version switcher
 

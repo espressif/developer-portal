@@ -1,5 +1,4 @@
-# Workflow for building and deploying a Hugo site to AWS S3 Bucket
-name: Deploy Hugo site to AWS S3 Bucket
+name: Cron job to redeploy Hugo site daily
 
 on:
   schedule:
