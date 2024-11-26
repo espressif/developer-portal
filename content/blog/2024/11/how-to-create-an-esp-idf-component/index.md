@@ -7,23 +7,34 @@ authors:
 tags: ["I2C", "Registry", "Component", "ESP-IDF", "Driver", "Library"]
 ---
 
-Developing complex applications using monolithic approach can be a nightmare, but it is common in the embedded systems. If your application is tightly integrated with all the peripheral drivers, business logic, protocols, cloud connectivity, and so on, developing in a collaborative way, maintaining it or, reusing the code in a different project is a very complex challenge.
+Using a monolithic architecture to develop complex applications tightly integrated with all the business logic, peripheral drivers, protocols, cloud connectivity, and so on, might sound like a nightmare. Yet, this is common in embedded systems, because it helps keep the resource overhead to the minimum. Inevitably, such approach makes collaborative development, maintenance, and reuse of code challenging to say the least.
 
-Thanks to the components on the ESP-IDF, this challenge will be overpassed. The ESP-IDF implements the components architecture, that makes most of the systems functions in a self-contained blocks.
 
-On the ESP-IDF, some components are part of the system and you can use the APIs directly form your application and some components can be added to your project as you need. This article will cover the components you can create and add to your project.
+These days the resources in embedded systems are not as limited as before, which makes the use of modular architecture more reasonable. This is exactly what ESP-IDF offers. The self-contained modules that implement most of the system functions are called *ESP-IDF components*.
+
+
+There are two types of ESP-IDF components: *built-in components* and *project components*. Built-in components are part of the system whose APIs can be called directly from your application. Project components can be added to your project according to your needs in order to extend the ESP-IDF functionality.
+
+You can add the project components from the ESP registry, from third-party sources, or you can choose to create your own components. This article covers the project components you can create yourself and add to your project.
+
 
 ## Writing the ESP-IDF component
 
-In some projects, using the components to detach parts of the application is a good approach. To get start with the component development process, we need to understand the basic structure and how the component will be part of the application.
+Frequently, placing self-contained parts of code in a separate component not only helps to keep the application code cleaner, but also simplifies development and maintenance. To get started with the component development process, we need to understand the basic structure and how the component will interact with the application.
 
-As covered on the introduction to the ESP Component Registry, the component can be created directly on the application or it can be created in a separated project then added to the application.
+
+As covered in the article What is the ESP Component Registry, a component can be either created directly in the application or in a separated project and then added to the application.
+
 
 {{< article link="/blog/2024/10/what-is-the-esp-registry/" >}}
 
-If the plan is to share the component with other applications, the best approach is to create the component in a new project that will contain just the component and examples if needed.
+When choosing whether to create a component in a separate project, consider if you plan to share the component with other applications. If yes, the best approach is to create the component in a new project that will contain just the component and examples if needed.
 
-> Note: This article will not cover how to publish the component on the ESP Component Registry. This will be covered on the next article of this series.
+
+{{< alert >}}
+This article will not cover how to publish the component in the ESP Component Registry. It will be covered in the next article of this series.
+{{< /alert >}}
+
 
 Now it's time to start with the new component. For this article, we will use an I2C temperature and humidity sensor.
 
@@ -35,7 +46,8 @@ If you don't have this sensor, you can change to any other I2C device. All the i
 
 ### The Board: ESP32-C3-DevKit-RUST-1
 
-This sensor can be found on the [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) and this is the board that will be used to create the component.
+We chose the sensor SHTC3, because it can be found on the [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) development board. That is why, this is the board that we will use for developing the component.
+
 
 The **ESP32-C3-DevKit-RUST-1** development board has 2 sensors connected to the I2C peripheral on the following GPIOs:
 
@@ -44,7 +56,8 @@ The **ESP32-C3-DevKit-RUST-1** development board has 2 sensors connected to the 
 | SDA        | GPIO10      |
 | SCL        | GPIO8       |
 
-All the project files for this board are available on the GitHub.
+All the project files for this board are available on GitHub.
+
 
 {{< github repo="esp-rs/esp-rust-board" >}}
 
