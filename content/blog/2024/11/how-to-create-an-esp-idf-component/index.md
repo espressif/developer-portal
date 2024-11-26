@@ -18,7 +18,7 @@ There are two types of ESP-IDF components: *built-in components* and *project co
 You can add the project components from the ESP registry, from third-party sources, or you can choose to create your own components. This article covers the project components you can create yourself and add to your project.
 
 
-## Writing the ESP-IDF component
+## Conceiving the component
 
 Frequently, placing self-contained parts of code in a separate component not only helps to keep the application code cleaner, but also simplifies development and maintenance. To get started with the component development process, we need to understand the basic structure and how the component will interact with the application.
 
@@ -36,18 +36,56 @@ This article will not cover how to publish the component in the ESP Component Re
 {{< /alert >}}
 
 
-Now it's time to start with the new component. For this article, we will use an I2C temperature and humidity sensor.
+## Creating the component
 
-### The sensor: SHTC3
+Before creating the component, we will need to create a new project that the component will be part of. If you have already the project, you can skip this step and jump to the component creation.
 
-For this new component, the sensor will be the [Sensirion SHTC3](https://sensirion.com/products/catalog/SHTC3). This is a I2C temperature and humidity sensor with a typical accuracy of ±2 %RH and ±0.2 °C. To know more about the specifications, please visit the official [product page](https://sensirion.com/products/catalog/SHTC3).
+The component can be created manually or you can use the ESP-IDF `idf.py` tool to create all the basic skeleton. We recommend to create the new component by the tool provided by Espressif.
+
+To create the component, we will go through some steps:
+
+1. Create a new project (skip this step if you already have one).
+2. Add a new component inside the project.
+3. Write the component code.
+4. Test the component
+
+{{< alert >}}
+We assume that you already have the ESP-IDF version 5.2 or higher installed on your system.
+{{< /alert >}}
+
+### Create a new project
+
+To create a new component, we will use a project as the starting point, as mentioned before. This project will be used to develop and test the component.
+
+On the CLI, create a new project named `my_project_with_components` using the command:
+
+```bash
+idf.py create-project my_project_with_components
+```
+
+Now inside the `my_project_with_components` folder, let's test the build for the ESP32-C3 (this is the SoC we will use on the example) or any other SoC you are using.
+
+```bash
+cd my_project_with_components
+idf.py set-target esp32c3
+idf.py build
+```
+
+If the build finished successfully, now it's time to create the component.
+
+### The component
+
+For this tutorial, we will use an I2C temperature and humidity sensor as example. If you are not going to use this sensor, you can skip this part.
+
+#### The sensor: SHTC3
+
+The sensor will be the [Sensirion SHTC3](https://sensirion.com/products/catalog/SHTC3). This is a I2C temperature and humidity sensor with a typical accuracy of ±2 %RH and ±0.2 °C. To know more about the specifications, please visit the official [product page](https://sensirion.com/products/catalog/SHTC3).
 
 If you don't have this sensor, you can change to any other I2C device. All the information you might need for the new sensor should be provided by the manufacturer, including the device address, registers, etc.
 
-### The Board: ESP32-C3-DevKit-RUST-1
+#### The Board: ESP32-C3-DevKit-RUST-1
 
 We chose the sensor SHTC3, because it can be found on the [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) development board. That is why, this is the board that we will use for developing the component.
-
 
 The **ESP32-C3-DevKit-RUST-1** development board has 2 sensors connected to the I2C peripheral on the following GPIOs:
 
@@ -61,51 +99,11 @@ All the project files for this board are available on GitHub.
 
 {{< github repo="esp-rs/esp-rust-board" >}}
 
-### Creating the component
+### Add a new component
 
-Before creating the component, we will need to create a new project that the component will be part of. If you have already the project, you can skip this step and jump to the component creation.
+Inside the project folder, we need to create a folder called `components`. This is the folder where our component will be created in, and it can contain multiple components.
 
-The component can be created manually or you can use the `idf.py` tool to create all the basic skeleton. We recommend to create the new component by the tool provided by Espressif.
-
-To create the component, we will go through some steps:
-
-1. Create a new project.
-2. Create the new component inside the project.
-3. Write the driver code for the selected sensor.
-
-> We assume that you already have the ESP-IDF version 5.2 or higher installed on your system.
-
-#### Additional content from DevCon23
-
-On the Espressif DevCon23, Ivan Grokhotkov, gave a talk titled: Developing, Publishing, and Maintaining Components for ESP-IDF. You can watch this talk as an additional material for your studies.
-
-{{< youtube D86gQ4knUnc >}}
-
-The Component Manager [documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/) is very comprehensive and you will find all the information you need there, including the [simple component](https://docs.espressif.com/projects/idf-component-manager/en/latest/guides/packaging_components.html#a-simple-esp-idf-component) structure.
-
-#### Create the new project
-
-To create the component, we will use a project as the starting point. This project will be used to test the component.
-
-```bash
-idf.py create-project example-shtc3
-```
-
-Now inside the project folder, let's test the build for the ESP32-C3.
-
-```bash
-cd example-shtc3
-idf.py set-target esp32c3
-idf.py build
-```
-
-If the build finished successfully, now it's time to create the component.
-
-#### Create the new component
-
-Inside the project folder, we need to create a folder called `components`
-
-The process will be done by the CLI (Command-line Interface) tool `idf.py`.
+The process will be done by the CLI (Command-line Interface) tool `idf.py`. This command will create the folder named `components`, by using the argument `-C`, and the component `shtc3`.
 
 ```bash
 idf.py create-component -C components shtc3
@@ -123,9 +121,11 @@ After that, the new folder should contain the following structure:
         └── shtc3.c
 ```
 
-#### Component code
+Now we have created the component structure, including all the required files, you can populate the component with your own code. To illustrate this process, we will walkthrough the process for creating the I2C sensor SHTC3.
 
-From now on, we will create the required code for the component to get the values from the sensor using I2C peripheral. The focus for the code explanation will be more on the new I2C driver.
+### Write the component code
+
+We will now create the required code for the component to get the values from the sensor using I2C peripheral. The focus for the code explanation will be more on the new I2C driver `driver/i2c_master.h`.
 
 To avoid a very long code description, please see the full code on the **SHTC3** component [repository on GitHub](https://github.com/pedrominatel/esp-components/tree/main/shtc3).
 
@@ -311,7 +311,7 @@ The CRC for the temperature and humidity will be not considered for this example
 
 This is a very basic sensor, with no configuration or calibration registers.
 
-#### Testing the component
+### Testing the component
 
 To test the component, let's go back to the project we have created before or the project you are using for creating this component.
 
@@ -408,9 +408,13 @@ void shtc3_read_task(void *pvParameters)
 
 On this task, the sensor will be woken up, the readout will be read and processed, and then the sensor will return to sleep mode.
 
-#### Creating Kconfig (optional)
+### Creating Kconfig (optional)
 
-As a bonus, this component has a dedicated configuration menu using a `Kconfig` file. On this configuration menu, you will be able to set the I2C GPIOs (SDA and SCL), the I2C port number and the bus frequency.
+As a bonus, this component has a dedicated configuration menu using a `Kconfig` file.
+
+Kconfig is a configuration system used in software projects to define and manage configuration options in a structured and hierarchical way. It's widely used in projects like the Linux kernel, Zephyr, and ESP-IDF (Espressif IoT Development Framework).
+
+On this configuration menu, you will be able to set the I2C GPIOs (SDA and SCL), the I2C port number, and the bus frequency. This removes any hardcoded configuration from the source code.
 
 ```text
 menu "Driver SHTC3 Sensor"
@@ -454,11 +458,17 @@ The `Kconfig` file should be placed on the component root directory. To set the 
 idf.py menuconfig
 ```
 
-Having a component with a clear documentation and at least one example, can make your component frustration free. Developers enjoy when it just works!
+To configure the I2C, go to the `Component config` -> `Driver SHTC3 Sensor` and set the `I2C SDA pin`, `I2C SCL pin`, and the `I2C clock speed (Hz)`.
 
-### Running the application
+## Running the application
 
 To run the application, run the command to `flash` and `monitor` using the `idf.py`. The application will print the temperature and humidity.
+
+```bash
+idf.py flash monitor
+```
+
+### Console log output
 
 {{< asciinema
   key="component_shtc3"
@@ -467,8 +477,9 @@ To run the application, run the command to `flash` and `monitor` using the `idf.
   poster="npt:0:09"
 >}}
 
-
 ## Conclusion
+
+Creating a new component requires several steps and might be confusing. In this article, we guided you on the basic steps of creating the component, adding a new component to this project, adding the code to the component, and finally adding the configuration menu.
 
 Writing a new component is highly recommended for improving the project architecture. This is a very powerful approach and can be used for many different types of component, not only for drivers.
 
