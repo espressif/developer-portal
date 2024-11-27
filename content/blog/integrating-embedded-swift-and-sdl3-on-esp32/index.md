@@ -1,6 +1,6 @@
 ﻿---
 title: "Integrating Embedded Swift and SDL3 on ESP32"
-date: 2024-11-22
+date: 2024-11-27
 showAuthor: false
 authors:
   - "juraj-michalek"
