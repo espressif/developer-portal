@@ -7,16 +7,19 @@ authors:
 tags: ["ESP32-P4", "ESP32-C6", "ESP32-C3", "Swift", "CI/CD",  "SDL", "Graphics", "Filesystem", "Experimental"]
 ---
 
-The article explains how to build graphical application with Embedded Swift and SDL3 on ESP32-P4, ESP32-C3, ESP32-C6.
-The full project is available at [GitHub repository](https://github.com/georgik/esp32-sdl3-swift-example).
-
 ## Introduction
 
-[Embedded Swift](https://www.swift.org/blog/embedded-swift-examples/) brings the power and elegance of the Swift programming language to embedded systems like the ESP32 microcontrollers. In this article, we'll explore how to develop graphical applications for the ESP32-C3 and ESP32-C6 using Swift. We'll demonstrate how to integrate C libraries like SDL3 (Simple DirectMedia Layer 3), commonly used in desktop applications, into your Swift projects. With the help of the ESP-IDF (Espressif IoT Development Framework) and ESP-BSP (Board Support Package), you can create cross-platform applications that run on various ESP32 boards with minimal effort.
+Swift is a powerful and intuitive programming language, renowned for its expressive syntax, modern features, and safety. Originally designed for developing applications across Apple's ecosystem—macOS, iOS, watchOS, and tvOS—Swift has gained popularity for its performance and developer-friendly nature.
 
 ### What is Embedded Swift?
 
-Embedded Swift is a subset of the Swift programming language tailored for embedded systems like the ESP32 series microcontrollers from Espressif. Swift, originally developed by Apple, is known for its expressive syntax, safety features, and performance. By bringing Swift to embedded platforms, developers can take advantage of these modern language features when programming resource-constrained devices.
+[Embedded Swift](https://www.swift.org/blog/embedded-swift-examples/) is subset of Swift programming language which extends the capabilities of Swift to the realm of embedded systems. It allows developers to write firmware and applications for microcontrollers using Swift, bringing modern programming paradigms to resource-constrained devices. By leveraging Embedded Swift, you can benefit from Swift's features like optionals, generics, and strong type safety, even in an embedded context.
+
+In this article, we'll explore how to use Embedded Swift to develop graphical applications for microcontrollers. We'll demonstrate how to integrate C libraries like SDL3 (Simple DirectMedia Layer 3), commonly used in desktop applications, into your Swift projects for embedded systems. With the help of the ESP-IDF (Espressif IoT Development Framework) and ESP-BSP (Board Support Package), we'll create cross-platform applications that can run on various ESP32 boards with minimal effort.
+
+Specifically, we'll focus on the ESP32-C3 and ESP32-C6 microcontrollers from Espressif, showcasing how to build and deploy Swift applications that utilize SDL3 for graphics rendering. If you're new to Embedded Swift, we recommend starting with the article Build Embedded Swift Application for ESP32-C6 to familiarize yourself with the basics.
+
+The full project is available at [GitHub repository](https://github.com/georgik/esp32-sdl3-swift-example).
 
 If you're new to Embedded Swift, we recommend that you start by checking the article [Build Embedded Swift Application for ESP32-C6](/blog/build-embedded-swift-application-for-esp32c6/).
 
