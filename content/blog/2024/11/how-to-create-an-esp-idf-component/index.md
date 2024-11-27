@@ -9,38 +9,48 @@ tags: ["I2C", "Registry", "Component", "ESP-IDF", "Driver", "Library"]
 
 Using a monolithic architecture to develop complex applications tightly integrated with all the business logic, peripheral drivers, protocols, cloud connectivity, and so on, might sound like a nightmare. Yet, this is common in embedded systems, because it helps keep the resource overhead to the minimum. Inevitably, such approach makes collaborative development, maintenance, and reuse of code challenging to say the least.
 
-
 These days the resources in embedded systems are not as limited as before, which makes the use of modular architecture more reasonable. This is exactly what ESP-IDF offers. The self-contained modules that implement most of the system functions are called *ESP-IDF components*.
-
 
 There are two types of ESP-IDF components: *built-in components* and *project components*. Built-in components are part of the system whose APIs can be called directly from your application. Project components can be added to your project according to your needs in order to extend the ESP-IDF functionality.
 
 You can add the project components from the ESP registry, from third-party sources, or you can choose to create your own components. This article covers the project components you can create yourself and add to your project.
 
-
 ## Conceiving the component
 
 Frequently, placing self-contained parts of code in a separate component not only helps to keep the application code cleaner, but also simplifies development and maintenance. To get started with the component development process, we need to understand the basic structure and how the component will interact with the application.
 
-
 As covered in the article What is the ESP Component Registry, a component can be either created directly in the application or in a separated project and then added to the application.
-
 
 {{< article link="/blog/2024/10/what-is-the-esp-registry/" >}}
 
 When choosing whether to create a component in a separate project, consider if you plan to share the component with other applications. If yes, the best approach is to create the component in a new project that will contain just the component and examples if needed.
 
-
 {{< alert >}}
 This article will not cover how to publish the component in the ESP Component Registry. It will be covered in the next article of this series.
 {{< /alert >}}
 
+For this tutorial, we will create an example component that simplifies communication with an I2C device.
+
+To simplify hardware setup, we chose the existing [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) development board that integrates the SHTC3 I2C sensor. This sensor is an I2C temperature and humidity sensor with a typical accuracy of ±2 %RH and ±0.2 °C. You can find its specification on the official [product page](https://sensirion.com/products/catalog/SHTC3).
+
+To be precise, the ESP32-C3-DevKit-RUST-1 development board integrates two sensors connected to the I2C peripheral on the following GPIOs:
+
+| Signal     | GPIO        |
+|------------|-------------|
+| SDA        | GPIO10      |
+| SCL        | GPIO8       |
+
+All the project files for this board are available on GitHub.
+
+{{< github repo="esp-rs/esp-rust-board" >}}
+
+---
+
+{{< alert >}}
+If you don't have the proposed hardware, you can choose any other I2C device. All the information you might need should be provided by the manufacturer, including the device address, registers, etc.
+{{< /alert >}}
 
 ## Creating the component
-
-Before creating the component, we will need to create a new project that the component will be part of. If you have already the project, you can skip this step and jump to the component creation.
-
-The component can be created manually or you can use the ESP-IDF `idf.py` tool to create all the basic skeleton. We recommend to create the new component by the tool provided by Espressif.
 
 To create the component, we will go through some steps:
 
@@ -65,7 +75,6 @@ idf.py create-project my_project_with_components
 
 Now inside the `my_project_with_components` folder, let's test the build for the ESP32-C3 (this is the SoC we are using in the example below). However, you can use any other SoC.
 
-
 ```bash
 cd my_project_with_components
 idf.py set-target esp32c3
@@ -74,38 +83,17 @@ idf.py build
 
 If the build finished successfully, now it's time to create the component.
 
-
-For this tutorial, we will create an example component that simplifies communication with an I2C device.
-
-To simplify hardware setup, we chose the existing [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) development board that integrates the SHTC3 I2C sensor. This sensor is an I2C temperature and humidity sensor with a typical accuracy of ±2 %RH and ±0.2 °C. You can find its specification on the official [product page](https://sensirion.com/products/catalog/SHTC3).
-
-To be precise, the ESP32-C3-DevKit-RUST-1 development board integrates two sensors connected to the I2C peripheral on the following GPIOs:
-
-| Signal     | GPIO        |
-|------------|-------------|
-| SDA        | GPIO10      |
-| SCL        | GPIO8       |
-
-All the project files for this board are available on GitHub.
-
-{{< github repo="esp-rs/esp-rust-board" >}}
-
-{{< alert >}}
-If you don't have the proposed hardware, you can choose any other I2C device. All the information you might need should be provided by the manufacturer, including the device address, registers, etc.
-{{< /alert >}}
-
-
 ### Add a new component
 
-It is recommended that the components be stored in the folder `components` in the root of the project. To create such folder and the basic component skeleton for our `shtc3` project, we will use the following convenience command (notice the use of `-C components` to create the folder):
+The component can be created manually, however, the recommended way is to use the ESP-IDF `idf.py` tool with the `create-component` command to create all the basic component skeleton.
 
+It is recommended that the components be stored in the folder `components` in the root of the project. To create such folder and the basic component skeleton for our `shtc3` component project, we will use the following convenience command (notice the use of `-C components` to create the folder):
 
 ```bash
 idf.py create-component -C components shtc3
 ```
 
 As a result, the new folder should contain the following structure:
-
 
 ```text
 .
@@ -118,7 +106,6 @@ As a result, the new folder should contain the following structure:
 ```
 
 Now we have created the component structure, including all the required files, you can populate the component with your own code. To illustrate this process, we will walk through the process for creating the I2C sensor SHTC3.
-
 
 ### Write the component code
 
@@ -477,14 +464,12 @@ idf.py flash monitor
   poster="npt:0:09"
 >}}
 
-
 ## Conclusion
 
 In this article, we went through the basic steps of creating a component skeleton, adding it to a project, writing the code, testing it, and, finally, adding the configuration menu.
 
 Even though creating a new component requires a few additional steps, it helps improve the project architecture and make code reusable. This is a very powerful approach not only for creating driver components, but any other code that can work in a modular fashion.
 In the next article, we will show how this component can be published to the [ESP Component Registry](https://components.espressif.com/) to share with the community.
-
 
 ## Reference
 
