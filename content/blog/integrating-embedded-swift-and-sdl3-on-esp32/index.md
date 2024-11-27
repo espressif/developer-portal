@@ -311,7 +311,6 @@ SDL_DestroySurface(textSurface)
 var textRect = SDL_FRect(x: 80.0, y: 220.0, w: 160.0, h: 40.0)
 ```
 
-
 ## Using ESP-BSP for Board Support
 
 To make the application portable across different ESP32 boards, we use the ESP-BSP (Board Support Package). This allows us to switch between boards easily.
