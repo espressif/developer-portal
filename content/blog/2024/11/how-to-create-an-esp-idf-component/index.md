@@ -63,7 +63,8 @@ On the CLI, create a new project named `my_project_with_components` using the co
 idf.py create-project my_project_with_components
 ```
 
-Now inside the `my_project_with_components` folder, let's test the build for the ESP32-C3 (this is the SoC we will use on the example) or any other SoC you are using.
+Now inside the `my_project_with_components` folder, let's test the build for the ESP32-C3 (this is the SoC we are using in the example below). However, you can use any other SoC.
+
 
 ```bash
 cd my_project_with_components
@@ -73,21 +74,12 @@ idf.py build
 
 If the build finished successfully, now it's time to create the component.
 
-### The component
 
-For this tutorial, we will use an I2C temperature and humidity sensor as example. If you are not going to use this sensor, you can skip this part.
+For this tutorial, we will create an example component that simplifies communication with an I2C device.
 
-#### The sensor: SHTC3
+To simplify hardware setup, we chose the existing [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) development board that integrates the SHTC3 I2C sensor. This sensor is an I2C temperature and humidity sensor with a typical accuracy of ±2 %RH and ±0.2 °C. You can find its specification on the official [product page](https://sensirion.com/products/catalog/SHTC3).
 
-The sensor will be the [Sensirion SHTC3](https://sensirion.com/products/catalog/SHTC3). This is a I2C temperature and humidity sensor with a typical accuracy of ±2 %RH and ±0.2 °C. To know more about the specifications, please visit the official [product page](https://sensirion.com/products/catalog/SHTC3).
-
-If you don't have this sensor, you can change to any other I2C device. All the information you might need for the new sensor should be provided by the manufacturer, including the device address, registers, etc.
-
-#### The Board: ESP32-C3-DevKit-RUST-1
-
-We chose the sensor SHTC3, because it can be found on the [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) development board. That is why, this is the board that we will use for developing the component.
-
-The **ESP32-C3-DevKit-RUST-1** development board has 2 sensors connected to the I2C peripheral on the following GPIOs:
+To be precise, the ESP32-C3-DevKit-RUST-1 development board integrates two sensors connected to the I2C peripheral on the following GPIOs:
 
 | Signal     | GPIO        |
 |------------|-------------|
@@ -96,20 +88,24 @@ The **ESP32-C3-DevKit-RUST-1** development board has 2 sensors connected to the 
 
 All the project files for this board are available on GitHub.
 
-
 {{< github repo="esp-rs/esp-rust-board" >}}
+
+{{< alert >}}
+If you don't have the proposed hardware, you can choose any other I2C device. All the information you might need should be provided by the manufacturer, including the device address, registers, etc.
+{{< /alert >}}
+
 
 ### Add a new component
 
-Inside the project folder, we need to create a folder called `components`. This is the folder where our component will be created in, and it can contain multiple components.
+It is recommended that the components be stored in the folder `components` in the root of the project. To create such folder and the basic component skeleton for our `shtc3` project, we will use the following convenience command (notice the use of `-C components` to create the folder):
 
-The process will be done by the CLI (Command-line Interface) tool `idf.py`. This command will create the folder named `components`, by using the argument `-C`, and the component `shtc3`.
 
 ```bash
 idf.py create-component -C components shtc3
 ```
 
-After that, the new folder should contain the following structure:
+As a result, the new folder should contain the following structure:
+
 
 ```text
 .
@@ -121,7 +117,8 @@ After that, the new folder should contain the following structure:
         └── shtc3.c
 ```
 
-Now we have created the component structure, including all the required files, you can populate the component with your own code. To illustrate this process, we will walkthrough the process for creating the I2C sensor SHTC3.
+Now we have created the component structure, including all the required files, you can populate the component with your own code. To illustrate this process, we will walk through the process for creating the I2C sensor SHTC3.
+
 
 ### Write the component code
 
@@ -311,7 +308,8 @@ The CRC for the temperature and humidity will be not considered for this example
 
 This is a very basic sensor, with no configuration or calibration registers.
 
-### Testing the component
+### Test the component
+
 
 To test the component, let's go back to the project we have created before or the project you are using for creating this component.
 
@@ -474,16 +472,19 @@ idf.py flash monitor
   key="component_shtc3"
   idleTimeLimit="2"
   speed="1.5"
+  cols="80"
+  rows="24"
   poster="npt:0:09"
 >}}
 
+
 ## Conclusion
 
-Creating a new component requires several steps and might be confusing. In this article, we guided you on the basic steps of creating the component, adding a new component to this project, adding the code to the component, and finally adding the configuration menu.
+In this article, we went through the basic steps of creating a component skeleton, adding it to a project, writing the code, testing it, and, finally, adding the configuration menu.
 
-Writing a new component is highly recommended for improving the project architecture. This is a very powerful approach and can be used for many different types of component, not only for drivers.
+Even though creating a new component requires a few additional steps, it helps improve the project architecture and make code reusable. This is a very powerful approach not only for creating driver components, but any other code that can work in a modular fashion.
+In the next article, we will show how this component can be published to the [ESP Component Registry](https://components.espressif.com/) to share with the community.
 
-In a future article, this component will be added to the [Component Registry](https://components.espressif.com/) to be easily shared across the community.
 
 ## Reference
 
