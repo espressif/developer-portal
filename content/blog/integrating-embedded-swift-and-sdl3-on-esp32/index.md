@@ -15,9 +15,9 @@ Swift is a powerful and intuitive programming language, renowned for its express
 
 [Embedded Swift](https://www.swift.org/blog/embedded-swift-examples/) is subset of Swift programming language which extends the capabilities of Swift to the realm of embedded systems. It allows developers to write firmware and applications for microcontrollers using Swift, bringing modern programming paradigms to resource-constrained devices. By leveraging Embedded Swift, you can benefit from Swift's features like optionals, generics, and strong type safety, even in an embedded context.
 
-In this article, we'll explore how to use Embedded Swift to develop graphical applications for microcontrollers. We'll demonstrate how to integrate C libraries like SDL3 (Simple DirectMedia Layer 3), commonly used in desktop applications, into your Swift projects for embedded systems. With the help of the ESP-IDF (Espressif IoT Development Framework) and ESP-BSP (Board Support Package), we'll create cross-platform applications that can run on various ESP32 boards with minimal effort.
+In this article, we'll explore how to use Embedded Swift to develop graphical applications for microcontrollers. We'll demonstrate how to integrate C libraries like [SDL3 (Simple DirectMedia Layer 3)](https://github.com/georgik/esp-idf-component-SDL), commonly used in desktop applications, into your Swift projects for embedded systems. With the help of the [ESP-IDF (Espressif IoT Development Framework)](https://github.com/espressif/esp-idf) and [ESP-BSP (Board Support Package)](https://github.com/espressif/esp-bsp), we'll create cross-platform applications that can run on various ESP32 boards with minimal effort.
 
-Specifically, we'll focus on the ESP32-C3 and ESP32-C6 microcontrollers from Espressif, showcasing how to build and deploy Swift applications that utilize SDL3 for graphics rendering. 
+Specifically, we'll focus on the ESP32-C3 and ESP32-C6 microcontrollers, showcasing how to build and deploy Swift applications that utilize SDL3 for graphics rendering. 
 
 If you're new to Embedded Swift, we recommend that you start by checking the article [Build Embedded Swift Application for ESP32-C6](/blog/build-embedded-swift-application-for-esp32c6/).
 
@@ -50,11 +50,10 @@ Before getting started, make sure you have the following tools installed:
 
 Download and install [Swift 6.1 (nightly)](https://www.swift.org/install) from the official Swift website or use [Swiftly installation tool](https://swiftlang.github.io/swiftly/). Ensure that the `swiftc` compiler is available in your system's PATH.
 
-Configure `TOOLCHAINS` environment variable with the version of the installed Swift 6.
-
-
 {{< tabs groupId="config" >}}
     {{% tab name="macOS" %}}
+Configure `TOOLCHAINS` environment variable with the version of the installed Swift 6.
+
 ```shell
 export TOOLCHAINS=$(plutil -extract CFBundleIdentifier raw /Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2024-10-30-a.xctoolchain/Info.plist)
 ```
@@ -69,9 +68,6 @@ sudo apt install ninja-build
 curl -L https://swiftlang.github.io/swiftly/swiftly-install.sh | bash
 
 swiftly install main-snapshot
-
-# Other option is to set TOOLCHAINS environment variable manually
-# export TOOLCHAINS=org.swift.61202410301a
 ```
     {{% /tab %}}
 {{< /tabs >}}
