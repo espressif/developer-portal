@@ -1,6 +1,6 @@
 ---
 title: "How to create an ESP-IDF component"
-date: 2024-11-25
+date: 2024-11-28
 showAuthor: false
 authors:
   - "pedro-minatel"
@@ -30,7 +30,7 @@ When choosing whether to create a component in a separate project, consider if y
 This article will not cover how to publish the component in the ESP Component Registry. It will be covered in the next article of this series.
 {{< /alert >}}
 
-For this tutorial, we will create an example component that simplifies communication with an I2C device.
+For this tutorial, we will create an example component that simplifies communication with an I2C device. This component will be a driver for a sensor and can be used as a starting point for any other component.
 
 To simplify hardware setup, we chose the existing [ESP32-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board/tree/v1.2) development board that integrates the SHTC3 I2C sensor. This sensor is an I2C temperature and humidity sensor with a typical accuracy of ±2 %RH and ±0.2 °C. You can find its specification on the official [product page](https://sensirion.com/products/catalog/SHTC3).
 
@@ -66,7 +66,7 @@ We assume that you already have the ESP-IDF version 5.2 or higher installed on y
 
 ### Create a new project
 
-To create a new component, we will use a project as the starting point, as mentioned before. This project will be used to develop and test the component.
+To create a new component, we will use a project as the starting point. This project will be used to develop and test the component. However, you can also create the component as a stand-alone without using a project.
 
 On the CLI, create a new project named `my_project_with_components` using the command:
 
@@ -478,4 +478,4 @@ In the next article, we will show how this component can be published to the [ES
 - [ESP-Registry Documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/)
 - [Compote Documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/reference/compote_cli.html)
 - [Component Examples](https://github.com/espressif/esp-bsp/tree/master/components)
-- [My Components](https://github.com/pedrominatel/esp-components)
+- [My Components](https://components.espressif.com/components?q=ns%3Apedrominatel)
