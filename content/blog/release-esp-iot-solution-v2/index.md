@@ -12,7 +12,11 @@ tags:
 
 ---
 
-Today, Espressif is excited to announce the release of [esp-iot-solution v2.0](https://github.com/espressif/esp-iot-solution/tree/release/v2.0). The components in the `release/v2.0` branch will receive bugfix maintenance for two years (until January 25, 2027, [ESP-IDF v5.3 EOL](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32s3/versions.html#support-periods)). This version categorizes and organizes commonly used IoT development features, including display, lighting, sensors, audio, motor control, input devices, USB, and more. Each category contains multiple feature-rich components that users can install, use, and update individually via the [ESP Component Manager](https://components.espressif.com/). Additionally, this version offers a wealth of [example code](https://github.com/espressif/esp-iot-solution/tree/release/v2.0/examples) to help users get started quickly. Below, we introduce some representative components. For more detailed information, please refer to the [esp-iot-solution v2.0 documentation](https://docs.espressif.com/projects/esp-iot-solution/en/release-v2.0/index.html).
+Today, Espressif is excited to announce the release of [esp-iot-solution v2.0](https://github.com/espressif/esp-iot-solution/tree/release/v2.0). The components in the `release/v2.0` branch will receive bugfix maintenance for two years (until January 25, 2027, [ESP-IDF v5.3 EOL](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32s3/versions.html#support-periods)). This version categorizes and organizes commonly used IoT development features, including display, lighting, sensors, audio, motor control, input devices, USB, and more.
+
+Each category contains multiple feature-rich components that users can install, use, and update individually via the [ESP Component Manager](https://components.espressif.com/). Additionally, this version offers a wealth of [example code](https://github.com/espressif/esp-iot-solution/tree/release/v2.0/examples) to help users get started quickly. Below, we introduce some representative components.
+
+For more detailed information, please refer to the [esp-iot-solution v2.0 documentation](https://docs.espressif.com/projects/esp-iot-solution/en/release-v2.0/index.html).
 
 ## Basic Components
 
