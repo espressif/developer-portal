@@ -28,7 +28,7 @@ Buttons are an essential part of IoT devices. In `esp-iot-solution v2.0`, the `b
 
 LED indicators are also a fundamental and necessary feature in IoT devices, providing timely visual feedback to help users quickly understand device status. The `led_indicator` component in `esp-iot-solution v2.0` offers a comprehensive LED indicator solution, covering LED effect design (including color, brightness, and blinking), LED priority management, and LED effect switching. It is compatible with various LED types, including single-color LEDs, RGB LEDs, and WS2812 LEDs.
 
-## Electrical & Lighting
+## Electrical and Lighting
 
 **[lightbulb_driver](https://components.espressif.com/components/espressif/lightbulb_driver)**
 
