@@ -13,7 +13,8 @@ These days the resources in embedded systems are not as limited as before, which
 
 There are two types of ESP-IDF components: *built-in components* and *project components*. Built-in components are part of the system whose APIs can be called directly from your application. Project components can be added to your project according to your needs in order to extend the ESP-IDF functionality.
 
-You can add the project components from the ESP registry, from third-party sources, or you can choose to create your own components. This article covers the project components you can create yourself and add to your project.
+You can add the project components from the ESP component registry, from third-party sources, or you can choose to create your own components. This article covers the project components you can create yourself and add to your project.
+
 
 ## Conceiving the component
 
