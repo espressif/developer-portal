@@ -33,6 +33,11 @@ V ukázce si předvedeme, jak připravit *partition table*, NVS datový soubor a
 Jak jsme si řekli, NVS používá paměť flash. Ta se ale používá i pro jiná data. Musíme tedy upravit partition tabulku a alokovat v ní místo pro náš NVS oddíl.
 
 Pomocí nám již dobře známé zkratky Ctrl + Shift + P otevřeme *Command Palette* a vyhledáme *Open Partition Table Editor UI*. 
+
+{{< alert icon="circle-info">}}
+Pokud vám nejde vyvolat *Partition Table Editor*, ověřte, že máte v konfiguraci nastavenou možnost *Partition Table -> Partition Table* na *Custom partition table CSV*.
+{{< /alert >}}
+
 Tabulku naplníme pomocí "Add New Row" tak, jak je vidno na obrázku:
 
 {{< figure
