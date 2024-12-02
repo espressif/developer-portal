@@ -1,6 +1,6 @@
 ---
 title: "How to create an ESP-IDF component"
-date: 2024-11-28
+date: 2024-12-02
 showAuthor: false
 authors:
   - "pedro-minatel"
