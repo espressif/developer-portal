@@ -12,7 +12,7 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/multi-function-usb-dongle-based-on-esp32-s3/" >}}
+{{< article link="/blog/2024/10/what-is-the-esp-registry/" >}}
 
 <br>
 {{< button href="#button" target="_self" href=/blog/ >}}
