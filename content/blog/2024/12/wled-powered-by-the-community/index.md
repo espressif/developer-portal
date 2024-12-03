@@ -15,7 +15,7 @@ Today we will talk about a community project, created by [Christian Schwinne a.k
 
 ## WLED
 
-WLED is an open-source solution for the ESP32 and ESP8266 to control addressable LEDs. It implements a web server to control the LED segments, creating a unique experience. It supports many outstanding features that allow you to create different light effects and advanced configurations, including various control interfaces, firmware upgrades OTA, scheduling, and much more.
+WLED is an open-source solution to control addressable LEDs and it's based on the Arduino core for the [ESP32](https://github.com/espressif/arduino-esp32) and ESP8266. It implements a web server to control the LED segments, creating a unique experience. It supports many outstanding features that allow you to create different light effects and advanced configurations, including various control interfaces, firmware upgrades OTA, scheduling, and much more.
 
 {{< alert >}}
 The WLED is only compatible with addressable LEDs, including RGBW, but the non-addressable LEDs are not supported.
