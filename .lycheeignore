@@ -29,3 +29,6 @@ https://www.waveshare.com
 
 # Links from examples
 socket://localhost
+
+# Local links
+http://4.3.2.1
