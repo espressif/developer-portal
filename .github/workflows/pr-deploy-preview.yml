@@ -1,7 +1,7 @@
 name: Deploy preview for PR
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
     # branches: [main]
   # Allow manual runs from the Actions tab
@@ -48,6 +48,9 @@ jobs:
           hugo \
             --gc \
             --minify
+
+      - name: Debug Environment Variables
+        run: env
 
 
       - name: Deploy to AWS S3 PR-specific subdirectory
