@@ -1,17 +1,15 @@
-name: Deploy Hugo site
+name: Deploy preview for PR
 
 on:
-  # Run on pushes to the default branch
-  push:
-    branches:
-      - main
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    # branches: [main]
   # Allow manual runs from the Actions tab
   workflow_dispatch:
 
-# Set permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Set permissions of the GITHUB_TOKEN
 permissions:
   contents: read
-  pages: write
   id-token: write
 
 # Allow only one concurrent deployment
@@ -25,8 +23,7 @@ defaults:
     shell: bash
 
 jobs:
-  build-and-deploy:
-    if: github.repository_owner == 'espressif'
+  build-and-deploy-preview:
     runs-on: ubuntu-latest
     steps:
 
@@ -45,34 +42,43 @@ jobs:
       - name: Build website with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
-          HUGO_ENVIRONMENT: production
-          HUGO_ENV: production
+          HUGO_ENVIRONMENT: preview
+          HUGO_ENV: preview
         run: |
           hugo \
             --gc \
             --minify
 
-      - name: Copy files to AWS S3 with AWS CLI
+      - name: Debug Environment Variables
+        run: env
+
+
+      - name: Deploy to AWS S3 PR-specific subdirectory
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --follow-symlinks --delete --exclude "persist/*"
+          args: |
+            --follow-symlinks
+            --delete
+            --cache-control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
+          AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
           SOURCE_DIR: './public'
+          # Subdirectory for the PR
+          DEST_DIR: "pr${{ github.event.pull_request.number }}"
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   invalidate-cache:
-    needs: build-and-deploy
+    needs: build-and-deploy-preview
     runs-on: ubuntu-latest
     steps:
 
-      - name: Invalidate cloudfront cache
+      - name: Invalidate CloudFront cache for PR
         uses: chetan/invalidate-cloudfront-action@v2
         env:
-          PATHS: "/*"
-          DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION }}
+          PATHS: "/pr-${{ github.event.pull_request.number }}/*"
+          DISTRIBUTION: ${{ secrets.PREVIEW_CLOUDFRONT_DISTRIBUTION }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
