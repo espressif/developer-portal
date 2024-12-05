@@ -1,9 +1,9 @@
 name: Deploy preview for PR
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    # branches: [main]
+  push:
+    branches:
+      - main
   # Allow manual runs from the Actions tab
   workflow_dispatch:
 
@@ -11,11 +11,16 @@ on:
 permissions:
   contents: read
   id-token: write
+  pull-requests: write
 
 # Allow only one concurrent deployment
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
+
+# Define environment variables
+env:
+  HUGO_BASEURL: "https://preview-developer.espressif.com/pr${{ github.event.pull_request.number }}/"
 
 # Default to bash
 defaults:
@@ -25,8 +30,6 @@ defaults:
 jobs:
   build-and-deploy-preview:
     runs-on: ubuntu-latest
-    env:
-      HUGO_BASEURL: "https://preview-developer.espressif.com/pr${{ github.event.pull_request.number }}/"
 
     steps:
 
@@ -71,11 +74,11 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.rest.issues.createComment({
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: `🎉 A preview of this PR is available at: [${process.env.HUGO_BASEURL}](${process.env.HUGO_BASEURL})`
-            });
+              body: `🎉 A preview of this PR is available at: ${{ env.HUGO_BASEURL }} `
+            })
 
   invalidate-cache:
     needs: build-and-deploy-preview
