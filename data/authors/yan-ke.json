@@ -1,0 +1,8 @@
+{
+    "name": "Yan Ke",
+    "image" : "img/authors/espressif.png",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "github": "https://github.com/YanKE01" }
+    ]
+}
