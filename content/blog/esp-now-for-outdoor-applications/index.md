@@ -42,33 +42,62 @@ Three key performance metrics were collected during testing:
 ### Wi-Fi
 
 Wi-Fi exhibited a steady degradation in performance as distance increased. In open fields, latency started at around 20 ms at 30 meters and rose to approximately 35 ms at 150 meters, while in forested areas, latency climbed more steeply, starting at 25 ms at 20 meters and reaching nearly 40 ms at 100 meters.
-Figure 2 – Measured latency of Wi-Fi
-
+{{< figure
+    default=true
+    src="img/wifi_latency.webp"
+    >}}
 Speed in open fields was strong at shorter distances, peaking at 12 Mbps at 30 meters, but declined sharply to below 6 Mbps by 150 meters. In dense forests, speeds were lower, starting at 8 Mbps at 20 meters and dropping to under 4 Mbps at 100 meters due to interference.
-Figure 3 - Measured speed of Wi-Fi
+{{< figure
+    default=true
+    src="img/wifi_speed.webp"
+    >}}
 
 Success rates in open fields remained high at close ranges but fell to around 60% by 150 meters. In forested conditions, Wi-Fi success rates declined more quickly, dropping below 50% at 80 meters, highlighting its vulnerability to obstructions. 
+{{< figure
+    default=true
+    src="img/wifi_success.webp"
+    >}}
 
 ###	ESP-NOW
 
 ESP-NOW demonstrated excellent performance for mid-range communication. Latency in open fields remained consistently low, averaging under 20 ms even at distances up to 300 meters, and stayed manageable at about 30 ms in forests at 150 meters. 
-Figure 5 - Measured latency of ESP-NOW
+{{< figure
+    default=true
+    src="img/now_latency.webp"
+    >}}
 
 Speed in open fields reached a maximum of 400 kbps at close ranges, gradually dropping to 50 kbps at 300 meters. In dense forests, speeds started at around 350 kbps at 25 meters but declined more quickly, reaching just 50 kbps by 150 meters. 
-Figure 6 - Measured latency of ESP-NOW
+{{< figure
+    default=true
+    src="img/now_speed.webp"
+    >}}
 
 Success rates in open fields were near 100% up to 150 meters, gradually dropping to 60% by 300 meters. In forested conditions, success rates declined more sharply, falling below 50% at 125 meters. Overall, ESP-NOW performed well for moderate distances and offered reasonable resilience to environmental challenges. 
+{{< figure
+    default=true
+    src="img/now_success.webp"
+    >}}
 
 ### ESP-NOW-LR
 
 ESP-NOW-LR excelled in long-range and challenging environments, showing remarkable stability over extended distances. In open fields, latency remained under 25 ms even at 900 meters, while in forests, it stayed consistent at around 30 ms up to 600 meters, despite environmental obstacles. 
-Figure 8 - Measured latency of ESP-NOW-LR
+{{< figure
+    default=true
+    src="img/now_lr_latency.webp"
+    >}}
 
 Speed in open fields started at 100 kbps at 150 meters and declined steadily to about 10 kbps at 900 meters. In dense forests, the speed remained at 80 kbps up to 200 meters but saw a sharp decline beyond 400 meters. 
-Figure 9 - Measured speed of ESP-NOW-LR
+{{< figure
+    default=true
+    src="img/now_lr_speed.webp"
+    >}}
 
-Success rates in open fields were near 100% up to 450 meters and dropped to 40% by 900 meters, while in forests, success rates followed a similar trend, starting near 100% but falling below 50% at 400 meters. These results highlight ESP-NOW-LR’s outstanding long-range performance and its ability to maintain connectivity in obstructed terrains. 
 
+Success rates in open fields were near 100% up to 450 meters and dropped to 40% by 900 meters, while in forests, success rates followed a similar trend, starting near 100% but falling below 50% at 400 meters. These results highlight ESP-NOW-LR’s outstanding long-range performance and its ability to maintain connectivity in obstructed terrains.
+{{< figure
+    default=true
+    src="img/now_lr_success.webp"
+    >}}
 
 ## Conclusion
 
