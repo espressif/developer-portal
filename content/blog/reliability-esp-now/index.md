@@ -14,7 +14,7 @@ tags:
 
 ## Introduction
 
-Department of technical cybernetics at the Faculty of Management Science and Informatics mainly focuses embedded systems and IoT networks, implementing innovative approaches in such systems. Most applications are powered by batteries, and require low power consumption and reliable data transmission. Therefore, the new wireless protocol ESP-NOW has become interesting for implementation in IoT systems. Our testing mainly focuses on reliability of data transmission in indoor smart applications.
+Department of Technical Cybernetics at the Faculty of Management Science and Informatics mainly focuses embedded systems and IoT networks, implementing innovative approaches in such systems. Most applications are powered by batteries, and require low power consumption and reliable data transmission. Therefore, the new wireless protocol ESP-NOW has become interesting for implementation in IoT systems. Our testing mainly focuses on reliability of data transmission in indoor smart applications.
 
 ## Smart applications
 
