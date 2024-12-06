@@ -39,16 +39,19 @@ Both ESP-NOW and Wi-Fi are radio-frequency communication protocols.
 
 By the motivation of research has been evaluation of range and packet loss of data transmission over time and according to placement and environment. 
 
-Our network concept consist of 8 sensor nodes based on ESP32 simulating sensor data, and central node - based on ESP32-S3 and ESP32-C6 combination.
-{{< figure
-    default=true
-    src="img/sensorNodes.webp"
-    >}}
-
+Our network concept consist of 8 sensor nodes based on ESP32 simulating sensor data, and central node - based on ESP32-S3 and ESP32-C6 combination. Block scheme is on following figure.
 {{< figure
     default=true
     src="img/conceptNodes.webp"
   >}}
+
+Architecture of network is shown on following figure.
+{{< figure
+    default=true
+    src="img/sensorNodes.webp"
+    >}}
+Sensor nodes 1-8 are sending packets to central node over ESP-NOW. This device is recieving packets, and through UART sending to transmitter, connected to network over Wi-Fi. Data are consenquently sent to Thingspeak.
+
 
 ### Methods
 
@@ -77,7 +80,7 @@ As an result, we can see following comparison of multiple nodes. On following pi
     src="img/nodes58.webp"
     >}}
 
-Best success rate - the lowest packet loss has been achieved between central unit and nodes 1,2,4,6.
+Best success rate is defined as the lowest packet loss. It has been achieved between central unit and nodes 1,2,4,6. 
 
 {{< figure
     default=true
@@ -90,3 +93,6 @@ By our meaurements we assume taht 50% of nodes are reliable, and packet loss hig
 
 As a recommendation for new large smart indoor application based on ESP-NOW protocol, we suggest to divide building to segments with highest percentage of open space, and usage of multiple central units. Also, developers should implement sophisticated software control of packet delivery and solve the issue of non-delivery status.
 
+## More informations
+
+Article has been released on DevCon 2024 - [*see more.*](https://www.youtube.com/watch?v=DatH-QUB0ho&list=PLOzvoM7_KnrdtDvNgN6b-GQ-kLppmNxab&index=27&ab_channel=EspressifSystems)
