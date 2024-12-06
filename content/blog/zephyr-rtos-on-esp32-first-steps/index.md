@@ -81,7 +81,6 @@ Here is a worthy observation: west is the tool that manages the entire life-cycl
 west init ~/zephyrproject
 cd ~/zephyrproject
 west update
-west espressif update
 ```
 
 Be patient, these last commands will fetch Zephyr’s repository and all the HALs (including Espressif’s) already ported to this RTOS. Note that we do not explicitly call a git command to clone the repositories, __west__  takes care of everything.
