@@ -13,7 +13,7 @@ tags:
 ---
 Hi everyone,
 
-Earlier this month, a workshop focusing on ESP32 applications took place in the [Milwaukee School of Engineering](http://www.msoe.edu/), a non-profit university in Winsconsin, USA. The workshop was run by Peter Haydock, founding director of [Gearbox Labs](http://gearboxlabs.org/), which produce project-based STEM and STEAM resources. The workshop was part of [Building2Learn](http://www.building2learn.org/), which is an innovative program connecting engineering, construction and manufacturing industries to Milwaukee’s next generation of talent.
+Earlier this month, a workshop focusing on ESP32 applications took place in the [Milwaukee School of Engineering](http://www.msoe.edu/), a non-profit university in Winsconsin, USA. The workshop was run by Peter Haydock, founding director of [Gearbox Labs](http://gearboxlabs.org/), which produce project-based STEM and STEAM resources. The workshop was part of Building2Learn, which is an innovative program connecting engineering, construction and manufacturing industries to Milwaukee’s next generation of talent.
 
 Through this workshop, students had the opportunity to develop academic proficiency, life skills, and career plans as they learned how to use new technologies in real work environments. Peter Haydock said after the workshop: “Seeing so many motivated future coders and engineers working on our IoT projects inspires us. We were honored to work with students on setting up their internet-connected smart-home prototypes. The [Espressif Systems](https://www.facebook.com/espressif/)[ESP32](https://www.espressif.com/en/products/socs/esp32) was perfect for their projects!”
 
