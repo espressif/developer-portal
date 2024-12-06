@@ -18,7 +18,12 @@ Department of Technical Cybernetics of Faculty of Management Science and Informa
 
 ## Smart applications
 
-Generally smart application brings up interconnection of multiple sensors via wired or wireless connection. In basic concept, system consist of measurement unit (microcontroller, microprocessor with sensors, etc.), processing unit (high performance microcontroller, single-board computer, cloud system, etc.) and actuator unit (heating, cooling, watering, etc.). By the most common smart appliances could be mentioned smart lightning, smart plugs, siol moisture monitoring, machine status monitoring or search and rescue systems.
+Generally smart application brings up interconnection of multiple sensors via wired or wireless connection. In basic concept, system consist of:
+- measurement unit (microcontroller, microprocessor with sensors, etc.), 
+- processing unit (high performance microcontroller, single-board computer, cloud system, etc.) 
+- actuator unit (heating, cooling, watering, etc.). 
+
+By the most common smart appliances could be mentioned smart lightning, smart plugs, siol moisture monitoring, machine status monitoring or search and rescue systems.
 
 ### Communication protocols 
 
@@ -35,6 +40,15 @@ Both ESP-NOW and Wi-Fi are radio-frequency communication protocols.
 By the motivation of research has been evaluation of range and packet loss of data transmission over time and according to placement and environment. 
 
 Our network concept consist of 8 sensor nodes based on ESP32 simulating sensor data, and central node - based on ESP32-S3 and ESP32-C6 combination.
+{{< figure
+    default=true
+    src="img/sensorNodes.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="img/conceptNodes.webp"
+  >}}
 
 ### Methods
 
@@ -44,12 +58,31 @@ Data has been sent to CU with period 250ms = 4 packets per second. Number of rec
 
 ### Placement
 
-Description of node placement. Picture.
+8 sensor nodes has been developed and placed over department. Each node has been sending packets to central unit. Description of placement is described on following picture.
+{{< figure
+    default=true
+    src="img/department.webp"
+    >}}
 
 ### Results
+As an result, we can see following comparison of multiple nodes. On following picture is success rate shown of nodes 1-4 and 5-8.
 
-Comparison of 1234 and 5678. Graphs.
-Best latency – the lowest packet loss has been achieved by nodes 1,2,4,6.
+{{< figure
+    default=true
+    src="img/nodes14.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="img/nodes58.webp"
+    >}}
+
+Best success rate - the lowest packet loss has been achieved between central unit and nodes 1,2,4,6.
+
+{{< figure
+    default=true
+    src="img/best.webp"
+    >}}
 
 ## Conclusion and recommendations
 
