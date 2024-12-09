@@ -32,7 +32,7 @@ based on the M5stack dial with the following features:
 
 {{< figure
     default=true
-    src="../assets/hardware.webp?a"
+    src="../assets/hardware.webp"
     >}}
 
 A YouTube video accompanies this tutorial.

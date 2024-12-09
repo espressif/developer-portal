@@ -12,10 +12,6 @@ The Bezel switch is connected to B10 (GXX) and the I/O is
 connected to A1, A2 (GXX, GYY).
 
 
-
-                                                                     3 1 M5stack Dial.png
-
-
 Start a new M5stack Dial program in Flowcode.
 Add a switch and a LED to the 2D panel and create the
 program you can see here.
@@ -34,31 +30,14 @@ when the bezel is pressed.
 Try the same program but use GPIO pins 13 and 15 rather than
 10 and 42. Does the program work?
 
-
-
-
-                                                        3 1 IO.png
-
-
-
-
-                                                                             Page #
-
-
-                                                             M5 stack dial
-3- Switch & I/O pins                                          workshop
-
-
-
-
-                          Youtube logo.png
-
+{{< figure
+    default=true
+    src="../assets/3-1-io.webp"
+    >}}
 
 
 
 A YouTube video accompanies this tutorial.
-
-
 
 
 A Flowcode example file accompanies this tutorial. This is
@@ -66,6 +45,3 @@ available from the Flowcode Wiki:
 https://www.flowcode.co.uk/wiki/index.php?
 title=Examples_and_Tutorials
 3 - Switch n IO pins.fcfx
-
-
-                          3 - switch n io pins.jpg
