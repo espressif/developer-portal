@@ -1,5 +1,9 @@
-# 6 - menu system
-
+---
+title: "Flowcode - M5 Stack Dial Workshop - Menu System"
+date: 2024-12-10
+authors:
+    - john-dobson
+---
 
 In this section we look at how you can create a menu system 6 1 allscreens.png
 

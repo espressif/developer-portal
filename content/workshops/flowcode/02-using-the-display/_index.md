@@ -1,4 +1,9 @@
-# 2 - Using the display
+---
+title: "Flowcode - M5 Stack Dial Workshop - Using the Display"
+date: 2024-12-10
+authors:
+    - john-dobson
+---
 
 In this section we show you how to use the Display
 component in Flowcode. Once you know the colours, fonts and

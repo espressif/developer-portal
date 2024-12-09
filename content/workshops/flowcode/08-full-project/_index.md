@@ -1,6 +1,9 @@
-
-# 8 - Full project
-
+---
+title: "Flowcode - M5 Stack Dial Workshop - Full Project"
+date: 2024-12-10
+authors:
+    - john-dobson
+---
 
 If you have got this far then well done. You will have learned a
 lot about embedded programming, about developing apps for

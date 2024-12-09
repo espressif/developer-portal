@@ -1,5 +1,9 @@
-# Planning
-
+---
+title: "Flowcode - M5 Stack Dial Workshop - Planning"
+date: 2024-12-10
+authors:
+    - john-dobson
+---
 
 Ok - let’s be honest. Planning is a bit of a pain. Its boring. Its
 not the fun part of the job. At the start of a project we are

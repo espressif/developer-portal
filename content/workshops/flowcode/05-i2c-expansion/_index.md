@@ -1,6 +1,9 @@
-
-# 5 - I2C expansion
-
+---
+title: "Flowcode - M5 Stack Dial Workshop - I2C Expansion"
+date: 2024-12-10
+authors:
+    - john-dobson
+---
 
 In this section we are going to read a sensor value using the
 I2C connection on the M5 Stack Dial.

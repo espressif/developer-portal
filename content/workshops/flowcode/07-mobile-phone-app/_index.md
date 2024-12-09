@@ -1,6 +1,9 @@
-
-# 7 - mobile phone app
-
+---
+title: "Flowcode - M5 Stack Dial Workshop - Mobile Phone App"
+date: 2024-12-10
+authors:
+    - john-dobson
+---
 
 In this section we look at how you can create a mobile phone
 app to control the M5stack Dial. This works on Wifi and on the

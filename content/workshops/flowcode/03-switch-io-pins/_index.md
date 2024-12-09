@@ -1,6 +1,9 @@
-
-# 3 - Switch & I/O pins
-
+---
+title: "Flowcode - M5 Stack Dial Workshop - Switch and I/O Pins"
+date: 2024-12-10
+authors:
+    - john-dobson
+---
 
 There were quite a few new concepts in the previous section.
 This section is relatively easy: we are going to look at how you

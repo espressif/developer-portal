@@ -1,15 +1,10 @@
-                    Flowcode logo full.jpg
-
-
-
-
-                          title image.jpg
-
-                                                    Espressif logo.png
-
-M5 stack logo.png
-
-# Flowcode - M5 Stack Dial Workshop
+---
+title: "Flowcode - M5 Stack Dial Workshop"
+date: 2024-12-10
+tags: ["Workshop", "Flowcode", "ESP32-S6", "GUI", "Process"]
+authors:
+    - john-dobson
+---
 
 ## Requirements
 
