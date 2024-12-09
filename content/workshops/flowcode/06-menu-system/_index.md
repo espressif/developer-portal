@@ -5,7 +5,12 @@ authors:
     - john-dobson
 ---
 
-In this section we look at how you can create a menu system 6 1 allscreens.png
+In this section we look at how you can create a menu system
+
+{{< figure
+    default=true
+    src="../assets/6-1-allscreens.webp"
+    >}}
 
 using Flowcode. To make coding easier we have a separate
 macro subroutine for each menu. One key issue here is that
@@ -13,8 +18,6 @@ you need to make sure that you close each subroutine when
 navigating between screens. using a variable flag to control
 navigation. It’s a slightly odd structure but easy enough to
 create.
-
-
 
 
 In Flowcode each screen is a separate mini subroutine
@@ -42,38 +45,37 @@ Let’s see how this works:
 
 
 The code in the main screen is shown on the left.
+
+{{< figure
+    default=true
+    src="../assets/6-2-main.webp"
+    >}}
+
 We initialise the screen and set the brightness then jump
 straight into the main   look with the Switch statement which
-                     6 3 home screen.png
 
+{{< figure
+    default=true
+    src="../assets/6-3-home-screen.webp"
+    >}}
 
 controls navigation between screens.
 
 
+{{< figure
+    default=true
+    src="../assets/6-4-code-screen.webp"
+    >}}
 
+{{< figure
+    default=true
+    src="../assets/6-5-enter-screen.webp"
+    >}}
 
-
-                6 5 enter screen.png
-              6 6 Denisl screen.png
-
-
-
-
-
-                             Youtube logo.png
-
-
-
-
-A YouTube video accompanies      this tutorial.
-                       6 - menu system.jpg
-
-
-
-
-                                           Flowcode logo.png
-
-
+{{< figure
+    default=true
+    src="../assets/6-6-denial-screen.webp"
+    >}}
 
 A Flowcode example file accompanies this tutorial. This is
 available from the Flowcode Wiki:

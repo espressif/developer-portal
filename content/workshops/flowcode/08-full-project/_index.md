@@ -26,9 +26,12 @@ Get the navigation between screens working properly.
 Get the logic for a successful combination to be entered
    properly in place.
 Get the communication between the Mobile phone and the
-   M5Stack Dial working properly.                 8 0 panel.png
+   M5Stack Dial working properly.
 
-
+{{< figure
+    default=true
+    src="../assets/8-0-panel.webp"
+    >}}
 
 This is a great creative challenge. We suggest that you alter
 the Embedded program panel to look like this:

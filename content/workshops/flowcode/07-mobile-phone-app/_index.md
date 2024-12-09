@@ -11,9 +11,12 @@ local router. Controlling the Dial from outside the range of the
 local router involves the use of a web Broker which we will not
 look at here.
 The mobile phone app will allow you to control the Dial from
-anywhere in the range of the router. 7 3 web panel.png
+anywhere in the range of the router.
 
-
+{{< figure
+    default=true
+    src="../assets/7-3-web-panel.webp"
+    >}}
 
 Phone image to create
 Flowcode Web Developer allows you to create Apps that work
@@ -38,51 +41,56 @@ Secondly Browsers can not be ‘talked to’ cold. Pages and their
 You will need to develop 2 programs: a Flowcode Embedded
   program that goes into the M5Stack Dial and a Flowcode
 
+{{< figure
+    default=true
+    src="../assets/7-1-embedded-initialise.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="../assets/7-2-htmlcallback.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="../assets/7-4-embedded-panel.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="../assets/7-5-home-screen.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="../assets/7-6-html-callback.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="../assets/7-7-fetch-for-enter.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="../assets/7-8-enterconfirmation.webp"
+    >}}
 
 
-                                                           7 4 embedded panel.png
+  content can only be fetched by browsers fromthe server.
 
+{{< figure
+    default=true
+    src="../assets/7-9-gettemp.webp"
+    >}}
 
-                                            7 1 embedded initialise.png
-
-                                                   7 5 home screen.png
-
-
-
-                                                7 6 HTML call back.png
-
-
-
-
-  7 7 fetch for enter.png
-
-
-  content can only be fetched by browsers from7the                 server.
-                                                            3 web panel.png
-
-
-   7 8 Enterconfirmation.png
-
-
-
-                                                7 9 GetTemp.png
-
-
-
-
-    7 10 SetGaugeValue.png
-
-
-
-
-                           Youtube logo.png
-
-
+{{< figure
+    default=true
+    src="../assets/7-10-setgaugevalue.webp"
+    >}}
 
 
 A YouTube video accompanies this tutorial.
-
-
 
 
 A Flowcode example file accompanies this tutorial. This is
@@ -90,6 +98,3 @@ available from the Flowcode Wiki:
 https://www.flowcode.co.uk/wiki/index.php?
 title=Examples_and_Tutorials
 7 - mobile phone app.fcfx
-
-
-                          7 - mobile phone app.jpg
