@@ -1,6 +1,6 @@
 ---
-title: "Flowcode - M5 Stack Dial Workshop - Menu System"
-date: 2024-12-10
+title: "Flowcode - M5 Stack Dial Workshop - 6. Menu System"
+date: 2024-12-09
 authors:
     - john-dobson
 ---

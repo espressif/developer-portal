@@ -1,6 +1,6 @@
 ---
-title: "Flowcode - M5 Stack Dial Workshop - Mobile Phone App"
-date: 2024-12-10
+title: "Flowcode - M5 Stack Dial Workshop - 7. Mobile Phone App"
+date: 2024-12-09
 authors:
     - john-dobson
 ---

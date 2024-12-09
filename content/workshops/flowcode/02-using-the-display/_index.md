@@ -1,6 +1,6 @@
 ---
-title: "Flowcode - M5 Stack Dial Workshop - Using the Display"
-date: 2024-12-10
+title: "Flowcode - M5 Stack Dial Workshop - 2. Using the Display"
+date: 2024-12-09
 authors:
     - john-dobson
 ---

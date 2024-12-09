@@ -1,6 +1,6 @@
 ---
 title: "Flowcode - M5 Stack Dial Workshop"
-date: 2024-12-10
+date: 2024-12-09
 tags: ["Workshop", "Flowcode", "ESP32-S6", "GUI", "Process"]
 authors:
     - john-dobson
@@ -63,11 +63,11 @@ be useful for any graphical display based project.
 
 ## Workshop Chapters
 
-- [Planning](01-planning)
-- [Using the Display](02-using-the-display)
-- [Switch and I/O Pins](03-switch-io-pins)
-- [The Bezel Encoder](04-the-bezel-encoder)
-- [I2C Expansion](05-i2c-expansion)
-- [Menu System](06-menu-system)
-- [Mobile Phone App](07-mobile-phone-app)
-- [Full Project](08-full-project)
+1. [Planning](01-planning)
+2. [Using the Display](02-using-the-display)
+3. [Switch and I/O Pins](03-switch-io-pins)
+4. [The Bezel Encoder](04-the-bezel-encoder)
+5. [I2C Expansion](05-i2c-expansion)
+6. [Menu System](06-menu-system)
+7. [Mobile Phone App](07-mobile-phone-app)
+8. [Full Project](08-full-project)

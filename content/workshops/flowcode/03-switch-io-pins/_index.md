@@ -1,6 +1,6 @@
 ---
-title: "Flowcode - M5 Stack Dial Workshop - Switch and I/O Pins"
-date: 2024-12-10
+title: "Flowcode - M5 Stack Dial Workshop - 3. Switch and I/O Pins"
+date: 2024-12-09
 authors:
     - john-dobson
 ---

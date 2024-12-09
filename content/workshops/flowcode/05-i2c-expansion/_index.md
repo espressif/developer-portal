@@ -1,6 +1,6 @@
 ---
-title: "Flowcode - M5 Stack Dial Workshop - I2C Expansion"
-date: 2024-12-10
+title: "Flowcode - M5 Stack Dial Workshop - 5. I2C Expansion"
+date: 2024-12-09
 authors:
     - john-dobson
 ---
