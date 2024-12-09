@@ -22,15 +22,12 @@ If you are implementing the door lock for real you will also need:
 - 12 or 24V power supply
 - 5V regulator board (for powering the M5Stack Dial)
 
-
 You will also need a copy of Flowcode with the ESP32 chip
 pack. Flowcode is free of charge for makers, professionals will
 need to buy a Pro license.
 
-
 The ESP chip pack costs £60 or around $80 and is available
 from the Flowcode web site: www.flowcode.co.uk.
-
 
 ## Learning outcomes
 
@@ -42,7 +39,6 @@ For Matrix customers it assumes that you have completed the
 Introduction to Microcontrollers course.
 If you complete the exercises in this workbook then it will take
 you around 20 hours. This is designed for self study.
-
 
 If you complete this workshop then will learn:
 - ESP32 programming
@@ -59,7 +55,6 @@ If you complete this workshop then will learn:
 
 Whilst this project uses the M5Stack Dial the silks learned will
 be useful for any graphical display based project.
-
 
 ## Workshop Chapters
 

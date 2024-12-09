@@ -4,7 +4,6 @@ date: 2024-12-09
 authors:
     - john-dobson
 ---
-
 Ok - let’s be honest. Planning is a bit of a pain. Its boring. Its
 not the fun part of the job. At the start of a project we are
 itching to get on with the coding, the graphics and get
@@ -14,8 +13,10 @@ But if you don’t plan then there can be all sorts of pain later:
 you end up redoing work, falling out with colleagues and
 customers, and it’s a lot less fun later on in the project.
 
-                            M5stack test screen-01.jpg
-
+{{< figure
+    default=true
+    src="../assets/m5stack-test-screen-01.webp"
+    >}}
 
 In part 1 we show you how we plan the project.
 
@@ -29,44 +30,10 @@ based on the M5stack dial with the following features:
 - Remote unlock with mobile phone
 - Weather information on mobile phone and locally
 
-
-
-
-
-                                                           Home.png
-
-
-
-                                        combo.png
-
-
-
-
-                                                                No entry.png
-
-
-
-
-                                                             unlocked.png
-
-
-
-
-                         hardware.png
-
-
-
-                           Youtube logo.png
-
-
-
+{{< figure
+    default=true
+    src="../assets/hardware.webp?a"
+    >}}
 
 A YouTube video accompanies this tutorial.
-www.youtube.com/playlist?list=XYZ
-
-
-
-
-                        1 - planning the project.jpg
-
-
+{{< youtube KdDiC8PhHD8 >}}
