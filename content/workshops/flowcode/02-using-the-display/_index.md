@@ -1,6 +1,8 @@
 ---
 title: "Flowcode - M5 Stack Dial Workshop - 2. Using the Display"
 date: 2024-12-09
+series: ["FL001"]
+series_order: 2
 authors:
     - john-dobson
 ---
@@ -106,3 +108,6 @@ https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
 
 2 - Using the display.fcfx
 
+## Next step
+
+[Assignment 3: Switch and I/O Pins](../03-switch-io-pins)

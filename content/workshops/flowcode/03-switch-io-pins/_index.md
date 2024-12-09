@@ -1,6 +1,8 @@
 ---
 title: "Flowcode - M5 Stack Dial Workshop - 3. Switch and I/O Pins"
 date: 2024-12-09
+series: ["FL001"]
+series_order: 3
 authors:
     - john-dobson
 ---
@@ -45,3 +47,7 @@ available from the Flowcode Wiki:
 https://www.flowcode.co.uk/wiki/index.php?
 title=Examples_and_Tutorials
 3 - Switch n IO pins.fcfx
+
+## Next step
+
+[Assignment 4: The Bezel Encoder](../04-the-bezel-encoder)

@@ -6,9 +6,15 @@ authors:
     - john-dobson
 ---
 
-## Requirements
 
-This set of workshops will take around 20 hours to complete.
+
+## Effort
+
+{{< alert icon="mug-hot">}}
+**This set of workshops will take around 20 hours to complete.**
+{{< /alert >}}
+
+## Requirements
 
 You will need:
 - M5Stack Dial with power lead
@@ -56,13 +62,18 @@ If you complete this workshop then will learn:
 Whilst this project uses the M5Stack Dial the silks learned will
 be useful for any graphical display based project.
 
-## Workshop Chapters
+## Agenda
 
-1. [Planning](01-planning)
-2. [Using the Display](02-using-the-display)
-3. [Switch and I/O Pins](03-switch-io-pins)
-4. [The Bezel Encoder](04-the-bezel-encoder)
-5. [I2C Expansion](05-i2c-expansion)
-6. [Menu System](06-menu-system)
-7. [Mobile Phone App](07-mobile-phone-app)
-8. [Full Project](08-full-project)
+- [Assignment 1: Planning](01-planning)
+- [Assignment 2: Using the Display](02-using-the-display)
+- [Assignment 3: Switch and I/O Pins](03-switch-io-pins)
+- [Assignment 4: The Bezel Encoder](04-the-bezel-encoder)
+- [Assignment 5: I2C Expansion](05-i2c-expansion)
+- [Assignment 6: Menu System](06-menu-system)
+- [Assignment 7: Mobile Phone App](07-mobile-phone-app)
+- [Assignment 8: Full Project](08-full-project)
+
+
+## Next step
+
+[Assignment 1: Planning](01-planning)

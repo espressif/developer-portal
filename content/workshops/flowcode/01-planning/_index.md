@@ -1,6 +1,8 @@
 ---
 title: "Flowcode - M5 Stack Dial Workshop - 1. Planning"
 date: 2024-12-09
+series: ["FL001"]
+series_order: 1
 authors:
     - john-dobson
 ---
@@ -37,3 +39,7 @@ based on the M5stack dial with the following features:
 
 A YouTube video accompanies this tutorial.
 {{< youtube KdDiC8PhHD8 >}}
+
+## Next step
+
+[Assignment 2: Using the Display](../02-using-the-display)

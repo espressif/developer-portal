@@ -1,6 +1,8 @@
 ---
 title: "Flowcode - M5 Stack Dial Workshop - 6. Menu System"
 date: 2024-12-09
+series: ["FL001"]
+series_order: 6
 authors:
     - john-dobson
 ---
@@ -83,5 +85,6 @@ https://www.flowcode.co.uk/wiki/index.php?
 title=Examples_and_Tutorials
 6 - menu system.fcfx
 
+## Next step
 
-
+[Assignment 7: Mobile Phone App](../07-mobile-phone-app)

@@ -1,6 +1,8 @@
 ---
 title: "Flowcode - M5 Stack Dial Workshop - 4. The bezel encoder"
 date: 2024-12-09
+series: ["FL001"]
+series_order: 4
 authors:
     - john-dobson
 ---
@@ -71,3 +73,7 @@ available from the Flowcode Wiki:
 https://www.flowcode.co.uk/wiki/index.php?
 title=Examples_and_Tutorials
 4 - Encoder.fcfx
+
+## Next step
+
+[Assignment 5: I2C Expansion](../05-i2c-expansion)
