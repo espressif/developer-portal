@@ -3,8 +3,7 @@ title: "Flowcode - M5 Stack Dial Workshop - 5. I2C Expansion"
 date: 2024-12-09
 series: ["FL001"]
 series_order: 5
-authors:
-    - john-dobson
+showAuthor: false
 ---
 
 In this section we are going to read a sensor value using the

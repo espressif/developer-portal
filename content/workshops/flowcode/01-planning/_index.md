@@ -3,8 +3,7 @@ title: "Flowcode - M5 Stack Dial Workshop - 1. Planning"
 date: 2024-12-09
 series: ["FL001"]
 series_order: 1
-authors:
-    - john-dobson
+showAuthor: false
 ---
 Ok - let’s be honest. Planning is a bit of a pain. Its boring. Its
 not the fun part of the job. At the start of a project we are

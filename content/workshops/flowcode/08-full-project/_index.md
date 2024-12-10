@@ -3,8 +3,7 @@ title: "Flowcode - M5 Stack Dial Workshop - 8. Full Project"
 date: 2024-12-09
 series: ["FL001"]
 series_order: 8
-authors:
-    - john-dobson
+showAuthor: false
 ---
 
 If you have got this far then well done. You will have learned a

@@ -3,8 +3,7 @@ title: "Flowcode - M5 Stack Dial Workshop - 3. Switch and I/O Pins"
 date: 2024-12-09
 series: ["FL001"]
 series_order: 3
-authors:
-    - john-dobson
+showAuthor: false
 ---
 
 There were quite a few new concepts in the previous section.

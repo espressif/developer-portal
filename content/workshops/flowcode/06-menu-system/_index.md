@@ -3,8 +3,7 @@ title: "Flowcode - M5 Stack Dial Workshop - 6. Menu System"
 date: 2024-12-09
 series: ["FL001"]
 series_order: 6
-authors:
-    - john-dobson
+showAuthor: false
 ---
 
 In this section we look at how you can create a menu system

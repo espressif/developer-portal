@@ -3,8 +3,7 @@ title: "Flowcode - M5 Stack Dial Workshop - 2. Using the Display"
 date: 2024-12-09
 series: ["FL001"]
 series_order: 2
-authors:
-    - john-dobson
+showAuthor: false
 ---
 
 In this section we show you how to use the Display

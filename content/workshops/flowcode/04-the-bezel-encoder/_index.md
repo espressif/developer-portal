@@ -3,8 +3,7 @@ title: "Flowcode - M5 Stack Dial Workshop - 4. The bezel encoder"
 date: 2024-12-09
 series: ["FL001"]
 series_order: 4
-authors:
-    - john-dobson
+showAuthor: false
 ---
 
 The bezel encoder feeds into two inputs - GPIO 40 and 41.
