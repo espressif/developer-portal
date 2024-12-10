@@ -154,7 +154,7 @@ Currently there are two ESP32 ports of MCUboot that can be used in Zephyr RTOS.
 ```mermaid
 flowchart TD
 	ROM .->|load| FP0;
-	BL2 .->|load/map| FP1;
+	BL2 .->|load| FP1;
 	APP .->|load/map| FP1;
 	ROM ==> BL2;
 	subgraph RC ["ROM code"];
@@ -191,31 +191,75 @@ typedef struct esp_image_load_header {
 
 Additional information on the flash and/or SPIRAM regions are provided as a linker symbols and are embedded inside the application image.
 
+
 ## Building
 
 Following is the description of some basic build steps so you can create the images and scenarios discussed in this article at home.
 
 But first lets talk briefly about how the link process utilize the SRAM memory on the ESP32-S3. Note, that different Espressif SoCs have different memory layout.
 
+
 ### Memory utilization
 
-Bellow is the image which illustrates how the application linking is done. Highlighted are details of ROM code usage in SRAM1, and I-Cache, D-Cache placement.
-The illustration is covering an single CPU scenario and does not cover the AMP case.
+Following images illustrates how the application linking is done. Highlighted are details of ROM code usage in SRAM1, and I-Cache, D-Cache placement.
+
+
+#### ESP32-S3 use-case
+
+Here we are using the ESP32-S3 as reference platfor to illustrate the memory utilization, which is **suitable as an reference for majority of newer SoCs**.
 
 - Yellow hatched area is the memory that can't be rewritten during the 2nd stage loading (it can be re-claimed during the runtime)
 - Orange hatched area is the memory that can be re-claimed after the application loading is done.
 - Red hatched areas are the memory parts that are not available for the user and should be avoided by the linker.
 
+The following picture illustrates the memory utilization for an single CPU scenario.
+
 {{< figure
     default=true
-    src="img/esp32s3-zephyr-memory-usage.webp"
+    src="img/esp32s3-zephyr-memory-default.webp"
     alt=""
-    caption="The ESP32-S3 memory utilization."
+    caption="The ESP32-S3 'default' memory utilization."
     >}}
+
+
+The following picture illustrates the memory utilization for a multi CPU scenario.
+
+{{< figure
+    default=true
+    src="img/esp32s3-zephyr-memory-amp.webp"
+    alt=""
+    caption="The ESP32-S3 'AMP' memory utilization."
+    >}}
+
 
 ***NOTE:***
 *The I-Cache allocation SRAM blocks (0,1) are set by the **`PMS_INTERNAL_SRAM_ICACHE_USAGE`** bits
 and the D-Cache allocation SRAM blocks (9,10) are set by the **`PMS_INTERNAL_SRAM_DCACHE_USAGE`** bits, both in the register `PMC_INTERNAL_SRAM_USAGE_1_REG`*
+
+
+#### ESP32 use-case
+
+Here is the memory utilization for the ESP32 platform as its memory model is significantly different from other SoCs in the ESP line.
+
+Following illustration is covering an single CPU scenario.
+
+{{< figure
+    default=true
+    src="img/esp32-zephyr-memory-default.webp"
+    alt=""
+    caption="The ESP32 'default' memory layout."
+    >}}
+
+
+Following picture illustrates the memory utilization in the multi CPU scenario.
+
+{{< figure
+    default=true
+    src="img/esp32-zephyr-memory-amp.webp"
+    alt=""
+    caption="The ESP32-S3 'AMP' memory layout."
+    >}}
+
 
 ### Tooling - esptool.py
 
@@ -346,6 +390,7 @@ I (205) heap_runtime: ESP heap runtime init at 0x3fca4f70 size 273 kB.
 *** Booting Zephyr OS build (tainted) v3.7.0-5030-ge7db0f8aff81 ***
 uart:~$
 ```
+
 
 ### MCUboot Espressif port (EP)
 
