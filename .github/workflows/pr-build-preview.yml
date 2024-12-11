@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 env:
-  HUGO_BASEURL: "https://preview-developer.espressif.com/pr${{ github.event.pull_request.number }}/"
+  HUGO_BASEURL: "https://preview-developer.espressif.com/"
 
 jobs:
   build-preview:
@@ -34,16 +34,35 @@ jobs:
           HUGO_ENV: preview
         run: |
           hugo \
-            --baseURL ${{ env.HUGO_BASEURL }} \
+            --baseURL "${{ env.HUGO_BASEURL }}pr${{ github.event.pull_request.number }}/" \
             --gc \
             --minify
 
       - name: Print preview link to PR
         run: |
-          echo "Preview link ${{ env.HUGO_BASEURL }}"
+          echo "Preview link ${{ env.HUGO_BASEURL }}pr${{ github.event.pull_request.number }}/"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: public-folder
           path: ./public
+
+      - name: Publish index.xml
+        if: success()
+        run: |
+          if [ -f ./public/index.xml ]; then
+            echo "Contents of index.xml:"
+            cat ./public/index.xml
+          else
+            echo "index.xml not found in ./public"
+          fi
+
+      - name: Create PR number file
+        run: echo "${{ github.event.pull_request.number }}" > pr-num.txt
+
+      - name: Upload PR number artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-num
+          path: pr-num.txt
