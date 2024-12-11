@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  HUGO_BASEURL: "https://preview-developer.espressif.com/pr${{ github.event.workflow_run.pull_requests[0].number }}/"
+  HUGO_BASEURL: "https://preview-developer.espressif.com/"
 
 jobs:
   deploy-preview:
@@ -27,7 +27,21 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
 
     steps:
-      - name: Download artifacts
+      - name: Download artifacts (PR number file)
+        uses: actions/download-artifact@v4
+        with:
+          name: pr-num
+          path: ./
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read PR number from file
+        id: read-pr-num
+        run: |
+          echo "PR_NUMBER=$(cat pr-num.txt)" >> $GITHUB_ENV
+          echo ${{ env.PR_NUMBER }}
+
+      - name: Download artifacts (Public folder)
         uses: actions/download-artifact@v4
         with:
           name: public-folder
@@ -42,7 +56,7 @@ jobs:
         env:
           AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
           SOURCE_DIR: './public'
-          DEST_DIR: "pr${{ github.event.workflow_run.pull_requests[0].number }}"
+          DEST_DIR: "pr${{ env.PR_NUMBER }}"
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -53,16 +67,16 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             github.rest.issues.createComment({
-              issue_number: ${{ github.event.workflow_run.pull_requests[0].number }},
+              issue_number: ${{ env.PR_NUMBER }},
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `🎉 A preview for this PR is available at: ${{ env.HUGO_BASEURL }}`
+              body: `🎉 A preview for this PR is available at: ${{ env.HUGO_BASEURL }}pr${{ env.PR_NUMBER }}/`
             });
 
       - name: Invalidate CloudFront cache for PR
         uses: chetan/invalidate-cloudfront-action@v2
         env:
-          PATHS: "/pr-${{ github.event.workflow_run.pull_requests[0].number }}/*"
+          PATHS: "/pr${{ env.PR_NUMBER }}/*"
           DISTRIBUTION: ${{ secrets.PREVIEW_CLOUDFRONT_DISTRIBUTION }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
