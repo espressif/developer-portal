@@ -38,12 +38,17 @@ jobs:
             --gc \
             --minify
 
-      - name: Print preview link to PR
-        run: |
-          echo "Preview link ${{ env.HUGO_BASEURL }}"
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: public-folder
           path: ./public
+
+      - name: Create PR number file
+        run: echo "${{ github.event.pull_request.number }}" > pr-num.txt
+
+      - name: Upload PR number artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-num
+          path: pr-num.txt
