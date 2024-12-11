@@ -1,0 +1,83 @@
+name: Deploy preview for PR
+
+on:
+  workflow_run:
+    workflows:
+      - "Build preview for PR"
+    types:
+      - completed
+
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+env:
+  HUGO_BASEURL: "https://preview-developer.espressif.com/"
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Download artifacts (PR number file)
+        uses: actions/download-artifact@v4
+        with:
+          name: pr-num
+          path: ./
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read PR number from file
+        id: read-pr-num
+        run: |
+          echo "PR_NUMBER=$(cat pr-num.txt)" >> $GITHUB_ENV
+          echo ${{ env.PR_NUMBER }}
+
+      - name: Download artifacts (Public folder)
+        uses: actions/download-artifact@v4
+        with:
+          name: public-folder
+          path: ./public
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to AWS S3 PR-specific subdirectory
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks --delete --cache-control no-cache
+        env:
+          AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
+          SOURCE_DIR: './public'
+          DEST_DIR: "pr${{ env.PR_NUMBER }}"
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Post Preview Link to PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: ${{ env.PR_NUMBER }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🎉 A preview for this PR is available at: ${{ env.HUGO_BASEURL }}pr${{ env.PR_NUMBER }}/`
+            });
+
+      - name: Invalidate CloudFront cache for PR
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          PATHS: "/pr${{ env.PR_NUMBER }}/*"
+          DISTRIBUTION: ${{ secrets.PREVIEW_CLOUDFRONT_DISTRIBUTION }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
