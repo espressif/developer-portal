@@ -7,6 +7,9 @@ on:
 permissions:
   contents: read
 
+env:
+  HUGO_BASEURL: "https://preview-developer.espressif.com/pr${{ github.event.pull_request.number }}/"
+
 jobs:
   build-preview:
     runs-on: ubuntu-latest
@@ -31,11 +34,16 @@ jobs:
           HUGO_ENV: preview
         run: |
           hugo \
+            --baseURL ${{ env.HUGO_BASEURL }} \
             --gc \
             --minify
 
+      - name: Print preview link to PR
+        run: |
+          echo "Preview link ${{ env.HUGO_BASEURL }}"
+
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: public-folder
           path: ./public
