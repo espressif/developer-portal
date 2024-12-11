@@ -26,11 +26,21 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
 
     steps:
+      # - name: Download artifacts
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: public-folder
+      #     path: ./public
+
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
+          workflow: ${{ github.event.workflow_run.head_branch }}
+          workflow_conclusion: success
           name: public-folder
           path: ./public
+          # run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to AWS S3 PR-specific subdirectory
         uses: jakejarvis/s3-sync-action@master
