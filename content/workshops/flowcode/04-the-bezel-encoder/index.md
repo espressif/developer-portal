@@ -26,15 +26,21 @@ Add an Encoder and connect it to B.9 (GPIO41) and B.8
 (GPIO40). Alter the properties as you can see in the image
 here.
 
-Your panel should look like this:
-
-
-Alter your program so that it looks like the flow chart here.
-
 {{< figure
     default=true
     src="../assets/4-1-encoder-properties.webp"
     >}}
+
+Your panel should look like this:
+
+{{< figure
+    default=true
+    src="../assets/4-2-encoder-panel.webp"
+    >}}
+
+
+Alter your program so that it looks like the flow chart here.
+
 
 Note that you will need to set up an Interrupt Macro with just
 one command in it.
@@ -45,10 +51,6 @@ the display by altering the encoder counter to reset when the
 Bezel switch is pressed. You can use the Encoder hardware
 macro ‘Resetcounter’ for this.
 
-{{< figure
-    default=true
-    src="../assets/4-2-encoder-panel.webp"
-    >}}
 
 
 {{< figure
@@ -65,6 +67,25 @@ macro ‘Resetcounter’ for this.
     default=true
     src="../assets/4-4-bezel-program-c.webp"
     >}}
+
+This program sets up interrupts for the
+GPIO pins 40 and 41 - the internal Bezel connections. The interrupts call the
+Encoderint macro which just checks for
+changes on the Encoder.
+
+{{< figure
+    default=true
+    src="../assets/4-5-bezel-program-c.webp"
+    >}}
+
+Alter your program so that it looks like the flow chart here.
+
+Note that you will need to set up an Interrupt Macro with just one command in it.
+
+## Over to you
+
+Combine the functionality of the Bezel encoder, the switch and the display by altering the encoder counter to reset when the Bezel switch is pressed. You can use the Encoder hardware macro ‘Resetcounter’ for this.
+
 
 ## Video
 

@@ -30,33 +30,38 @@ cycle. This structure might be a little unfamiliar to some
 engineers, but it is actually really flexible and it allows us to
 prevent while loops from not being closed - and hence the
 microcontroller subroutine stack clean - good coding practice.
+
 At the core of this is a Switch or Case statement in the Main
 macro. This is driven by numbers so we declare some global
 constants representing the screens as follows:
-Home screen              0        HOMESCREEN
-Code entry screen        1        CODESCREEN
-Enter screen        2        ENTERSCREEN
-Denial Screen            3        DENIALSCREEN
+
+
+| Screen| number| Constants|
+|-------|-------|----------|
+|Home screen| 0| HOMESCREEN|
+|Code entry screen| 1| CODESCREEN|
+|Enter screen| 2| ENTERSCREEN|
+|Denial Screen| 3| DENIALSCREEN|
+
 Let’s see how this works:
-
-
-The code in the main screen is shown on the left.
-
 {{< figure
     default=true
     src="../assets/6-2-main.webp"
     >}}
-
-We initialise the screen and set the brightness then jump
-straight into the main   look with the Switch statement which
-
 {{< figure
     default=true
     src="../assets/6-3-home-screen.webp"
     >}}
 
+We initialise the screen and set the brightness then jump
+straight into the main   look with the Switch statement which
 controls navigation between screens.
 
+In the Homescreen macro we print a message on the screen and then wait for the Bezel stiwch to be pressed. Remember that the swith is active low - it gives logic 0 when pressed so the test in the If statement is ‘Bezelswitch=0’.The Newscreen variable is altered to be the CODESCREEN.
+
+You can see the other three macros for the other menus here. The code is similar to the Home screen.
+
+So this program just cycles between the screens on the press of the Bezel switch.
 
 {{< figure
     default=true
@@ -72,6 +77,20 @@ controls navigation between screens.
     default=true
     src="../assets/6-6-denial-screen.webp"
     >}}
+
+## Over to You
+
+We will not ask you to construct this program from scratch as there are now quite a few elements to it. Instead open the “6 - driving a menu.fcfx” Flowcode file and download it to your M5 stack Dial. Make sure that you can get it working and that you understand the program.
+
+In this example we simply navigated between the screens, one after the other, using the bezel switch. In practice you might want a slightly different menu system driven from the front panel using the bezel encoder to select the screen that will be navigated to and the Bezel switch to make the selection. To implement this:
+
+Alter the Home screen so that it prints ENTER, CODE, DENIAL above each other on the M5 Stack Dial.
+- Print these in white text to start with.
+- Modify the program to select the value of a new variable, Nextcreen, between 1 and 3
+- Overprint the ENTER, CODE, DENIAL text with red text as the encoder cycles the value of Nextscreen. Overprint in white the screen text as it is deselected.
+- When the bezel switch is pressed change the program so that it navigates to the selected screen.
+
+Now you understand how to do menu selection with the bezel encoder and switch. You can use this simple technique to implement your own menu selection system.
 
 ## Video
 

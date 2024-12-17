@@ -20,12 +20,14 @@ This is a simple program that reads the value of the switch on
 the bezel (B10 or GPIO42) and sends it to the pins on A1 and
 A4 (GPIO10 and GPIO2). You can simulate this and you can
 check it works by sending it to your hardware.
+
 So what?
+
 You will notice that the switch logic is reversed: when the bezel
 is pressed the input at Port B10 (GPIO42) goes low.
 
+## Over to you
 
-Over to you:
 Modify the program so that the output stays on for 5 seconds
 when the bezel is pressed.
 Try the same program but use GPIO pins 13 and 15 rather than

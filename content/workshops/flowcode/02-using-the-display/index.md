@@ -38,15 +38,15 @@ get the correct settings.
     src="../assets/2-2-backlight-properties.webp"
     >}}
 
+If you need more information then you can left
+click on the display and click on HELP to get
+more information from the Flowcode Wiki.
 
 {{< figure
     default=true
     src="../assets/2-3-display-properties-1.webp"
     >}}
 
-If you need more information then you can left click on the
-display and click on HELP to get more information from the
-Flowcode Wiki.
 
 Notice that we have not got the exact fonts that we wanted -
 Flowcode does not include all fonts - although more can be
@@ -67,6 +67,10 @@ made - but the fonts that we have should be fine.
     src="../assets/2-6-display-properties-4.webp"
     >}}
 
+You can also set up the Bitmap drawer. This
+will need the central graphic copying to the
+same directory as the Flowcode file so that it
+simulates properly.
 
 {{< figure
     default=true
@@ -90,14 +94,44 @@ made - but the fonts that we have should be fine.
     src="../assets/2-10-constants.webp"
     >}}
 
+## Over to you
+
+Now that you understand the basics of how to control
+the graphics and text you can complete the design of the first
+screen using the specification:
+
+Download the program to the M5 stack dial and check is all works ok!
+Note that if you want to you can also create your program in C code or in Pseudocode:
+
 {{< figure
     default=true
     src="../assets/2-11-pseudocode.webp"
     >}}
 
+Open the program ‘Using the display.fcfx’ and
+download it to your M5 stack Dial.
+
+- Use Flowcode to create the Home screen you can
+see here.
+
+- Make sure you include the light purple cross hatch - you may want to make a separate macro to print
+those.
+
+{{< figure
+    default=true
+    src="../assets/2-12-c-code.webp"
+    >}}
+
+- You will need to have the bitmap ‘M5Stack Lock
+Test Purple.bmp’ in the same directory as the
+Flowcode program.
+
+
+
 ## Video
 
 {{< youtube A0fKmmufJRk >}}
+
 
 ## Resources
 
