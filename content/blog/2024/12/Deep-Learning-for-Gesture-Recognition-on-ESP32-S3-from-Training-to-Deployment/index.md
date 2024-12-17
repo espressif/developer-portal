@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning for Gesture Recognition on ESP32-S3: From Training to Deployment"
-date: 2024-11-30
+date: 2024-12-17
 showAuthor: false
 authors:
   - gao-jiaxuan
