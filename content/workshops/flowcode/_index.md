@@ -62,6 +62,10 @@ If you complete this workshop then will learn:
 Whilst this project uses the M5Stack Dial the silks learned will
 be useful for any graphical display based project.
 
+## Video
+
+{{< youtube Wd_M4lUPpI4 >}}
+
 ## Agenda
 
 - [Assignment 1: Planning](01-planning)

@@ -66,6 +66,9 @@ macro ‘Resetcounter’ for this.
     src="../assets/4-4-bezel-program-c.webp"
     >}}
 
+## Video
+
+{{< youtube dVPpjeCYYsE >}}
 
 A Flowcode example file accompanies this tutorial. This is
 available from the Flowcode Wiki:

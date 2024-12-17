@@ -36,8 +36,9 @@ based on the M5stack dial with the following features:
     src="../assets/hardware.webp"
     >}}
 
-A YouTube video accompanies this tutorial.
-{{< youtube KdDiC8PhHD8 >}}
+## Video
+
+{{< youtube gjOI7aVCoqA >}}
 
 ## Next step
 

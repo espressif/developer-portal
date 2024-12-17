@@ -38,7 +38,9 @@ Try the same program but use GPIO pins 13 and 15 rather than
 
 
 
-A YouTube video accompanies this tutorial.
+## Video
+
+{{< youtube zbe-uf5mFSo >}}
 
 
 A Flowcode example file accompanies this tutorial. This is

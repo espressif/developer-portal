@@ -91,8 +91,13 @@ You will need to develop 2 programs: a Flowcode Embedded
     >}}
 
 
-A YouTube video accompanies this tutorial.
+## Video
 
+{{< youtube hX9Ko3KUDQc >}}
+
+### Mobile Phone App
+
+{{< youtube YRs97dLiSgU >}}
 
 A Flowcode example file accompanies this tutorial. This is
 available from the Flowcode Wiki:

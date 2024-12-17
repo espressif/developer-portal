@@ -40,11 +40,6 @@ Denial Screen            3        DENIALSCREEN
 Let’s see how this works:
 
 
-
-
-
-
-
 The code in the main screen is shown on the left.
 
 {{< figure
@@ -77,6 +72,10 @@ controls navigation between screens.
     default=true
     src="../assets/6-6-denial-screen.webp"
     >}}
+
+## Video
+
+{{< youtube 8z-WcH0wGcY >}}
 
 A Flowcode example file accompanies this tutorial. This is
 available from the Flowcode Wiki:

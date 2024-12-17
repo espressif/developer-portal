@@ -98,7 +98,10 @@ change.
     src="../assets/5-4-temp-hum-program.webp"
     >}}
 
-A YouTube video accompanies this tutorial.
+## Video
+
+{{< youtube U0qznFTGxDU >}}
+
 A Flowcode example file accompanies this tutorial. This is
 available from the Flowcode Wiki:
 https://www.flowcode.co.uk/wiki/index.php?

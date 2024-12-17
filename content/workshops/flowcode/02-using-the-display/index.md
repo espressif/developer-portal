@@ -95,11 +95,11 @@ made - but the fonts that we have should be fine.
     src="../assets/2-11-pseudocode.webp"
     >}}
 
+## Video
+
+{{< youtube A0fKmmufJRk >}}
+
 ## Resources
-
-
-A YouTube video accompanies this tutorial.
-
 
 A Flowcode example file accompanies this tutorial. This is
 available from the Flowcode Wiki:
