@@ -23,4 +23,4 @@ cascade:
   showTableOfContents : true
 ---
 
-Welcome to the Espressif workshops! Here you can find workshops prepared by Espressif to the community.
+Welcome to the Espressif workshops! Here you can find workshops prepared by Espressif and partners for the community.
