@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  TARGET_REPO_URL: https://github.com/espressif/developer-portal.git
+  TARGET_BRANCH: main
+
 jobs:
   check-links:
     runs-on: ubuntu-latest
@@ -18,13 +22,17 @@ jobs:
       - name: Set environment variables
         id: set-env
         run: |
+          # Add target remote and fetch its branches
+          git remote add target ${{ env.TARGET_REPO_URL }}
+          git fetch target ${{ env.TARGET_BRANCH }}
+
           # Extract the base commit ID where the feature branch diverged from main
-          base_commit=$(git merge-base origin/main ${{ github.event.pull_request.head.ref }})
-          echo "base_commit=$base_commit" >> $GITHUB_ENV
+          base_commit=$(git merge-base target/${{ env.TARGET_BRANCH }} ${{ github.event.pull_request.head.ref }})
+          echo "BASE_COMMIT=$base_commit" | tee -a $GITHUB_ENV
 
           # Extract the head commit ID on the feature branch
           head_commit=${{ github.event.pull_request.head.sha }}
-          echo "head_commit=$head_commit" >> $GITHUB_ENV
+          echo "HEAD_COMMIT=$head_commit" | tee -a $GITHUB_ENV
 
       - name: Create baseline branch by reverting feature branch changes
         run: |
@@ -32,7 +40,7 @@ jobs:
           git checkout -b feature-baseline
 
           # Reset the new branch to the base commit
-          git reset --hard ${{ env.base_commit }}
+          git reset --hard ${{ env.BASE_COMMIT }}
 
       - name: Dump all links from feature-baseline
         uses: lycheeverse/lychee-action@v2.0.2
@@ -51,14 +59,11 @@ jobs:
       - name: Append links-baseline.txt to .lycheeignore
         run: cat links-baseline.txt >> .lycheeignore
 
-      - name: Print .lycheeignore
-        run: cat .lycheeignore
-
       - name: Dump names of files altered in PR and append hash sign to find links with anchors
         run: |
-          git diff --name-only --diff-filter=DM ${{ env.base_commit }} ${{ env.head_commit }} > altered-files.txt
+          git diff --name-only --diff-filter=DM ${{ env.BASE_COMMIT }} ${{ env.HEAD_COMMIT }} > altered-files.txt
           sed -i 's|$|#|' altered-files.txt
-          git diff --name-status --diff-filter=R ${{ env.base_commit }} ${{ env.head_commit }} | awk '{print $2}' > renamed-files.txt
+          git diff --name-status --diff-filter=R ${{ env.BASE_COMMIT }} ${{ env.HEAD_COMMIT }} | awk '{print $2}' > renamed-files.txt
           sed -i 's|$|#|' renamed-files.txt
 
       - name: Print altered-files.txt
