@@ -1,0 +1,19 @@
+name: Clean up after closed PR
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  clean-up-after-closed-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create PR number remove file
+        run: echo "${{ github.event.pull_request.number }}" > pr-num-rm.txt
+
+      - name: Upload PR number remove artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-num-rm
+          path: pr-num-rm.txt
