@@ -135,11 +135,12 @@ Flowcode program.
 
 ## Resources
 
-A Flowcode example file accompanies this tutorial. This is
-available from the Flowcode Wiki:
-https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
+A Flowcode example file accompanies this tutorial:
+- [2 - Using the display.fcfx](https://www.flowcode.co.uk/wiki/images/b/b7/2_-_Using_the_display.fcfx)
 
-2 - Using the display.fcfx
+
+Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
+).
 
 ## Next step
 

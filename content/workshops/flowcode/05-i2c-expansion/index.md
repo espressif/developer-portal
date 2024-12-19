@@ -89,11 +89,14 @@ Then develop the program you can see below.
 
 {{< youtube U0qznFTGxDU >}}
 
-A Flowcode example file accompanies this tutorial. This is
-available from the Flowcode Wiki:
-https://www.flowcode.co.uk/wiki/index.php?
-title=Examples_and_Tutorials
-5 - I2C expansion.fcfx
+## Resources
+
+A Flowcode example file accompanies this tutorial:
+- [5 - Expanding with I2C.fcfx](https://www.flowcode.co.uk/wiki/images/7/7a/5_-_Expanding_with_I2C.fcfx)
+
+
+Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
+).
 
 ## Next step
 

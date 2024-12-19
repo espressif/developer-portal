@@ -45,11 +45,14 @@ Try the same program but use GPIO pins 13 and 15 rather than
 {{< youtube zbe-uf5mFSo >}}
 
 
-A Flowcode example file accompanies this tutorial. This is
-available from the Flowcode Wiki:
-https://www.flowcode.co.uk/wiki/index.php?
-title=Examples_and_Tutorials
-3 - Switch n IO pins.fcfx
+## Resources
+
+A Flowcode example file accompanies this tutorial:
+- [3 - Using the IO.fcfx](https://www.flowcode.co.uk/wiki/images/1/1b/3_-_Using_the_IO.fcfx)
+
+
+Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
+).
 
 ## Next step
 

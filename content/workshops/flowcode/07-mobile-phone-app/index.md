@@ -181,11 +181,15 @@ Alter the text in the message box on the mobile phone so that it displays a diff
 
 {{< youtube YRs97dLiSgU >}}
 
-A Flowcode example file accompanies this tutorial. This is
-available from the Flowcode Wiki:
-https://www.flowcode.co.uk/wiki/index.php?
-title=Examples_and_Tutorials
-7 - mobile phone app.fcfx
+## Resources
+
+A Flowcode example file accompanies this tutorial:
+- [7 - Connecting to web - Embedded.fcfx](https://www.flowcode.co.uk/wiki/images/3/36/7_-_Connecting_to_web_FE.fcfx)
+- [7 - Connecting to web - Web Developer.fcfx](https://www.flowcode.co.uk/wiki/images/9/93/7_-_Connecting_to_web_FWD.fcsx)
+
+
+Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
+).
 
 ## Next step
 

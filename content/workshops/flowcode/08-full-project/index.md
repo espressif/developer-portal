@@ -45,6 +45,18 @@ the Embedded program panel to look like this:
 
 {{< youtube gjOI7aVCoqA >}}
 
+## Resources
+
+A Flowcode example file accompanies this tutorial:
+- [Full project - Embedded.fcfx](https://www.flowcode.co.uk/wiki/images/c/c2/Full_project_-_FE.fcfx)
+- [Full Project - Web Developer.fcfx](https://www.flowcode.co.uk/wiki/images/b/b0/Full_project_-_FWD.fcsx)
+
+
+Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
+).
+
+## Further reading
+
 We hope that you have enjoyed this course.
 
 Additional free courses that are available from the Flowcode team are:

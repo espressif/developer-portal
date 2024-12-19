@@ -91,11 +91,14 @@ Combine the functionality of the Bezel encoder, the switch and the display by al
 
 {{< youtube dVPpjeCYYsE >}}
 
-A Flowcode example file accompanies this tutorial. This is
-available from the Flowcode Wiki:
-https://www.flowcode.co.uk/wiki/index.php?
-title=Examples_and_Tutorials
-4 - Encoder.fcfx
+## Resources
+
+A Flowcode example file accompanies this tutorial:
+- [4 - Using the encoder.fcfx](https://www.flowcode.co.uk/wiki/images/2/25/4_-_Using_the_encoder.fcfx)
+
+
+Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
+).
 
 ## Next step
 
