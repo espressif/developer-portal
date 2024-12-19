@@ -1,5 +1,5 @@
 ---
-title: "Flowcode - M5 Stack Dial Workshop - 7. Mobile Phone App"
+title: "Flowcode - M5 Stack Dial Workshop - 7. Connecting to the web"
 date: 2024-12-09
 series: ["FL001"]
 series_order: 7
@@ -40,8 +40,11 @@ then the returning HTML content can be the temperature
 value - or status of a switch etc. That allows us to have two
 way communication - but only instigated by the Javascript
 program in the browser on - in this case - the mobile phone.
-- You will need to develop 2 programs: a Flowcode Embedded
-program that goes into the M5Stack Dial and a Flowcode
+- You will need to develop 2 programs: a Flowcode Embedded program that goes into the M5Stack Dial and a Flowcode Web Developer program that runs on your mobile phone.
+
+The Flowcode Embedded and Flowcode Web Developer programs are quite unfamiliar so its best to download the examples and work through them rather than create them from scratch.
+
+Firstly lets look at the Flowcode Embedded program “[7 - Connecting to web FE.fcfx](https://www.flowcode.co.uk/wiki/images/3/36/7_-_Connecting_to_web_FE.fcfx)”. Here is the panel:
 
 {{< figure
     default=true
@@ -52,7 +55,8 @@ This builds on the panels in the previous programs. To the panel we have added a
 
 We need to pass information to and from the M5stack Dial Embedded system and the mobile phone. So how do we do this? Here is the strategy:
 
-Embedded system initialisation
+## Embedded system initialisation
+
 1. Connect to the wifi.
 2. Router assigns an IP address – in this case automatically assigned to 192.168.1.141 (you will have a slightly different number).
 3. Create a socket for communications to take place
@@ -75,13 +79,6 @@ Embedded system initialisation
 {{< figure
     default=true
     src="../assets/7-1-embedded-initialise.webp"
-    >}}
-
-This shows the Main routine in the embedded system:
-
-{{< figure
-    default=true
-    src="../assets/7-2-htmlcallback.webp"
     >}}
 
 We initialise the Wifi component and connect to the Router. This is a standard domestic Router and you will need to enter your Wifi network and password details.
@@ -113,35 +110,37 @@ If “gettemp.htm” is fetched then the temperature sensors is read, converted 
 Lets now look at the Web Developer program that creates the Javascript file:
 
 The Web Developer program panel looks like this:
-It contains an Enter button, A text field, A HTTP Fetch command component - FetchForEnter - a read Temp button, a
-
-Dial indicator and a second HTTP Fetch component FetchForReadTemp.
-
-{{< figure
-    default=true
-    src="../assets/7-7-fetch-for-enter.webp"
-    >}}
-
-The Enter button calls the Macro Enter:
-The Enter macro calls the HTTP
-Fetch component FetchForEnter.
-This sends a page request to the
-server for page “http://192.168.1.141/enter.htm” which is
-set as a property of the FetchForEnter component.
 
 {{< figure
     default=true
     src="../assets/7-3-web-panel.webp"
     >}}
 
-FetchForEnter component.has as a property the EnterConfirmation macro which is called after the Fetch is executed. Any returning HTML - in this case the confirmation text - is passed to the EnterConfirmation macro as a parameter.
+It contains an Enter button, A text field, A HTTP Fetch command component - FetchForEnter - a read Temp button, a
 
-The EnterConfirmation macro sets the text field to the HTML returned by the FetchForEnter call, then it waits 4seconds and sets the text field to “Locked”.
+Dial indicator and a second HTTP Fetch component FetchForReadTemp.
+
+The Enter button calls the Macro Enter:
+
+{{< figure
+    default=true
+    src="../assets/7-7-fetch-for-enter.webp"
+    >}}
+
+The Enter macro calls the HTTP
+Fetch component FetchForEnter.
+This sends a page request to the
+server for page “http://192.168.1.141/enter.htm” which is
+set as a property of the FetchForEnter component.
+
+FetchForEnter component.has as a property the EnterConfirmation macro which is called after the Fetch is executed. Any returning HTML - in this case the confirmation text - is passed to the EnterConfirmation macro as a parameter.
 
 {{< figure
     default=true
     src="../assets/7-8-enterconfirmation.webp"
     >}}
+
+The EnterConfirmation macro sets the text field to the HTML returned by the FetchForEnter call, then it waits 4seconds and sets the text field to “Locked”.
 
 Similarly the ReadTemp macro calls the macro GetTemp. This
 simply calls the HTTP Fetch component FetchForReadTemp
@@ -173,13 +172,11 @@ Expand both programs so that the Humidity is also read from the SHT31 and displa
 
 Alter the text in the message box on the mobile phone so that it displays a different message
 
-## Video
+## Video and example files
 
 {{< youtube hX9Ko3KUDQc >}}
 
 ### Mobile Phone App
-
-## Video and example files
 
 {{< youtube YRs97dLiSgU >}}
 

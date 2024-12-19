@@ -6,8 +6,6 @@ authors:
     - john-dobson
 ---
 
-
-
 ## Effort
 
 {{< alert icon="mug-hot">}}
@@ -74,7 +72,7 @@ be useful for any graphical display based project.
 - [Assignment 4: The Bezel Encoder](04-the-bezel-encoder)
 - [Assignment 5: I2C Expansion](05-i2c-expansion)
 - [Assignment 6: Menu System](06-menu-system)
-- [Assignment 7: Mobile Phone App](07-mobile-phone-app)
+- [Assignment 7: Connecting to the web](07-connecting-to-the-web)
 - [Assignment 8: Full Project](08-full-project)
 
 

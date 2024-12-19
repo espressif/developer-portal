@@ -6,20 +6,18 @@ series_order: 6
 showAuthor: false
 ---
 
-In this section we look at how you can create a menu system
-
 {{< figure
     default=true
     src="../assets/6-1-allscreens.webp"
     >}}
 
+In this section we look at how you can create a menu system
 using Flowcode. To make coding easier we have a separate
 macro subroutine for each menu. One key issue here is that
 you need to make sure that you close each subroutine when
 navigating between screens. using a variable flag to control
 navigation. It’s a slightly odd structure but easy enough to
 create.
-
 
 In Flowcode each screen is a separate mini subroutine
 program or ‘macro’ with an endless While loop. The navigation
@@ -48,6 +46,9 @@ Let’s see how this works:
     default=true
     src="../assets/6-2-main.webp"
     >}}
+
+The code in the main screen is shown here.
+
 {{< figure
     default=true
     src="../assets/6-3-home-screen.webp"
@@ -105,4 +106,4 @@ Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title
 
 ## Next step
 
-[Assignment 7: Mobile Phone App](../07-mobile-phone-app)
+[Assignment 7: Connecting to the web](../07-connecting-to-the-web)
