@@ -1,0 +1,10 @@
+{
+    "name": "John Dobson",
+    "bio": "Flowcode project manager at Matrix Technology Solutions Ltd.",
+    "social": [
+      {
+        "link": "https://www.flowcode.co.uk"
+      }
+    ],
+    "image" : "img/authors/john-dobson.webp"
+}
