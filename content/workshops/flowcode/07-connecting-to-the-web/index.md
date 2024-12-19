@@ -63,15 +63,15 @@ We need to pass information to and from the M5stack Dial Embedded system and the
 
 ## Controlling the state of an output on an embedded system
 
-1. Mobile phone browser requests page “192.168.1. 141/Enter.html”.
-2. Embedded system detects “192.168.1. 141/Enter.html” request.
+1. Mobile phone browser requests page “192.168.1.141/Enter.html”.
+2. Embedded system detects “192.168.1.141/Enter.html” request.
 3. Embedded system navigates to the Enter screen macro and the door is opened for 4 seconds
 4. Embedded system responds with “Door opened”
 
 ## Getting a temperature variable from the embedded system
 
-1. Client browser requests page “192.168.1. 141/gettemp.html”.
-2. Embedded system detects “192.168.1. 141/gettemp.html” request in the HTML Callback macro
+1. Client browser requests page “192.168.1.141/gettemp.html”.
+2. Embedded system detects “192.168.1.141/gettemp.html” request in the HTML Callback macro
 3. Embedded system takes temperature sample from SHT31 sensor.
 4. Embedded system responds with the relevant data served HTML
 5. Client browser picks up the HTML data and displays it on the mobile phone
@@ -130,7 +130,7 @@ The Enter button calls the Macro Enter:
 The Enter macro calls the HTTP
 Fetch component FetchForEnter.
 This sends a page request to the
-server for page “http://192.168.1.141/enter.htm” which is
+server for page “192.168.1.141/enter.htm” which is
 set as a property of the FetchForEnter component.
 
 FetchForEnter component.has as a property the EnterConfirmation macro which is called after the Fetch is executed. Any returning HTML - in this case the confirmation text - is passed to the EnterConfirmation macro as a parameter.
@@ -144,7 +144,7 @@ The EnterConfirmation macro sets the text field to the HTML returned by the Fetc
 
 Similarly the ReadTemp macro calls the macro GetTemp. This
 simply calls the HTTP Fetch component FetchForReadTemp
-which accesses the page “http://192.168.1.141/gettemp.htm”
+which accesses the page “192.168.1.141/gettemp.htm”
 which is set as a property of the FetchForReadTemp component.
 The FetchForReadTemp component.has as a property the
 SetGaugeValue macro which is called after the Fetch is executed.
