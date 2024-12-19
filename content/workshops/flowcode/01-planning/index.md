@@ -40,7 +40,7 @@ Actually what we really want to do is teach you how to create a project based on
 - [Assignment 4: The Bezel Encoder](../04-the-bezel-encoder)
 - [Assignment 5: I2C Expansion](../05-i2c-expansion)
 - [Assignment 6: Menu System](../06-menu-system)
-- [Assignment 7: Connecting to the web](07-connecting-to-the-web)
+- [Assignment 7: Connecting to the web](../07-connecting-to-the-web)
 - [Assignment 8: Full Project](../08-full-project)
 
 ### Graphic designer’s brief
