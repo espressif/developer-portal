@@ -41,11 +41,9 @@ final design you need to do the following:
 This is a great creative challenge. We suggest that you alter
 the Embedded program panel to look like this:
 
-## Video
+## Video and example files
 
 {{< youtube gjOI7aVCoqA >}}
-
-## Resources
 
 A Flowcode example file accompanies this tutorial:
 - [Full project - Embedded.fcfx](https://www.flowcode.co.uk/wiki/images/c/c2/Full_project_-_FE.fcfx)

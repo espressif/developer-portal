@@ -9,13 +9,15 @@ showAuthor: false
 There were quite a few new concepts in the previous section.
 This section is relatively easy: we are going to look at how you
 can use the Bezel switch and the general purpose I/O.
-The Bezel switch is connected to B10 (GXX) and the I/O is
-connected to A1, A2 (GXX, GYY).
+
+The Bezel switch is connected to B10 (GPIO42) and the I/O is
+connected to A1, A2 (GPIO1, GPIO2).
 
 
 Start a new M5stack Dial program in Flowcode.
 Add a switch and a LED to the 2D panel and create the
 program you can see here.
+
 This is a simple program that reads the value of the switch on
 the bezel (B10 or GPIO42) and sends it to the pins on A1 and
 A4 (GPIO10 and GPIO2). You can simulate this and you can
@@ -38,14 +40,9 @@ Try the same program but use GPIO pins 13 and 15 rather than
     src="../assets/3-1-io.webp"
     >}}
 
-
-
-## Video
+## Video and example file
 
 {{< youtube zbe-uf5mFSo >}}
-
-
-## Resources
 
 A Flowcode example file accompanies this tutorial:
 - [3 - Using the IO.fcfx](https://www.flowcode.co.uk/wiki/images/1/1b/3_-_Using_the_IO.fcfx)

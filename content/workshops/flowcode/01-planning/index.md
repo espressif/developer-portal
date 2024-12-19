@@ -67,6 +67,10 @@ As you can see we have taken the opportunity to draw a pixel grid on the diagram
 
 We also need to plan our menu and functionality. Once we have the main screen done this easily falls out of the design and we get the following screens:
 
+When the user presses the bezel from the home screen they
+can enter a combination. This graphic defines the elements
+on that screen.
+
 {{< figure
     default=true
     src="../assets/combo.webp"
@@ -162,7 +166,7 @@ SPI bus with the following connections:
 - Reset A8 (GPIO8)
 - Backlight A9 (GPIO9)
 - Bezel switch B10 (GPIO5)
-- Buzzer A3 (GPIO)
+- Buzzer A3 (GPIO3)
 - Bezel encoder
 - A B9 (GPIO41)
 - B B8 (GPIO40)

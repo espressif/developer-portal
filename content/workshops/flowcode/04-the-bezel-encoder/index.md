@@ -39,33 +39,10 @@ Your panel should look like this:
     >}}
 
 
-Alter your program so that it looks like the flow chart here.
-
-
-Note that you will need to set up an Interrupt Macro with just
-one command in it.
-
-Over to you:
-Combine the functionality of the Bezel encoder, the switch and
-the display by altering the encoder counter to reset when the
-Bezel switch is pressed. You can use the Encoder hardware
-macro ‘Resetcounter’ for this.
-
-
 
 {{< figure
     default=true
     src="../assets/4-3-bezel-program-a.webp"
-    >}}
-
-{{< figure
-    default=true
-    src="../assets/4-4-bezel-program-b.webp"
-    >}}
-
-{{< figure
-    default=true
-    src="../assets/4-4-bezel-program-c.webp"
     >}}
 
 This program sets up interrupts for the
@@ -73,25 +50,22 @@ GPIO pins 40 and 41 - the internal Bezel connections. The interrupts call the
 Encoderint macro which just checks for
 changes on the Encoder.
 
+Alter your program so that it looks like the flow chart here.
+
+Note that you will need to set up an Interrupt Macro with just one command in it.
+
 {{< figure
     default=true
     src="../assets/4-5-bezel-program-c.webp"
     >}}
 
-Alter your program so that it looks like the flow chart here.
-
-Note that you will need to set up an Interrupt Macro with just one command in it.
-
 ## Over to you
 
 Combine the functionality of the Bezel encoder, the switch and the display by altering the encoder counter to reset when the Bezel switch is pressed. You can use the Encoder hardware macro ‘Resetcounter’ for this.
 
-
-## Video
+## Video and example file
 
 {{< youtube dVPpjeCYYsE >}}
-
-## Resources
 
 A Flowcode example file accompanies this tutorial:
 - [4 - Using the encoder.fcfx](https://www.flowcode.co.uk/wiki/images/2/25/4_-_Using_the_encoder.fcfx)

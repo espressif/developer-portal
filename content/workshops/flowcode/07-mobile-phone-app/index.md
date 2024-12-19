@@ -179,9 +179,9 @@ Alter the text in the message box on the mobile phone so that it displays a diff
 
 ### Mobile Phone App
 
-{{< youtube YRs97dLiSgU >}}
+## Video and example files
 
-## Resources
+{{< youtube YRs97dLiSgU >}}
 
 A Flowcode example file accompanies this tutorial:
 - [7 - Connecting to web - Embedded.fcfx](https://www.flowcode.co.uk/wiki/images/3/36/7_-_Connecting_to_web_FE.fcfx)

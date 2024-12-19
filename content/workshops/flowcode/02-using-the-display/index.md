@@ -14,7 +14,7 @@ right places.
 
 One of the great features of Flowcode is that you can simulate
 the graphical display on screen - this saves hours of coding
-time.                                             2 0 candy.png
+time.
 
 {{< figure
     default=true
@@ -22,7 +22,7 @@ time.                                             2 0 candy.png
     >}}
 
 First set up the panel in Flowcode as above:
-PWM channel connected to PortA.9 (GPIO XX)
+PWM channel connected to PortA.9 (GPIO9)
 This allows us to control the brightness of the display.
 
 {{< figure
@@ -83,6 +83,8 @@ simulates properly.
     src="../assets/2-8-first-flowchart.webp"
     >}}
 
+The flowchart you can see above will produce the screen you can see below.
+
 {{< figure
     default=true
     src="../assets/2-9-first-sim.webp"
@@ -126,14 +128,9 @@ those.
 Test Purple.bmp’ in the same directory as the
 Flowcode program.
 
-
-
-## Video
+## Video and example file
 
 {{< youtube A0fKmmufJRk >}}
-
-
-## Resources
 
 A Flowcode example file accompanies this tutorial:
 - [2 - Using the display.fcfx](https://www.flowcode.co.uk/wiki/images/b/b7/2_-_Using_the_display.fcfx)

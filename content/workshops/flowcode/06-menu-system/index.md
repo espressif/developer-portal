@@ -92,11 +92,9 @@ Alter the Home screen so that it prints ENTER, CODE, DENIAL above each other on 
 
 Now you understand how to do menu selection with the bezel encoder and switch. You can use this simple technique to implement your own menu selection system.
 
-## Video
+## Video and example file
 
 {{< youtube 8z-WcH0wGcY >}}
-
-## Resources
 
 A Flowcode example file accompanies this tutorial:
 - [6 - Driving a menu.fcfx](https://www.flowcode.co.uk/wiki/images/0/05/6_-_Driving_a_menu.fcfx)

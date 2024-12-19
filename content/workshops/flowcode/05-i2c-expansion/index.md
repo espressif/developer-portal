@@ -44,18 +44,23 @@ You should have a panel that looks like this:
 
 Add two variables of type INT: Temperature and Humidity.
 
+{{< figure
+    default=true
+    src="../assets/5-3-variables.webp"
+    >}}
+
 Then develop the program you can see below.
+
+{{< figure
+    default=true
+    src="../assets/5-4-temp-hum-program.webp"
+    >}}
 
 The program is easy to read but there are a few things of note:
 
 The program initialises the display and the SHT31 sensor.
 Initialisation is used on many components to set up registers
 inside the microcontroller.
-
-{{< figure
-    default=true
-    src="../assets/5-3-variables.webp"
-    >}}
 
 When reading and display a value like this one issue you have
 is that you are writing new numbers on top of old ones. When
@@ -66,34 +71,14 @@ rectangle of the background colour (black here).
 
 ## Over to you
 
-In practice the temperature and humidity are quantities that
-change very slowly. So there is no need to constantly rewrite
+In practice the temperature and humidity are quantities that change very slowly. So there is no need to constantly rewrite the values on the screen. Develop a program that only redraws the values when they change.
 
-Start with the program you made in the previous section.
-
-Add a SHT31 Temp / Humidity sensor from the Sensors
-component section.
-Adjust its properties as you can see here:
-
-
-You should have a panel that looks like this:
-Add two variables of type INT: Temperature and Humidity.
-Then develop the program you can see below.
-
-{{< figure
-    default=true
-    src="../assets/5-4-temp-hum-program.webp"
-    >}}
-
-## Video
+## Video and example file
 
 {{< youtube U0qznFTGxDU >}}
 
-## Resources
-
 A Flowcode example file accompanies this tutorial:
 - [5 - Expanding with I2C.fcfx](https://www.flowcode.co.uk/wiki/images/7/7a/5_-_Expanding_with_I2C.fcfx)
-
 
 Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title=Examples_and_Tutorials
 ).
