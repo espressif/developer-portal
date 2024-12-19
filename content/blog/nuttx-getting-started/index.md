@@ -193,9 +193,10 @@ git clone https://github.com/apache/nuttx-apps apps
 
 ### Building an App to Connect to a Wi-Fi network
 
-NuttX provides ready-to-use board default configurations that enable the required config (from Kconfig) for a use scenario, such as Wi-Fi or I2C. You can list all available configurations for the ESP32 DevKitC V4 board using the following command, inside the NuttX directory:
+NuttX provides ready-to-use board default configurations that enable the required config (from Kconfig) for a use scenario, such as Wi-Fi or I2C. To enter NuttX directory and list all available configurations for the ESP32 DevKitC V4 board you can use the following command:
 
 ```bash
+cd nuttx
 ./tools/configure.sh -L | grep esp32-devkitc
 ```
 
