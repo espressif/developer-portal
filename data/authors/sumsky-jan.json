@@ -1,0 +1,11 @@
+{
+  "name": "Ján Šumský",
+  "image": "img/authors/sumsky-jan.webp",
+  "bio": "PhD candidate at Faculty of Management Science and Informatics, University of Žilina",
+  "social": [
+    {
+      "linkedin": "https://www.linkedin.com/in/jan-sumsky/"
+    },
+    { "github": "https://github.com/jansumsky" }
+  ]
+}
