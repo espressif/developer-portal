@@ -80,4 +80,10 @@ Let’s go through an example, say there are following roles:
 
 The typical workflow looks like:
 
+1. Vendor A is a CSA member and has enrolled its public key to write to DCL. A makes a Matter Bulb B, and uses CSA’s DCL server to add B’s information to DCL.
+2. Vendor A sends some Bulbs to Test House T. T performs the Matter certification tests on B and sends the test results to CSA. CSA checks the test results. If they pass, CSA adds the compliance status for Bulb B in DCL.
+3. Consumer C buys a Bulb B from the market. C commissions the Bulb B using the commissioner from Ecosystem G, so B joins G’s Matter fabric and works together with other devices in the same fabric. The commissioner consults the DCL for the certification status of Bulb B during commissioning.
+4. Someday, A implements a cool feature for Bulb B. A adds the new software version information in DCL. G has Matter OTA provider support in their device, so it can assist B to finish the OTA process.
+5. Someday, C is interested in some services provided by Ecosystem H. C commissions the Bulb B to H’s fabric. Then Bulb B can work together with both Ecosystem G and H natively.
+
 Consumer C enjoys all these seamlessly.
