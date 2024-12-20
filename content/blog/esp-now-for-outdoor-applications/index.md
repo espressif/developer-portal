@@ -1,6 +1,6 @@
 ---
 title: "Exploring wireless communication protocols on ESP32 platform for outdoor applications"
-date: 2024-12-06
+date: 2024-12-20
 showAuthor: false         # Hide default Espressif author
 authors:
   - "gancarcik-samuel"

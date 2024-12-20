@@ -1,6 +1,6 @@
 ---
 title: "Data transmission reliability over ESP-NOW protocol in indoor environment"
-date: 2024-12-06
+date: 2024-12-19
 showAuthor: false         # Hide default Espressif author
 authors:
   - "kubascik-michal"        # List your name(s)
