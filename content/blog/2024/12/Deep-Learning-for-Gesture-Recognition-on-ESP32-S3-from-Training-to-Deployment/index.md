@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning for Gesture Recognition on ESP32-S3: From Training to Deployment"
-date: 2024-12-19
+date: 2024-12-21
 showAuthor: false
 featureAsset: "img/features.webp"
 authors:
@@ -229,6 +229,7 @@ Model quantization serves as a critical bridge between high-precision deep learn
 ### Quantization Implementations
 
 #### Standard 8-bit Quantization
+
 The baseline implementation provides straightforward integer quantization while maintaining exceptional model accuracy. This approach represents the most fundamental form of quantization, converting floating-point weights and activations to 8-bit integers. The implementation leverages the PPQ framework's espdl_quantize_onnx function, which handles the intricate process of determining optimal quantization parameters through calibration. The calibration process takes 50 steps to balance comprehensive parameter estimation and computational efficiency:
 
 ```python
@@ -246,10 +247,11 @@ graph = espdl_quantize_onnx(
 
 {{< figure
     default=true
-    src="img/trying-1.webp"
+    src="img/8bit_quantization.webp"
     >}}
 
 #### Layerwise Equalization Quantization
+
 This method solves the common challenge of different weight distributions between different network layers by applying equalization techniques. Through extensive experiments and parameter adjustments (the comparison process and data are not detailed here), the implementation has been improved to achieve the best performance. The equalization setting covers multiple aspects of the quantization process, including bias handling and activation scaling:
 
 ```python
@@ -264,7 +266,13 @@ setting.equalization_setting.including_act = True
 setting.equalization_setting.act_multiplier = 0.5
 ```
 
+{{< figure
+    default=true
+    src="img/Layerwise_Equalization_quantization.webp"
+    >}}
+
 #### Mixed-Precision Quantization
+
 The mixed-precision approach represents the most nuanced quantization strategy, enabling precision customization for critical layers while maintaining efficiency in others. To apply 16-bit quantization, select layers with significantly higher Layerwise quantization errors under 8-bit quantization compared to other layers. This implementation recognizes that not all layers in a neural network require the same level of numerical precision. By strategically assigning higher precision to the initial convolutional layer and clipping operation, the approach preserves critical feature extraction capabilities while allowing more aggressive compression in later layers where precision is less crucial:
 
 ```python
@@ -276,7 +284,13 @@ for layer in ["/first/first.0/Conv", "/first/first.2/Clip"]:
     )
 ```
 
+{{< figure
+    default=true
+    src="img/16bit_quantization.webp"
+    >}}
+
 ### Error Analysis and Performance Validation
+
 The quantization process requires careful analysis of error patterns and performance metrics to ensure optimal deployment outcomes. The validation framework implements a comprehensive assessment approach that examines both computational efficiency and accuracy retention. This dual focus ensures that the quantized model meets both the resource constraints of the target platform and the accuracy requirements of the application. The testing process utilizes a robust evaluation methodology that processes batches of test data while measuring both inference time and prediction accuracy:
 
 ```python
@@ -301,7 +315,8 @@ def evaluate_quantized_model(graph, test_loader, y_test):
     return avg_time, accuracy
 ```
 
-## Conclusion
+### Conclusion
+
 The evaluation showed that 8-bit quantization and Layerwise Equalization Quantization exhibited varying quantization errors across different layers—some layers demonstrated lower errors with 8-bit quantization, while others performed better with Layerwise Equalization Quantization. However, these differences were minor and did not significantly impact overall performance. Mixed-precision quantization achieved the lowest overall error, but due to the limitations of the esp-ppq version available at the time, which did not support 16-bit quantization on the ESP32-S3, 8-bit quantization was selected for deployment. It is worth noting that the latest version of esp-ppq now supports 16-bit quantization, though this functionality has not yet been tested in this context.
 
 ## Resource-Constrained Deployment
@@ -385,15 +400,27 @@ These settings ensure stable communication during both development and deploymen
 
 The deployment process requires proper USB driver installation for device communication. The CH340/CH341 driver installation process follows system-specific procedures, ensuring reliable device connectivity.
 
+The deployment process requires proper installation of the USB driver to enable seamless device communication. For the CH340/CH341 driver, system-specific installation procedures must be followed to ensure reliable connectivity.
+
 ## Experimental Results
 
-The gesture recognition system on ESP32-S3 performs well in multiple metrics, such as accuracy and model running time. Quantitative and qualitative evaluations are performed.
+The gesture recognition system on the ESP32-S3 demonstrates strong performance across multiple metrics, including accuracy and model runtime. A qualitative evaluation was conducted to further validate its effectiveness.
 
-The baseline model (prior to quantization) established high accuracy across eight gesture classes, particularly distinguishing distinct gestures like 'palm' and 'fist'. This floating-point model served as a benchmark for subsequent optimizations.
+The pre-quantization model exhibited high accuracy across eight gesture categories, effectively distinguishing between gestures such as "palm" and "fist." This floating-point model serves as the baseline for subsequent optimization steps.
 
-After quantization, the mixed-precision approach balanced resource use and recognition accuracy effectively. INT8 quantization minimized model size, while selectively using 16-bit precision in key layers maintained feature discrimination. Equalization-aware quantization helped keep consistent performance across all gestures.
+After applying INT8 quantization, the model size was significantly reduced while maintaining high accuracy. Gesture images from the dataset were accurately recognized, and even images sourced from the Internet performed well after preprocessing.
 
-On the ESP32-S3, the optimized model achieved moderate power consumption and efficient memory use, leveraging both internal RAM and PSRAM effectively. These results confirm that the optimization strategies are suitable for deploying advanced gesture recognition on resource-constrained platforms.
+{{< figure
+    default=true
+    src="img/from_dataset.webp"
+    >}}
+
+{{< figure
+    default=true
+    src="img/from_Internet.webp"
+    >}}
+
+On the ESP32-S3 platform, the optimized model achieved moderate power consumption and efficient memory utilization, leveraging both internal RAM and PSRAM effectively. These results demonstrate that the adopted optimization strategy is well-suited for deploying advanced gesture recognition systems on resource-constrained hardware platforms. 
 
 ## References
 
