@@ -16,9 +16,9 @@ Integrating deep learning capabilities into embedded systems has become a crucia
 
 __*This article provides an overview of the complete development process for a gesture recognition system, encompassing dataset preparation, model training, and deployment.*__
 
-*The content is organized into five main sections. The first section, "System Design," outlines the overall system architecture and development environment. The second section, "Model Development," addresses the design of the network architecture and the training strategy. The third section discusses techniques for "Quantization Optimization." The fourth section focuses on "Resource-Constrained Deployment," and the final section presents a comprehensive analysis of experimental results.*
+*The content is organized into five main sections. The first section, "System Architecture and Configuration," outlines the overall system architecture and development environment. The second section, "Model Development," addresses the design of the network architecture and the training strategy. The third section discusses techniques for "Quantization Optimization." The fourth section focuses on "Resource-Constrained Deployment," and the final section presents a comprehensive analysis of experimental results.*
 
-## System Design
+## System Architecture and Configuration
 
 The gesture recognition system is built upon the ESP32-S3 platform, leveraging its computational capabilities and memory resources for deep learning inference. The system architecture encompasses both hardware and software components, carefully designed to achieve optimal performance within the constraints of embedded deployment.
 
@@ -81,72 +81,160 @@ ESP_LOGI(TAG, "Available PSRAM: %u bytes", free_mem);
 
 This comprehensive system design forms the foundation for subsequent model development and deployment stages, ensuring robust performance within the constraints of embedded hardware. The careful consideration of memory management and environment configuration is crucial for successful deep learning deployment on resource-constrained devices.
 
-## Model Development
+## LightGestureNet Model Training
 
-The gesture recognition model employs a lightweight architecture optimized for embedded deployment while maintaining high accuracy. Based on MobileNetV2's inverted residual blocks, the network architecture, termed LightGestureNet, is specifically designed for efficient execution on the ESP32-S3 platform.
+### Model Architecture Overview
 
-The model architecture processes grayscale images of size 96x96 pixels and classifies them into eight distinct gesture classes. The network structure begins with an initial convolutional layer, followed by a series of inverted residual blocks, and concludes with a classifier layer. The implementation details are illustrated in the following code:
-
-```python
-first_layer = Conv2d(1, 16, 3, stride=2)
-inverted_residual_blocks = [
-    (16, 24, stride=2, expand_ratio=6),
-    (24, 24, stride=1, expand_ratio=6),
-    (24, 32, stride=2, expand_ratio=6),
-    (32, 32, stride=1, expand_ratio=6)
-]
-classifier = Linear(32, num_classes=8)
-```
-
-The initial convolutional layer processes single-channel grayscale input with 16 output channels and a stride of 2. The inverted residual blocks follow a systematic pattern of channel expansion and compression, with carefully chosen stride values to control spatial dimension reduction. The expand ratio of 6 in each block provides a balance between model capacity and computational efficiency.
-
-The training process incorporates comprehensive data preprocessing and augmentation strategies. Input images undergo several transformations including resizing to 96x96 pixels, grayscale conversion, and normalization to the [0,1] range. Data augmentation techniques enhance model robustness through random rotation, scaling, and translation operations.
-
-The training configuration utilizes the Adam optimizer with an initial learning rate of 0.001, implementing cosine annealing for learning rate decay. The following code demonstrates the model loading and inference process:
+LightGestureNet is designed as a lightweight convolutional neural network for gesture recognition, drawing inspiration from MobileNetV2's efficient architecture. Here's a detailed look at the implementation:
 
 ```python
-import torch
-from model import LightGestureNet
-
-model = LightGestureNet()
-model.load_state_dict(torch.load('gesture_model.pth'))
-model.eval()
-
-input_tensor = torch.randn(1, 1, 96, 96)
-output = model(input_tensor)
+class LightGestureNet(nn.Module):
+    def __init__(self, num_classes=8):
+        super().__init__()
+        
+        # Initial convolution layer with batch normalization
+        self.first = nn.Sequential(
+            nn.Conv2d(1, 16, 3, 2, 1, bias=False),  # Input: 96x96, Output: 48x48
+            nn.BatchNorm2d(16),
+            nn.ReLU6(inplace=True)  # ReLU6 prevents numerical instability
+        )
+        
+        # Main feature extraction layers using inverted residuals
+        self.layers = nn.Sequential(
+            InvertedResidual(16, 24, 2, 6),  # Output: 24x24
+            InvertedResidual(24, 24, 1, 6),  # Maintains spatial dimensions
+            InvertedResidual(24, 32, 2, 6),  # Output: 12x12
+            InvertedResidual(32, 32, 1, 6)   # Final feature maps
+        )
+        
+        # Classification head
+        self.classifier = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),  # Global pooling to 1x1
+            nn.Flatten(),
+            nn.Linear(32, num_classes)  # Final classification
+        )
 ```
 
-For deployment flexibility, the model supports multiple export formats. The ONNX format enables cross-platform inference capabilities, as demonstrated in the following implementation:
+The architecture begins with a single input channel for grayscale images and gradually increases the feature depth while reducing spatial dimensions. The initial convolution layer reduces the spatial dimensions by half while increasing the channel count to 16. The network then employs a series of inverted residual blocks, where each block first expands the channels (multiply by 6) for better feature extraction, then performs depthwise convolution, and finally projects back to a smaller channel count. This expand-reduce pattern has been proven effective for maintaining model expressiveness while reducing parameters.
+
+The inverted residual blocks are implemented as follows:
 
 ```python
-import onnxruntime
-
-session = onnxruntime.InferenceSession('gesture_model.onnx')
-
-input_name = session.get_inputs()[0].name
-output = session.run(None, {input_name: input_array})
+class InvertedResidual(nn.Module):
+    def __init__(self, in_c, out_c, stride, expand_ratio):
+        super().__init__()
+        hidden_dim = in_c * expand_ratio
+        self.use_res = stride == 1 and in_c == out_c  # Enable residual only when dimensions match
+        
+        layers = []
+        if expand_ratio != 1:
+            # Expansion phase: increase channels for better feature extraction
+            layers.extend([
+                nn.Conv2d(in_c, hidden_dim, 1, bias=False),  # 1x1 pointwise conv
+                nn.BatchNorm2d(hidden_dim),
+                nn.ReLU6(inplace=True)
+            ])
+            
+        # Depthwise separable convolution for efficient spatial processing
+        layers.extend([
+            nn.Conv2d(hidden_dim, hidden_dim, 3, stride, 1, groups=hidden_dim, bias=False),
+            nn.BatchNorm2d(hidden_dim),
+            nn.ReLU6(inplace=True),
+            # Projection phase: reduce channels back using 1x1 conv
+            nn.Conv2d(hidden_dim, out_c, 1, bias=False),
+            nn.BatchNorm2d(out_c)
+        ])
+        self.conv = nn.Sequential(*layers)
 ```
 
-The ONNX runtime session initialization creates an optimized execution environment for the model. The inference process requires proper input name extraction and tensor formatting to ensure correct model execution.
+The InvertedResidual block implements the expand-reduce pattern with three main components: channel expansion, depthwise convolution, and channel reduction. This design significantly reduces the number of parameters while maintaining model capacity. The use of groups=hidden_dim in the depthwise convolution ensures each channel is processed independently, reducing computational complexity.
 
-The gesture classification system encompasses eight distinct classes, mapped through a standardized dictionary:
+### Dataset Preparation and Augmentation
+
+The dataset implementation focuses on efficient data handling and robust augmentation. Here's the detailed implementation:
 
 ```python
-CLASS_NAMES = {
-    0: 'palm',
-    1: 'l',
-    2: 'fist',
-    3: 'thumb',
-    4: 'index',
-    5: 'ok',
-    6: 'c',
-    7: 'down'
-}
+class GestureDataset(Dataset):
+    def __init__(self, X, y, transform=None):
+        # Ensure proper dimensionality for PyTorch
+        self.X = torch.FloatTensor(X).unsqueeze(1)  # Shape: (N, 1, 96, 96)
+        self.y = torch.LongTensor(y)                # Shape: (N,)
+        self.transform = transform
+    
+    def __getitem__(self, idx):
+        image = self.X[idx]
+        label = self.y[idx]
+        
+        if self.transform:
+            image = self.transform(image)
+            
+        return image, label
+
+# Comprehensive augmentation pipeline
+train_transform = transforms.Compose([
+    transforms.RandomRotation(90),         # Handles various hand orientations
+    transforms.RandomAffine(
+        0,                                # No additional rotation in affine
+        scale=(0.8, 1.2),                # Size variation for scale invariance
+        translate=(0.2, 0.2)             # Position invariance
+    ),
+    transforms.RandomHorizontalFlip(),     # Handles left/right hand variations
+    transforms.RandomVerticalFlip()        # Additional orientation robustness
+])
 ```
 
-This class mapping ensures consistent interpretation of model outputs across different deployment scenarios. 
+The dataset class handles the crucial task of preparing our data for training. The unsqueeze(1) operation adds a channel dimension to our grayscale images, converting them from (96, 96) to (1, 96, 96) to match PyTorch's expected format. The transform pipeline is particularly comprehensive, designed to create a robust model that can handle real-world variations in gesture presentations. Each transformation serves a specific purpose: RandomRotation handles different hand orientations, RandomAffine with scaling helps with varying distances from the camera, and the flips help with different viewing angles and hand variations.
 
-The model development phase establishes a robust foundation for subsequent quantization and deployment stages, achieving an optimal balance between recognition accuracy and computational efficiency within the constraints of embedded systems.
+### Training Configuration and Optimization
+
+The training configuration implements carefully chosen initialization strategies and optimization parameters:
+
+```python
+def weight_init(m):
+    if isinstance(m, nn.Conv2d):
+        # He initialization for ReLU-based networks
+        init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+        # fan_out preserves magnitudes in the backward pass
+        if m.bias is not None:
+            init.constant_(m.bias, 0)
+    elif isinstance(m, nn.BatchNorm2d):
+        # Initialize BatchNorm to be initially identity transform
+        init.constant_(m.weight, 1)
+        init.constant_(m.bias, 0)
+    elif isinstance(m, nn.Linear):
+        # Xavier initialization for the final linear layer
+        init.xavier_normal_(m.weight)
+        if m.bias is not None:
+            init.constant_(m.bias, 0)
+
+# Training configuration
+model = LightGestureNet().to(device)
+criterion = nn.CrossEntropyLoss()  # Suitable for multi-class classification
+optimizer = optim.Adam(
+    model.parameters(),
+    lr=0.001,          # Conservative initial learning rate
+)
+# Cosine annealing for better convergence
+scheduler = optim.lr_scheduler.CosineAnnealingLR(
+    optimizer,
+    T_max=num_epochs
+)
+model.apply(weight_init)  # Apply custom initialization
+```
+
+The weight initialization strategy is carefully designed for each layer type. Convolutional layers use He initialization, which is particularly suitable for ReLU-based networks as it prevents vanishing gradients in deep networks. BatchNorm layers are initialized to initially perform an identity transformation, allowing the network to learn the optimal normalization parameters during training. The final linear layer uses Xavier initialization, which is suitable for the classification head where the activation function is not ReLU.
+
+The Adam optimizer is chosen for its adaptive learning rate properties, making it robust to the choice of initial learning rate. The cosine annealing learning rate scheduler provides a smooth transition from higher to lower learning rates, helping the model converge to better minima. This combination of initialization strategies and optimization choices helps ensure stable and efficient training.
+
+### Training Process and Monitoring
+
+The training process incorporates strategic monitoring mechanisms to optimize model performance. Training and validation accuracy thresholds are set at 95-99% and 90-98% respectively, with a maximum allowable difference to prevent overfitting. An early stopping mechanism with 5 epochs patience period automatically halts training when validation loss plateaus. The system continuously tracks loss and accuracy metrics, saving the best model weights based on validation performance to ensure optimal results.
+
+### Model Export Strategy
+
+The model export process is designed to support deployment across various platforms and frameworks. The trained model is exported in multiple formats, each serving a specific purpose in the deployment pipeline. The PyTorch native format (.pth) is maintained for continued development and fine-tuning scenarios. The ONNX format is chosen for its cross-platform compatibility and widespread support across different deployment environments, particularly in production settings. The export process implements dynamic batch size support, allowing for flexible inference requirements during deployment.
+
+For mobile deployment scenarios, TensorFlow Lite conversion is implemented with optimizations for mobile environments. Each exported format undergoes a verification process to ensure prediction consistency, maintaining the model's accuracy across different runtime environments. This multi-format export strategy ensures maximum deployment flexibility while maintaining model performance integrity across different platforms.
 
 ## Quantization Optimization
 
@@ -314,7 +402,7 @@ idf_component_register(
 
 This configuration ensures proper compilation of the application components and correct linking with the ESP-DL framework. The integration of model files and headers follows a systematic approach through the build system.
 
-### Runtime Memory Management
+### Runtime memory monitoring
 
 The implementation employs strategic memory allocation to optimize resource utilization during model inference. Memory monitoring capabilities are integrated into the system to ensure stable operation:
 
@@ -336,14 +424,11 @@ Component config
         └── Default: UART0
 
 Component config
-└── Bluetooth
-    └── NimBLE Options
-        └── Host-controller Transport
-            └── Enable Uart Transport
-                └── Uart Hci Baud Rate: 115200
+└── ESP System Settings
+    └── (115200) UART console baud rate
 ```
 
-These settings ensure stable communication during both development and deployment phases. The baud rate selection balances reliable communication with flash programming speed.
+These settings ensure stable communication during both development and deployment phases. The baud rate selection balances reliable communication with flash programming speed.It has been observed that reinstalling serial port drivers on systems such as Windows 11 and Ubuntu 24.04 can potentially reset the default baud rate and serial port settings. This may lead to issues such as errors in the `idf.py monitor` tool and the inability to view the corresponding output. In the latest versions of ESP-IDF, the baud rate is automatically set to 115200, mitigating this issue. However, in older versions, such as ESP-IDF 4.4, manual adjustment of the baud rate is necessary to avoid such problems. 
 
 ### Driver Installation and System Integration
 
@@ -351,7 +436,7 @@ The deployment process requires proper USB driver installation for device commun
 
 ## Experimental Results
 
-The gesture recognition system on ESP32-S3 showed strong performance across multiple metrics. Both quantitative and qualitative evaluations were conducted.
+The gesture recognition system on ESP32-S3 performs well in multiple metrics, such as accuracy and model running time. Quantitative and qualitative evaluations are performed.
 
 The baseline model (prior to quantization) established high accuracy across eight gesture classes, particularly distinguishing distinct gestures like 'palm' and 'fist'. This floating-point model served as a benchmark for subsequent optimizations.
 
