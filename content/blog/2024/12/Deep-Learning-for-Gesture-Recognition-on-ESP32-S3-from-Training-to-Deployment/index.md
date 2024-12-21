@@ -2,6 +2,7 @@
 title: "Deep Learning for Gesture Recognition on ESP32-S3: From Training to Deployment"
 date: 2024-12-19
 showAuthor: false
+featureAsset: "img/features.webp"
 authors:
   - gao-jiaxuan
 tags:
@@ -11,7 +12,6 @@ tags:
   - ESP-DL
   - Model Quantization
 ---
-
 Integrating deep learning capabilities into embedded systems has become a crucial aspect of modern IoT applications. Although powerful deep learning models can achieve high recognition accuracy, deploying these models on resource-constrained devices poses considerable challenges. This article presents a gesture recognition system based on the ESP32-S3, detailing the entire workflow from model training to deployment on embedded hardware. The complete project implementation and code are available at [esp32s3-gesture-dl](https://github.com/BlakeHansen130/esp32s3-gesture-dl). By utilizing [ESP-DL](https://github.com/espressif/esp-dl) and incorporating efficient quantization strategies with [ESP-PPQ](https://github.com/espressif/esp-ppq), this study demonstrates the feasibility of achieving gesture recognition on resource-limited devices while maintaining satisfactory accuracy. Additionally, insights and methodologies were inspired by the work described in [Espressif's blog on hand gesture recognition](https://developer.espressif.com/blog/hand-gesture-recognition-on-esp32-s3-with-esp-deep-learning/), which significantly influenced the approach taken in this article.
 
 __*This article provides an overview of the complete development process for a gesture recognition system, encompassing dataset preparation, model training, and deployment.*__
@@ -243,6 +243,11 @@ graph = espdl_quantize_onnx(
     device="cpu"
 )
 ```
+
+{{< figure
+    default=true
+    src="img/trying-1.webp"
+    >}}
 
 #### Layerwise Equalization Quantization
 This method solves the common challenge of different weight distributions between different network layers by applying equalization techniques. Through extensive experiments and parameter adjustments (the comparison process and data are not detailed here), the implementation has been improved to achieve the best performance. The equalization setting covers multiple aspects of the quantization process, including bias handling and activation scaling:
