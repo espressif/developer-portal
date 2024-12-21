@@ -21,7 +21,7 @@ But how could the Matter device’s information be published, so that it can be 
 
 The Matter DCL is a cryptographically secure, distributed storage network based on blockchain technology. It allows Connectivity Standards Alliance (CSA) and authorized Vendors to publish information about their Matter devices. This information can then be retrieved using DCL clients.
 
-__What kind of information will be stored in DCL?__ 
+__What kind of information will be stored in DCL?__
 
 The device information is divided into five databases (it’s called schemas in DCL):
 
@@ -34,7 +34,7 @@ The device information is divided into five databases (it’s called schemas in 
 - __Compliance Test Result Schema:__ Provide compliance and test result data about the device.
 - __PAA Schema:__ Provide a list of Product Attestation Authorities Certificates for the approved PAAs (learn more from [Matter security model](/blog/matter-security-model)).
 
-__How will this information be used by Matter ecosystems?__ 
+__How will this information be used by Matter ecosystems?__
 
 With all this device information stored in DCL, Matter ecosystems may consult the DCL for:
 
@@ -54,13 +54,13 @@ CSA provides DCL server setup, which allows public access to DCL information usi
 
 Vendors could also setup dedicated DCL server. The Vendor’s setup will be available to this Vendor’s clients only. A Vendor MAY choose to grant its DCL server access to others.
 
-__Write access to DCL is restricted__ 
+__Write access to DCL is restricted__
 
 - Vendors can add new device models that belong to the VendorID that is associated with the public key of that vendor (either via CSA’s DCL server or its own DCL server). VendorID is associated to the vendor public key during vendor account creation process.
 - Vendors can update a subset of existing device model information, such as product name, product description, firmware and hardware info. Updates are only allowed if the device is associated with the same vendor account.
 - CSA Certification Center can write or revoke the Compliance status of a device model to the Ledger.
 
-__Read access from DCL is public__ 
+__Read access from DCL is public__
 
 - Read DeviceModel info, including firmware and hardware versions from the DCL.
 - Read the Device compliance state from the DCL.
@@ -79,5 +79,11 @@ Let’s go through an example, say there are following roles:
 - Consumer C
 
 The typical workflow looks like:
+
+1. Vendor A is a CSA member and has enrolled its public key to write to DCL. A makes a Matter Bulb B, and uses CSA’s DCL server to add B’s information to DCL.
+2. Vendor A sends some Bulbs to Test House T, T performs the Matter certification tests on B, and sends the test results to CSA. CSA checks the test results, if pass, CSA adds the compliance status for Bulb B in DCL.
+3. Consumer C buys a Bulb B from the market, C commissions the Bulb B using the commissioner from Ecosystem G, so B joins G’s Matter fabric, and works together with other devices in the same fabric. The commissioner consults the DCL for certification status of Bulb B during commissioning.
+4. Someday, A implements a cool feature for Bulb B, A adds the new software version information in DCL. G has Matter OTA provider support in their device, so it can assist B to finish the OTA process.
+5. Someday, C is interested in some services provided by Ecosystem H, C commissions the Bulb B to H’s fabric. Then Bulb B can work together with both Ecosystem G and H natively.
 
 Consumer C enjoys all these seamlessly.
