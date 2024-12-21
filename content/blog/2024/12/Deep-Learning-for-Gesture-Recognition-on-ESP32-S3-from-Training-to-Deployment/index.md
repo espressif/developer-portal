@@ -92,26 +92,23 @@ class LightGestureNet(nn.Module):
     def __init__(self, num_classes=8):
         super().__init__()
         
-        # Initial convolution layer with batch normalization
         self.first = nn.Sequential(
             nn.Conv2d(1, 16, 3, 2, 1, bias=False),  # Input: 96x96, Output: 48x48
             nn.BatchNorm2d(16),
-            nn.ReLU6(inplace=True)  # ReLU6 prevents numerical instability
+            nn.ReLU6(inplace=True)
         )
         
-        # Main feature extraction layers using inverted residuals
         self.layers = nn.Sequential(
-            InvertedResidual(16, 24, 2, 6),  # Output: 24x24
-            InvertedResidual(24, 24, 1, 6),  # Maintains spatial dimensions
-            InvertedResidual(24, 32, 2, 6),  # Output: 12x12
-            InvertedResidual(32, 32, 1, 6)   # Final feature maps
+            InvertedResidual(16, 24, 2, 6),
+            InvertedResidual(24, 24, 1, 6),
+            InvertedResidual(24, 32, 2, 6),
+            InvertedResidual(32, 32, 1, 6)
         )
         
-        # Classification head
         self.classifier = nn.Sequential(
-            nn.AdaptiveAvgPool2d(1),  # Global pooling to 1x1
+            nn.AdaptiveAvgPool2d(1),
             nn.Flatten(),
-            nn.Linear(32, num_classes)  # Final classification
+            nn.Linear(32, num_classes)
         )
 ```
 
@@ -124,18 +121,16 @@ class InvertedResidual(nn.Module):
     def __init__(self, in_c, out_c, stride, expand_ratio):
         super().__init__()
         hidden_dim = in_c * expand_ratio
-        self.use_res = stride == 1 and in_c == out_c  # Enable residual only when dimensions match
+        self.use_res = stride == 1 and in_c == out_c
         
         layers = []
         if expand_ratio != 1:
-            # Expansion phase: increase channels for better feature extraction
             layers.extend([
-                nn.Conv2d(in_c, hidden_dim, 1, bias=False),  # 1x1 pointwise conv
+                nn.Conv2d(in_c, hidden_dim, 1, bias=False),
                 nn.BatchNorm2d(hidden_dim),
                 nn.ReLU6(inplace=True)
             ])
             
-        # Depthwise separable convolution for efficient spatial processing
         layers.extend([
             nn.Conv2d(hidden_dim, hidden_dim, 3, stride, 1, groups=hidden_dim, bias=False),
             nn.BatchNorm2d(hidden_dim),
@@ -157,8 +152,8 @@ The dataset implementation focuses on efficient data handling and robust augment
 class GestureDataset(Dataset):
     def __init__(self, X, y, transform=None):
         # Ensure proper dimensionality for PyTorch
-        self.X = torch.FloatTensor(X).unsqueeze(1)  # Shape: (N, 1, 96, 96)
-        self.y = torch.LongTensor(y)                # Shape: (N,)
+        self.X = torch.FloatTensor(X).unsqueeze(1)
+        self.y = torch.LongTensor(y)
         self.transform = transform
     
     def __getitem__(self, idx):
@@ -172,14 +167,14 @@ class GestureDataset(Dataset):
 
 # Comprehensive augmentation pipeline
 train_transform = transforms.Compose([
-    transforms.RandomRotation(90),         # Handles various hand orientations
+    transforms.RandomRotation(90),
     transforms.RandomAffine(
-        0,                                # No additional rotation in affine
-        scale=(0.8, 1.2),                # Size variation for scale invariance
-        translate=(0.2, 0.2)             # Position invariance
+        0,
+        scale=(0.8, 1.2),
+        translate=(0.2, 0.2)
     ),
-    transforms.RandomHorizontalFlip(),     # Handles left/right hand variations
-    transforms.RandomVerticalFlip()        # Additional orientation robustness
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomVerticalFlip()
 ])
 ```
 
@@ -192,34 +187,28 @@ The training configuration implements carefully chosen initialization strategies
 ```python
 def weight_init(m):
     if isinstance(m, nn.Conv2d):
-        # He initialization for ReLU-based networks
         init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-        # fan_out preserves magnitudes in the backward pass
         if m.bias is not None:
             init.constant_(m.bias, 0)
     elif isinstance(m, nn.BatchNorm2d):
-        # Initialize BatchNorm to be initially identity transform
         init.constant_(m.weight, 1)
         init.constant_(m.bias, 0)
     elif isinstance(m, nn.Linear):
-        # Xavier initialization for the final linear layer
         init.xavier_normal_(m.weight)
         if m.bias is not None:
             init.constant_(m.bias, 0)
 
-# Training configuration
 model = LightGestureNet().to(device)
-criterion = nn.CrossEntropyLoss()  # Suitable for multi-class classification
+criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(
     model.parameters(),
-    lr=0.001,          # Conservative initial learning rate
+    lr=0.001,
 )
-# Cosine annealing for better convergence
 scheduler = optim.lr_scheduler.CosineAnnealingLR(
     optimizer,
     T_max=num_epochs
 )
-model.apply(weight_init)  # Apply custom initialization
+model.apply(weight_init)
 ```
 
 The weight initialization strategy is carefully designed for each layer type. Convolutional layers use He initialization, which is particularly suitable for ReLU-based networks as it prevents vanishing gradients in deep networks. BatchNorm layers are initialized to initially perform an identity transformation, allowing the network to learn the optimal normalization parameters during training. The final linear layer uses Xavier initialization, which is suitable for the classification head where the activation function is not ReLU.
