@@ -83,6 +83,39 @@ This comprehensive system design forms the foundation for subsequent model devel
 
 ## LightGestureNet Model Training
 
+### Dataset Preparation and Augmentation
+
+This implementation processes a gesture recognition dataset through a comprehensive preprocessing pipeline that converts images to 96x96 grayscale format and normalizes pixel values to [0,1]. The core preprocessing functionality handles image loading, grayscale conversion, resizing, and normalization through cv2 operations:
+
+```python
+def preprocess_image(image_path):
+    img = cv2.imread(image_path)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    resized = cv2.resize(gray, TARGET_SIZE)
+    normalized = resized.astype('float32') / 255.0
+    return normalized
+```
+
+The data collection process implements a systematic mapping between gesture folders and numerical labels, processing all images within the dataset structure. The implementation uses a dictionary-based label mapping system and iterates through the directory hierarchy to build the processed dataset:
+
+```python
+gesture_to_label = {
+    '01_palm': 0, '02_l': 1, '03_fist': 2, '05_thumb': 3,
+    '06_index': 4, '07_ok': 5, '09_c': 6, '10_down': 7
+}
+
+def collect_data():
+    images, labels = [], []
+    for class_dir in [f"{i:02d}" for i in range(10)]:
+        for gesture_folder in gesture_folders:
+            for img_name in os.listdir(gesture_path):
+                processed_img = preprocess_image(img_path)
+                images.append(processed_img)
+                labels.append(gesture_to_label[gesture_folder])
+```
+
+The processed dataset undergoes a strategic splitting procedure using scikit-learn's train_test_split function with stratification, creating training (70%), calibration (15%), and test (15%) sets. Each processed image is represented as a float32 array and saved in pickle format for subsequent model development phases. The implementation includes a modular structure for data augmentation, currently implemented as a placeholder, allowing for future extensions of the preprocessing pipeline through additional augmentation techniques.
+
 ### Model Architecture Overview
 
 LightGestureNet is designed as a lightweight convolutional neural network for gesture recognition, drawing inspiration from MobileNetV2's efficient architecture. Here's a detailed look at the implementation:
@@ -144,42 +177,6 @@ class InvertedResidual(nn.Module):
 
 The InvertedResidual block implements the expand-reduce pattern with three main components: channel expansion, depthwise convolution, and channel reduction. This design significantly reduces the number of parameters while maintaining model capacity. The use of groups=hidden_dim in the depthwise convolution ensures each channel is processed independently, reducing computational complexity.
 
-### Dataset Preparation and Augmentation
-
-The dataset implementation focuses on efficient data handling and robust augmentation. Here's the detailed implementation:
-
-```python
-class GestureDataset(Dataset):
-    def __init__(self, X, y, transform=None):
-        # Ensure proper dimensionality for PyTorch
-        self.X = torch.FloatTensor(X).unsqueeze(1)
-        self.y = torch.LongTensor(y)
-        self.transform = transform
-    
-    def __getitem__(self, idx):
-        image = self.X[idx]
-        label = self.y[idx]
-        
-        if self.transform:
-            image = self.transform(image)
-            
-        return image, label
-
-# Comprehensive augmentation pipeline
-train_transform = transforms.Compose([
-    transforms.RandomRotation(90),
-    transforms.RandomAffine(
-        0,
-        scale=(0.8, 1.2),
-        translate=(0.2, 0.2)
-    ),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomVerticalFlip()
-])
-```
-
-The dataset class handles the crucial task of preparing our data for training. The unsqueeze(1) operation adds a channel dimension to our grayscale images, converting them from (96, 96) to (1, 96, 96) to match PyTorch's expected format. The transform pipeline is particularly comprehensive, designed to create a robust model that can handle real-world variations in gesture presentations. Each transformation serves a specific purpose: RandomRotation handles different hand orientations, RandomAffine with scaling helps with varying distances from the camera, and the flips help with different viewing angles and hand variations.
-
 ### Training Configuration and Optimization
 
 The training configuration implements carefully chosen initialization strategies and optimization parameters:
@@ -211,136 +208,96 @@ scheduler = optim.lr_scheduler.CosineAnnealingLR(
 model.apply(weight_init)
 ```
 
-The weight initialization strategy is carefully designed for each layer type. Convolutional layers use He initialization, which is particularly suitable for ReLU-based networks as it prevents vanishing gradients in deep networks. BatchNorm layers are initialized to initially perform an identity transformation, allowing the network to learn the optimal normalization parameters during training. The final linear layer uses Xavier initialization, which is suitable for the classification head where the activation function is not ReLU.
+Convolutional layers use He initialization, which is particularly suitable for ReLU-based networks as it prevents vanishing gradients in deep networks. BatchNorm layers are initialized to initially perform an identity transformation, allowing the network to learn the optimal normalization parameters during training. The final linear layer uses Xavier initialization, which is suitable for the classification head where the activation function is not ReLU.
 
-The Adam optimizer is chosen for its adaptive learning rate properties, making it robust to the choice of initial learning rate. The cosine annealing learning rate scheduler provides a smooth transition from higher to lower learning rates, helping the model converge to better minima. This combination of initialization strategies and optimization choices helps ensure stable and efficient training.
+The Adam optimizer is chosen for its adaptive learning rate properties, making it robust to the choice of initial learning rate. The cosine annealing learning rate scheduler provides a smooth transition from higher to lower learning rates, helping the model converge to better minima.
 
 ### Training Process and Monitoring
 
 The training process incorporates strategic monitoring mechanisms to optimize model performance. Training and validation accuracy thresholds are set at 95-99% and 90-98% respectively, with a maximum allowable difference to prevent overfitting. An early stopping mechanism with 5 epochs patience period automatically halts training when validation loss plateaus. The system continuously tracks loss and accuracy metrics, saving the best model weights based on validation performance to ensure optimal results.
 
-### Model Export Strategy
+### Model Export
 
-The model export process is designed to support deployment across various platforms and frameworks. The trained model is exported in multiple formats, each serving a specific purpose in the deployment pipeline. The PyTorch native format (.pth) is maintained for continued development and fine-tuning scenarios. The ONNX format is chosen for its cross-platform compatibility and widespread support across different deployment environments, particularly in production settings. The export process implements dynamic batch size support, allowing for flexible inference requirements during deployment.
+The trained model is exported in multiple formats, each serving a specific purpose in the deployment pipeline. The PyTorch native format (.pth) is maintained for continued development and fine-tuning scenarios. The ONNX format is chosen for its cross-platform compatibility and widespread support across different deployment environments, particularly in production settings. The export process implements dynamic batch size support, allowing for flexible inference requirements during deployment.
 
-For mobile deployment scenarios, TensorFlow Lite conversion is implemented with optimizations for mobile environments. Each exported format undergoes a verification process to ensure prediction consistency, maintaining the model's accuracy across different runtime environments. This multi-format export strategy ensures maximum deployment flexibility while maintaining model performance integrity across different platforms.
+For mobile deployment scenarios, TensorFlow Lite conversion is implemented with optimizations for mobile environments. Each exported format undergoes a verification process to ensure prediction consistency, maintaining the model's accuracy across different runtime environments.
 
 ## Quantization Optimization
 
 Model quantization serves as a critical bridge between high-precision deep learning models and resource-constrained embedded systems. For the ESP32-S3 platform, three distinct quantization strategies have been developed and implemented, each offering unique advantages for different deployment scenarios.
 
-### INT8 Quantization Implementation
+### Quantization Implementations
 
-The baseline quantization method implements uniform 8-bit quantization across all layers. This fundamental approach provides a solid starting point for model compression:
+#### Standard 8-bit Quantization
+The baseline implementation provides straightforward integer quantization while maintaining exceptional model accuracy. This approach represents the most fundamental form of quantization, converting floating-point weights and activations to 8-bit integers. The implementation leverages the PPQ framework's espdl_quantize_onnx function, which handles the intricate process of determining optimal quantization parameters through calibration. The calibration process takes 50 steps to balance comprehensive parameter estimation and computational efficiency:
 
 ```python
-import onnxruntime
-import numpy as np
-from ppq import *
+graph = espdl_quantize_onnx(
+    onnx_import_file=MODEL_PATH,
+    espdl_export_file=EXPORT_PATH,
+    calib_dataloader=cal_loader,
+    calib_steps=50,
+    input_shape=[1, 1, 96, 96],
+    target="esp32s3",
+    num_of_bits=8,
+    device="cpu"
+)
+```
 
-def quantize_int8(model):
+#### Layerwise Equalization Quantization
+This method solves the common challenge of different weight distributions between different network layers by applying equalization techniques. Through extensive experiments and parameter adjustments (the comparison process and data are not detailed here), the implementation has been improved to achieve the best performance. The equalization setting covers multiple aspects of the quantization process, including bias handling and activation scaling:
 
-    with open('cal.pkl', 'rb') as f:
-        X_cal, _ = pickle.load(f)
-    
-    settings = QuantizationSettingFactory.default_setting()
-    settings.quantize_parameter_setting.bit_width = 8
-    settings.quantize_parameter_setting.symmetrical = True
-    settings.quantize_parameter_setting.per_channel = True
+```python
+setting = QuantizationSettingFactory.espdl_setting()
+setting.equalization = True 
+setting.equalization_setting.opt_level = 2
+setting.equalization_setting.iterations = 10
+setting.equalization_setting.value_threshold = 0.5
+setting.equalization_setting.including_bias = True
+setting.equalization_setting.bias_multiplier = 0.5
+setting.equalization_setting.including_act = True
+setting.equalization_setting.act_multiplier = 0.5
+```
 
-    quantum = quantize_torch_model(
-        model=model,
-        calib_dataloader=X_cal,
-        setting=settings,
-        platform=TargetPlatform.PPL_CUDA_INT8
+#### Mixed-Precision Quantization
+The mixed-precision approach represents the most nuanced quantization strategy, enabling precision customization for critical layers while maintaining efficiency in others. To apply 16-bit quantization, select layers with significantly higher Layerwise quantization errors under 8-bit quantization compared to other layers. This implementation recognizes that not all layers in a neural network require the same level of numerical precision. By strategically assigning higher precision to the initial convolutional layer and clipping operation, the approach preserves critical feature extraction capabilities while allowing more aggressive compression in later layers where precision is less crucial:
+
+```python
+setting = QuantizationSettingFactory.espdl_setting()
+for layer in ["/first/first.0/Conv", "/first/first.2/Clip"]:
+    setting.dispatching_table.append(
+        layer, 
+        get_target_platform("esp32s3", 16)
     )
-    
-    return quantum
 ```
 
-In this implementation, the calibration data plays a crucial role in determining optimal quantization parameters. The `bit_width` parameter sets the quantization precision to 8 bits, while `symmetrical=True` ensures the quantization scheme maintains zero at the center of the range. The `per_channel=True` setting enables more fine-grained quantization by treating each channel independently, which helps preserve model accuracy.
-
-### Mixed Precision Strategy
-
-The mixed precision approach provides more flexibility by allowing different quantization precisions for different layers based on their sensitivity to quantization:
+### Error Analysis and Performance Validation
+The quantization process requires careful analysis of error patterns and performance metrics to ensure optimal deployment outcomes. The validation framework implements a comprehensive assessment approach that examines both computational efficiency and accuracy retention. This dual focus ensures that the quantized model meets both the resource constraints of the target platform and the accuracy requirements of the application. The testing process utilizes a robust evaluation methodology that processes batches of test data while measuring both inference time and prediction accuracy:
 
 ```python
-def mixed_precision_quantize(model):
+def evaluate_quantized_model(graph, test_loader, y_test):
+    executor = TorchExecutor(graph=graph, device='cpu')
+    total_time = 0
+    correct = 0
+    total = 0
+    
+    with torch.no_grad():
+        for batch in tqdm(test_loader):
+            start = time.time()
+            outputs = executor.forward(inputs=batch)
+            total_time += (time.time() - start)
+            
+            _, predicted = torch.max(outputs[0], 1)
+            total += batch.size(0)
+            correct += (predicted == y_test[total-batch.size(0):total]).sum().item()
 
-    precision_config = {
-        'conv1': {'w_bits': 8, 'a_bits': 8},
-        'conv2': {'w_bits': 16, 'a_bits': 8},
-        'fc': {'w_bits': 16, 'a_bits': 16}
-    }
-    
-    settings = QuantizationSettingFactory.mixed_precision_setting()
-    settings.optimization_level = 1
-    
-    for layer, config in precision_config.items():
-        settings.quantize_parameter_setting[layer] = LayerQuantSetting(
-            w_bits=config['w_bits'],
-            a_bits=config['a_bits']
-        )
-    
-    quantum = quantize_torch_model(
-        model=model,
-        calib_dataloader=X_cal,
-        setting=settings,
-        platform=TargetPlatform.PPL_CUDA_MIX
-    )
-    
-    return quantum
+    avg_time = (total_time / len(test_loader)) * 1000
+    accuracy = (correct / total) * 100
+    return avg_time, accuracy
 ```
 
-This strategy allows precise control over the quantization of each layer. The `precision_config` dictionary defines both weight (`w_bits`) and activation (`a_bits`) precision for each layer. Early layers and critical feature extraction components often benefit from higher precision, while later layers can typically tolerate more aggressive quantization. The optimization level parameter controls how aggressively the quantization algorithm searches for optimal bit assignments.
-
-### Equalization-Aware Quantization
-
-The equalization-aware approach introduces an advanced quantization method that considers the distribution of values across layers:
-
-```python
-def equalization_quantize(model):
-    settings = QuantizationSettingFactory.default_setting()
-    settings.equalization = True
-    settings.equalization_setting.iterations = 4
-    settings.equalization_setting.value_threshold = 0.4
-    settings.optimization_level = 2
-    
-    model = convert_relu6_to_relu(model)
-
-    quantum = quantize_torch_model(
-        model=model,
-        calib_dataloader=X_cal,
-        setting=settings,
-        platform=TargetPlatform.PPL_CUDA_INT8
-    )
-    
-    return quantum
-```
-
-The equalization process iteratively adjusts scaling factors across layers to minimize quantization error. The `iterations` parameter controls how many times the equalization algorithm runs, while `value_threshold` determines when the algorithm considers values significant enough to influence scaling decisions. The conversion from ReLU6 to ReLU is necessary for compatibility with the equalization process, as the capped activation function can interfere with proper scale determination.
-
-### Performance Evaluation
-
-To assess the effectiveness of each quantization strategy, a comprehensive evaluation framework has been implemented:
-
-```python
-def evaluate_quantized_model(model, test_data):
-    metrics = {}
-
-    metrics['size'] = get_model_size(model)
-
-    predictions = model.predict(test_data)
-    metrics['accuracy'] = calculate_accuracy(predictions, test_labels)
-
-    metrics['latency'] = measure_inference_time(model, test_data[0])
-    
-    return metrics
-```
-
-This evaluation framework examines three critical aspects of each quantized model: memory footprint, accuracy retention, and inference latency. The modular design allows for easy comparison between different quantization strategies and helps in selecting the most appropriate approach for specific deployment requirements.
-
-Each quantization method presents its own set of trade-offs, and the choice between them depends on specific application requirements such as memory constraints, accuracy requirements, and inference speed needs. The systematic implementation and evaluation of these strategies ensure optimal deployment on the ESP32-S3 platform.
+## Conclusion
+The evaluation showed that 8-bit quantization and Layerwise Equalization Quantization exhibited varying quantization errors across different layers—some layers demonstrated lower errors with 8-bit quantization, while others performed better with Layerwise Equalization Quantization. However, these differences were minor and did not significantly impact overall performance. Mixed-precision quantization achieved the lowest overall error, but due to the limitations of the esp-ppq version available at the time, which did not support 16-bit quantization on the ESP32-S3, 8-bit quantization was selected for deployment. It is worth noting that the latest version of esp-ppq now supports 16-bit quantization, though this functionality has not yet been tested in this context.
 
 ## Resource-Constrained Deployment
 
