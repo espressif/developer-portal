@@ -1,5 +1,5 @@
 ---
-title: "Deep Learning for Gesture Recognition on ESP32-S3: From Training to Deployment"
+title: "8-bit Quantized CNN for ESP32-S3 Gesture Recognition"
 date: 2024-12-21
 showAuthor: false
 authors:
@@ -180,7 +180,12 @@ class InvertedResidual(nn.Module):
         self.conv = nn.Sequential(*layers)
 ```
 
-The InvertedResidual block implements the expand-reduce pattern with three main components: channel expansion, depthwise convolution, and channel reduction. This design significantly reduces the number of parameters while maintaining model capacity. The use of groups=hidden_dim in the depthwise convolution ensures each channel is processed independently, reducing computational complexity.
+The InvertedResidual block implements the expand-reduce pattern with three main components: channel expansion, depthwise convolution, and channel reduction. This design reduces the number of parameters while maintaining model capacity. The use of groups=hidden_dim in the depthwise convolution ensures each channel is processed independently, reducing computational complexity.
+
+{{< figure
+    default=true
+    src="img/gesture_model.onnx.webp"
+    >}}
 
 ### Training Configuration and Optimization
 
@@ -219,8 +224,7 @@ The Adam optimizer is chosen for its adaptive learning rate properties, making i
 
 ### Training Process and Monitoring
 
-The training process incorporates strategic monitoring mechanisms to optimize model performance. Training and validation accuracy thresholds are set at 95-99% and 90-98% respectively, with a maximum allowable difference to prevent overfitting. An early stopping mechanism with 5 epochs patience period automatically halts training when validation loss plateaus. The system continuously tracks loss and accuracy metrics, saving the best model weights based on validation performance to ensure optimal results.
-
+The training process incorporates monitoring mechanisms to maintain model performance. Training and validation accuracy thresholds are set at 95–99% and 90–98%, respectively, with a maximum allowable difference to mitigate overfitting. An early stopping mechanism with a patience period of 5 epochs halts training when validation loss plateaus, helping to prevent unnecessary computation and identify issues such as incorrect model output shapes. The best model weights are saved based on validation performance.
 ### Model Export
 
 The trained model is exported in multiple formats, each serving a specific purpose in the deployment pipeline. The PyTorch native format (.pth) is maintained for continued development and fine-tuning scenarios. The ONNX format is chosen for its cross-platform compatibility and widespread support across different deployment environments, particularly in production settings. The export process implements dynamic batch size support, allowing for flexible inference requirements during deployment.
@@ -257,7 +261,7 @@ graph = espdl_quantize_onnx(
 
 #### Layerwise Equalization Quantization
 
-This method solves the common challenge of different weight distributions between different network layers by applying equalization techniques. Through extensive experiments and parameter adjustments (the comparison process and data are not detailed here), the implementation has been improved to achieve the best performance. The equalization setting covers multiple aspects of the quantization process, including bias handling and activation scaling:
+This method solves the common challenge of different weight distributions between network layers by applying equalization techniques. Extensive experiments and parameter adjustments have been conducted to identify the optimal configuration. The current configuration, which achieves the best results, includes the following settings: 
 
 ```python
 setting = QuantizationSettingFactory.espdl_setting()
@@ -271,6 +275,8 @@ setting.equalization_setting.including_act = True
 setting.equalization_setting.act_multiplier = 0.5
 ```
 
+Adjustments across various levels, including `opt_level` (1 and 2), `iterations` (1, 2, 5, 10, and higher, where changes beyond 10 became negligible), and `value_threshold` (0, 0.5, and 2), confirm this configuration as the most effective.
+
 {{< figure
     default=true
     src="img/Layerwise_Equalization_quantization.webp"
@@ -278,7 +284,7 @@ setting.equalization_setting.act_multiplier = 0.5
 
 #### Mixed-Precision Quantization
 
-The mixed-precision approach represents the most nuanced quantization strategy, enabling precision customization for critical layers while maintaining efficiency in others. To apply 16-bit quantization, select layers with significantly higher Layerwise quantization errors under 8-bit quantization compared to other layers. This implementation recognizes that not all layers in a neural network require the same level of numerical precision. By strategically assigning higher precision to the initial convolutional layer and clipping operation, the approach preserves critical feature extraction capabilities while allowing more aggressive compression in later layers where precision is less crucial:
+The mixed-precision approach represents the most nuanced quantization strategy, enabling precision customization for critical layers while maintaining efficiency in others. To apply 16-bit quantization, select layers with higher Layerwise quantization errors under 8-bit quantization compared to other layers. This implementation recognizes that not all layers in a neural network require the same level of numerical precision. By strategically assigning higher precision to the initial convolutional layer and clipping operation, the approach preserves critical feature extraction capabilities while allowing more aggressive compression in later layers where precision is less crucial:
 
 ```python
 setting = QuantizationSettingFactory.espdl_setting()
@@ -322,7 +328,7 @@ def evaluate_quantized_model(graph, test_loader, y_test):
 
 ### Conclusion
 
-The evaluation showed that 8-bit quantization and Layerwise Equalization Quantization exhibited varying quantization errors across different layers—some layers demonstrated lower errors with 8-bit quantization, while others performed better with Layerwise Equalization Quantization. However, these differences were minor and did not significantly impact overall performance. Mixed-precision quantization achieved the lowest overall error, but due to the limitations of the esp-ppq version available at the time, which did not support 16-bit quantization on the ESP32-S3, 8-bit quantization was selected for deployment. It is worth noting that the latest version of esp-ppq now supports 16-bit quantization, though this functionality has not yet been tested in this context.
+The evaluation showed that 8-bit quantization and Layerwise Equalization Quantization exhibited varying quantization errors across different layers—some layers demonstrated lower errors with 8-bit quantization, while others performed better with Layerwise Equalization Quantization. However, these differences were minor and did not impact overall performance. Mixed-precision quantization achieved the lowest overall error, but due to the limitations of the esp-ppq version available at the time, which did not support 16-bit quantization on the ESP32-S3, 8-bit quantization was selected for deployment. It is worth noting that the latest version of esp-ppq now supports 16-bit quantization, though this functionality has not yet been tested in this context.
 
 ## Resource-Constrained Deployment
 
@@ -409,11 +415,11 @@ The deployment process requires proper installation of the USB driver to enable 
 
 ## Experimental Results
 
-The gesture recognition system on the ESP32-S3 demonstrates strong performance across multiple metrics, including accuracy and model runtime. A qualitative evaluation was conducted to further validate its effectiveness.
+The gesture recognition system on the ESP32-S3 achieves a model loading time of 225 ms and a single inference time of 150 ms, resulting in a total runtime of approximately 375 ms per gesture. A qualitative evaluation was conducted to validate its performance across relevant metrics, including accuracy and model runtime.
 
 The pre-quantization model exhibited high accuracy across eight gesture categories, effectively distinguishing between gestures such as "palm" and "fist." This floating-point model serves as the baseline for subsequent optimization steps.
 
-After applying INT8 quantization, the model size was significantly reduced while maintaining high accuracy. Gesture images from the dataset were accurately recognized, and even images sourced from the Internet performed well after preprocessing.
+After applying INT8 quantization, model size was reduced from 157KB (ONNX format) to 67.2KB (.espdl format) after applying INT8 quantization while maintaining high accuracy. Gesture images from the dataset were accurately recognized, and even images sourced from the Internet performed well after preprocessing.
 
 {{< figure
     default=true
