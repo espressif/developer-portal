@@ -66,12 +66,40 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.issues.createComment({
-              issue_number: ${{ env.PR_NUMBER }},
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `🎉 A preview for this PR is available at: ${{ env.HUGO_BASEURL }}pr${{ env.PR_NUMBER }}/`
-            });
+            try {
+              const { data: comments } = await github.rest.issues.listComments({
+                issue_number: ${{ env.PR_NUMBER }},
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              });
+
+              // Define the comment body
+              const commentBody = `🎉 A preview for this PR is available at: ${{ env.HUGO_BASEURL }}pr${{ env.PR_NUMBER }}/`;
+
+              // Look for an existing comment containing the specific text
+              const existingComment = comments.find(comment =>
+                comment.body.includes("🎉 A preview for this PR is available at:")
+              );
+
+              if (existingComment) {
+                // Delete the existing comment
+                await github.rest.issues.deleteComment({
+                  comment_id: existingComment.id,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo
+                });
+              }
+
+              // Create a new comment
+              await github.rest.issues.createComment({
+                issue_number: ${{ env.PR_NUMBER }},
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            } catch (error) {
+              core.setFailed(`Failed to manage PR comment: ${error.message}`);
+            }
 
       - name: Invalidate CloudFront cache for PR
         uses: chetan/invalidate-cloudfront-action@v2
