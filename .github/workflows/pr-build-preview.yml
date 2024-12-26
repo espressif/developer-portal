@@ -27,6 +27,21 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Extract PR URL
+        id: get-pr-url
+        run: |
+          PR_URL=$(jq -r '.pull_request.html_url' "$GITHUB_EVENT_PATH")
+          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
+          PR_LINK_TEXT=${PR_URL#https://}
+          echo "PR_LINK_TEXT=$PR_LINK_TEXT" >> $GITHUB_ENV
+
+      - name: Append preview snippet to header file
+        run: |
+          PREVIEW_HTML="<p style='color: rgba(var(--color-primary-600), 1); text-align: center;'>
+            This site is a preview for <a href='${{ env.PR_URL }}' style='text-decoration: underline;'>${{ env.PR_LINK_TEXT }}</a>
+          </p>"
+          echo "$PREVIEW_HTML" >> layouts/partials/header/basic.html
+
       - name: Build website with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
