@@ -15,7 +15,7 @@ cascade:
 {{< article link="/blog/2024/10/what-is-the-esp-registry/" >}}
 
 <br>
-{{< button href="#button" target="_self" href=/blog/ >}}
+{{< button href="blog/" target="_self" >}}
 More Articles
 {{< /button >}}
 
@@ -26,7 +26,7 @@ Dive into our latest workshops and master the skills you need to maximize the po
 {{< article link="/workshops/esp-idf-with-esp32-c6/introduction/" >}}
 
 <br>
-{{< button href="#button" target="_self" href=/workshops/ >}}
+{{< button href="workshops/" target="_self" >}}
 More Workshops
 {{< /button >}}
 
@@ -37,6 +37,6 @@ Here you can follow the current status of the new chip support in various Espres
 {{< article link="/pages/chip-support-status/esp32c61/" >}}
 
 <br>
-{{< button href="#button" target="_self" href=/events/ >}}
+{{< button href="events/" target="_self" >}}
 More Events
 {{< /button >}}
