@@ -7,11 +7,9 @@ authors:
 tags: ["WLED", "Community", "LED", "Arduino", "OS"]
 ---
 
-The holidays are coming and the lights are now everywhere!
-
 Making amazing lighting installations could sound very complex, requiring a lot of expensive hardware and software, however, thanks to the community and some ESP32 or ESP8266, this is not that complex and you can do it yourself.
 
-Today we will talk about a community project, created by [Christian Schwinne a.k.a Aircoookie](https://github.com/Aircoookie), called [WELD](https://kno.wled.ge/).
+Today we will talk about a community project, created by [Christian Schwinne a.k.a Aircoookie](https://github.com/Aircoookie), called [WLED](https://kno.wled.ge/).
 
 ## WLED
 
