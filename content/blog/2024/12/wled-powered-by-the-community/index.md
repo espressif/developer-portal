@@ -1,6 +1,6 @@
 ---
 title: "WLED - Powered by the Community"
-date: 2024-12-02
+date: 2024-12-31
 showAuthor: false
 authors:
   - "pedro-minatel"
