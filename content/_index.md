@@ -12,7 +12,7 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2024/10/what-is-the-esp-registry/" >}}
+{{< article link="/blog/reliability-esp-now/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
