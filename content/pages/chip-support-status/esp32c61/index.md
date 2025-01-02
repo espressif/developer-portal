@@ -27,4 +27,9 @@ According to the chip mass production plan, the planned support for ESP32-C61 in
 
 If you have an issue to report about any of the ESP32-C61 features, please create an issue in [ESP-IDF GitHub issue tracker](https://github.com/espressif/esp-idf/issues).
 
-{{< chipstatus url="https://developer.espressif.com/persist/chip-support-status/esp32c61.md" >}}
+{{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="idf" >}}
+
+
+## External projects
+
+{{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="ext_proj" >}}
