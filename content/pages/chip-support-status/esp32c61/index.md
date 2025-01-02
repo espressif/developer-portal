@@ -6,10 +6,13 @@ draft: false
 
 This page lists the projects in which the ESP32-C61 is supported.
 
-In the list below, the supported features are marked with a checkbox (:white_check_mark:), while unsupported features are marked with an hourglass (:hourglass_flowing_sand:). An internal issue reference (such as \"IDF-1234\") is listed at the end of the feature description to help us keep this list up to date:
+To show the status of features, the following icons are used:
 
-- :hourglass_flowing_sand: Unsupported feature (IDF-1234)
 - :white_check_mark: Supported feature
+- :hourglass_flowing_sand: Unsupported feature (IDF-1234)
+  - \"IDF-1234\" indicates an internal issue reference to help us keep this list up to date
+- :question: Support status unknown
+  - Such status issues will be checked and fixed shortly
 
 This page will be periodically updated to reflect the current support status for the ESP32-C61.
 
