@@ -6,10 +6,13 @@ draft: false
 
 This page lists the projects in which the ESP32-C61 is supported.
 
-In the list below, the supported features are marked with a checkbox (:white_check_mark:), while unsupported features are marked with an hourglass (:hourglass_flowing_sand:). An internal issue reference (such as \"IDF-1234\") is listed at the end of the feature description to help us keep this list up to date:
+To show the status of features, the following icons are used:
 
-- :hourglass_flowing_sand: Unsupported feature (IDF-1234)
 - :white_check_mark: Supported feature
+- :hourglass_flowing_sand: Unsupported feature (IDF-1234)
+  - \"IDF-1234\" indicates an internal issue reference to help us keep this list up to date
+- :question: Support status unknown
+  - Such status issues will be checked and fixed shortly
 
 This page will be periodically updated to reflect the current support status for the ESP32-C61.
 
@@ -27,4 +30,9 @@ According to the chip mass production plan, the planned support for ESP32-C61 in
 
 If you have an issue to report about any of the ESP32-C61 features, please create an issue in [ESP-IDF GitHub issue tracker](https://github.com/espressif/esp-idf/issues).
 
-{{< chipstatus url="https://developer.espressif.com/persist/chip-support-status/esp32c61.md" >}}
+{{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="idf" >}}
+
+
+## External projects
+
+{{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="ext_proj" >}}
