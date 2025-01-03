@@ -27,7 +27,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Extract PR URL
+      - name: Extract PR URL for preview snippet
         id: get-pr-url
         run: |
           PR_URL=$(jq -r '.pull_request.html_url' "$GITHUB_EVENT_PATH")
@@ -58,6 +58,17 @@ jobs:
         with:
           name: public-folder
           path: ./public
+
+      - name: Calculate checksums for website files
+        run: |
+          cd public
+          find . -type f -printf "%P\n" | xargs -d '\n' sha256sum | awk '{print $2, $1}' | sort > ../checksums-ci.txt
+
+      - name: Upload checksums to artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: checksums-ci
+          path: checksums-ci.txt
 
       - name: Create PR number file
         run: echo "${{ github.event.pull_request.number }}" > pr-num.txt
