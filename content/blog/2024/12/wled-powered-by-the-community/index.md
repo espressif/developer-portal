@@ -7,27 +7,32 @@ authors:
 tags: ["WLED", "Community", "LED", "Arduino", "OS"]
 ---
 
-Making amazing lighting installations could sound very complex, requiring a lot of expensive hardware and software, however, thanks to the community and some ESP32 or ESP8266, this is not that complex and you can do it yourself.
+Making amazing lighting installations might seem very complex, requiring a lot of expensive hardware and software. However, it can't be further from the truth. With an ESP32 or ESP8266 at hand and with the help of some software from our wonderful community, this is not that complex. Try it yourself, and you will be pleasantly surprised.
+
 
 Today we will talk about a community project, created by [Christian Schwinne a.k.a Aircoookie](https://github.com/Aircoookie), called [WLED](https://kno.wled.ge/).
 
 ## WLED
 
-WLED is an open-source solution to control addressable LEDs and it's based on the Arduino core for the [ESP32](https://github.com/espressif/arduino-esp32) and ESP8266. It implements a web server to control the LED segments, creating a unique experience. It supports many outstanding features that allow you to create different light effects and advanced configurations, including various control interfaces, firmware upgrades OTA, scheduling, and much more.
+WLED is an open-source solution to control addressable LEDs based on the Arduino core for the [ESP32](https://github.com/espressif/arduino-esp32) and ESP8266. It implements a web server to control the LED segments, creating a unique experience. WLED supports many outstanding features that allow you to create different lighting effects and advanced configurations, including various control interfaces, firmware upgrades OTA, scheduling, and much more.
+
 
 {{< alert >}}
-The WLED is only compatible with addressable LEDs, including RGBW, but the non-addressable LEDs are not supported.
+WLED is only compatible with addressable LEDs, including RGBW. Please note that non-addressable LEDs are not supported.
+
 {{< /alert >}}
 
 For the full list of features, please visit the [WLED documentation page](https://kno.wled.ge/features/effects/).
 
 ## How to use
 
-The WLED can be used in many different ways, from a single LED strip (1D) to a LED matrix (2D). This allows you to create effects on both 1D or 2D, with custom color palette, effects (currently 117 different), multiple segments, and macros.
+WLED can be used in many different ways, from lighting up a single LED strip (1D) to driving a whole LED matrix (2D). This allows you to create visual scenes in both 1D or 2D, using custom color palettes, special visual effects (currently 117 different ones), multiple segments, and macros.
 
-To get started with WLED you will need one of the supported ESP32s, a power supply and the LED strip.
 
-Currently, the WLED only supports the following Espressif SoCs:
+To get started with WLED you will need one of the supported ESP32s, a power supply, and at least one addressable LED strip.
+
+
+Currently, WLED supports the following Espressif SoCs:
 
 - ESP8266
 - ESP32
@@ -35,25 +40,43 @@ Currently, the WLED only supports the following Espressif SoCs:
 - ESP32-S3
 - ESP32-C3
 
-The easiest way to get started is by flashing the WLED firmware using the online flashing tool, the [WLED web installer](https://install.wled.me/). This tool is only compatible with Chrome and Edge (desktop versions), and the only thing you will need is a USB cable connected to the ESP board.
+The easiest way to get started is by flashing the WLED firmware using the online flashing tool, called the [WLED web installer](https://install.wled.me/). This tool is only compatible with Chrome and Edge (desktop versions), and the only thing you will need is a USB cable connected to your ESP board.
 
-Flashing the firmware will only require a few minutes and no previous installation is required. After flashing, you can connect to the WLED device via Wi-Fi AP SSID called `WLED-AP` with the password `wled1234`, and then you will be able to open the web interface on the IP `4.3.2.1` or `wled.me`.
 
-Once you have access to the WLED web interface, you will need to configure the Wi-Fi (if you want to control it via your local network), the LED strip settings, and create the effects presets and playlist.
+Flashing the firmware will only take a few minutes. No previous installation is required. After flashing, you can connect to the WLED device via Wi-Fi AP SSID called `WLED-AP` with the password `wled1234`, and then you will be able to open the web interface at the IP address `4.3.2.1` or `wled.me`.
+
+
+Once you have access to the WLED web interface, you will need to configure your Wi-Fi (if you want to control it via your local network), the LED strip settings, and then create effects presets and a playlist.
+
 
 ### The web interface
 
-The web interface is very intuitive and easy to use. You can use the web interface to do almost all the configuration required to get the WLED working with your LED stip.
+The web interface is very intuitive and easy to use. You can use it to do almost all the configuration required to get the WLED working with your LED strip.
 
-![WLED web interface - Welcome](assets/web-main.webp)
 
-![WLED web interface - Control](assets/web-control.webp)
+{{< figure
+    src="assets/web-main.webp"
+    alt="WLED web interface - Welcome"
+    caption="WLED web interface - Welcome"
+    >}}
 
-![WLED web interface - Configuration](assets/web-config.webp)
+{{< figure
+    src="assets/web-control.webp"
+    alt="WLED web interface - Control"
+    caption="WLED web interface - Control"
+    >}}
+
+{{< figure
+    src="assets/web-config.webp"
+    alt="WLED web interface - Configuration"
+    caption="WLED web interface - Configuration"
+    >}}
+
 
 ### Mobile application
 
-To get easy access to all WLED installed in your local network, you can install the mobile application, available for iOS and Android.
+To get easy access to all WLED instances in your local network, you can use the mobile application:
+
 
 - [Android](https://play.google.com/store/apps/details?id=ca.cgagnier.wlednativeandroid)
 - [iOS](https://apps.apple.com/us/app/wled-native/id6446207239)
@@ -62,17 +85,26 @@ To get easy access to all WLED installed in your local network, you can install 
 
 The WLED website provides an outstanding [getting started guide](https://kno.wled.ge/basics/getting-started/) that will show you everything you need to know about the project and how to start your own WLED application. You can also find an extensive list of [tutorials](https://kno.wled.ge/basics/tutorials/) from the very active community.
 
-To explore more options, interfaces, integration and more, take a deep look into the [WLED site](https://kno.wled.ge)!
+To explore more options, interfaces, integration, and more, do take a deeper look into the [WLED site](https://kno.wled.ge)!
+
 
 ### Hardware
 
 If you want to test the WLED with one of Espressif boards, try with the [ESP32-C3-Lyra V2.0](https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/dev-boards/user-guide-esp32-c3-lyra.html). The ESP32-C3-Lyra supports the addressable and RGB LED strips.
 
-![ESP32-C3-Lyra V2.0](assets/esp32-c3-lyra-isometric-raw.webp)
+{{< figure
+    src="assets/esp32-c3-lyra-isometric-raw.webp"
+    alt="ESP32-C3-Lyra V2.0"
+    caption="ESP32-C3-Lyra V2.0"
+    >}}
 
 #### Board description
 
-![ESP32-C3-Lyra description](assets/esp32-c3-lyra-layout-front.webp)
+{{< figure
+    src="assets/esp32-c3-lyra-layout-front.webp"
+    alt="ESP32-C3-Lyra overview of components"
+    caption="ESP32-C3-Lyra overview of components"
+    >}}
 
 > ESP32-C3-Lyra is an ESP32-C3-based audio development board produced by Espressif for controlling light with audio. The board has control over the microphone, speaker, and LED strip, perfectly matching customers’ product development needs for ultra-low-cost and high-performance audio broadcasters and rhythm light strips.
 
