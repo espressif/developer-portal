@@ -18,10 +18,17 @@ concurrency:
 
 env:
   HUGO_BASEURL: "https://preview-developer.espressif.com/"
+  AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  deploy-preview:
+  determine-sync-status:
     runs-on: ubuntu-latest
+    outputs:
+      pr-number: ${{ steps.read-pr-num.outputs.PR_NUMBER }}
+      sync-status: ${{ steps.check-checksums-s3.outputs.SYNC_STATUS }}
     if: >
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success'
@@ -38,8 +45,67 @@ jobs:
       - name: Read PR number from file
         id: read-pr-num
         run: |
-          echo "PR_NUMBER=$(cat pr-num.txt)" >> $GITHUB_ENV
-          echo ${{ env.PR_NUMBER }}
+          echo "PR_NUMBER=$(cat pr-num.txt)" >> $GITHUB_OUTPUT
+
+      - name: Check if checksums-s3.txt is in S3 bucket
+        id: check-checksums-s3
+        run: |
+          if aws s3 ls s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr$(cat pr-num.txt)/checksums-s3.txt; then
+            echo "SYNC_STATUS=update" >> $GITHUB_OUTPUT
+          else
+            echo "SYNC_STATUS=replace" >> $GITHUB_OUTPUT
+          fi
+
+  replace-files:
+    runs-on: ubuntu-latest
+    needs: determine-sync-status
+    if: ${{ needs.determine-sync-status.outputs.sync-status == 'replace' }}
+
+    steps:
+      - name: Download artifacts (Public folder)
+        uses: actions/download-artifact@v4
+        with:
+          name: public-folder
+          path: ./public
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync public folder with S3 bucket
+        run: |
+          aws s3 sync "$SOURCE_DIR" "$DEST_DIR" --follow-symlinks --delete  --cache-control no-cache
+        env:
+          SOURCE_DIR: './public'
+          DEST_DIR: "s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}"
+
+      - name: Download checksums-ci.txt from artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: checksums-ci
+          path: ./
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Copy checksums-ci.txt to s3 bucket
+        run: |
+          aws s3 cp ./checksums-ci.txt s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}/checksums-s3.txt
+
+  update-files:
+    runs-on: ubuntu-latest
+    needs: determine-sync-status
+    if: ${{ needs.determine-sync-status.outputs.sync-status == 'update' }}
+
+    steps:
+      - name: Download checksums-s3.txt from S3 bucket
+        run: |
+          aws s3 cp s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}/checksums-s3.txt ./checksums-s3.txt
+
+      - name: Download checksums-ci.txt from artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: checksums-ci
+          path: ./
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download artifacts (Public folder)
         uses: actions/download-artifact@v4
@@ -49,18 +115,51 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Deploy to AWS S3 PR-specific subdirectory
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --follow-symlinks --delete --cache-control no-cache
-        env:
-          AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
-          SOURCE_DIR: './public'
-          DEST_DIR: "pr${{ env.PR_NUMBER }}"
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Compare checksums and update public-update folder
+        run: |
+          mkdir -p ./public-update
 
+          # Find outdated files and remove them (unique checksums in checksums-s3.txt)
+          comm -23 checksums-s3.txt checksums-ci.txt | awk '{print $1}' > outdated-files.txt
+          if [ -s outdated-files.txt ]; then
+            echo "Removing outdated files from S3:"
+            cat outdated-files.txt
+            for file in $(cat outdated-files.txt); do
+              aws s3 rm s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}/$file > /dev/null 2>&1
+            done
+          fi
+
+          # Copy updated files to public-update (unique checksums in checksums-ci.txt)
+          comm -13 checksums-s3.txt checksums-ci.txt | awk '{print $1}' > updated-files.txt
+          if [ -s updated-files.txt ]; then
+            echo "Copying updated files to public-update folder:"
+            cat updated-files.txt
+            for file in $(cat updated-files.txt); do
+              mkdir -p ./public-update/$(dirname "$file")
+              cp ./public/$file ./public-update/$file
+            done
+          fi
+
+      - name: Sync public-update with S3 bucket
+        run: |
+          aws s3 sync "$SOURCE_DIR" "$DEST_DIR" --follow-symlinks --cache-control no-cache
+        env:
+          SOURCE_DIR: './public-update'
+          DEST_DIR: "s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}"
+
+      - name: Copy checksums-ci.txt to s3 bucket
+        run: |
+          aws s3 cp ./checksums-ci.txt s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}/checksums-s3.txt
+
+  notifications-and-cleanup:
+    runs-on: ubuntu-latest
+    needs: [determine-sync-status, replace-files, update-files]
+    if: |
+      always()
+      && contains(needs.*.result, 'success')
+      && !contains(needs.*.result, 'failure')
+
+    steps:
       - name: Post Preview Link to PR
         uses: actions/github-script@v7
         with:
@@ -68,13 +167,13 @@ jobs:
           script: |
             try {
               const { data: comments } = await github.rest.issues.listComments({
-                issue_number: ${{ env.PR_NUMBER }},
+                issue_number: ${{ needs.determine-sync-status.outputs.pr-number }},
                 owner: context.repo.owner,
                 repo: context.repo.repo
               });
 
               // Define the comment body
-              const commentBody = `🎉 A preview for this PR is available at: ${{ env.HUGO_BASEURL }}pr${{ env.PR_NUMBER }}/`;
+              const commentBody = `🎉 A preview for this PR is available at: ${{ env.HUGO_BASEURL }}pr${{ needs.determine-sync-status.outputs.pr-number }}/`;
 
               // Look for an existing comment containing the specific text
               const existingComment = comments.find(comment =>
@@ -92,7 +191,7 @@ jobs:
 
               // Create a new comment
               await github.rest.issues.createComment({
-                issue_number: ${{ env.PR_NUMBER }},
+                issue_number: ${{ needs.determine-sync-status.outputs.pr-number }},
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: commentBody
@@ -104,7 +203,7 @@ jobs:
       - name: Invalidate CloudFront cache for PR
         uses: chetan/invalidate-cloudfront-action@v2
         env:
-          PATHS: "/pr${{ env.PR_NUMBER }}/*"
+          PATHS: "/pr${{ needs.determine-sync-status.outputs.pr-number }}/*"
           DISTRIBUTION: ${{ secrets.PREVIEW_CLOUDFRONT_DISTRIBUTION }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
