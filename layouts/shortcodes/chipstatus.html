@@ -23,12 +23,20 @@
           throw new Error(`Key "${jsonKey}" not found in the JSON data`);
         }
 
-        // Extract the value for the key and convert the markdown to HTML
-        let markdown = data[jsonKey];
-        let htmlContent = marked.parse(markdown);
+        let content;
+        if (jsonKey === "generated_time") {
+          // Convert ISO8601 time to local time
+          const isoTime = data[jsonKey];
+          const localTime = new Date(isoTime).toLocaleString(); // Convert to local time
+          content = `<p>Generated Time: ${localTime}</p>`;
+        } else {
+          // Extract the value for the key and convert the markdown to HTML
+          let markdown = data[jsonKey];
+          content = marked.parse(markdown);
+        }
 
-        // Inject the HTML into the unique content div
-        document.getElementById(`content-${uniqueID}`).innerHTML = htmlContent;
+        // Inject the content into the unique content div
+        document.getElementById(`content-${uniqueID}`).innerHTML = content;
       })
       .catch(error => {
         document.getElementById(`content-${uniqueID}`).textContent = 'Error loading content: ' + error.message;
