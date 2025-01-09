@@ -4,7 +4,7 @@ date: 2024-08-29T16:40:07+08:00
 draft: false
 ---
 
-Last updated: {{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="generated_time" >}}
+**Last updated**: {{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="generated_time" >}}
 
 This page lists the projects in which the ESP32-C61 is supported.
 

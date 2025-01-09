@@ -1,5 +1,5 @@
 {{ $uniqueID := .Get "jsonKey" | urlize }} <!-- Generate a unique ID -->
-<div id="content-{{ $uniqueID }}">Loading...</div>
+<span id="content-{{ $uniqueID }}">Loading...</span>
 
 {{ $contentPath := .Get "contentPath" }}
 {{ $jsonKey := .Get "jsonKey" }}
@@ -25,17 +25,17 @@
 
         let content;
         if (jsonKey === "generated_time") {
-          // Convert ISO8601 time to local time
+          // Convert ISO8601 time to desired local time format
           const isoTime = data[jsonKey];
-          const localTime = new Date(isoTime).toLocaleString(); // Convert to local time
-          content = `<p>Generated Time: ${localTime}</p>`;
+          const options = { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true };
+          content = new Intl.DateTimeFormat('en-GB', options).format(new Date(isoTime));
         } else {
           // Extract the value for the key and convert the markdown to HTML
           let markdown = data[jsonKey];
           content = marked.parse(markdown);
         }
 
-        // Inject the content into the unique content div
+        // Inject the content into the unique content span
         document.getElementById(`content-${uniqueID}`).innerHTML = content;
       })
       .catch(error => {
