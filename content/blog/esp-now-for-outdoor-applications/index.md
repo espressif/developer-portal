@@ -17,7 +17,7 @@ tags:
 
 The ESP32-C6-DevKitM-1 was chosen for testing Wi-Fi, ESP-NOW, and ESP-NOW-LR due to its cutting-edge features and suitability for real-world evaluations. While its compact design and integrated capabilities make it an excellent choice, it should be noted that the board does not natively support external antennas. Instead, it features a high-quality PCB antenna optimized for typical IoT applications. Here are the key highlights:
 -	__Support for Wi-Fi 6 (802.11ax)__ - Provides enhanced speed, improved efficiency in congested environments, and reduced latency, making it a future-ready option for testing modern Wi-Fi capabilities.
--	__Sub-GHz Capability__ - Essential for evaluating long-range communication performance with ESP-NOW-LR, especially in challenging environments like forests or rugged terrains.
+-	__2.4GHz Capability__ - Essential for evaluating long-range communication performance with ESP-NOW-LR, especially in challenging environments like forests or rugged terrains.
 -	__Integrated PCB Antenna__ - While limited to an on-board antenna, the design ensures a compact and reliable setup for short- to medium-range testing. The board does not include a U.FL connector or external antenna support, which may limit range in certain scenarios.
 -	__Power Efficiency__ - Designed for low-power operation, enabling prolonged testing in remote areas without frequent recharging, simulating real-world IoT deployment scenarios.
 -	__Development Ecosystem__ - Fully compatible with Espressif’s ESP-IDF framework and third-party tools, making configuration, programming, and analysis straightforward and efficient.
@@ -101,7 +101,7 @@ Success rates in open fields were near 100% up to 450 meters and dropped to 40% 
 
 ## Conclusion
 
-The ESP32 platform offers powerful and flexible communication protocols that cater to a wide range of applications. Wi-Fi provides high-throughput and internet connectivity for bandwidth-heavy applications. ESP-NOW excels in low-power, connectionless communication for peer-to-peer networks, ideal for local applications without requiring infrastructure. ESP-NOW-LR, powered by LoRa technology, extends the range of ESP-NOW to up to a kilometer, making it the perfect choice for long-range, low-power IoT applications in remote or challenging environments.
+The ESP32 platform offers powerful and flexible communication protocols that cater to a wide range of applications. Wi-Fi provides high-throughput and internet connectivity for bandwidth-heavy applications. ESP-NOW excels in low-power, connectionless communication for peer-to-peer networks, ideal for local applications without requiring infrastructure. ESP-NOW-LR, powered by Espressif technology, extends the range of ESP-NOW to up to a kilometer, making it the perfect choice for long-range, low-power IoT applications in remote or challenging environments.
 
 The ESP32-C6-DevKitM-1 provides a robust and versatile platform for evaluating Wi-Fi, ESP-NOW, and ESP-NOW-LR in diverse environments. Our tests reveal that:
 -	Wi-Fi is ideal for high-speed communication in controlled environments.
