@@ -3,7 +3,7 @@ title: "ESP-IDF VS Code Extension v1.9.0 release"
 date: 2024-01-13
 showAuthor: false
 disableComments: false
-featureAsset: "img/featured/featured-vscode-extension-release.png"
+featureAsset: "img/featured/featured-vscode-extension-release.webp"
 tags: ["News", "ESP-IDF extension", "VSCode", "Visual Studio Code"]
 authors:
 - "radu-rentea"
