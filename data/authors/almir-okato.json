@@ -1,0 +1,9 @@
+{
+    "name": "Almir Okato",
+    "image" : "img/authors/almir-okato.webp",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/almir-okato" },
+        { "github": "https://github.com/almir-okato" }
+    ]
+}
