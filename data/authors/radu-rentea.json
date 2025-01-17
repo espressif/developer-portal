@@ -1,0 +1,9 @@
+{
+	"name": "Radu Rentea",
+	"image" : "img/authors/radu-rentea.webp",
+	"bio": "Software Engineer at Espressif",
+	"social": [
+			{ "linkedin": "https://www.linkedin.com/in/radu-rentea/" },
+			{ "github": "https://github.com/radurentea" }
+	]
+}
