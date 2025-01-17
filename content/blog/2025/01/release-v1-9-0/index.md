@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF VS Code Extension v1.9.0 release"
-date: 2025-01-16
+date: 2025-01-17
 showAuthor: false
 disableComments: false
 featureAsset: "img/featured/featured-vscode-extension-release.webp"
