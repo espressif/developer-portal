@@ -97,7 +97,7 @@ The ESP32-S3 features:
 
 The recommended development boards for building prototypes are as follows:
 
-- [ESP32-S3-LCD-EV-Board](https://github.com/espressif/esp-dev-kits/tree/master/esp32-s3-lcd-ev-board):
+- [ESP32-S3-LCD-EV-Board](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-lcd-ev-board/index.html):
   - **Screen**: 3.95-inch 480x480 LCD.
   - **Purpose**: Ideal for building prototypes and evaluating RGB interface solutions.
   - **Features**: Designed to work seamlessly with the ESP32-S3 SoC.
@@ -124,7 +124,7 @@ The ESP32-C3 is cost-effective and has industry-leading low-power performance. I
 
 On the other hand, the ESP32-C6 offers larger RAM memory than the ESP32-C3 and supports higher resolution displays through the QSPI interface, achieving a low-cost intelligent screen display scheme with medium resolution.
 
-The recommended development board for prototyping and evaluation is the [ESP32-C3-LCDkit](https://github.com/espressif/esp-dev-kits/tree/master/esp32-c3-lcdkit) board that can be bought [here](https://www.amazon.com/Espressif-ESP32-C3-LCDkit-Development-Board/dp/B0C9M1887C/ref=sr_1_3?crid=2WICDGC9FUSFI&dib=eyJ2IjoiMSJ9.QBZPTMh2NMnWLUPL5TU6rlhM53T6bPUhDd8yjTwawKFDG-pNO7FSiHJYsB4_YIobkkD4IoYHCpmCJWFi6pmzAs5q-8ZXxaEasxWwK6tG8FjmCDXFbYH9AICDOtWSYpRhB7GWAw-daWRRVF7BDpNYOwPlrwh4C-ClItJHUUcsgkLN6jJYVkc4k-aI8XNx5rW9gS3LHS5nXh-fMVqhY3xpM5ftMBwHh663jwIbZKUpYhc.H94wJsVmy219QdIUXgjNirv6Z7NiIF4zczyped05ndU&dib_tag=se&keywords=ESP32-C3-LCDkit&qid=1723622751&sprefix=esp32-c3-lcdkit%2Caps%2C824&sr=8-3).
+The recommended development board for prototyping and evaluation is the [ESP32-C3-LCDkit](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-lcdkit/index.html) board that can be bought [here](https://www.amazon.com/Espressif-ESP32-C3-LCDkit-Development-Board/dp/B0C9M1887C/ref=sr_1_3?crid=2WICDGC9FUSFI&dib=eyJ2IjoiMSJ9.QBZPTMh2NMnWLUPL5TU6rlhM53T6bPUhDd8yjTwawKFDG-pNO7FSiHJYsB4_YIobkkD4IoYHCpmCJWFi6pmzAs5q-8ZXxaEasxWwK6tG8FjmCDXFbYH9AICDOtWSYpRhB7GWAw-daWRRVF7BDpNYOwPlrwh4C-ClItJHUUcsgkLN6jJYVkc4k-aI8XNx5rW9gS3LHS5nXh-fMVqhY3xpM5ftMBwHh663jwIbZKUpYhc.H94wJsVmy219QdIUXgjNirv6Z7NiIF4zczyped05ndU&dib_tag=se&keywords=ESP32-C3-LCDkit&qid=1723622751&sprefix=esp32-c3-lcdkit%2Caps%2C824&sr=8-3).
 
 <figure style="width: 50%; margin: 0 auto; text-align: center;">
     <img
