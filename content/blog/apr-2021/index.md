@@ -49,7 +49,7 @@ ESP32-C6 is Espressif’s first low-power and cost-effective Wi-Fi 6 + Bluetooth
     src="img/apr-4.webp"
     >}}
 
-Espressif recently launched [ESP32-S2-HMI-DevKit-1](https://github.com/espressif/esp-dev-kits/tree/master/esp32-s2-hmi-devkit-1), which is specifically designed for [human-machine interfaces](https://youtu.be/1LNdpcw5t0Q) in smart-home automation controllers, smart speakers with a display, smart alarm clocks, etc. It comes with a 4.3-inch color LCD and a touch panel.
+Espressif recently launched [ESP32-S2-HMI-DevKit-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s2/esp32-s2-hmi-devkit-1/index.html), which is specifically designed for [human-machine interfaces](https://youtu.be/1LNdpcw5t0Q) in smart-home automation controllers, smart speakers with a display, smart alarm clocks, etc. It comes with a 4.3-inch color LCD and a touch panel.
 
 [__“App Fairy” for ThingPulse ESP-based Devices Released__ ](https://www.espressif.com/en/news/ESP_App_Fairy)
 
