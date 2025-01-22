@@ -82,8 +82,6 @@ Below are the main parameters related to PSRAM, along with a brief description o
 
 ***ESP_SPIRAM:*** This configuration parameter enables support for an external SPI RAM chip, connected in parallel with the main SPI flash chip. If enabled, it automatically enables [SHARED_MULTI_HEAP](#using-psram-for-dynamic-memory-allocation).
 
-***ESP_HEAP_SEARCH_ALL_REGIONS:*** This configuration parameter enables searching all available heap regions. If the region of desired capability is exhausted, memory will be allocated from another available regions.
-
 ***ESP_SPIRAM_HEAP_SIZE:*** This configuration parameter specifies SPIRAM heap size.
 
 ***ESP_SPIRAM_MEMTEST:*** This configuration parameter controls SPIRAM memory test during initialization. It is enabled by default and can be disabled for faster startup.
