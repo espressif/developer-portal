@@ -1,5 +1,11 @@
 {
     "name": "Amey Inamdar",
-    "bio": "",
-    "image": ""
+    "bio": "Technical Marketing at Espressif Systems",
+    "image": "img/authors/amey-inamdar.jpeg",
+    "social": [
+        {
+            "linkedin": "https://www.linkedin.com/in/amey-inamdar-2b00561/",
+            "twitter": "https://x.com/iamey"
+        }
+    ]
 }

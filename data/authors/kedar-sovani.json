@@ -1,5 +1,14 @@
 {
     "name": "Kedar Sovani",
-    "bio": "",
-    "image": ""
+    "bio": "Engineering at Espressif Systems",
+    "image": "img/authors/kedar-sovani.jpeg",
+    "social": [
+        {
+            "github": "https://github.com/kedars",
+            "linkedin": "https://www.linkedin.com/in/kedarsovani",
+            "twitter": "https://twitter.com/kedarsovani",
+            "medium": "https://medium.com/@kedars",
+            "link": "https://kedar.dumpstack.com"
+        }
+    ]
 }

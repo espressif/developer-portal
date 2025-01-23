@@ -1,5 +1,8 @@
 {
     "name": "Chirag Atal",
-    "bio": "",
-    "image": ""
+    "bio": "Engineer at Espressif Systems",
+    "image": "img/authors/chirag-atal.jpeg",
+    "social": [
+        { "github": "https://github.com/chiragatal" }
+    ]
 }
