@@ -12,7 +12,7 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/reliability-esp-now/" >}}
+{{< article link="/blog/2024/12/how-to-create-an-esp-idf-component/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
