@@ -1,10 +1,9 @@
 ---
 title: "GitHub Copilot Now in Espressif-IDE with Copilot4Eclipse"
-date: 2025-02-03
+date: 2025-02-05
 showAuthor: false
 disableComments: false
-featureAsset: "assets/copilot-ide.webp"
-tags: ["Productivity", "Espressif-IDE", "Eclipse", "IDE"]
+tags: ["Espressif-IDE", "GitHub Copilot", "IDE"]
 authors:
 - "kondal-kolipaka"
 ---
