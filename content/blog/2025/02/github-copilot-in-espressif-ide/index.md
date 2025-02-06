@@ -3,7 +3,7 @@ title: "GitHub Copilot Now in Espressif-IDE with Copilot4Eclipse"
 date: 2025-02-05
 showAuthor: false
 disableComments: false
-tags: ["Espressif-IDE", "GitHub Copilot", "IDE"]
+tags: ["Espressif-IDE", "GitHub Copilot", "IDE","AI","ESP-IDF"]
 authors:
 - "kondal-kolipaka"
 ---
@@ -42,12 +42,15 @@ Whether you're coding in C or C++, GitHub Copilot’s AI-driven suggestions can 
 
 ## Getting Started with Copilot4Eclipse
 
+To get started with Copilot4Eclipse you will need to:
 - **Install the [Copilot4Eclipse](https://www.genuitec.com/products/copilot4eclipse/docs/installation) Plugin** - Download and install the Copilot4Eclipse extension from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/copilot4eclipse).
 - **Authenticate with GitHub** - Sign in with your GitHub Copilot subscription to activate AI-powered assistance.
 - **Start Coding with AI Support** - As you write code, Copilot4Eclipse provides intelligent suggestions, making coding easier and more productive.
 
 {{< figure default=true src="assets/copilot-marketplace.webp" >}}
 
-## Final Thoughts
+## Conclusion
 
-While Copilot4Eclipse is still evolving, it is already a game-changer for Eclipse users who want to leverage AI for development. If you are working with Espressif-IDE and ESP-IDF, this tool can significantly speed up your workflow, reducing boilerplate and improving code quality.
+If you are working with Espressif-IDE or considering it for your development environment, the Copilot4Eclipse plugin can significantly enhance your productivity, help you write better code, generate boilerplate code for ESP-IDF, and assist in fixing bugs.
+
+Give it a try and let us know how it goes!
