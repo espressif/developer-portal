@@ -42,7 +42,7 @@ ESP LowCode makes the application code development intuitive, easy to understand
 * The generated application firmware is quite small, making the **build-flash-debug** cycle extremely fast
 * Development is exposed through a simplified **setup-loop style** of programming
 
-One of the goals is incorporating the production scenarios in the development workflow itself with the following Matter specific features:
+One of the goals is to incorporate the production scenarios in the development workflow itself, with the following Matter specific features:
 
 * **Unique QR code** generation and flashing
 * **Unique DAC certificate** generation and flashing
@@ -59,7 +59,7 @@ It leaves the Application developer to focus on:
 * Event and state indication
 * User interaction
 
-This is something that the device makers have wanted, an ability to write, create and modify just the part that affects them and the end user, without having to deal with the complexities of what is happening internally. And the device makers already have vast experience in the above mentioned areas.
+This is something that the device makers have wanted, an ability to write, create and modify just the part that affects them and the end user, without having to deal with the complexities of what is happening internally. And the device makers already have vast experience in these three areas.
 
 Device makers can modify the data model as per their device and application requirements. This Matter data model is interpreted by the system firmware but it is still outside the system firmware like a pluggable component.
 
@@ -125,7 +125,7 @@ This provides multiple benefits:
 * Development and debugging is contained, and hence much simpler, as opposed to a fully multi-threaded FreeRTOS/IDF application
 * The partitioned memory ensures that the application firmware is stable and doesn't affect the system firmware
 * The firmware is ~20KB for a typical application, making this a very small footprint
-* Simplified HAL drivers (RTOS independent low-level peripheral drivers) to directly interface with the hardware peripherals
+* Simplified HAL drivers (RTOS independent low-level peripheral drivers) help to directly interface with the hardware peripherals
 
 The platform uses the [ESP AMP](https://github.com/espressif/esp-amp) project for facilitating this.
 
