@@ -34,7 +34,7 @@ GitHub Copilot Chat is an AI-powered coding assistant that provides real-time gu
 
 {{< figure default=true src="assets/copilot-chat.webp" >}}
 
-### Supports Various Languages
+### Support for Various Languages
 
 Whether you're coding in C or C++, GitHub Copilot’s AI-driven suggestions can help you write better code, faster.
 
