@@ -40,14 +40,14 @@ Whether you're coding in C or C++, GitHub Copilot’s AI-driven suggestions can 
 
 {{< figure default=true src="assets/preferences.webp" >}}
 
-## Getting Started with Copilot4Eclipse
+## How to Start Using Copilot4Eclipse
 
-To get started with Copilot4Eclipse you will need to:
-- **Install the [Copilot4Eclipse](https://www.genuitec.com/products/copilot4eclipse/docs/installation) Plugin** - Download and install the Copilot4Eclipse extension from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/copilot4eclipse).
-- **Authenticate with GitHub** - Sign in with your GitHub Copilot subscription to activate AI-powered assistance.
-- **Start Coding with AI Support** - As you write code, Copilot4Eclipse provides intelligent suggestions, making coding easier and more productive.
+To get started with Copilot4Eclipse, you will need to:
 
-{{< figure default=true src="assets/copilot-marketplace.webp" >}}
+1. **Install the [Copilot4Eclipse](https://www.genuitec.com/products/copilot4eclipse/docs/installation) Plugin** - Download and install the Copilot4Eclipse extension from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/copilot4eclipse).
+  {{< figure default=true src="assets/copilot-marketplace.webp" >}}
+2. **Authenticate with GitHub** - Sign in with your GitHub Copilot subscription to activate AI-powered assistance.
+3. **Start Coding with AI Support** - As you write code, Copilot4Eclipse provides intelligent suggestions, making coding easier and more productive.
 
 ## Conclusion
 
