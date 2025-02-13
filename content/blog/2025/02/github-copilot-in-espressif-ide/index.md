@@ -8,7 +8,7 @@ authors:
 - "kondal-kolipaka"
 ---
 
-We all love [GitHub Copilot](https://github.com/features/copilot) as a powerful AI-powered coding assistant that enhances productivity. However, until now, it has been officially available only for VS Code and a few other editors. But here’s some good news for Eclipse users! We have tried the [Copilot4Eclipse](https://www.genuitec.com/products/copilot4eclipse/) plugin with the [Espressif-IDE C/C++ Editor](https://docs.espressif.com/projects/espressif-ide/en/latest/additionalfeatures/lspeditor.html#lsp-c-c-editor), and it works amazingly well, helping to write code faster and fix bugs.
+We all love [GitHub Copilot](https://github.com/features/copilot) as a powerful AI-powered coding assistant that enhances productivity. However, until now, it has been officially available only for VS Code and a few other editors. But here’s some good news for Eclipse users! We have tried the [Copilot4Eclipse](https://www.genuitec.com/products/copilot4eclipse/) plugin with the [Espressif-IDE LSP C/C++ Editor](https://docs.espressif.com/projects/espressif-ide/en/latest/additionalfeatures/lspeditor.html#lsp-c-c-editor), and it works amazingly well, helping to write code faster and fix bugs.
 
 ## Introducing Copilot4Eclipse
 
