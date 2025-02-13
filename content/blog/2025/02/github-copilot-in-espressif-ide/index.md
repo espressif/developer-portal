@@ -18,7 +18,7 @@ If you've been waiting for GitHub Copilot support in Eclipse, look no further th
 
 ### AI-Powered Code Suggestions
 
-Copilot4Eclipse generates entire functions, suggests code completions, and refactors snippets, streamlining development and boosting efficiency. It assists with boilerplate code, ESP32 API calls, and even offers intelligent improvements to your implementation—helping you write better code, faster.
+Copilot4Eclipse streamlines development and boosts efficiency by generating entire functions, suggesting code completions, and refactoring snippets. It assists with boilerplate code, ESP32 API calls, and even offers intelligent improvements to your implementation—helping you write better code, faster.
 
 {{< figure default=true src="assets/copilot-with-espressif-ide.webp" >}}
 
