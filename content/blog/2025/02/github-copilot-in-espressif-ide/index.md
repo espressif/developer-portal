@@ -1,6 +1,6 @@
 ---
 title: "GitHub Copilot Now in Espressif-IDE with Copilot4Eclipse"
-date: 2025-02-05
+date: 2025-02-13
 showAuthor: false
 disableComments: false
 tags: ["Espressif-IDE", "GitHub Copilot", "IDE","AI","ESP-IDF"]
