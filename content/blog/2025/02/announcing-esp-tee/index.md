@@ -58,6 +58,12 @@ With ESP-TEE on ESP32-C6:
 - Computations involving sensitive keys are performed in TEE and the services are exposed to the REE through secure interface.
 - Hardware isolation ensures that even if an untrusted component is compromised, critical data (e.g., cryptographic keys) remains safe.
 - Compliance with IoT security standards strengthens user confidence in the system's reliability.
+<!-- TODO[Link to an article once written]
+Owner: Mahavir Jain
+Note: Write an article about certifications in IoT and link to it from here
+Context: Developer Portal's GitLab MR `24#note_1921355`
+Tags: ESP-TEE
+-->
 
 The result? A smart home controller that complies with stringent security certifications required in IoT, building trust with end users.
 
