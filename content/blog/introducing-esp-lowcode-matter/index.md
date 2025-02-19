@@ -11,10 +11,10 @@ tags:
   - Low Code
   - Matter
   - Espressif
-  - Esp32
+  - ESP32
 ---
 
-We at Espressif Systems, are continuously striving to make device development easier for device makers. For Matter devices, we [launched](https://developer.espressif.com/blog/announcing-esp-zerocode/) the [ESP ZeroCode](https://zerocode.espressif.com/) solution, simplifying the device development by removing the software development efforts. ESP ZeroCode (which allows product customisations to a limited extent) is well suited for those who want to launch connected products without having to build them from scratch using the [ESP Matter](https://github.com/espressif/esp-matter) or the [Connectedhomeip (CHIP)](https://github.com/project-chip/connectedhomeip) SDK.
+At Espressif Systems, we are continuously striving to make device development easier for device makers. For Matter devices, we [launched](https://developer.espressif.com/blog/announcing-esp-zerocode/) the [ESP ZeroCode](https://zerocode.espressif.com/) solution, simplifying the device development by removing the software development efforts. Allowing product customizations to a limited extent, ESP ZeroCode is well-suited for those who want to launch connected products without having to build them from scratch using the [ESP Matter](https://github.com/espressif/esp-matter) or the [Connectedhomeip (CHIP)](https://github.com/project-chip/connectedhomeip) SDK.
 
 Today, we announce our [ESP LowCode Matter](https://github.com/espressif/esp-lowcode-matter) solution that achieves the best of both worlds by continuing to retain simplicity of ESP ZeroCode and providing the ability to customize, with ease, the typical parts of an application.
 
@@ -51,15 +51,15 @@ For development, the devices get a test DAC certificate. But for production, wit
 
 ### Simplified Maintenance
 
-**Espressif maintains the System Firmware**. The complexities of the Matter protocol, OTA upgrades, and security management are all happening internally. This isolates device makers from individually incorporating security fixes and other bug fixes that are provided in the different base SDKs (ESP IDF, ESP Matter, CHIP). This in turn helps to maintain the best security for in-field devices.
+**Espressif maintains the System Firmware**. The complexities of the Matter protocol, OTA upgrades, and security management are all happening internally. This isolates device makers from individually incorporating security fixes and other bug fixes that are provided in other base SDKs, such as ESP-IDF, ESP Matter, CHIP. This in turn helps to maintain the best security for in-field devices.
 
-It leaves the Application developer to focus on:
+It leaves the application developer to focus on:
 
 * Driver interfacing
 * Event and state indication
 * User interaction
 
-This is something that the device makers have wanted, an ability to write, create and modify just the part that affects them and the end user, without having to deal with the complexities of what is happening internally. And the device makers already have vast experience in these three areas.
+This is something that the device makers always wanted: the ability to write, create, and modify just the part that affects them and the end user, without having to deal with the complexities of what is happening internally. With that out of the way, the device makers can focus on the above three areas, in which they already have vast experience.
 
 Device makers can modify the data model as per their device and application requirements. This Matter data model is interpreted by the system firmware but it is still outside the system firmware like a pluggable component.
 
@@ -68,24 +68,24 @@ Device makers can modify the data model as per their device and application requ
 The ESP LowCode system firmware undergoes regular and rigorous testing to meet the high quality bar that we have set for ourselves. This ensures that the various certifications and the tests required by them are done efficiently and smoothly.
 
 * **Matter Certification**
-  * ESP LowCode products need to undergo full certification and testing. But, the Matter functionality is largely handled by Espressif in the system firmware itself, which ensures Matter compatibility. Additionally, Espressif will assist the manufacturers to get products certified and maintain certification in the most efficient manner.
+  * ESP LowCode products need to undergo full certification and testing. But, the Matter functionality is largely handled by Espressif in the system firmware itself, which ensures Matter compatibility. Additionally, Espressif will assist manufacturers in certifying their products and keeping the certification up to date in the most efficient manner.
   * You can use this badge on your product packaging and marketing materials once the product is certified.
 
-{{< figure
-    default=true
-    src="img/esp-lowcode-matter-badge.webp"
-    width="60%"
-    >}}
+  {{< figure
+      default=true
+      src="img/esp-lowcode-matter-badge.webp"
+      width="60%"
+      >}}
 
 * **Product Security Certification**
   * The Product Security Certification from CSA is recommended for all devices. All the security measures are already in place and taken care of in ESP LowCode Matter.
   * You can use this badge on your product packaging and marketing materials once the product is certified.
 
-{{< figure
-    default=true
-    src="img/esp-lowcode-product-security-badge.webp"
-    width="60%"
-    >}}
+  {{< figure
+      default=true
+      src="img/esp-lowcode-product-security-badge.webp"
+      width="60%"
+      >}}
 
 * **"Works with" Badges and programs by various other Ecosystems**
   * Similar to ESP ZeroCode, with ESP LowCode, you can easily get certified for various other ecosystems, and get the "Works with" badges.
@@ -93,7 +93,7 @@ The ESP LowCode system firmware undergoes regular and rigorous testing to meet t
 
 ### Everything in the browser
 
-We have built VSCode IDE plugins for ESP LowCode, and integrated those with GitHub Codespaces. This provides a first-class development experience from the browser itself. It integrates the entire development workflow within the VSCode IDE loaded in your browser. No need to install any additional software on the development host. All development operations, edit, build, flash, and monitoring the console are available through the browser, in the familiar VSCode interface.
+We have built VS Code IDE plugins for ESP LowCode, and integrated those with GitHub Codespaces. This provides a first-class development experience from the browser itself. It integrates the entire development workflow within the VS Code IDE loaded in your browser. No need to install any additional software on the development host. All development operations, edit, build, flash, and monitoring the console are available through the browser, in the familiar VS Code interface.
 
 You can simply connect the device to your own laptop and access it through the browser.
 
@@ -105,11 +105,11 @@ You can simply connect the device to your own laptop and access it through the b
     link="img/esp-lowcode-codespaces.webp"
     >}}
 
-Should you so choose, instead of using the browser-based IDE, you can also go ahead and use your local VSCode IDE or your preferred editors. These workflows are also fully supported.
+Instead of using the browser-based IDE, you can also use your local VS Code IDE or your preferred editors. These workflows are also fully supported.
 
 ## First SoC: ESP32-C6
 
-ESP32-C6 is the first SoC that is supported by ESP LowCode Matter. It is a 32-bit dual-core SoC with a high-power core and a low-power core. It is a great fit for the Matter protocol and the ESP LowCode Matter solution.
+The ESP32-C6 is the first SoC that is supported by ESP LowCode Matter. It is a 32-bit dual-core SoC with a high-power core and a low-power core. It is a great fit for the Matter protocol and the ESP LowCode Matter solution.
 
 For ESP32-C6, ESP LowCode completely **partitions CPU and memory** across system and application firmware. The High Power Core (and its associated memory) is dedicated to the system firmware while the Low Power Core (and its associated memory) is dedicated to the application firmware. This split ensures that the application firmware is compartmentalized, and a developer doesn't have to deal with the complexities of the system firmware.
 
@@ -122,12 +122,12 @@ The application firmware is a **single-threaded** application that runs on the L
 
 This provides multiple benefits:
 
-* Development and debugging is contained, and hence much simpler, as opposed to a fully multi-threaded FreeRTOS/IDF application
-* The partitioned memory ensures that the application firmware is stable and doesn't affect the system firmware
-* The firmware is ~20KB for a typical application, making this a very small footprint
-* Simplified HAL drivers (RTOS independent low-level peripheral drivers) help to directly interface with the hardware peripherals
+* Development and debugging are contained, hence much simpler, as opposed to a fully multi-threaded FreeRTOS/IDF application.
+* The partitioned memory ensures that the application firmware is stable and doesn't affect the system firmware.
+* The firmware is ~20KB for a typical application, making this a very small footprint.
+* Simplified HAL drivers (RTOS independent low-level peripheral drivers) help to directly interface with the hardware peripherals.
 
-The platform uses the [ESP AMP](https://github.com/espressif/esp-amp) project for facilitating this.
+The platform uses the [ESP-AMP](https://github.com/espressif/esp-amp) project for facilitating this.
 
 ## Try
 
@@ -137,4 +137,4 @@ ESP LowCode Matter represents a significant step forward in making Matter device
 
 Let us know what you think by joining the [discussions](https://github.com/espressif/esp-lowcode-matter/discussions) and becoming a part of the growing ESP LowCode Matter community.
 
-Disclaimer: All trademarks and copyrights are property of their respective owners.
+**Disclaimer:** All trademarks and copyrights are property of their respective owners.
