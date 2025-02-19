@@ -14,11 +14,11 @@ tags:
 
 ---
 
-We're extremely excited to announce the `1.0.0-beta.0` release for esp-hal, the _first_ vendor-backed Rust SDK! This has been a nearly 6 year long process to get to this point, and we now feel we have a solid 1.0 strategy. Let us take you on the the journey of how we got here. If you're just interested in what we're stabilizing today [click here](#targeting-stability) to jump to it.
+We're extremely excited to announce the `1.0.0-beta.0` release for `esp-hal`, the _first_ vendor-backed Rust SDK! This has been a nearly 6 year long process to get to this point, and we now feel we have a solid 1.0 strategy. Let us take you on the the journey of how we got here. If you're just interested in what we're stabilizing today [click here](#targeting-stability) to jump to it.
 
 ### Where it all started
 
-In 2019 I created the esp-rs org which laid dormant for some time. At the time, [Espressif] was still using the [Xtensa] architecture for it's chip lineup which whilst powerful had one big caveat for Rust support: there was no LLVM backend for Xtensa. I tried to use [mrustc] to cross compile Rust to C, and then use the GCC Xtensa toolchain but whilst I had some minor success the workflow was far to cumbersome. Fast-forward to 2020 and Espressif announced the first iteration of their [Xtensa enabled LLVM fork] with the intention of getting it upstreamed. I was extremely excited about this, and I got to work integrating this Xtensa enabled LLVM into the Rust compiler. I succeeded, with a lot of help from members of the Rust community and a reference set of  PRs for RISC-V which had fortunately been merged just a bit earlier. I had to set this project aside for a while, but I got back to it and managed to write the worlds first Rust blinky on an esp32! I documented my early findings in a series of [posts on my personal website]. I read these posts again (mostly to remind myself what on earth I was doing 5 years ago), and one quote from my first post really stood out to me.
+In 2019 I created the esp-rs org which laid dormant for some time. At the time, [Espressif] was still using the [Xtensa] architecture for it's chip lineup which whilst powerful had one big caveat for Rust support: there was no LLVM backend for Xtensa. I tried to use [mrustc] to cross compile Rust to C, and then use the GCC Xtensa toolchain but whilst I had some minor success the workflow was far to cumbersome. Fast-forward to 2020 and Espressif announced the first iteration of their [Xtensa enabled LLVM fork] with the intention of getting it upstreamed. I was extremely excited about this, and I got to work integrating this Xtensa enabled LLVM into the Rust compiler. I succeeded, with a lot of help from members of the Rust community and a reference set of  PRs for RISC-V which had fortunately been merged just a bit earlier. I had to set this project aside for a while, but I got back to it and managed to write the worlds first Rust blinky on an ESP32! I documented my early findings in a series of [posts on my personal website]. I read these posts again (mostly to remind myself what on earth I was doing 5 years ago), and one quote from my first post really stood out to me.
 
 > Now I know what most of you are thinking at this point, it's not very Rusty; it contains bundles of unsafe and there are no real abstractions here, and you are right; but it's something to get the ball rolling.
 
@@ -32,7 +32,7 @@ Espressif had been observing our work (and may I add, were _extremely_ helpful i
 
 ### Bringing up the ecosystem
 
-It has been possible to write embedded Rust applications on stable since 2018, but most of the ecosystem revolved around chips using the ARM architecture, which posed a bit of an uphill battle for us given that Espressif has just released its last Xtensa chip (the ESP32-S3) and was now bringing out RISC-V based chips. Whilst most crates in the embedded Rust ecosystem are arch independent, the tooling is a different story, and over the years we've spent _a lot_ of time contributing to various open source projects, like [probe-rs] to either improve, or in the case of Xtensa add support. This work is still on going, but we're quite happy with the usability of the tooling on our chips now.
+It has been possible to write embedded Rust applications on stable since 2018, but most of the ecosystem revolved around chips using the ARM architecture, which posed a bit of an uphill battle for us given that Espressif has just released its last Xtensa chip (the ESP32-S3) and was now bringing out RISC-V based chips. Whilst most crates in the embedded Rust ecosystem are arch independent, the tooling is a different story, and over the years we've spent _a lot_ of time contributing to various open source projects, like [probe-rs] to either improve, or in the case of Xtensa, add support. This work is still on going, but we're quite happy with the usability of the tooling on our chips now.
 
 Xtensa based chips posed many challenges for us. We ended up writing [xtensa-lx and xtensa-lx-rt] using the proprietary (at the time, they have since released an open version) Xtensa instruction set manual. There was at least _some_ runtime/startup support for RISC-V, but absolutely nothing for Xtensa in the Rust ecosystem. Another challenge we had is that we we're the primary users of the LLVM Xtensa fork, which meant when there was a bug in some code-gen we were the unfortunate souls to run into it. This ate copious amounts of developer time, but in the end it was worth it as the backend is in very good shape now. There is also a huge amount of progress to report on the upstreaming front for LLVM (which was stalled for a long long time), most of the base ISA is now in LLVM proper, and the remaining patches can be submitted in parallel.
 
@@ -69,7 +69,7 @@ Our stabilization strategy is quite simple, we've limited the scope of 1.0 stabi
 - `#[main]` macro
 - How esp-hal and friends are configured via [esp-config]
 
-With the exception of the list above, everything in else in esp-hal is now feature gated behind the `unstable` feature. With the scope limited, post 1.0 we can incrementally stabilize drivers, much like the Rust project itself does. This is quite a small amount to stabilize initially, however we feel it's enough to build a foundation on. It's expected that for most complex projects users will opt-in to the `unstable` feature. Over time, as we stabilize more drivers, and eventually more crates users will be able to remove the `unstable` feature from their `Cargo.toml` files.
+With the exception of the list above, everything else in esp-hal is now feature gated behind the `unstable` feature. With the scope limited, post 1.0 we can incrementally stabilize drivers, much like the Rust project itself does. This is quite a small amount to stabilize initially, however we feel it's enough to build a foundation on. It's expected that for most complex projects users will opt-in to the `unstable` feature. Over time, as we stabilize more drivers, and eventually more crates users will be able to remove the `unstable` feature from their `Cargo.toml` files.
 
 ### What about the other no_std esp crates?
 
@@ -88,13 +88,13 @@ As this is a beta release, we'd absolutely love to hear your feedback on esp-hal
 
 We've created our own project generation tool, [esp-generate] to bootstrap starting a project, which is often a bit of a tricky thing to setup in embedded, please do give it a try by first installing the tool with 
 
-```rust
+```bash
 cargo install esp-generate
 ```
 
 then, to generate a project for the ESP32-C6, run
 
-```rust
+```bash
 esp-generate --chip esp32c6 NAME_OF_PROJECT
 ```
 
@@ -102,7 +102,7 @@ We're currently rewriting the [book], but in the meantime it can still be helpfu
 
 ### Where does this leave the standard library port?
 
-At this time we're officially marking the `std` _crates_ as community supported, which we've reflected on the [organization landing page](https://github.com/esp-rs/). We will still maintain the upstream compiler targets, and ensure that those targets continue to function, but `esp-idf-sys`, `esp-idf-hal` and `esp-idf-svc` are now community projects. It's silently been moving this way for a while, but we'd like to officially announce it here. Users wanting a more stable (and official) development environment should transition to esp-hal and the other no_std crates. 
+At this time we're officially marking the `std` _crates_ as community supported, which we've reflected on the [organization landing page](https://github.com/esp-rs/). We will still maintain the upstream compiler targets, and ensure that those targets continue to function, but `esp-idf-sys`, `esp-idf-hal` and `esp-idf-svc` are now community projects. It's silently been moving this way for a while, but we'd like to officially announce it here. Users wanting a more stable (and official) development environment should transition to `esp-hal` and the other `no_std` crates. 
 
 ### What's next?
 
