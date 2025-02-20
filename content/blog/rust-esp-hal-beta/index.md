@@ -34,7 +34,7 @@ Espressif had been observing our work (and may I add, were _extremely_ helpful i
 
 It has been possible to write embedded Rust applications on stable since 2018. Most of the ecosystem, however, revolved around chips using the ARM architecture, which posed a bit of an uphill battle for us. Espressif had just released its last Xtensa chip (the ESP32-S3) and was now bringing out RISC-V based chips. Whilst most crates in the embedded Rust ecosystem are architecture independent, the tooling is a different story. Over the years we've spent _a lot_ of time contributing to various open source projects, like [probe-rs] to either improve, or in the case of Xtensa, add support. This work is still on going, but we're quite happy with the usability of the tooling on our chips now.
 
-Xtensa based chips posed many challenges for us. We ended up writing [xtensa-lx and xtensa-lx-rt] using the proprietary (at the time, Cadence, the owners of the Xtensa IP have since released an open version) Xtensa instruction set manual. There was at least _some_ runtime/startup support for RISC-V, but absolutely nothing for Xtensa in the Rust ecosystem. Another challenge we had is that we were the primary users of the LLVM Xtensa fork, which meant when there was a bug in some code-gen we were the unfortunate souls to run into it. This ate copious amounts of developer time, but in the end it was worth it, as the backend is in very good shape now. There is also a huge amount of progress to report on the upstreaming front for LLVM (which was stalled for a long, long time). Most of the base ISA is now in LLVM proper, and the remaining patches can be submitted in parallel, see [the tracking issue].
+Xtensa based chips posed many challenges for us. We ended up writing [xtensa-lx and xtensa-lx-rt] using the proprietary (at the time, Cadence, the owners of the Xtensa IP have since released an open version) Xtensa instruction set manual. There was at least _some_ runtime/startup support for RISC-V, but absolutely nothing for Xtensa in the Rust ecosystem. Another challenge we faced is that we were the primary users of the LLVM Xtensa fork. This meant when there was a bug in code-generation we were the unfortunate souls to run into it. This ate copious amounts of developer time, but in the end it was worth it, as the backend is in good shape now. There is also a huge amount of progress to report on the upstreaming front for LLVM (which was stalled for a long, long time). Most of the base ISA is now in LLVM proper, and the remaining patches can be submitted in parallel, see [the tracking issue] for more details.
 
 ### Focussing on `no_std` Crates
 
@@ -114,8 +114,6 @@ Our focus now is to keep pushing until esp-hal 1.0. We'll then split our efforts
 This release would not have been possible without the help from the embedded Rust community, the embedded working group, and of course the esp-rs community and contributors which have heavily impacted how we've developed our Rust offering. I also can't thank the Rust team at Espressif, they're awesome to work with and oh so very talented! If you're attending RustNL this year come say hi! We'll have an Espressif booth setup, and you can catch us walking around the event too!
 
 If you're a company using (or considering) Rust on our chips, please do contact rust-support@espressif.com, we'd love to hear from you!
-
----
 
 [^1]: There are some binary blobs to run the Wi-Fi driver which we link to.
 
