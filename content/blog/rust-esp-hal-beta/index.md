@@ -72,6 +72,7 @@ Our stabilization strategy is quite simple, we've limited the scope of 1.0 stabi
   - UART
   - SPI
   - I2C
+- The `time` module, which provides `Instant`, `Duration` and `Rate`
 - A couple of miscellaneous system APIs (SoC reset, etc.) 
 - `#[main]` macro
 - How esp-hal and friends are configured via [esp-config]
