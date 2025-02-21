@@ -2,7 +2,7 @@
 title: "esp-hal 1.0.0 beta announcement"
 date: 2025-02-25
 showAuthor: true
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-rust.webp"
 authors:
   - scott-mabin
 tags:
