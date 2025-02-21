@@ -19,3 +19,9 @@
    li {
   line-height: 1.65;
 }
+
+.article-summary {
+  font-style: italic;
+  padding-left: 10px;
+  border-left: 4px solid #e7352c;
+}
