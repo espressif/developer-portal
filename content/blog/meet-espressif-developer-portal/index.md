@@ -5,9 +5,11 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - "kirill-chalov"
+summary: "This article introduces the Espressif Developer Portal, discusses its purpose, the expected content, and how we--the community---can contribute and collaborate."
+tags: ["Espressif", "News", "Announcement", "Community", "Contribute"]
 ---
 
-This post covers the following:
+We will explore the following topics:
 
 - [Motives](#motives) for creating the portal
 - [Goals](#goals) to be achieved with the portal
