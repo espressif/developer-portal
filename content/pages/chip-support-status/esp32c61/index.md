@@ -35,6 +35,8 @@ If you have an issue to report about any of the ESP32-C61 features, please creat
 {{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="idf" >}}
 
 
-## External projects
+## Other Projects
+
+If you have an issue to report about any of the ESP32-C61 features, please create an issue in the issue tracker of a respective project.
 
 {{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="other_proj" >}}
