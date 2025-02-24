@@ -1,6 +1,6 @@
 ---
 title: "esp-hal 1.0.0 beta announcement"
-date: 2025-02-25
+date: 2025-02-24
 showAuthor: true
 featureAsset: "img/featured/featured-rust.webp"
 authors:
