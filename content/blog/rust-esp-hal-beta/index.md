@@ -158,7 +158,8 @@ If you're a company using (or considering) Rust on our chips, please do contact 
 [esp-generate]: https://github.com/esp-rs/esp-generate
 [book]: https://github.com/esp-rs/book
 [esp-config]: https://crates.io/crates/esp-config
-[docs.espressif.com/projects/rust]: https://docs.espressif.com/projects/rust/
+<!-- TODO drop the index.html postfix once the docs server handles it properly -->
+[docs.espressif.com/projects/rust]: https://docs.espressif.com/projects/rust/index.html
 
 [@reitermarkus]: https://github.com/reitermarkus
 [@ivmarkov]: https://github.com/ivmarkov
