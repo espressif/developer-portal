@@ -1,6 +1,6 @@
 ---
 title: "esp-hal 1.0.0 beta announcement"
-date: 2025-02-25
+date: 2025-02-24
 showAuthor: true
 featureAsset: "img/featured/featured-rust.webp"
 authors:
@@ -158,8 +158,7 @@ If you're a company using (or considering) Rust on our chips, please do contact 
 [esp-generate]: https://github.com/esp-rs/esp-generate
 [book]: https://github.com/esp-rs/book
 [esp-config]: https://crates.io/crates/esp-config
-<!-- TODO change to docs.espressif -->
-[docs.espressif.com/projects/rust]: https://preview-docs.espressif.com/projects/rust/
+[docs.espressif.com/projects/rust]: https://docs.espressif.com/projects/rust/
 
 [@reitermarkus]: https://github.com/reitermarkus
 [@ivmarkov]: https://github.com/ivmarkov
