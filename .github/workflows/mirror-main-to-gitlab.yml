@@ -1,0 +1,26 @@
+name: Mirror main to GitLab
+on:
+  push:
+    branches:
+      - main
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add GitLab remote and push
+        env:
+          GITLAB_URL: ${{ secrets.GITLAB_SERVER_URL }}
+          GITLAB_TOKEN: ${{ secrets.GITLAB_BOT_REPO_TOKEN }}
+          GITLAB_USERNAME: "oauth2"
+          GITLAB_REPO: "https://$GITLAB_URL/espressif/developer-portal.git"
+        run: |
+          git remote add gitlab https://$GITLAB_USERNAME:$GITLAB_TOKEN@$GITLAB_REPO
+          git push gitlab main
