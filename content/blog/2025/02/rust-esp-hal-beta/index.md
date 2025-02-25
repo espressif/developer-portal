@@ -132,7 +132,7 @@ Our focus now is to keep pushing until esp-hal 1.0. We'll then split our efforts
 
 This release would not have been possible without the help from the embedded Rust community, the embedded working group, and of course the esp-rs community and contributors which have heavily impacted how we've developed our Rust offering. I also can't thank the Rust team at Espressif, they're awesome to work with and oh so very talented! If you're attending RustNL this year (2025) come say hi! We'll have an Espressif booth setup, and you can catch us walking around the event too!
 
-If you're a company using (or considering) Rust on our chips, please do contact rust-support@espressif.com, we'd love to hear from you!
+If you're a company using (or considering) Rust on our chips, please do contact rust.support@espressif.com, we'd love to hear from you!
 
 [^1]: There are some binary blobs to run the Wi-Fi driver which we link to.
 
