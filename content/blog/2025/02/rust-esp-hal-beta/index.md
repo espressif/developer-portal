@@ -130,9 +130,9 @@ At this time we're officially marking the `std` _crates_ as community supported,
 
 Our focus now is to keep pushing until esp-hal 1.0. We'll then split our efforts and try to stabilize more things in esp-hal whilst also pushing for a stable Wi-Fi/BLE story. Preparing for the full esp-hal 1.0 release requires an overhaul of the [book], along with a bunch of documentation and polish all round. Finally, we need to ensure our tooling is in a good place, so we plan to make a new [espflash] release to accomplish that.
 
-This release would not have been possible without the help from the embedded Rust community, the embedded working group, and of course the esp-rs community and contributors which have heavily impacted how we've developed our Rust offering. I also can't thank the Rust team at Espressif, they're awesome to work with and oh so very talented! If you're attending RustNL this year (2025) come say hi! We'll have an Espressif booth setup, and you can catch us walking around the event too!
+This release would not have been possible without the help from the embedded Rust community, the embedded working group, and of course the esp-rs community and contributors which have heavily impacted how we've developed our Rust offering. I also can't thank the Rust team at Espressif enough, they're awesome to work with and oh so very talented! If you're attending RustNL this year (2025) come say hi! We'll have an Espressif booth setup, and you can catch us walking around the event too!
 
-If you're a company using (or considering) Rust on our chips, please do contact rust-support@espressif.com, we'd love to hear from you!
+If you're a company using (or considering) Rust on our chips, please do contact rust.support@espressif.com, we'd love to hear from you!
 
 [^1]: There are some binary blobs to run the Wi-Fi driver which we link to.
 
