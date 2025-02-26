@@ -28,7 +28,7 @@ Today, we announce our [ESP LowCode Matter](https://github.com/espressif/esp-low
 ESP LowCode Matter is a solution that splits firmware into two parts for a single chip:
 
 - **System Firmware**: Developed and maintained by Espressif, it wraps the complexity of the Matter protocol, OTA upgrades, and security management.
-- **Application Firmware**: Developer by a device maker, it implements hardware interfacing, hardware communication protocols and other business and device logic.
+- **Application Firmware**: Developed by a device maker, it implements hardware interfacing, hardware communication protocols and other business and device logic.
 
 {{< figure
     default=true
@@ -36,11 +36,11 @@ ESP LowCode Matter is a solution that splits firmware into two parts for a singl
     caption="[Zoom Image](img/esp-lowcode-firmware-split.webp)"
     >}}
 
-ESP LowCode is a culmination of learnings and efforts along multiple dimensions to ensure that the development experience is truly great. Let's look at some of the key advantages of this solution.
+ESP LowCode Matter is a culmination of learnings and efforts along multiple dimensions to ensure that the development experience is truly great. Let's look at some of the key advantages of this solution.
 
 ### Simplified Development
 
-ESP LowCode makes the application code development intuitive, easy to understand and customize. It provides the simplicity and the flexibility to create any device with all the features of Matter (even custom ones), while isolating all the system level complexities from the application developer.
+ESP LowCode Matter makes the application code development intuitive, easy to understand and customize. It provides the simplicity and the flexibility to create any device with all the features of Matter (even custom ones), while isolating all the system level complexities from the application developer.
 
 * The generated application firmware is quite small, making the **build-flash-debug** cycle extremely fast
 * Development is exposed through a simplified **setup-loop style** of programming
@@ -68,10 +68,10 @@ Device makers can modify the data model as per their device and application requ
 
 ### Simplified Certification
 
-The ESP LowCode system firmware undergoes regular and rigorous testing to meet the high quality bar that we have set for ourselves. This ensures that the various certifications and the tests required by them are done efficiently and smoothly.
+The ESP LowCode Matter system firmware undergoes regular and rigorous testing to meet the high quality bar that we have set for ourselves. This ensures that the various certifications and the tests required by them are done efficiently and smoothly.
 
 * **Matter Certification**
-  * ESP LowCode products need to undergo full certification and testing. But, the Matter functionality is largely handled by Espressif in the system firmware itself, which ensures Matter compatibility. Additionally, Espressif will assist manufacturers in certifying their products and keeping the certification up to date in the most efficient manner.
+  * ESP LowCode Matter products need to undergo full certification and testing. But, the Matter functionality is largely handled by Espressif in the system firmware itself, which ensures Matter compatibility. Additionally, Espressif will assist manufacturers in certifying their products and keeping the certification up to date in the most efficient manner.
   * You can use this badge on your product packaging and marketing materials once the product is certified.
 
   {{< figure
@@ -81,7 +81,7 @@ The ESP LowCode system firmware undergoes regular and rigorous testing to meet t
       >}}
 
 * **Product Security Certification**
-  * The Product Security Certification from CSA is recommended for all devices. All the security measures are already in place and taken care of in ESP LowCode Matter.
+  * The Product Security Certification from [CSA](https://csa-iot.org) (Connectivity Standards Alliance) is recommended for all devices. All the security measures are already in place and taken care of in ESP LowCode Matter.
   * You can use this badge on your product packaging and marketing materials once the product is certified.
 
   {{< figure
@@ -91,12 +91,12 @@ The ESP LowCode system firmware undergoes regular and rigorous testing to meet t
       >}}
 
 * **"Works with" Badges and programs by various other Ecosystems**
-  * Similar to ESP ZeroCode, with ESP LowCode, you can easily get certified for various other ecosystems, and get the "Works with" badges.
+  * Similar to ESP ZeroCode, with ESP LowCode Matter, you can easily get certified for various other ecosystems, and get the "Works with" badges.
   * Espressif is closely working with the Ecosystem providers to get the best experience for the device makers and the end users.
 
 ### Everything in the browser
 
-We have built VS Code IDE plugins for ESP LowCode, and integrated those with GitHub Codespaces. This provides a first-class development experience from the browser itself. It integrates the entire development workflow within the VS Code IDE loaded in your browser. No need to install any additional software on the development host. All development operations, edit, build, flash, and monitoring the console are available through the browser, in the familiar VS Code interface.
+We have built VS Code IDE plugins for ESP LowCode Matter, and integrated those with GitHub Codespaces. This provides a first-class development experience from the browser itself. It integrates the entire development workflow within the VS Code IDE loaded in your browser. No need to install any additional software on the development host. All development operations, edit, build, flash, and monitoring the console are available through the browser, in the familiar VS Code interface.
 
 You can simply connect the device to your own laptop and access it through the browser.
 
@@ -112,9 +112,9 @@ Instead of using the browser-based IDE, you can also use your local VS Code IDE 
 
 ## First SoC: ESP32-C6
 
-The ESP32-C6 is the first SoC that is supported by ESP LowCode Matter. It is a 32-bit dual-core SoC with a high-power core and a low-power core. It is a great fit for the Matter protocol and the ESP LowCode Matter solution.
+The [ESP32-C6](https://www.espressif.com/en/products/socs/esp32-c6) is the first SoC that is supported by ESP LowCode Matter. It is a 32-bit dual-core SoC with a High-Performance Core and a Low-Power Core. It is a great fit for the Matter protocol and the ESP LowCode Matter solution.
 
-For ESP32-C6, ESP LowCode completely **partitions CPU and memory** across system and application firmware. The High Power Core (and its associated memory) is dedicated to the system firmware while the Low Power Core (and its associated memory) is dedicated to the application firmware. This split ensures that the application firmware is compartmentalized, and a developer doesn't have to deal with the complexities of the system firmware.
+For ESP32-C6, ESP LowCode Matter completely **partitions CPU and memory** across system and application firmware. The High-Performance Core (and its associated memory) is dedicated to the system firmware while the Low-Power Core (and its associated memory) is dedicated to the application firmware. This split ensures that the application firmware is compartmentalized, and a developer doesn't have to deal with the complexities of the system firmware.
 
 The application firmware is a **single-threaded** application that runs on the Low Power Core without an OS.
 
@@ -130,7 +130,7 @@ This provides multiple benefits:
 * The firmware is ~20KB for a typical application, making this a very small footprint.
 * Simplified HAL drivers (RTOS independent low-level peripheral drivers) help to directly interface with the hardware peripherals.
 
-The platform uses the [ESP-AMP](https://github.com/espressif/esp-amp) project for facilitating this.
+The ESP LowCode Matter platform uses the [ESP-AMP](https://github.com/espressif/esp-amp) project for facilitating this partitioning. You may read more about ESP-AMP [here](https://github.com/espressif/esp-amp).
 
 ## Try
 
