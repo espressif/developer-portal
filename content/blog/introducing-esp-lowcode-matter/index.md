@@ -25,7 +25,10 @@ Today, we announce our [ESP LowCode Matter](https://github.com/espressif/esp-low
 
 ## What is ESP LowCode Matter?
 
-ESP LowCode Matter is a single-chip, 2-firmware solution in which Espressif provides the system firmware that wraps the complexity of Matter protocol, OTA upgrades, and security management, while device makers can write a separate application firmware that implements hardware interfacing, hardware communication protocols and other business and device logic.
+ESP LowCode Matter is a solution that splits firmware into two parts for a single chip:
+
+- **System Firmware**: Developed and maintained by Espressif, it wraps the complexity of the Matter protocol, OTA upgrades, and security management.
+- **Application Firmware**: Developer by a device maker, it implements hardware interfacing, hardware communication protocols and other business and device logic.
 
 {{< figure
     default=true
