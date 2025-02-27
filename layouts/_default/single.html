@@ -74,6 +74,12 @@
 
       <div class="min-w-0 min-h-0 max-w-fit">
 
+        {{ if .Params.summary }}
+          <div class="article-summary max-w-prose mb-30">
+            {{ .Summary | emojify }}
+          </div>
+        {{ end }}
+
         <div class="article-content max-w-prose mb-20">
           {{ .Content | emojify }}
         </div>
