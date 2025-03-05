@@ -42,26 +42,26 @@ jobs:
           # Reset the new branch to the base commit
           git reset --hard ${{ env.BASE_COMMIT }}
 
-      - name: Dump all links from feature-baseline
-        uses: lycheeverse/lychee-action@v2.0.2
-        with:
-          args: |
-            --no-progress
-            --dump
-            --include-fragments
-            --exclude-path ./themes/
-            --exclude-path ./layouts/
-            .
-          output: links-baseline.txt
+      # - name: Dump all links from feature-baseline
+      #   uses: lycheeverse/lychee-action@v2.0.2
+      #   with:
+      #     args: |
+      #       --no-progress
+      #       --dump
+      #       --include-fragments
+      #       --exclude-path ./themes/
+      #       --exclude-path ./layouts/
+      #       .
+      #     output: links-baseline.txt
 
-      - name: Print links-baseline.txt
-        run: cat links-baseline.txt
+      # - name: Print links-baseline.txt
+      #   run: cat links-baseline.txt
 
       - name: Check out feature branch
         run: git checkout ${{ github.head_ref }}
 
-      - name: Append links-baseline.txt to .lycheeignore
-        run: cat links-baseline.txt >> .lycheeignore
+      # - name: Append links-baseline.txt to .lycheeignore
+      #   run: cat links-baseline.txt >> .lycheeignore
 
       - name: Dump names of files altered in PR and append hash sign to find links with anchors
         run: |
