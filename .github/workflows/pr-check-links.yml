@@ -42,17 +42,8 @@ jobs:
           # Reset the new branch to the base commit
           git reset --hard ${{ env.BASE_COMMIT }}
 
-      - name: Dump all links from feature-baseline
-        uses: lycheeverse/lychee-action@v2.0.2
-        with:
-          args: |
-            --no-progress
-            --dump
-            --include-fragments
-            --exclude-path ./themes/
-            --exclude-path ./layouts/
-            ./content/pages
-          output: links-baseline.txt
+      - name: Create empty links-baseline.txt
+        run: touch links-baseline.txt
 
       - name: Check out feature branch
         run: git checkout ${{ github.head_ref }}
