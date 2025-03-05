@@ -21,6 +21,6 @@ jobs:
           GITLAB_TOKEN: ${{ secrets.GITLAB_BOT_REPO_TOKEN }}
           GITLAB_USERNAME: "oauth2"
         run: |
-          GITLAB_REPO: "$GITLAB_URL/espressif/developer-portal.git"
+          GITLAB_REPO="$GITLAB_URL/espressif/developer-portal.git"
           git remote add gitlab "https://$GITLAB_USERNAME:$GITLAB_TOKEN@$GITLAB_REPO"
           git push gitlab main
