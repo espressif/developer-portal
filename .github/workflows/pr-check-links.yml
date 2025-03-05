@@ -46,11 +46,12 @@ jobs:
         uses: lycheeverse/lychee-action@v2.0.2
         with:
           args: |
+            --no-progress
             --dump
             --include-fragments
             --exclude-path ./themes/
             --exclude-path ./layouts/
-            .
+            ./content/pages
           output: links-baseline.txt
 
       - name: Check out feature branch
