@@ -2,7 +2,6 @@
 title: "Introducing ESP LowCode Matter: Simplified Device Development"
 date: 2025-02-27
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - chirag-atal
   - amey-inamdar
