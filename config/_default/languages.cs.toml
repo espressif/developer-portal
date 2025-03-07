@@ -1,15 +1,13 @@
 languageCode = "cs"
 languageName = "Czech"
 weight = 1
-title = "Developer Portal"
+title = "Espressif Developer Portal"
 
 [params]
   displayName = "CZ"
   isoCode = "cs"
   rtl = false
   dateFormat = "2 January 2006"
-  logo = "img/espressif_logo_contour.png"
-  # secondaryLogo = "PATH"
   description = "The developer resources in just one place!"
   # copyright = "Copy, _right?_ :thinking_face:"
 
