@@ -55,7 +55,7 @@ Newer SoCs can be categorized into four main series based on the letter followin
 - "C" -- Cost-optimized RISC-V cores with extensive connectivity options.
 - "S" -- High-performance components, based on the Cadence Tensilica architecture.
 - "H" -- BLE and 802.15.4 connectivity SoCs without Wi-Fi radio.
-- "P" -- High-performance Microcontrollers without wireless connectivity typically useful for HMI (such as display, camera) and edge processing applications.
+- "P" -- High-performance Microcontrollers without wireless connectivity typically used for HMI (such as display, camera) and edge processing applications.
 
 {{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
 You can find the specific part number designations for the SoCs and the SoC with integrated memory in their respective datasheets, e.g. [ESP32-S3](https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf#cd-series-nomenclature).
@@ -67,7 +67,7 @@ Although SoCs can be integrated directly into custom PCBs, modules are more comm
 - They include all the required components around the SoC (including antenna filter, clock crystal, etc.).
 - They provide optimized RF design for the PCB antenna.
 - They can incorporate extra memory chips (both flash and PSRAM).
-- Above all: Modules are certified. 
+- Above all: Modules are certified. Check the certificates at https://www.espressif.com/en/support/documents/certificates
 
 The last point is the most relevant, since it greatly reduces the end product's certification cost. 
 
