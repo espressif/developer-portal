@@ -8,8 +8,6 @@ title = "Developer Portal"
   isoCode = "cs"
   rtl = false
   dateFormat = "2 January 2006"
-  logo = "img/espressif_logo_contour.png"
-  # secondaryLogo = "PATH"
   description = "The developer resources in just one place!"
   # copyright = "Copy, _right?_ :thinking_face:"
 
