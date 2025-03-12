@@ -1,0 +1,24 @@
+name: Check links in diffs
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-links:
+    strategy:
+      matrix:
+        include:
+          - glob_pattern: "--exclude-path content/blog/ ./content/ README.md"
+            job_name: "non-blog"
+          - glob_pattern: "./content/blog/[0-9a-f]*/"
+            job_name: "blog_0-9a-f"
+          - glob_pattern: "./content/blog/[g-z]*/"
+            job_name: "blog_g-z"
+      fail-fast: false
+    name: ${{ matrix.job_name }}
+    uses: ./.github/workflows/pr-check-links-worker.yml
+    with:
+      glob_pattern: ${{ matrix.glob_pattern }}
+      target_repo_url: "https://github.com/espressif/developer-portal.git"
+      target_branch: "main"
