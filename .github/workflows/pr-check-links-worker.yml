@@ -1,12 +1,17 @@
-name: Check links in diffs
+name: Check links worker
 
 on:
-  pull_request:
-    branches: [main]
-
-env:
-  TARGET_REPO_URL: https://github.com/espressif/developer-portal.git
-  TARGET_BRANCH: main
+  workflow_call:
+    inputs:
+      glob_pattern:
+        required: true
+        type: string
+      target_repo_url:
+        required: true
+        type: string
+      target_branch:
+        required: true
+        type: string
 
 jobs:
   check-links:
@@ -23,11 +28,11 @@ jobs:
         id: set-env
         run: |
           # Add target remote and fetch its branches
-          git remote add target ${{ env.TARGET_REPO_URL }}
-          git fetch target ${{ env.TARGET_BRANCH }}
+          git remote add target ${{ inputs.target_repo_url }}
+          git fetch target ${{ inputs.target_branch }}
 
           # Extract the base commit ID where the feature branch diverged from main
-          base_commit=$(git merge-base target/${{ env.TARGET_BRANCH }} ${{ github.event.pull_request.head.ref }})
+          base_commit=$(git merge-base target/${{ inputs.target_branch }} ${{ github.event.pull_request.head.ref }})
           echo "BASE_COMMIT=$base_commit" | tee -a $GITHUB_ENV
 
           # Extract the head commit ID on the feature branch
@@ -48,9 +53,8 @@ jobs:
           args: |
             --dump
             --include-fragments
-            --exclude-path ./themes/
-            --exclude-path ./layouts/
-            .
+            --glob-ignore-case
+            ${{ inputs.glob_pattern }}
           output: links-baseline.txt
 
       - name: Check out feature branch
@@ -93,9 +97,8 @@ jobs:
           args: |
             --no-progress
             --include-fragments
-            --exclude-path ./themes/
-            --exclude-path ./layouts/
-            .
+            --glob-ignore-case
+            ${{ inputs.glob_pattern }}
           fail: true  # Fail action if broken links are found
 
       - name: Suggestions
