@@ -17,7 +17,7 @@ This article is a step-by-step guide, provided to help you work with Espressif's
 
 ### Alternatives
 
-Many common operations (e.g., flashing, monitoring, etc. ) can be handled by the [ESP_RFC2217_server](https://docs.espressif.com/projects/esptool/en/latest/esp32/esptool/remote-serial-ports.html) (Telnet) where the host Windows machine acts as the server and the WSL terminal acts as the client. However, tools like [OpenOCD](https://openocd.org/) (Open On-Chip Debugger) cannot be used with this approach.
+Many common operations (e.g., flashing, monitoring, etc. ) can be handled by the [ESP_RFC2217_server](https://docs.espressif.com/projects/esptool/en/latest/esp32/remote-serial-ports.html) (Telnet) where the host Windows machine acts as the server and the WSL terminal acts as the client. However, tools like [OpenOCD](https://openocd.org/) (Open On-Chip Debugger) cannot be used with this approach.
 
 ## Guide
 

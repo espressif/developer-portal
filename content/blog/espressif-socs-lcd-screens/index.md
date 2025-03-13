@@ -82,7 +82,7 @@ This development board is an excellent choice for evaluating and building protot
 
 The RGB interface is known for its high brush rate, making it ideal for controlling large screens. Its broad application range allows it to support various display sizes and resolutions, ensuring smooth and responsive graphical user interfaces (GUIs).
 
-For applications using the RGB interface, the [ESP32-S3](https://www.espressif.com.cn/en/products/socs/esp32-s3) SoC is recommended. This SoC is suitable for several smart and interactive applications:
+For applications using the RGB interface, the [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) SoC is recommended. This SoC is suitable for several smart and interactive applications:
 
 - **Smart Home Interfaces**: This includes various types of control panels such as device control panels, light switch panels, scene controllers, and temperature management panels.
 - **Interactive Remote Controls**: Remote controls designed with responsive and engaging displays for improved user interaction.
@@ -115,7 +115,7 @@ The recommended development boards for building prototypes are as follows:
 
 The SPI interface is well-suited for small screens and low-resolution displays due to its simplicity and cost-effectiveness. It is particularly efficient for small display applications with basic graphical needs. In other words, it is good for straightforward and economical solutions.
 
-For applications using the SPI interface, the [ESP32-C3](https://www.espressif.com.cn/en/products/socs/esp32-c3) and [ESP32-C6](https://www.espressif.com.cn/en/products/socs/esp32-c6) SoCs are recommended. These SoCs are suitable for the following applications:
+For applications using the SPI interface, the [ESP32-C3](https://www.espressif.com/en/products/socs/esp32-c3) and [ESP32-C6](https://www.espressif.com/en/products/socs/esp32-c6) SoCs are recommended. These SoCs are suitable for the following applications:
 
 - **Household Appliances**: Washing machines, body fat scales, personal health devices, electric toothbrushes.
 - **Small Display Devices**: Knob screens, compact displays used in various consumer electronics.
