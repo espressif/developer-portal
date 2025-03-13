@@ -46,7 +46,7 @@ Senior Customer Support Officer
     src="img/november-2.webp"
     >}}
 
-Espressif’s distributor in Japan, [Midoriya Electric](https://www.midoriya.co.jp/eng/), participated in the 4th IoT/M2M Expo, in Makuhari Messe, which took place on October 24–26. This was part of Japan’s [IT Week](https://www.japan-it.jp/ja-jp.html), which is a world-leading IT show that has become the most comprehensive business-to-business IT exhibition in Japan. This year the show was the biggest one in its history, in terms of the number of exhibitors and professional visitors from the industry.  asdf
+Espressif’s distributor in Japan, [Midoriya Electric](https://www.midoriya.co.jp/eng/), participated in the 4th IoT/M2M Expo, in Makuhari Messe, which took place on October 24–26. This was part of Japan’s [IT Week](https://www.japan-it.jp/hub/en-gb.html), which is a world-leading IT show that has become the most comprehensive business-to-business IT exhibition in Japan. This year the show was the biggest one in its history, in terms of the number of exhibitors and professional visitors from the industry.  asdf
 
 [Keep Reading](https://www.espressif.com/en/news/Espressif_Solutions_at_Japans_4th_IoT_M2M_Expo)
 

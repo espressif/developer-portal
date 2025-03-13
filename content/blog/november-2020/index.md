@@ -31,7 +31,7 @@ On a different note, [IOT2TANGLE’s hackathon](https://i2t.medium.com/the-integ
 
 We’re really excited that dozens of registered projects have been submitted by __contestants from all around the world__ , e.g. from Argentina, Brazil, Canada, Denmark, Germany, India, Indonesia, Italy, Peru, Switzerland, the United States, and many other countries. [This hackathon, entitled “Integrate Everything with IOTA”](https://youtu.be/BI_p3Bg7ZGE), aims to generate quality open-source integrations that will be valuable stepping-stones for subsequent development projects that connect IoT devices with Distributed Ledger Technologies.
 
-__*Good luck to all the participants!*__ 
+__*Good luck to all the participants!*__
 
 {{< figure
     default=true
@@ -56,7 +56,7 @@ ESP32-C3 is a single-core Wi-Fi and Bluetooth LE 5.0 microcontroller unit, based
     src="img/november-5.webp"
     >}}
 
-Our new [ESP Product Selector](http://products.espressif.com/) is an online tool designed to increase development efficiency and reduce the time for business communication. To use it, customers do not need to register with us or download the tool. All they need to do is click on the link and use it, taking advantage of its simple function and multiple benefits.
+Our new [ESP Product Selector](https://products.espressif.com/) is an online tool designed to increase development efficiency and reduce the time for business communication. To use it, customers do not need to register with us or download the tool. All they need to do is click on the link and use it, taking advantage of its simple function and multiple benefits.
 
 [__Aimagin’s ESP32-powered Waijung 2 Released__ ](https://www.espressif.com/en/news/ESP32_Waijung)
 
