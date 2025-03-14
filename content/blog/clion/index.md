@@ -1,9 +1,9 @@
 ---
 title: "Working with ESP-IDF in CLion"
-date: 2025-03-04T16:53:32+02:00
+date: 2025-03-13T16:53:32+02:00
 showAuthor: false
 authors:
-- oleg-zinovyev
+    - "oleg-zinovyev"
 tags:
 - ESP32-S3
 - ESP-IDF
@@ -22,7 +22,7 @@ We’ll use the following hardware:
 
 - ESP32-S3-DevKitC-1 v1.1.
 - MacBook Pro M2 Max.
-- USB-C to mini USB cable.
+- USB-C to micro USB data cable.
 
 To get started:
 
@@ -54,34 +54,34 @@ src="img/2-esp-clion-manage-toolchains.webp"
     >}}
 
 6. Click `+`, and select `System` (for Windows, select `MinGW` instead) to create a new toolchain. You can name it anything you like.
-- Select `Add environment` > `From file` in the new toolchain template.
+   - Select `Add environment` > `From file` in the new toolchain template.
 
-{{< figure
-default=true
-src="img/3-esp-clion-add-environment.webp"
-    >}}
+    {{< figure
+    default=true
+    src="img/3-esp-clion-add-environment.webp"
+        >}}
 
-- Click `Browse...`.
+   - Click `Browse...`.
 
-{{< figure
-default=true
-src="img/3.1-esp-clion-add-environment-browse.webp"
-    >}}
+    {{< figure
+    default=true
+    src="img/3.1-esp-clion-add-environment-browse.webp"
+        >}}
 
-- Select the environment file on your computer. For macOS, you need the file called `export.sh` (on Windows, it’s `export.bat`), which is located in the default ESP-IDF directory.
-- Click `Apply`
+   - Select the environment file on your computer. For macOS, you need the file called `export.sh` (on Windows, it’s `export.bat`), which is located in the default ESP-IDF directory.
+   - Click `Apply`
 
 7. Go to `Settings` > `Build, Execution, Deployment` > `CMake`.
-- In the default `Debug` profile settings, select the recently created toolchain, which in our case is `ESP-IDF`.
+    - In the default `Debug` profile settings, select the recently created toolchain, which in our case is `ESP-IDF`.
 
-{{< figure
-default=true
-src="img/4-esp-clion-cmake.webp"
-    >}}
+    {{< figure
+    default=true
+    src="img/4-esp-clion-cmake.webp"
+        >}}
 
-- In the `CMake options` field, enter `-DIDF_TARGET=esp32s3` (because an ESP32-S3-based board is used).
-- In the `Build directory` field, enter `build`.
-- Click `OK`.
+    - In the `CMake options` field, enter `-DIDF_TARGET=esp32s3` (because an ESP32-S3-based board is used).
+    - In the `Build directory` field, enter `build`.
+    - Click `OK`.
 
 Your project will then start to load. If the process fails, click `Reset and Reload Project` in the CMake tool window settings.
 
@@ -96,22 +96,20 @@ If the project is loaded successfully, you’ll see `[Finished]` at the end of t
 
 1. Make sure your board is connected to your computer via the UART port.
 2. If you’re using the same application example, make sure that the GPIO LED number is correctly specified in the source code:
-- In CLion’s `Project` tool window, locate the main directory in your project directory and open the `led_strip_example_main.c` file.
-- In the `#define RMT_LED_STRIP_GPIO_NUM` line, change the default value to `38` or `48`, depending on your board hardware revision.
+    - In CLion’s `Project` tool window, locate the main directory in your project directory and open the `led_strip_example_main.c` file.
+    - In the `#define RMT_LED_STRIP_GPIO_NUM` line, change the default value to `38` or `48`, depending on your board hardware revision.
 
-{{< figure
-default=true
-src="img/6-esp-clion-gpio-num.webp"
-    >}}
+    {{< figure
+    default=true
+    src="img/6-esp-clion-gpio-num.webp"
+        >}}
 
-3. Click the `Run / Debug Configurations` drop-down list on the main toolbar and select the `flash` configuration.
+3. Click the `Run / Debug Configurations` drop-down list on the main toolbar and select the `flash` configuration. This configuration allows you to build the project and then flash the board automatically.
 
 {{< figure
 default=true
 src="img/7-esp-clion-flash-target.webp"
     >}}
-
-This configuration allows you to build the project and then flash the board automatically.
 
 4. Click the green `Build` icon on the main IDE toolbar.
 
@@ -147,16 +145,16 @@ src="img/11-esp-clion-add-config.webp"
     >}}
 
 3. Select the `Shell Script` template. In this new configuration dialog:
-- Enter a name of your choice.
-- Select `Script text` next to `Execute`.
-- Enter the following text, including the path of the environment file you’ve just copied: `. /Users/Oleg.Zinovyev/esp/esp-idf/export.sh ; idf.py flash monitor`.
+    - Enter a name of your choice.
+    - Select `Script text` next to `Execute`.
+    - Enter the following text, including the path of the environment file you’ve just copied: `. /Users/Oleg.Zinovyev/esp/esp-idf/export.sh ; idf.py flash monitor`.
 
-{{< figure
-default=true
-src="img/12-esp-clion-flash-monitor.webp"
-    >}}
+    {{< figure
+    default=true
+    src="img/12-esp-clion-flash-monitor.webp"
+        >}}
 
-- Leave the rest of the options as they are and click `OK`.
+    - Leave the rest of the options as they are and click `OK`.
 
 4. Click the green `Run` icon on the main toolbar.
 
@@ -181,23 +179,23 @@ default=true
 src="img/14-esp-clion-copy-config.webp"
     >}}
 
-- Rename the copied configuration to reflect the new functionality, for example, `ESP-menu-config`.
-- In the script text, replace `flash monitor` with `menuconfig`.
+3. Rename the copied configuration to reflect the new functionality, for example, `ESP-menu-config`. 
+4. In the script text, replace `flash monitor` with `menuconfig`. 
 
 {{< figure
 default=true
 src="img/15-esp-clion-menu-config.webp"
     >}}
 
-3. Click `OK`.
-4. Make sure the IDE’s new terminal is disabled (unchecked), as the project configuration menu may not work properly with it.
+5. Click `OK`.
+6. Make sure the IDE’s new terminal is disabled (unchecked), as the project configuration menu may not work properly with it.
 
 {{< figure
 default=true
 src="img/17-esp-clion-menu-config-terminal.webp"
     >}}
 
-5. Click the green `Run` icon on the main toolbar.
+7. Click the green `Run` icon on the main toolbar.
 
 The project configuration menu will open in the IDE’s terminal.
 
@@ -264,28 +262,28 @@ src="img/23-esp-clion-generic-template.webp"
 
 7. Here, you need to specify several parameters, some of which depend on your board. For this tutorial, we’ll use the following:
 
-- `GDB Server` > `Executable`:  `/Users/Oleg.Zinovyev/.espressif/tools/openocd-esp32/v0.12.0-esp32-20241016/openocd-esp32/bin/openocd`
-- `GDB Server` > `Arguments`: `-f board/esp32s3-builtin.cfg`
+    - `GDB Server` > `Executable`:  `/Users/Oleg.Zinovyev/.espressif/tools/openocd-esp32/v0.12.0-esp32-20241016/openocd-esp32/bin/openocd`
+    - `GDB Server` > `Arguments`: `-f board/esp32s3-builtin.cfg`
 
-{{< figure
-default=true
-src="img/24-esp-clion-gdb-server-options.webp"
-    >}}
+    {{< figure
+    default=true
+    src="img/24-esp-clion-gdb-server-options.webp"
+        >}}
 
-- The `Device Settings` are as follows:
+    - The `Device Settings` are as follows:
 
-{{< figure
-default=true
-src="img/25-esp-clion-device-settings.webp"
-    >}}
+    {{< figure
+    default=true
+    src="img/25-esp-clion-device-settings.webp"
+        >}}
 
-- `Debugger` > `Custom GDB Executable`: `/Users/Oleg.Zinovyev/.espressif/tools/xtensa-esp-elf-gdb/14.2_20240403/xtensa-esp-elf-gdb/bin/xtensa-esp32s3-elf-gdb`
-- `Debugger` > `Connection` > `Arguments`: `tcp::3333`
+    - `Debugger` > `Custom GDB Executable`: `/Users/Oleg.Zinovyev/.espressif/tools/xtensa-esp-elf-gdb/14.2_20240403/xtensa-esp-elf-gdb/bin/xtensa-esp32s3-elf-gdb`
+    - `Debugger` > `Connection` > `Arguments`: `tcp::3333`
 
-{{< figure
-default=true
-src="img/26-esp-clion-debugger-options.webp"
-    >}}
+    {{< figure
+    default=true
+    src="img/26-esp-clion-debugger-options.webp"
+        >}}
 
 Also, it’s best to disable the `Persistent session` option on the `Debugger` tab, as it can be unstable.
 
