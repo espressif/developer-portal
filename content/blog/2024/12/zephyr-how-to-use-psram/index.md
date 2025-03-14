@@ -90,12 +90,6 @@ Below are the main parameters related to PSRAM, along with a brief description o
 
 ***SPIRAM_TYPE:*** This configuration parameter defines the type of SPIRAM chip in use:
 
-| SPIRAM type              | Your PSRAM capacity |
-| ------------------------ |:-------------------:|
-| `SPIRAM_TYPE_ESPPSRAM16` | 2 MB                |
-| `SPIRAM_TYPE_ESPPSRAM32` | 4 MB                |
-| `SPIRAM_TYPE_ESPPSRAM64` | 8 MB                |
-
 ***SPIRAM_SPEED:*** This configuration parameter sets the SPIRAM clock speed in MHz:
  | Value             | Clock speed |
  | ----------------- |:-----------:|
@@ -129,6 +123,14 @@ With the ownership of this memory block, the application is granted permission t
 
 The following sample code shows how to use Zephyr's shared multi-heap API to allocate, use, and free memory from PSRAM:
 
+boards/esp32s3_devkitc_procpu.overlay:
+
+```sh
+&psram0 {
+  size = <DT_SIZE_M(8)>;
+};
+```
+
 prj.conf:
 
 ```sh
@@ -136,12 +138,12 @@ CONFIG_LOG=y
 CONFIG_ESP_SPIRAM=y
 CONFIG_SHARED_MULTI_HEAP=y
 CONFIG_SPIRAM_MODE_OCT=y
-CONFIG_SPIRAM_TYPE_ESPPSRAM64=y
 CONFIG_SPIRAM_SPEED_80M=y
 CONFIG_ESP32S3_DATA_CACHE_64KB=y
 CONFIG_ESP_SPIRAM_MEMTEST=y
 ```
-main.c:
+
+src/main.c:
 
 ```c
 #include <zephyr/kernel.h>
@@ -213,53 +215,47 @@ ESP-ROM:esp32s3-20210327
 Build:Mar 27 2021
 rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
 SPIWP:0xee
-mode:DIO, clock div:2
-load:0x3fc90530,len:0x227c
-load:0x40374000,len:0xc510
-entry 0x40379b3c
-I (79) soc_init: ESP Simple boot
-I (79) soc_init: compile time Dec  4 2024 17:19:37
-W (80) soc_init: Unicore bootloader
-I (80) spi_flash: detected chip: gd
-I (82) spi_flash: flash io: dio
-W (85) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
-I (97) soc_init: chip revision: v0.2
-I (100) flash_init: Boot SPI Speed : 40MHz
-I (104) flash_init: SPI Mode       : DIO
-I (108) flash_init: SPI Flash Size : 8MB
-I (111) soc_random: Enabling RNG early entropy source
-I (116) boot: DRAM: lma 0x00000020 vma 0x3fc90530 len 0x227c   (8828)
-I (122) boot: IRAM: lma 0x000022a4 vma 0x40374000 len 0xc510   (50448)
-I (129) boot: padd: lma 0x0000e7c8 vma 0x00000000 len 0x1830   (6192)
-I (135) boot: IMAP: lma 0x00010000 vma 0x42000000 len 0x4568   (17768)
-I (141) boot: padd: lma 0x00014570 vma 0x00000000 len 0xba88   (47752)
-I (147) boot: DMAP: lma 0x00020000 vma 0x3c010000 len 0x16d0   (5840)
-I (153) boot: Image with 6 segments
-I (157) boot: DROM segment: paddr=00020000h, vaddr=3c010000h, size=016D0h (  5840) map
-I (164) boot: IROM segment: paddr=00010000h, vaddr=42000000h, size=04566h ( 17766) map
-I (183) soc_random: Disabling RNG early entropy source
-I (183) boot: Disabling glitch detection
-I (183) boot: Jumping to the main image...
-I (184) octal_psram: vendor id    : 0x0d (AP)
-I (188) octal_psram: dev id       : 0x02 (generation 3)
-I (193) octal_psram: density      : 0x03 (64 Mbit)
-I (198) octal_psram: good-die     : 0x01 (Pass)
-I (202) octal_psram: Latency      : 0x01 (Fixed)
-I (206) octal_psram: VCC          : 0x01 (3V)
-I (210) octal_psram: SRF          : 0x01 (Fast Refresh)
-I (215) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
-I (220) octal_psram: BurstLen     : 0x01 (32 Byte)
-I (225) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
-I (230) octal_psram: DriveStrength: 0x00 (1/1)
-I (235) MSPI Timing: PSRAM timing tuning index: 6
-I (239) esp_psram: Found 8MB PSRAM device
-I (242) esp_psram: Speed: 80MHz
-I (651) esp_psram: SPI SRAM memory test OK
-I (708) heap_runtime: ESP heap runtime init at 0x3fcacae0 size 243 kB.
-
-*** Booting Zephyr OS build v4.0.0-1471-ge60f04096cd8 ***
-[00:00:00.708,000] <inf> PSRAM_SAMPLE: Sample started
-[00:00:00.708,000] <inf> PSRAM_SAMPLE: Sample finished successfully!
+mode:DIO, clock div:1
+load:0x3fc8fa20,len:0x2178
+load:0x40374000,len:0xba10
+entry 0x403795b0
+I (62) soc_init: ESP Simple boot
+I (62) soc_init: compile time Mar 10 2025 18:43:57
+W (62) soc_init: Unicore bootloader
+I (62) soc_init: chip revision: v0.2
+I (65) flash_init: Boot SPI Speed : 80MHz
+I (68) flash_init: SPI Mode       : DIO
+I (72) flash_init: SPI Flash Size : 8MB
+I (75) boot: DRAM: lma 0x00000020 vma 0x3fc8fa20 len 0x2178   (8568)
+I (81) boot: IRAM: lma 0x000021a0 vma 0x40374000 len 0xba10   (47632)
+I (88) boot: IRAM: lma 0x0000dbc8 vma 0x00000000 len 0x2430   (9264)
+I (94) boot: IMAP: lma 0x00010000 vma 0x42000000 len 0x4524   (17700)
+I (100) boot: IRAM: lma 0x0001452c vma 0x00000000 len 0xbacc   (47820)
+I (106) boot: DMAP: lma 0x00020000 vma 0x3c010000 len 0x1674   (5748)
+I (112) boot: Image with 6 segments
+I (116) boot: IROM segment: paddr=00010000h, vaddr=42000000h, size=04522h ( 17698) map
+I (123) boot: DROM segment: paddr=00020000h, vaddr=3c010000h, size=01680h (  5760) map
+I (142) boot: libc heap size 336 kB.
+I (142) spi_flash: detected chip: gd
+I (142) spi_flash: flash io: dio
+I (143) octal_psram: vendor id    : 0x0d (AP)
+I (144) octal_psram: dev id       : 0x02 (generation 3)
+I (149) octal_psram: density      : 0x03 (64 Mbit)
+I (155) octal_psram: good-die     : 0x01 (Pass)
+I (158) octal_psram: Latency      : 0x01 (Fixed)
+I (163) octal_psram: VCC          : 0x01 (3V)
+I (167) octal_psram: SRF          : 0x01 (Fast Refresh)
+I (172) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+I (176) octal_psram: BurstLen     : 0x01 (32 Byte)
+I (181) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (186) octal_psram: DriveStrength: 0x00 (1/1)
+I (191) MSPI Timing: PSRAM timing tuning index: 6
+I (195) esp_psram: Found 8MB PSRAM device
+I (198) esp_psram: Speed: 80MHz
+I (608) esp_psram: SPI SRAM memory test OK
+*** Booting Zephyr OS build v4.0.0-6082-g6402eb6e9788 ***
+[00:00:00.636,000] <inf> PSRAM_SAMPLE: Sample started
+[00:00:00.636,000] <inf> PSRAM_SAMPLE: Sample finished successfully!
 ```
 
 Once the sample finishes executing successfully, we can conclude that the memory allocated from PSRAM was read and written to without any issues.
@@ -268,17 +264,25 @@ Once the sample finishes executing successfully, we can conclude that the memory
 
 Once ```ESP_SPIRAM``` is enabled, a section called `.ext_ram.bss` will be created. This section will hold non-initialized global variables that will later be placed in PSRAM. These global variables must be declared with `__attribute__ ((section (".ext_ram.bss"))`.
 
+boards/esp32s3_devkitc_procpu.overlay:
+
+```sh
+&psram0 {
+  size = <DT_SIZE_M(8)>;
+};
+```
+
 prj.conf:
 
 ```sh
 CONFIG_LOG=y
 CONFIG_ESP_SPIRAM=y
 CONFIG_SPIRAM_MODE_OCT=y
-CONFIG_SPIRAM_TYPE_ESPPSRAM64=y
 CONFIG_SPIRAM_SPEED_80M=y
 CONFIG_ESP32S3_DATA_CACHE_64KB=y
 CONFIG_ESP_SPIRAM_MEMTEST=n
 ```
+
 main.c:
 
 ```c
@@ -330,19 +334,17 @@ Before we move on, let's take a look inside the `build/zephyr/zephyr.map` file:
 
 ```
 ...
-
-10086 .ext_ram.bss    0x000000003c020000   0x100000
-10087   	      0x000000003c020000		_ext_ram_bss_start = ABSOLUTE (.)
-10088  *(SORT_BY_ALIGNMENT(.ext_ram.bss*))
-10089  .ext_ram.bss   0x000000003c020000    0x80000 app/libapp.a(main.c.obj)
-10090   	      0x000000003c020000		psram_vector
-10091   	      0x000000003c0a0000		. = ALIGN (0x4)
-10092   	      0x000000003c0a0000		_spiram_heap_start = ABSOLUTE (.)
-10093   	      0x000000003c120000		. = ((. + 0x100000) - (_spiram_heap_start - _ext_ram_bss_start))
-10094  *fill*	      0x000000003c0a0000    0x80000
-10095   	      0x000000003c120000		. = ALIGN (0x4)
-10096   	      0x000000003c120000		_ext_ram_bss_end = ABSOLUTE (.)
-
+11290 *(SORT_BY_ALIGNMENT(.ext_ram.bss*))
+11291 .ext_ram.bss   0x000000003c020000    0x80000 app/libapp.a(main.c.obj)
+11292                0x000000003c020000                psram_vector
+11293                0x000000003c0a0000                . = ALIGN (0x10)
+11294                0x000000003c0a0000                _ext_ram_bss_end = ABSOLUTE (.)
+11295                0x000000003c0a0000                _ext_ram_heap_start = ABSOLUTE (.)
+11296                0x000000003c2a0000                . = (. + 0x200000)
+11297 *fill*         0x000000003c0a0000   0x200000
+11298                0x000000003c2a0000                . = ALIGN (0x10)
+11299                0x000000003c2a0000                _ext_ram_heap_end = ABSOLUTE (.)
+11300                0x000000003c2a0000                _ext_ram_end = ABSOLUTE (.)
 ...
 ```
 
@@ -360,55 +362,178 @@ ESP-ROM:esp32s3-20210327
 Build:Mar 27 2021
 rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
 SPIWP:0xee
-mode:DIO, clock div:2
-load:0x3fc90520,len:0x227c
-load:0x40374000,len:0xc500
-entry 0x40379b2c
-I (79) soc_init: ESP Simple boot
-I (79) soc_init: compile time Dec  4 2024 17:35:34
-W (80) soc_init: Unicore bootloader
-I (80) spi_flash: detected chip: gd
-I (82) spi_flash: flash io: dio
-W (85) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
-I (97) soc_init: chip revision: v0.2
-I (100) flash_init: Boot SPI Speed : 40MHz
-I (104) flash_init: SPI Mode       : DIO
-I (108) flash_init: SPI Flash Size : 8MB
-I (111) soc_random: Enabling RNG early entropy source
-I (116) boot: DRAM: lma 0x00000020 vma 0x3fc90520 len 0x227c   (8828)
-I (122) boot: IRAM: lma 0x000022a4 vma 0x40374000 len 0xc500   (50432)
-I (129) boot: padd: lma 0x0000e7b8 vma 0x00000000 len 0x1840   (6208)
-I (135) boot: IMAP: lma 0x00010000 vma 0x42000000 len 0x43ec   (17388)
-I (141) boot: padd: lma 0x000143f4 vma 0x00000000 len 0xbc04   (48132)
-I (147) boot: DMAP: lma 0x00020000 vma 0x3c010000 len 0x1690   (5776)
-I (153) boot: Image with 6 segments
-I (157) boot: DROM segment: paddr=00020000h, vaddr=3c010000h, size=01690h (  5776) map
-I (164) boot: IROM segment: paddr=00010000h, vaddr=42000000h, size=043EAh ( 17386) map
-I (183) soc_random: Disabling RNG early entropy source
-I (183) boot: Disabling glitch detection
-I (183) boot: Jumping to the main image...
-I (184) octal_psram: vendor id    : 0x0d (AP)
-I (188) octal_psram: dev id       : 0x02 (generation 3)
-I (193) octal_psram: density      : 0x03 (64 Mbit)
-I (198) octal_psram: good-die     : 0x01 (Pass)
-I (202) octal_psram: Latency      : 0x01 (Fixed)
-I (206) octal_psram: VCC          : 0x01 (3V)
-I (210) octal_psram: SRF          : 0x01 (Fast Refresh)
-I (215) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
-I (220) octal_psram: BurstLen     : 0x01 (32 Byte)
-I (225) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
-I (230) octal_psram: DriveStrength: 0x00 (1/1)
-I (235) MSPI Timing: PSRAM timing tuning index: 6
-I (238) esp_psram: Found 8MB PSRAM device
-I (242) esp_psram: Speed: 80MHz
-I (301) heap_runtime: ESP heap runtime init at 0x3fcacad0 size 243 kB.
-
-*** Booting Zephyr OS build v4.0.0-1471-ge60f04096cd8 ***
-[00:00:00.301,000] <inf> PSRAM_SAMPLE: Sample started
-[00:00:00.373,000] <inf> PSRAM_SAMPLE: Sample finished successfully!
+mode:DIO, clock div:1
+load:0x3fc8fa20,len:0x2178
+load:0x40374000,len:0xba10
+entry 0x403795b0
+I (62) soc_init: ESP Simple boot
+I (62) soc_init: compile time Mar 10 2025 18:40:57
+W (62) soc_init: Unicore bootloader
+I (62) soc_init: chip revision: v0.2
+I (65) flash_init: Boot SPI Speed : 80MHz
+I (68) flash_init: SPI Mode       : DIO
+I (72) flash_init: SPI Flash Size : 8MB
+I (75) boot: DRAM: lma 0x00000020 vma 0x3fc8fa20 len 0x2178   (8568)
+I (81) boot: IRAM: lma 0x000021a0 vma 0x40374000 len 0xba10   (47632)
+I (88) boot: IRAM: lma 0x0000dbc8 vma 0x00000000 len 0x2430   (9264)
+I (94) boot: IMAP: lma 0x00010000 vma 0x42000000 len 0x4484   (17540)
+I (100) boot: IRAM: lma 0x0001448c vma 0x00000000 len 0xbb6c   (47980)
+I (106) boot: DMAP: lma 0x00020000 vma 0x3c010000 len 0x1654   (5716)
+I (112) boot: Image with 6 segments
+I (116) boot: IROM segment: paddr=00010000h, vaddr=42000000h, size=04482h ( 17538) map
+I (123) boot: DROM segment: paddr=00020000h, vaddr=3c010000h, size=01660h (  5728) map
+I (142) boot: libc heap size 336 kB.
+I (142) spi_flash: detected chip: gd
+I (142) spi_flash: flash io: dio
+I (143) octal_psram: vendor id    : 0x0d (AP)
+I (144) octal_psram: dev id       : 0x02 (generation 3)
+I (150) octal_psram: density      : 0x03 (64 Mbit)
+I (154) octal_psram: good-die     : 0x01 (Pass)
+I (158) octal_psram: Latency      : 0x01 (Fixed)
+I (163) octal_psram: VCC          : 0x01 (3V)
+I (167) octal_psram: SRF          : 0x01 (Fast Refresh)
+I (172) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+I (176) octal_psram: BurstLen     : 0x01 (32 Byte)
+I (181) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (186) octal_psram: DriveStrength: 0x00 (1/1)
+I (191) MSPI Timing: PSRAM timing tuning index: 6
+I (195) esp_psram: Found 8MB PSRAM device
+I (198) esp_psram: Speed: 80MHz
+I (608) esp_psram: SPI SRAM memory test OK
+*** Booting Zephyr OS build v4.0.0-6082-g6402eb6e9788 ***
+[00:00:00.648,000] <inf> PSRAM_SAMPLE: Sample started
+[00:00:00.683,000] <inf> PSRAM_SAMPLE: Sample finished successfully!
 ```
 
-Here, we can observe that the application now starts earlier compared to the previous sample. This improvement results from disabling the ```ESP_SPIRAM_MEMTEST``` parameter, which bypasses the PSRAM memory test that previously took a few hundred milliseconds.
+Here, we can observe that the application now starts earlier compared to the previous sample. This improvement results from disabling the `ESP_SPIRAM_MEMTEST` parameter, which bypasses the PSRAM memory test that previously took a few hundred milliseconds.
+in
+## Placing Task Stack in PSRAM
+
+Another way to to take advantage of PSRAM is by placing Zephyr's task stacks in the `.ext_ram.bss` section via `Z_KERNEL_STACK_DEFINE_IN()` with its third parameter `lsect` being `__attribute__((section(".ext_ram.bss")))`.
+
+>__Note:__ Be careful before deciding to put your task stacks in PSRAM: When flash cache is disabled (for example, if the flash is being written to), the external RAM also becomes inaccessible. Any read operations from or write operations to it will lead to an illegal cache access exception. You can find more restrictions regarding the use of external RAM [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/external-ram.html#restrictions)
+
+Following you will find a sample showing how to place a Zephyr's task stack in PSRAM:
+
+boards/esp32s3_devkitc_procpu.overlay:
+
+```sh
+&psram0 {
+  size = <DT_SIZE_M(8)>;
+};
+```
+
+prj.conf:
+
+```sh
+CONFIG_ESP_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_ESP32S3_DATA_CACHE_64KB=y
+```
+
+src/main.c:
+
+```c
+#include <stdio.h>
+#include <inttypes.h>
+#include <zephyr/kernel.h>
+
+#define MY_TSTACK_SIZE 1024
+static Z_KERNEL_STACK_DEFINE_IN(my_tstack, MY_TSTACK_SIZE, __attribute__((section(".ext_ram.bss"))));
+static struct k_thread my_tdata;
+
+void my_tfunc(void *arg1, void *arg2, void *arg3)
+{
+	uint32_t my_tcounter = 0;
+
+	printf("my_tstack: 0x%"PRIX32"\n", (uint32_t)my_tstack);
+
+	while(1)
+	{
+		printf("%"PRIu32" - Hello World! - %s\n", ++my_tcounter, CONFIG_BOARD_TARGET);
+		k_sleep(K_MSEC(250));
+	}
+}
+
+int main(void)
+{
+	k_tid_t tid = k_thread_create(&my_tdata, my_tstack, MY_TSTACK_SIZE,
+					my_tfunc, NULL, NULL, NULL, K_PRIO_PREEMPT(0),
+					K_INHERIT_PERMS, K_NO_WAIT);
+
+	return 0;
+}
+```
+
+To build, flash and see the sample log, type:
+
+```sh
+$ west build -b esp32s3_devkitc/esp32s3/procpu <application> --pristine
+$ west flash
+$ west espressif monitor
+```
+
+Here is the log emitted by your board:
+
+```sh
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0x2b (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fc8dc80,len:0x19f0
+load:0x40374000,len:0x9c64
+entry 0x40377804
+I (56) soc_init: ESP Simple boot
+I (57) soc_init: compile time Mar 10 2025 19:20:47
+W (57) soc_init: Unicore bootloader
+I (57) soc_init: chip revision: v0.2
+I (59) flash_init: Boot SPI Speed : 80MHz
+I (63) flash_init: SPI Mode       : DIO
+I (66) flash_init: SPI Flash Size : 8MB
+I (70) boot: DRAM: lma 0x00000020 vma 0x3fc8dc80 len 0x19f0   (6640)
+I (76) boot: IRAM: lma 0x00001a18 vma 0x40374000 len 0x9c64   (40036)
+I (82) boot: IRAM: lma 0x0000b688 vma 0x00000000 len 0x4970   (18800)
+I (88) boot: IMAP: lma 0x00010000 vma 0x42000000 len 0x3de8   (15848)
+I (95) boot: IRAM: lma 0x00013df0 vma 0x00000000 len 0xc208   (49672)
+I (101) boot: DMAP: lma 0x00020000 vma 0x3c010000 len 0x1244   (4676)
+I (107) boot: Image with 6 segments
+I (110) boot: IROM segment: paddr=00010000h, vaddr=42000000h, size=03DE6h ( 15846) map
+I (118) boot: DROM segment: paddr=00020000h, vaddr=3c010000h, size=01250h (  4688) map
+I (137) boot: libc heap size 347 kB.
+I (137) spi_flash: detected chip: gd
+I (137) spi_flash: flash io: dio
+I (137) octal_psram: vendor id    : 0x0d (AP)
+I (139) octal_psram: dev id       : 0x02 (generation 3)
+I (144) octal_psram: density      : 0x03 (64 Mbit)
+I (149) octal_psram: good-die     : 0x01 (Pass)
+I (153) octal_psram: Latency      : 0x01 (Fixed)
+I (157) octal_psram: VCC          : 0x01 (3V)
+I (161) octal_psram: SRF          : 0x01 (Fast Refresh)
+I (166) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+I (171) octal_psram: BurstLen     : 0x01 (32 Byte)
+I (176) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (181) octal_psram: DriveStrength: 0x00 (1/1)
+I (187) MSPI Timing: PSRAM timing tuning index: 6
+I (189) esp_psram: Found 8MB PSRAM device
+I (193) esp_psram: Speed: 80MHz
+I (602) esp_psram: SPI SRAM memory test OK/
+*** Booting Zephyr OS build v4.0.0-6083-g3a8e95b7f490 ***
+my_tstack: 0x3C020000
+1 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+2 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+3 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+4 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+5 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+6 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+7 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+8 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+9 - Hello World! - esp32s3_devkitc/esp32s3/procpu
+...
+```
+
+You can confirm that the task stack `my_tstack` was allocated in PSRAM because the address `0x3C020000` is a virtual address mapping an external RAM position.
 
 ## Running Code from PSRAM Instead of Flash
 
@@ -473,10 +598,18 @@ I (208) heap_runtime: ESP heap runtime init at 0x3fc918a0 size 351 kB.
 Hello World! esp32s3_devkitc/esp32s3/procpu
 ```
 
-***Building `hello_world` with `PIRAM_FETCH_INSTRUCTIONS` and `SPIRAM_RODATA` enabled***
+***Building `hello_world` with `SPIRAM_FETCH_INSTRUCTIONS` and `SPIRAM_RODATA` enabled***
+
+boards/esp32s3_devkitc_procpu.overlay:
 
 ```sh
-west build -b esp32s3_devkitc/esp32s3/procpu zephyr/samples/hello_world/ -DCONFIG_ESP_SPIRAM=y -DCONFIG_SPIRAM_TYPE_ESPPSRAM64=y -DCONFIG_SPIRAM_MODE_OCT=y -DCONFIG_SPIRAM_SPEED_80M=y -DCONFIG_ESP32S3_DATA_CACHE_64KB=y -DCONFIG_ESP_SPIRAM_MEMTEST=y -DCONFIG_SPIRAM_FETCH_INSTRUCTIONS=y -DCONFIG_SPIRAM_RODATA=y --pristine
+&psram0 {
+  size = <DT_SIZE_M(8)>;
+};
+```
+
+```sh
+west build -b esp32s3_devkitc/esp32s3/procpu zephyr/samples/hello_world/ --pristine -- -DCONFIG_ESP_SPIRAM=y -DCONFIG_SPIRAM_MODE_OCT=y -DCONFIG_SPIRAM_SPEED_80M=y -DCONFIG_ESP32S3_DATA_CACHE_64KB=y -DCONFIG_ESP_SPIRAM_MEMTEST=y -DCONFIG_SPIRAM_FETCH_INSTRUCTIONS=y -DCONFIG_SPIRAM_RODATA=y
 ```
 
 ```sh
@@ -568,42 +701,36 @@ $ west espressif monitor
 
 Booting and interacting with the wifi shell to obtain information about the origing of the memory allocated by the wifi stack:
 
-```
+```sh
 ESP-ROM:esp32s3-20210327
 Build:Mar 27 2021
-rst:0x1 (POWERON),boot:0xa (SPI_FAST_FLASH_BOOT)
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
 SPIWP:0xee
-mode:DIO, clock div:2
-load:0x3fc95c28,len:0x36fc
-load:0x40374000,len:0x11c08
-entry 0x4037c7dc
-I (102) soc_init: ESP Simple boot
-I (102) soc_init: compile time Dec 16 2024 13:25:28
-W (103) soc_init: Unicore bootloader
-I (103) spi_flash: detected chip: gd
-I (105) spi_flash: flash io: dio
-W (108) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
-I (121) soc_init: chip revision: v0.2
-I (124) flash_init: Boot SPI Speed : 40MHz
-I (128) flash_init: SPI Mode       : DIO
-I (131) flash_init: SPI Flash Size : 8MB
-I (135) soc_random: Enabling RNG early entropy source
-I (140) boot: DRAM: lma 0x00000020 vma 0x3fc95c28 len 0x36fc   (14076)
-I (146) boot: IRAM: lma 0x00003724 vma 0x40374000 len 0x11c08  (72712)
-I (152) boot: padd: lma 0x00015338 vma 0x00000000 len 0xacc0   (44224)
-I (158) boot: IMAP: lma 0x00020000 vma 0x42000000 len 0x5452c  (345388)
-I (165) boot: padd: lma 0x00074534 vma 0x00000000 len 0xbac4   (47812)
-I (171) boot: DMAP: lma 0x00080000 vma 0x3c060000 len 0x15fa0  (90016)
-I (177) boot: Image with 6 segments
-I (180) boot: DROM segment: paddr=00080000h, vaddr=3c060000h, size=15FA0h ( 90016) map
-I (188) boot: IROM segment: paddr=00020000h, vaddr=42000000h, size=5452Ah (345386) map
-I (207) soc_random: Disabling RNG early entropy source
-I (207) boot: Disabling glitch detection
-I (207) boot: Jumping to the main image...
-I (244) heap_runtime: ESP heap runtime init at 0x3fcac6b0 size 244 kB.
+mode:DIO, clock div:1
+load:0x3fc922b0,len:0x3648
+load:0x40374000,len:0xe294
+entry 0x4037c6e4
+I (71) soc_init: ESP Simple boot
+I (71) soc_init: compile time Mar 10 2025 18:22:27
+W (71) soc_init: Unicore bootloader
+I (71) soc_init: chip revision: v0.2
+I (73) flash_init: Boot SPI Speed : 80MHz
+I (77) flash_init: SPI Mode       : DIO
+I (81) flash_init: SPI Flash Size : 8MB
+I (84) boot: DRAM: lma 0x00000020 vma 0x3fc922b0 len 0x3648   (13896)
+I (90) boot: IRAM: lma 0x00003670 vma 0x40374000 len 0xe294   (58004)
+I (97) boot: IRAM: lma 0x00011918 vma 0x00000000 len 0xe6e0   (59104)
+I (103) boot: IMAP: lma 0x00020000 vma 0x42000000 len 0x5a478  (369784)
+I (109) boot: IRAM: lma 0x0007a480 vma 0x00000000 len 0x5b78   (23416)
+I (115) boot: DMAP: lma 0x00080000 vma 0x3c060000 len 0x16f94  (94100)
+I (122) boot: Image with 6 segments
+I (125) boot: IROM segment: paddr=00020000h, vaddr=42000000h, size=5A476h (369782) map
+I (132) boot: DROM segment: paddr=00080000h, vaddr=3c060000h, size=16FA0h ( 94112) map
+I (151) boot: libc heap size 166 kB.
+I (152) spi_flash: detected chip: gd
+I (152) spi_flash: flash io: dio
 
-*** Booting Zephyr OS build v4.0.0-2029-g6e0e5591a4fb ***
-uart:~$ wifi scan
+*** Booting Zephyr OS build v4.0.0-6082-g6402eb6e9788 ***uart:~$ wifi scan
 Scan requested
 
 Num  | SSID                             (len) | Chan (Band)   | RSSI | Security        | BSSID             | MFP
@@ -620,74 +747,80 @@ PING 192.168.15.17
 28 bytes from 192.168.15.17 to 192.168.15.2: icmp_seq=3 ttl=64 time=455 ms
 uart:~$ net allocs
 Network memory allocations
+
 memory		Status	Pool	Function alloc -> freed
-0x3fca4af0	 free	   RX	eth_esp32_rx():135 -> processing_data():178
-0x3fca4870	 free	   TX	arp_prepare_reply():719 -> ethernet_send():762
-0x3fca3a2c	 free	TDATA	ethernet_fill_header():532 -> ethernet_remove_l2_header():615
+0x3fcb8140	 free	   RX	eth_esp32_rx():139 -> net_icmpv4_input():648
+0x3fcb7ec0	 free	   TX	icmpv4_handle_echo_request():446 -> ethernet_send():804
+0x3fcb707c	 free	TDATA	ethernet_fill_header():608 -> ethernet_send():804
+0x3fcb7098	 free	TDATA	ethernet_fill_header():608 -> ethernet_send():804
 ```
 
 ***Building `zephyr/samples/net/wifi/shell` with `ESP32_WIFI_NET_ALLOC_SPIRAM` enabled***
 
 Building, flashing and monitoring:
 
+socs/esp32s3_procpu.overlay:
+
+```sh
+...
+&psram0 {
+  size = <DT_SIZE_M(8)>;
+};
 ```
-$ west build -b esp32s3_devkitc/esp32s3/procpu zephyr/samples/net/wifi/shell --pristine -DCONFIG_ESP_SPIRAM=y -DCONFIG_SPIRAM_TYPE_ESPPSRAM64=y -DCONFIG_SPIRAM_MODE_OCT=y -DCONFIG_SPIRAM_SPEED_80M=y -DCONFIG_ESP32S3_DATA_CACHE_64KB=y -DCONFIG_ESP32_WIFI_NET_ALLOC_SPIRAM=y -DCONFIG_NET_DEBUG_NET_PKT_ALLOC=y
+
+```sh
+$ west build -b esp32s3_devkitc/esp32s3/procpu zephyr/samples/net/wifi/shell --pristine -- -DCONFIG_ESP_SPIRAM=y -DCONFIG_SPIRAM_MODE_OCT=y -DCONFIG_SPIRAM_SPEED_80M=y -DCONFIG_ESP32S3_DATA_CACHE_64KB=y -DCONFIG_ESP32_WIFI_NET_ALLOC_SPIRAM=y -DCONFIG_NET_DEBUG_NET_PKT_ALLOC=y
 $ west flash
 $ west espressif monitor
 ```
 
 Booting and interacting with the wifi shell to obtain information about the origing of the memory allocated by the wifi stack:
 
-```
+```sh
 ESP-ROM:esp32s3-20210327
 Build:Mar 27 2021
 rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
 SPIWP:0xee
-mode:DIO, clock div:2
-load:0x3fc96ae0,len:0x3a7c
-load:0x40374000,len:0x12ac0
-entry 0x4037c974
-I (106) soc_init: ESP Simple boot
-I (106) soc_init: compile time Dec 16 2024 13:17:44
-W (106) soc_init: Unicore bootloader
-I (107) spi_flash: detected chip: gd
-I (109) spi_flash: flash io: dio
-W (112) spi_flash: Detected size(8192k) larger than the size in the binary image header(2048k). Using the size in the binary image header.
-I (124) soc_init: chip revision: v0.2
-I (128) flash_init: Boot SPI Speed : 40MHz
-I (131) flash_init: SPI Mode       : DIO
-I (135) flash_init: SPI Flash Size : 8MB
-I (139) soc_random: Enabling RNG early entropy source
-I (144) boot: DRAM: lma 0x00000020 vma 0x3fc96ae0 len 0x3a7c   (14972)
-I (150) boot: IRAM: lma 0x00003aa4 vma 0x40374000 len 0x12ac0  (76480)
-I (156) boot: padd: lma 0x00016578 vma 0x00000000 len 0x9a80   (39552)
-I (162) boot: IMAP: lma 0x00020000 vma 0x42000000 len 0x549c4  (346564)
-I (169) boot: padd: lma 0x000749cc vma 0x00000000 len 0xb62c   (46636)
-I (175) boot: DMAP: lma 0x00080000 vma 0x3c060000 len 0x1615c  (90460)
-I (181) boot: Image with 6 segments
-I (184) boot: DROM segment: paddr=00080000h, vaddr=3c060000h, size=16160h ( 90464) map
-I (192) boot: IROM segment: paddr=00020000h, vaddr=42000000h, size=549C2h (346562) map
-I (211) soc_random: Disabling RNG early entropy source
-I (211) boot: Disabling glitch detection
-I (211) boot: Jumping to the main image...
-I (212) octal_psram: vendor id    : 0x0d (AP)
-I (216) octal_psram: dev id       : 0x02 (generation 3)
-I (221) octal_psram: density      : 0x03 (64 Mbit)
-I (225) octal_psram: good-die     : 0x01 (Pass)
-I (230) octal_psram: Latency      : 0x01 (Fixed)
-I (234) octal_psram: VCC          : 0x01 (3V)
-I (238) octal_psram: SRF          : 0x01 (Fast Refresh)
-I (243) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
-I (248) octal_psram: BurstLen     : 0x01 (32 Byte)
-I (252) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
-I (258) octal_psram: DriveStrength: 0x00 (1/1)
-I (262) MSPI Timing: PSRAM timing tuning index: 5
-I (266) esp_psram: Found 8MB PSRAM device
-I (270) esp_psram: Speed: 80MHz
-I (686) esp_psram: SPI SRAM memory test OK
-I (714) heap_runtime: ESP heap runtime init at 0x3fca8788 size 259 kB.
+mode:DIO, clock div:1
+load:0x3fc93140,len:0x3a38
+load:0x40374000,len:0xf130
+entry 0x4037c85c
+I (73) soc_init: ESP Simple boot
+I (73) soc_init: compile time Mar 10 2025 18:05:09
+W (74) soc_init: Unicore bootloader
+I (74) soc_init: chip revision: v0.2
+I (76) flash_init: Boot SPI Speed : 80MHz
+I (80) flash_init: SPI Mode       : DIO
+I (83) flash_init: SPI Flash Size : 8MB
+I (87) boot: DRAM: lma 0x00000020 vma 0x3fc93140 len 0x3a38   (14904)
+I (93) boot: IRAM: lma 0x00003a60 vma 0x40374000 len 0xf130   (61744)
+I (99) boot: IRAM: lma 0x00012ba8 vma 0x00000000 len 0xd450   (54352)
+I (105) boot: IMAP: lma 0x00020000 vma 0x42000000 len 0x5a924  (370980)
+I (112) boot: IRAM: lma 0x0007a92c vma 0x00000000 len 0x56cc   (22220)
+I (118) boot: DMAP: lma 0x00080000 vma 0x3c060000 len 0x1714c  (94540)
+I (124) boot: Image with 6 segments
+I (127) boot: IROM segment: paddr=00020000h, vaddr=42000000h, size=5A922h (370978) map
+I (135) boot: DROM segment: paddr=00080000h, vaddr=3c060000h, size=17150h ( 94544) map
+I (154) boot: libc heap size 182 kB.
+I (154) spi_flash: detected chip: gd
+I (154) spi_flash: flash io: dio
+I (155) octal_psram: vendor id    : 0x0d (AP)
+I (156) octal_psram: dev id       : 0x02 (generation 3)
+I (161) octal_psram: density      : 0x03 (64 Mbit)
+I (166) octal_psram: good-die     : 0x01 (Pass)
+I (170) octal_psram: Latency      : 0x01 (Fixed)
+I (174) octal_psram: VCC          : 0x01 (3V)
+I (179) octal_psram: SRF          : 0x01 (Fast Refresh)
+I (183) octal_psram: BurstType    : 0x01 (Hybrid Wrap)
+I (189) octal_psram: BurstLen     : 0x01 (32 Byte)
+I (193) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (198) octal_psram: DriveStrength: 0x00 (1/1)
+I (203) MSPI Timing: PSRAM timing tuning index: 6
+I (207) esp_psram: Found 8MB PSRAM device
+I (210) esp_psram: Speed: 80MHz
+I (619) esp_psram: SPI SRAM memory test OK
 
-*** Booting Zephyr OS build v4.0.0-2029-g6e0e5591a4fb ***
+*** Booting Zephyr OS build v4.0.0-6082-g6402eb6e9788 ***
 uart:~$ wifi scan
 Scan requested
 
@@ -705,13 +838,14 @@ PING 192.168.15.17
 28 bytes from 192.168.15.17 to 192.168.15.2: icmp_seq=3 ttl=64 time=338 ms
 uart:~$ net allocs
 Network memory allocations
+
 memory		Status	Pool	Function alloc -> freed
-0x3c083920	 free	   RX	eth_esp32_rx():135 -> processing_data():178
-0x3c0836a0	 free	   TX	dhcpv4_create_message():287 -> ethernet_send():762
-0x3c082894	 free	TDATA	ethernet_fill_header():532 -> ethernet_remove_l2_header():61
+0x3c0839a0	 free	   RX	eth_esp32_rx():139 -> processing_data():178
+0x3c083720	 free	   TX	icmpv4_handle_echo_request():446 -> ethernet_send():804
+0x3c0828dc	 free	TDATA	ethernet_fill_header():608 -> ethernet_send():804
 ```
 
-Examining the output from both sessions, we can confirm that in the first case, network stack allocations were made using memory from internal RAM -- addresses `0x3fca4af0`, `0x3fca4870`, and `0x3fca3a2c`. We can also confirm that in the second case, network stack allocations were taking memory from PSRAM -- addresses `0x3c083920`, `0x3c0836a0`, and `0x3c082894` -- thus proving that enabling `ESP32_WIFI_NET_ALLOC_SPIRAM` avoids allocating memory from the precious internal SRAM and takes advantage of PSRAM.
+Examining the output from both sessions, we can confirm that in the first case, network stack allocations were made using memory from internal RAM -- addresses `0x3fcb8140`, `0x3fcb7ec0`, `0x3fcb707` and `0x3fcb7098`. We can also confirm that in the second case, network stack allocations were taking memory from PSRAM -- addresses `0x3c0839a0`, `0x3c083720`, and `0x3c0828dc` -- thus proving that enabling `ESP32_WIFI_NET_ALLOC_SPIRAM` avoids allocating memory from the precious internal SRAM and takes advantage of PSRAM.
 
 ## Final Thoughts
 
