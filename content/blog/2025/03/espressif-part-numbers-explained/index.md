@@ -53,7 +53,7 @@ The ESP32 was the first Wi-Fi/BLE combo module developed by Espressif, which rem
 Newer SoCs can be categorized into four main series based on the letter following the first dash:
 
 - "C" -- Cost-optimized RISC-V cores with extensive connectivity options.
-- "S" -- High-performance components, based on the Cadence Tensilica architecture.
+- "S" -- High-performance feature-rich SoCs.
 - "H" -- BLE and 802.15.4 connectivity SoCs without Wi-Fi radio.
 - "P" -- High-performance Microcontrollers without wireless connectivity typically used for HMI (such as display, camera) and edge processing applications.
 
@@ -75,7 +75,7 @@ Now, we'll cover module nomenclature.
 
 Originally, Espressif offered two module types: WROOM and WROVER, with a smaller MINI variant introduced later. Today, the two main module form factors are WROOM and MINI:
 
-- __MINI__: A compact module that does not include an additional memory chip. MINI modules are available only with smaller flash memory sizes (4MB or 8MB, depending on the SoC series).
+- __MINI__: A compact form factor, MINI modules are available only with smaller flash memory sizes (4MB or 8MB, depending on the SoC series).
 - __WROOM__: A larger module that can include additional memory. Available in different configurations with varying amounts of flash and PSRAM. For ESP32 series, the complete module name is WROOM-32. For newer series it's called WROOM. 
 - __WROVER__: A legacy module used exclusively with ESP32 and ESP32-S2 SoCs. During the ESP32 era, WROOM modules only included extra flash memory, whereas WROVER modules integrated 8MB of PSRAM. This form factor is not used for newer SoCs as modern WROOM modules now support both flash and PSRAM expansion.
 
@@ -142,13 +142,13 @@ To check which versions are available for a specific module or SoC, you can cons
 	- Memory: 8MB flash with normal temperature range
 - [ESP32-C3-MINI-1-N4](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf#subsection.1.2)
 	- SoC: ESP32-C3
-	- Module Format: MINI
-	- Version: 1
+	- Module Format: MINI-1
+	- Version: N/A, first release
 	- Memory: 4MB (i.e. integrated memory in SoC)
 - [ESP32-S3-WROOM-1-N16R8](https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf#subsection.1.2)
 	- SoC: ESP32-S3
-	- Module: WROOM
-	- Version: 1
+	- Module: WROOM-1
+	- Version: N/A, first release
 	- Memory: 16MB flash with normal temperature range / 8MB PSRAM
 
 ## Conclusion
