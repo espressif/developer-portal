@@ -1,7 +1,6 @@
 ---
 title: "Espressif part numbers explained: A complete guide - Modules"
-date: 2025-03-06T08:56:06+01:00
-featureAsset: "img/featured/featured-storage.webp"
+date: 2025-03-17
 showAuthor: false
 authors:
   - francesco-bez 
