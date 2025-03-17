@@ -7,4 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: errata-ai/vale-action@v2.1.1
+
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
+      - name: Install Vale
+        run: |
+          curl -fsSL https://github.com/errata-ai/vale/releases/latest/download/vale-linux-amd64 --output /usr/local/bin/vale
+          chmod +x /usr/local/bin/vale
+          vale --version  # Check installation
+
+      - name: Run Vale and pass output to Reviewdog
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          vale . 2>&1 | reviewdog -efm="%f:%l:%c: %m" \
+            -name="Vale" -reporter=github-pr-review -filter-mode=diff_context -level=warning
