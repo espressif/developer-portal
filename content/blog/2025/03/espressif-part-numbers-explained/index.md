@@ -4,9 +4,8 @@ date: 2025-03-17
 showAuthor: false
 authors:
   - francesco-bez 
-tags: ["ESP32", "ESP32-S2","ESP32-S3", "ESP32-H2", "ESP32-C3"]
+tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-H2", "ESP32-C3"]
 ---
-
 
 > This article clarifies Espressif's SoC series, module types, memory options, antenna versions, and versioning.. It also explains why modules like WROOM and MINI are among Espressif's most popular products. After reading the article, developers should be able to confidently select the right hardware for their projects.
 
@@ -30,18 +29,15 @@ Context: Developer Portal's GitLab MR `26#note_1948368`
 Tags: ESP32 
 -->
 
-
-
 ## SoC series
 
 Espressif SoCs are divided into different SoC series. At the time of writing this article, the most common SoC series are:
 
 - ESP32
-- ESP32-C2 / ESP32-C3
-- ESP32-S3
-- ESP32-C6 / ESP32-C61
+- ESP32-C2 / ESP32-C3 / ESP32-C6 / ESP32-C61
 - ESP32-H2 / ESP32-H4
 - ESP32-P4
+- ESP32-S3 / ESP32-S3
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 You can also come across the names ESP8684 and ESP8685. These are members of the ESP32-C2 and ESP32-C3 series respectively.
@@ -112,7 +108,6 @@ Espressif modules are available with either an integrated PCB antenna or an exte
 
 Modules with an external antenna connector include a "-U" suffix in their part number. For example, the ESP32-C3-MINI-1U-N4 features an external antenna connector, while the ESP32-C3-MINI-1-N4 comes with an integrated PCB antenna.
 
-
 ## Silicon versions
 
 Over the years, several new silicon revisions have been developed, typically offering improved performance or addressing security vulnerabilities. The version can be specified by a letter (like the D and E in ESP32-WROOM-32D and ESP32-WROOM-32E) or a number. 
@@ -135,20 +130,20 @@ To check which versions are available for a specific module or SoC, you can cons
 ### Examples
 
 - [ESP32-WROOM-32D-N8](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf#subsection.1.2):
-	- SoC: ESP32
-	- Module Format: WROOM-32
-	- Version: D
-	- Memory: 8MB flash with normal temperature range
+  - SoC: ESP32
+  - Module Format: WROOM-32
+  - Version: D
+  - Memory: 8MB flash with normal temperature range
 - [ESP32-C3-MINI-1-N4](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf#subsection.1.2)
-	- SoC: ESP32-C3
-	- Module Format: MINI-1
-	- Version: N/S - First release
-	- Memory: 4MB (i.e. integrated memory in SoC)
+  - SoC: ESP32-C3
+  - Module Format: MINI-1
+  - Version: N/S - First release
+  - Memory: 4MB (i.e. integrated memory in SoC)
 - [ESP32-S3-WROOM-1-N16R8](https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf#subsection.1.2)
-	- SoC: ESP32-S3
-	- Module: WROOM-1
-	- Version: N/S - First release
-	- Memory: 16MB flash with normal temperature range / 8MB PSRAM
+  - SoC: ESP32-S3
+  - Module: WROOM-1
+  - Version: N/S - First release
+  - Memory: 16MB flash with normal temperature range / 8MB PSRAM
 
 ## Conclusion
 
