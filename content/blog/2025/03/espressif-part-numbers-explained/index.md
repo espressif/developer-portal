@@ -64,14 +64,14 @@ Although SoCs can be integrated directly into custom PCBs, modules are more comm
 - They can incorporate extra memory chips (both flash and PSRAM).
 - Above all: Modules are certified. Check the certificates at https://www.espressif.com/en/support/documents/certificates
 
-The last point is the most relevant, since it greatly reduces the end product's certification cost. 
+The last point is the most relevant, since it greatly reduces the end product's certification cost.
 
-Now, we'll cover module nomenclature. 
+Now, we'll cover module nomenclature.
 
 Originally, Espressif offered two module types: WROOM and WROVER, with a smaller MINI variant introduced later. Today, the two main module form factors are WROOM and MINI:
 
 - __MINI__: A compact form factor, MINI modules are available only with smaller flash memory sizes (4MB or 8MB, depending on the SoC series).
-- __WROOM__: A larger module that can include additional memory. Available in different configurations with varying amounts of flash and PSRAM. For ESP32 series, the complete module name is WROOM-32. For newer series it's called WROOM. 
+- __WROOM__: A larger module that can include additional memory. Available in different configurations with varying amounts of flash and PSRAM. For ESP32 series, the complete module name is WROOM-32. For newer series it's called WROOM.
 - __WROVER__: A legacy module used exclusively with ESP32 and ESP32-S2 SoCs. During the ESP32 era, WROOM modules only included extra flash memory, whereas WROVER modules integrated 8MB of PSRAM. This form factor is not used for newer SoCs as modern WROOM modules now support both flash and PSRAM expansion.
 
 {{< figure
@@ -94,9 +94,9 @@ When talking about Espressif products, you can encounter four types or memory:
 
 In part numbers, you can find the following letters denoting the memory size for Flash and PSRAM:
 
-* N : flash memory with _normal_ temperature range (-40/+85 ºC)
-* H : flash memory with _high_ temperature range (-40/+105 ºC) 
-* R : PSRAM 
+- N : flash memory with _normal_ temperature range (-40/+85 ºC)
+- H : flash memory with _high_ temperature range (-40/+105 ºC)
+- R : PSRAM
 
 These conventions are applicable to both SoCs (e.g. ESP32FN8, ESP32R2) and modules (e.g. ESP32-S3-WROOM-1-N16R8).
 
@@ -110,7 +110,7 @@ Modules with an external antenna connector include a "-U" suffix in their part n
 
 ## Silicon versions
 
-Over the years, several new silicon revisions have been developed, typically offering improved performance or addressing security vulnerabilities. The version can be specified by a letter (like the D and E in ESP32-WROOM-32D and ESP32-WROOM-32E) or a number. 
+Over the years, several new silicon revisions have been developed, typically offering improved performance or addressing security vulnerabilities. The version can be specified by a letter (like the D and E in ESP32-WROOM-32D and ESP32-WROOM-32E) or a number.
 The versioning doesn't follow a specific rule. A couple of examples, from the oldest to the newest version:
 
 * ESP32-WROOM-32-N4 -> ESP32-WROOM-32D-N4 -> ESP32-WROOM-32E-N4
@@ -119,7 +119,7 @@ The versioning doesn't follow a specific rule. A couple of examples, from the ol
 
 ## Part number
 
-To summarize, specifying an Espressif component requires defining the SoC, the module package size, and the memory configuration (flash and PSRAM), as showed in the picture below. 
+To summarize, specifying an Espressif component requires defining the SoC, the module package size, and the memory configuration (flash and PSRAM), as showed in the picture below.
 {{< figure
     default=true
     src="img/espressif_pn_img.webp"
