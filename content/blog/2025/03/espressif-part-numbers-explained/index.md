@@ -18,7 +18,7 @@ Let's start by briefly going through what the terms *SoC* and *module* mean:
 - **SoC** is a chip containing integrated circuits, usually in a small package (QFN).
 - **Module** is a solution integrated in a single package that includes an SoC along with passive components typically required by the SoC, such as a crystal oscillator for timekeeping, antenna impedance matching network, antenna, etc. Such components cannot be included in an SoC due to extremely limited space.
 
-This guide focuses on the Espressif's module conventions because they are more often used then SoCs. SoC naming conventions are explained to the extent needed to clarify the parts relevant to module naming conventions.
+This guide focuses on the Espressif's module conventions and SoC naming conventions are explained to the extent needed to clarify the parts relevant to module naming conventions.
 
 The next article will dive into SoC naming conventions.
 
@@ -58,7 +58,8 @@ You can find the specific part number designations for the SoCs and the SoC with
 
 ## Modules
 
-Although SoCs can be integrated directly into custom PCBs, modules are more commonly used despite their larger size. Modules are preferred for the following reasons:
+Although SoCs can be integrated directly into custom PCBs, modules could be a choice due to some technical points, including:
+
 - They include all the required components around the SoC (including antenna filter, clock crystal, etc.).
 - They provide optimized RF design for the PCB antenna.
 - They can incorporate extra memory chips (both flash and PSRAM).
@@ -94,7 +95,7 @@ When talking about Espressif products, you can encounter four types or memory:
 
 In part numbers, you can find the following letters denoting the memory size for Flash and PSRAM:
 
-- N : flash memory with _normal_ temperature range (-40/+85 ºC)
+- N : flash memory with _standard_ temperature range (-40/+85 ºC)
 - H : flash memory with _high_ temperature range (-40/+105 ºC)
 - R : PSRAM
 
