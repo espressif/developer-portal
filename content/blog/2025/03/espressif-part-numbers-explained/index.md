@@ -1,6 +1,6 @@
 ---
 title: "Espressif part numbers explained: A complete guide - Modules"
-date: 2025-03-17
+date: 2025-03-19
 showAuthor: false
 authors:
   - francesco-bez 
@@ -37,7 +37,7 @@ Espressif SoCs are divided into different SoC series. At the time of writing thi
 - ESP32-C2 / ESP32-C3 / ESP32-C5 / ESP32-C6 / ESP32-C61
 - ESP32-H2 / ESP32-H4
 - ESP32-P4
-- ESP32-S3 / ESP32-S3
+- ESP32-S2 / ESP32-S3
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 You can also come across the names ESP8684 and ESP8685. These are members of the ESP32-C2 and ESP32-C3 series respectively.
@@ -88,7 +88,7 @@ The available memory varies depending on the SoC itself and any additional memor
 
 When talking about Espressif products, you can encounter four types or memory:
 
-- ROM: Internal memory, non-volatile and read-only. It stores the first-stage bootloader. 
+- ROM: Internal memory, non-volatile and read-only. It stores the first-stage bootloader.
 - RAM: Internal random-access memory, volatile. It's the primary memory of the chip
 - Flash: Internal or external memory, non-volatile. It's the memory where the second stage bootloader, the code, and the data is stored.
 - PSRAM: Internal or external memory, volatile. PSRAM stands for [pseudo-static RAM](https://en.wikipedia.org/wiki/Dynamic_random-access_memory#Pseudostatic_RAM). The PSRAM is an auxiliary memory to the internal RAM memory of the SoCs. Additional PSRAM can be useful for applications that require graphics or handling resource-intensive tasks.
@@ -126,7 +126,7 @@ To summarize, specifying an Espressif component requires defining the SoC, the m
     src="img/espressif_pn_img.webp"
     >}}
 
-To check which versions are available for a specific module or SoC, you can consult the _Series Comparison_ section of a respective module datasheet. 
+To check which versions are available for a specific module or SoC, you can consult the _Series Comparison_ section of a respective module datasheet.
 
 ### Examples
 
