@@ -1,5 +1,9 @@
 {
     "name": "Piyush Shah",
-    "bio": "",
-    "image": ""
+    "bio": "Senior Product Manager at Espressif Systems",
+    "image": "img/authors/piyush-shah.webp",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/shahpiyushv/"},
+        { "github": "https://github.com/shahpiyushv"}
+    ]
 }
