@@ -89,3 +89,7 @@ To summarize, for most ESP32 applications, we do not foresee any impact from the
 We follow a standardized [Product Security Incident Response process](https://www.espressif.com/sites/default/files/Espressif%20Security%20Incident%20Response%20Process%20v1.0_EN.pdf) and we believe in responsible disclosure.
 
 We believe that the security of devices based on Espressif chips is of paramount importance and are committed to transparency and best security practices. We will continue to work with the community to ensure that our devices are secure and that all security-related information is responsibly disclosed.
+
+## Update
+
+- **March 20, 2025**: This issue has been assigned the identifier [CVE-2025-27840](https://nvd.nist.gov/vuln/detail/CVE-2025-27840)
