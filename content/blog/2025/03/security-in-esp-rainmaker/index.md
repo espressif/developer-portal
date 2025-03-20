@@ -2,7 +2,6 @@
 title: "Security in ESP RainMaker"
 date: 2025-03-20
 showAuthor: true
-featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyush-shah
 tags:
