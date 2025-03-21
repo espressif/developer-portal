@@ -1,0 +1,31 @@
+# Newly-created rule at Espressif
+# For details, see Espressif Vale Config Documentation
+extends: substitution
+message: "Use '%s' instead of '%s'."
+ignorecase: true
+level: suggestion
+link: https://github.com/esp-rs/book/blob/main/rust-doc-style-guide.md#recommended-terms
+action:
+  name: replace
+swap:
+  vs\s?code:            VS Code
+  mac\s?OS:             macOS
+  bluetooth:            Bluetooth
+  efuse:                eFuse
+  aiot:                 AIoT
+  freeRTOS:             FreeRTOS
+  IOT:                  IoT
+  #unix:                UNIX
+  ibus:                 IBUS
+  dbus:                 DBUS
+  wi-?fi:               Wi-Fi
+  cargo:                Cargo
+  dev\s?containers?:    Dev Container(s)
+  openocd:              OpenOCD
+  clion:                CLion
+  mingw:                MinGW
+  esp-idf programming guide: ESP-IDF Programming Guide
+  rainmaker:            RainMaker
+  copilot:              Copilot
+  esp\slowcode:         ESP LowCode
+  esp\szerocode:        ESP ZeroCode

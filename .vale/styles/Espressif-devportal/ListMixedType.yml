@@ -1,0 +1,12 @@
+extends: existence
+message: "Don't mix bulleted and numbered lists at the same level."
+level: error
+scope: raw
+nonword: true
+tokens:
+  # Find lists with bullets and numbers at the same level
+  - '(?m)^[\-\+\*]\s.*$\n{1,2}\d+\.\s.*$'
+  - '(?m)^\d+\.\s.*$\n{1,2}[\-\+\*]\s.*$'
+  # Find sublists with bullets and numbers at the same level
+  - '(?m)^[ ]{2,4}[\-\+\*]\s.*$\n{1,2}[ ]{2,4}\d+\.\s.*$'
+  - '(?m)^[ ]{2,4}\d+\.\s.*$\n{1,2}[ ]{2,4}[\-\+\*]\s.*$'

@@ -1,0 +1,142 @@
+# Google.Acronyms -- customized
+# For details, see Espressif Vale Config Documentation
+extends: conditional
+message: "Spell out '%s', if it's unfamiliar to the audience."
+# source: EMoS > Define Abbreviations and Acronyms at First Use
+link: http://mos.espressif.com/general-conventions.html#define-abbreviations-and-acronyms-at-first-use
+level: warning
+# Ensures that the existence of 'first' implies the existence of 'second'.
+first: '(?<!\w|\-)\b([A-Z]{3,5})\b(?!\w|\-)'
+second: '(?:\b[A-Za-z][a-z]+ )+\(([A-Z]{3,5})\)'
+# ... with the exception of these:
+exceptions:
+
+# Espressif
+  - MINI
+  - WROOM
+  - RainMaker
+
+# Embedded
+  - ACK
+  - ADC
+  - DAC
+  - GPIO
+  - I2C
+  - I2S
+  - LSB
+  - MSB
+  - MTDO
+  - MTDI
+  - MTCK
+  - MTMS
+  - NACK
+  - OTA
+  - PCB
+  - PHY
+  - PSRAM
+  - RAM
+  - RTOS
+  - SCL
+  - SDA
+  - SPI
+  - SRAM
+  - START
+  - TDO
+  - TDI
+  - TCK
+  - TMS
+  - UART
+  - WLED
+  - 3V3
+
+# False positives
+  - NOTE
+  - RISC
+  - RUST
+  - TODO
+  - WIFI
+
+# Rust
+  - ABI
+  - BLE
+  - ELF
+  - HAL
+  - MQTT
+  - MSVC
+  - NOW
+  - PAC
+  - RTC
+  - VJTAG
+  - LLDB
+  - IMU
+
+# General
+
+  - AI
+  - AI[Oo]T
+  - API
+  - ASCII
+  - AWS
+  - BASIC
+  - BIOS
+  - CLI
+  - CMOS
+  - CPU
+  - CSS
+  - CSV
+  - DPI
+  - ESP
+  - FAQ
+  - GCC
+  - GDB
+  - GET
+  - GND
+  - GNU
+  - GPS
+  - GPU
+  - GUI
+  - HTML
+  - HTTP
+  - HTTPS
+  - IDE
+  - IDF
+  - IEEE
+#  - JAR
+  - I[Oo]T
+  - JSON
+  - JTAG
+  - LED
+  - LLVM
+  - MAC
+  - MCU
+  - MIT
+  - NET
+  - PATH
+  - PDF
+  - PHP
+  - POSIX
+  - POST
+  - PUT
+  - QEMU
+  - RAM
+  - RFC
+  - RGB
+  - ROM
+  - RSA
+  - SDK
+  - SQL
+  - SSH
+  - SSID
+  - SSL
+  - SVG
+  - TBD
+  - TCP
+  - TOML
+  - URI
+  - URL
+  - USB
+  - UTF
+  - UUID
+  - XML
+  - YAML
+  - ZIP

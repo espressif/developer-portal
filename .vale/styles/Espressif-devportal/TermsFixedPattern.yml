@@ -1,0 +1,11 @@
+# Newly-created rule at Espressif
+# For details, see Espressif Vale Config Documentation
+extends: substitution
+message: '%s (now: %s)'
+ignorecase: false
+level: error
+# source: "Espressif Term Base"
+swap:
+  802.11\s\w.?\/\w: Remove space between '802.11' and 'x/x/x'
+  SOCs?: Use 'SoC' or 'SoCs' instead
+  #'ESP [Dd]evices?|ESP [Pp]roducts?': Use 'Espressif devices' or 'Espressif products'

@@ -1,0 +1,19 @@
+extends: existence
+message: "Avoid '%s' in link text. Use a couple of keywords instead to describe WHAT the link leads to. In the surrouding text, explain WHY this link is given or HOW it helps."
+level: warning
+link: https://technicalwriting.dev/links/automation.html#background
+scope: raw
+ignorecase: true
+tokens:
+  # Check md links [here](http://example.com)
+  - '(?<=\[)(?:\b(?:in|on|at)\s+)?(here|click here|this page|this link)(?=\]\(.*\))'
+  # Check md links with numeric ref [here][1]
+  - '(?<=\[)(?:\b(?:in|on|at)\s+)?(here|click here|this page|this link)(?=\]\[\d+\])'
+  # Check md links with named ref [here][example]
+  - '(?<=\[)(?:\b(?:in|on|at)\s+)?(here|click here|this page|this link)(?=\]\[[^\]]+\])'
+  # Check md links with empty ref [here][]
+  - '(?<=\[)(?:\b(?:in|on|at)\s+)?(here|click here|this page|this link)(?=\]\[\])'
+  # Check rST hyperlinks `here <http://example.com>`_
+  - '(?<=`)(?:\b(?:in|on|at)\s+)?(here|click here|this page|this link)(?= <[^>]+>`_)'
+  # Check rST internal refs :ref:`here<Heading Text>`
+  - '(?<=:ref:`)(?:\b(?:in|on|at)\s+)?(here|click here|this page|this link)(?=<[^`>]+>`)'
