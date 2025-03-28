@@ -15,6 +15,16 @@ tags:
 
 We are thrilled to announce the availability of the **ESP-TEE (Trusted Execution Environment)** framework for the **ESP32-C6**! Designed to enhance security on Espressif's SoCs, ESP-TEE enables a protected execution environment to safeguard sensitive information and operations.
 
+<figure style="width: 80%; margin: 0 auto; text-align: center;">
+    <img
+        src="img/esp-tee-logo.webp"
+        alt="ESP-TEE Logo"
+        title="ESP-TEE Logo"
+        style="width: 100%;"
+    />
+    <figcaption>The ESP-TEE (Espressif Trusted Execution Environment) Framework</figcaption>
+</figure>
+
 ## The Importance of the ESP-TEE
 
 Security is paramount in the IoT landscape, where billions of devices exchange sensitive information daily. The ESP-TEE framework empowers developers by offering:
