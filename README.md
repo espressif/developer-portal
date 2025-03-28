@@ -29,7 +29,7 @@ Rule `Espressif-devportal.HeadingSentenceCase`
 
 #### Use Sentence Style Capitalization
 
-#### Exceptions for capitalization can be added like espressif
+#### Exceptions for capitalization can be added like Espressif
 
 ---
 
