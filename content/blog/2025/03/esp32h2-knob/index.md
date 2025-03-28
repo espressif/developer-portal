@@ -139,7 +139,7 @@ The example projects for the ESP-Knob available at the time of writing are detai
 The examples are
 * **BLE-HID**: A BLE-HID implementation based on the [ble_hid_device_demo](https://github.com/espressif/esp-idf/tree/release/v5.4/examples/bluetooth/bluedroid/ble/ble_hid_device_demo). You can adjust the volume by turning the knob and change the bonded device through a long press. 
 * **BTHome firmware**: It integrates `Button`and `Dimmer`components, broadcasting the data in BTHome protocol. It supports Home Assistant and automatic deep sleep. 
-* **Matter universal switch**: It implements a simple matter switch, which can be provisioned using the netword qr-code. 
+* **Matter universal switch**: It implements a simple matter switch, which can be provisioned using the network qr-code. 
 
 
 ## Conclusion
