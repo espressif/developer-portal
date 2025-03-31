@@ -12,7 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/02/introducing-esp-lowcode-matter/" >}}
+{{< article link="/blog/2025/03/security-in-esp-rainmaker/" >}}
+<br>
+{{< article link="/blog/2025/03/espressif-part-numbers-explained/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
