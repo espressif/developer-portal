@@ -1,0 +1,10 @@
+{
+    "name": "Radim Karniš",
+    "bio": "Software Engineer at Espressif Systems",
+    "image": "img/authors/radim-karnis.webp",
+    "social": [
+        { "github": "https://github.com/radimkarnis" },
+        { "linkedin": "https://www.linkedin.com/in/radim-karnis/" },
+        { "twitter": "https://twitter.com/RadimKarnis" }
+    ]
+}
