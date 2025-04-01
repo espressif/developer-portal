@@ -1,6 +1,6 @@
 ---
 title: "esptool: Updates about the upcoming v5 major release"
-date: 2025-04-01T12:05:21+01:00
+date: 2025-04-01
 showAuthor: False
 authors:
   - "radim-karnis"
