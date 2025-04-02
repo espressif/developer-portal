@@ -1,0 +1,9 @@
+{
+    "name": "Marius Vikhammer",
+    "bio": "Software Manager @ Espressif Systems",
+    "image": "img/authors/marius-vikhammer.webp",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/marius-vikhammer-37423017a" },
+        { "github": "https://github.com/ESP-Marius" }
+    ]
+}
