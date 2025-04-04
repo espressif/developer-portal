@@ -98,7 +98,7 @@ cargo run --release
 
 ### ESP32 Spooky Maze Game
 
-In this small application, a player navigates a maze collecting coins while using special power‑ups (such as dynamite and the "walker") to overcome obstacles. When collisions occur (with coins, NPCs, etc.), events are dispatched so that game logic remains decoupled from hardware‑specific input.
+In this small application, a player navigates a maze collecting coins while using special power‑ups to overcome obstacles. When collisions occur (with coins, NPCs, etc.), events are dispatched so that game logic remains decoupled from hardware‑specific input.
 
 
 #### ESP32-S3-BOX-3
@@ -180,7 +180,7 @@ Flushes the framebuffer to the physical display via SPI using the mipidsi crate.
 
 #### Event‑Based Collision and Input
 
-All input (keyboard or accelerometer) is dispatched as events into the ECS. Separate systems process these events to update game state (for example, moving the player or handling collisions with coins, dynamite, NPCs, etc.). This design makes it easier to add new types of interactions without tightly coupling the game logic with the underlying hardware.
+All input (keyboard or accelerometer) is dispatched as events into the ECS. Separate systems process these events to update game state (for example, moving the player or handling collisions with coins, NPCs, etc.). This design makes it easier to add new types of interactions without tightly coupling the game logic with the underlying hardware.
 
 #### Resource Injection
 
