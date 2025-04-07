@@ -83,7 +83,7 @@ src="img/2-esp-clion-manage-toolchains.webp"
     - In the `Build directory` field, enter `build`.
     - Click `OK`.
 
-Your project will then start to load. If the process fails, click `Reset and Reload Project` in the CMake tool window settings.
+Your project will then start to load. If the process fails, click `Reset Cache and Reload Project` in the CMake tool window settings.
 
 {{< figure
 default=true
