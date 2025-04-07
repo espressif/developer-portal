@@ -22,8 +22,8 @@ on an ESP32 device, using a simulation of [Conway’s Game of Life](https://gith
 <div style="display: flex; justify-content: center; margin: 20px 0;">
   <iframe
     src="https://georgik.github.io/esp32-conways-game-of-life-rs/"
-    width="320"
-    height="240"
+    width="640"
+    height="480"
     style="border: none; overflow: hidden;"
     scrolling="no"
     title="Conway's Game of Life WASM Demo">
