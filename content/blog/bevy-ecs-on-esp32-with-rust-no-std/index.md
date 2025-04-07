@@ -1,10 +1,10 @@
 ---
 title: "Bevy Entity Component System on ESP32 with Rust no_std"
-date: "2025-03-06"
+date: "2025-04-06"
 showAuthor: false
 authors:
   - "juraj-michalek"
-tags: ["Embedded Systems", "ESP32", "Rust", "Bevy ECS", "no_std", "ECS", "WASM"]
+tags: ["Embedded Systems", "ESP32", "ESP32-S3", "ESP32-C3", "Rust", "Bevy", "no_std", "ECS", "WASM"]
 ---
 
 ## Introduction
@@ -19,17 +19,27 @@ In this article, we demonstrate how to build an embedded application using Rust 
 on an ESP32 device, using a simulation of [Conway’s Game of Life](https://github.com/georgik/esp32-conways-game-of-life-rs) and
 [ESP32 Spooky Maze Game](https://github.com/georgik/esp32-spooky-maze-game) as our examples.
 
-Although Conway’s Game of Life is a classic cellular automaton,
-our focus is on showcasing how to structure an embedded application using Bevy ECS principles.
+<div style="text-align:center; margin: 20px 0;">
+  <iframe
+    src="https://georgik.github.io/esp32-conways-game-of-life-rs/"
+    width="640"
+    height="480"
+    style="border: none; overflow: hidden;"
+    scrolling="no"
+    title="Conway's Game of Life WASM Demo">
+  </iframe>
+</div>
 
-This approach not only helps organize code into clean, modular systems for interactive and data intensive applications.
+Although Conway’s Game of Life is a classic cellular automaton, our primary focus is on structuring embedded applications using Bevy ECS principles.
+
+This approach helps organize code into clean, modular systems, ideal for interactive and data-intensive applications.
 
 <video controls width="640">
     <source src="https://github.com/user-attachments/assets/e9d48ff7-b14c-4874-9521-fe59e915bc76" type="video/mp4">
     View the video [here](https://github.com/user-attachments/assets/e9d48ff7-b14c-4874-9521-fe59e915bc76).
 </video>
 
-The second example Spooky Maze Game is more complex and demonstrates how to connect peripherals like accelerometer with application code using even based approach.
+The second example, the Spooky Maze Game, is more complex, demonstrating an event-based approach to integrate peripherals like accelerometers with application logic.
 
 <video src="https://github.com/user-attachments/assets/28ef7c2b-42cc-4c79-bbdb-fcb0740bf533" controls width="320">
 View the video [here](https://github.com/user-attachments/assets/28ef7c2b-42cc-4c79-bbdb-fcb0740bf533).
@@ -42,6 +52,10 @@ Bevy ECS is the core data‑oriented architecture of the Bevy game engine. It pr
 
 ## Advantages for Embedded Rust Developers
 
+Many advantages of Rust for embedded development were described in the article [Rust + Embedded: A Development Power Duo](https://developer.espressif.com/blog/rust-embedded-a-development-power-duo/).
+
+Here are some specific advantages of using ECS in Rust applications:
+
 - **Modularity and Maintainability:** ECS encourages the separation of data and behavior into independent systems, which leads to clearer, easier-to-maintain code.
 - **Efficient Resource Management:** The data‑oriented design can lead to better cache utilization and efficient processing, critical for devices with limited memory and processing power.
 - **Scalability:** Even on microcontrollers, ECS allows you to extend your application with additional features or behaviors without significant restructuring.
@@ -53,9 +67,8 @@ Bevy ECS is the core data‑oriented architecture of the Bevy game engine. It pr
 
 - **ESP32 Development Board:** ESP32-S3, ESP32-C3, or similar variants.
 - **Display Module:** For example, an ILI9486-based display connected via SPI.
-- **Additional Peripherals:** Optional buttons, sensors, or LEDs depending on your project.
 
-If you're not sure which Hardware to pick, we recommend [ESP32-S3-BOX-3](https://github.com/espressif/esp-box?tab=readme-ov-file#esp-box-aiot-development-framework) which features ESP32-S3 with PSRAM and display with touch controller.
+If you're uncertain which hardware to choose, we recommend the [ESP32-S3-BOX-3](https://github.com/espressif/esp-box?tab=readme-ov-file#esp-box-aiot-development-framework) featuring ESP32-S3 with PSRAM and a display with touch control.
 
 ### Software Requirements
 
@@ -65,9 +78,9 @@ If you're not sure which Hardware to pick, we recommend [ESP32-S3-BOX-3](https:/
 
 ## Building the Application
 
-Our example implements Conway’s Game of Life, where the simulation grid is managed as an ECS resource. The Bevy ECS world organizes systems for updating the game state and rendering to an off‑screen framebuffer, which is then flushed to a physical display. We will showcase also an option to use WASM for rendering the same application in the web browser.
+The Conway’s Game of Life example manages a simulation grid as an ECS resource. Systems update the game state and render to an off-screen framebuffer, which is then output to a physical display. A WASM version also simulates the display using an HTML canvas in a web browser.
 
-For ESP32-based projects, the code is compiled as a bare‑metal Rust application using no_std. Flashing the binary onto your hardware is done using [espflash](https://github.com/esp-rs/espflash) or [probe-rs](https://github.com/probe-rs/probe-rs) configured in [`.config/cargo.toml`](https://github.com/georgik/esp32-conways-game-of-life-rs/blob/main/esp32-c3-lcdkit/.cargo/config.toml). For the WASM version, the application runs in the browser by simulating a display via an HTML canvas.
+For ESP32-based projects, the code is compiled as a bare‑metal Rust application using no_std. Flashing the binary onto your hardware is done using [espflash](https://github.com/esp-rs/espflash) or [probe-rs](https://github.com/probe-rs/probe-rs) configured in [`.config/cargo.toml`](https://github.com/georgik/esp32-conways-game-of-life-rs/blob/main/esp32-c3-lcdkit/.cargo/config.toml).
 
 ## Installing tooling
 
