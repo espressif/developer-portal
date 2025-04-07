@@ -19,11 +19,11 @@ In this article, we demonstrate how to build an embedded application using Rust 
 on an ESP32 device, using a simulation of [Conway’s Game of Life](https://github.com/georgik/esp32-conways-game-of-life-rs) and
 [ESP32 Spooky Maze Game](https://github.com/georgik/esp32-spooky-maze-game) as our examples.
 
-<div style="text-align:center; margin: 20px 0;">
+<div style="display: flex; justify-content: center; margin: 20px 0;">
   <iframe
     src="https://georgik.github.io/esp32-conways-game-of-life-rs/"
-    width="640"
-    height="480"
+    width="320"
+    height="240"
     style="border: none; overflow: hidden;"
     scrolling="no"
     title="Conway's Game of Life WASM Demo">
