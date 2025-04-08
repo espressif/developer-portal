@@ -1,6 +1,6 @@
 ---
 title: "RED DA (EN 18031) Certification Compliance: What You Need to Know"
-date: 2025-04-06
+date: 2025-04-08
 showAuthor: false
 authors:
   - sachin-billore
