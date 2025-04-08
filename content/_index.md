@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/03/security-in-esp-rainmaker/" >}}
+{{< article link="/blog/2025/04/esp32-red-da-en18031-compliance-guide/" >}}
 <br>
-{{< article link="/blog/2025/03/espressif-part-numbers-explained/" >}}
+{{< article link="/blog/2025/03/security-in-esp-rainmaker/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
