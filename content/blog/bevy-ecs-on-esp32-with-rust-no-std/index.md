@@ -21,7 +21,7 @@ on an ESP32 device, using a simulation of [Conway’s Game of Life](https://gith
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
   <iframe
-    src="https://georgik.github.io/esp32-conways-game-of-life-rs/"
+    src="https://developer.espressif.com/persist/rust/esp32-conways-game-of-life-rs/"
     width="640"
     height="480"
     style="border: none; overflow: hidden;"
@@ -34,16 +34,11 @@ Although Conway’s Game of Life is a classic cellular automaton, our primary fo
 
 This approach helps organize code into clean, modular systems, ideal for interactive and data-intensive applications.
 
-<video controls width="640">
-    <source src="https://github.com/user-attachments/assets/e9d48ff7-b14c-4874-9521-fe59e915bc76" type="video/mp4">
-    View the video [here](https://github.com/user-attachments/assets/e9d48ff7-b14c-4874-9521-fe59e915bc76).
-</video>
+{{< youtube BeDaT9ydHU0 >}}
 
 The second example, the Spooky Maze Game, is more complex, demonstrating an event-based approach to integrate peripherals like accelerometers with application logic.
 
-<video src="https://github.com/user-attachments/assets/28ef7c2b-42cc-4c79-bbdb-fcb0740bf533" controls width="320">
-View the video [here](https://github.com/user-attachments/assets/28ef7c2b-42cc-4c79-bbdb-fcb0740bf533).
-</video>
+{{< youtube JdYz991F9S8 >}}
 
 ## What is Bevy ECS?
 
