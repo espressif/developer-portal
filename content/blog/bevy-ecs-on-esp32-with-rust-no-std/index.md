@@ -1,6 +1,6 @@
 ---
 title: "Bevy Entity Component System on ESP32 with Rust no_std"
-date: "2025-04-06"
+date: "2025-04-09"
 showAuthor: false
 authors:
   - "juraj-michalek"
@@ -42,7 +42,13 @@ The second example, the Spooky Maze Game, is more complex, demonstrating an even
 
 ## What is Bevy ECS?
 
-Bevy ECS is the core data‑oriented architecture of the Bevy game engine. It provides a way to structure programs by breaking them into entities (which represent objects), components (which hold data), and systems (which operate on entities with specific components). With the introduction of [no_std support](https://www.youtube.com/live/Ao2gXd_CgUc?si=emIdJlz5fbGJQAx6&t=236), Bevy ECS can now be used in bare‑metal environments where the standard library is not available—making it a compelling choice for embedded
+Bevy ECS is the core data‑oriented architecture of the Bevy game engine. It provides a way to structure programs by breaking them into:
+
+ - **Entities** which represent objects
+ - **Components** which hold data
+ - **Systems** which operate on entities with specific components
+
+With the introduction of [no_std support](https://www.youtube.com/live/Ao2gXd_CgUc?si=emIdJlz5fbGJQAx6&t=236), Bevy ECS can now be used in bare‑metal environments where the standard library is not available—making it a compelling choice for embedded
 [Rust development for ESP32](https://developer.espressif.com/blog/2025/02/rust-esp-hal-beta/).
 
 ## Advantages for Embedded Rust Developers
@@ -67,36 +73,43 @@ If you're uncertain which hardware to choose, we recommend the [ESP32-S3-BOX-3](
 
 ### Software Requirements
 
-- **Rust Toolchain:** Use upstream Rust toolchain (version 1.85.0.0 or later) for RISC-V targets (ESP32-C, ESP32-P, ESP32-H) or installation via [espup](https://github.com/esp-rs/espup) for Xtensa targets (ESP32, ESP32-S).
-- **ESP‑HAL and mipidsi:** These crates provide the hardware abstraction and display support for ESP32 devices.
-- **Bevy ECS (no_std):** The latest no_std support in Bevy ECS lets you use its powerful ECS model on bare‑metal targets.
+- [Rust Toolchain](https://github.com/esp-rs/espup) Use upstream Rust toolchain (version 1.85.0.0 or later) for RISC-V targets (ESP32-C, ESP32-P, ESP32-H) or installation via [espup](https://github.com/esp-rs/espup) for Xtensa targets (ESP32, ESP32-S).
+
+```sh
+cargo install espup
+espup install # For ESP32, ESP32-S
+```
+
+- [espflash](https://github.com/esp-rs/espflash): Rust implementation of flashing tool for ESP32.
+
+```sh
+cargo install espflash
+```
+Note: The Rust tooling could be also installed by [`cargo binstall`](https://github.com/cargo-bins/cargo-binstall).
+
+### Crates Used in the Project
+
+- [ESP‑HAL](https://github.com/esp-rs/esp-hal) and [mipidsi](https://github.com/almindor/mipidsi): These crates provide the hardware abstraction and display support for ESP32 devices.
+- [Bevy ECS (no_std)](https://github.com/bevyengine/bevy/issues/15460) The latest no_std support in Bevy ECS lets you use its powerful ECS model on bare‑metal targets.
 
 ## Building the Application
 
 The Conway’s Game of Life example manages a simulation grid as an ECS resource. Systems update the game state and render to an off-screen framebuffer, which is then output to a physical display. A WASM version also simulates the display using an HTML canvas in a web browser.
 
-For ESP32-based projects, the code is compiled as a bare‑metal Rust application using no_std. Flashing the binary onto your hardware is done using [espflash](https://github.com/esp-rs/espflash) or [probe-rs](https://github.com/probe-rs/probe-rs) configured in [`.config/cargo.toml`](https://github.com/georgik/esp32-conways-game-of-life-rs/blob/main/esp32-c3-lcdkit/.cargo/config.toml).
+Flashing the binary onto your hardware is done using [espflash](https://github.com/esp-rs/espflash) or [probe-rs](https://github.com/probe-rs/probe-rs) configured in [`.config/cargo.toml`](https://github.com/georgik/esp32-conways-game-of-life-rs/blob/main/esp32-c3-lcdkit/.cargo/config.toml).
 
-## Installing tooling
+## Running Applications - Conway's Game of Life
 
-The tooling could be installed by [`cargo binstall`](https://github.com/cargo-bins/cargo-binstall) or simply from source code:
+- [Source code](https://github.com/georgik/esp32-conways-game-of-life-rs)
 
-```sh
-cargo install espup espflash
-espup install # For ESP32, ESP32-S
-```
-## ESP32 Conway's Game of Life
-
-### Running the Application
-
-#### ESP32-S3-BOX-3
+### ESP32-S3-BOX-3 - Conway
 
 ```sh
 cd esp32-s3-box-3
 cargo run --release
 ```
 
-#### ESP32-C3
+### ESP32-C3 - Conway
 
 Use the upstream Rust toolchain with the RISC‑V target:
 ```sh
@@ -108,15 +121,16 @@ cargo run --release
 
 In this small application, a player navigates a maze collecting coins while using special power‑ups to overcome obstacles. When collisions occur (with coins, NPCs, etc.), events are dispatched so that game logic remains decoupled from hardware‑specific input.
 
+- [Source code](https://github.com/georgik/esp32-spooky-maze-game)
 
-#### ESP32-S3-BOX-3
+#### ESP32-S3-BOX-3 - Spooky
 
 ```sh
 cd spooky-maze-esp32-s3-box-3
 cargo run --release
 ```
 
-#### Desktop
+#### Desktop - Spooky
 
 ```sh
 cd spooky-maze-desktop
@@ -155,19 +169,6 @@ let mut app = App::new();
 
 ```
 
-## Key Technical Decisions
-
-### Custom Renderer for Embedded Devices
-
-Because Bevy’s built‑in rendering and UI systems aren’t available in no_std mode, we implemented a custom renderer using the Embedded Graphics crate. This renderer draws the maze, sprites, and HUD elements to an off‑screen framebuffer, then flushes the output to the physical display. In addition, a sprite filtering layer (implemented via a custom SpriteBuf wrapper) discards “magic pink” pixels that denote transparency in our sprite assets.
-
-### Event‑Driven Architecture
-
-Input events (keyboard on desktop and accelerometer on embedded) are dispatched via ECS events and then processed by dedicated systems. This design decouples hardware input from game rules and collision detection, making the overall system modular and maintainable.
-
-### Peripheral Resource Injection
-
-Hardware peripherals like the ICM42670 accelerometer are injected as Bevy resources (using NonSend for non‑Sync hardware drivers). This allows our ECS systems to access sensor data seamlessly without directly coupling to hardware APIs.
 
 
 ### Architecture of the Application
@@ -176,15 +177,18 @@ Hardware peripherals like the ICM42670 accelerometer are injected as Bevy resour
 
 The app’s core is implemented in the spooky-core crate using Bevy ECS. This core contains all app logic (maze generation, collision detection, event handling, etc.) and is compiled with no_std for embedded targets and with std for desktop.
 
+Because Bevy’s built‑in rendering and UI systems aren’t available in no_std mode, we implemented a custom renderer using the Embedded Graphics crate. This renderer draws the maze, sprites, and HUD elements to an off‑screen framebuffer, then flushes the output to the physical display. In addition, a sprite filtering layer (implemented via a custom SpriteBuf wrapper) discards “magic pink” pixels that denote transparency in our sprite assets.
+
+
 #### Custom Renderer for Embedded
 
 On embedded devices, the demo uses a custom renderer that:
 
-Draws the maze background and sprites to an off‑screen framebuffer.
+- Draws the maze background and sprites to an off‑screen framebuffer.
 
-Applies a filtering layer to skip “magic pink” pixels (which represent transparency). This technique is known from DOS games.
+- Applies a filtering layer to skip “magic pink” pixels (which represent transparency). This technique is known from DOS games.
 
-Flushes the framebuffer to the physical display via SPI using the mipidsi crate.
+- Flushes the framebuffer to the physical display via SPI using the mipidsi crate.
 
 #### Event‑Based Collision and Input
 
@@ -192,7 +196,7 @@ All input (keyboard or accelerometer) is dispatched as events into the ECS. Sepa
 
 #### Resource Injection
 
-Resources such as the maze, player position, HUD state, and hardware peripherals are injected into the ECS world. This approach allows systems to share data without global variables and ensures a clean separation between hardware drivers and game logic.
+Resources such as the maze, player position, HUD state and hardware peripherals like the ICM42670 accelerometer are injected as Bevy resources (using NonSend for non‑Sync hardware drivers). This allows our ECS systems to access sensor data seamlessly without directly coupling to hardware APIs.
 
 ## Conclusion
 
@@ -204,7 +208,7 @@ The integration of no_std support into Bevy ECS opens up exciting new possibilit
 
 Another great option is [VS Code](https://code.visualstudio.com/) with Rust plugins.
 
-All IDEs mentioned above supports simulation of ESP32 using [Wokwi simulator](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator).
+All IDEs mentioned above support simulation of ESP32 using [Wokwi simulator](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator).
 
 ## Contributing
 
