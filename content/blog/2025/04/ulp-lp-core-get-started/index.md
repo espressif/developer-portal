@@ -8,13 +8,13 @@ summary: "In this article, we’ll start with a quick overview of Ultra Low Powe
 tags: ["ESP32-C6", "ULP", "ESP-IDF", "Low Power", "LP-Core"]
 ---
 
-Imagine this scenario: you have finished programming your application, designed your PCB with a battery circuit, and you are finally ready to set it free by disconnecting the umbilical cord--the USB cable. But to your great disappointment, you find too soon that your small LiPo battery drains in a matter of hours.
+Imagine this scenario: you have finished programming your application, designed your PCB with a battery circuit, and you are finally ready to set it free by disconnecting the umbilical cord --- the USB cable. But to your great disappointment, you find too soon that your small LiPo battery drains in a matter of hours.
 
 If you plan to run your application on a battery, it is of utmost importance to know how to design your hardware and software so that the application does not gobble up the power like a vacuum cleaner. Even something as simple as polling a GPIO can have a drastic impact on power consumption. Doing it the easiest way vs. using the chip's low-power features can result in an average difference of 22 mA vs. 22 µA. In other words, with your 350 mAh LiPo battery, it is the difference between it lasting 16 hours vs. 2 years.
 
 In this article, we'll introduce one of the features that Espressif chips provide to achieve low-power consumption: the Ultra-Low-Power coprocessor (ULP), a processor separate from the main CPU. In a nutshell, if we run parts of our application on the ULP while the rest of the system sleeps, we can achieve much lower power consumption.
 
-This article will focus on the latest iteration of the ULP--the LP-Core--available on the ESP32-C6 and a range of other new chips. For building the application, we will use ESP-IDF v5.4.
+This article will focus on the latest iteration of the ULP --- the LP-Core --- available on the ESP32-C6 and a range of other new chips. For building the application, we will use ESP-IDF v5.4.
 
 ## Low-power on Espressif chips
 
@@ -35,21 +35,21 @@ What the ULP brings to the table in a low-power context is the ability to run ev
 
 ## ULP
 
-The ULP is a coprocessor that operates independently from the main CPU. Its main advantage is that it is powered and clocked by a power domain controlled seperately from the rest of the system. This allows it to continue operating even while the rest of the system is in deep sleep. For more information about power domains on the ESP32-C6 see the [TRM - Low-Power Management](https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf#lowpowm).
+The ULP is a coprocessor that operates independently from the main CPU. Its main advantage is that it is powered and clocked by a power domain controlled seperately from the rest of the system. This allows it to continue operating even while the rest of the system is in deep sleep. For more information about power domains on the ESP32-C6, see the [ESP32-C6 TRM](https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf#lowpowm) &rarr; _Low-Power Management_.
 
 This enables us to offload certain tasks to the ULP, such as sensor readings, while waking up the main CPU only when it is necessary for some more complex task.
 
-Imagine this scenario: you're designing a smart plant-watering IoT device that measures soil humidity and waters the plant when needed. For a simple task like this, you could use the ULP to further reduce power consumption. While the rest of the system is powered down and sleeping, the ULP can periodically wake up, take measurements, as well as trigger watering action if necessary. Only when it is strictly necessary will the ULP wake up the main CPU and the rest of the system to perform actions that it cannot do--for example, to update the cloud with the latest device status over Wi-Fi.
+Imagine this scenario: you're designing a smart plant-watering IoT device that measures soil humidity and waters the plant when needed. For a simple task like this, you could use the ULP to further reduce power consumption. While the rest of the system is powered down and sleeping, the ULP can periodically wake up, take measurements, as well as trigger watering action if necessary. Only when it is strictly necessary will the ULP wake up the main CPU and the rest of the system to perform actions that it cannot do --- for example, to update the cloud with the latest device status over Wi-Fi.
 
 To summarize what the ULP is suitable for:
 
 *  :white_check_mark: Save power by performing simple tasks while the rest of the system sleeps
-*  :x: Help you achieve lower power-consumption during Wi-Fi or bluetooth connections
+*  :x: Help you achieve lower power-consumption during Wi-Fi or Bluetooth connections
 *  :white_check_mark: Assist main CPU by offloading simpler tasks
 
 ### Three generations of ULP coprocessor
 
-As Espressif chips have evolved, so has the ULP. This article mainly focuses on the latest iteration of the ULP at the time of writing--the ESP32-C6's LP-Core. Some of the older chips had previous iterations. All in all, the ULP iterations are as follows:
+As Espressif chips have evolved, so has the ULP. This article mainly focuses on the latest iteration of the ULP at the time of writing --- the ESP32-C6's LP-Core. Some of the older chips had previous iterations. All in all, the ULP iterations are as follows:
 
 ![Three Generations](ulp_eval.webp)
 
@@ -174,12 +174,12 @@ To explain a bit more what is happening:
 
 [`ulp_lp_core_load_binary()`](https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32c6/api-reference/system/ulp-lp-core.html#_CPPv423ulp_lp_core_load_binaryPK7uint8_t6size_t) copies the LP-Core binary from flash into LP-RAM, which is the memory area we have reserved for the LP-Core.
 
-[`ulp_lp_core_run()`](https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32c6/api-reference/system/ulp-lp-core.html#_CPPv415ulp_lp_core_runP17ulp_lp_core_cfg_t) then finally configures the LP-Core according to our config parameters. The [`wakeup_source`](https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32c6/api-reference/system/ulp-lp-core.html#_CPPv4N17ulp_lp_core_cfg_t13wakeup_sourceE) is what will trigger the LP-Core to start running, in this case we choose the LP timer, which will make the LP-Core app be re-ran periodically. This is a common use-case when we want to monitor something with the LP-Core, but we don't want it to be active all the time in order to further reduce power consumption. For more information about other wake-up sources see [ulp-lp-core-program-flow](https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32c6/api-reference/system/ulp-lp-core.html#ulp-lp-core-program-flow).
+[`ulp_lp_core_run()`](https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32c6/api-reference/system/ulp-lp-core.html#_CPPv415ulp_lp_core_runP17ulp_lp_core_cfg_t) then finally configures the LP-Core according to our config parameters. The [`wakeup_source`](https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32c6/api-reference/system/ulp-lp-core.html#_CPPv4N17ulp_lp_core_cfg_t13wakeup_sourceE) is what will trigger the LP-Core to start running, in this case we choose the LP timer, which will make the LP-Core app be re-ran periodically. This is a common use-case when we want to monitor something with the LP-Core, but we don't want it to be active all the time in order to further reduce power consumption. For more information about other wake-up sources, see [ulp-lp-core-program-flow](https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32c6/api-reference/system/ulp-lp-core.html#ulp-lp-core-program-flow).
 
 The LP-Core now has everything it needs to run, if you selected a wake-up source which has an immediate effect (e.g. `ULP_LP_CORE_WAKEUP_SOURCE_HP_CPU`) then the LP-Core will already be running. In our example we choose the `LP_Timer` with a sleep duration of 1 second, so the first run of the LP-Core app will occur one second after calling [`ulp_lp_core_run()`](https://docs.espressif.com/projects/esp-idf/en/v5.4/esp32c6/api-reference/system/ulp-lp-core.html#_CPPv415ulp_lp_core_runP17ulp_lp_core_cfg_t).
 
 
-### Interacting with the LP-Coe
+### Interacting with the LP-Core
 
 We now have an app running on the LP-Core, but since the app is just an empty `main()`, it doesn't do anything and we haven't seen any proof that it is actually running.
 
@@ -267,7 +267,7 @@ if (my_counter >= 5) {
 }
 ```
 
-Since we configured the LP timer to wake-up the LP-Core with a period of 1 sec, then this condition means that we will wake up the main processor on the 5th iteration, i.e., after 5 seconds.
+Since we configured the LP timer to wake up the LP-Core with a period of 1 sec, then this condition means that we will wake up the main processor on the 5th iteration, i.e., after 5 seconds.
 
 If you now rebuild and re-flash your project, you'll see that the HP-CPU resets once every 5 second with the reset reason `rst:0x5 (SLEEP_WAKEUP)`.
 
