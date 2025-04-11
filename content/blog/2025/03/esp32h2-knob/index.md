@@ -1,5 +1,5 @@
 ---
-title: "ESP-Knob：A multifunctional smart controller with the ESP32-H2"
+title: "ESP-Knob: A multifunctional smart controller with the ESP32-H2"
 date: 2025-03-27T18:37:17+08:00
 showAuthor: false
 featuredAsset: "Esp_knob_featured2.webp"
@@ -61,7 +61,7 @@ The ESP-Knob connects to the [Home Assistant](https://www.home-assistant.io/) sm
 
 {{< youtubeLite id="SznMNu9SA14" label="ESP32-H2 Knob Working" >}}
 
-### Matter Control Function  
+### Matter Control Function
 The ESP-Knob is also compatible with the Matter-Over-Thread protocol, allowing for easily connect with smart devices such as Apple [HomePod](https://www.apple.com/homepod/) and [Amazon Echo](https://www.dxomark.cn/amazon-echo-4th-gen-speaker-review-wider-than-meets-the-eye/) simultaneously. This enables users to seamlessly manage and control various smart home devices in their homes through the Matter protocol, facilitating a cross-platform smart home control system that enhances the coherence and convenience of the user experience.
 
 
@@ -116,17 +116,17 @@ The circuit blocks annotated in the drawing are as follows:
 
 - **`Main MCU`**: [ESP32-H2-MINI-1-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2-mini-1_mini-1u_datasheet_en.pdf) module
 
-- **`EC11 (Rotary Encoder):`** Used for user input, capable of detecting both rotation and press operations. The press signal from the EC11 controls `VCC_EN`, which is used for power switching or mode switching.  
+- **`EC11 (Rotary Encoder):`** Used for user input, capable of detecting both rotation and press operations. The press signal from the EC11 controls `VCC_EN`, which is used for power switching or mode switching.
 
-- **`5V → 3.3V (Power Module):`** Uses the XC6206P332MR-G low-dropout linear regulator to step down the USB power supply (5V) to the 3.3V required by the [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf).  
+- **`5V → 3.3V (Power Module):`** Uses the XC6206P332MR-G low-dropout linear regulator to step down the USB power supply (5V) to the 3.3V required by the [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf).
 
-- **`VBAT → 3.3V (Power Module):`** Utilizes the TPS61291 boost converter to accommodate a wide input voltage range, supplying 3.3V to the [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf) during operation. When the [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf) is in sleep mode, it is directly powered by the battery, and supporting low-power on sleep mode for wake-up functionality.  
+- **`VBAT → 3.3V (Power Module):`** Utilizes the TPS61291 boost converter to accommodate a wide input voltage range, supplying 3.3V to the [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf) during operation. When the [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf) is in sleep mode, it is directly powered by the battery, and supporting low-power on sleep mode for wake-up functionality.
 
-- **`USB-C Interface:`** Use a USB-C port connect to the ESP32-H2 and used for data transmission and power supply.  
+- **`USB-C Interface:`** Use a USB-C port connect to the ESP32-H2 and used for data transmission and power supply.
 
-- **`LED (LED Module):`** Uses `GPIO2` and `GPIO3` of the [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf) to control a dual-color LED for lighting and off, and used indicating different operating states of the ESP-Knob.  
+- **`LED (LED Module):`** Uses `GPIO2` and `GPIO3` of the [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf) to control a dual-color LED for lighting and off, and used indicating different operating states of the ESP-Knob.
 
-- **`BATTERY (Battery Management Module):`** Connects an external lithium battery (VBAT) through BT1 and monitors the battery voltage. The voltage is divided to BAT_ADC, allowing the ESP32-H2 to monitor the battery level.  
+- **`BATTERY (Battery Management Module):`** Connects an external lithium battery (VBAT) through BT1 and monitors the battery voltage. The voltage is divided to BAT_ADC, allowing the ESP32-H2 to monitor the battery level.
 
 - **`DEBUG (Download & Debug Interface):`** A reserved test point for the download interface and hardware reset interface of the ESP-Knob device. By connecting to the ESP32-H2’s UART0 interface `(TXD0 and RXD0`), it supports firmware flashing and debugging. Pulling the `ESP_EN` pin low allows for a hardware reset of the ESP-Knob.
 
@@ -137,9 +137,9 @@ The complete open-source hardware documentation for ESP-Knob can be found at [ES
 
 The example projects for the ESP-Knob available at the time of writing are detailed below. Once you flash the corresponding firmware, the ESP-Knob can be connected to different smart home systems. You can also directly download the three kinds of ESP-Knob firmware from the [ESP-LAUNCHPAD](https://espressif.github.io/esp-launchpad/?flashConfigURL=https://dl.espressif.com/AE/AE-Demo/ESP32-H2-Knob/config.toml).
 The examples are
-* **BLE-HID**: A BLE-HID implementation based on the [ble_hid_device_demo](https://github.com/espressif/esp-idf/tree/release/v5.4/examples/bluetooth/bluedroid/ble/ble_hid_device_demo). You can adjust the volume by turning the knob and change the bonded device through a long press. 
-* **BTHome firmware**: It integrates `Button`and `Dimmer`components, broadcasting the data in BTHome protocol. It supports Home Assistant and automatic deep sleep. 
-* **Matter universal switch**: It implements a simple matter switch, which can be provisioned using the network qr-code. 
+* **BLE-HID**: A BLE-HID implementation based on the [ble_hid_device_demo](https://github.com/espressif/esp-idf/tree/release/v5.4/examples/bluetooth/bluedroid/ble/ble_hid_device_demo). You can adjust the volume by turning the knob and change the bonded device through a long press.
+* **BTHome firmware**: It integrates `Button`and `Dimmer`components, broadcasting the data in BTHome protocol. It supports Home Assistant and automatic deep sleep.
+* **Matter universal switch**: It implements a simple matter switch, which can be provisioned using the network qr-code.
 
 
 ## Conclusion
