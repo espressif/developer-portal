@@ -1,0 +1,9 @@
+{
+    "name": "Francesco Bez",
+    "image" : "img/authors/francesco-bez.webp",
+    "bio": "Developer Relations at Espressif",
+    "social": [
+        { "github": "https://github.com/FBEZ" },
+	{"linkedin":"https://www.linkedin.com/in/fbez/"}
+    ]
+}
