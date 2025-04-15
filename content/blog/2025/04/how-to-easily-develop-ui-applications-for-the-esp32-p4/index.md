@@ -1,6 +1,6 @@
 ---
 title: "How to Create an UI Application for the ESP32-P4"
-date: 2025-04-13
+date: 2025-04-14
 showAuthor: false
 tags: [ESP-IDF", "GUI", "Embedded Wizard", "ESP32-P4"]
 authors:
@@ -42,7 +42,7 @@ As a customer, please visit the Embedded Wizard Download Center (login/password 
 
 The following description assumes that you are familiar with ESP32-P4 software development and that you have installed the ESP32 toolchain for Windows.
 
-** IMPORTANT! ** 
+** IMPORTANT! **
 
 Before starting the GUI development with Embedded Wizard, please make sure to have the ESP32 software development environment (ESP-IDF) installed and first applications running on your ESP32-S3-BOX. Please follow the [ESP32-P4 Get Started documentation from Espressif](https://docs.espressif.com/projects/esp-idf/en/stable/esp32p4/get-started/index.html). Please also make sure that the ESP-IDF installation path (IDF_PATH) does not contain any space characters - otherwise building examples will fail.
 
@@ -65,11 +65,11 @@ python FlashMasterDemo.py
 ```
 
 {{< figure
-default=true
-src="img/how-to-create-an-ui-application-for-the-esp32-p4-function-ev-board-1.web.p"
-alt="Picture of ESP32-P4 board."
-caption="Master Demo running on ESP32-P4-Function-EV-Board."
->}}
+    default=true
+    src="img/how-to-create-an-ui-application-for-the-esp32-p4-function-ev-board-1.webp"
+    alt="Picture of ESP32-P4 board."
+    caption="Master Demo running on ESP32-P4-Function-EV-Board."
+    >}}
 
 ### Exploring the Build Environment
 
@@ -150,7 +150,7 @@ If everything works as expected, the application should be built and flashed to 
 
 {{< figure
     default=true
-    src="how-to-create-an-ui-application-for-the-esp32-p4-function-ev-board-3"
+    src="img/how-to-create-an-ui-application-for-the-esp32-p4-function-ev-board-3.webp"
     caption="Picture: Example 'HelloWorld' running on ESP32-P4."
     >}}
 
