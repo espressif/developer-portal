@@ -24,11 +24,14 @@ See also the official [docs](https://gohugo.io/getting-started/quick-start/#add-
 
 - To create a new article, determine the path and run
   ```sh
-  hugo new content <path/index.md>
-  # Example
-  hugo new content blog/contribution-guide/index.md
+  # Blog article
+  hugo new content blog/YYYY/MM/<article-folder-name>/index.md
+  # Blog article example
+  hugo new content blog/2025/04/ulp-lp-core-get-started/index.md
+  # Non-blog articles (workshops, events etc.)
+  hugo new content <path>/index.md
   ```
-  This assumes that you want to organize the content as a leaf bundle (the usual way). You can also use the [branch bundle](https://gohugo.io/content-management/page-bundles/#comparison).
+  This assumes that you want to organize the content as a leaf bundle (a single article). For multi-article entries (workshops, etc.), use the [branch bundle](https://gohugo.io/content-management/page-bundles/#comparison).
 - To view the changes, in your project folder run
   ```sh
   hugo server
