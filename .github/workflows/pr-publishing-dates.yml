@@ -1,0 +1,103 @@
+name: Check publishing dates
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'content/blog/**'
+
+env:
+  TARGET_REPO_URL: "https://github.com/espressif/developer-portal.git"
+  TARGET_BRANCH: "main"
+
+jobs:
+  check-publishing-dates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR contents
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get added folders and files
+        id: added-files
+        run: |
+          # Add target remote and fetch its branches
+          git remote add target "$TARGET_REPO_URL"
+          git fetch target "$TARGET_BRANCH"
+
+          mkdir -p temp
+
+          git diff --name-only --diff-filter=A origin/${{ github.base_ref }}...HEAD > temp/added-files.txt
+
+          echo "List of added files:"
+          cat temp/added-files.txt
+
+          while IFS= read -r line; do
+            if [[ "$line" =~ ^content/blog/.*/index.md$ ]]; then
+              echo "$line" >> temp/index.txt
+              dirname "$line" >> temp/folders.txt
+            fi
+          done < temp/added-files.txt
+
+      - name: Validate year and month folder
+        run: |
+          CURRENT_YEAR=$(date +%Y)
+          CURRENT_MONTH=$(date +%m)
+
+          while IFS= read -r folder; do
+            if [[ "$folder" =~ ^content/blog/([0-9]{4})/([0-9]{2})/ ]]; then
+              year="${BASH_REMATCH[1]}"
+              month="${BASH_REMATCH[2]}"
+              if [[ "$year" != "$CURRENT_YEAR" || "$month" != "$CURRENT_MONTH" ]]; then
+                echo "$folder" >> temp/incorrect-yyyy-mm.txt
+              fi
+            else
+              echo "$folder" >> temp/no-yyyy-mm.txt
+            fi
+          done < temp/folders.txt
+
+      - name: Make sure folders are under current YYYY/MM
+        run: |
+          error_found=0
+
+          CURRENT_YEAR=$(date +%Y)
+          CURRENT_MONTH=$(date +%m)
+
+          if [[ -s temp/no-yyyy-mm.txt ]]; then
+            echo "Move your article folder(s) to 'content/blog/${CURRENT_YEAR}/${CURRENT_MONTH}/':"
+            cat temp/no-yyyy-mm.txt
+            error_found=1
+          fi
+
+          if [[ -s temp/incorrect-yyyy-mm.txt ]]; then
+            echo "Move your article folder(s) to 'content/blog/${CURRENT_YEAR}/${CURRENT_MONTH}/':"
+            cat temp/incorrect-yyyy-mm.txt
+            error_found=1
+          fi
+
+          exit $error_found
+
+      - name: Check index.md dates
+        if: always()
+        run: |
+          error_found=0
+
+          today=$(date +%Y-%m-%d)
+
+          while IFS= read -r mdfile; do
+            if [[ -f "$mdfile" ]]; then
+              post_date=$(awk '/^date:/ {gsub(/["'\''"]/,"",$2); print $2}' "$mdfile")
+
+              if [[ ! "$post_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+                echo "In '$mdfile' YAML header, make sure the date is in YYYY-MM-DD format."
+                error_found=1
+              elif [[ "$post_date" != "$today" ]]; then
+                echo "In '$mdfile' YAML header, make sure the date is today: $today."
+                error_found=1
+              fi
+            fi
+          done < temp/index.txt
+
+          exit $error_found
