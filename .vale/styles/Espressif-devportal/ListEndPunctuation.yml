@@ -1,0 +1,19 @@
+extends: existence
+message: "Ensure consistent punctuation in lists. Some items end with punctuation while others don't."
+level: warning
+link: https://mos.espressif.com/punctuation.html#punctuation-in-lists
+scope: raw
+nonword: true
+tokens:
+  # Find bulleted lists with inconsistent punctuation
+  - '(?m)^[\-\+\*]\s.*\w(?<![.!?:;])$\n{1,2}[\-\+\*]\s.*\w[.!?:;]$'
+  - '(?m)^[\-\+\*]\s.*\w[.!?:;]$\n{1,2}[\-\+\*]\s.*\w(?<![.!?:;])$'
+  # Find numbered lists with inconsistent punctuation
+  - '(?m)^\d+\.\s.*\w(?<![.!?:;])$\n{1,2}\d+\.\s.*\w[.!?:;]$'
+  - '(?m)^\d+\.\s.*\w[.!?:;]$\n{1,2}\d+\.\s.*\w(?<![.!?:;])$'
+  # Find bulleted sublists with inconsistent punctuation
+  - '(?m)^[ ]{2,4}[\-\+\*]\s.*\w(?<![.!?:;])$\n{1,2}[ ]{2,4}[\-\+\*]\s.*\w[.!?:;]$'
+  - '(?m)^[ ]{2,4}[\-\+\*]\s.*\w[.!?:;]$\n{1,2}[ ]{2,4}[\-\+\*]\s.*\w(?<![.!?:;])$'
+  # Find numbered sublists with inconsistent punctuation
+  - '(?m)^[ ]{2,4}\d+\.\s.*\w(?<![.!?:;])$\n{1,2}[ ]{2,4}\d+\.\s.*\w[.!?:;]$'
+  - '(?m)^[ ]{2,4}\d+\.\s.*\w[.!?:;]$\n{1,2}[ ]{2,4}\d+\.\s.*\w(?<![.!?:;])$'
