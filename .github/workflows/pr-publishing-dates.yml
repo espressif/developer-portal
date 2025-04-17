@@ -93,8 +93,8 @@ jobs:
               if [[ ! "$post_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
                 echo "In '$mdfile' YAML header, make sure the date is in YYYY-MM-DD format."
                 error_found=1
-              elif [[ "$post_date" != "$today" ]]; then
-                echo "In '$mdfile' YAML header, make sure the date is today: $today."
+              elif [[ "$post_date" < "$today" ]]; then
+                echo "Once your article in '$mdfile' is approved, make sure the date in its YAML header is not in the past (found: $post_date, today: $today)."
                 error_found=1
               fi
             fi
