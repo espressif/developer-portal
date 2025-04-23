@@ -1,0 +1,9 @@
+{
+    "name": "Tan Kai Jie (Kyler)",
+    "image" : "img/authors/tan-kai-jie-kyler.webp",
+    "bio": "Project Manager at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/kaitkj/" },
+        { "github": "https://github.com/kaitkj" }
+    ]
+}
