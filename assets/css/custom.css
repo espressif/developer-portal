@@ -8,7 +8,7 @@
   font-size: 0.85rem;
 }
 
-/* This reduces font in article summaries */
+/* This reduces font in article card summaries */
 .py-1 {
   font-size: 0.85rem;
   font-weight: 400;
@@ -20,8 +20,11 @@
   line-height: 1.65;
 }
 
+/* This sets the style for article summaries */
 .article-summary {
+  font-weight: 700;
   font-style: italic;
-  padding-left: 10px;
-  border-left: 4px solid #e7352c;
+  padding-left: 1em;
+  border-left: 0.25rem solid #e7352c;
+  margin-top: 1.6em;
 }
