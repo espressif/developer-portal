@@ -1,6 +1,6 @@
 ---
 title: "ESP32-C5 v1.0 support status"
-date: 2025-04-22
+date: 2025-04-24
 ---
 
 **Last updated:** {{< chipstatus contentPath="persist/chip-support-status/esp32c5.json" jsonKey="timestamp" >}}
@@ -24,10 +24,9 @@ This page will be periodically updated to reflect the current support status for
 
 ## ESP-IDF
 
-According to the chip mass production plan, the planned support for ESP32-C5 in ESP-IDF v5.4 has been rescheduled to ESP-IDF v5.5. Thank you for your understanding.
+Now the master branch contains the latest preview support for ESP32-C5 v1.0. Until a full support version is released, please update to the HEAD of master branch to develop with v1.0 chips.
 
-- ESP-IDF v5.5, whose planned release date is June 30th 2025, will include the initial support for ESP32-C5 v1.0. Now the master branch contains the latest preview support for ESP32-C5 v1.0. Until ESP-IDF v5.5 is released, please update to the HEAD of master branch to develop with v1.0 chips.
-- If you would like to try features with the early samples of the ESP32-C5 v1.0, please refer to the ESP32-C5 v0.1 support status page.
+If you would like to try features with the early samples of the ESP32-C5 v0.1, please refer to the [ESP32-C5 v0.1 support status page](https://github.com/espressif/esp-idf/issues/14021).
 
 If you have an issue to report about any of the ESP32-C5 features, please create an issue in the [ESP-IDF GitHub issue tracker](https://github.com/espressif/esp-idf/issues).
 
