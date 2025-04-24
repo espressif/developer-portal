@@ -2,7 +2,11 @@ name: Check links in diffs
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main
+    paths:
+      - 'content/**'
+      - 'README.md'
 
 jobs:
   check-links:
