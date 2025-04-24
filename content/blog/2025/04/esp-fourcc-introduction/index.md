@@ -3,7 +3,7 @@ title: "Introduction to ESP FOURCC"
 date: 2025-04-24
 showAuthor: false
 authors:
-  - Jason Mao
+  - jason-mao
 tags:
   - Multimedia
   - ESP-GMF

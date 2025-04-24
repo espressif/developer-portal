@@ -43,20 +43,24 @@ jobs:
 
       - name: Validate year and month folder
         run: |
-          CURRENT_YEAR=$(date +%Y)
-          CURRENT_MONTH=$(date +%m)
+          if [ -f temp/folders.txt ]; then
+            CURRENT_YEAR=$(date +%Y)
+            CURRENT_MONTH=$(date +%m)
 
-          while IFS= read -r folder; do
-            if [[ "$folder" =~ ^content/blog/([0-9]{4})/([0-9]{2})/ ]]; then
-              year="${BASH_REMATCH[1]}"
-              month="${BASH_REMATCH[2]}"
-              if [[ "$year" != "$CURRENT_YEAR" || "$month" != "$CURRENT_MONTH" ]]; then
-                echo "$folder" >> temp/incorrect-yyyy-mm.txt
+            while IFS= read -r folder; do
+              if [[ "$folder" =~ ^content/blog/([0-9]{4})/([0-9]{2})/ ]]; then
+                year="${BASH_REMATCH[1]}"
+                month="${BASH_REMATCH[2]}"
+                if [[ "$year" != "$CURRENT_YEAR" || "$month" != "$CURRENT_MONTH" ]]; then
+                  echo "$folder" >> temp/incorrect-yyyy-mm.txt
+                fi
+              else
+                echo "$folder" >> temp/no-yyyy-mm.txt
               fi
-            else
-              echo "$folder" >> temp/no-yyyy-mm.txt
-            fi
-          done < temp/folders.txt
+            done < temp/folders.txt
+          else
+            echo "✅ No blog articles added"
+          fi
 
       - name: Make sure folders are under current YYYY/MM
         run: |
@@ -82,26 +86,30 @@ jobs:
       - name: Check index.md dates
         if: always()
         run: |
-          error_found=0
-          today=$(date +%Y-%m-%d)
+          if [ -f temp/index.txt ]; then
+            error_found=0
+            today=$(date +%Y-%m-%d)
 
-          while IFS= read -r mdfile; do
-            if [[ -f "$mdfile" ]]; then
-              post_date=$(awk '/^date:/ {gsub(/["'\''"]/,"",$2); print $2}' "$mdfile")
+            while IFS= read -r mdfile; do
+              if [[ -f "$mdfile" ]]; then
+                post_date=$(awk '/^date:/ {gsub(/["'\''"]/,"",$2); print $2}' "$mdfile")
 
-              if [[ ! "$post_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-                echo "❌ In '$mdfile': Invalid date format. Use YYYY-MM-DD."
-                error_found=1
-              elif [[ "$post_date" < "$today" ]]; then
-                echo "❌ In '$mdfile': Date is in the past. Update the publishing date after the article is approved (found: $post_date, today: $today)."
-                error_found=1
-              else
-                echo "✅ In '$mdfile': Date format is valid and not in the past."
+                if [[ ! "$post_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+                  echo "❌ In '$mdfile': Invalid date format. Use YYYY-MM-DD."
+                  error_found=1
+                elif [[ "$post_date" < "$today" ]]; then
+                  echo "❌ In '$mdfile': Date is in the past. Update the publishing date after the article is approved (found: $post_date, today: $today)."
+                  error_found=1
+                else
+                  echo "✅ In '$mdfile': Date format is valid and not in the past."
+                fi
               fi
-            fi
-          done < temp/index.txt
+            done < temp/index.txt
 
-          exit $error_found
+            exit $error_found
+          else
+            echo "✅ No blog articles added"
+          fi
 
       - name: Check summaries in index.md files
         if: always()

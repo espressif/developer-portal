@@ -9,7 +9,7 @@ summary: "Replace it with a brief summary that capture the essence of (1) what t
 #  - Add your personal data at `data/authors/<author-name>.json`
 #  - Add your author name(s) below
 authors:
-  - "author-name"
+  - "author-name" # same as in the file paths above
 # Add tags
 tags: ["Tag1", "Tag2"]
 ---
