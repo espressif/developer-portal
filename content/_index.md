@@ -37,6 +37,8 @@ More Workshops
 Here you can follow the current status of the new chip support in various Espressif SDKs and frameworks.
 
 {{< article link="/pages/chip-support-status/esp32c61/" >}}
+<br>
+{{< article link="/pages/chip-support-status/esp32c5/" >}}
 
 <br>
 {{< button href="events/" target="_self" >}}
