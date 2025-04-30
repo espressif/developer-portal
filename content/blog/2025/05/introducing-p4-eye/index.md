@@ -1,6 +1,6 @@
 ---
 title: "Introducing ESP32-P4-EYE: A Powerful Vision Development Board for Edge AI"
-date: 2025-04-25
+date: 2025-05-01
 showAuthor: false
 summary: "Discover the ESP32-P4 EYE DevKit — a compact, camera-focused development board designed for real-time image processing and edge computing. Learn how this powerful, low-cost solution can accelerate your next smart camera or IoT project."
 authors:
