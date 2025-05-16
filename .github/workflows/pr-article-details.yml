@@ -36,110 +36,172 @@ jobs:
 
           while IFS= read -r line; do
             if [[ "$line" =~ ^content/blog/.*/index.md$ ]]; then
-              echo "$line" >> temp/index.txt
-              dirname "$line" >> temp/folders.txt
+              echo "$line" >> temp/index-files.txt
             fi
           done < temp/added-files.txt
 
-      - name: Validate year and month folder
+          echo "List of added index files:"
+          cat temp/index-files.txt
+
+      - name: Extract article details
         run: |
-          if [ -f temp/folders.txt ]; then
-            CURRENT_YEAR=$(date +%Y)
-            CURRENT_MONTH=$(date +%m)
+          extracted_article_data="[]"
 
-            while IFS= read -r folder; do
-              if [[ "$folder" =~ ^content/blog/([0-9]{4})/([0-9]{2})/ ]]; then
-                year="${BASH_REMATCH[1]}"
-                month="${BASH_REMATCH[2]}"
-                if [[ "$year" != "$CURRENT_YEAR" || "$month" != "$CURRENT_MONTH" ]]; then
-                  echo "$folder" >> temp/incorrect-yyyy-mm.txt
-                fi
-              else
-                echo "$folder" >> temp/no-yyyy-mm.txt
-              fi
-            done < temp/folders.txt
-          else
-            echo "✅ No blog articles added"
-          fi
+          while IFS= read -r index_file; do
+            relative_path=$(dirname "${index_file#content/blog/}")
 
-      - name: Make sure folders are under current YYYY/MM
-        run: |
-          error_found=0
+            # Extract article_id - last directory of the path
+            ARTICLE_ID=$(basename "$relative_path")
 
-          CURRENT_YEAR=$(date +%Y)
-          CURRENT_MONTH=$(date +%m)
+            FOLDER_YM=""
 
-          if [[ -s temp/no-yyyy-mm.txt ]]; then
-            echo "❌ Wrong folder. Move your article folder(s) to 'content/blog/${CURRENT_YEAR}/${CURRENT_MONTH}/':"
-            cat temp/no-yyyy-mm.txt
-            error_found=1
-          fi
-
-          if [[ -s temp/incorrect-yyyy-mm.txt ]]; then
-            echo "❌ Wrong folder. Move your article folder(s) to 'content/blog/${CURRENT_YEAR}/${CURRENT_MONTH}/':"
-            cat temp/incorrect-yyyy-mm.txt
-            error_found=1
-          fi
-
-          exit $error_found
-
-      - name: Check index.md dates
-        if: always()
-        run: |
-          if [ -f temp/index.txt ]; then
-            error_found=0
-            today=$(date +%Y-%m-%d)
-
-            while IFS= read -r mdfile; do
-              if [[ -f "$mdfile" ]]; then
-                post_date=$(awk '/^date:/ {gsub(/["'\''"]/,"",$2); print $2}' "$mdfile")
-
-                if [[ ! "$post_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-                  echo "❌ In '$mdfile': Invalid date format. Use YYYY-MM-DD."
-                  error_found=1
-                elif [[ "$post_date" < "$today" ]]; then
-                  echo "❌ In '$mdfile': Date is in the past. Update the publishing date after the article is approved (found: $post_date, today: $today)."
-                  error_found=1
-                else
-                  echo "✅ In '$mdfile': Date format is valid and not in the past."
-                fi
-              fi
-            done < temp/index.txt
-
-            exit $error_found
-          else
-            echo "✅ No blog articles added"
-          fi
-
-      - name: Check summaries in index.md files
-        if: always()
-        run: |
-          if [ -f temp/index.txt ]; then
-            missing_summary=false
-            placeholder_summary=false
-
-            while IFS= read -r file; do
-              # Extract YAML header from the file
-              header=$(awk '/^---$/ {flag=flag+1; next} flag==1' "$file" | awk '/^---$/ {exit} {print}')
-              summary_line=$(echo "$header" | grep '^summary:' || true)
-
-              if [ -z "$summary_line" ]; then
-                echo "❌ Missing summary in $file. Add the summary."
-                missing_summary=true
-              else
-                summary_value=$(echo "$summary_line" | cut -d':' -f2- | xargs)
-                if [[ "$summary_value" == Replace\ it\ with* ]]; then
-                  echo "❌ Placeholder summary found in $file. Update the summary."
-                  placeholder_summary=true
-                else
-                  echo "✅ Summary OK in $file"
-                fi
-              fi
-            done < temp/index.txt
-
-            if [ "$missing_summary" = true ] || [ "$placeholder_summary" = true ]; then
-              exit 1
+            if [[ "$relative_path" =~ ^([0-9]{4})/([0-9]{2})/[^/]+$ ]]; then
+              FOLDER_YM="${BASH_REMATCH[1]}-${BASH_REMATCH[2]}"
             fi
-          else
-            echo "✅ No new index.md files to check"
-          fi
+
+            ARTICLE_DATE=$(awk -F': "' '/^date: "/ {gsub(/"/, "", $2); print $2}' "$index_file")
+            [[ -z "$ARTICLE_DATE" ]] && { echo "No valid date in $index_file"; continue; }
+
+            ARTICLE_YM="${ARTICLE_DATE:0:7}"
+
+            ARTICLE_SUMMARY_RAW=$(awk -F': "' '/^summary: "/ {gsub(/"/, "", $2); print $2; exit}' "$index_file")
+            # If summary is empty or not found, set to empty string
+            ARTICLE_SUMMARY_RAW=${ARTICLE_SUMMARY_RAW:-""}
+            # Extract up to first 5 words if ARTICLE_SUMMARY_RAW is not empty
+            if [[ -n "$ARTICLE_SUMMARY_RAW" ]]; then
+              read -r -a words <<< "$ARTICLE_SUMMARY_RAW"
+              ARTICLE_SUMMARY="${words[0]:-}"
+              for i in {1..4}; do
+                [[ -n "${words[i]:-}" ]] && ARTICLE_SUMMARY+=" ${words[i]}"
+              done
+            else
+              ARTICLE_SUMMARY=""
+            fi
+
+            # ARTICLE_SUMMARY=$(awk -F': "' '/^summary: "/ {gsub(/"/, "", $2); split($2, a, " "); print a[1], a[2], a[3], a[4], a[5]}' "$index_file")
+            # [[ -z "$ARTICLE_SUMMARY" ]] && { echo "No valid summary in $index_file"; continue; }
+
+            new_item=$(jq -n \
+              --arg id "$ARTICLE_ID" \
+              --arg fym "$FOLDER_YM" \
+              --arg aym "$ARTICLE_YM" \
+              --arg ad "$ARTICLE_DATE" \
+              --arg as "$ARTICLE_SUMMARY" \
+              '{
+                article_id: $id,
+                folder_ym: $fym,
+                article_ym: $aym,
+                article_date: $ad,
+                article_summary: $as
+              }')
+
+            extracted_article_data=$(jq --argjson item "$new_item" '. + [$item]' <<<"$extracted_article_data")
+          done < temp/index-files.txt
+
+          # Build final object keyed by article_id
+          echo "$extracted_article_data" | jq 'reduce .[] as $item ({}; .[$item.article_id] = {
+            folder_ym: $item.folder_ym,
+            article_ym: $item.article_ym,
+            article_date: $item.article_date,
+            article_summary: $item.article_summary
+          })' > temp/extracted_article_data.json
+
+          echo "Extracted article data:"
+          cat temp/extracted_article_data.json
+
+      - name: Validate article details
+        run: |
+          job_error=0
+          extracted_article_data="temp/extracted_article_data.json"
+
+          YM_REGEX='^[0-9]{4}-[0-9]{2}$'
+          DATE_REGEX='^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+
+          # Get current year and month as strings
+          current_ym=$(date +%Y-%m)
+          current_date=$(date +%Y-%m-%d)
+
+          while read -r article_key; do
+            article_error=0
+
+            folder_ym=$(jq -r --arg key "$article_key" '.[$key].folder_ym' "$extracted_article_data")
+            article_ym=$(jq -r --arg key "$article_key" '.[$key].article_ym' "$extracted_article_data")
+            article_date=$(jq -r --arg key "$article_key" '.[$key].article_date' "$extracted_article_data")
+            article_summary=$(jq -r --arg key "$article_key" '.[$key].article_summary' "$extracted_article_data")
+
+            echo
+            echo "Article: $article_key"
+
+            # Report if folder year or month is empty and skip
+            if ! [[ "$folder_ym" =~ $YM_REGEX ]]; then
+              echo "❌ Wrong folder."
+              echo "   Move the article to a present or future 'content/blog/YYYY/MM/' folder and add a matching publishing date in the article's YAML header."
+              article_error=1
+            fi
+
+            # Report if article date format is invalid and skip
+            if [[ ! "$article_date" =~ $DATE_REGEX ]]; then
+              echo "❌ Invalid date format in the article's YAML header: $article_date."
+              echo "   Use YYYY-MM-DD."
+              article_error=1
+            fi
+
+            # Skip if folder year/month or article date are empty,
+            # or the following code will have issues
+            if [ "$article_error" -eq 1 ]; then
+              job_error=1
+              continue
+            fi
+
+            # Check article details against this decision tree
+            #
+            # Is folder_ym = current_ym?
+            # ├── Yes → Is article_date < current_date?
+            # │   ├── Yes → Warn: article date is in the past
+            # │   └── No → OK
+            # └── No → Is folder_ym > current_ym?
+            #     ├── Yes → Is folder_ym != article_ym?
+            #     │   ├── Yes → Warn: Make folder_ym and article_date consistent
+            #     │   └── No  → OK
+            #     └── No  → Warn: folder_year and folder_month are in the past
+            #
+            if [ "$folder_ym" = "$current_ym" ]; then
+              if [ "$article_date" \< "$current_date" ]; then
+                echo "❌ Publishing date in the article's YAML header is in the past: $article_date."
+                echo "   Once the article is approved, update the date to a present or future day and make sure it matches the article's 'content/blog/YYYY/MM/' folder."
+                article_error=1
+              fi
+            elif [ "$folder_ym" \> "$current_ym" ]; then
+              if [ "$folder_ym" != "$article_ym" ]; then
+                echo "❌ Article's YYYY/MM folder and publishing date are inconsistent: $folder_ym and $article_date."
+                echo "   Move the article to a present or future 'content/blog/YYYY/MM/' folder and add a matching publishing date in the article's YAML header."
+                article_error=1
+              fi
+            else
+              echo "❌ Wrong folder: $folder_ym."
+              echo "   Move the article to a present or future 'content/blog/YYYY/MM/' folder and add a matching publishing date in the article's YAML header."
+              article_error=1
+            fi
+
+            # Report if article summary is not provided
+            if [ -z "$article_summary" ]; then
+              echo "❌ Missing summary."
+              echo "   Add the summary in the article's YAML header:"
+              echo "   summary: \"This is my summary.\""
+              article_error=1
+            elif [[ "$article_summary" == Replace\ it\ with* ]]; then
+              echo "❌ Placeholder summary found."
+              echo "   Update the summary in the article's YAML header."
+              article_error=1
+            fi
+
+            if [ "$article_error" -eq 0 ]; then
+              echo "✅ OK"
+            else
+              job_error=1
+            fi
+
+          done < <(jq -r 'to_entries[] | .key' "$extracted_article_data")
+
+          echo
+          exit "$job_error"
