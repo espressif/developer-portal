@@ -1,0 +1,19 @@
+build_hugo:
+  stage: build_hugo
+  image: "${CI_TEMPLATE_REGISTRY_HOST}/pages/hugo/hugo_extended:0.135.0"
+  tags:
+    - build_docs
+  rules:
+    !reference [.default-rules, rules]
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    NAME: "${CI_COMMIT_REF_SLUG}"
+  script:
+    - hugo --gc --minify --environment staging --baseURL "${DOCS_PREVIEW_URL_BASE}/${NAME}"
+    # use branch name like directory name for the URL path going forward
+    - mv -v public "${NAME}"
+    - tar -czf archive.tar.gz "${NAME}"
+  artifacts:
+    paths:
+      - archive.tar.gz
+    expire_in: 1 week

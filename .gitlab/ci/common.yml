@@ -1,0 +1,45 @@
+default:
+  interruptible: true
+
+.comment_template:
+  image: badouralix/curl-jq
+  tags:
+    - deploy_docs
+    - shiny
+
+.add_comment_script:
+  script:
+    - |
+      GITLAB_API="https://${CI_SERVER_HOST}:${CI_SERVER_PORT}/api/v4/projects/${PROJECT_ID}/merge_requests/${MR_ID}/notes"
+      AUTH_HEADER="PRIVATE-TOKEN: ${GITLAB_BOT_API_TOKEN}"
+
+      # Get existing comments
+      API_RESPONSE=$(curl --silent --header "$AUTH_HEADER" "$GITLAB_API")
+
+      # Check if the response contains the expected structure
+      COMMENTS=$(echo "$API_RESPONSE" | jq -r ".[] | select(.body | contains(\"$COMMENT_IDENTIFIER\")) | .id")
+
+      # Delete previous preview comments
+      if [ -n "$COMMENTS" ]; then
+        for COMMENT_ID in $COMMENTS; do
+          curl --silent --request DELETE \
+            --header "$AUTH_HEADER" \
+            "${GITLAB_API}/${COMMENT_ID}"
+        done
+      fi
+
+      # Post a new comment
+      curl --silent --request POST \
+        --header "$AUTH_HEADER" \
+        --header "Content-Type: application/json" \
+        --data "{\"body\": \"$COMMENT_BODY\"}" \
+        "$GITLAB_API"
+
+# Define the reusable rule sets
+.default-rules:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+.label-based-rules:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_LABELS =~ /GitHub-Sync-Merge/ && $CI_MERGE_REQUEST_LABELS !~ /GitHub-Edit/'
