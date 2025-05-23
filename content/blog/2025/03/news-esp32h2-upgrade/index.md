@@ -1,28 +1,43 @@
 ---
-title: "Espressif's ESP32-C5 is Now in Mass Production"
-date: 2025-05-23
+title: "ESP32-H2 Upgrade: Enhanced Security and Protection"
+date: 2025-03-12T19:27:36+08:00
 featureAsset: "img/featured/featured-announcement.webp"
-summary: Espressif has launched the ESP32-C5, the first RISC-V SoC with dual-band Wi-Fi 6, Bluetooth 5 (LE), and IEEE 802.15.4 support. Designed for low-latency wireless applications, it features a 240 MHz CPU, LP-CPU, and rich peripheral options. Backed by ESP-IDF, the ESP32-C5 is now in mass production and ready for developers.
+summary: Espressif has released ESP32-H2 v1.2, bringing significant cryptographic and hardware security improvements.
 ---
 
-Espressif Systems (SSE: 688018.SH) announced ESP32-C5, the industry’s first RISC-V SoC that supports 2.4 GHz and 5 GHz dual-band Wi-Fi 6, along with Bluetooth 5 (LE) and IEEE 802.15.4 (Zigbee, Thread) connectivity. Today, we are glad to announce that ESP32-C5  is now in mass production.
+Espressif has released ESP32-H2 v1.2, bringing significant cryptographic and hardware security improvements. These features enhance protection, including from power and time analysis attacks, ensuring better reliability and security for IoT applications.
 
-ESP32-C5 is designed for applications that require high-efficiency, low-latency wireless transmission. ESP32-C5 has a 32-bit single-core processor which can clock up to 240 MHz in speed. It has a 384 KB on-chip SRAM along with external PSRAM support, 320 KB of ROM. It has up to 29 programmable GPIOs, supporting all the commonly used peripherals, high speed interfaces like SDIO, QSPI, and the best-in-class security features. The ESP32-C5 also includes an LP-CPU running upto 40MHz which can act as the main processor for power sensitive applications. To learn more about the various capabilities and features of this MCU, please visit our [website](https://www.espressif.com/en/products/socs/esp32-c5).
 
-The ESP32-C5 benefits from software support provided by Espressif's well-established IoT development framework, ESP-IDF. The upcoming ESP-IDF v5.5, will include initial support for the ESP32-C5. For a detailed list of ESP-IDF features supported for the ESP32-C5, click [here](https://github.com/espressif/esp-idf/issues/14021). The ESP32-C5 can also act as the connectivity coprocessor for external hosts using the [ESP-AT](https://github.com/espressif/esp-at) or [ESP-Hosted](https://github.com/espressif/esp-hosted) solutions.
+## Why Upgrade?
 
-ESP32-C5 development boards are now available for purchase at [Espressif's official stores](https://www.aliexpress.com/item/1005008790788462.html) If you are interested in the ESP32-C5 series products, please contact our [customer support team](https://www.espressif.com/en/contact-us/sales-questions).
+The ESP32-H2 v1.2 introduces key enhancements focused on improving resistance to attacks like Differential Power Analysis (DPA) and Correlation Power Analysis (CPA). These upgrades are designed to help developers ensure robust security for applications that require high levels of data protection.
 
-## Where to buy
+To utilize the new features of ESP32-H2 v1.2, ensure you're using the compatible ESP-IDF version. If you're on a pre-v1.2 chip, upgrading ESP-IDF is required for compatibility. This will ensure your binary supports both v1.2 and earlier chip versions.
 
-- [Taobao(China)](https://item.taobao.com/item.htm?ft=t&id=846843964795)
-- [AliExpress(Overseas)](https://www.aliexpress.com/item/1005008790788462.html)
-- [Amazon US](https://www.amazon.com/dp/B0F6YKGL75)
-- [Robu(India)](https://robu.in/product/espressif-esp32-c5-devkitc-1-n8r4-development-board/)
-- [Digikey](https://www.digikey.cn/en/products/detail/espressif-systems/ESP32-C5-DEVKITC-1-N8R4/26658349?s=N4IgTCBcDaIKIGUAKBmMBaAwgVnQEQFMA3AaQEsAXTdARnQDkAOAJQBYQBdAXyA)
-- [Mouser](https://www.mouser.com/ProductDetail/Espressif-Systems/ESP32-C5-DevKitC-1-N8R4?qs=sqEgtWRSLJ2%2Fdhsv380LjQ%3D%3D)
-- [Adafruit](https://www.adafruit.com/product/6325)
-- [Akizuki](https://akizukidenshi.com/catalog/g/g131015/)
+
+## Key Benefits
+
+- Power Glitch Detector -- The addition of a Power Glitch Detector helps safeguard against power-related attacks that could manipulate device behaviour.
+- Anti-Attack Pseudo-Round for AES/XTS-AES -- This function enhances the security of cryptographic operations, making the device more resistant to power analysis attacks like DPA and CPA.
+- Constant-Time/Power Mode for ECC/ECDSA -- This mode ensures constant timing and power consumption during cryptographic operations, providing stronger defence against power-based analysis attacks.
+
+
+## Product Upgrade Comparison
+
+|   Category   |     After Upgrade   |     Before Upgrade   |
+|:---:| --- | --- |
+|     Product Name   |     No change: e.g., [ESP32-H2](https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf), [ESP32-H2-MINI-1](https://www.espressif.com/en/support/documents/technical-documents?keys=&field_type_tid_parent=esp32hSeries-Modules&field_type_tid%5B%5D=1217&field_type_tid%5B%5D=1521&field_type_tid%5B%5D=1535&field_type_tid%5B%5D=1523&field_download_document_type_tid%5B%5D=510)   |  |
+|     Product Variants   |     the  product ordering code is based on the pre-upgrade code with an "S"  added at the end, indicating Security. e.g., ESP32-H2FH2S,  ESP32-H2-MINI-1-H2S   |     e.g., ESP32-H2FH2, ESP32-H2-MINI-1-H2   |
+|     Chip Hardware Version   |     Chip Revision v1.2   |     Chip Revision v0.1   |
+|     [ESP-IDF Version](https://github.com/espressif/esp-idf/tags)   |     v5.1.6 and v5.2.5 , v5.3.3 (expected on 3/27), v5.4.1 (expected on 4/4), and above   |     v5.1 and above   |
+|     Optimization   |     enhanced security   |     --   |
+
+## Getting Support and More Information
+
+Upgrade now to benefit from these critical security improvements. For detailed technical information, guidelines, and the latest software versions, visit Espressif’s [official website](https://www.espressif.com/) and our [forum](https://www.esp32.com/).
+
+For more details, please refer to [PCN20250104: Upgrade of ESP32-H2 Series Products](https://www.espressif.com/sites/default/files/pcn_downloads/PCN20250104_Upgrade_of_ESP32-H2_Series_Products.pdf). If you have any questions about this upgrade or need any assistance during the upgrade process, please feel free to contact your Espressif account manager or [reach out to us](https://www.espressif.com/zh-hans/contact-us/sales-questions) through our official website. Let’s move forward to an even better development experience!
+
 
 ## References
 
