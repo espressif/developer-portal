@@ -1,5 +1,9 @@
 {
     "name": "David Cermak",
-    "bio": "",
-    "image": ""
+    "image" : "img/authors/david-cermak.webp",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/david-cermak-016282158/" },
+        { "github": "https://github.com/david-cermak" }
+    ]
 }
