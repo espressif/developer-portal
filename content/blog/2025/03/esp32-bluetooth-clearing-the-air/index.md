@@ -93,3 +93,4 @@ We believe that the security of devices based on Espressif chips is of paramount
 ## Update
 
 - **March 20, 2025**: This issue has been assigned the identifier [CVE-2025-27840](https://nvd.nist.gov/vuln/detail/CVE-2025-27840)
+- **May 26, 2025**: Precautionary measures promised above are part of software stack now, please see the advisory for more details [AR2025-004](https://www.espressif.com/sites/default/files/advisory_downloads/AR2025-004_Security_Advisory_Follow-Up_Updates_and_Fixes_Regarding_ESP32_Undocumented_Bluetooth_Commands_en.pdf)
