@@ -1,10 +1,11 @@
 {
     "name": "Mahavir Jain",
-    "bio": "Senior Manager @ Espressif Systems",
+    "bio": "Product Security @ Espressif Systems",
     "image": "img/authors/mahavir-jain.webp",
     "social": [
         { "linkedin": "https://www.linkedin.com/in/mahavirjain/" },
         { "twitter": "https://twitter.com/mahavirjain" },
-        { "github": "https://github.com/mahavirj" }
+        { "github": "https://github.com/mahavirj" },
+        { "medium": "https://medium.com/@mahavirj" }
     ]
 }
