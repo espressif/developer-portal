@@ -488,7 +488,9 @@ Command: 77.46%, Speed: 125.13 RPM
 Command: 82.50%, Speed: 133.16 RPM
 ```
 
-{{<youtube jeZbwqXmgmY >}}
+{{< youtube jeZbwqXmgmY >}}
+{{< bilibili-note BV1uXEXzYEZy >}}
+
 
 ## Conclusion
 
