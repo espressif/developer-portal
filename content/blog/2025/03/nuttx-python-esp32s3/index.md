@@ -265,6 +265,8 @@ nsh> cat /proc/cpuload
 The following video shows this demo: the RGB LED goes from green to red when the CPU load average goes from 0% to 100%.
 
 {{< youtube EpDpqbnYJyo >}}
+{{< bilibili-note BV1PWEXzpE9s >}}
+
 
 ## Conclusion
 
