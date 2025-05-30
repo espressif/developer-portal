@@ -227,7 +227,9 @@ For example, a Mermaid diagram is used on [this page](../contrib-workflow "Contr
 
 ### Video
 
-To embed a YouTube video in your article, use the [Hugo shortcode](https://gohugo.io/content-management/shortcodes/#youtube).
+To embed a video in your article, upload it to a video streaming platform such as YouTube and use the [YouTube shortcode](https://gohugo.io/content-management/shortcodes/#youtube) provided by Hugo to include it in your content. If you don't have your own YouTube channel, we can upload your video to ours.
+
+If you give your consent and share the video file with us, we can also upload it to BiliBili to make it accessible in more geographic areas.
 
 
 ## Use pre-commit
