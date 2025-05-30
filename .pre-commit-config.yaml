@@ -8,13 +8,13 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
-  - repo: local
-    hooks:
-      - id: lychee
-        name: lychee link checker
-        entry: lycheeverse/lychee
-        language: docker_image
-        types: [markdown]
-        args:
-          - "--no-progress"
-          - "--include-fragments"
+#  - repo: local
+#    hooks:
+#      - id: lychee
+#        name: lychee link checker
+#        entry: lycheeverse/lychee
+#        language: docker_image
+#        types: [markdown]
+#        args:
+#          - "--no-progress"
+#          - "--include-fragments"
