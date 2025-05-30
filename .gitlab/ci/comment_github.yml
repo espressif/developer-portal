@@ -1,0 +1,29 @@
+comment_github:
+  extends: .comment_template
+  stage: comment_github
+  rules:
+    !reference [.label-based-rules, rules]
+  needs:
+    - sync_github
+  variables:
+    SERVER_URL_BASE: "$DOCS_PREVIEW_URL_BASE"
+    NAME: "${CI_COMMIT_REF_SLUG}"
+    MR_ID: "$CI_MERGE_REQUEST_IID"
+    PROJECT_ID: "$CI_MERGE_REQUEST_PROJECT_ID"
+  script:
+    - |
+      # Load PR_NUMBER and PR_URL from artifact file
+      if [ -f "pr_info.txt" ]; then
+        source pr_info.txt
+      else
+        echo "pr_info.txt not found!"
+        exit 1
+      fi
+
+      # Create varialbes for adding a comment
+      COMMENT_IDENTIFIER="🚀 GitHub PR"
+      COMMENT_BODY="🚀 GitHub PR for sync-merging: [#$PR_NUMBER]($PR_URL).\\n\\n\
+      > ⚠️ **Warning**\\n> \\n\
+      > If, for any reason, changes need be committed directly to the GitHub PR (bypassing GitLab), add the label \`GitHub-Edit\` in the GitLab MR. This will disable GitLab CI sync-merge to prevent overwriting changes on GitHub."
+
+    - !reference [.add_comment_script, script]

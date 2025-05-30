@@ -1,0 +1,20 @@
+comment_preview:
+  extends: .comment_template
+  stage: comment_preview
+  rules:
+    !reference [.default-rules, rules]
+  needs:
+    - deploy_preview
+  variables:
+    SERVER_URL_BASE: "$DOCS_PREVIEW_URL_BASE"
+    NAME: "${CI_COMMIT_REF_SLUG}"
+    MR_ID: "$CI_MERGE_REQUEST_IID"
+    PROJECT_ID: "$CI_MERGE_REQUEST_PROJECT_ID"
+  script:
+    - |
+      # Create varialbes for adding a comment
+      export COMMENT_IDENTIFIER="🎉 Preview for this MR"
+      export PREVIEW_LINK="${SERVER_URL_BASE}/${NAME}"
+      export COMMENT_BODY="🎉 Preview for this MR: ${PREVIEW_LINK}"
+
+    - !reference [.add_comment_script, script]

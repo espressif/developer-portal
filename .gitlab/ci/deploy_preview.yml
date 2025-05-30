@@ -1,0 +1,25 @@
+deploy_preview:
+  stage: deploy_preview
+  image: espressif/scp
+  tags:
+    - deploy_docs
+    - shiny
+  rules:
+    !reference [.default-rules, rules]
+  needs: ["build_hugo"]
+  variables:
+    SSH_KEY: "$DOCS_PREVIEW_PRIVATEKEY" # SSH_KEY used inside espressif/scp
+    SERVER_PATH: "$DOCS_PREVIEW_PATH"
+    SERVER_URL_BASE: "$DOCS_PREVIEW_URL_BASE"
+    USER: "$DOCS_PREVIEW_SERVER_USER"
+    SERVER: "$DOCS_PREVIEW_SERVER"
+    NAME: "${CI_COMMIT_REF_SLUG}"
+  script:
+    # upload and extract the archive,
+    # delete the old directory with the same name (if doesn't contain . or /)
+    # so as not to accumulate garbage from the previous run
+    - cat archive.tar.gz | ssh ${USER}@${SERVER}
+        "cd ${SERVER_PATH};
+        [[ \"$NAME\" != *.* && \"$NAME\" != */* ]] && [ -d \"$NAME\" ] && rm -rf \"$NAME\";
+        pwd; tar xzvf -"
+    - echo "Preview ${SERVER_URL_BASE}/${NAME}"
