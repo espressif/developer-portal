@@ -1,0 +1,83 @@
+sync_github:
+  stage: sync_github
+  image: alpine:latest
+  tags:
+    - deploy_docs
+    - shiny
+  rules:
+    !reference [.label-based-rules, rules]
+  variables:
+    GITHUB_REPO: "espressif/developer-portal"
+  script:
+    - apk update # Update the package index
+    - apk add --no-cache git bash github-cli # Install github-cli
+
+    - export SOURCE_BRANCH="${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
+
+    # Configure Git
+    - git config --global user.email "developer.portal.bot@example.com"
+    - git config --global user.name "Developer-Portal-BOT"
+
+    # Clone the repository
+    - git clone "$CI_REPOSITORY_URL" repo || (echo "Error cloning repository" && exit 1)
+    - cd repo
+    # Rebase the feature branch on main
+    - git checkout "$SOURCE_BRANCH"
+    - git fetch origin main
+    - git rebase main
+    # Add GitHub remote and push the rebased branch to GitHub
+    - git remote add github "https://oauth2:${GITHUB_ACCESS_TOKEN}@github.com/${GITHUB_REPO}.git"
+    # Consider using --force-with-lease here
+    - git push -u -f github "$SOURCE_BRANCH"
+
+    # Wait for GitHub to register the branch
+    - sleep 5
+
+    # Create a PR on GitHub
+    - export GITHUB_TOKEN="$GITHUB_ACCESS_TOKEN"
+    - |
+      PR_URL=$(gh pr list \
+              --repo "$GITHUB_REPO" \
+              --head "$SOURCE_BRANCH" \
+              --json url \
+              --jq '.[].url')
+
+      if [[ -n "$PR_URL" ]]; then
+        PR_NUMBER=$(gh pr view "$PR_URL" --json number -q '.number')
+        echo "PR already exists: #$PR_NUMBER"
+        echo "**GitHub PR:** $PR_URL"
+      else
+        echo "No PR found. Creating a new one..."
+        gh pr create \
+          --repo "$GITHUB_REPO" \
+          --head "$SOURCE_BRANCH" \
+          --base main \
+          --title "Sync Merge: ${SOURCE_BRANCH}" \
+          --body $'This PR syncs the GitLab branch `'"${SOURCE_BRANCH}"$'` to GitHub.\n\nThe changes have been reviewed internally.\n\n> [!WARNING]\n>If, for any reason, changes need be committed directly to the GitHub PR (bypassing GitLab), add the label \`GitHub-Edit\` in the GitLab MR. This will disable GitLab CI sync-merge to prevent overwriting changes on GitHub.' \
+          --label "GitLab-Sync-Merge"
+
+        PR_URL=$(gh pr list \
+                --repo "$GITHUB_REPO" \
+                --head "$SOURCE_BRANCH" \
+                --json url \
+                --jq '.[].url')
+
+        if [[ -n "$PR_URL" ]]; then
+          PR_NUMBER=$(gh pr view "$PR_URL" --json number -q '.number')
+          echo "PR created successfully: #$PR_NUMBER"
+          echo "**GitHub PR:** $PR_URL"
+        else
+          echo "Failed to create PR."
+          exit 1
+        fi
+      fi
+
+    # Store PR_NUMBER and PR_URL as artifacts
+    - cd $CI_PROJECT_DIR
+    - echo "PR_NUMBER=$PR_NUMBER" > pr_info.txt
+    - echo "PR_URL=$PR_URL" >> pr_info.txt
+
+  artifacts:
+    paths:
+      - pr_info.txt
+    expire_in: 1 hour
