@@ -41,7 +41,10 @@ With the prerequisites in place, follow the assignments in order:
 - [`espup`](https://github.com/esp-rs/espup) to install and configure `esp-rust` toolchain (**recommended method**)
 - `espflash` for flashing firmware
 - `cargo-generate` for creating project templates
-- VS Code with Rust Analyzer, or any terminal-based Rust development setup
+- [JetBrains RustRover](https://www.jetbrains.com/rust/) or [CLion](https://www.jetbrains.com/clion/) — **recommended IDEs**, available free for students and open source projects
+- Alternatively, VS Code with Rust Analyzer, or any terminal-based Rust development setup
+
+JetBrains IDEs (CLion or RustRover) are highly recommended and provide excellent Rust tooling out of the box. These tools are available free of charge for students and open source contributors.
 
 Follow [Slint Embedded Setup Instructions](https://slint.dev/docs/rust/esp32.html) for more details.
 
@@ -81,5 +84,12 @@ By the end of this workshop, you will:
 - Integrate the Slint runtime with an embedded framebuffer and event loop
 
 ---
+
+
+## Credits
+
+This workshop was created in collaboration between [Espressif Systems](https://www.espressif.com), [Slint](https://slint.dev), [ESoPe](https://esope.de), and [Schukat](https://www.schukat.com).
+
+If you are interested in organizing a workshop or need support, we recommend reaching out to the trainer: [Michael Winkelmann](https://winkelmann.site/).
 
 Let's get started: [Assignment 1](assignment-1)
