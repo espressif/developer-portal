@@ -29,7 +29,6 @@ This gives users a realistic preview of how the application will behave on embed
 On desktop, the simplest way to access Wi-Fi network data is to run system-specific commands. For example:
 
 - On **Linux**: `nmcli -t -f SSID dev wifi`
-- On **macOS**: `/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s`
 - On **Windows**: `netsh wlan show networks mode=bssid`
 
 Your Rust application can invoke these commands using `std::process::Command`.
@@ -48,9 +47,9 @@ pub struct WifiNetwork {
 
 pub fn get_wifi_list() -> Vec<WifiNetwork> {
     vec![
-        WifiNetwork { ssid: "Home_WiFi".into() },
-        WifiNetwork { ssid: "Guest".into() },
-        WifiNetwork { ssid: "Espressif_Lab".into() },
+        WifiNetwork { ssid: "winkelmann.site".into() },
+        WifiNetwork { ssid: "slint.dev".into() },
+        WifiNetwork { ssid: "developer.respressif.com".into() },
     ]
 }
 ```

@@ -14,7 +14,7 @@ Unlike traditional workflows that start directly on embedded hardware, this trai
 
 While Slint supports other languages such as C++ or Python, this workshop is focused entirely on **pure Rust**.
 
-> Although the examples run on the ESP32-S3, the concepts can be ported to other ESP32 targets with display capability.
+> Although the examples run on the ESP32-S3, the concepts can be ported to other [ESP32 targets with display capability](https://github.com/espressif/esp-bsp).
 
 ## Agenda
 
@@ -31,9 +31,9 @@ With the prerequisites in place, follow the assignments in order:
 
 **Hardware:**
 
-- ESoPe Board SLD_C_W_S3 with Schukat Smartwin display-concept (RGB interface)
-- Alternative boards: ESP32-S3-BOX-3, ESP32-S3-LCD-Ev-Board
-- USB-C or USB micro cable
+- [ESoPe Board SLD_C_W_S3 with Schukat Smartwin display-concept](https://esope.de) (RGB interface)
+- Alternative boards: [ESP32-S3-BOX-3](), ESP32-S3-LCD-Ev-Board
+- USB micro cable with [ESP-Prog](https://docs.espressif.com/projects/esp-iot-solution/en/latest/hw-reference/ESP-Prog_guide.html) for ESoPe board or USB-C for [Espressif DevKits](https://github.com/espressif/esp-bsp)
 
 **Software:**
 
@@ -88,7 +88,7 @@ By the end of this workshop, you will:
 
 ## Credits
 
-This workshop was created in collaboration between [Espressif Systems](https://www.espressif.com), [Slint](https://slint.dev/esp32), [ESoPe](https://esope.de), and [Schukat](https://www.schukat.com).
+This workshop was created in collaboration between [Espressif Systems](https://www.espressif.com), [Slint](https://slint.dev/esp32), [ESoPe](https://esope.de), and [Schukat](https://shop.schukat.com/de/de/EUR/search/esope).
 
 If you are interested in organizing a workshop or need support, we recommend reaching out to the trainer: [Michael Winkelmann](https://winkelmann.site/).
 

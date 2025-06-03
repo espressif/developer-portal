@@ -69,6 +69,7 @@ If you're interested in organizing a training session, feel free to contact the 
 
 The training was created in collaboration with:
 - [Espressif Systems](https://www.espressif.com/)
-- [Slint](/)
+- [ESP-RS](https://github.com/esp-rs)
+- [Slint](https://slint.dev/esp32)
 - [ESoPe](https://esope.de/)
-- [Schukat](https://schukat.com/)
+- [Schukat](https://shop.schukat.com/de/de/EUR/search/esope)
