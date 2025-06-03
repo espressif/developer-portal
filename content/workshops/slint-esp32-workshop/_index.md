@@ -46,7 +46,7 @@ With the prerequisites in place, follow the assignments in order:
 
 JetBrains IDEs (CLion or RustRover) are highly recommended and provide excellent Rust tooling out of the box. These tools are available free of charge for students and open source contributors.
 
-Follow [Slint Embedded Setup Instructions](https://slint.dev/docs/rust/esp32.html) for more details.
+Follow [Slint Embedded Setup Instructions](https://docs.slint.dev/latest/docs/slint/) for more details.
 
 ## Time Estimate
 
@@ -88,7 +88,7 @@ By the end of this workshop, you will:
 
 ## Credits
 
-This workshop was created in collaboration between [Espressif Systems](https://www.espressif.com), [Slint](https://slint.dev), [ESoPe](https://esope.de), and [Schukat](https://www.schukat.com).
+This workshop was created in collaboration between [Espressif Systems](https://www.espressif.com), [Slint](https://slint.dev/esp32), [ESoPe](https://esope.de), and [Schukat](https://www.schukat.com).
 
 If you are interested in organizing a workshop or need support, we recommend reaching out to the trainer: [Michael Winkelmann](https://winkelmann.site/).
 

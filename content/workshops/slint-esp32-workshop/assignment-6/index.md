@@ -58,3 +58,17 @@ We encourage you to:
 - Submit PRs with new lessons!
 
 Thank you for learning with us!
+
+---
+
+## 🙌 Credits
+
+This workshop was developed by [Michael Winkelmann](https://winkelmann.site/) and is available as open training.
+
+If you're interested in organizing a training session, feel free to contact the trainer directly.
+
+The training was created in collaboration with:
+- [Espressif Systems](https://www.espressif.com/)
+- [Slint](/)
+- [ESoPe](https://esope.de/)
+- [Schukat](https://schukat.com/)
