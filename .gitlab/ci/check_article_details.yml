@@ -55,12 +55,12 @@ check_article_details:
           FOLDER_YM="${BASH_REMATCH[1]}-${BASH_REMATCH[2]}"
         fi
 
-        ARTICLE_DATE=$(awk -F': "' '/^date: "/ {gsub(/"/, "", $2); print $2}' "$index_file")
+        ARTICLE_DATE=$(awk '/^date:/ { gsub(/["'\'']/, "", $2); print $2 }' "$index_file")
         [[ -z "$ARTICLE_DATE" ]] && { echo "No valid date in $index_file"; continue; }
 
         ARTICLE_YM="${ARTICLE_DATE:0:7}"
 
-        ARTICLE_SUMMARY_RAW=$(awk -F': "' '/^summary: "/ {gsub(/"/, "", $2); print $2; exit}' "$index_file")
+        ARTICLE_SUMMARY_RAW=$(awk '/^summary:/ { $1=""; gsub(/^[: \t'\''"]+|["'\'' \t]+$/, "", $0); print; exit }' "$index_file")
         ARTICLE_SUMMARY_RAW=${ARTICLE_SUMMARY_RAW:-""}
 
         if [[ -n "$ARTICLE_SUMMARY_RAW" ]]; then
