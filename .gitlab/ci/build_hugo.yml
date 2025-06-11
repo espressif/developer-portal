@@ -1,6 +1,6 @@
 build_hugo:
   stage: build_hugo
-  image: "${CI_TEMPLATE_REGISTRY_HOST}/pages/hugo/hugo_extended:0.135.0"
+  image: "hugomods/hugo:debian-base-0.147.5"
   tags:
     - build_docs
   rules:
