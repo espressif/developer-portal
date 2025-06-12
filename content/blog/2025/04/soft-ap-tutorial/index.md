@@ -5,7 +5,7 @@ showAuthor: false
 authors:
   - francesco-bez 
 tags: [soft-AP, ESP32-C3, ESP-IDF]
-summary: "This tutorial guides you through setting up a soft-AP using an Espressif module and ESP-IDF. It covers the process of creating a project, configuring Wi-Fi, and handling connection events through event loops and logging. Upon completion, you’ll be able to establish a soft-AP and manage Wi-Fi connections. It is the first step to building more advanced networking applications."
+summary: "This tutorial guides you through setting up a soft-AP using an Espressif module and ESP-IDF. It covers the process of creating a project, configuring Wi-Fi, and handling connection events through event loops. Upon completion, you’ll be able to establish a soft-AP and manage Wi-Fi connections. It is the first step to building more advanced networking applications."
 ---
 
 ### Introduction  
@@ -35,18 +35,24 @@ For real-world applications, it is better to use a  __robust__ provisioning solu
 {{< /alert >}}
 
 
-This tutorial serves as a foundation for other Wi-Fi connectivity applications, ensuring a smooth and reliable connection setup.  
+This tutorial lays the groundwork for building more advanced Wi-Fi connectivity applications by ensuring a smooth and reliable connection setup.
 
-We will first create a new project, include the necessary libraries, and catch the Wi-Fi events. Here we will also encounter
+In the steps that follow, we will:
+
+1. Create a new project based on the `hello_world` example.
+2. Rename the project and remove any unnecessary libraries and configurations.
+3. Start the Soft-AP and set up handlers to manage Wi-Fi events.
+4. Verify the connection using your smartphone
+
+In this tutorial, we will also encounter
 
 - **menuconfig** - The tool which handles the configuration in ESP-IDF projects
-- **Logs** - A neat way to handle useful information during development
 - **Event loops** – A design pattern used throughout the Espressif ESP-IDF framework to simplify the management of complex applications.  
 - **[esp-netif](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/api-reference/network/esp_netif.html)** – Espressif's abstraction layer for TCP/IP networking.  
 - **[Non-volatile storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/api-reference/storage/nvs_flash.html)** – For saving credentials
-<!-- 
-{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5" >}}
-The shortcuts mentioned below refer to VS Code, but you can use any IDE or any editor if compiling through the command line.  
+
+<!-- {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5" >}}
+Most commands in VSCode are executed through the Command Palette, which you can open by pressing `CTRL+SHIFT+P` (or `CMD+SHIFT+P` if you’re on mac-os). In this guide, commands to enter in the Command Palette are marked with the symbol `>` .
 {{< /alert >}} -->
 
 
@@ -57,11 +63,12 @@ Before starting this tutorial, ensure that you
 - Can compile and flash the [`hello_world`](https://github.com/espressif/esp-idf/tree/master/examples/get-started/hello_world) example. Two main methods followed below are using `idf.py` directly (CLI approach) or using the VS Code ESP-IDF Extension. If required, you can follow the instructions in the  [ESP-IDF Getting Started](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/get-started/index.html) guide. 
 - Have an Espressif evaluation board or another compatible board for flashing the code. In this tutorial we will use the [ESP32-C3-DevkitM-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkitm-1/user_guide.html) but any Espressif evaluation board will work just as well. If you built your own board, you might need an [ESP-PROG](https://docs.espressif.com/projects/esp-iot-solution/en/latest/hw-reference/ESP-Prog_guide.html) programmer. 
 - Understand the difference between a Wi-Fi access point and a Wi-Fi station.
+- (Optional) Have a basic knowledge of the [logging system](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#how-to-use-logging-library) in Espressif. 
 
 If you're not quite comfortable with any of the above steps yet, consider checking out the [ESP-IDF with ESP32-C6 Workshop](https://preview-developer.espressif.com/pr404/workshops/esp-idf-with-esp32-c6/). These resources can help you get hands-on experience with setup, flashing, and basic debugging before diving into this tutorial.
 
 
-## Create a new project
+## Starting a new project from `hello_world`
 
 To start a new project and prepare for the following steps, we will perform these actions: 
 1. Create a new project using the [`hello_world`](https://github.com/espressif/esp-idf/tree/master/examples/get-started/hello_world) example as a starting point.
@@ -76,13 +83,17 @@ Below you can find a refresher for VS Code and using the CLI.
 
 {{% tab name="VS Code extension" %}}
 
-Open VS Code, press `CTRL+SHIFT+P`and start typing `ESP-IDF: New Project`. Follow the instructions to create a new project using the `hello_world` as a template. 
+Most commands in VSCode are executed through the Command Palette, which you can open by pressing `CTRL+SHIFT+P` (or `CMD+SHIFT+P` if you’re on mac-os). In the following, commands to enter in the Command Palette are marked with the symbol `>`.
 
-Next, we need to set the target and port for the flashing stage. In this tutorial, we're using an `ESP32-C3-DevKitM-1`. 
-Start typing `ESP-IDF: Set Espressif Device Target` and select `esp32c3`. If you are using an evaluation board or a USB-UART bridge, select `The ESP32-C3 Chip via builtin USB-JTAG`. If you're using one of the `ESP-PROG` programmers, choose the most appropriate option. 
-
-Next, select the correct port by typing `ESP-IDF: Select Port to Use (COM, tty, usbserial)`. 
-At this point, we can run the command `ESP-IDF: Build, Flash and start a Monitor on your device`. 
+* `> ESP-IDF: New Project`   
+   _Follow the instructions to create a new project using the `hello_world` as a template_
+* `> ESP-IDF: Set Espressif Device Target`    
+  _Choose your SoC. In this tutorial we use `esp32c3`_
+   *  _If you are using an evaluation board or a USB-UART bridge, select `The ESP32-C3 Chip via builtin USB-JTAG`_
+   *  _If you're using one of the `ESP-PROG` programmers, choose the most appropriate option._
+* `> ESP-IDF: Select Port to Use (COM, tty, usbserial)`    
+   _Choose the port assigned to the board. Check with your os device manager if unsure_
+* `> ESP-IDF: Build, Flash and start a Monitor on your device`
 
 
 {{% /tab %}}
@@ -98,7 +109,10 @@ If everything runs smoothly, we should see the compilation finish successfully, 
 
 We have just compiled the code and flashed it onto the internal flash memory of the Espressif module. On boot, the module now runs the `hello_world` example, sending a 'Hello, World' message to the serial port (connected to the programmer), along with a countdown until the module restarts. This step ensures that the entire process is working correctly. Now, we can begin modifying the code to implement the soft-AP.
 
-Now, update the content of `hello_world_main.c` to the following code:
+## Renaming the Project and Cleaning Up
+
+Now, we will rename the project and remove all the necessary commands and library. 
+Update the content of `hello_world_main.c` to the following code:
 
 ```c
 #include <stdio.h>
@@ -122,7 +136,7 @@ idf_component_register(SRCS "basic_http_server.c"
 
 After making these changes:
 
-- Perform a full clean: Run `ESP-IDF: Full Clean Project`
+- Perform a full clean: Run in the command palette `ESP-IDF: Full Clean Project`
 - Build, flash and open a monitor again. 
 
 <!-- > [!WARNING]
@@ -132,14 +146,18 @@ After making these changes:
 Every time you change the CMakeLists.txt, you need to perform a full clean to see the changes take effect. To learn more about the build system, consult the document [Build System](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/build-system.html#minimal-component-cmakelists).
 {{< /alert >}}
 
-Now we need to complete the final step before moving on. To keep things as simple as possible, in this tutorial we will not use Non-Volatile Storage (NVS), which is commonly used with Wi-Fi to store credentials and access calibration data.
+### Disable NVS
+
+To keep things as simple as possible, in this tutorial we will not use Non-Volatile Storage (NVS), which is commonly used with Wi-Fi to store credentials and access calibration data under the hood. 
 
 By default, some configuration variables have NVS enabled, which may cause warnings or errors. To avoid this, we need to disable them in `menuconfig`. 
 
 
 {{< tabs groupId="devtool" >}}
 {{% tab name="VS Code extension" %}}
-To access `menuconfig`, press `CTRL+SHIFT+P`, type `ESP-IDF: SDK Configuration Editor` and select it. In the search bar type `NVS` then uncheck the following options
+To access `menuconfig`, type `ESP-IDF: SDK Configuration Editor` in the command palette and hit <kbd>Enter</kbd>. 
+
+In the `menuconfig` search bar type `NVS` then uncheck the following options
 {{< figure
 default=true
 src="img/disable_nvs.webp"
@@ -153,15 +171,13 @@ To access `menuconfig`, call `idf.py menuconfig`
 {{% /tab %}}
 {{< /tabs >}}
 
-
-
 Now your project should resemble the [bare-minimum example](https://github.com/FBEZ-docs-and-templates/devrel-tutorials-code/tree/main/tutorial-basic-project) in the repository below. 
 
 {{< github repo="FBEZ-docs-and-templates/devrel-tutorials-code" >}}
 
-After a quick look at how logs are managed in Espressif, we can start with the soft-AP. 
-
-## A short detour: Logs
+<!-- After a quick look at how logs are managed in Espressif, we can start with the soft-AP.  -->
+ 
+<!-- ## A short detour: Logs
 
 While not strictly necessary for this tutorial, logs are extremely useful when developing applications. 
 
@@ -190,7 +206,7 @@ In this tutorial, only `ESP_LOGI` (informational logs) will be used, but there a
 - `ESP_LOGD(TAG, "...")` – Debug logs  
 - `ESP_LOGV(TAG, "...")` – Verbose logs  
 
-For a detailed explanation of logging functions, refer to the [official documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html). 
+For a detailed explanation of logging functions, refer to the [official documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html).  -->
 
 
 ## Starting the soft-AP
@@ -205,10 +221,9 @@ To set up a soft-AP, we will need to:
    We'll call `esp_event_loop_create_default()` to initialize the standard event loop.  
 3. **Register handlers for soft-AP:**  
    We'll register the event handlers needed for a soft-AP application.  
-4. **Connect to the soft-AP with a Smartphone:**  
-   We'll check the connection using a smartphone and connecting to the soft-AP. 
 
-Espressif IP stack is managed through an unified interface called [`esp_netif`](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_netif.html#esp-netif). This interface was designed to provide an agnostic abstraction for different IP stacks. Currently, the only TCP/IP stack available through this interface is lwIP. 
+
+Espressif IP stack is managed through the unified interface called [`esp_netif`](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_netif.html#esp-netif). This interface was designed to provide an agnostic abstraction for different IP stacks. Currently, the only TCP/IP stack available through this interface is lwIP. 
 
 For most applications, creating a default network with the default event loop is sufficient -- this is the approach used in this tutorial.  
 
@@ -308,7 +323,9 @@ void wifi_init_softap()
 }
 ```
 
-### Register handlers for soft-AP
+`ESP_LOGI` is a logging command which prints an information message on the terminal. If you're unsure about it, check the [logging library documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#how-to-use-logging-library).
+
+### Handle Wi-Fi Events
 
 At this point, the function handling Wi-Fi events is as follows:
 
@@ -322,7 +339,7 @@ static void wifi_event_handler(void* arg, esp_event_base_t event_base,
 Now compile, flash, start a monitor and run the project. We should start seeing several event numbers appearing on the terminal.
 
 
-### Connect to the soft-AP with a Smartphone
+## Testing the Connection with a Smartphone
 
 At this point, take your smartphone, open the Wi-Fi list, and select the SSID `esp_tutorial`. When we do so, we should see on the terminal `Event nr: 14!`. 
  
@@ -369,3 +386,7 @@ In this tutorial, you learned how to:
 5. Verify event handling by monitoring the terminal for connection events.  
 
 This serves as a foundation for building more advanced Wi-Fi applications, such as MQTT clients, HTTP servers, or other networked solutions.
+
+### Next step
+
+> _Next Step_: Check the [basic http tutorial](/blog/2025/06/basic_http_server/)
