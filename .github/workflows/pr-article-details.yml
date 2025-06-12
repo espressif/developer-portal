@@ -31,6 +31,11 @@ jobs:
 
           git diff --name-only --diff-filter=A origin/${{ github.base_ref }}...HEAD > temp/added-files.txt
 
+          if [ ! -s temp/added-files.txt ]; then
+            echo "✅ No files added. Nothing to check."
+            exit 0
+          fi
+
           echo "List of added files:"
           cat temp/added-files.txt
 
@@ -40,10 +45,16 @@ jobs:
             fi
           done < temp/added-files.txt
 
+          if [ ! -s temp/index-files.txt ]; then
+            echo "✅ No index.md files added. Nothing to validate."
+            exit 0
+          fi
+
           echo "List of added index files:"
           cat temp/index-files.txt
 
       - name: Extract article details
+        if: success() && hashFiles('temp/index-files.txt') != ''
         run: |
           extracted_article_data="[]"
 
@@ -111,6 +122,7 @@ jobs:
           cat temp/extracted_article_data.json
 
       - name: Validate article details
+        if: success() && hashFiles('temp/index-files.txt') != ''
         run: |
           job_error=0
           extracted_article_data="temp/extracted_article_data.json"
