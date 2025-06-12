@@ -26,6 +26,11 @@ check_article_details:
 
       git diff --name-only --diff-filter=A target/${TARGET_BRANCH}...HEAD > temp/added-files.txt
 
+      if [ ! -s temp/added-files.txt ]; then
+        echo "✅ No files added. Nothing to check."
+        exit 0 # Exit early and succeed
+      fi
+
       echo "List of added files:"
       cat temp/added-files.txt
 
@@ -36,7 +41,7 @@ check_article_details:
       done < temp/added-files.txt
 
       if [ ! -s temp/index-files.txt ]; then
-        echo "No index files added -- skipping job."
+        echo "✅ No index.md files added. Nothing to validate."
         exit 0  # Exit early and succeed
       fi
 
