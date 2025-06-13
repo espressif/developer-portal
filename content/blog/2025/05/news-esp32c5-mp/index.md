@@ -16,8 +16,8 @@ ESP32-C5 development boards are now available for purchase at [Espressif's offic
 ## Where to buy
 
 - [Taobao (China)](https://item.taobao.com/item.htm?ft=t&id=846843964795)
-- [AliExpress (Overseas)](https://www.aliexpress.com/item/1005008790788462.html)
-- [Amazon US](https://www.amazon.com/dp/B0F6YKGL75)
+- [AliExpress (outside of China)](https://www.aliexpress.com/item/1005008790788462.html)
+- [Amazon (US)](https://www.amazon.com/dp/B0F6YKGL75)
 - [Robu (India)](https://robu.in/product/espressif-esp32-c5-devkitc-1-n8r4-development-board/)
 - [Digikey](https://www.digikey.cn/en/products/detail/espressif-systems/ESP32-C5-DEVKITC-1-N8R4/26658349?s=N4IgTCBcDaIKIGUAKBmMBaAwgVnQEQFMA3AaQEsAXTdARnQDkAOAJQBYQBdAXyA)
 - [Mouser](https://www.mouser.com/ProductDetail/Espressif-Systems/ESP32-C5-DevKitC-1-N8R4?qs=sqEgtWRSLJ2%2Fdhsv380LjQ%3D%3D)
