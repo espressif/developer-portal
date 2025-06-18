@@ -43,7 +43,7 @@ As inscrições para as palestras dos dois dias serão gratuitas. Os workshops t
 - **09h30**: Boas vindas e Keynote
 - **10h30 às 12h00**: Palestras Técnicas
 - **12h00 às 13h00**: Intervalo para Almoço e Networking
-- **13h00 às 17h30**: Continuação das Palestras Técnicas
+- **13h00 às 17h30**:  Palestras Técnicas
 - **17h30 às 18h00**: Encerramento do Dia
 
 ### Dia 6 de Agosto
@@ -60,7 +60,7 @@ As inscrições para as palestras dos dois dias serão gratuitas. Os workshops t
 
 ## Sobre a Espressif
 
-A Espressif Systems (SSE: 688018.SH) é uma empresa pública, multinacional e fabless de semicondutores, que desenvolve chipsets de comunicação sem fio de última geração e baixo consumo de energia. Nossas soluções de AIoT são sustentáveis, versáteis e acessíveis, atendendo a uma ampla variedade de aplicações inteligentes em diversos setores. Com um ciclo de desenvolvimento fechado, inovamos em todas as camadas da tecnologia — desde os protocolos Wi-Fi, Bluetooth LE e IEEE 802.15.4, até RF, MCUs RISC-V, algoritmos de IA, sistemas operacionais, toolchains, frameworks de AIoT e serviços em nuvem.
+A Espressif Systems (SSE: 688018.SH) é uma empresa pública, multinacional e fabless de semicondutores, que desenvolve chips de comunicação sem fio de última geração e baixo consumo de energia. Nossas soluções de AIoT são sustentáveis, versáteis e acessíveis, atendendo a uma ampla variedade de aplicações inteligentes em diversos setores. Com um ciclo de desenvolvimento completo, inovamos em todas as camadas da tecnologia — desde os protocolos Wi-Fi, Bluetooth LE e IEEE 802.15.4, até RF, MCUs RISC-V, algoritmos de IA, sistemas operacionais, toolchains, frameworks de AIoT e serviços em nuvem.
 
 ### Nossa Missão e Visão
 
