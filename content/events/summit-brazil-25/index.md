@@ -3,7 +3,7 @@ title: "Espressif Summit Brazil 2025"
 date: 2025-06-17
 draft: false
 description: "Espressif Systems Summit Brazil 2025"
-summary: "On August 5th and 6th, Campinas (Brazil) will host the second edition of the Espressif Summit Brazil, featuring talks, workshops, and exhibitions focused on IoT, digital security, hardware, software, and connectivity."
+summary: "On August 5th and 6th 2025, Campinas (Brazil) will host the second edition of the Espressif Summit Brazil, featuring talks, workshops, and exhibitions focused on IoT, digital security, hardware, software, and connectivity."
 tags: ["event", "announcement", "save-the-date"]
 showDate : false
 ---
@@ -33,7 +33,7 @@ Venha participar deste grande encontro de tecnologia, inovação e colaboração
 
 ## Como participar
 
-As inscrições para as palestras dos dois dias serão gratuitas. Os workshops terão um custo adicional. As inscrições serão realizadas pelo [Portal Embarcados](https://embarcados.com.br/) e as vagas são limitadas. Garanta já a sua [aqui](https://embarcados.com.br/)!
+As inscrições para as palestras dos dois dias serão gratuitas. Os workshops terão um custo adicional. As inscrições serão realizadas pelo [Portal Embarcados](https://embarcados.com.br/) e as vagas são limitadas. Garanta já a sua [aqui](https://embarcados.com.br/espressif-summit-brasil-2025/)!
 
 ## Agenda
 
