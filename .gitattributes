@@ -1,0 +1,16 @@
+# Default rule for text files
+* text=auto eol=lf
+
+# Explicit overrides for key types
+*.md     text eol=lf
+*.yaml   text eol=lf
+*.yml    text eol=lf
+*.toml   text eol=lf
+*.json   text eol=lf
+*.sh     text eol=lf
+
+# Treat these as binary
+*.png    binary
+*.jpg    binary
+*.webp   binary
+*.pdf    binary
