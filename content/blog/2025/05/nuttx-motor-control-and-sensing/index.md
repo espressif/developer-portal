@@ -17,9 +17,9 @@ This series of articles demonstrates how to use multiple ESP32-C6 peripherals to
 - Inertial Measurement Unit (IMU) via I2C for vibration analysis
 - Wireless connectivity for data acquisition and processing
 
-The goal is to build a comprehensive motor control and sensing system using the NuttX RTOS. We'll implement open-loop speed control while measuring mechanical vibrations through an IMU. The system will stream sensor data wirelessly to a computer for logging and analysis, showcasing NuttX's real-time capabilities, multi-threading support and the ESP32-C6's wireless connectivity features.
+The goal is to build a comprehensive motor control and sensing system using the NuttX RTOS. We'll implement open-loop speed control while measuring mechanical vibrations through an IMU. The system will stream sensor data wirelessly to a computer for logging and analysis, showcasing NuttX's real-time capabilities, multi-threading support and the ESP32-C6 wireless connectivity features.
 
-In this first article, we'll focus on implementing basic motor control. You'll learn how to use the ESP32-C6's MCPWM peripheral to drive a DC motor through an H-bridge, with speed control provided by a potentiometer input and reading the quadrature encoder. This will give us the basic functionalities before we can get to data offloading and analysis in the next article.
+In this first article, we'll focus on implementing basic motor control. You'll learn how to use the ESP32-C6 MCPWM peripheral to drive a DC motor through an H-bridge, with speed control provided by a potentiometer input and reading the quadrature encoder. This will give us the basic functionalities before we can get to data offloading and analysis in the next article.
 
 ## Getting Started
 
@@ -35,7 +35,7 @@ The following components are used in this project:
 - L298N H-Bridge motor driver module
 - 10kΩ linear potentiometer
 - GY521 IMU module (MPU6050)
-- ESP32C6-DevkitC development board
+- ESP32-C6-DevkitC development board
 
 All components have been mounted on a test bench as shown below:
 
@@ -508,11 +508,13 @@ While this implementation uses open-loop control, it provides speed measurement 
 
 ## What's Next
 
-In the second part of this series, we'll expand this foundation to create a complete motor control and analysis system. We'll add:
+In the second part of this series, we expand this foundation to create a complete motor control and analysis system. The following items are added:
 
 - MPU6050 IMU configuration for vibration analysis
-- WiFi connectivity for real-time data streaming
+- Wi-Fi connectivity for real-time data streaming
 - Data visualization and analysis on a host computer
+
+You can access the second article [here](../../07/nuttx-motor-control-and-sensing-data-trans).
 
 ## Related Resources
 
@@ -520,3 +522,4 @@ In the second part of this series, we'll expand this foundation to create a comp
 - [ESP32-C6 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf)
 - [Example Repository](https://github.com/fdcavalcanti/nuttx-esp-motor-sensing)
 - [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/)
+- [Part 2: NuttX for Motor Control and Sensing: IMU Integration and Wireless Data Streaming](../../07/nuttx-motor-control-and-sensing-data-trans)
