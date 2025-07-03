@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/04/esp32-red-da-en18031-compliance-guide/" >}}
+{{< article link="/blog/2025/06/simple-boot-explained/" >}}
 <br>
-{{< article link="/blog/2025/03/security-in-esp-rainmaker/" >}}
+{{< article link="/blog/2025/07/overview-of-esp-audio-effects/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
