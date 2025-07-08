@@ -25,6 +25,19 @@ buildFuture = true
 [imaging]
   anchor = 'Center'
 
+[params.Author]
+  name = "John Lee"
+  image = "img/authors/espressif.png"
+  bio = "Espressif Systems"
+  links = [
+    { "linkedin" = "https://www.linkedin.com/company/espressif-systems" },
+    { "twitter" = "https://twitter.com/EspressifSystem" },
+    { "instagram" = "https://www.instagram.com/espressif_systems_official" },
+    { "medium" = "https://blog.espressif.com/" },
+    { "github" = "https://github.com/espressif" },
+    { "link" = "https://espressif.com/"},
+  ]
+
 [taxonomies]
   tag = "tags"
   category = "categories"
