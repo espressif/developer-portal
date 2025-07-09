@@ -1,12 +1,12 @@
 ---
-title: "Introducing CDP: The New Espressif Documentation Website – Now in Customer Preview!"
-date: 2025-07-07
-showAuthor: false
+title: "Introducing CDP: The New Espressif Documentation Website – Now Available to Customers!"
+date: 2025-07-08
+showAuthor: true
 featureAsset: "img/featured/featured-announcement.webp"
 summary: This article introduces Espressif’s new Centralized Documentation Platform (CDP) — a unified site for all technical documentation, featuring enhanced search, integrated chatbot support, and improved feedback tools.
 ---
 
-We’re excited to announce that our brand-new documentation website, the [Centralized Documentation Platform](https://documentation.espressif.com/en/home) (**CDP**), is now open for **Customer Preview**!
+We’re excited to announce that our brand-new documentation website, the [Centralized Documentation Platform](https://documentation.espressif.com/en/home) (**CDP**), is now available to customers!
 
 CDP has been built with users in mind. It aims to bring together everything you need to find, read, and interact with Espressif’s technical documentation — in one centralized, easy-to-use place.
 
@@ -31,15 +31,14 @@ You might be wondering — why a whole new site?
 Currently, Espressif documents are **scattered across multiple platforms**, including:
 
 - www.espressif.com – hosting [Technical Documents](https://www.espressif.com/en/support/documents/technical-documents), [PCNs](https://www.espressif.com/en/support/documents/pcns), [Advisories](https://www.espressif.com/en/support/documents/advisories), and [Certificates](https://www.espressif.com/en/support/documents/certificates)
-
 - docs.espressif.com – hosting primarily software documents
 - Various **GitHub repositories**
 
-**CDP** aims to bring them together into one single place.
+**CDP** aims to solve the problem of fragmented information. By consolidating existing resources into a single, unified platform, CDP provides users with a more efficient one-stop documentation experience.
 
 ## ✨ Key Features of CDP
 
-Here’s what you can experience during this preview.
+Here’s what you can experience on CDP.
 
 ### Espressif’s Technical Documentation in One Place
 
@@ -132,7 +131,7 @@ We have some more features coming! Here’s what’s coming next:
 
 ## 💬 We Need Your Feedback!
 
-This is a **preview**, and CDP is still a work in progress. We’d love your help to make CDP better. Whether you find a bug, have a suggestion, or just want to tell us what you think — we’re all ears.
+CDP is now open for user access, and its features will continue to be improved. We’d love your help to make CDP better. Whether you find a bug, have a suggestion, or just want to tell us what you think — we’re all ears.
 
 **Just click the Feedback button on the right of each page on CDP!**
 
