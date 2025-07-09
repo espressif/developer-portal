@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/06/simple-boot-explained/" >}}
+{{< article link="/blog/2025/07/esp32-red-da-en18031-compliance-guide-part2/" >}}
 <br>
-{{< article link="/blog/2025/07/overview-of-esp-audio-effects/" >}}
+{{< article link="/blog/2025/04/esp32-red-da-en18031-compliance-guide/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
