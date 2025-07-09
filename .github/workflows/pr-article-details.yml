@@ -53,6 +53,12 @@ jobs:
           echo "List of added index files:"
           cat temp/index-files.txt
 
+      - name: Upload added index files artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: added-index-files
+          path: temp/index-files.txt
+
       - name: Extract article details
         if: success() && hashFiles('temp/index-files.txt') != ''
         run: |
