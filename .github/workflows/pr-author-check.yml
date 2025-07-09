@@ -1,0 +1,35 @@
+name: Check authors in articles
+
+on:
+  workflow_run:
+    workflows:
+      - "Build preview for PR"
+    types:
+      - completed
+
+jobs:
+  check-authors:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Download added-index-files artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: added-index-files
+          path: artifacts
+
+      - name: Download public-folder artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: public-folder
+          path: public
+
+      - name: List downloaded artifacts
+        run: |
+          echo "Contents of added-index-files:"
+          cat artifacts/index-files.txt
+          echo "Public folder contents:"
+          ls -R public
