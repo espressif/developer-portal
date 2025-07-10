@@ -1,7 +1,6 @@
 ---
 title: "Simple Boot explained"
 date: 2025-06-30
-showAuthor: false
 authors:
   - "marek-matej"
 tags:
