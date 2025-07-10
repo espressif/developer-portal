@@ -1,7 +1,6 @@
 ---
 title: "Security in ESP RainMaker"
 date: 2025-03-20
-showAuthor: true
 authors:
   - piyush-shah
 tags:
@@ -139,4 +138,3 @@ ESP RainMaker is currently undergoing ETSI EN 303 645 (Cybersecurity Standard fo
 ---
 
 The security measures taken for all components of ESP RainMaker ensure that the overall solution is highly secure and robust. With the added privacy measures of GDPR compliance, it makes for a perfect platform for your IoT devices. If you are interested in commercial deployments of ESP RainMaker, please reach out to `sales@espressif.com` or `esp-rainmaker-admin@espressif.com`.
-
