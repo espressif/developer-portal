@@ -10,7 +10,7 @@ summary: This article explores the features and capabilities of ESP-Audio-Effect
 
 We are excited to announce the official release of **ESP-Audio-Effects v1.0.0**! This is a powerful and flexible audio processing library designed to provide developers with efficient audio effects processing capabilities. You can now visit the [ESP-Audio-Effects](https://components.espressif.com/components/espressif/esp_audio_effects/versions/1.0.0?language=en) release page for more details. ESP-Audio-Effects is widely used in various smart audio devices, including smart speakers, headphones, audio playback devices, and voice interaction systems. Let's dive into ESP-Audio-Effects now and enhance your audio processing capabilities!
 
-## Introduction to ESP-Audio-Effects Component 
+## Introduction to ESP-Audio-Effects Component
 
 - **ALC(Automatic Level Control):** By adjusting the audio gain, the input audio volume is automatically regulated. When the gain is set to a positive value, the audio volume increases; when set to a negative value, the volume decreases. A gradual adjustment approach is used to prevent sudden volume changes, ensuring a smoother and more natural audio transition. If the gain is set too high, it will dynamically adjust the gain in real-time to keep the audio signal within a reasonable range, preventing distortion caused by clipping.
 
@@ -62,7 +62,7 @@ The component adopts a unified and simple API design, with a clear and intuitive
 
 ## Example of Using Audio Effects in GMF
 
-Each function of esp-audio-effects has been added to the [esp-gmf](https://github.com/espressif/esp-gmf) (General Multimedia Framework) framework as a [gmf-audio](https://github.com/espressif/esp-gmf/tree/main/elements/gmf_audio) element. By integrating these audio effect elements through a pipeline, flexible combinations of audio processing can be achieved. You can see an example of pipeline in the picture below. 
+Each function of esp-audio-effects has been added to the [esp-gmf](https://github.com/espressif/esp-gmf) (General Multimedia Framework) framework as a [gmf-audio](https://github.com/espressif/esp-gmf/tree/main/elements/gmf_audio) element. By integrating these audio effect elements through a pipeline, flexible combinations of audio processing can be achieved. You can see an example of pipeline in the picture below.
 
 {{< figure default=true src="img/pipeline.webp" height=500 caption="GMF Pipeline Sketch Map" >}}
 
@@ -70,6 +70,6 @@ Here is a simple [example](https://github.com/espressif/esp-gmf/tree/main/gmf_ex
 
 ## Conclusion
 
-ESP-Audio-Effects v1.0.0 is a versatile audio processing library. With features like Automatic Level Control, Equalizers, Dynamic Range Control, and more, it offers developers more control over audio effects. Through seamless integration with esp-gmf, developers can create easily create audio pipelines tailored to their application. 
+ESP-Audio-Effects v1.0.0 is a versatile audio processing library. With features like Automatic Level Control, Equalizers, Dynamic Range Control, and more, it offers developers more control over audio effects. Through seamless integration with esp-gmf, developers can create easily create audio pipelines tailored to their application.
 
 If you want to learn more about esp-audio-effects, check out our [Github repository](https://github.com/espressif/esp-adf-libs/blob/master/esp_audio_effects/README.md). Feel free to contact us and let's explore more possibilities in audio processing together!

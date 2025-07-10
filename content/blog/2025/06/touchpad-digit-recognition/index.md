@@ -1,7 +1,6 @@
 ---
 title: "Touchpad Digit Recognition Based on ESP-DL"
 date: 2025-06-18
-showAuthor: false
 summary: "This article demonstrates how to implement a touchpad-based digit recognition system using ESP-DL on ESP32 series chips. It covers the complete workflow from data collection and preprocessing to model training, quantization, and deployment, showcasing ESP-DL's capabilities in edge AI applications."
 authors:
   - yan-ke
@@ -73,7 +72,7 @@ The Interpolated touch dataset contains ten categories from digit 0 to 9, with a
 
 ### Dataset Preparation
 
-Before model training, the interpolated touch data is preprocessed using the `torchvision.transforms` module from `PyTorch`. First, the images are converted to single-channel grayscale images, and random affine transformations (rotation of ±10 degrees, translation of ±10%) are applied to enhance data diversity. Subsequently, the images are converted to tensor format and normalized with a mean of 0.5 and standard deviation of 0.5. 
+Before model training, the interpolated touch data is preprocessed using the `torchvision.transforms` module from `PyTorch`. First, the images are converted to single-channel grayscale images, and random affine transformations (rotation of ±10 degrees, translation of ±10%) are applied to enhance data diversity. Subsequently, the images are converted to tensor format and normalized with a mean of 0.5 and standard deviation of 0.5.
 
 After data processing, the dataset is loaded using `ImageFolder`, a PyTorch utility that organizes images into labeled datasets based on folder names. It is then randomly split into training and test sets with an 8:2 ratio.
 
@@ -173,13 +172,13 @@ def train_epoch(model, train_loader, criterion, optimizer, device):
 
     for inputs, labels in train_loader:
         inputs, labels = inputs.to(device), labels.to(device)
-        
+
         optimizer.zero_grad()
         outputs = model(inputs)
         loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
-        
+
         running_loss += loss.item()
         _, predicted = torch.max(outputs.data, 1)
         total += labels.size(0)
@@ -342,7 +341,7 @@ To avoid inconsistencies between the actual inference results and PC inference r
 
 ```info
 test outputs value:
-%23, shape: [1, 10], exponents: [0], 
+%23, shape: [1, 10], exponents: [0],
 value: array([4.78089300e-25, 1.05306175e-20, 3.62514101e-34, 9.60267995e-24,
         9.60267995e-24, 6.47023468e-26, 3.97544995e-31, 1.15482239e-17,
         3.87399781e-21, 1.00000000e+00, 0.00000000e+00, 0.00000000e+00],
@@ -390,7 +389,7 @@ void DataPreprocessor::process(const uint8_t* input_data, int8_t* quant_buffer)
 }
 ```
 
-After data preprocessing, the processed data needs to be fed into the model for inference. The entire inference process consists of three steps: 
+After data preprocessing, the processed data needs to be fed into the model for inference. The entire inference process consists of three steps:
 
 1. Data Encapsulation.
 2. Model Execution.
@@ -450,7 +449,7 @@ int DataPostprocessor::process()
 
 ## Summary
 
-This article introduces a handwritten digit recognition application implemented using the ESP-DL framework, demonstrating how to deploy deep learning models on ESP32 series chips. 
+This article introduces a handwritten digit recognition application implemented using the ESP-DL framework, demonstrating how to deploy deep learning models on ESP32 series chips.
 
 All the Python scripts for data processing, model training, quantization, as well as the C++ code for model inference and the pre-trained models mentioned in this article, are available in the esp-iot-solution GitHub repository: [touchpad_digit_recognition](https://github.com/espressif/esp-iot-solution/tree/master/examples/ai/esp_dl/touchpad_digit_recognition)
 
