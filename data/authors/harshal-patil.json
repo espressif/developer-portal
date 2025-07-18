@@ -1,5 +1,10 @@
 {
     "name": "Harshal Patil",
-    "bio": "",
-    "image": ""
+    "bio": "Embedded Software Engineer at Espressif Systems",
+    "image": "img/authors/harshal-patil.webp",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/harshalnpatil5/" },
+        { "github": "https://github.com/Harshal5" },
+        { "medium": "https://medium.com/@harshalpatil5" }
+    ]
 }

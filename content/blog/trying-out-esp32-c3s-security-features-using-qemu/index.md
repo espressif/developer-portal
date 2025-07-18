@@ -151,7 +151,7 @@ The secure boot signing key being an RSA key, can be generated using the command
 espsecure.py generate_signing_key --version 2 secure_boot_signing_key.pem
 ```
 
-whereas the NVS encryption key being an AES key can be created using the command:
+whereas the NVS encryption key being an HMAC key can be created using the command:
 
 ```
 dd if=/dev/random of=hmac_key.bin bs=1 count=32
