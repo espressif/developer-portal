@@ -182,6 +182,16 @@ It’s important to mention that the both OTA partitions should have the same si
 If not using OTA, you don’t need to set the size of 2MB on the factory partition, if your firmware size is less than 1MB.
 
 Now we need to add the new CVS file, named as __*partitions_example.csv*__  and change the example to find the partition scheme:
+```bash
+# ESP-IDF Partition Table
+# Name, Type, SubType, Offset, Size, Flags
+nvs, data, nvs, 0x9000, 0x6000,
+otadata, data, ota, 0xf000, 0x2000,
+ota_0, app, ota_0, 0x20000, 0x200000,
+ota_1, app, ota_1, 0x220000, 0x200000,
+storage, data, spiffs, 0x420000, 0x200000,
+nvs_ext, data, nvs, 0x620000, 0x10000,
+```
 
 After flashing and running the example, the output will show all detected partitions, according to our partition table layout.
 
