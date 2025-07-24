@@ -68,13 +68,40 @@ To add yourself as an author, [create an article](#create-and-view-an-article) a
 
 If the article already exists and you want to edit the authors, here are the same instructions:
 
-- Create your author entry
-  - Create your page at `content/authors/<author-name>/_index.md`
-  - Add your personal data at `data/authors/<author-name>.json`
-- Add the following to your article's YAML header
+- Create your author entry<br>
+  {{< alert >}}
+  Replace all `author-name` and `Author Name` instances below with your own name, for example `john-doe` and `John Doe` respectively
+  {{< /alert >}}
+  - Create your page at `content/authors/author-name/_index.md`
+    ```markdown
+    ---
+    title: Author Name
+    ---
+
+    <!-- (optional) Add a few words about yourself  -->
+    ```
+  - (optional) Add your image in [WebP format](#use-webp-for-raster-images) at the path
+    ```sh
+    assets/img/authors/author-name.webp
+    ```
+  - Add your personal data at `data/authors/author-name.json`<br>
+    (In  `image`, add your image or use the default one: `img/authors/espressif.png`)
+    ```json
+    {
+        "name": "Author Name",
+        "image" : "img/authors/author-name.webp",
+        "bio": "(optional) Your role at Espressif",
+        "social": [
+            { "linkedin": "https://www.linkedin.com/..." },
+            { "github": "https://github.com/..." }
+        ]
+    }
+    ```
+- Add author name(s) to your article's YAML header
   ```yaml
   authors:
-    - "<author-name>"        # List your name(s)
+    - "author-name" # same as in the file paths above
+    - "another-author"
   ```
 
 In some cases, it might be better to add the default Espressif author:

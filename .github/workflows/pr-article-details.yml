@@ -10,6 +10,7 @@ on:
 env:
   TARGET_REPO_URL: "https://github.com/espressif/developer-portal.git"
   TARGET_BRANCH: "main"
+  HUGO_VERSION: 0.147.5
 
 jobs:
   check-article-details:
@@ -19,6 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          submodules: recursive
 
       - name: Get added folders and files
         id: added-files
@@ -218,3 +220,67 @@ jobs:
 
           echo
           exit "$job_error"
+
+      - name: Validate author presence
+        if: always() && hashFiles('temp/index-files.txt') != ''
+        run: |
+          wget --progress=dot:giga -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
+          sudo dpkg -i ${{ runner.temp }}/hugo.deb
+
+          job_author_error=0
+          HUGO_TEMP_CONFIG="temp/hugo-author-check.toml"
+          INDEX_LIST="temp/index-files.txt"
+
+          mkdir -p temp
+          cp config/_default/hugo.toml "$HUGO_TEMP_CONFIG"
+
+          # Create a temp config that mounts folders with new aricles only
+          echo '[module]' >> "$HUGO_TEMP_CONFIG"
+
+          while IFS= read -r line; do
+            dir="$(dirname "$line")"
+            cat <<EOF >> "$HUGO_TEMP_CONFIG"
+            [[module.mounts]]
+              source = "$dir"
+              target = "$dir"
+
+          EOF
+          done < "$INDEX_LIST"
+
+          # Build folders with new articles only
+          hugo \
+            --environment preview \
+            --config "$HUGO_TEMP_CONFIG" \
+            > /dev/null 2>&1
+
+          # Check if html files were built successfully
+          while IFS= read -r md_file; do
+            # Strip content/ and .md
+            relative_path="${md_file#content/}"
+            html_path="public/${relative_path%.md}.html"
+
+            echo
+            echo "Article: $html_path"
+
+            if [[ ! -f "$html_path" ]]; then
+              echo "❌ File not found: $html_path"
+              job_author_error=1
+            fi
+
+            # Scan html div blocks for presence of author and author-extra
+            # classes; their presence ensures the presence of author entry
+            author_divs=$(grep -oE '<div[^>]+class="[^"]*\bauthor\b[^"]*"' "$html_path" 2>/dev/null || true)
+
+            if [[ -z "$author_divs" ]]; then
+              echo "❌ Author not found"
+              job_author_error=1
+            elif echo "$author_divs" | grep -q '\bauthor-extra\b'; then
+              echo "✅ Non-default author is found"
+            else
+              echo "✅ Default author is found"
+            fi
+
+          done < "$INDEX_LIST"
+
+          echo
+          exit "$job_author_error"
