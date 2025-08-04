@@ -8,11 +8,13 @@ showAuthor: false
 
 ## Internet connectivity
 
-Applications over the internet communicates using different protocols, many of which stack one on top of the other.
+Applications communicate over the internet using different protocols, many of which are build on top of other protocols forming a layered structure.
 
 The __ISO/OSI model__ is a _conceptual_ framework that breaks down how data (like messages, videos, or web pages) travels across networks — including Wi-Fi and Ethernet — into __seven steps (layers)__. Each layer has its own job and uses specific __protocols__ (rules or languages for communication).
 
-It is typically shown in a picture like Fig.1.
+The **ISO/OSI model** is a *conceptual* framework that explains how data such as messages, videos, or web pages travels across networks like Wi-Fi or Ethernet. It organizes this process into seven *layers*, each with a specific role and associated *protocols* --- the rules that govern communication at that layer.
+
+It is typically visualized like on Fig.1.
 <!-- ![Encapsulation in Ethernet](../assets/lec_2_encapsulation.webp) -->
 {{< figure
 default=true
@@ -21,32 +23,32 @@ height=500
 caption="Fig.1 - ISO OSI Stack"
     >}}
 Starting from the bottom, the layers are:
-1. __Physical__ - This is the actual hardware: radio signals, antennas, and frequencies.
+1. __Physical__ - This is the actual hardware: radio signals, antennas, and frequencies.<br>
    🔧 *Example: Wi-Fi, Ethernet*
 
-2. __Data Link__ - Controls the direct connection between devices (like your laptop and router) and handles things like access to the wireless channel.
+2. __Data Link__ - Controls the direct connection between devices (like your laptop and router) and handles things like access to the wireless channel.<br>
    🔧 *Example: MAC (Media Access Control)*
 
-3. __Network__ - Figures out how data gets from one network to another.
+3. __Network__ - Figures out how data gets from one network to another.<br>
    🔧 *Example: IP (Internet Protocol)*
 
-4. __Transport__ - Makes sure data is delivered correctly and in the right order.
+4. __Transport__ - Makes sure data is delivered correctly and in the right order.<br>
    🔧 *Examples: TCP (Transmission Control Protocol), UDP (User Datagram Protocol)*
 
-5. __Session__ - Manages and maintains connections between devices or applications.
+5. __Session__ - Manages and maintains connections between devices or applications.<br>
    🔧 *No single protocol in Wi-Fi, but session handling happens in apps using things like NetBIOS, SMB, or TLS*
 
-6. __Presentation__ - Translates data so it's readable on both ends (like turning an encrypted message back into text).
+6. __Presentation__ - Translates data so it's readable on both ends (like turning an encrypted message back into text).<br>
    🔧 *Examples: SSL/TLS (used for encryption), JPEG, MP3, ASCII*
 
-7. __Application__ - What the user sees: websites, video calls, email, etc.
+7. __Application__ - What the user sees: websites, video calls, email, etc.<br>
    🔧 *Examples: HTTP (web), HTTPS (secure web), SMTP (email), FTP (file transfer), DNS (domain names)*
 
 
 Some of the layers of this conceptual framework can me managed by a single protocol. For instance the Ethernet protocol takes care of both the physical and the data link layers.
 
 Each layer passes its work to the next.
-You can combine these layers and it usually happens. For instance the __MQTT__ protocol sits at the same level of HTTP. Both of them make use of the TCP/IP stack.
+You can combine these layers as it usually happens. For instance the __MQTT__ protocol sits at the same level as HTTP. Both of them make use of the TCP/IP stack.
 
 ### Encapsulation
 
@@ -63,7 +65,7 @@ height=500
 caption="Fig.2 - Encapsulation"
     >}}
 
-Simply put, the whole content of the higher level, is inside the _payload_ or _data_ field of the lower layer protocol.
+Simply put, the whole content of the higher level is inside the _payload_ or _data_ field of the lower layer protocol.
 
 ## Connectivity in Espressif
 
@@ -73,22 +75,22 @@ Now that we have an understanding of the connectivity layers, let's explore whic
 
 Espressif modules support three main physical layers, depending on the SoC:
 
-1. Wi-Fi: Supported by all devices, used to connect to a router and then to the internet. It will be the focus of this workshop.
-2. BLE: In IoT, used mainly to communicate directly with a smartphone and for provisioning (i.e. setting up of credentials).
-3. Thread/Zigbee: IoT protocols for __local__ machine-to-machine (M2M) communication based on mesh topology (many to many connection). To connect to the internet, a Thread-to-Wi-Fi bridge is required.
+1. **Wi-Fi**: Supported by all devices, it is used for connection to a router and then to the internet. It will be the focus of this workshop.
+2. **BLE**: In IoT, it is mainly used for direct communication with a smartphone and for provisioning (i.e. setting up credentials).
+3. **Thread/Zigbee**: IoT protocols that are used for __local__ machine-to-machine (M2M) communication based on mesh topology (many to many connection). To connect to the internet, a Thread-to-Wi-Fi bridge is required.
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 The Matter protocol utilizes all of these connectivity layers: BLE is used for provisioning, Thread enables low-power communication, and Wi-Fi is used for high-bandwidth data transfer.
 {{< /alert >}}
 
-In this workshop, we will focus just on Wi-Fi, so let's spend a few words about its topology.
+In this workshop, we will focus on Wi-Fi only. Let's briefly review its topology.
 
 #### Wi-Fi topology
 
 In a Wi-Fi network, there are two main roles: __Access Point (AP)__ (usually called softAP in Espressif) and __Station (STA)__.
 
 * The __Access Point (AP)__ is the central device (like a Wi-Fi router) that broadcasts the wireless network and connects stations to each other _and_ to external networks like the internet.
-* A __Station (STA)__ is any device that connects to the AP — such as a smartphone, laptop, or smart home device.
+* A __Station (STA)__ is any device that connects to the AP. It can be a smartphone, laptop, or smart home device.
 
 The AP manages the wireless medium, while STAs communicate __through__ the AP, not directly with each other (unless in ad hoc mode).
 This setup forms a __basic infrastructure mode__ network, which is the most common type of Wi-Fi setup.
@@ -98,11 +100,11 @@ This setup forms a __basic infrastructure mode__ network, which is the most comm
 default=true
 src="../assets/lec_2_sta_ap.webp"
 height=500
-caption="TBD -- STA vs AP"
+caption="Fig.3 - STA vs AP"
     >}}
 
 Espressif's modules can function in both modes.
-For a station to connect to an AP, it needs to provide __SSID__ (the name of the router) and the password.
+To connect to an AP, a station need the __SSID__ (router network name) and the password.
 
 In the first part of the assignment, we will put the Espressif device in AP mode and use our smartphone to connect to it.
 
@@ -151,7 +153,7 @@ Modern applications and IoT systems often use __JSON (JavaScript Object Notation
 default=true
 src="../assets/lec_2_http_request.webp"
 height=500
-caption="Fig.3 - STA vs AP"
+caption="Fig.4 - Client-server interaction"
 >}}
 
 ### HTML: Web Pages

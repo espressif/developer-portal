@@ -8,12 +8,14 @@ showAuthor: false
 
 
 
-In this assignment we will start from the last assignment code and start a softAP and an HTTP server.
+In this assignment, we will build up on the code from the last assignment. We will start a soft-AP and an HTTP server.
 
 
 ## Starting a soft-AP
 
-To keep things as simple as possible, this tutorial will hardcode the access point (AP) credentials. As a result, we won't use Non-Volatile Storage (NVS), which is typically used in Wi-Fi applications to store credentials and calibration data. NVS is enabled by default, to avoid warnings and error, we have to disable it through `menuconfig`.
+To keep things as simple as possible, this tutorial will hard-code the access point (AP) credentials. As a result, we won't use Non-Volatile Storage (NVS), which is typically used in Wi-Fi applications to store credentials and calibration data.
+
+NVS is enabled by default. To avoid warnings and errors, we have to disable it through `menuconfig`.
 
 ### Disable NVS
 
@@ -44,14 +46,14 @@ The soft-AP parameters we need are
 
 ### Initialize IP stack and Event Loop
 
-Espressif's Wi-Fi component relies on an [event loop](https://en.wikipedia.org/wiki/Event_loop) to handle asynchronous events. To start the soft-AP we need to
+Espressif's Wi-Fi component relies on an [event loop](https://en.wikipedia.org/wiki/Event_loop) to handle asynchronous events. To start the soft-AP, we need to:
 
 1. Include `esp_wifi.h` and `string.h`
 1. Initialize the IP stack (via `esp_netif_init` and `esp_netif_create_default_wifi_ap`)
-1. Start the [default event loop](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_event.html#default-event-loop).
-2. Create and register an event handler function to process Wi-Fi events.
+1. Start the [default event loop](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_event.html#default-event-loop)
+1. Create and register an event handler function to process Wi-Fi events.
 
-To keep things clean, we'll encapsulate this code in the function `wifi_init_softap`.
+To keep things clean, we'll encapsulate this code in the function `wifi_init_softap`
 
 ```c
 #include "esp_wifi.h"
@@ -119,10 +121,10 @@ Take your smartphone, open the Wi-Fi list, and select the SSID `esp_tutorial`.
     default=true
     src="../assets/ass_2_1_ap_list.webp"
     height=500
-    caption="Listing of APs"
+    caption="List of APs"
     >}}
 
-You should now see on the terminal `Event nr: 14!` which corresponds to `WIFI_EVENT_AP_STACONNECTED` (you can check the enum value on [GitHub](https://github.com/espressif/esp-idf/blob/c5865270b50529cd32353f588d8a917d89f3dba4/components/esp_wifi/include/esp_wifi_types_generic.h#L964) - remember that values start from 0!).
+In the terminal, you should now see `Event nr: 14!` which corresponds to `WIFI_EVENT_AP_STACONNECTED` (you can check the enum value on [GitHub](https://github.com/espressif/esp-idf/blob/c5865270b50529cd32353f588d8a917d89f3dba4/components/esp_wifi/include/esp_wifi_types_generic.h#L964) - remember that enumeration of values start from 0!)
 
 This indicates that a station (i.e. your smartphone) has connected to the soft-AP (i.e. the Espressif module).
 
@@ -448,7 +450,7 @@ Then you can create an HTTP server by following the second part of the article
 
 ## Conclusion
 
-Now you can create put the Espressif device in Soft-AP or STA mode and create an HTTP server which can return both HTML based content of a json based response for a REST API.
+Now you can put the Espressif device into Soft-AP or STA mode and create an HTTP server which can return both HTML based content of a JSON based response for a REST API.
 
 ### Next step
 

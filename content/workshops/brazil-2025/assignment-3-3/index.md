@@ -6,11 +6,10 @@ series_order: 11
 showAuthor: false
 ---
 
-## Putting all together
+## Putting it all together
 
 
-In this assignment, you will put all together by adding these two routes to your HTTP server
-
+In this assignment, you will put combine all you have done together by adding the two routes below to your HTTP server.
 
 For this assignment, you have to
 

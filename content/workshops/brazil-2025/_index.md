@@ -10,12 +10,11 @@ Welcome to Espressif's ESP-IDF Basics Workshop!
 
 In this hands-on workshop, you'll develop a solid understanding of the ESP-IDF framework, along with how to effectively use Visual Studio Code (VSCode) and Espressif’s official VSCode Extension. You'll also gain practical experience working with ESP-IDF components.
 
-We’ll begin in the first part by verifying that your development environment is correctly set up, using the classic `hello world` example as our starting point. From there, we'll walk through the structure of an ESP-IDF project, explore the build system, and set up a basic Access point (__SoftAP__).
+In the first part, we’ll begin by verifying that your development environment is correctly set up, using the classic `hello world` example as our starting point. From there, we'll walk through the structure of an ESP-IDF project, explore the build system, and set up a basic access point (__SoftAP__).
 
 As we move to the second part, we’ll take a closer look at the network stack protocol and guide you through building a simple __HTTP server__.
 
-The third part focuses on working with two commonly used peripherals, namely __GPIO__ and __I2C__. We will explore the component system and the component registry, for using common libraries without worrying about managing dependencies or build system settings.
-Finally, we’ll bring everything together to build a basic sensor gateway, combining networking and peripheral control into one cohesive project.
+The third part focuses on working with two commonly used peripherals, namely __GPIO__ and __I2C__. We will explore the component system and the component registry, for using common libraries without worrying about managing dependencies or build system settings. After that, we’ll bring everything together to build a basic sensor gateway, combining networking and peripheral control into one cohesive project.
 
 By the end of this session, you’ll have the foundational skills and confidence to start developing your own Espressif-based applications using ESP-IDF.
 
@@ -27,7 +26,7 @@ Estimated time: 3 hours.
 
 ## Agenda
 
-The workshop is structured into three parts, each lasting approximately one hour. Here's the outline:
+The workshop is divided into three parts, each lasting approximately one hour. Here's the outline:
 
 - Part 1: __Welcome and getting started__
   - __Lecture 1__ -- ESP-IDF & VSCode Extension introduction
@@ -44,10 +43,10 @@ The workshop is structured into three parts, each lasting approximately one hour
   - __Assignment 2.3__ -- (Optional) Add to the HTTP server the route
        - `POST /led/flash` &rarr; accepts JSON `{"periods": [int], "duty_cycles": [int]}` and for each element, calculates the on-time and off-time and drives the LED accordingly.
 
-- Part 3: __Peripherals and putting all together__
-   - __Lecture 3__ -- GPIO, I2C and use of component registry. Reading of sensor.
-   - __Assignment 3.1__ -- Create a new component to toggle the LED
-   - __Assignment 3.2__ -- Refactor previous code to use the component
+- Part 3: __Peripherals and putting it all together__
+   - __Lecture 3__ -- GPIO, I2C and use of component registry. Reading the sensor.
+   - __Assignment 3.1__ -- Create a new component to toggle the LED.
+   - __Assignment 3.2__ -- Refactor previous code to use the component.
    - __Assignment 3.3__ -- Add component for reading the environment sensor onboard.
    - __Assignment 3.4__ -- (Optional) Add route:
         - `GET /environment/` &rarr;  returns a sensor reading. Choose the best json format for this task.
@@ -109,22 +108,22 @@ We strongly recommend installing VSCode and the ESP-IDF plugin __before__ the wo
 
 ## Workshop
 
-Without further ado, let's start! You can find a link to each workshop part below. Your next step is __[Lecture 1](/workshops/brazil-2025/lecture-1/)__.
+Without further ado, let's start! You can find a link to each workshop part below. Your next step is __[Lecture 1](lecture-1/)__.
 
 * __Part 1__
-   * [Lecture 1](/workshops/brazil-2025/lecture-1/)
-   * [Assignment 1.1](/workshops/brazil-2025/assignment-1-1/)
-   * [Assignment 1.2](/workshops/brazil-2025/assignment-1-2/)
+   * [Lecture 1](lecture-1/)
+   * [Assignment 1.1](assignment-1-1/)
+   * [Assignment 1.2](assignment-1-2/)
 * __Part 2__
-   * [Lecture 2](/workshops/brazil-2025/lecture-2/)
-   * [Assignment 2.1](/workshops/brazil-2025/assignment-2-1/)
-   * [Assignment 2.2](/workshops/brazil-2025/assignment-2-2/)
-   * [Assignment 2.3](/workshops/brazil-2025/assignment-2-3/) (Optional)
+   * [Lecture 2](lecture-2/)
+   * [Assignment 2.1](assignment-2-1/)
+   * [Assignment 2.2](assignment-2-2/)
+   * [Assignment 2.3](assignment-2-3/) (Optional)
 * __Part 3__
-   * [Lecture 3](/workshops/brazil-2025/lecture-3/)
-   * [Assignment 3.1](/workshops/brazil-2025/assignment-3-1/)
-   * [Assignment 3.2](/workshops/brazil-2025/assignment-3-2/)
-   * [Assignment 3.3](/workshops/brazil-2025/assignment-3-3/)
+   * [Lecture 3](lecture-3/)
+   * [Assignment 3.1](assignment-3-1/)
+   * [Assignment 3.2](assignment-3-2/)
+   * [Assignment 3.3](assignment-3-3/)
 
 
 
@@ -132,8 +131,8 @@ Without further ado, let's start! You can find a link to each workshop part belo
 ## Conclusion
 
 
-You just arrived at the end of this workshop, congratulation! We hope it was a fruitful experience and the start of a longer journey. Thank you for participating in Espressif's 2025 Brazilian Summit workshop!
+Congratulations! You just arrived at the end of this workshop. We hope it was a fruitful experience and the start of a longer journey. Thank you for participating in Espressif's 2025 Brazilian Summit workshop!
 
-You are now able to create, build and flash new projects, use external libraries and component, create your own components, and control everything from an HTTP interface. You have now the basic foundation for an IoT application.
+You are now able to create, build and flash new projects, use external libraries and components, create your own components, and control everything via an HTTP interface. You have now the basic foundation for an IoT application.
 
-We hope this workshop has provided you with the foundational knowledge and confidence to start building your own Espressif-based applications. Keep experimenting, keep learning—and don't forget to explore the rich ecosystem of tools and resources Espressif offers.
+We hope this workshop has provided you with the foundational knowledge and confidence to start building your own Espressif-based applications. Keep experimenting, keep learning—and don't forget to explore the rich ecosystem of tools and resources that Espressif offers.

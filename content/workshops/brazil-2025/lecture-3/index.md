@@ -8,12 +8,12 @@ showAuthor: false
 
 ## Introduction
 
-As we saw earlier, the ESP-IDF contains several libraries, from the FreeRTOS, which is the operating system which manages all the tasks to the peripheral drivers and protocol libraries.
-Including the libraries for every possible protocol, algorithm, or driver inside the ESP-IDF is not possible: It's size would increase dramatically.
-If you need a specific protocol, you can probably find it's C implementation somewhere in Github. The problem in this case, is that you need to port it to the ESP-IDF, taking care of finding all the dependencies and to inform the build system about which files should be compiled and linked.
+As we saw earlier, ESP-IDF contains several libraries, from FreeRTOS --- the operating system which manages all tasks --- to the peripheral drivers and protocol libraries.
+Including the libraries for every possible protocol, algorithm, or driver inside ESP-IDF is not possible: It's size would increase dramatically.
+If you need a specific protocol, you can probably find it's C implementation somewhere on Github. In this case, the challenge will be to port it to ESP-IDF, taking care of finding all dependencies and informing the build system about which files should be compiled and linked.
 
 To solve these problem, Espressif developed a component system similar to a package system in GNU/Linux distributions. The components take care of the dependencies and the build system and you can simply include the header file and you're ready to go!
-Like in the case of Linux packages, there is also a component manager and a component registry, where you can find all the official packages by Espressif. The `idf.py` tool will take care of downloading the component and set the stage for its use.
+Like in the case of Linux packages, there is also a component manager and a component registry, where you can find all the official packages by Espressif. Once, components are included, the `idf.py` tool will download the component and set the stage for its use.
 
 
 For additional information, we recommend that you watch the talk [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc).
@@ -22,14 +22,19 @@ For additional information, we recommend that you watch the talk [DevCon23 - Dev
 
 We will explore the differences in the use of the integrated libraries and the ones provided by the component registry. We will also see how to create a component, in order to make reusable code.
 
-In the following we will see how to:
+We will explore how to:
+
 1. Include and use the `gpio` and the `i2c` libraries (included)
 2. See how and use the `button` component (registry)
 3. Create a new component
 
 During the assignments, the goal will be to control the LED and the I2C sensor (SHTC3) on the board (see Fig. 1).
 
-![Fig.1 - GPIO connected to the LED](../assets/lec_3_led_gpio.webp)
+{{< figure
+default=true
+src="../assets/lec_3_led_gpio.webp"
+caption="Fig.1 - GPIO connected to the LED"
+    >}}
 
 ## Included Libraries
 
@@ -49,7 +54,7 @@ On our board, we have an LED connected to the GPIO10 (see Fig. 1) and we will us
 
 #### Including the library
 
-To include the `gpio` library, we need first to include the header file and tell the build system where to find it.
+To include the `gpio` library, we first need to include the header file and tell the build system where to find it.
 
 We need first to include
 ```c
@@ -63,15 +68,17 @@ REQUIRES esp_driver_gpio
 ```
 
 Note that the header file and the required path are different: When including a library, make sure you check the [programming guide](https://docs.espressif.com/projects/esp-idf/en/v5.4.1/esp32c3/index.html) first.
-You need to
-* Choose on the upper left corner the right core (ESP32-C3)
-* Look for the page of the peripheral (GPIO)
-* Find the section [API Reference](https://docs.espressif.com/projects/esp-idf/en/v5.4.1/esp32c3/api-reference/peripherals/gpio.html#api-reference-normal-gpio).
+You need to:
+
+* In the upper left corner, choose the core (ESP32-C3)
+* Find the page for the peripheral (GPIO)
+* Find the section [API Reference](https://docs.espressif.com/projects/esp-idf/en/v5.4.1/esp32c3/api-reference/peripherals/gpio.html#api-reference-normal-gpio)
 
 #### Configuration
 
-Peripherals have many settings (input/output, frequency, etc), so before using them, you need to do a configuration.
-In the case of the GPIO, a basic configuration is
+Peripherals have many settings (input/output, frequency, etc). You need to confiure them before using the peripherals.
+
+In case of GPIO, a basic configuration is
 ```c
     //zero-initialize the config structure.
     gpio_config_t io_conf = {};
@@ -89,13 +96,14 @@ In the case of the GPIO, a basic configuration is
     gpio_config(&io_conf);
 ```
 
-In this workshop, we will use the GPIO as an output and so we won't talk about:
-* Interrupts (used to trigger a function when the input changes)
-* Pull-up and Pull-down (used to have a default input value)
+In this workshop, we will use GPIO for output. Due to this, we won't talk about:
+
+* Interrupts (trigger a function when the input changes)
+* Pull-up and pull-down (set a default input value)
 
 
 The only field that needs some explanation is the `pin_bit_mask`.
-The configuration refers to the whole GPIO peripheral, so in order to apply the configuration just to certain pins (via `gpio_config`) you need to specify which ones via a [bit mask](https://en.wikipedia.org/wiki/Mask_(computing)).
+The configuration refers to the whole GPIO peripheral. In order to apply the configuration only to certain pins (via `gpio_config`), we need to specify the pins via a [bit mask](https://en.wikipedia.org/wiki/Mask_(computing)).
 The `pin_bit_mask` is set equal to GPIO_OUTPUT_PIN_SEL which is
 
 ```c
@@ -113,8 +121,8 @@ For example:
 
 #### Usage
 
-Once configured the peripheral, we can use the function [`gpio_set_level`](https://docs.espressif.com/projects/esp-idf/en/v5.4.1/esp32c3/api-reference/peripherals/gpio.html#_CPPv414gpio_set_level10gpio_num_t8uint32_t) to set the GPIO output to either `0` or `1`.
-The header file
+Once the peripheral is configured, we can use the function [`gpio_set_level`](https://docs.espressif.com/projects/esp-idf/en/v5.4.1/esp32c3/api-reference/peripherals/gpio.html#_CPPv414gpio_set_level10gpio_num_t8uint32_t) to set the GPIO output to either `0` or `1`.
+The header file:
 ```c
 gpio_set_level(GPIO_OUTPUT_LED, 1); // turns led on
 gpio_set_level(GPIO_OUTPUT_LED, 0); // turns led off
@@ -123,7 +131,7 @@ gpio_set_level(GPIO_OUTPUT_LED, 0); // turns led off
 
 ### I2C
 
-I2C (Inter-Integrated Circuit) is a communication protocol that uses only two wires—SDA (data line) and SCL (clock line)—to transmit data between devices, usually a microcontroller and an external sensor or actuator. It allows multiple peripherals to communicate with a microcontroller using unique addresses, enabling efficient and scalable device interconnection.
+I2C (Inter-Integrated Circuit) is a communication protocol that uses only two wires—SDA (data line) and SCL (clock line)—to transmit data between devices. Usually, it is used to connect a microcontroller to an external sensor or actuator. It allows multiple peripherals to communicate with a microcontroller using unique addresses, enabling efficient and scalable device interconnection.
 
 #### Including the library
 
@@ -165,7 +173,7 @@ The values for our board are (see Fig. 1)
 #define SHTC3_SENSOR_ADDR 0x70
 ```
 
-The other macros are internally defined.
+The other macros are defined internally.
 
 
 ## Component registry
@@ -179,7 +187,11 @@ For our last external library (button), we will use the component manager and re
 * Copy the instruction on the left (see Fig.2) - `idf.py add-dependency "espressif/button^4.1.3"`
 * In VSCode: `> ESP-IDF: Open ESP-IDF Terminal` and paste the instruction
 
-![Fig.2 - espressif/button component](../assets/lec_3_registry.webp)
+{{< figure
+default=true
+src="../assets/lec_3_registry.webp"
+caption="Fig.2 - espressif/button component"
+    >}}
 
 You should get a message
 ```bash
@@ -196,19 +208,19 @@ dependencies:
   espressif/button: ^4.1.3
 ```
 
-You can add dependencies directly in this file, but it's suggested to use `idf.py add-dependency` utility.
+You can add dependencies directly in this file, but it's recommended to use `idf.py add-dependency` utility.
 
-To use the component, you have to include the appropriate header file and call the functions given in the component documentation and folder
+To use the component, you have to include the appropriate header file and call the functions given in the component documentation and folder.
 
 <!-- TODO: Where are these files mentioned? I couldn't find an easy reference on the component registry! -->
 
 
 ### Create a component
 
-For detailed instructions on how to create a component using the CLI, you can refer to the ["how to create and IDF component"](https://developer.espressif.com/blog/2024/12/how-to-create-an-esp-idf-component/) on the developer portal.
+For detailed instructions on how to create a component using the CLI, you can refer to the article [How to create an ESP-IDF component](https://developer.espressif.com/blog/2024/12/how-to-create-an-esp-idf-component/) on the Espressif Developer Portal.
 
 
-On VSCode you can follow a similar flow.
+In VSCode, you can follow a similar flow:
 
 1. Create a new project
 2. Create a new component by calling `> ESP-IDF: Create New ESP-IDF Component`
