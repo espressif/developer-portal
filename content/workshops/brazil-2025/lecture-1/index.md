@@ -19,9 +19,9 @@ ESP-IDF includes more than 400 examples, covering a wide range of use cases and 
 The ESP-IDF platform architecture is mainly divided into 3 layers:
 
 - **ESP-IDF platform**
-  - Contains the core components required and all the operating system. Includes the FreeRTOS, drivers, build system, protocols, etc.
+  - Contains the core components required and the operating system. Includes the FreeRTOS, drivers, build system, protocols, etc.
 - **Middleware**
-  - Adds new featured to the ESP-IDF, for example the audio framework and HMI. In this workshop, we won't use them.
+  - Adds new features to ESP-IDF, for example the audio framework and HMI. In this workshop, we won't use them.
 - **AIoT Application**
   - Your application.
 
@@ -34,15 +34,15 @@ height=500
 caption="Fig.1 - ESP-IDF High level Overview"
     >}}
 
-All the necessary blocks for building your application will be included on the ESP-IDF platform.
-The ESP-IDF is constant development and rapidly growing and updating, adding new features and supporting more Espressif's cores.
+All the necessary building blocks for your application will be included in the ESP-IDF platform.
+ESP-IDF is constantly developing, growing, and improving; acquiring new features and supporting more Espressif cores.
 Visit the ESP-IDF project on GitHub to get the updated list of supported versions and the maintenance period.
 
 {{< github repo="espressif/esp-idf" >}}
 
 ### Main ESP-IDF blocks
 
-As mentioned, the ESP-IDF rests on FreeRTOS and contains several libraries. The main libraries you will include in your projects are
+As mentioned, ESP-IDF is built on FreeRTOS and contains several libraries. The main libraries you will include in your projects are:
 
 1. FreeRTOS (`freertos`): lightweight, real-time operating system kernel designed for embedded devices, providing multitasking capabilities through preemptive scheduling, task management, and inter-task communication.
 2. Drivers (`esp_driver_xxx`): libraries for driving peripherals.
@@ -62,14 +62,14 @@ If you want to create and publish your own component, we recommend that you watc
 
 {{< youtube D86gQ4knUnc >}}
 
-You can also find components using our [ESP Registry](https://components.espressif.com) platform.
+You can also find components by browsing our [ESP Registry](https://components.espressif.com) platform.
 
-In the [assignment 3.2](/workshops/brazil-2025/assignment-3-2/), you will be asked to create a component and use it in your own project.
+In [assignment 3.2](/workshops/brazil-2025/assignment-3-2/), you will have a chance to create your own component and use it in your project.
 
 
 ### Frameworks
 
-ESP-IDF serve also as the basis for several other frameworks, including:
+Also, ESP-IDF serves as the basis for several other frameworks, including:
 
 - **Arduino for Espressif**
 - **ESP-ADF** (Audio Development Framework): Designed for audio applications.
@@ -88,12 +88,14 @@ You can develop applications for Espressif devices using any plain text editor, 
 
 However, for this workshop, we will use an IDE (Integrated Development Environment) to streamline both development and setup. Espressif supports several IDEs, but we will focus on Visual Studio Code (VSCode). Espressif provides an official VSCode extension called [`ESP-IDF`](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension), which enables you to develop, compile, flash, and debug your projects directly within the editor.
 
-To give you an idea, the ESP-IDF VSCode Extension manages the toolchain and gives you some useful commands which we will use later. A few self-explanatory examples are
+To give you an idea, the ESP-IDF VSCode Extension manages the toolchain and gives you some useful commands which we will use later, such as:
+
 * `> ESP-IDF: Build Your Project`
 * `> ESP-IDF: Set Espressif Device Target`
 * `> ESP-IDF: Full clean project`
 
-Where `>` indicates VSCode Command Palette, opened by pressing `F1` or `CTRL+SHIFT+P` (`CMD+SHIFT+P` if you’re on mac-os).
+
+The character `>` indicates VSCode Command Palette, which can be opened by pressing `F1` or `Ctrl`+`Shift`+`P` (or `Cmd`+`Shift`+`P`).
 
 All these commands are wrappers around the main `ESP-IDF` front-end tool which is [`idf.py`](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/tools/idf-py.html).
 
@@ -110,14 +112,14 @@ caption="Fig.2 - ESP32-C3 SoC, module, and workshop board"
 
 ### ESP32-C3 SoC
 
-ESP32-C3 is a highly-integrated SoC equipped with a 32-bit RISC-V processor, supporting 2.4 GHz Wi-Fi and Bluetooth LE connectivity. The functional block diagram of ESP32-C3 is shown in Figure 5.4.
+ESP32-C3 is a highly-integrated SoC equipped with a 32-bit RISC-V processor, supporting 2.4 GHz Wi-Fi and Bluetooth LE connectivity. The functional block diagram for ESP32-C3 is shown in Figure 3.
 
 <!-- ![ESP32-C3 Block Diagram](../assets/esp32-c3-overview.webp) -->
 {{< figure
 default=true
 src="../assets/esp32-c3-overview.webp"
 height=500
-caption="Fig.2 - ESP32-C3 Block Diagram"
+caption="Fig.3 - ESP32-C3 Block Diagram"
     >}}
 
 ESP32-C3 has the following features:
@@ -160,9 +162,9 @@ The ESP32-C3 series of chips has several variants, including the version with in
 
 ### ESP32-C3-Mini-1-N4 Module
 
-In addition to SoCs, Espressif offers modules, which integrate a SoC, additional flash and (optionally) PSRAM memory and a PCB antenna or an antenna connector. The main advantage of modules is their ease of use but also the simplified certification process.
+In addition to SoCs, Espressif offers modules, which integrate an SoC, additional flash, (optionally) PSRAM memory, and a PCB antenna or an antenna connector. The main advantage of modules is not only their ease of use but also a simplified certification process.
 
-The module you will use is the ESP32-C3-MINI-1-N4, which includes 4MB of flash, as its name suggests. If you're curious about how to interpret the module part number, you can check the [Espressif part numbers explained: A complete guide - Modules](https://developer.espressif.com/blog/2025/03/espressif-part-numbers-explained/) article on the developer portal.
+The module we will use is the ESP32-C3-MINI-1-N4. As the name suggests, it includes 4MB of flash. If you're curious about how to interpret the module part number, you can check the article [Espressif part numbers explained: A complete guide - Modules](https://developer.espressif.com/blog/2025/03/espressif-part-numbers-explained/) on the Espressif Developer Portal .
 
 ### ESP32-C3 Workshop board
 
@@ -206,7 +208,7 @@ __Power supply__
 
 * USB type-C (*no PD compatibility*).
 * Li-Ion battery charger - MCP73831T-2ACI/OT, it charges up to 4.2V.
-  * Recommendation: MCP73831T-2ACI/OT does not provide battery protection for over-current or over-discharge. For the battery (Li-Ion or Li-Po), it's recommended the ones with embedded protection
+  * Recommendation: MCP73831T-2ACI/OT does not provide battery protection for over-current or over-discharge. For the battery (Li-Ion or Li-Po), it's recommended to use the ones with embedded protection.
   * Limitation: reading the battery voltage is not supported.
 
 __Pin Layout__
@@ -254,12 +256,12 @@ _Right Side_
   * [2] Connected to USB 5V*
 
 #### Schematics
-You can find the board schematic on the [Kicad Libraries GitHub Repository](https://github.com/espressif/kicad-libraries).
+You can find the board schematic on the [KiCad Libraries GitHub Repository](https://github.com/espressif/kicad-libraries).
 
 
 ## Conclusion
 
-Now that you have a high-level overview of both the hardware and firmware we'll be using, you're ready to begin the first assignment.
+Now that we have a high-level overview of both hardware and firmware, we're ready to start the first assignment.
 
 ### Next Step
 > Next Assignment &rarr; __[assignment 1.1](/workshops/brazil-2025/assignment-1-1)__

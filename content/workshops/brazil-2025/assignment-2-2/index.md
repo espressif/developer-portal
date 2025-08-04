@@ -6,7 +6,7 @@ series_order: 6
 showAuthor: false
 ---
 
-The second assignment is to add the following routes to the http server created in the previous assignment:
+The second assignment is to add the following routes to the HTTP server that we created in the previous assignment:
 
 
 - `GET /led/on` &rarr; turns the LED on and returns JSON {"led": "on"}
@@ -222,7 +222,7 @@ void app_main(void)
 <details>
 ### Conclusion
 
-Now have a clear picture on how to connect REST API requests to physical device control. You will work on a more complex application in the last assignment 3.3.
+Now we have a clear picture of how to connect REST API requests to physical device control. You will work on a more complex application in the last assignment 3.3.
 
 ### Next step
 

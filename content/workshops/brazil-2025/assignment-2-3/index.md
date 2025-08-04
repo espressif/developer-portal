@@ -6,20 +6,21 @@ series_order: 7
 showAuthor: false
 ---
 
-This assignment is optional and it should be done if there's some time left before the pause.
+This assignment is optional and it should be done if there's some time left before the break.
 
-Add a last route to the http server of the previous assignments
+Add another route to the HTTP server from the previous assignments:
+
 - `POST /led/flash` &rarr; accepts JSON `{"periods": [int], "duty_cycles": [int]}` and for each element, calculates the on-time and off-time and drives the LED accordingly.
 
 You need to first check that both periods and duty_cycles have the same length and contain positive number only. `duty_cycles` should contain numbers between 0 and 100.
 
-Then, you can traverse the two arrays and calculate for each element at index `i` the led `on_time` and `off_time` as follows:
+Then, you can traverse the two arrays and calculate for each element at index `i` the LED `on_time` and `off_time` as follows:
 ```c
 on_time[i] = duty_cycle[i]/100 * periods[i]
 off_time[i] = periods[i]-on_time[i]
 ````
 
-Now you can drive the LED according to the sequence
+Now you can drive the LED according to the sequence:
 ```c
 ON: on_time[1]
 OFF: off_time[1]

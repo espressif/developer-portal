@@ -22,9 +22,13 @@ The first task is to create a `led-toggle` component.
 2. Create a new component: `> ESP-IDF: Create New ESP-IDF Component`
 3. Type `led_toggle` in the text field appearing on top (see Fig.1)
 
-![Fig.1 - Create new component](../assets/ass3_1_new_component.webp)
+{{< figure
+default=true
+src="../assets/ass3_1_new_component.webp"
+caption="Fig.1 - Create new component"
+    >}}
 
-The project will now contain a components folder and all the required files
+The project will now contain the folder `components` and all the required files:
 ```bash
 .
 └── hello_led/
@@ -40,7 +44,8 @@ The project will now contain a components folder and all the required files
 
 ### Create the toggle function
 
-Inside the `led_toggle.h` add
+Inside the `led_toggle.h`, add:
+
 ```c
 #include "driver/gpio.h"
 
@@ -57,11 +62,11 @@ esp_err_t toggle_led(led_gpio_t * led_gpio);
 ```
 
 {{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
-`esp_err` is an enum (hence an int) used to return error codes. You can check its values [on the documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/error-codes.html).
-This enum is used also with logging and macros like `ESP_ERR_CHECK`, which you will find in almost all of the esp-idf example.
+`esp_err` is an enum (hence an int) used to return error codes. You can check its values [in the documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/error-codes.html).
+This enum is used also with logging and macros like `ESP_ERR_CHECK`, which you will find almost all esp-idf examples.
 {{< /alert >}}
 
-In the `led_toggle.c` we have to implement the toggling logic:
+In the `led_toggle.c`, we have to implement the toggling logic:
 
 
 ```c
@@ -86,10 +91,10 @@ esp_err_t toggle_led(led_gpio_t * led_gpio){
 }
 ```
 
-As we've seen in the previous lecture, you need first to configure the peripheral. This is done with the function `config_led`, where you can see the configuration structure we discussed in the lecture.
-To test you choose the right GPIO and that the LED is working properly, you can also write a `drive_led` which simply drives up or down the GPIO.
+As we've seen in the previous lecture, you first need to configure the peripheral. This is done with the function `config_led`, where you can see the configuration structure we discussed in the lecture.
+To test that you chose the correct GPIO and that the LED is working properly, you can also write a `drive_led` which simply drives the GPIO up or down.
 
-Now you have to
+Now you have to:
 
 1. Include the appropriate header file in your main file.
 2. Call the `drive_led` function and check the led is turning on and off
@@ -97,7 +102,8 @@ Now you have to
 
 ## Refactor the `hello_led` code
 
-Now you are ready to
+Now you are ready to:
+
 1. Implement the `toggle_led` function
 2. Refactor the `hello_led` code to use the newly created component.
 
