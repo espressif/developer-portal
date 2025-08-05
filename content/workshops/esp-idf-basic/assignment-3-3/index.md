@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Assign. 3.3"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 11
 showAuthor: false
@@ -36,4 +36,4 @@ You have create a basic IoT application, putting together sensor reading and HTT
 
 ### Next step
 
-> Next step &rarr; [Conclusion](/workshops/brazil-2025/#conclusion)
+> Next step &rarr; [Conclusion](#conclusion)

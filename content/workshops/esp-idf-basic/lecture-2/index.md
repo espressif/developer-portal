@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Lecture 2"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 4
 showAuthor: false
@@ -226,4 +226,4 @@ Now you have all the technical background to start the assignments.
 
 ### Next step
 
-> Next assignment &rarr; __[Assignment 2.1](/workshops/brazil-2025/assignment-2-1/)__
+> Next assignment &rarr; __[Assignment 2.1](assignment-2-1/)__

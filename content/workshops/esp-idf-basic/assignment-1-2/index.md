@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Assign. 1.2"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 3
 showAuthor: false
@@ -38,4 +38,4 @@ In the next lesson, we will focus on what usually is the main topic for an Espre
 
 ### Next step
 
-> Next lecture &rarr; __[Lecture 2](/workshops/brazil-2025/lecture-2/)__
+> Next lecture &rarr; __[Lecture 2](lecture-2/)__

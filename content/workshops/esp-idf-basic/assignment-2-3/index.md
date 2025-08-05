@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Assign. 2.3 (Optional)"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 7
 showAuthor: false
@@ -34,4 +34,4 @@ OFF: off_time[2]
 If you managed to reach this point, it means you have good understanding of a basic REST API implementation. You can now move to the third lecture, detailing the management of external libraries and the use of the components found on the component registry.
 
 ### Next step
-> Next lecture &rarr; [Lecture 3](/workshops/brazil-2025/lecture-3/)
+> Next lecture &rarr; [Lecture 3](lecture-3/)
