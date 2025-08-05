@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Lecture 3"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 8
 showAuthor: false
@@ -254,4 +254,4 @@ In this short lecture, we explored two main ways to include external libraries: 
 
 ### Next step
 
-> Next assignment &rarr; [Assignment 3.1](/workshops/brazil-2025/assignment-3-1/)
+> Next assignment &rarr; [Assignment 3.1](assignment-3-1/)

@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Assign. 1.1"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 2
 showAuthor: false
@@ -129,4 +129,4 @@ Identify the output string and change it to `Hello LED`.
 You can now create a new project and flash it on the board. In the next assignment, we'll consolidate this process.
 
 ### Next step
-> Next assignment &rarr; [Assignment 1.2](/workshops/brazil-2025/assignment-1-2/)
+> Next assignment &rarr; [Assignment 1.2](assignment-1-2/)

@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Assign. 3.2"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 10
 showAuthor: false
@@ -23,4 +23,4 @@ Now that you can read the on board sensor, you're ready to move to the last assi
 
 ### Next step
 
-> Next assignment &rarr; [Assignment 3.3](/workshops/brazil-2025/assignment-3-3/)
+> Next assignment &rarr; [Assignment 3.3](assignment-3-3/)

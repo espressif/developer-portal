@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Assign. 2.2"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 6
 showAuthor: false
@@ -228,8 +228,8 @@ Now we have a clear picture of how to connect REST API requests to physical devi
 
 If you still have time, you can try this optional assignment.
 
-> Next (optional) assignment &rarr; [Assignment 2.3](/workshops/brazil-2025/assignment-2-3/)
+> Next (optional) assignment &rarr; [Assignment 2.3](assignment-2-3/)
 
 Otherwise, you can move to the third lecture.
 
-> Next lecture &rarr; [Lecture 3](/workshops/brazil-2025/lecture-3/)
+> Next lecture &rarr; [Lecture 3](lecture-3/)

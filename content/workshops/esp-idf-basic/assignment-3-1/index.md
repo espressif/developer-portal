@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Assign. 3.1"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 9
 showAuthor: false
@@ -112,4 +112,4 @@ Now you are ready to:
 You can now create your own components, which makes your code easier to maintain and to share. In the next assignment, you will face a typical development problem and use the skills you just learned.
 
 ### Next step
-> Next assignment &rarr; [Assignment 3.2](/workshops/brazil-2025/assignment-3-2/)
+> Next assignment &rarr; [Assignment 3.2](assignment-3-2/)

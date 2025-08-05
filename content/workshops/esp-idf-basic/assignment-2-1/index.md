@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Basics - Assign. 2.1"
-date: "2025-09-01"
+date: "2025-08-05"
 series: ["WS00A"]
 series_order: 5
 showAuthor: false
@@ -454,4 +454,4 @@ Now you can put the Espressif device into Soft-AP or STA mode and create an HTTP
 
 ### Next step
 
-> Next assignment: [Assignment 2.2](/workshops/brazil-2025/assignment-2-2/)
+> Next assignment: [Assignment 2.2](assignment-2-2/)
