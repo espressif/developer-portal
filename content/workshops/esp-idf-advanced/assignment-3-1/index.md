@@ -4,17 +4,18 @@ date: "2025-08-05"
 series: ["WS00B"]
 series_order: 10
 showAuthor: false
-summary: "Reduce binary size by working on configuration"
+summary: "Reduce binary size by working on configuration."
 ---
 
 In this assignment, you will analyze the binary image size and optimize the memory footprint of your application.
 
 ## Assignment steps
 
-You will:
+We will:
+
 1. Build the original project to spot any oversized or suspicious sections (e.g., .text, .data, .rodata) that may hide unoptimized code.
-2. Change configuration to reduce it
-3. Rebuild the project to check the improvement
+2. Change configuration to reduce it.
+3. Rebuild the project to check the improvement.
 
 ### Build the original project
 
@@ -83,6 +84,6 @@ We gained another 6.7kb.
 
 ## Conclusion
 
-In this assignment we saw how to check the size of our binary and how to use the menuconfig to removed unused option to improve the memory footprint of our application.
+In this assignment, we saw how to check the size of our binary and how to use the menuconfig to removed unused options to improve the memory footprint of our application.
 
-> Next step: [assignment_3_2](../assignment-3-2/)
+> Next step: [assignment 3.2](../assignment-3-2/)

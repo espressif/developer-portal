@@ -13,11 +13,12 @@ For this assignment, you need to get the [assignment_3_2_base](https://github.co
 
 ## Assignment steps
 
-You will
+We will:
+
 1. Enable the core dump in the menuconfig
 2. Build and run the application
 3. Analyze the core dump
-4. Fix the bugs in the project.
+4. Fix the bugs in the project
 5. Build and run the application again
 
 
@@ -230,9 +231,10 @@ The core dump starts with:
 Crashed task handle: 0x3fc9ff18, name: 'sys_evt'
 Crashed task is not in the interrupt context
 ```
-From which, we can conclude that the crash
-1. Happened in the FreeRTOS task called **`sys_evt`**.
-2. Did **not** happen during an interrupt, so it's a normal task context crash.
+From which, we can conclude the following:
+
+1. The crash happened in the FreeRTOS task called **`sys_evt`**.
+2. The crash did **not** happen during an interrupt, so it's a normal task context crash.
 
 #### Look at the program counter (PC) and stack trace
 
@@ -244,7 +246,8 @@ ra             0x4200d822	0x4200d822 <is_alarm_set+20>
 sp             0x3fc9fe50
 ```
 
-Which mean
+It means that:
+
 1. The program counter (PC) is at address `0x4200d840`, inside the function `is_alarm_set`, specifically at offset +50 bytes.
 2. The return address (`ra`) is also inside `is_alarm_set`, which means the crash happened __inside that function__.
 
@@ -327,17 +330,17 @@ Rebuild and run the application
 
 Another crash!
 
-If you still have time, try to solve it by moving to [assignment 3-3](../assignment-3-2/).
+If you still have time, try to solve it by moving to [assignment 3.3](../assignment-3-3/).
 
-If you don't, don't worry: all the next assignments will be based on the [assignment 2-1](../assignment-2-1/) code.
+If you don't, don't worry: all the following assignments will be based on the [assignment 2.1](../assignment-2-1/) code.
 
 
 ## Conclusion
 
-In this assignment you learnt how to create a core dump and how to analyze it to understand the reason of a core crash.
+In this assignment, we learnt how to create a core dump and how to analyze it to understand the reason of a core crash.
 Core dump analysis is a very strong tool to debug your application.
 
-If you still have time, try [assignment_3_3](../assignment-3-3/)
+If you still have time, try [assignment 3.3](../assignment-3-3/)
 
 Otherwise
 > Next step: [Lecture 4](../lecture-4/)

@@ -12,12 +12,12 @@ In this assignment you'll extend the functionality from Assignment 2.1 by introd
 ### Assignment detail
 
 * The code for detecting a GPIO press is provided below.
-* You need to integrate the logic into the existing event loop
-* Use the same `ALARM_EVENT_BASE` as the alarm trigger as before
-* Create a `ALARM_EVENT_BUTTON` to differenciate it from the `ALARM_EVENT_CHECK`
+* You need to integrate the logic into the existing event loop.
+* Use the same `ALARM_EVENT_BASE` as the alarm trigger used before.
+* Create a `ALARM_EVENT_BUTTON` to differenciate it from the `ALARM_EVENT_CHECK`.
 
 {{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
-An alternative version for `esp_event_post` called `esp_event_isr_post` exists.
+There is an alternative version for `esp_event_post` called `esp_event_isr_post`.
 {{< /alert >}}
 
 ### Reading GPIO code

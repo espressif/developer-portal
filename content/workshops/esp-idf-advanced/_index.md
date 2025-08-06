@@ -20,7 +20,7 @@ Estimated time: 3 hours.
 
 ## Agenda
 
-The workshop is structured into four parts. Here's the outline:
+The workshop is divided into four parts. Here's the outline:
 
 * Part 1: **Components**
 
@@ -134,4 +134,4 @@ Even if you complete all assignments successfully, you’ll still need to downlo
 
 ## Conclusion
 
-You just arrived at the end of this workshop, congratulation! We hope it was a fruitful experience and the start of a longer journey. Thank you for following the advanced ESP-IDF workshop.
+Congratulations! You just arrived at the end of this workshop. We hope it was a fruitful experience and the start of a longer journey. Thank you for following the advanced ESP-IDF workshop.

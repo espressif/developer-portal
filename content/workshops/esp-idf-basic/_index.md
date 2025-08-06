@@ -128,7 +128,7 @@ Without further ado, let's start! You can find a link to each workshop part belo
 
 ## Conclusion
 
-You just arrived at the end of this workshop, congratulation! We hope it was a fruitful experience and the start of a longer journey. Thank you for participating in Espressif's workshop!
+Congratulations! You just arrived at the end of this workshop. We hope it was a fruitful experience and the start of a longer journey. Thank you for participating in Espressif's 2025 Brazilian Summit workshop!
 
 You are now able to create, build and flash new projects, use external libraries and components, create your own components, and control everything via an HTTP interface. You have now the basic foundation for an IoT application.
 
