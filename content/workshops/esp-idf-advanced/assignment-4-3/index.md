@@ -6,7 +6,7 @@ series_order: 16
 showAuthor: false
 ---
 
-In this assignment we will enable the flash encryption.
+In this assignment, we will enable flash encryption.
 
 {{< alert iconColor="#df8e1d" cardColor="#edcea3">}}
 Enabling flash encryption (and secure bootloader) is an irreversible operation. Double check before doing any step.
@@ -15,7 +15,7 @@ Enabling flash encryption (and secure bootloader) is an irreversible operation. 
 
 ## Assignment steps
 
-In this assignment you will
+In this assignment, we will:
 
 1. Check your device encryption status
 2. Enable flash encryption (development mode)
@@ -27,7 +27,7 @@ In this assignment you will
 * Open an ESP-IDF terminal : `> ESP-IDF: Open ESP-IDF Terminal`
 * Inside the terminal, run `idf.py efuse-summary`
 
-Now check the relevant EFUSES listed in the table below. They must all be at their default zero state.
+Now check the relevant eFuses listed in the table below. They must all be at their default zero state.
 
 | **eFuse**                    | **Description**                                                                                                                                             |
 |-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -38,7 +38,7 @@ Now check the relevant EFUSES listed in the table below. They must all be at the
 
 
 <details>
-<summary>Show the e-fuse blocks</summary>
+<summary>Show the eFuse blocks</summary>
 
 ```bash
 EFUSE_NAME (Block) Description  = [Meaningful Value] [Readable/Writeable] (Hex Value)
@@ -776,7 +776,7 @@ You need to do the last two steps.
 
 
 <details>
-<summary>Show efuses summary</summary>
+<summary>Show eFuses summary</summary>
 
 ```bash
 espefuse.py v4.9.0
@@ -962,15 +962,16 @@ BLOCK_KEY0 (BLOCK4)
 DIS_USB_JTAG (BLOCK0)                              Set this bit to disable function of usb switch to  = True R/W (0b1)
 ```
 
-We can see that
-* The flash encryption is set (`SPI_BOOT_CRYPT_CNT`)
-* One of the e-fuse blocks has been reserved to store the encryption key.
+We can see that:
 
-Now you're device has flash encryption. Since we selected the development, you can still reflash it using the serial port.
+* The flash encryption is set (`SPI_BOOT_CRYPT_CNT`).
+* One of the eFuse blocks has been reserved to store the encryption key.
+
+Now your device has flash encryption. Since we selected the development, you can still reflash it using the serial port.
 
 ## Conclusion
 
-In this assignment you added flash encryption to your project, by enabling the appropriate options in the menuconfig and by accomodating the partition table offset as required.
+In this assignment, we added flash encryption to the project by enabling the appropriate options in the menuconfig and by accommodating the partition table offset as required.
 
 
 > Next step: [Conclusion](../#conclusion)

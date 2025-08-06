@@ -9,8 +9,7 @@ summary: "In this lecture, we explore the ESP-IDF build system, built on CMake a
 
 ## Introduction
 
-In this lecture we will explore ESP-IDF build system.
-
+In this lecture, we will explore ESP-IDF build system.
 
 The ESP-IDF build system is built on top of __CMake__ and __Ninja__, two powerful tools that make project configuration and compilation fast and efficient. CMake is responsible for setting up your project and generating the necessary build files, while Ninja handles the actual building process with speed and minimal overhead.
 
@@ -20,39 +19,46 @@ In this workshop we will use the VSCode plugin.
 
 ## Modular development
 
-To streamline the development of layered code, the ESP-IDF offers a components system, paired with a powerful component manager.
+To streamline the development of layered code, ESP-IDF offers a components system, paired with a powerful component manager.
 
 ### ESP-IDF Components
 
-In ESP-IDF, projects are organized into __components__, self-contained, modular blocks of code that provide specific functionality such as drivers, libraries, protocols, utilities, or application logic. This structure simplifies code reuse, organization, and maintenance across complex applications.
+In ESP-IDF, projects are organized into __components__ --- self-contained, modular blocks of code that provide specific functionality such as drivers, libraries, protocols, utilities, or application logic. This structure simplifies code reuse, organization, and maintenance across complex applications.
 
 For example, interfacing with a sensor can be handled by a dedicated component that encapsulates all communication and data processing logic, eliminating the need to rewrite code in every project.
 
 The ESP-IDF framework itself is kept separate from your project and is referenced using the `IDF_PATH` environment variable. To build and flash your code, you’ll need the appropriate toolchain installed and accessible via your system’s `PATH`.
 
-A typical component includes source code, header files, a `CMakeLists.txt` file for build configuration, and an `idf_component.yml` file that describes dependencies and version information. This structure allows components to be easily integrated and managed within ESP-IDF projects, supporting modular development and code sharing [Component Management and Usage](https://docs.espressif.com/projects/esp-techpedia/en/latest/esp-friends/advanced-development/component-management.html).
+A typical component includes:
+
+- Source code
+- Header files
+- `CMakeLists.txt` file for build configuration
+- `idf_component.yml` file that describes dependencies and version information
+
+This structure allows components to be easily integrated and managed within ESP-IDF projects, supporting modular development and code sharing [Component Management and Usage](https://docs.espressif.com/projects/esp-techpedia/en/latest/esp-friends/advanced-development/component-management.html).
 
 ### Component manager
 
 The __IDF Component Manager__ is a tool designed to simplify the management of components in ESP-IDF projects. It allows developers to:
 
-- Add components as dependencies to their projects.
+- Add components as dependencies to projects.
 - Automatically download and update components from the [ESP Component Registry](https://components.espressif.com) or from git repositories.
 - Manage component versions and dependencies reliably.
 
 When you build your project, the Component Manager fetches all required components and places them in a `managed_components` folder, ensuring your project has everything it needs to compile and run. This streamlines the process of extending project functionality and encourages code reuse within the Espressif developer community.
 
-### Board Support Packages BSP in ESP-IDF
+### Board Support Packages (BSP) in ESP-IDF
 
 One kind of ESP-IDF component is the __Board Support Package (BSP)__, a versioned component that encapsulates hardware initialization for a specific development board. BSPs provide pre-configured drivers and a consistent API for accessing onboard peripherals such as LEDs, buttons, displays, touch panels, audio codecs, and SD cards. Like any ESP-IDF component, a BSP can be integrated into a project via the component manager using `idf_component.yml`.
 
 On a basic board like the ESP32-C6-DevKit, the BSP abstracts setup for components like the onboard button and addressable LED. On more complex platforms (e.g., ESP32-S3-BOX-3), it includes initialization for multiple peripherals such as displays and audio devices—packaged as a single, reusable component.
 
-The main reason for using a BSP are:
+The main reasons for using a BSP are:
 
-* Peripheral Initialization: BSPs handle low-level setup (GPIOs, I2C, SPI, etc.) for supported hardware.
-* Reusable Abstraction: They expose a common API, enabling code reuse across different projects or board variants.
-* Faster Bring-up: With peripherals already configured, application logic can be developed and tested more quickly.
+* **Peripheral initialization**: BSPs handle low-level setup (GPIOs, I2C, SPI, etc.) for supported hardware.
+* **Reusable abstraction**: They expose a common API, enabling code reuse across different projects or board variants.
+* **Faster bring-up**: With peripherals already configured, application logic can be developed and tested faster and more efficiently.
 
 #### Custom and Generic BSPs
 
@@ -62,7 +68,7 @@ For unsupported or custom boards, developers can use generic BSPs (e.g., `esp_bs
 
 Let's see how to create a component `led_toggle` starting from the `hello_world` example.
 
-After you craete a project from the example `hello_world`, your project folder will be as follows:
+After you create a project from the example `hello_world`, your project folder will be as follows:
 
 ```bash
 .
@@ -77,7 +83,7 @@ After you craete a project from the example `hello_world`, your project folder w
 └── sdkconfig.old
 ```
 
-To create a component, press <kbd>F1</kbd> to enter the Command palett and type:
+To create a component, press <kbd>F1</kbd> to enter the Command palette and type:
 
 * `> ESP-IDF: Create a new ESP-IDF Component`<br>
    &rarr; `led_toggle`
@@ -87,7 +93,7 @@ Now the folder tree changed to
 ```bash
 .
 ├── CMakeLists.txt
-├── components
+├── components   # <--- new folder
 │   └── led_toggle
 │       ├── CMakeLists.txt
 │       ├── include
@@ -103,8 +109,10 @@ Now the folder tree changed to
 └── sdkconfig.old
 ```
 
-As you can see, a new components folder has been created and inside of it you can find the `led_toggle` component folder.
-Component folders have:
+As you can see, a new `components` folder has been created and inside of it you can find the `led_toggle` component folder.
+
+A component folder contains:
+
 1. `CMakeLists.txt`: configuration used by the build system
 2. `include` folder: which contains the headers (automatically passed to the linker)
 3. `.c` file: the actual component code
@@ -112,10 +120,12 @@ Component folders have:
 <!-- When using components, you don't need to inform the build system about them, their sources and header files are already known to the build system. -->
 
 {{< alert iconColor="#df8e1d" cardColor="#edcea3">}}
-You need to perform a full clean to see newly added components. In VSCode `> ESP-IDF: Full Clean Project`.
+You need to perform a full clean to see newly added components. In VSCode, run:<br>
+`> ESP-IDF: Full Clean Project`.
 {{< /alert >}}
 
-So let's suppose you have the following component header file.
+Let's assume you have the following component header file:
+
 ```c
 // led_toggle.h
 #include "driver/gpio.h"
@@ -130,7 +140,7 @@ esp_err_t drive_led(led_gpio_t * led_gpio);
 esp_err_t toggle_led(led_gpio_t * led_gpio);
 ```
 
-__After a full clean__, you can simply include it in your main file and call its functions.
+__After a full clean__, you can simply include it in your main file and call its functions:
 
 ```c
 #include "led_toggle.h"
@@ -179,10 +189,10 @@ To assist with this, the official documentation provides a helpful [Performance 
 
 ### Using Multiple Default Files and Target-Specific Defaults
 
-ESP-IDF supports multiple defaults files (skconfig.xxx), which can be specified via the `SDKCONFIG_DEFAULTS` environment variable or within your project's `CMakeLists.txt`. These files are listed using semicolons as separators and are applied in order. Later files override earlier ones if there are overlapping configuration keys. This layered approach allows you to:
+ESP-IDF supports multiple defaults files (`skconfig.xxx`), which can be specified via the `SDKCONFIG_DEFAULTS` environment variable or within your project's `CMakeLists.txt`. These files are listed using semicolons as separators and are applied in order. If there are overlapping configuration keys, the values in earlier files are overridden by those in the following ones. This layered approach allows you to:
 
 * Maintain shared settings in one file
-* Override them with environment- or product-specific defaults in others
+* Override them with environment-specific or product-specific defaults in others
 
 You can also define _target-specific defaults_ using files named `sdkconfig.defaults.<chip>`, such as `sdkconfig.defaults.esp32s3`. These are only considered if a generic `sdkconfig.defaults` file exists (even if it’s empty). This mechanism supports fine-grained control over configurations for different Espressif chip variants within the same project.
 
@@ -207,7 +217,7 @@ For more details, see the [ESP-IDF multi-config example](https://github.com/espr
 
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
-The VSCode ESP-IDF extension lets you define multiple configurations via JSON file. It's planned to unify this approach with the CLI one in the next future. You can check the detail [on the documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/multiple-projects.html#use-multiple-build-configurations-in-the-same-workspace-folder).
+The VSCode ESP-IDF extension lets you define multiple configurations via JSON file. It's planned to unify this approach with the CLI one in the near future. You can check the detail [in the documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/multiple-projects.html#use-multiple-build-configurations-in-the-same-workspace-folder).
 {{< /alert >}}
 
 ### Practical Example: Isolating Development and Production Builds
@@ -227,7 +237,7 @@ This creates an isolated build directory (`build_prod1`) and applies the specifi
 
 By effectively leveraging `sdkconfig.defaults`, multiple defaults files, and profile-based builds, ESP-IDF projects can achieve greater configurability, repeatability, and clarity across various development scenarios.
 
-We will explore this topic in more depth in the [assignment_1_3](../assignment-1-3/).
+We will explore this topic more in-depth in the [assignment 1.3](../assignment-1-3/).
 
 ## Conclusion
 
