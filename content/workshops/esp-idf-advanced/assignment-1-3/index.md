@@ -4,15 +4,15 @@ date: "2025-08-05"
 series: ["WS00B"]
 series_order: 5
 showAuthor: false
-summary: "Support multiple configuration via sdkconfigs"
+summary: "Support multiple configurations via sdkconfigs"
 ---
 
-In this assignment you will create two versions of `sdkconfig` (production and debug).
+In this assignment, you will create two versions of `sdkconfig` (production and debug).
 The only difference between the two is the logging: Debug will display all logs, while production has all the logs suppressed.
 
 ### Assignment Detail
 
-You project must have the following configuration files
+You project must have the following configuration files:
 
 1. `sdkconfig.defaults`: containing the `esp32-c3` target
 2. `sdkconfig.prod`: containing the logging suppression configuration (both app log and bootloader log)
@@ -39,7 +39,8 @@ The final project folder tree is
 
 ## Assignment steps
 
-You will
+We will:
+
 1. Create the production sdkconfig version (guided)
 2. Create a profile file (guided)
 3. Create the debug sdkconfig version
@@ -58,11 +59,11 @@ To create the debug configuration, we first need to find the log configuration.
 
 #### Create `sdkconfig.prod` file
 
-The easiest way to find the configuration names we changed is to run the `save-defconfig` tool, which will generate a `sdkconfig.defaults` file with just all the changed parameter.
+The easiest way to find the configuration names that we changed is to run the `save-defconfig` tool, which will generate a `sdkconfig.defaults` file with only the changed parameters.
 
 * `ESP-IDF: Save Default Config File (save-defconfig)`
 
-Looking at the new `sdkconfig.defaults` you see two new configurations appearing
+Looking at the new `sdkconfig.defaults`, we can see two new configurations:
 
 ```bash
 CONFIG_LOG_DEFAULT_LEVEL_NONE=y
@@ -98,7 +99,7 @@ To simplify the process we will create a _profile_ file.
    -B build-production -DSDKCONFIG=build-production/sdkconfig -DSDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.prod"
    ```
 
-You can now build the production version using
+We can now build the production version using
 
 ```bash
 idf.py @profiles/prod build
@@ -140,6 +141,6 @@ CONFIG_LOG_DEFAULT_LEVEL_INFO=y
 </details>
 
 
-You can find the whole solution project on the [assignment_1_3](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_1_3) folder on the github repo.
+You can find the whole solution project in the [assignment_1_3](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_1_3)  folder in the GitHub repo.
 
 > Next step: [Lecture 2](../lecture-2/)

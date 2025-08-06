@@ -13,8 +13,8 @@ summary: "Create the `alarm` component and refactor the code to use it. (Guided)
 
 You will:
 
-1. Run the example to check everything is working
-2. Create a the `alarm` component
+1. Run the example (to make sure that everything is working)
+2. Create an `alarm` component
 2. Add the component configuration
 
 ### Run the example

@@ -4,7 +4,7 @@ date: "2025-08-05"
 series: ["WS00B"]
 series_order: 13
 showAuthor: false
-summary: "In this article, we explore the advanced features required for security: OTA update, flash encryption and secure bootloader"
+summary: "In this article, we explore the advanced features required for security: OTA update, flash encryption, and secure bootloader"
 ---
 
 ## Introduction
@@ -261,4 +261,4 @@ Once secure boot is enabled, the bootloader cannot be reflashed (unless using a 
 In this article, we explored three foundational pillars of modern IoT security: OTA updates, flash encryption, and secure bootloaders. Together, these features ensure that devices can be updated securely, protect sensitive data at rest, and verify firmware integrity from the moment they power on. As IoT security requirements continue to evolve, mastering these tools is essential for building resilient and regulation-compliant embedded systems.
 In the next assignments, you will test these features first-hand.
 
-> Next step: [assignment_4_1](../assignment-4-1/)
+> Next step: [assignment 4.1](../assignment-4-1/)

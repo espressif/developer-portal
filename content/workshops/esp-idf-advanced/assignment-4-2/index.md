@@ -47,4 +47,4 @@ fs,data,spiffs,0x310000,64K,
 ```
 
 
-> Next step: [assignment_4_3](../assignment-4-3)
+> Next step: [assignment 4.3](../assignment-4-3)

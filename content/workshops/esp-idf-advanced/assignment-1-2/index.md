@@ -7,11 +7,11 @@ showAuthor: false
 summary: "Create a `cloud_manager` component and refactor the code to use it."
 ---
 
-In this second part, you will separate the connection logic from the main function. The main advantage of this approach is that you could transparently change the connection type (e.g. to MQTTS or HTTP).
+In this second part, we will separate the connection logic from the main function. The main advantage of this approach is that you could transparently change the connection type (e.g. to MQTTS or HTTP).
 
-In this assignment, you will refactor the connection to Wi-Fi and MQTT code to fit into a new component.
+In this assignment, we will refactor the connection to Wi-Fi and MQTT code to fit into a new component.
 
-#### Assignment detail
+#### Assignment details
 
 You should create a `cloud_manager` component with the following methods
 
@@ -31,18 +31,18 @@ The following parameters should be set through `menuconfig`:
 ## Assignment steps outline
 
 1. Create a new component and fill `cloud_manager.h`
-   * Add the suggested methods.<br>
+   * Add the suggested methods<br>
    * Add an opaque declaration `typedef struct cloud_manager_t cloud_manager_t;`<br>
    _Note: In `cloud_manager.h` you need to import just `esp_err.h`_
-2. Fill `cloud_manager.c` <br>
-   * Implement `cloud_manager_t` as <br>
+2. Fill `cloud_manager.c`<br>
+   * Implement `cloud_manager_t` as: <br>
       ```c
         struct cloud_manager_t {
         esp_mqtt_client_handle_t client;
         esp_mqtt_client_config_t mqtt_cfg;
         };
       ```
-   * In `cloud_manager_create` just return the initialized object
+   * In `cloud_manager_create` just return the initialized object.
    * In `cloud_manager_connect` initialize everything. You can use the function `example_connect`.
 3. Add the following to the `cloud_manager` component `CMakeList.txt`<br>
    ```bash
@@ -240,4 +240,4 @@ endmenu
 You can find the whole solution project on the [assignment_1_2](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_1_2) folder on the github repo.
 
 
-> Next step: [assignment_1_3](../assignment-1-3/)
+> Next step: [assignment 1.3](../assignment-1-3/)

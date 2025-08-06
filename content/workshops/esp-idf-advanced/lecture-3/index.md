@@ -10,7 +10,7 @@ summary: "In this article, we cover two key tools for embedded development on Es
 
 ## Introduction
 
-In this article, we’ll focus on two useful tools:
+We’ll focus on two useful tools:
 
 * __Size Analysis__: Understand and manage your application’s memory footprint.
 * __Core Dump__: Capture the system state after a crash for detailed post-mortem debugging.
@@ -85,7 +85,7 @@ Mastering __size analysis__ and __core dumps__ is extremely useful for embedded 
 By integrating these tools into your development workflow, you'll be better prepared to build robust, high-performance applications.
 
 
-> Next step: [assignment_3_1](../assignment-3-1/)
+> Next step: [assignment 3.1](../assignment-3-1/)
 
 ## Further Reading
 

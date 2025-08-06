@@ -11,7 +11,8 @@ In this assigment, we will decouple the alarm and temperature code by using the 
 
 ## Assignment steps
 
-You will:
+We will:
+
 1. Create the events<br>
    * `TEMP_EVENT_BASE` with `temp_event_id`
    * `ALARM_EVENT_BASE` with `alarm_event_id_t`
@@ -249,7 +250,7 @@ void app_main(void)
 
 </details>
 
-You can find the whole solution project on the [assignment_2_1](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_2_1) folder on the github repo.
+You can find the whole solution project in the [assignment_2_1](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_2_1) folder in the GitHub repo.
 
 ## Conclusion
 

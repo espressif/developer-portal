@@ -11,7 +11,7 @@ To perform OTA, we need a partition table with at least two partitions.
 
 ## Assignment steps
 
-In this first assignment, you will
+In this first assignment, we will:
 
 1. Check the current partition table loaded in your module
 2. Change it to a different default partition table
@@ -22,10 +22,10 @@ In this first assignment, you will
 To check the current partition table you need to
 
 1. Read the flash and dump the partition table in a `.bin` file
-2. Convert the `.bin` file to a readable format.
+2. Convert the `.bin` file to a readable format
 
 #### Read the flash
-To read the flash we can use `esptool.py`
+To read the flash we can use `esptool.py`:
 
 ```bash
 esptool.py -p <YOUR-PORT> read_flash 0x8000 0x1000 partition_table.bin
@@ -98,4 +98,4 @@ Both of these partition table scheme are provided as default values from ESP-IDF
 In the [next assignment](../assignment-4-2) you will create a custom partition table.
 
 
-> Next step: [assignment_4_2](../assignment-4-2/)
+> Next step: [assignment 4.2](../assignment-4-2/)

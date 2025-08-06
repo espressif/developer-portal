@@ -1,5 +1,5 @@
 ---
-title: "ESP-IDF Adv. - Assign.  3.2"
+title: "ESP-IDF Adv. - Assign.  3.3"
 date: "2025-08-05"
 series: ["WS00B"]
 series_order: 12
@@ -19,7 +19,7 @@ Create the core dump file as you did in the previous assignment.
 
 
 <details>
-<summary>Expand second core dump</summary>
+<summary>Expand the second core dump</summary>
 
 ```bash
 Executing action: coredump-info
