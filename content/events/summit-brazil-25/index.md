@@ -56,7 +56,29 @@ As inscrições para as palestras dos dois dias serão gratuitas. Os workshops t
 - **13h00 às 17h00**: Palestras, Painéis e Sessões de Hardware Hacking (***sala talks & hackespace***)
 - **17h00 às 17h30**: Encerramento Oficial e Agradecimentos (***sala talks & hackespace***)
 
-> A agenda completa será digulgada em breve!
+## Palestras
+
+| Horário | Tópico                                                                                 | Palestrante(s)                                   | Slides  |
+|---------|----------------------------------------------------------------------------------------|--------------------------------------------------|---------|
+| 09:30   | Boas vindas e Keynote                                                                  | Ivan Grokhotkov                                  |         |
+| 10:00   | Apresentação Corporativa: M5Stack and Embarcados                                       | Allen Chao, Thiago Lima                          | [📥](https://dl.espressif.com/public/10-00-Allen-Chao-M5Stack-Corporate-Overview.pdf) [📥](https://dl.espressif.com/public/10-00-Thiago-Lima-Embarcados-Corporate-Overview.pdf) |
+| 10:30   | Uma atualização sobre as soluções da Espressif: De A(rduino) a Z(ephyr)                | Pedro Minatel, Ivan Grokhotkov, Ricardo Tafas    | [📥](https://dl.espressif.com/public/10-30-Ricardo-Tafas-A-to-Z.pdf) [📥](https://dl.espressif.com/public/10-30-Ivan-Grokhotkov-A-to-Z.pdf) |
+| 11:30   | Interoperabilidade e inovação para casas inteligentes: RainMaker e Matter              | Pedro Minatel                                    | [📥](https://dl.espressif.com/public/11-30-Pedro%20Minatel-Interoperabilityand-Innovation-for-Smart-Homes-Exploring-RainMaker-and-Matter.pdf) |
+| 13:00   | Segurança em dispositivos ESP32 – Um panorama de como proteger seu projeto             | Amey Inamdar                                     | [📥](https://dl.espressif.com/public/13-00-Amey-Inamdar-Security-in-ESP32-Devices-An-Overview-of-How-to-Protect-Your-Project.pdf) |
+| 14:00   | Colocando o S no IoT: Conectividade segura com o ESP-IDF                               | Euripedes Rocha                                  | [📥](https://dl.espressif.com/public/14-00-Euripedes-Rocha-Putting-the-S-in-IoT-Secure-Connectivity-with-ESP-IDF.pdf) |
+| 15:00   | ESP-BIST: Simplificando o desenvolvimento de aplicações seguras                        | Lucas Tamborrino                                 | [📥](https://dl.espressif.com/public/15-00-Lucas-Tamborrino-ESP-BIST-Simplifying-the-Development-of-Secure-Applications.pdf) |
+| 16:00   | Python em NuttX: novas possibilidades para sistemas embarcados                         | Tiago Medicci                                    | [📥](https://dl.espressif.com/public/16-00-Tiago-Medicci-Python-on-NuttX-New-Possibilities-for-Embedded-Systems.pdf) |
+| 16:30   | Zigbee com Arduino: conectando seus dispositivos ao Home Assistant                     | Lucas Vaz                                        | [📥](https://dl.espressif.com/public/16-30-Lucas-Vaz-Zigbee-with-Arduino-Connecting-Your-Devices-to-Home-Assistant.pdf) |
+| 17:00   | Projetos ESP-IDF de alto desempenho: como usar CI/CD para ganhar agilidade e confiança | Pedro Minatel                                    | [📥](https://dl.espressif.com/public/17-00-Pedro-Minatel-High-Performance-ESP-IDF-Projects-How-to-Use-CI-CD-to-Gain-Agility-and-Confidence.pdf) |
+
+## Workshops
+
+| Horário | Workshop                                                                                    | Instrutor(es)             | Slides                                                            |
+|---------|---------------------------------------------------------------------------------------------|---------------------------|-------------------------------------------------------------------|
+| 09:00   | ESP-IDF básico: do zero ao seu primeiro projeto com ESP32 e componentes                     | Pedro, Fabio              | [📥](https://developer.espressif.com/workshops/esp-idf-basic/)    |
+| 09:00   | ESP-IDF avançado: técnicas e ferramentas avançadas para dominar o desenvolvimento com ESP32 | Ivan, Euripedes           | [📥](https://developer.espressif.com/workshops/esp-idf-advanced/) |
+| 13:00   | Arduino no ESP-IDF: simplificando o desenvolvimento com flexibilidade                       | Rodrigo Garcia, Lucas V.  | [📥](https://github.com/SuGlider/Espressif_Brazil_Summit_2025)    |
+| 13:00   | Apresentando o ESP32-P4 para soluções de conectividade                                      | Euripedes, Guilherme      | [📥](https://github.com/euripedesrocha/p4_networking_workshop)    |
 
 ## Sobre a Espressif
 
