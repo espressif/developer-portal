@@ -18,16 +18,17 @@ sync_github:
     - git config --global user.email "developer.portal.bot@example.com"
     - git config --global user.name "Developer-Portal-BOT"
 
-    # Clone the repository
-    - git clone "$CI_REPOSITORY_URL" repo || (echo "Error cloning repository" && exit 1)
+    # Clone repository and rebase
+    - git clone "$CI_REPOSITORY_URL" repo
     - cd repo
-    # Rebase the feature branch on main
-    - git checkout "$SOURCE_BRANCH"
-    - git fetch origin main
-    - git rebase main
-    # Add GitHub remote and push the rebased branch to GitHub
-    - git remote add github "https://oauth2:${GITHUB_ACCESS_TOKEN}@github.com/${GITHUB_REPO}.git"
-    # Consider using --force-with-lease here
+
+    - git switch "$SOURCE_BRANCH"
+    - git fetch --prune origin main
+    - git rebase origin/main
+
+    # Push to GitHub
+    - GITHUB_REMOTE="https://x-access-token:${GITHUB_ACCESS_TOKEN}@github.com/${GITHUB_REPO}.git"
+    - git remote add github "$GITHUB_REMOTE"
     - git push -u -f github "$SOURCE_BRANCH"
 
     # Wait for GitHub to register the branch
@@ -42,11 +43,7 @@ sync_github:
               --json url \
               --jq '.[].url')
 
-      if [[ -n "$PR_URL" ]]; then
-        PR_NUMBER=$(gh pr view "$PR_URL" --json number -q '.number')
-        echo "PR already exists: #$PR_NUMBER"
-        echo "**GitHub PR:** $PR_URL"
-      else
+      if [[ -z "$PR_URL" ]]; then
         echo "No PR found. Creating a new one..."
         gh pr create \
           --repo "$GITHUB_REPO" \
@@ -61,23 +58,19 @@ sync_github:
                 --head "$SOURCE_BRANCH" \
                 --json url \
                 --jq '.[].url')
-
-        if [[ -n "$PR_URL" ]]; then
-          PR_NUMBER=$(gh pr view "$PR_URL" --json number -q '.number')
-          echo "PR created successfully: #$PR_NUMBER"
-          echo "**GitHub PR:** $PR_URL"
-        else
-          echo "Failed to create PR."
-          exit 1
-        fi
       fi
 
+      if [[ -n "$PR_URL" ]]; then
+        PR_NUMBER=$(gh pr view "$PR_URL" --json number -q '.number')
+        echo "GitHub PR: #$PR_NUMBER — $PR_URL"
+      else
+        echo "Failed to create PR."
+        exit 1
+      fi
+
+      export PR_NUMBER PR_URL
+
     # Store PR_NUMBER and PR_URL as artifacts
-    - cd $CI_PROJECT_DIR
+    - cd "$CI_PROJECT_DIR"
     - echo "PR_NUMBER=$PR_NUMBER" > pr_info.txt
     - echo "PR_URL=$PR_URL" >> pr_info.txt
-
-  artifacts:
-    paths:
-      - pr_info.txt
-    expire_in: 1 hour
