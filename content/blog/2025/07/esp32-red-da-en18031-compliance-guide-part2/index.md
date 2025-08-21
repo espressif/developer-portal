@@ -130,3 +130,9 @@ Espressif remains committed to providing **transparent, practical, and secure** 
 
 - 🌐 [Espressif Developer Portal](https://developer.espressif.com)
 - 📚 [RED DA Part 1 Blog](https://developer.espressif.com/blog/2025/04/esp32-red-da-en18031-compliance-guide/)
+
+---
+
+## Updates
+
+**August 2025:** [Preparing for RED DA (EN 18031) Compliance](https://www.youtube.com/watch?v=j-qSfqoy_Wg) - Watch our recorded webinar with Brightsight covering RED DA compliance requirements and implementation guidance.
