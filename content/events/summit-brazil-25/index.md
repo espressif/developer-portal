@@ -78,7 +78,7 @@ As inscrições para as palestras dos dois dias serão gratuitas. Os workshops t
 | 09:00   | ESP-IDF básico: do zero ao seu primeiro projeto com ESP32 e componentes                     | Pedro, Fabio              | [📥](https://developer.espressif.com/workshops/esp-idf-basic/)    |
 | 09:00   | ESP-IDF avançado: técnicas e ferramentas avançadas para dominar o desenvolvimento com ESP32 | Ivan, Euripedes           | [📥](https://developer.espressif.com/workshops/esp-idf-advanced/) |
 | 13:00   | Arduino no ESP-IDF: simplificando o desenvolvimento com flexibilidade                       | Rodrigo Garcia, Lucas V.  | [📥](https://github.com/SuGlider/Espressif_Brazil_Summit_2025)    |
-| 13:00   | Apresentando o ESP32-P4 para soluções de conectividade                                      | Euripedes, Guilherme      | [📥](https://github.com/euripedesrocha/p4_networking_workshop)    |
+| 13:00   | Apresentando o ESP32-P4 para soluções de conectividade                                      | Euripedes, Guilherme      | [📥](https://dl.espressif.com/public/p4-slides-export.pdf)        |
 
 ## Sobre a Espressif
 
