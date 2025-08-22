@@ -68,9 +68,12 @@ sync_github:
         exit 1
       fi
 
-      export PR_NUMBER PR_URL
-
     # Store PR_NUMBER and PR_URL as artifacts
     - cd "$CI_PROJECT_DIR"
     - echo "PR_NUMBER=$PR_NUMBER" > pr_info.txt
     - echo "PR_URL=$PR_URL" >> pr_info.txt
+
+  artifacts:
+    paths:
+      - pr_info.txt
+    expire_in: 1 hour
