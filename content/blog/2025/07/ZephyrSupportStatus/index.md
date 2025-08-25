@@ -103,7 +103,9 @@ Since the release v4.0 for ESP32-C3, the system is considered stable for product
 * ESP8684, please check ESP32-C2
 * ESP8685, please check ESP32-C3
 
-## Work and Release Plan
+## Zephyr Releases
+
+### Devices and Release Plan
 
 Espressif is 100% adherent to Zephyr Schedule and plans around Zephyr public plans. The first *ready for production* release of Zephyr for Espressif products was 4.0 targetting ESP32-C3.
 
@@ -125,7 +127,7 @@ Espressif is 100% adherent to Zephyr Schedule and plans around Zephyr public pla
 - Work on devices starts earlier and devices may be available in between releases. Then, the table above reflects the first Release to support the device.
 - Dates are tenative and subject to change. [Zephyr Release Plan](https://github.com/zephyrproject-rtos/zephyr/wiki/Release-Management#future-releases) may change without notice.
 
-### Zephyr Version for Espressif Devices
+### Best Release for Espressif Devices
 
 During the development stage, users are expected to keep using the latest software available. In other words, users are expected to be using the latest commit hash from Zephyr GitHub repository.
 
