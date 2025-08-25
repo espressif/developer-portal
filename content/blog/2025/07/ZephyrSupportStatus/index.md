@@ -1,5 +1,5 @@
 ---
-title: "ZephyrSupportStatus"
+title: "Zephyr Support Status"
 date: 2025-06-27T13:46:46-03:00
 showAuthor: false
 authors:
@@ -35,7 +35,7 @@ Users can chek the [ESP32 Support Status RFC](https://github.com/zephyrproject-r
 | I2C                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
 | SPI                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
 | SPI FLASH                          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| SPI RAM                            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :no_entry_sign:    | :no_entry_sign:    | :x:                |
+| SPI RAM                            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :no_entry_sign:        | :no_entry_sign:    | :no_entry_sign:    | :x:                |
 | Cryptography                       | :x:                | :x:                | :x:                | :x:                    | :x:                | :x:                | :x:                |
 | Wi-Fi                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :no_entry_sign:    |
 | Bluetooth                          | :heavy_check_mark: | :no_entry_sign:    | :heavy_check_mark: | :heavy_plus_sign:      | :heavy_check_mark: | :heavy_plus_sign:  | :no_entry_sign:    |
