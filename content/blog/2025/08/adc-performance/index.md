@@ -1,6 +1,6 @@
 ---
 title: "Comparing ADC Performance of Espressif SoCs"
-date: 2025-08-25
+date: 2025-08-26
 summary: This article compares the Analog-to-Digital Converter (ADC) performance of different Espressif SoCs and shows the techniques to improve the ADC accuracy using software calibration. The results should help developers choose the most suitable SoC and optimize it for their application's accuracy and voltage range requirements.
 showAuthor: False
 authors:
@@ -50,7 +50,7 @@ The ADC calibration driver provides ADC calibration schemes. Espressif SoCs supp
 
 The list below shows the calibration schemes for each series of Espressif SoC.
 
-- ESP32: Line Fitting 
+- ESP32: Line Fitting
 - ESP32-S2: Line Fitting
 - ESP32-S3: Curve Fitting
 - ESP32-C3: Curve Fitting
