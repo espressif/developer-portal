@@ -1,9 +1,9 @@
 ---
 title: "Zephyr Support Status"
-date: 2025-06-27T13:46:46-03:00
+date: 2025-08-27
 showAuthor: false
 authors:
-  - "rftafas"
+  - "ricardo-tafas"
 tags: ["Zephyr", "Support", "Espressif"]
 ---
 
@@ -20,7 +20,7 @@ Questions about the contents of this page must be directed to:
 
 Also, make sure to check Zephyr in [Espressif's website](https://www.espressif.com/en/sdks/esp-zephyr) for overall information about Espressif and Zephyr. You can also use the ChatBot.
 
-Users can chek the [ESP32 Support Status RFC](https://github.com/zephyrproject-rtos/zephyr/issues/29394), for historical reasons.
+Users can check the [ESP32 Support Status RFC](https://github.com/zephyrproject-rtos/zephyr/issues/29394), for historical reasons.
 
 ## Zephyr Support Status
 
