@@ -78,14 +78,8 @@
 [[main]]
   name = "Documents"
   parent = "Quick Links"
-  url = "https://www.espressif.com/en/support/documents/technical-documents"
+  url = "https://documentation.espressif.com/en/home"
   weight = 11
-
-[[main]]
-  name = "Datasheet"
-  parent = "Quick Links"
-  url = "https://www.espressif.com/en/support/documents/technical-documents?keys=&field_download_document_type_tid%5B%5D=510"
-  weight = 12
 
 [[main]]
   name = "ESP32 Forum"
