@@ -21,7 +21,7 @@ cascade:
 More Articles
 {{< /button >}}
 
-## Workshop Highlight
+## Workshop Highlights
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
@@ -32,13 +32,9 @@ Dive into our latest workshops and master the skills you need to maximize the po
 More Workshops
 {{< /button >}}
 
-## New Chip Support Status
+## Notable Events
 
-Here you can follow the current status of the new chip support in various Espressif SDKs and frameworks.
-
-{{< article link="/pages/chip-support-status/esp32c61/" >}}
-<br>
-{{< article link="/pages/chip-support-status/esp32c5/" >}}
+<!-- {{< article link="/pages/chip-support-status/esp32c5/" >}} -->
 
 <br>
 {{< button href="events/" target="_self" >}}
