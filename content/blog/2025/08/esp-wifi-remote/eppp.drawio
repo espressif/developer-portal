@@ -1,13 +1,13 @@
 <mxfile host="65bd71144e">
     <diagram id="7W33uEh9ZzW-GppHaLwA" name="Page-1">
-        <mxGraphModel dx="596" dy="660" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="596" dy="699" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="&amp;nbsp;Host device" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#FFCCE6;" parent="1" vertex="1">
+                <mxCell id="2" value="&amp;nbsp;Host device" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#CCCCFF;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="60" y="220" width="350" height="200" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="wrmt-over-eppp" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;" parent="1" vertex="1">
+                <mxCell id="8" value="wrmt-over-eppp" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#9999FF;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="250" y="260" width="140" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="3" value="Application" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -36,13 +36,13 @@
                         <Array as="points"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="16" value="esp-wifi-remote" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;" parent="1" vertex="1">
+                <mxCell id="16" value="esp-wifi-remote" style="rounded=0;whiteSpace=wrap;html=1;horizontal=0;fillColor=#FFFFCC;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="220" y="260" width="30" height="130" as="geometry"/>
                 </mxCell>
-                <mxCell id="21" value="&amp;nbsp;Slave device" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#FFCCE6;" parent="1" vertex="1">
+                <mxCell id="21" value="&amp;nbsp;Slave device" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#CCCCFF;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="550" y="227" width="290" height="200" as="geometry"/>
                 </mxCell>
-                <mxCell id="22" value="wrmt-eppp-slave" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;" parent="1" vertex="1">
+                <mxCell id="22" value="wrmt-eppp-slave" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#9999FF;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="570" y="257" width="140" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="23" value="WiFi calls" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -51,7 +51,7 @@
                 <mxCell id="24" value="IP packets" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="585" y="337" width="110" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="WiFi library" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;" parent="1" vertex="1">
+                <mxCell id="25" value="WiFi library" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;fillColor=#FF99CC;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="740" y="280" width="90" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="28" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="24" edge="1">
