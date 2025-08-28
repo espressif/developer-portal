@@ -66,6 +66,22 @@
   weight = 20
 
 [[main]]
+  name = "Products"
+  weight = 25
+
+[[main]]
+  name = "Hardware"
+  parent = "Products"
+  pageRef = "hardware"
+  weight = 25
+
+[[main]]
+  name = "Software"
+  parent = "Products"
+  pageRef = "software"
+  weight = 25
+
+[[main]]
   name = "Quick Links"
   weight = 30
 
