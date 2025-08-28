@@ -1,7 +1,8 @@
 ---
-title: "ESP32-C5 v1.0 support status"
+title: "ESP32-C5 v1.0 status"
 date: 2025-04-24
-showTableOfContents: true
+aliases:
+- ../../pages/chip-support-status/esp32c5
 ---
 
 **Last updated:** {{< chipstatus contentPath="persist/chip-support-status/esp32c5.json" jsonKey="timestamp" >}}
