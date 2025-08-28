@@ -248,8 +248,16 @@ It is also possible to use your own implementation of Wi-Fi connectivity by mean
 
 Two critical considerations emerge from this exploration:
 
-**1. Use esp-hosted as your RPC library** - For most use cases, esp-hosted provides the optimal solution with up to 50Mbps throughput, mature integration, and comprehensive support. While alternatives like `wifi_remote_over_eppp` (20Mbps) and `wifi_remote_over_at` (2Mbps) exist for specific scenarios, esp-hosted delivers the best performance and reliability for general applications.
+**1. Use esp-hosted as your RPC library** -- For most use cases, esp-hosted provides the optimal solution with up to 50Mbps throughput, mature integration, and comprehensive support. While alternatives like `wifi_remote_over_eppp` (20Mbps) and `wifi_remote_over_at` (2Mbps) exist for specific scenarios, esp-hosted delivers the best performance and reliability for general applications.
 
 **2. Mind the WiFi slave configuration** - Since esp-wifi-remote operates as a compile-time configuration system, it cannot automatically reconfigure the slave device at runtime. Developers must manually configure the slave-side WiFi options and rebuild the slave application to ensure consistency between host and slave configurations. This is particularly important when migrating from WiFi-enabled devices, where configuration options must be prefixed with `WIFI_RMT_` instead of `ESP_WIFI_`.
 
 By following these guidelines, developers can successfully implement esp-wifi-remote solutions that provide the same familiar WiFi experience across diverse ESP32 hardware platforms, from traditional WiFi-enabled chipsets to the latest non-WiFi variants like ESP32-P4 and ESP32-H2.
+
+## References
+
+* [esp-wifi-remote repository](https://github.com/espressif/esp-wifi-remote)
+* [esp-wifi-remote in component registry](https://components.espressif.com/components/espressif/esp_wifi_remote)
+* [esp-hosted](https://github.com/espressif/esp-hosted-mcu)
+* [esp-extconn](https://github.com/espressif/esp-extconn/)
+* [ESP32-P4 connectivity options](https://developer.espressif.com/blog/wireless-connectivity-solutions-for-esp32-p4/)
