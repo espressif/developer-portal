@@ -5,7 +5,7 @@ aliases:
 - ../../pages/chip-support-status/esp32c5
 ---
 
-**Last updated:** {{< chipstatus contentPath="persist/chip-support-status/esp32c5.json" jsonKey="timestamp" >}}
+**Last updated:** {{< dynamic-block contentPath="persist/chip-support-status/esp32c5.json" jsonKey="timestamp" >}}
 
 The ESP32-C5-DevKitC-1-N8R4 development board is now [available for purchase](../../../blog/2025/05/news-esp32c5-mp/#where-to-buy).
 
@@ -34,11 +34,11 @@ If you would like to try features with the early samples of the ESP32-C5 v0.1, p
 
 If you have an issue to report about any of the ESP32-C5 features, please create an issue in the [ESP-IDF GitHub issue tracker](https://github.com/espressif/esp-idf/issues).
 
-{{< chipstatus contentPath="persist/chip-support-status/esp32c5.json" jsonKey="idf" >}}
+{{< dynamic-block contentPath="persist/chip-support-status/esp32c5.json" jsonKey="idf" >}}
 
 
 ## Other Projects
 
 If you have an issue to report about any of the ESP32-C5 features, please create an issue in the issue tracker of a respective project.
 
-{{< chipstatus contentPath="persist/chip-support-status/esp32c5.json" jsonKey="other_proj" >}}
+{{< dynamic-block contentPath="persist/chip-support-status/esp32c5.json" jsonKey="other_proj" >}}
