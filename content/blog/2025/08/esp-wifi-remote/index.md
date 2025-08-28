@@ -8,15 +8,47 @@ authors:
 tags: [  "ESP-IDF", "Wi-Fi", "esp-hosted", "ESP32"]
 ---
 
-This blog post explores the esp-wifi-remote ecosystem, its components, architecture, and how it integrates with esp-hosted to provide seamless WiFi connectivity to previously WiFi-less devices.
+This blog post explores the esp-wifi-remote ecosystem, its components, architecture, and integration with esp-hosted to provide WiFi connectivity to previously WiFi-less devices.
 
 ## Introduction
 
-The ESP-IDF's `esp_wifi` API is a mature and stable interface that has powered WiFi connectivity across generations of ESP32 chipsets. However, with the introduction of new ESP32 series chips that do not include native WiFi hardware—such as ESP32-P4 and ESP32-H2—developers may wonder: what WiFi API should they use on these devices? The answer is simple: by adding **esp-wifi-remote**, you can use exactly the same `esp_wifi` APIs on non-WiFi ESP chipsets as you would on traditional WiFi-enabled ones. This seamless compatibility allows developers to leverage their existing knowledge and codebase, extending WiFi functionality to a broader range of ESP devices with minimal changes.
+The ESP-IDF's `esp_wifi` API powers WiFi connectivity across ESP32 chipsets. However, new ESP32 series chips like ESP32-P4 and ESP32-H2 lack native WiFi hardware. With **esp-wifi-remote**, you can use the same `esp_wifi` APIs on non-WiFi ESP chipsets as on WiFi-enabled ones. This compatibility lets developers leverage existing knowledge and codebase with minimal changes.
+
+### Terminology
+
+Before diving into the details, let's establish the key terminology used throughout this post:
+
+**Backend Solution**: The communication layer that handles the transport of WiFi commands, events, and data between host and slave devices. Examples include esp-hosted, eppp, and AT-based implementations.
+
+**Host-side**: The device running your application code (e.g., ESP32-P4, ESP32-H2, or ESP32 with WiFi).
+
+**Slave-side**: The WiFi-capable device that provides the actual WiFi hardware and functionality.
+
+The architecture consists of these layers:
+
+```mermaid
+graph TB
+    subgraph "Host-side"
+        A[WiFi API<br/>esp_wifi_*] --> B[esp-wifi-remote<br/>translation layer]
+        B --> C[Backend Solution Host<br/>esp-hosted/eppp/at]
+    end
+    
+    subgraph "Slave-side"
+        D[Backend Solution Slave<br/>esp-hosted/eppp/at] --> E[WiFi Hardware<br/>ESP32 with WiFi]
+    end
+    
+    C <--> D
+    
+    style A fill:#e8f5e8
+    style B fill:#fff3e0
+    style C fill:#e3f2fd
+    style D fill:#e3f2fd
+    style E fill:#f3e5f5
+```
 
 ## Understanding the WiFi Experience
 
-Let's first look at the traditional WiFi experience to see how esp-wifi-remote enables the same seamless experience with external WiFi hardware.
+Let's examine the traditional WiFi experience and how esp-wifi-remote enables the same experience with external WiFi hardware.
 
 ### 1. Traditional WiFi Experience
 
@@ -39,11 +71,11 @@ graph LR
     style WIFI fill:#e8f5e8
 ```
 
-This is the conventional setup where applications directly interface with the WiFi hardware through the standard ESP-IDF WiFi APIs. The user experience is seamless—you call `esp_wifi_init()`, `esp_wifi_connect()`, and other familiar functions, and WiFi just works.
+Applications directly interface with WiFi hardware through ESP-IDF WiFi APIs. You call `esp_wifi_init()`, `esp_wifi_connect()`, and other functions, and WiFi works.
 
 ### 2. esp-wifi-remote: Same Experience, External Hardware
 
-**esp-wifi-remote** is designed to provide exactly the same user experience as the traditional WiFi setup, but with external WiFi hardware. This works in two scenarios:
+**esp-wifi-remote** provides the same user experience as traditional WiFi setup, but with external WiFi hardware. This works in two scenarios:
 * Non-WiFi Chipsets: The traditional use case of providing WiFi functionality on ESP32-P4
 * WiFi enabled Chipsets: It is possible to use esp-wifi-remote on ESP32 chips which already have WiFi
   - narrow use case where multiple WiFi interfaces are needed (e.g. for bridging networks, filtering packets, ...)
@@ -76,11 +108,11 @@ graph LR
     style SLAVE_RPC fill:#fff3e0
 ```
 
-The magic here is that your application code remains identical to the traditional WiFi case. You still call `esp_wifi_init()`, `esp_wifi_connect()`, and all the familiar functions—esp-wifi-remote transparently redirects these calls through the RPC layer to a WiFi-capable slave device.
+Your application code remains identical to the traditional WiFi case. You call `esp_wifi_init()`, `esp_wifi_connect()`, and other functions—esp-wifi-remote transparently redirects these calls through the RPC layer to a WiFi-capable slave device.
 
 #### Scenario B: WiFi-Enabled Chipsets with Additional Interfaces
 
-For chipsets that already have WiFi, esp-wifi-remote can add additional wireless interfaces, giving you both native and remote WiFi capabilities:
+For chipsets with WiFi, esp-wifi-remote can add additional wireless interfaces, providing both native and remote WiFi capabilities:
 
 ```mermaid
 graph LR
@@ -110,11 +142,11 @@ graph LR
     style SLAVE_RPC fill:#fff3e0
 ```
 
-This scenario enables dual WiFi interfaces—one native and one remote—providing enhanced connectivity options for complex applications that need multiple wireless connections.
+This scenario enables dual WiFi interfaces—one native and one remote—for applications that need multiple wireless connections.
 
 ## Component breakdown
 
-esp_wifi_remote is just a thin layer that translates esp_wifi API calls into the appropriate implementation, but it's important to understand these basic aspects:
+esp_wifi_remote is a thin layer that translates esp_wifi API calls into the appropriate implementation. Key aspects:
 * API
   - Remote WiFi calls: Set of esp_wifi API namespaced with `esp_wifi_remote` prefix
   - Standard WiFi calls: esp_wifi API directly translates to esp_wifi_remote API for targets with no WiFi.
@@ -143,11 +175,11 @@ graph TD
 
 ### WiFi configuration
 
-You can configure the remote WiFi exactly the same way as the local WiFi, the Kconfig options are structured the same way and called exactly the same, but located under ESP WiFi Remote component instead.
+You can configure remote WiFi the same way as local WiFi. Kconfig options are structured identically but located under ESP WiFi Remote component.
 
 #### Local vs. Remote WiFi configuration
 
-The names of Kconfig options are the same, but the identifiers are prefixed differently in order to differentiate between local and remote WiFi.
+Kconfig option names are the same, but identifiers are prefixed differently to differentiate between local and remote WiFi.
 
 > [!TIP] Adapt options from sdkconfig
 > If you're migrating your project from a WiFi enabled device and used specific configuration options, please make sure the remote config options are prefixed with `WIFI_RMT_` instead of `ESP_WIFI_`, for example:
@@ -166,7 +198,7 @@ The RPC libraries could perform a consistency check but cannot reconfigure the s
 
 ### Choice of esp-wifi-remote implementation component
 
-The default and recommended option is to use `esp_hosted` as your RPC library for most use-cases, is it provide the best performance, integration, maturity and support.
+The default and recommended option is `esp_hosted` as your RPC library for most use-cases, providing the best performance, integration, maturity and support.
 
 You can also switch to `eppp` or `at` based implementation or implement your own RPC mechanism.
 Here are the reasons you might prefer some other implementation than `esp_hosted`:
@@ -177,15 +209,14 @@ Here are the reasons you might prefer some other implementation than `esp_hosted
 
 ### Internal implementation
 
-The `esp-wifi` component interface and functionality is dependent on the actual WiFi hardware, i.e. the actual target capabilites. The `esp-wifi-remote` needs to follow these dependencies, which are in turn based on the remote target, i.e. slave WiFi hardware.
-That's why some wireless and system capability flags and options are replaced internally with `SOC_SLAVE` prefix. Similarly the host side config options are prefixed with `WIFI_RMT` to be used in `esp-wifi-remote` headers. You can read more about the adaptation in [WiFi remote](https://github.com/espressif/esp-wifi-remote/blob/main/components/esp_wifi_remote/README.md#dependencies-on-esp_wifi) documentation.
+The `esp-wifi` component interface depends on WiFi hardware capabilities. `esp-wifi-remote` follows these dependencies based on the slave WiFi hardware. Some wireless and system capability flags are replaced internally with `SOC_SLAVE` prefix. Host-side config options are prefixed with `WIFI_RMT` for use in `esp-wifi-remote` headers. See [WiFi remote](https://github.com/espressif/esp-wifi-remote/blob/main/components/esp_wifi_remote/README.md#dependencies-on-esp_wifi) documentation for details.
 
 > [!Note]
 > These options and flags are only related to the host side, as `esp-wifi-remote` is a host side layer. For slave side options, please refer to the actual RPC implementation library.
 
 #### Comparison of RPC implementor components
 
-This section focuses on comparing the RPC libraries in more details, mainly how these different methods marshall WiFi commands,events and data to the slave device.
+This section compares RPC libraries, focusing on how different methods marshall WiFi commands, events and data to the slave device.
 
 **Principle of operation**
 
@@ -215,7 +246,7 @@ esp-hosted uses a plain text channel to send and receive WiFi API calls and even
 
 **Performance**
 
-As mentioned above, the best throughput experience is achieved with `esp_hosted` implementation.
+The best throughput is achieved with `esp_hosted` implementation.
 
 | RPC component  | Maximum TCP throughput | More details |
 |----------------|------------------------|---------------|
@@ -225,15 +256,15 @@ As mentioned above, the best throughput experience is achieved with `esp_hosted`
 
 ## Other connectivity options
 
-This blog post focuses on *esp-wifi-remote* solutions only, it doesn't discuss related topics, such as Bluetooth and BLE connectivity, `esp-extconn` component or some other means of using Wi-Fi library on remote targets.
+This blog post focuses on *esp-wifi-remote* solutions only. It doesn't discuss Bluetooth, BLE connectivity, `esp-extconn` component or other means of using Wi-Fi library on remote targets.
 
 ### esp-extconn
 
-This solution doesn't fall into *esp-wifi-remote* category and needs a special target for the slave side (ESP8693), but provides the best throughput (up to 80Mbps). Read more about it [esp-extconn repository](https://github.com/espressif/esp-extconn/)
+This solution doesn't fall into *esp-wifi-remote* category and needs a special target for the slave side (ESP8693), but provides the best throughput (up to 80Mbps). See [esp-extconn repository](https://github.com/espressif/esp-extconn/)
 
 ### Custom connectivity other options
 
-It is also possible to use your own implementation of Wi-Fi connectivity by means of the below components:
+You can also implement your own Wi-Fi connectivity using these components:
 
 | component | Repository | Brief description |
 |-----------|------------|-------------------|
@@ -248,11 +279,11 @@ It is also possible to use your own implementation of Wi-Fi connectivity by mean
 
 Two critical considerations emerge from this exploration:
 
-**1. Use esp-hosted as your RPC library** -- For most use cases, esp-hosted provides the optimal solution with up to 50Mbps throughput, mature integration, and comprehensive support. While alternatives like `wifi_remote_over_eppp` (20Mbps) and `wifi_remote_over_at` (2Mbps) exist for specific scenarios, esp-hosted delivers the best performance and reliability for general applications.
+**1. Use esp-hosted as your RPC library** - Provides optimal performance (50Mbps), mature integration, and comprehensive support. Alternatives like `wifi_remote_over_eppp` (20Mbps) and `wifi_remote_over_at` (2Mbps) exist for specific scenarios.
 
-**2. Mind the WiFi slave configuration** - Since esp-wifi-remote operates as a compile-time configuration system, it cannot automatically reconfigure the slave device at runtime. Developers must manually configure the slave-side WiFi options and rebuild the slave application to ensure consistency between host and slave configurations. This is particularly important when migrating from WiFi-enabled devices, where configuration options must be prefixed with `WIFI_RMT_` instead of `ESP_WIFI_`.
+**2. Mind the WiFi slave configuration** - esp-wifi-remote operates as a compile-time configuration system. Developers must manually configure slave-side WiFi options and rebuild the slave application. When migrating from WiFi-enabled devices, configuration options must be prefixed with `WIFI_RMT_` instead of `ESP_WIFI_`.
 
-By following these guidelines, developers can successfully implement esp-wifi-remote solutions that provide the same familiar WiFi experience across diverse ESP32 hardware platforms, from traditional WiFi-enabled chipsets to the latest non-WiFi variants like ESP32-P4 and ESP32-H2.
+Following these guidelines enables successful esp-wifi-remote implementation across diverse ESP32 hardware platforms.
 
 ## References
 
