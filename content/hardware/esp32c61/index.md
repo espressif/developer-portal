@@ -1,6 +1,8 @@
 ---
 title: "ESP32-C61 status"
 date: 2024-08-29
+aliases:
+- ../../pages/chip-support-status/esp32c61
 ---
 
 **Last updated:** {{< dynamic-block contentPath="persist/chip-support-status/esp32c61.json" jsonKey="timestamp" >}}
