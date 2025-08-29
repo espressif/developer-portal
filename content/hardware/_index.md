@@ -1,5 +1,5 @@
 ---
-title: "Hardware status"
+title: "Hardware"
 date: 2025-08-28
 draft: false
 
@@ -17,6 +17,8 @@ showLikes : false
 showViews : false
 disableComments : true
 ---
+
+## New chip support status
 
 This page lists the hardware products currently being integrated into Espressif SDKs and frameworks. The respective product pages provide:
 

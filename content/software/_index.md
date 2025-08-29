@@ -1,5 +1,5 @@
 ---
-title: "Software status"
+title: "Software"
 date: 2025-08-28
 draft: false
 
@@ -17,6 +17,8 @@ showLikes : false
 showViews : false
 disableComments : true
 ---
+
+## Software development status
 
 This page lists the software products that are currently being developed or further improved. The respective product pages provide:
 
