@@ -151,7 +151,7 @@ If you're a company using (or considering) Rust on our chips, please do contact 
 [the tracking issue]: https://github.com/espressif/llvm-project/issues/4
 [espflash]: https://github.com/esp-rs/espflash
 [esp-hal]: https://github.com/esp-rs/esp-hal/tree/main/esp-hal
-[esp-wifi]: https://github.com/esp-rs/esp-hal/tree/main/esp-wifi
+[esp-wifi]: https://github.com/esp-rs/esp-hal/tree/main/esp-radio
 [ESP-NOW]: https://www.espressif.com/en/solutions/low-power-solutions/esp-now
 [xtensa-lx and xtensa-lx-rt]: https://github.com/esp-rs/esp-hal/tree/main/xtensa-lx-rt
 [esp-generate]: https://github.com/esp-rs/esp-generate

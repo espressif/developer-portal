@@ -51,7 +51,7 @@ Last week, Espressif announced the release of [ESP RainMaker](https://rainmaker.
     src="img/april-2.webp"
     >}}
 
-[ESP32-Korvo](https://github.com/espressif/esp-skainet/blob/master/docs/en/hw-reference/esp32/user-guide-esp32-korvo-v1.1.md) is an artificial-intelligence development board based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and [ESP-Skainet](https://www.espressif.com/en/products/software/esp-skainet/overview), Espressif’s speech recognition SDK. ESP32-Korvo features two boards connected with an FPC cable, as well as a multi-microphone array which is suitable for far-field speech recognition applications with a low-power consumption.
+[ESP32-Korvo](https://github.com/espressif/esp-skainet/blob/master/docs/en/hw-reference/esp32/user-guide-esp32-korvo-v1.1.md) is an artificial-intelligence development board based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and [ESP-Skainet](https://www.espressif.com/en/solutions/audio-solutions/esp-skainet/overview), Espressif’s speech recognition SDK. ESP32-Korvo features two boards connected with an FPC cable, as well as a multi-microphone array which is suitable for far-field speech recognition applications with a low-power consumption.
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESP32-Korvo)
 

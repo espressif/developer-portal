@@ -35,7 +35,7 @@ ota_0,    app,  ota_0,   ,        1M,
 ota_1,    app,  ota_1,   ,        1M,
 ```
 
-__Important points to note:__ 
+__Important points to note:__
 
 - A binary partition table image is generated using the above CSV file. This occupies 4KiB (single flash sector) and is located at offset 0x9000 in default configuration. First 8 sectors (32KiB), before this, are reserved for the bootloader image.
 - If more space is desired for bootloader, then the partition table offset can be adjusted using configuration option CONFIG_PARTITION_TABLE_OFFSET.
@@ -72,7 +72,7 @@ typedef struct {
 } esp_app_desc_t;
 ```
 
-__Few important fields to note:__ 
+__Few important fields to note:__
 
 - version: Firmware version embedded in image. This can be embedded in firmware image using multiple methods including configuration option or version file. By default its retrieved using command git describe --always --tags command if application is hosted in a git repository.
 - secure_version : Security version embedded in image. This can be embedded using configuration option only. This is desired as it groups firmware images based on fixes against security vulnerabilities (e.g. revoked CA certificate) and thus ensuring security. More on this in followup section on anti-rollback feature.
@@ -105,7 +105,7 @@ esp_http_client_config_t config = {
 };esp_err_t ret = esp_https_ota(&config);
 if (ret == ESP_OK) {
      esp_restart();
-} 
+}
 ```
 
 > There is also support for advanced APIs which provide more granular control to the application in terms of validation of firmware version, monitoring OTA update progress etc.Detailed documentation for this can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_https_ota.html).
@@ -283,6 +283,6 @@ In this section we will see how OTA updates can be coupled with platform securit
 
 - Above discussed features like “rollback” and “anti-rollback” must be enabled before device ships out of factory. Since these features enable certain code path in bootloader, which in itself can not be updated on-field.
 - It is recommended that any sort of power save modes (e.g. WiFi modem sleep) should be disabled during OTA update. This allows optimal throughput for data transfer. ESP-IDF provided examples take explicit care for this.
-- During OTA update flash goes through programming operations (erase/write) and hence flash cache stays disabled. If there are any interrupts that are required to kept enabled, then they should be registered with their handler in internal code memory (IRAM). More information on this can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/storage/spi_flash.html#iram-safe-interrupt-handlers).
+- During OTA update flash goes through programming operations (erase/write) and hence flash cache stays disabled. If there are any interrupts that are required to kept enabled, then they should be registered with their handler in internal code memory (IRAM). More information on this can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/spi_flash/spi_flash_concurrency.html#iram-safe-interrupt-handlers).
 
 Getting robust OTA update for IoT product is very essential and some of the considerations mentioned above can be helpful in making right design decisions!

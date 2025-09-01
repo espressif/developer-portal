@@ -63,9 +63,9 @@ Before starting this tutorial, ensure that you
 - Can compile and flash the [`hello_world`](https://github.com/espressif/esp-idf/tree/master/examples/get-started/hello_world) example. Two main methods followed below are using `idf.py` directly (CLI approach) or using the VS Code ESP-IDF Extension. If required, you can follow the instructions in the  [ESP-IDF Getting Started](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/get-started/index.html) guide. 
 - Have an Espressif evaluation board or another compatible board for flashing the code. In this tutorial we will use the [ESP32-C3-DevkitM-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkitm-1/user_guide.html) but any Espressif evaluation board will work just as well. If you built your own board, you might need an [ESP-PROG](https://docs.espressif.com/projects/esp-iot-solution/en/latest/hw-reference/ESP-Prog_guide.html) programmer. 
 - Understand the difference between a Wi-Fi access point and a Wi-Fi station.
-- (Optional) Have a basic knowledge of the [logging system](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#how-to-use-logging-library) in Espressif. 
+- (Optional) Have a basic knowledge of the [logging system](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#use-logging-library) in Espressif. 
 
-If you're not quite comfortable with any of the above steps yet, consider checking out the [ESP-IDF with ESP32-C6 Workshop](https://preview-developer.espressif.com/pr404/workshops/esp-idf-with-esp32-c6/). These resources can help you get hands-on experience with setup, flashing, and basic debugging before diving into this tutorial.
+If you're not quite comfortable with any of the above steps yet, consider checking out the [ESP-IDF with ESP32-C6 Workshop](../../../../workshops/esp-idf-with-esp32-c6/). These resources can help you get hands-on experience with setup, flashing, and basic debugging before diving into this tutorial.
 
 
 ## Starting a new project from `hello_world`
@@ -323,7 +323,7 @@ void wifi_init_softap()
 }
 ```
 
-`ESP_LOGI` is a logging command which prints an information message on the terminal. If you're unsure about it, check the [logging library documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#how-to-use-logging-library).
+`ESP_LOGI` is a logging command which prints an information message on the terminal. If you're unsure about it, check the [logging library documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#use-logging-library).
 
 ### Handle Wi-Fi Events
 

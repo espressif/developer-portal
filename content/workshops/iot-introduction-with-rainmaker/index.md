@@ -117,7 +117,7 @@ Parameters are monitoring parameters of a device, such as the ON/OFF power state
 
 They can also have additional fields like value, type, bounds, UI information, etc. The parameter values can be boolean, integer, float, or string.
 
-See the full list of supported [device types](https://rainmaker.espressif.com/docs/standard-types#devices).
+See the full list of supported [device types](https://docs.rainmaker.espressif.com/docs/product_overview/concepts/terminologies#devices).
 
 #### Services
 
@@ -610,7 +610,7 @@ To configure the integration with Google Home application, follow the steps belo
 1. Search for ESP RainMaker and sign in using your RainMaker credentials.
 1. Once the Account linking is successful, your RainMaker devices will show up and you can start using them.
 
-For Alexa, please use this documentation: [Enabling Alexa](https://rainmaker.espressif.com/docs/3rd-party#enabling-alexa).
+For Alexa, please use this documentation: [Enabling Alexa](https://docs.rainmaker.espressif.com/docs/dev/firmware/fw_usage_guides/voice-assistant-usage/#enabling-alexa).
 
 After linking your RainMaker account with the Google Home app, you will be able to see and control all devices in your RainMaker account.
 

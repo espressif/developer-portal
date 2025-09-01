@@ -12,7 +12,7 @@ tags:
 ---
 Hi everyone,
 
-Last month (21–23 June), Espressif Systems was delighted to participate in the [20th edition of embedded world](https://www.embedded-world.de/en/news/press-releases/2022-embedded-closing-report-jp1ycrjfx7_pireport). With over 3,900 online and onsite attendees *embedded world* proved that it is the leading trade fair of the international embedded community. More than 720 exhibitors from 39 countries presented their latest developments in embedded technologies, ranging from components, modules and complete development boards to operating systems and software tools, as well as services for embedded systems.
+Last month (21–23 June), Espressif Systems was delighted to participate in the 20th edition of embedded world. With over 3,900 online and onsite attendees *embedded world* proved that it is the leading trade fair of the international embedded community. More than 720 exhibitors from 39 countries presented their latest developments in embedded technologies, ranging from components, modules and complete development boards to operating systems and software tools, as well as services for embedded systems.
 
 In this major event, Espressif unveiled ESP32-C5, the world’s first RISC-V SoC with a dual-band Wi-Fi 6 and Bluetooth 5 (LE) connectivity. We also presented the most recent achievements in our SoC portfolio. Here are some more details about them:
 
