@@ -64,7 +64,7 @@ With two complementary PCB antennas, ESP32-WROOM-DA is Espressif’s new module 
     src="img/may-5.webp"
     >}}
 
-[E3K](https://www.crowdsupply.com/wallysci/e3k#details-top) is an [ESP32-powered](https://www.espressif.com/en/products/devkits/esp32-devkitc) device that is especially designed for students and researchers. It aims at providing an affordable, fully open-source, wireless framework for an intuitive understanding of bio-signals originated from the human heart, muscles, and brain.
+[E3K](https://www.crowdsupply.com/wallysci/e3k) is an [ESP32-powered](https://www.espressif.com/en/products/devkits/esp32-devkitc) device that is especially designed for students and researchers. It aims at providing an affordable, fully open-source, wireless framework for an intuitive understanding of bio-signals originated from the human heart, muscles, and brain.
 
 [Read More >](https://www.espressif.com/en/company/newsroom/news)
 

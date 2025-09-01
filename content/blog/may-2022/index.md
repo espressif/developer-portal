@@ -51,7 +51,7 @@ Since tracking the development of [Espressif’s support](https://www.espressif.
 
 [__The First Makerspace in Siem Riep!__ ](https://www.espressif.com/en/news/Makers_Siem_Riep)
 
-Independent maker, STEM educator and Espressif supporter, [Tomoyuki Sakurai](https://github.com/trombik), has created the first makerspace in Siem Riep, Cambodia, called “[Makers Siem Reap](http://info.mkrsgh.org/makerspace/about/)”. Its mission is to provide a place where people with shared interests in electronics and information technology can gather to work on various projects while sharing ideas, equipment, and knowledge.
+Independent maker, STEM educator and Espressif supporter, [Tomoyuki Sakurai](https://github.com/trombik), has created the first makerspace in Siem Riep, Cambodia, called “[Makers Siem Reap](https://www.espressif.com/en/news/Makers_Siem_Riep)”. Its mission is to provide a place where people with shared interests in electronics and information technology can gather to work on various projects while sharing ideas, equipment, and knowledge.
 
 [Read More >](https://www.espressif.com/en/company/newsroom/news)
 

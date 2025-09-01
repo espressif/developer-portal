@@ -65,7 +65,7 @@ By following [our guide](/blog/making-the-fancy-user-interface-on-esp-has-never-
 
 [__ESP32-DevKitC V4 with Dual-Antenna Module Hits the Market__ ](https://www.espressif.com/en/news/ESP32_DevKitC_V4_available)
 
-Espressif’s IoT dev board, [ESP32-DevKitC V4](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html#id15), which has an embedded ESP32-WROOM-DA, has become commercially available. With two complementary antennas and the coexistence of Wi-Fi and Bluetooth (Classic & Low-Energy) connectivity, ESP32-DevKitC V4 enhances the quality of wireless connectivity across large areas.
+Espressif’s IoT dev board, [ESP32-DevKitC V4](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html), which has an embedded ESP32-WROOM-DA, has become commercially available. With two complementary antennas and the coexistence of Wi-Fi and Bluetooth (Classic & Low-Energy) connectivity, ESP32-DevKitC V4 enhances the quality of wireless connectivity across large areas.
 
 [Read More >](https://www.espressif.com/en/company/newsroom/news)
 

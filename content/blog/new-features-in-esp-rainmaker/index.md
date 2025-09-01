@@ -34,7 +34,7 @@ Once the sharing is accepted, the secondary user can control and monitor the nod
 
 ## Timezone Setting
 
-ESP RainMaker already had support for Timezones on the device side. The various ways in which this could be used can be found [ESP RainMaker docs](https://rainmaker.espressif.com/docs/time-service/#time-zone). However, the support on phone app side was missing, making it a bit hard to set timezone on the devices at run time. The latest phone apps now have an option to set this on the Node details page. Moreover, to prevent cases wherein people may forget to set the timezone explicitly from the Node details page, we have also added this in the “Adding device” workflow. So, after provisioning and user-node association is done, the phone app automatically sets the device timezone to match the phone’s timezone.
+ESP RainMaker already had support for Timezones on the device side. The various ways in which this could be used can be found [ESP RainMaker docs](http://docs.rainmaker.espressif.com/docs/product_overview/features/time-service). However, the support on phone app side was missing, making it a bit hard to set timezone on the devices at run time. The latest phone apps now have an option to set this on the Node details page. Moreover, to prevent cases wherein people may forget to set the timezone explicitly from the Node details page, we have also added this in the “Adding device” workflow. So, after provisioning and user-node association is done, the phone app automatically sets the device timezone to match the phone’s timezone.
 
 ## Arduino Support
 
@@ -51,4 +51,4 @@ As people start using more and more Smart devices, it often gets hard to view an
 
 Even though the phone apps have only single level groups, the RainMaker backend supports even sub groups. You can check out the Grouping APIs at [Swagger](https://swaggerapis.rainmaker.espressif.com/#/Device%20grouping) if you are interested.
 
-Apart from these features, we have made quite some visual and convenience related improvements. Download our latest apps from [RainMake docs](https://rainmaker.espressif.com/docs/quick-links/#phone-apps) and check these out for yourself. You can give your feedback either on [GitHub](https://github.com/espressif/esp-rainmaker/issues) or the [forums](https://www.esp32.com/viewforum.php?f=41&sid=98f7b3da06f71d135fc2161792ffa5d0).
+Apart from these features, we have made quite some visual and convenience related improvements. Download our latest apps from [RainMake docs](https://docs.rainmaker.espressif.com/docs/product_overview/technical_overview/components#reference-phone-app) and check these out for yourself. You can give your feedback either on [GitHub](https://github.com/espressif/esp-rainmaker/issues) or the [forums](https://www.esp32.com/viewforum.php?f=41&sid=98f7b3da06f71d135fc2161792ffa5d0).

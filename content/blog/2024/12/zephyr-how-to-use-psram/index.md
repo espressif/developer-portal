@@ -867,7 +867,7 @@ In addition to these three strategies, it is also possible to leverage PSRAM to 
    - [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html)
    - Supported Boards and Shields
      - [Espressif](https://docs.zephyrproject.org/latest/boards/espressif/index.html)
-       - [ESP32-DevKitC-WROVER](https://docs.zephyrproject.org/latest/boards/espressif/esp32_devkitc_wrover/doc/index.html)
+       - [ESP32-DevKitC-WROVER](https://docs.zephyrproject.org/4.1.0/boards/espressif/esp32_devkitc_wrover/doc/index.html)
        - [ESP32-S2-DevKitC](https://docs.zephyrproject.org/latest/boards/espressif/esp32s2_devkitc/doc/index.html)
        - [ESP32-S3-DevKitC-1](https://docs.zephyrproject.org/latest/boards/espressif/esp32s3_devkitc/doc/index.html)
    - [Shared Multi Heap](https://docs.zephyrproject.org/latest/kernel/memory_management/shared_multi_heap.html)

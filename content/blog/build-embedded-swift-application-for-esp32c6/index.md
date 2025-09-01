@@ -147,7 +147,7 @@ Embedded Swift even in **experimental** stage represents a significant advanceme
 Since the original publication in July 2024, several important improvements have been made to the Embedded Swift ecosystem:
 
 ### Toolchain Management
-- **Swiftly Integration**: The recommended way to install and manage Swift toolchains is now through [Swiftly](https://www.swift.org/install/macos/#using-swiftly), which simplifies toolchain management significantly.
+- **Swiftly Integration**: The recommended way to install and manage Swift toolchains is now through [Swiftly](https://www.swift.org/install/), which simplifies toolchain management significantly.
 - **Swift 6.2 Development**: The examples now work with Swift 6.2 development snapshots, providing access to the latest language features and improvements.
 
 ### ESP-IDF Compatibility
@@ -166,4 +166,4 @@ Since the original publication in July 2024, several important improvements have
 - [Embedded Swift Documentation](https://www.swift.org/get-started/embedded/)
 - [Installing Embedded Swift](https://docs.swift.org/embedded/documentation/embedded/installembeddedswift/)
 - [Blog Post Introducing Embedded Swift Examples](https://www.swift.org/blog/embedded-swift-examples/)
-- [Swiftly - Swift Toolchain Manager](https://www.swift.org/install/macos/#using-swiftly)
+- [Swiftly - Swift Toolchain Manager](https://www.swift.org/install/)

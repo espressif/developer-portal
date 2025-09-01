@@ -68,7 +68,7 @@ The ESP32-P4 features:
 - **USB Support**: USB 2.0 specification
 - **Peripherals**: Includes MIPI-CSI/DSI, H264 Encoder, and other relevant peripherals
 
-The [ESP32-P4-Function-EV-Board](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32p4/esp32-p4-function-ev-board/user_guide.html#esp32-p4-function-ev-board) is the recommended development board for prototyping MIPI interface LCD solutions. It offers several key features:
+The [ESP32-P4-Function-EV-Board](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32p4/esp32-p4-function-ev-board/user_guide.html) is the recommended development board for prototyping MIPI interface LCD solutions. It offers several key features:
 
 - **Wi-Fi and Bluetooth Module**: 2.4 GHz Wi-Fi 6 & Bluetooth 5 (LE) via the integrated ESP32-C6-MINI-1 module
 - **Display**: 7-inch capacitive touch screen with 1024 x 600 resolution

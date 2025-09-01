@@ -21,6 +21,7 @@ https://www.digikey.cn
 https://www.instagram.com
 https://espressif.us15.list-manage.com
 https://code.visualstudio.com
+https://www.sqfmi.com/
 
 # Domains periodically returning 500
 https://www.analog.com
@@ -34,3 +35,25 @@ socket://localhost
 
 # Local links
 http://4.3.2.1
+
+# Sites where fragments (#…) are added by JavaScript, so lychee can’t verify them
+https://products.espressif.com/
+https://github.com/
+
+# Ingore local links
+file://
+
+# Links returning 403 (need periodic manual status checks)
+https://wiki.mozilla.org/CA/Included_Certificates
+https://www.nordicsemi.com/Products/Development-hardware/Power-Profiler-Kit-2
+https://digilent.com/reference/pmod/start
+https://robu.in/product/espressif-esp32-c5-devkitc-1-n8r4-development-board/
+https://news.samsung.com/global/samsung-smartthings-integrates-matter-into-ecosystem-bringing-matter-device-control-to-multiple-samsung-products
+https://pubs.aip.org/aip/rsi/article-abstract/90/10/105101/360620/apex-A-new-commercial-off-the-shelf-on-board
+
+# Other issues
+# Presence of spaces in urls
+https://swaggerapis.rainmaker.espressif.com/
+https://csa-iot.org/certification/paa/#:~:text=trust%40dreamsecurity.com-,Espressif%20Systems
+https://en.wikipedia.org/wiki/Economics_of_coffee#:~:text=Over%202.25%20billion%20cups%20of,coffee%20for%20a%20living%20worldwide
+https://www.integrasources.com/blog/basics-of-pid-controllers-design-applications/#:~:text=In%20simple%20terms%2C%20the%20PID,variable%20into%20the%20acceptable%20range

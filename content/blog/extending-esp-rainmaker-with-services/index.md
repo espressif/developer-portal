@@ -20,7 +20,7 @@ tags:
 
 One important aspect of RainMaker is that the cloud is very thin and acts as a tunnel between the ESP nodes and clients like mobile phones, Alexa, GVA, etc. This makes it very flexible and extensible allowing users to create any type of device with any kind of functionality and access it from the phone apps. There are some defaults that we have defined, but they are not mandatory to use and you can create your own device/param types.
 
-The functionality that a RainMaker node supports is communicated by the node using something called as the [node configuration](https://rainmaker.espressif.com/docs/node-cloud-comm.html#node-configuration). This, broadly has 2 parts.
+The functionality that a RainMaker node supports is communicated by the node using something called as the [node configuration](https://docs.rainmaker.espressif.com/docs/product_overview/concepts/node-cloud-communication#node-configuration). This, broadly has 2 parts.
 
 Most RainMaker users are now well versed with the concept of devices since they are very much visible in the examples. However, the concept of “services” may not be clear because it is hidden under the APIs like __esp_rmaker_system_service_enable(), esp_rmaker_schedule_enable()__ or __esp_rmaker_timezone_service_enable()__ and used internally by the phone apps.
 

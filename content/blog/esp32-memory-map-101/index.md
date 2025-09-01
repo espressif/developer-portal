@@ -24,8 +24,7 @@ The ESP32 is the Xtensa LX6 dual-core microcontroller, and it is the oldest SoC 
 
 The SoC has access to external flash memory using the SPI interface. It can also access the external SPIRAM, but only on the data bus.
 
-Zephyr-RTOS support for the ESP32 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32_devkitc_wrover/doc/index.html).
-
+Zephyr-RTOS support for the ESP32 devkit board can be found [here](https://docs.zephyrproject.org/4.1.0/boards/espressif/esp32_devkitc_wrover/doc/index.html).
 
 **ROM**
 

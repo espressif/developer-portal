@@ -27,7 +27,7 @@ After several sketches, modeling attempts, and soldering experiments, this is wh
 - [BH1750](https://drive.google.com/file/d/14TgYoCILyeGwoYwKgY8J0QdRMJRrRjMa/view) light sensor that provides information about light intensity
 - [thermistor](https://www.vishay.com/docs/29049/ntcle100.pdf) to control the temperature of the motor to prevent overheating
 - [reed switch](https://standexelectronics.com/wp-content/uploads/OKI_Reed_Switch_ORD213.pdf) whose function is to initialize the curtains
-- [ESP32-DevKitC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html#get-started-esp32-devkitc-board-front) board controls the stepper motor and communicates with the server/Home Assistant
+- [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html) board controls the stepper motor and communicates with the server/Home Assistant
 - [DC/DC buck](https://www.laskakit.cz/user/related_files/lm2596_datasheet.pdf) converter converts 12V powering the Stepper motor into 5V, which powers the ESP32-DevKitC
 
 All parts used in this project should be easy to buy in any hardware/electronics store. The only exception may be the TMC2209 driver. It was developed to control 3D printers, thus it will definitely be in a 3D printing store. For an easier understanding of how these components work, I have linked datasheets to them.
