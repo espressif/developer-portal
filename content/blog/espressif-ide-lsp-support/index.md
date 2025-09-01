@@ -81,7 +81,6 @@ However, if there are any issues with the configuration, see the [clangd configu
 
 [clangd-config]: https://github.com/espressif/idf-eclipse-plugin/blob/master/docs_readme/clangd_cdt_support.md#clangd-configuration
 
-
 <!-- omit in toc -->
 ### `.clangd` configuration
 

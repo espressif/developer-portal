@@ -39,7 +39,7 @@ Secure storage refers to the application-specific data that can be stored in a s
 
 ESP-IDF provides the NVS (Non-Volatile Storage) management component which allows encrypted data partitions. This feature is tied with the platform Flash Encryption feature described earlier.
 
-Please refer to [NVS Encryption](hhttps://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/storage/nvs_flash.html#nvs-encryption) for detailed documentation on the working and instructions to enable this feature.
+Please refer to [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/storage/nvs_flash.html#nvs-encryption) for detailed documentation on the working and instructions to enable this feature.
 
 In the ESP RainMaker context, each device has a unique key-certificate pair that helps the device identify itself to the ESP RainMaker cloud. We utilize the encrypted storage to store this information, to protect it from getting cloned across devices.
 
@@ -75,7 +75,7 @@ Before finalizing the images on the device, the devices perform a signature veri
 
 #### Secure Signing
 
-As mentioned earlier in the section for [Secure Boot](#secure-boot), ESP RainMaker makes it easier to manage OTA for devices with secure boot enabled. You can select appropriate signing key while creating an OTA Job. With the "Auto select key" option as mentioned [here](https://rainmaker.espressif.com/docs/secure-signing#ota-upgrades), even selecting the key is not required as the cloud backend can automatically choose the correct key as per the information reported in the node config and send a signed image during OTA.
+As mentioned earlier in the section for [Secure Boot](#secure-boot), ESP RainMaker makes it easier to manage OTA for devices with secure boot enabled. You can select appropriate signing key while creating an OTA Job. With the "Auto select key" option as mentioned [here](https://docs.rainmaker.espressif.com/docs/dev/firmware/fw_usage_guides/secure-signing#ota-upgrades), even selecting the key is not required as the cloud backend can automatically choose the correct key as per the information reported in the node config and send a signed image during OTA.
 
 #### Application Rollback
 

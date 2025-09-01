@@ -61,7 +61,7 @@ Additional free courses that are available from the Flowcode team are:
 - [CAN bus communications](https://matrixtsl.com/wp-content/uploads/2024/09/CP2793-CAN-Bus-Communications-11.07.24.pdf)
 - [Embedded internet communications](https://matrixtsl.com/wp-content/uploads/2024/09/CP4895-Embedded-Internet-Communications-14.08.24.pdf)
 - [Bluetooth communications](https://matrixtsl.com/wp-content/uploads/2024/09/CP1795-Bluetoooth-Communications-04.07.24.pdf)
-- [GSM communications](https://matrixtsl.com/wp-content/uploads/2024/08/CP2832-GSM-Communications.pdf)
+- [GSM communications](https://matrixtsl.com/wp-content/uploads/2024/12/CP2832-GSM-Communications.pdf)
 
 For further information on Flowcode see:
 

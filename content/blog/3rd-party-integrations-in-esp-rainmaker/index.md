@@ -22,7 +22,7 @@ With this in mind, we now have added 3rd party integrations, particularly Alexa 
 
 ## How does this work?
 
-If you are already familiar with ESP RainMaker, you may know that it has the concepts of [devices](https://rainmaker.espressif.com/docs/spec-concepts.html#devices) and [parameters](https://rainmaker.espressif.com/docs/spec-concepts.html#parameters). The devices and parameters have an optional “type” field. We have defined our own standard types for some common smart home devices like switches, lightbulbs, fans, etc. You can find information about the standard types [here](https://rainmaker.espressif.com/docs/standard-types.html). We have now created a layer which maps these parameters to formats that are understood by Alexa and GVA. So a device type in RainMaker (like light, switch, etc.) maps to a similar device type there, and their parameters like power, brightness, hue, saturation, intensity. etc. get mapped to the corresponding capabilities/traits. If you have just the power and brightness params, you get a simple brightness controllable light. If you include hue, saturation and intensity, you get a color light in Alexa and GVA.
+If you are already familiar with ESP RainMaker, you may know that it has the concepts of [devices](https://docs.rainmaker.espressif.com/docs/product_overview/concepts/terminologies#devices) and [parameters](https://docs.rainmaker.espressif.com/docs/product_overview/concepts/terminologies#parameters). The devices and parameters have an optional “type” field. We have defined our own standard types for some common smart home devices like switches, lightbulbs, fans, etc. You can find information about the standard types [here](https://rainmaker.espressif.com/docs/standard-types.html). We have now created a layer which maps these parameters to formats that are understood by Alexa and GVA. So a device type in RainMaker (like light, switch, etc.) maps to a similar device type there, and their parameters like power, brightness, hue, saturation, intensity. etc. get mapped to the corresponding capabilities/traits. If you have just the power and brightness params, you get a simple brightness controllable light. If you include hue, saturation and intensity, you get a color light in Alexa and GVA.
 
 ## Usage
 
@@ -41,7 +41,7 @@ esp_rmaker_device_add_saturation_param("Light", "saturation", DEFAULT_SATURATION
 
 The [switch example on GitHub](https://github.com/espressif/esp-rainmaker/tree/master/examples/switch) is also ready out of the box for Alexa/GVA.
 
-Once you build and flash the Lightbulb/Switch example, provision your board and link to your account using the [ESP RainMaker Phone apps](https://rainmaker.espressif.com/docs/quick-links.html#phone-apps). Give the device some friendly name so that it is easy to identify.
+Once you build and flash the Lightbulb/Switch example, provision your board and link to your account using the [ESP RainMaker Phone apps](https://docs.rainmaker.espressif.com/docs/product_overview/technical_overview/components#reference-phone-app). Give the device some friendly name so that it is easy to identify.
 
 ## Enabling Alexa
 

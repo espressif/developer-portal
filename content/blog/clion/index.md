@@ -33,7 +33,7 @@ Although we’ll be running CLion on macOS, the workflow and settings are genera
 
 ## Configuring an ESP-IDF project
 
-1. Run CLion. 
+1. Run CLion.
 2. Select `Open` from the welcome screen.
 
 {{< figure
@@ -167,7 +167,7 @@ src="img/13-esp-clion-monitor.webp"
 
 ## Working with the project configuration menu
 
-The [project configuration menu](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/kconfig.html) is a GUI tool running in the terminal that allows you to configure your ESP-IDF project. It’s based on Kconfig and offers various low-level [configuration options](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/kconfig.html#configuration-options-reference), including access to bootloader, serial flash, and security features.
+The [project configuration menu](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/kconfig.html) is a GUI tool running in the terminal that allows you to configure your ESP-IDF project. It’s based on Kconfig and offers various low-level [configuration options](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/kconfig-reference.html), including access to bootloader, serial flash, and security features.
 
 The project configuration menu runs through the `idf.py menuconfig` command, so you need to configure a run configuration accordingly.
 
@@ -179,8 +179,8 @@ default=true
 src="img/14-esp-clion-copy-config.webp"
     >}}
 
-3. Rename the copied configuration to reflect the new functionality, for example, `ESP-menu-config`. 
-4. In the script text, replace `flash monitor` with `menuconfig`. 
+3. Rename the copied configuration to reflect the new functionality, for example, `ESP-menu-config`.
+4. In the script text, replace `flash monitor` with `menuconfig`.
 
 {{< figure
 default=true
@@ -322,4 +322,3 @@ For further guidance about debugging your specific ESP32 chip, refer to the manu
 At CLion, we strive to make the IDE a universal and convenient tool for developing any embedded system, whether hardware, framework, or toolchain. The same is true for ESP-IDF: We plan to simplify the workflow for these projects and are actively working on it.
 
 We’d appreciate it if you use this tutorial for your ESP-IDF project and give us your feedback. If you have anything to share or if you encounter any problems, please let us know through our [issue tracker](https://youtrack.jetbrains.com/issues/CPP/).
-

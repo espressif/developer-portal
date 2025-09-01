@@ -18,9 +18,9 @@ As many of you may have already heard, Shanghai is currently undergoing a major 
 
 __ESP32-C2 is a combo Wi-Fi 4 + Bluetooth 5 ( LE) chip__  that was conceived during last year’s semiconductor supply shortages which -to a certain extent- persist even today. Hence, one of the most important goals for us in creating this chip was to reduce its silicon area and the flash size requirement. Thus, after almost a year of preparations, the resulting chip targets simple, high-volume, low-data-rate, IoT applications, such as smart plugs and light bulbs.
 
-ESP32-C2 is a chip __in a 4mm x 4mm package__ , with __272 kB of memory__ . It runs frameworks, such as [__ESP-Jumpstart__ ](https://github.com/espressif/esp-jumpstart/blob/master/README.md) and [__ESP RainMaker®__ ](https://rainmaker.espressif.com/), while it also runs [__ESP-IDF__ ](https://www.espressif.com/en/products/sdks/esp-idf). ESP-IDF is Espressif’s open-source, real-time operating system for embedded IoT devices, which has been trusted by users across the whole wide world. It is supported by [Espressif](http://www.espressif.com/) and the community for all [ESP32 chips](https://www.esp32.com/). __The ROM code of ESP32-C2 is optimized, as it reduces the need for flash.__ 
+ESP32-C2 is a chip __in a 4mm x 4mm package__ , with __272 kB of memory__ . It runs frameworks, such as [__ESP-Jumpstart__ ](https://github.com/espressif/esp-jumpstart/blob/master/README.md) and [__ESP RainMaker®__ ](https://rainmaker.espressif.com/), while it also runs [__ESP-IDF__ ](https://www.espressif.com/en/products/sdks/esp-idf). ESP-IDF is Espressif’s open-source, real-time operating system for embedded IoT devices, which has been trusted by users across the whole wide world. It is supported by [Espressif](http://www.espressif.com/) and the community for all [ESP32 chips](https://www.esp32.com/). __The ROM code of ESP32-C2 is optimized, as it reduces the need for flash.__
 
-__Thus, if you need a small, simple and cheap SoC that is able to provide your application with robust connectivity, ESP32-C2 is the way to go.Besides, ESP32-C2 also continues the tradition of Espressif’s excellent security, having such features as secure boot and flash encryption, while also providing hardware root-of-trust for any applications.__ 
+__Thus, if you need a small, simple and cheap SoC that is able to provide your application with robust connectivity, ESP32-C2 is the way to go.Besides, ESP32-C2 also continues the tradition of Espressif’s excellent security, having such features as secure boot and flash encryption, while also providing hardware root-of-trust for any applications.__
 
 Other topics you can read about in this month’s newsletter include:
 
@@ -40,7 +40,7 @@ The [ESP USB Bridge](https://github.com/espressif/esp-usb-bridge) is an ESP-IDF 
 
 [__AnalogLamb’s Version of ESP32-S3 Offers a 2 MP Camera, a Mic, and Two LCDs__ ](https://www.espressif.com/en/news/Maple_Eye_ESP32-S3)
 
-[AnalogLamb’s Maple Eye ESP32-S3](https://www.analoglamb.com/product/maple-eye-esp32-s3-board-with-camera-and-lcds/) is a Wi-Fi-and-Bluetooth dev board based on Espressif’s [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3)dual-core Xtensa LX7 microcontroller. Additionally, it is equipped with one 2MP camera, one microphone, and two LCDs placed on each side of the board.
+[AnalogLamb’s Maple Eye ESP32-S3](https://www.crowdsupply.com/analoglamb/maple-eye-esp32-s3-alef) is a Wi-Fi-and-Bluetooth dev board based on Espressif’s [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3)dual-core Xtensa LX7 microcontroller. Additionally, it is equipped with one 2MP camera, one microphone, and two LCDs placed on each side of the board.
 
 {{< figure
     default=true
@@ -49,7 +49,7 @@ The [ESP USB Bridge](https://github.com/espressif/esp-usb-bridge) is an ESP-IDF 
 
 [__Tracer: An ESP32-Powered Wearable for Things!__ ](https://www.espressif.com/en/news/ESP32_Tracer)
 
-Tracer is an open-source, ESP32-based, embedded project created by independent maker [elektroThing](https://ko-fi.com/elektrothing#instant-signup-modal). Tracer leverages the wide variety of software libraries written for [ESP32](https://www.espressif.com/en/products/socs/esp32), allowing tinkerers to gain insight into the necessary processing and algorithms required to develop their very own fitness tracker.
+Tracer is an open-source, ESP32-based, embedded project created by independent maker elektroThing. Tracer leverages the wide variety of software libraries written for [ESP32](https://www.espressif.com/en/products/socs/esp32), allowing tinkerers to gain insight into the necessary processing and algorithms required to develop their very own fitness tracker.
 
 [Read More >](https://www.espressif.com/en/company/newsroom/news)
 

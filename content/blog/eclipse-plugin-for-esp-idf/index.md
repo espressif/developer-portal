@@ -39,7 +39,7 @@ The IDF Eclipse Plugin is available from the Eclipse Marketplace. To get started
 
 You can also install the IDF Eclipse Plugin into the existing Eclipse CDT using the plugin update site URL [https://dl.espressif.com/dl/idf-eclipse-plugin/updates/latest/](https://dl.espressif.com/dl/idf-eclipse-plugin/updates/latest/)
 
-You can find the detailed instructions [here](https://github.com/espressif/idf-eclipse-plugin#espressif-idf-eclipse-plugins)
+You can find the detailed instructions [here](https://docs.espressif.com/projects/espressif-ide/en/latest/marketplaceupdate.html#marketplaceupdate)
 
 {{< figure
     default=true

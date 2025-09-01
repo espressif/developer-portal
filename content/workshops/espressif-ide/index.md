@@ -415,7 +415,7 @@ Remember, debugging is a powerful tool that can help you understand how your cod
 
 #### Troubleshooting
 
-If you have issues debugging, please read our Espressif-IDE's [Troubleshooting](https://github.com/espressif/idf-eclipse-plugin?tab=readme-ov-file#troubleshooting) guide.
+If you have issues debugging, please read our Espressif-IDE's [Troubleshooting](https://docs.espressif.com/projects/espressif-ide/en/latest/troubleshooting.html) guide.
 
 ### Tools
 

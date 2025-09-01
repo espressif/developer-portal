@@ -235,7 +235,7 @@ As you can see from the graphs presented above, some SoCs do not support full-sc
 
 ## Noise Impact
 
-Noise can affect ADC measurements, causing variations between readings of the same input voltage. The [documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc_calibration.html#minimize-noise) recommends connecting a bypass capacitor (e.g., a 100 nF ceramic capacitor) to the ADC input pad to minimize noise. In addition, the technique of multisampling can further reduce the impact of noise.
+Noise can affect ADC measurements, causing variations between readings of the same input voltage. The [documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc/adc_calibration.html#minimize-noise) recommends connecting a bypass capacitor (e.g., a 100 nF ceramic capacitor) to the ADC input pad to minimize noise. In addition, the technique of multisampling can further reduce the impact of noise.
 
 ## Temperature Drift
 

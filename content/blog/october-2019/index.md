@@ -57,7 +57,7 @@ Espressif is pleased to announce that [ESP-BLE-MESH has been fully certified by 
     src="img/october-3.webp"
     >}}
 
-Nico Maas, an IT Engineer and Ground Controller from the Microgravity User Support Center (MUSC) at the German Aerospace Center (DLR), worked with a team of other researchers on [developing](https://aip.scitation.org/doi/full/10.1063/1.5118855) a new commercial off-the-shelf on-board computer platform for sounding rockets. This experiment was based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and resulted in Espressif’s flagship chip being launched into space!
+Nico Maas, an IT Engineer and Ground Controller from the Microgravity User Support Center (MUSC) at the German Aerospace Center (DLR), worked with a team of other researchers on [developing](https://pubs.aip.org/aip/rsi/article-abstract/90/10/105101/360620/apex-A-new-commercial-off-the-shelf-on-board?redirectedFrom=fulltext) a new commercial off-the-shelf on-board computer platform for sounding rockets. This experiment was based on [ESP32](https://www.espressif.com/en/products/hardware/esp32/overview) and resulted in Espressif’s flagship chip being launched into space!
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESP32_Launched_Into_Space)
 
