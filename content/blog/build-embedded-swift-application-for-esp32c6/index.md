@@ -1,6 +1,7 @@
 ---
 title: "Build Embedded Swift Application for ESP32-C6"
 date: 2024-07-22
+lastmod: 2025-09-03
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
@@ -33,40 +34,43 @@ Ensure you have the following hardware:
 
 Before you begin, make sure you have the following:
 
-- [ESP-IDF v5.3](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/get-started/index.html): The official development framework for the ESP32, properly installed and sourced in your shell.
-- Swift 6 - nightly toolchain ([macOS download](https://www.swift.org/install/macos/#development-snapshots) / [Linux download](https://www.swift.org/install/linux))
-  - Note: the article was written using Apple Swift version 6.0-dev (LLVM 3bba20e27a3bcf9, Swift 8e8e486fb05209f)
+- [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html): The official development framework for the ESP32, properly installed and sourced in your shell. This tutorial has been tested with ESP-IDF v6.0.
+- [Swiftly](https://www.swift.org/install/macos/#using-swiftly): The Swift toolchain installer and manager.
+- Swift 6.2 development snapshot (installed via swiftly).
+  - Note: This article has been updated and tested with Swift 6.2-dev snapshot from August 2025.
 
 ### Building an Example Project
 
 First, let's see the whole build process in Asciinema recording:
 {{< asciinema key="build-swift-app-for-esp32c6" cols="80" rows="24" poster="npt:0:08" >}}
 
-1. **Clone Sample Project**:
+1. **Install Swift toolchain**:
 
-   Let's clone the project and configure `TOOLCHAINS` environment variable with the version of the installed Swift 6.
+   First, install Swiftly by following the official installation guide at [swift.org/install](https://www.swift.org/install/), then install the Swift 6.2 development snapshot:
+
+   ```bash
+   # Install Swift 6.2 development snapshot
+   swiftly install 6.2-snapshot
+   ```
+
+2. **Clone Sample Project**:
+
+   The repository contains two ESP32 examples. Let's use the LED strip example which demonstrates more advanced functionality:
+
+   ```shell
+   git clone https://github.com/swiftlang/swift-embedded-examples.git --single-branch --branch main
+   cd swift-embedded-examples/esp32-led-strip-sdk
+   
+   # Use the 6.2 snapshot for this project
+   swiftly use 6.2-snapshot
+   ```
+
+   **Available ESP32 Examples:**
+   - `esp32-led-blink-sdk`: Simple LED blinking example
+   - `esp32-led-strip-sdk`: NeoPixel LED strip control example (used in this tutorial)
 
 
-    {{< tabs groupId="config" >}}
-      {{% tab name="macOS" %}}
-```shell
-git clone git@github.com:apple/swift-embedded-examples.git --single-branch --branch main
-#export TOOLCHAINS=org.swift.600202406111a
-export TOOLCHAINS=$(plutil -extract CFBundleIdentifier raw /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
-cd swift-embedded-examples/esp32-led-strip-sdk
-```
-      {{% /tab %}}
-
-      {{% tab name="Linux" %}}
-```shell
-git clone git@github.com:apple/swift-embedded-examples.git --single-branch --branch main
-cd swift-embedded-examples/esp32-led-strip-sdk
-```
-      {{% /tab %}}
-    {{< /tabs >}}
-
-
-2. **Set the Target**:
+3. **Set the Target**:
 
    Ensure the correct target is set for your project:
 
@@ -76,7 +80,7 @@ cd swift-embedded-examples/esp32-led-strip-sdk
 
    Note: It's possible to build the project also for other RISC-V based targets, like ESP32-C3.
 
-3. **Build and Flash the Project**:
+4. **Build and Flash the Project**:
 
    Compile and flash your application to the ESP32-C6-DevKit:
 
@@ -86,11 +90,9 @@ cd swift-embedded-examples/esp32-led-strip-sdk
 
    Note: Use `Ctrl+]` to quit the monitor application.
 
-   Note: If the build fails with linking error, please follow instructions at [swift-embedded-examples repository](https://github.com/apple/swift-embedded-examples/issues/17#issuecomment-2174606877)
-
 ### Exploring the Example
 
-Let's look at the source code of the example: [Main.swift](https://github.com/apple/swift-embedded-examples/blob/main/esp32-led-strip-sdk/main/Main.swift)
+Let's look at the source code of the example: [Main.swift](https://github.com/swiftlang/swift-embedded-examples/blob/main/esp32-led-strip-sdk/main/Main.swift)
 ```swift
 //===----------------------------------------------------------------------===//
 //
@@ -140,11 +142,28 @@ The examples for ESP32-C6 could be easily simulated by Wokwi:
 
 Embedded Swift even in **experimental** stage represents a significant advancement in bringing Swift's powerful features to embedded systems and constrained environments. By focusing on reducing runtime dependencies and optimizing code size, Embedded Swift allows developers to leverage Swift's modern programming paradigms even on MCUs.
 
+## What's New Since the Original Article (Updated September 2025)
+
+Since the original publication in July 2024, several important improvements have been made to the Embedded Swift ecosystem:
+
+### Toolchain Management
+- **Swiftly Integration**: The recommended way to install and manage Swift toolchains is now through [Swiftly](https://www.swift.org/install/macos/#using-swiftly), which simplifies toolchain management significantly.
+- **Swift 6.2 Development**: The examples now work with Swift 6.2 development snapshots, providing access to the latest language features and improvements.
+
+### ESP-IDF Compatibility
+- **ESP-IDF 6.0 Support**: The examples have been tested and work with ESP-IDF v6.0, which includes many improvements and new features.
+- **Updated Dependencies**: All component dependencies are automatically managed and updated to their latest versions.
+
+### Repository Changes
+- **Organization Move**: The swift-embedded-examples repository has moved from `apple/swift-embedded-examples` to `swiftlang/swift-embedded-examples`.
+- **Documentation Improvements**: Enhanced documentation with better installation guides and troubleshooting information.
+
 ## Useful Links
 
 - [WWDC24 - Go small with Embedded Swift](https://developer.apple.com/videos/play/wwdc2024/10197/)
-- [Embedded Swift Example Projects](https://github.com/apple/swift-embedded-examples/tree/main/esp32-led-strip-sdk)
-- [A Vision for Embedded Swift](https://github.com/apple/swift-evolution/blob/main/visions/embedded-swift.md)
-- [Embedded Swift User Manual](https://github.com/apple/swift/tree/main/docs/EmbeddedSwift/UserManual.md)
+- [Embedded Swift Example Projects](https://github.com/swiftlang/swift-embedded-examples)
+- [A Vision for Embedded Swift](https://github.com/swiftlang/swift-evolution/blob/main/visions/embedded-swift.md)
+- [Embedded Swift Documentation](https://docs.swift.org/embedded/)
+- [Installing Embedded Swift](https://docs.swift.org/embedded/documentation/embedded/installembeddedswift/)
 - [Blog Post Introducing Embedded Swift Examples](https://www.swift.org/blog/embedded-swift-examples/)
-- [Swift Development Snapshots](https://www.swift.org/download/#snapshots)
+- [Swiftly - Swift Toolchain Manager](https://www.swift.org/install/macos/#using-swiftly)
