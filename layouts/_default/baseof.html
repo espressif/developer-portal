@@ -18,11 +18,13 @@
         </a>
       </div>
 
-      {{ $header := print "partials/header/" .Site.Params.header.layout ".html" }}
-      {{ if templates.Exists $header }}
-        {{ partial $header . }}
+      {{ $layout := default "basic" .Site.Params.header.layout }}
+      {{ $exists := printf "partials/header/%s.html" $layout }}
+      {{ $call   := printf "header/%s.html" $layout }}
+      {{ if templates.Exists $exists }}
+        {{ partial $call . }}
       {{ else }}
-        {{ partial "partials/header/basic.html" . }}
+        {{ partial "header/basic.html" . }}
       {{ end }}
 
       <div class="relative flex flex-col grow">
