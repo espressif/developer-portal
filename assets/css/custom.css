@@ -28,3 +28,24 @@
   border-left: 0.25rem solid #e7352c;
   margin-top: 1.6em;
 }
+
+/*
+  Fix table column alignment for markdown injected with marked.js.
+  By default, marked.js uses the deprecated HTML "align" attribute
+  (e.g. <td align="center">), while Hugo/Goldmark uses inline CSS
+  (e.g. <td style="text-align:center;">).
+
+  Many modern CSS resets override "align", so without this rule
+  the alignment is lost in dynamically injected tables.
+  These selectors re-enable the expected alignment for tables
+  coming from marked.js, without affecting Hugo-built tables.
+*/
+table th[align="left"], table td[align="left"] {
+  text-align: left;
+}
+table th[align="center"], table td[align="center"] {
+  text-align: center;
+}
+table th[align="right"], table td[align="right"] {
+  text-align: right;
+}
