@@ -163,7 +163,7 @@ Since the original publication in July 2024, several important improvements have
 - [WWDC24 - Go small with Embedded Swift](https://developer.apple.com/videos/play/wwdc2024/10197/)
 - [Embedded Swift Example Projects](https://github.com/swiftlang/swift-embedded-examples)
 - [A Vision for Embedded Swift](https://github.com/swiftlang/swift-evolution/blob/main/visions/embedded-swift.md)
-- [Embedded Swift Documentation](https://docs.swift.org/embedded/)
+- [Embedded Swift Documentation](https://www.swift.org/get-started/embedded/)
 - [Installing Embedded Swift](https://docs.swift.org/embedded/documentation/embedded/installembeddedswift/)
 - [Blog Post Introducing Embedded Swift Examples](https://www.swift.org/blog/embedded-swift-examples/)
 - [Swiftly - Swift Toolchain Manager](https://www.swift.org/install/macos/#using-swiftly)
