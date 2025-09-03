@@ -35,7 +35,7 @@ Ensure you have the following hardware:
 Before you begin, make sure you have the following:
 
 - [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html): The official development framework for the ESP32, properly installed and sourced in your shell. This tutorial has been tested with ESP-IDF v6.0.
-- [Swiftly](https://www.swift.org/install/macos/#using-swiftly): The Swift toolchain installer and manager.
+- [Swiftly](https://www.swift.org/install/): The Swift toolchain installer and manager.
 - Swift 6.2 development snapshot (installed via swiftly).
   - Note: This article has been updated and tested with Swift 6.2-dev snapshot from August 2025.
 
