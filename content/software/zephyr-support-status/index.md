@@ -84,15 +84,13 @@ Since the release v4.0 for ESP32-C3, the system is considered stable for product
 | MCUBOOT (Zephyr port)              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
 | MCUBOOT (Espressif port)           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_plus_sign:      | :heavy_check_mark: | :heavy_check_mark: | :x:                |
 
-*Last update in 30/06/2025*
-
 **Legend:**
 * :heavy_check_mark: : Supported
 * :heavy_plus_sign: : Work in Progress / Partially Supported
 * :x: : Not yet Supported
 * :no_entry_sign: : Not available on this device
 
-**:blue_book: Notes and Limitations:**
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 * *Current Chip Versions* are listed for support in Zephyr. For the newest chip versions, consult Espressif website.
 * Peripherals developed by community are flagged as supported if a test case is provided and it has passed internal manual and automatic tests.
 * The camera implementation on ESP32 and ESP32S2 is an ESP-IDF software based implementation. It won't be ported to Zephyr.
@@ -102,6 +100,7 @@ Since the release v4.0 for ESP32-C3, the system is considered stable for product
 * SMP (Symmetric MultiProcessing) is not working and has BT limitations. [Check the thread about it](https://github.com/zephyrproject-rtos/zephyr/issues/56011).
 * ESP8684, please check ESP32-C2
 * ESP8685, please check ESP32-C3
+{{< /alert >}}
 
 ## Zephyr Releases
 
@@ -118,27 +117,28 @@ Espressif is 100% adherent to Zephyr Schedule and plans around Zephyr public pla
 | 4.6             | Nov 2026    |                                      |          |
 | 4.7             | Mar 2027    |                                      | LTS      |
 
-*Last update in 30/06/2025*
 
-**:warning: Warning**
-- **Users should ALWAYS use the latest hash/commit of [Zephyr Repository](https://github.com/zephyrproject-rtos/zephyr) during development cycle due to constant update and bug fixes.** 
-
-**:blue_book: Notes:**
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 - Work on devices starts earlier and devices may be available in between releases. Then, the table above reflects the first Release to support the device.
 - Dates are tenative and subject to change. [Zephyr Release Plan](https://github.com/zephyrproject-rtos/zephyr/wiki/Release-Management#future-releases) may change without notice.
+{{< /alert >}}
 
 ### Best Release for Espressif Devices
 
-During the development stage, users are expected to keep using the latest software available. In other words, users are expected to be using the latest commit hash from Zephyr GitHub repository.
+{{< alert >}}
+**Users should ALWAYS use the latest hash/commit of [Zephyr Repository](https://github.com/zephyrproject-rtos/zephyr) during development cycle due to constant update and bug fixes.** 
+{{< /alert >}}
 
-Espressif strongly suggests, for Zephyr-based software on its devices, the adherence to the rolling release model, keeping up with upstream. Espressif considers Zephyr versions as weak locators of software status. Staying in between releases, given the great capacity of tracking offered by GIT, is not perceived as an issue.
+During the development stage, users are expected to keep using the latest software available. In other words, users are expected to be using the latest commit hash from Zephyr GitHub repository, even if that doesn't translate to a 'numbered' release. They will get a 'version' resembling 'v4.0-\[hash\]'.
+
+Espressif strongly suggests, for Zephyr-based software on its devices, the adherence to the rolling release model, keeping up with upstream. Espressif considers Zephyr versions as weak locators of software status. Staying in between releases, given the great capacity of tracking offered by GIT, is not perceived as an issue. Besides, any backfixes that diverge from upstream will result in a fork, and those, for good practice, should be avoided.
 
 Espressif is adherent to LTS releases of Zephyr for OS bugfixes only.
 
 ## Disclaimers
  
-Espressif does not control the Zephyr Project and does not claim any ownership over it. The Zephyr Project is managed by the Linux Foundation, and Espressif participates as a regular contributor.
+Espressif does not control the Zephyr Project and does not claim any ownership over it. The Zephyr Project is managed by The Linux Foundation, and Espressif participates as a regular contributor.
 
-As such, elements like release dates, release planning, issue classification, relevance levels, major technical decisions, and the activities of the Technical Steering Committee (TSC)—as well as much of the information found on the Zephyr Project's GitHub—are not under Espressif’s control or supervision.
+As such, elements like release dates, release planning, issue classification, relevance levels, major technical decisions, and the activities of the Technical Steering Committee (TSC) and the community, as well as much of the information found on the Zephyr Project's GitHub, are not under Espressif’s control or supervision.
 
 Espressif is fully committed to following the Zephyr Project’s rules, regulations, and governance, just like any other regular contributor.
