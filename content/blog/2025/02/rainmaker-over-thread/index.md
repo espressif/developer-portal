@@ -42,7 +42,7 @@ Additional benefits of using ESP RainMaker over Thread devices are:
 - Direct point-to-point communication with the cloud, enabling direct remote control and device management such as cloud-based fleet management and OTA.
 - Easy and secure network configuration with local and remote device control using phone apps.
 - Compatibility with any Thread Border Routers that support NAT64, such as Apple HomePod and [Espressif's Thread Border Router solution](https://developer.espressif.com/blog/espressif-thread-border-router/).
-- Supports a wide range of [smart home device types](https://rainmaker.espressif.com/docs/standard-types/#devices), enabling rapid productization of Thread-based products.
+- Supports a wide range of [smart home device types](https://docs.rainmaker.espressif.com/docs/product_overview/concepts/terminologies#devices), enabling rapid productization of Thread-based products.
 
 Thread device provisioning and control in the ESP RainMaker app:
 

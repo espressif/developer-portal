@@ -1,10 +1,11 @@
 ---
-title: "ESP32-C61 support status"
-date: 2024-08-29T16:40:07+08:00
-draft: false
+title: "ESP32-C61 status"
+date: 2024-08-29
+aliases:
+- ../../pages/chip-support-status/esp32c61
 ---
 
-**Last updated:** {{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="timestamp" >}}
+**Last updated:** {{< dynamic-block contentPath="persist/chip-support-status/esp32c61.json" jsonKey="timestamp" >}}
 
 This page lists the projects in which the ESP32-C61 is supported.
 
@@ -33,11 +34,11 @@ The **support for earlier engineering samples** -- ESP32-C61 v0.2 -- has been re
 
 If you have an issue to report about any of the ESP32-C61 features, please create an issue in [ESP-IDF GitHub issue tracker](https://github.com/espressif/esp-idf/issues).
 
-{{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="idf" >}}
+{{< dynamic-block contentPath="persist/chip-support-status/esp32c61.json" jsonKey="idf" >}}
 
 
 ## Other Projects
 
 If you have an issue to report about any of the ESP32-C61 features, please create an issue in the issue tracker of a respective project.
 
-{{< chipstatus contentPath="persist/chip-support-status/esp32c61.json" jsonKey="other_proj" >}}
+{{< dynamic-block contentPath="persist/chip-support-status/esp32c61.json" jsonKey="other_proj" >}}

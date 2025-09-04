@@ -36,7 +36,7 @@ Lets quickly walk over the steps for getting the OTA update demo functional on E
 
 - Please follow the Getting Started Guide for some of the prerequisites as documented at, [__https://docs.aws.amazon.com/freertos/latest/userguide/ota-prereqs.html__ ](https://docs.aws.amazon.com/freertos/latest/userguide/ota-prereqs.html)
 - Refer to [__https://docs.aws.amazon.com/freertos/latest/userguide/ota-code-sign-cert-esp.html__ ](https://docs.aws.amazon.com/freertos/latest/userguide/ota-code-sign-cert-esp.html) for creating code signing profile for the ESP32 platform
-- For downloading firmware to ESP32, refer to [__https://docs.aws.amazon.com/freertos/latest/userguide/ota-download-freertos.html#download-freertos-to-port__ ](https://docs.aws.amazon.com/freertos/latest/userguide/ota-download-freertos.html#download-freertos-to-port)
+- For downloading firmware to ESP32, refer to [__https://docs.aws.amazon.com/freertos/latest/userguide/ota-download-freertos.html__ ](https://docs.aws.amazon.com/freertos/latest/userguide/ota-download-freertos.html)
 - Once the device boots up, the log should look like the one mentioned at, [__https://docs.aws.amazon.com/freertos/latest/userguide/burn-initial-firmware-esp.html__ ](https://docs.aws.amazon.com/freertos/latest/userguide/burn-initial-firmware-esp.html)
 - Create an Amazon FreeRTOS OTA Job (by navigating to IoT Core -> Manage -> Jobs -> Create),
 

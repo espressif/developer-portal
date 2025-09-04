@@ -28,15 +28,15 @@ In this post, we examine the ESP-IDF boot-up flow and highlight strategies to **
 
 The ESP-IDF boot process consists of multiple stages that ensure secure and reliable startup:
 
-1. **First-Stage Bootloader (ROM Bootloader):**  
+1. **First-Stage Bootloader (ROM Bootloader):**
    - Initializes basic components and loads the second-stage bootloader from flash (basic read mode).
    - Performs SHA-256 hash validation of the bootloader image. If Secure Boot is enabled, digital signature verification (e.g., RSA or ECDSA) is also done.
 
-2. **Second-Stage Bootloader:**  
+2. **Second-Stage Bootloader:**
    - Stored in flash and performs more advanced tasks like clock and peripheral initialization (e.g., flash quad mode).
    - Verifies the application image’s integrity using a SHA-256 hash and, if Secure Boot is enabled, cryptographic signature checks.
 
-3. **Application Execution:**  
+3. **Application Execution:**
    - Once verified, control is passed to the application image.
 
 This flow ensures system integrity and protection, but adds latency — particularly as the size of the application image increases.
@@ -73,8 +73,8 @@ Let's see how the default device restoration time looks like with 2MB applicatio
 
 ESP-IDF also provides configuration options to **skip application image integrity checks** - only for Secure Boot disabled cases. These options include:
 
-- [`CONFIG_BOOTLOADER_SKIP_VALIDATE_ALWAYS`](https://docs.espressif.com/projects/esp-idf/en/latest/kconfig.html#config-bootloader-skip-validate-always)  
-- [`CONFIG_BOOTLOADER_SKIP_VALIDATE_ON_POWER_ON`](https://docs.espressif.com/projects/esp-idf/en/latest/kconfig.html#config-bootloader-skip-validate-on-power-on)
+- [`CONFIG_BOOTLOADER_SKIP_VALIDATE_ALWAYS`](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/kconfig-reference.html#config-bootloader-skip-validate-always)
+- [`CONFIG_BOOTLOADER_SKIP_VALIDATE_ON_POWER_ON`](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/kconfig-reference.html#config-bootloader-skip-validate-on-power-on)
 
 These options can reduce boot time by avoiding application integrity step. However, **this approach is not recommended** in most production use-cases, as it could **mask potential flash corruption** and lead to the execution of tampered or damaged firmware. For safety and reliability, it is advisable to keep all integrity checks enabled.
 
@@ -133,7 +133,7 @@ However, if you include additional device driver code, ensure the total size fit
 
 ## Practical Example and Benchmark
 
-We created a demo application to test and validate the bootloader NVS restoration method. You can find the source code here:  
+We created a demo application to test and validate the bootloader NVS restoration method. You can find the source code here:<br>
 👉 [Example: Faster Device State Restoration](https://github.com/Harshal5/esp-idf-faster-device-state-restoration-example)
 
 The project simulates a lighting product where the last known state is restored during the bootloader stage.
@@ -171,4 +171,3 @@ To reduce device boot time:
 This method provides the best of both worlds — **faster restoration** without sacrificing **security or reliability**.
 
 ---
-

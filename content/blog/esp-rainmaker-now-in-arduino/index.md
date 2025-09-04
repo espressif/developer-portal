@@ -117,7 +117,7 @@ This is the complete list for reference:
 
 4. Go to Tools -> Serial Monitor. Choose 115200 as Baud. If you do not see anything in the monitor window, reset your board (using the RST button).
 
-5. Download the [ESP RainMaker phone app](https://rainmaker.espressif.com/docs/quick-links.html#phone-apps), sign-up or sign-in and you are ready to go.
+5. Download the [ESP RainMaker phone app](https://docs.rainmaker.espressif.com/docs/product_overview/technical_overview/components#reference-phone-app), sign-up or sign-in and you are ready to go.
 
 6. Follow the instructions in the Serial Monitor to add the switch from the RainMaker app. (If you do not see the instructions, double check the “Core Debug Level: Info” option under Tools)
 

@@ -4,16 +4,16 @@ date: "2025-06-26"
 showAuthor: false
 summary: "This article shows how to create a simple HTTP server. It explains the functions you need and the setup required. After reading this, you should be able to create your own HTTP server on Espressif devices."
 authors:
-  - "francesco-bez" 
+  - "francesco-bez"
 tags: ["ESP32C3", "HTTP", "Connectivity"]
 ---
 
-## Introduction 
+## Introduction
 
 This article is Part 2 of our [soft-AP tutorial](/blog/2025/04/soft-ap-tutorial/). If you're unfamiliar with what a soft-AP is or how to set one up, we recommend starting with the [Part 1](/blog/2025/04/soft-ap-tutorial/).
 
-In this part, the main source file will be called `basic_http_server.c`. If you're starting here, you can use the same main filename, while if you're coming from Part 1, there is no need to change it. Just keep in mind that when you read `basic_http_server.c` we're talking about your `basic_soft_ap.c`. 
- 
+In this part, the main source file will be called `basic_http_server.c`. If you're starting here, you can use the same main filename, while if you're coming from Part 1, there is no need to change it. Just keep in mind that when you read `basic_http_server.c` we're talking about your `basic_soft_ap.c`.
+
 You can find the complete code in the `tutorial-http-server` folder in this [GitHub repository](https://github.com/FBEZ-docs-and-templates/devrel-tutorials-code/tree/main/tutorial-http-server).
 
 In this tutorial, we'll walk through the following steps:
@@ -126,7 +126,7 @@ httpd_handle_t start_webserver() {
 }
 ```
 
-This makes your server setup more robust and easier to debug. If you're unsure about `ESP_LOGI` and `ESP_LOGE` macros, you can check Espressif's [loggin library documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#how-to-use-logging-library).
+This makes your server setup more robust and easier to debug. If you're unsure about `ESP_LOGI` and `ESP_LOGE` macros, you can check Espressif's [loggin library documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#use-logging-library).
 
 
 ## HTTP URI Management
@@ -204,7 +204,7 @@ caption="Fig.2 - URI registration and management overview"
 
 To register a route, we use the function:
 
-```c 
+```c
 esp_err_t httpd_register_uri_handler(httpd_handle_t server,
                                      const httpd_uri_t *hello_world_uri);
 ```
@@ -213,7 +213,7 @@ This function requires the server handle (in our case the variable `server`) and
 
 The `httpd_uri_t` structure defines the properties of the URI being registered.
 
-For our example, the structure is defined as follows: 
+For our example, the structure is defined as follows:
 ```c
 
 static const httpd_uri_t hello_world_uri= {
@@ -221,7 +221,7 @@ static const httpd_uri_t hello_world_uri= {
     .method    = HTTP_GET,          // The HTTP method (HTTP_GET, HTTP_POST, ...)
     .handler   = hello_get_handler, // The function which process the request
     .user_ctx  = NULL               // Additional user data for context
-}; 
+};
 ```
 
 <!-- All fields are self explanatory except for the last one. User data can be useful to  -->
@@ -230,7 +230,7 @@ The last piece we need is the request handler function, which must follow this s
 ```c
 static esp_err_t processing_function (httpd_req_t)
 ```
-In our simple example, the function looks like this. 
+In our simple example, the function looks like this.
 
 ```c
 static esp_err_t hello_get_handler(httpd_req_t *req)
@@ -243,16 +243,16 @@ static esp_err_t hello_get_handler(httpd_req_t *req)
 ```
 Note the embedded HTML in the response string.
 We use `httpd_resp_send` to send the response. This function takes the request object and the response string.
-<!-- 
+<!--
 {{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
  Since the response is a string, you can return HTML, JSON, or plain text with no difference in usage.
 {{< /alert >}} -->
 
 Your code should now resemble [this one](https://github.com/FBEZ-docs-and-templates/devrel-tutorials-code/blob/main/tutorial-http-server/main/basic_http_server.c).
 
-## View the web page in the browser 
+## View the web page in the browser
 
-Open the web browser again on your connected device and enter the IP address in the address bar. As shown in Fig.3, you should now get the HTML page that we sent in the `hello_get_handler` function. 
+Open the web browser again on your connected device and enter the IP address in the address bar. As shown in Fig.3, you should now get the HTML page that we sent in the `hello_get_handler` function.
 
 {{< figure
 default=true
@@ -261,7 +261,7 @@ height=100
 caption="Fig. 3 – HTML page displayed"
  >}}
 
-You can now change the HTML and add additional routes. 
+You can now change the HTML and add additional routes.
 
 ## Conclusion
 
@@ -270,5 +270,3 @@ You've now set up a basic HTTP server on your Espressif device in soft-AP mode. 
 This forms a solid foundation for building more interactive web-based interfaces on your device. You can now easily expand by adding more routes, returning different data formats, or handling user input.
 
 Check out the full example on [GitHub](https://github.com/FBEZ-docs-and-templates/devrel-tutorials-code/tree/main/tutorial-http-server), and keep experimenting!
-
-

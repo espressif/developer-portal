@@ -65,7 +65,7 @@ Wi-Fi technology is **not** supported on the following SoC Series.
 - ESP32-P Series SoCs
 - ESP32-H Series SoCs
 
-For more information about what wireless technology is supported by Espressif products, you can consult the [ESP Product Selector](https://products.espressif.com/#/product-selector?language=en).
+For more information about what wireless technology is supported by Espressif products, you can consult the [ESP Product Selector](https://products.espressif.com/#/product-selector?language=en&names=).
 
 ### Required software
 

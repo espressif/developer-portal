@@ -28,7 +28,7 @@ Almost eighteen years later, Rust has become the hottest new language in the wor
     src="img/rust-2.webp"
     >}}
 
-In the past six years, the Rust language remained the most “loved” programming language based on [[5](https://insights.stackoverflow.com/survey/2021#most-loved-dreaded-and-wanted)].
+In the past six years, the Rust language remained the most “loved” programming language based on [[5](https://survey.stackoverflow.co/2021#most-loved-dreaded-and-wanted-language-love-dread)].
 
 __Programming languages in Embedded development__
 
@@ -208,6 +208,6 @@ References1. [How Rust went from a side project to the world’s most-loved prog
 
 4. [The state of the Rust market in 2023 (yalantis.com)](https://yalantis.com/blog/rust-market-overview/)
 
-5. [Stack Overflow Developer Survey 2021](https://insights.stackoverflow.com/survey/2021#most-loved-dreaded-and-wanted)
+5. [Stack Overflow Developer Survey 2021](https://survey.stackoverflow.co/2021#most-loved-dreaded-and-wanted-language-love-dread)
 
 6. [https://docs.rust-embedded.org/book/intro/no-std.html#hosted-environments](https://docs.rust-embedded.org/book/intro/no-std.html#hosted-environments)

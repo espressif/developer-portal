@@ -56,7 +56,7 @@ As Installer bundles, all the required components and tools including stable esp
 
 The All-in-one installer option is a recommended approach if someone trying for the first time in Windows OS or has challenges in installing tools.
 
-Espressif-IDE Installer for Windows OS is available [here](https://dl.espressif.com/dl/esp-idf/) for download. The latest version of Espressif-IDE is v2.4.1 but you get as part of the installer is v2.4.0 so one has to update to the latest using the [update site](https://github.com/espressif/idf-eclipse-plugin#installing-idf-plugin-using-update-site-url)
+Espressif-IDE Installer for Windows OS is available [here](https://dl.espressif.com/dl/esp-idf/) for download. The latest version of Espressif-IDE is v2.4.1 but you get as part of the installer is v2.4.0 so one has to update to the latest using the [update site](https://docs.espressif.com/projects/espressif-ide/en/latest/marketplaceupdate.html#installing-idf-plugin-using-update-site-url)
 
 Installation instructions are similar to what is described [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#esp-idf-tools-installer) for the ESP-IDF Tools installer. Always prefer *Full Installation *during the setup.
 
@@ -83,6 +83,6 @@ To verify Installed tools version and product information in general, you could 
 
 Once you’re able to see all the tools, IDF_PATH, IDF_PYTHON_PATH, PATH, and other environment information correctly in the console, you are set to get started with the HelloWorld project!
 
-Check our IDE [documentation](https://github.com/espressif/idf-eclipse-plugin#esp-idf-eclipse-plugin) page for more information!
+Check our IDE [documentation](https://docs.espressif.com/projects/espressif-ide/en/latest/marketplaceupdate.html) page for more information!
 
 Happy coding!

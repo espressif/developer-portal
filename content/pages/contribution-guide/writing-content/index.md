@@ -147,7 +147,7 @@ Please have your featured image converted to WebP as requested in [Use WebP for 
 
 Apart from the usual content types supported by markdown, such as visuals or code blocks, you can use other content types enabled by Hugo shortcodes. This section briefly introduces the most relevant shortcodes implemented on the Espressif Developer Portal.
 
-In addition to that, you can also use the standard Hugo [embedded shortcodes](https://gohugo.io/content-management/shortcodes/#embedded-shortcodes) and [Blowfish theme shortcodes](https://blowfish.page/docs/shortcodes/).
+In addition to that, you can also use the standard Hugo [embedded shortcodes](https://gohugo.io/content-management/shortcodes/#embedded) and [Blowfish theme shortcodes](https://blowfish.page/docs/shortcodes/).
 
 If you need other content types or shortcodes implemented, either create a discussion on GitHub or offer a PR with the required functionality. It will be very much appreciated!
 
