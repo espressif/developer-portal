@@ -36,4 +36,4 @@ You have create a basic IoT application, putting together sensor reading and HTT
 
 ### Next step
 
-> Next step &rarr; [Conclusion](#conclusion)
+> Next step &rarr; [Conclusion](../#conclusion)
