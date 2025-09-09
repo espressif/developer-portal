@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/07/esp32-red-da-en18031-compliance-guide-part2/" >}}
+{{< article link="/blog/2025/07/esp-rainmaker-mcp-server/" >}}
 <br>
-{{< article link="/blog/2025/04/esp32-red-da-en18031-compliance-guide/" >}}
+{{< article link="/blog/2025/09/esp-wifi-remote/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
@@ -25,7 +25,7 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/esp-idf-with-esp32-c6/introduction/" >}}
+{{< article link="/workshops/esp-idf-basic/" >}}
 
 <br>
 {{< button href="workshops/" target="_self" >}}
