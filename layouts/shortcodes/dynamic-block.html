@@ -1,13 +1,69 @@
+{{/*
+Shortcode: dynamic-block
+------------------------
+
+This shortcode allows you to inject frequently changing content from a JSON file
+into your Hugo pages. It is designed for cases where some parts of a page (such as
+status, last update timestamps, or feature lists) need to be updated often without
+rebuilding the entire site.
+
+See also https://developer.espressif.com/pages/contribution-guide/dynamic-content/
+
+Usage example
+
+  {{< dynamic-block contentPath="persist/path-to/file.json" jsonKey="timestamp" >}}
+
+Arguments
+
+- contentPath (string)
+  Path to the JSON file relative to the site base URL (e.g. "persist/status.json").
+  In production, JSON must be served from https://developer.espressif.com/persist/...
+
+- jsonKey (string)
+  The key within the JSON object whose value will be injected into the page.
+  The content can be plain text, Markdown, or a special field.
+
+Special field handling
+
+- jsonKey = "timestamp"
+  If the key is `"timestamp"`, the shortcode expects an ISO8601 date/time string.
+  It is automatically converted into a localized, human-readable format:
+  `DD Mon YYYY, HH:MM AM/PM` (using the en-GB locale).
+
+Other keys
+
+- Any other key is assumed to contain Markdown content.
+  The Markdown is rendered to HTML before being injected.
+
+Error handling
+
+If the JSON file cannot be fetched or the key is not found, the shortcode will display
+an error message instead of the content.
+*/}}
+
+{{/*
+Toggle for local testing: set to true to load JSON locally from contentPath
+(relative to your index.md location).
+Leave false (default) to resolve via .Site.BaseURL (web mode).
+*/}}
+{{ $localMode := false }}  <!-- change to true for local -->
+
+
 {{ $uniqueID := .Get "jsonKey" | urlize }} <!-- Generate a unique ID -->
 <span id="content-{{ $uniqueID }}">Loading...</span>
 
 {{ $contentPath := .Get "contentPath" }}
 {{ $jsonKey := .Get "jsonKey" }}
-{{ $fullURL := printf "%s%s" .Site.BaseURL $contentPath }}
+
+{{/* Only build $fullURL in web mode */}}
+{{ $fullURL := "" }}
+{{ if not $localMode }}
+  {{ $fullURL = printf "%s%s" .Site.BaseURL $contentPath }}
+{{ end }}
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const url = '{{ $fullURL }}';
+    const url = '{{ if $localMode }}{{ $contentPath }}{{ else }}{{ $fullURL }}{{ end }}';
     const jsonKey = '{{ $jsonKey }}';
     const uniqueID = '{{ $uniqueID }}';
 
