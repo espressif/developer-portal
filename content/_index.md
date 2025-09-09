@@ -12,7 +12,7 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/09/deep-sleep-wake-stub-get-started/" >}}
+{{< article link="/blog/2025/07/esp-rainmaker-mcp-server/" >}}
 <br>
 {{< article link="/blog/2025/09/esp-wifi-remote/" >}}
 
