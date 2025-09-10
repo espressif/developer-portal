@@ -36,17 +36,20 @@ From the hints in [Plan your page](#plan-your-page), it is not hard to understan
 - In your markdown file where a dynamic part needs to be injected, you add a `dynamic-block` shortcode with part's `jsonKey`
 - In your JSON file, you add all dynamic parts in markdown
 
-As you can see from [Example files](#example-files), raw markdown lists (`feature_list`) and tables (`periph_support_table`) are not reasonable to store in JSON. A simplified syntax solves this problem: strip unnecessary characters when storing, and let `dynamic-block` add them back during rendering.
+### Simplified syntax
+
+As you can see from [Example files](#example-files) below, raw markdown lists (`feature_list`) and tables (`periph_support_table`) are not reasonable to store in JSON. A simplified syntax provides a way to strip unnecessary characters for storing, and add them back during rendering. This way, the JSON source is easier to read and `dynamic-block` still renders it correctly.
 
 To use simplified syntax, mark the `jsonKey` accordingly. In each case, the raw and simplified versions render identically:
 
-- **List** -- use `list_simple`<br>
+- **Simplified list** -- append `list_simple` to its `jsonKey`<br>
   Output: `feature_list` = `feature_list_simple`
-- **Table** -- use `table_simple`<br>
+- **Simplified table** -- append `table_simple` to its `jsonKey`<br>
   Output: `periph_support_table` = `periph_support_table_simple`
 
-This way, you keep the JSON easier to read while still rendering proper markdown.
+### Emojis
 
+In JSON, include emojis as Unicode characters ✅ instaed of `: white_check_mark :`. This considerably reduces the render time of injected content.
 
 ### Example files
 
