@@ -143,6 +143,12 @@ Please have your featured image converted to WebP as requested in [Use WebP for 
 
 [blowfish-front-matter]: https://blowfish.page/docs/front-matter/
 
+### Inject dynamic content
+
+If your page is going to be updated frequently, consider implementing injection of dynamic content. Usually, it is used for product status pages, such as [ESP32-C61 status](../../../hardware/esp32c61 "ESP32-C61 status").
+
+For more information, see [Dynamic content](../dynamic-content "Dynamic content").
+
 ## Use additional content types
 
 Apart from the usual content types supported by markdown, such as visuals or code blocks, you can use other content types enabled by Hugo shortcodes. This section briefly introduces the most relevant shortcodes implemented on the Espressif Developer Portal.
