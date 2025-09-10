@@ -23,4 +23,4 @@ Now that you can read the on board sensor, you're ready to move to the last assi
 
 ### Next step
 
-> Next assignment &rarr; [Assignment 3.3](assignment-3-3/)
+> Next assignment &rarr; [Assignment 3.3](../assignment-3-3/)
