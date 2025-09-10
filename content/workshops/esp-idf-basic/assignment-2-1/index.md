@@ -454,4 +454,4 @@ Now you can put the Espressif device into Soft-AP or STA mode and create an HTTP
 
 ### Next step
 
-> Next assignment: [Assignment 2.2](assignment-2-2/)
+> Next assignment: [Assignment 2.2](../assignment-2-2/)

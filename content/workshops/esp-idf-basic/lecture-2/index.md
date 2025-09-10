@@ -226,4 +226,4 @@ Now you have all the technical background to start the assignments.
 
 ### Next step
 
-> Next assignment &rarr; __[Assignment 2.1](assignment-2-1/)__
+> Next assignment &rarr; __[Assignment 2.1](../assignment-2-1/)__

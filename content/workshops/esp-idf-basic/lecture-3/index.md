@@ -254,4 +254,4 @@ In this short lecture, we explored two main ways to include external libraries: 
 
 ### Next step
 
-> Next assignment &rarr; [Assignment 3.1](assignment-3-1/)
+> Next assignment &rarr; [Assignment 3.1](../assignment-3-1/)

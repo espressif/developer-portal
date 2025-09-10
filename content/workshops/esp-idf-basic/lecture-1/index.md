@@ -264,4 +264,4 @@ You can find the board schematic on the [KiCad Libraries GitHub Repository](http
 Now that we have a high-level overview of both hardware and firmware, we're ready to start the first assignment.
 
 ### Next Step
-> Next Assignment &rarr; __[assignment 1.1](assignment-1-1)__
+> Next Assignment &rarr; __[assignment 1.1](../assignment-1-1)__
