@@ -31,35 +31,65 @@ The dynamic content must be stored in the root of the web server under `persist`
 
 ## Arrange your content
 
-Example files:
+From the hints in [Plan your page](#plan-your-page), it is not hard to understand the idea:
 
-- Git repo: `content/software/product-x/index.md`
-  ```
-  ---
-  title: "Product X"
-  date: 2025-08-28
-  ---
+- In your markdown file where a dynamic part needs to be injected, you add a `dynamic-block` shortcode with part's `jsonKey`
+- In your JSON file, you add all dynamic parts in markdown
 
-  **Last updated:** {{</* dynamic-block contentPath="persist/software/product-x/product-x.json" jsonKey="timestamp" */>}}
+As you can see from [Example files](#example-files), raw markdown lists (`feature_list`) and tables (`periph_support_table`) are not reasonable to store in JSON. A simplified syntax solves this problem: strip unnecessary characters when storing, and let `dynamic-block` add them back during rendering.
 
-  This is a product status page for Product X.
+To use simplified syntax, mark the `jsonKey` accordingly. In each case, the raw and simplified versions render identically:
 
-  The following features are supported as of now:
+- **List** -- use `list_simple`<br>
+  Output: `feature_list` = `feature_list_simple`
+- **Table** -- use `table_simple`<br>
+  Output: `periph_support_table` = `periph_support_table_simple`
 
-  {{</* dynamic-block contentPath="persist/software/product-x/product-x.json" jsonKey="feature_table" */>}}
+This way, you keep the JSON easier to read while still rendering proper markdown.
 
-  ## Peripheral support table
 
-  {{</* dynamic-block contentPath="persist/software/product-x/product-x.json" jsonKey="periph_support_table" */>}}
-  ```
-- Web server: `persist/software/product-x/product-x.json`
-  ```json
-  {
-    "timestamp": "2025-08-28T00:07:19.716630Z",
-    "feature_list": "- Supported SDKs\n  - ✅ [ESP-IDF](https://github.com/espressif/esp-idf/)\n  - ⏳ SDK 2",
-    "periph_support_table": "| Peripheral | ESP32 |\n| :--- | :---: |\n| UART | ✅ |\n| LCD | ❌ |"
-  }
-  ```
+### Example files
+
+Git repo: `content/software/product-x/index.md`
+```
+---
+title: "Product X"
+date: 2025-08-28
+---
+
+**Last updated:** {{</* dynamic-block contentPath="persist/software/product-x/product-x.json" jsonKey="timestamp" */>}}
+
+This is a product status page for Product X.
+
+The following features are supported as of now:
+
+{{</* dynamic-block contentPath="persist/software/product-x/product-x.json" jsonKey="feature_list_simple" */>}}
+
+## Peripheral support table
+
+{{</* dynamic-block contentPath="persist/software/product-x/product-x.json" jsonKey="periph_support_table_simple" */>}}
+```
+
+Web server: `persist/software/product-x/product-x.json`
+
+```json
+{
+  "timestamp": "2025-08-28T00:07:19.716630Z",
+  "feature_list": "- Supported SDKs\n  - ✅ [ESP-IDF](https://github.com/espressif/esp-idf/)\n  - ⏳ SDK 2",
+  "periph_support_table": "| Peripheral | ESP32 |\n| :--- | :---: |\n| UART | ✅ |\n| LCD | ❌ |",
+  "feature_list_simple": [
+    "- Supported SDKs",
+    "  - ✅ [ESP-IDF](https://github.com/espressif/esp-idf/)",
+    "  - ⏳ SDK 2"
+  ],
+  "periph_support_table_simple": [
+    "Peripheral,ESP32",
+    ":---,:---:",
+    "UART,✅",
+    "LCD,❌"
+  ]
+}
+```
 
 The final page with the dynamic content should look somewhat like this:
 

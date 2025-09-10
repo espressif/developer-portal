@@ -30,6 +30,31 @@ Special field handling
   It is automatically converted into a localized, human-readable format:
   `DD Mon YYYY, HH:MM AM/PM` (using the en-GB locale).
 
+- jsonKey containing "list_simple"
+  If the key name includes "list_simple", the shortcode expects an array of strings representing a Markdown list.
+  The array is automatically joined into a proper Markdown list before rendering.
+  Example:
+  {
+    "feature_list_simple": [
+      "- Supported SDKs",
+      "  - ✅ [ESP-IDF](https://github.com/espressif/esp-idf/)",
+      "  - ⏳ SDK 2"
+    ]
+  }
+
+- jsonKey containing "table_simple"
+  If the key name includes "table_simple", the shortcode expects an array of CSV-style strings representing table rows.
+  Each string is converted into a Markdown table row before rendering.
+  Example:
+  {
+    "periph_support_table_simple": [
+      "Peripheral,ESP32",
+      ":---,:---:",
+      "UART,✅",
+      "LCD,❌"
+    ]
+  }
+
 Other keys
 
 - Any other key is assumed to contain Markdown content.
@@ -46,7 +71,7 @@ Toggle for local testing: set to true to load JSON locally from contentPath
 (relative to your index.md location).
 Leave false (default) to resolve via .Site.BaseURL (web mode).
 */}}
-{{ $localMode := false }}  <!-- change to true for local -->
+{{ $localMode := true }}  <!-- change to true for local -->
 
 
 {{ $uniqueID := .Get "jsonKey" | urlize }} <!-- Generate a unique ID -->
@@ -85,6 +110,15 @@ Leave false (default) to resolve via .Site.BaseURL (web mode).
           const isoTime = data[jsonKey];
           const options = { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true };
           content = new Intl.DateTimeFormat('en-GB', options).format(new Date(isoTime));
+        } else if (jsonKey.includes("list_simple")) {
+          // Join simplified array back into markdown list
+          let markdown = data[jsonKey].join("\n");
+          content = marked.parse(markdown);
+        } else if (jsonKey.includes("table_simple")) {
+          // Convert simplified array back into a markdown table
+          const rows = data[jsonKey].map(row => `| ${row.replace(/,/g, " | ")} |`);
+          const markdown = rows.join("\n");
+          content = marked.parse(markdown);
         } else {
           // Extract the value for the key and convert the markdown to HTML
           let markdown = data[jsonKey];
