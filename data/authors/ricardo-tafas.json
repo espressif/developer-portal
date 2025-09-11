@@ -1,0 +1,9 @@
+{
+    "name": "Ricardo F. Tafas Jr",
+    "image" : "img/authors/ricardo-tafas.webp",
+    "bio": "Senior Software Manager at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/rftafas/" },
+        { "github": "https://github.com/rftafas" }
+    ]
+}
