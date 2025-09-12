@@ -3,7 +3,7 @@ title: "Espressif DevCon25"
 date: 2025-09-10
 draft: true
 description: "Espressif Systems Developer Conference 2025"
-summary: "Espressif DevCon25 — two days, 12 unique talks, live online. Learn directly from Espressif experts and the community, and get insights for your next project."
+summary: "The next edition of the Espressif DevCon is coming! This announcement reveals the official dates for DevCon25 — two days of 12 unique talks, live online. Learn directly from Espressif experts and the community, and gain insights to power your next project."
 tags: ["event", "announcement", "devcon"]
 showDate: false
 ---
