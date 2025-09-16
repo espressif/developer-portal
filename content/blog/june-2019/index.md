@@ -61,7 +61,7 @@ On 4 June, Espressif and AWS co-hosted a hands-on workshop focused on developing
     src="img/june-3.webp"
     >}}
 
-[Pycom](https://pycom.io/) has been an Espressif partner since 2017. They provide IoT platforms with end-to-end solutions that can fit any project. Pycom has recently started a series of workshops aiming to engage with the worldwide community of IoT makers. Espressif could not but support them in this fantastic initiative.
+[Pycom](https://docs.pycom.io/) has been an Espressif partner since 2017. They provide IoT platforms with end-to-end solutions that can fit any project. Pycom has recently started a series of workshops aiming to engage with the worldwide community of IoT makers. Espressif could not but support them in this fantastic initiative.
 
 [*Keep Reading*](https://www.espressif.com/en/Espressif_Sponsors_Pycom_GOINVENT)
 

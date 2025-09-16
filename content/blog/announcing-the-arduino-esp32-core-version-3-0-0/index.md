@@ -208,7 +208,7 @@ https://espressif.github.io/arduino-esp32/package_esp32_dev_index.json
 If you want to keep updated about the Arduino ESP32 Core development releases, you can follow us on GitHub, Gitter channel or participate in our monthly community meetings.
 
 - [GitHub Repository](https://github.com/espressif/arduino-esp32)
-- [Gitter](https://app.gitter.im/#/room/#espressif_arduino-esp32:gitter.im)
+- [Gitter](https://matrix.to/#/#espressif_arduino-esp32:gitter.im)
 - [Community Meetings](https://github.com/espressif/arduino-esp32/discussions/categories/monthly-community-meetings)
 
 A special thank you to all our community that motivated us to keep improving the Arduino ESP32 core support!

@@ -29,6 +29,8 @@ https://educ8s.tv
 
 # Domains with frequent timeouts
 https://www.waveshare.com
+https://openocd.org/
+https://www.midoriya.co.jp/en/service/engineering/
 
 # Links from examples
 socket://localhost
@@ -50,6 +52,8 @@ https://digilent.com/reference/pmod/start
 https://robu.in/product/espressif-esp32-c5-devkitc-1-n8r4-development-board/
 https://news.samsung.com/global/samsung-smartthings-integrates-matter-into-ecosystem-bringing-matter-device-control-to-multiple-samsung-products
 https://pubs.aip.org/aip/rsi/article-abstract/90/10/105101/360620/apex-A-new-commercial-off-the-shelf-on-board
+https://www.zerynth.com/
+https://matrix.to/#/#espressif_arduino-esp32:gitter.im
 
 # Other issues
 # Presence of spaces in urls
