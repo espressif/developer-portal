@@ -181,7 +181,7 @@ OpenOCD uses a server-client model to debug embedded systems. The OpenOCD server
 Next, we'll start the openOCD server and test the connection with the hardware. The steps below are for an ESP32-C3 board, but you can easily adjust them for your module. We will use the JTAG over USB pins option. If you're using the ESP-PROG, modify steps 2 and 3 accordingly.
 
 1. Create a project from the `hello_world` example.   
-  _If you're unsure, please check [the documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/startproject.html#esp-idf-show-examples-projects)_
+  _If you're unsure, please check [the documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/startproject.html#using-esp-idf-new-project)_
 2. &gt; `ESP-IDF: Select Port to Use (COM, tty, usbserial)` - Choose the port you're connected to. You may find the SoC name and package next to the correct option (e.g. ESP32-C3 (QFN32) (revision v0.3))
 3. &gt;`ESP-IDF: Set Espressif Device target` &rarr; `esp32c3` &rarr;`ESP32-C3 chip (via Built-in USB-JTAG)`   
     ("`esp32c3`" should now appear at the bottom left corner)
@@ -261,4 +261,3 @@ If it's still not working, connect your board via UART0 pins (which in an develo
 ## Conclusion
 
 In this tutorial, you learned how to connect your Espressif module via JTAG and start the openOCD server. In part two, we'll launch `gdb` and explore the code using various commands.
-

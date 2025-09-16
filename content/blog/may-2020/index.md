@@ -59,7 +59,7 @@ The US American start-up, [Edge Devices](https://edgedevices.io/), has chosen Es
     src="img/may-3.webp"
     >}}
 
-When all you need is a little escape from today’s disconcerting reality, [ESP_8_BIT](https://esp32.com/viewtopic.php?f=2&t=15565&p=59571#p59571) is the gadget you should turn to! With [Rossum](https://github.com/rossumur)’s new creation, you can enjoy Atari 8-bit computers, Nintendo Entertainment System (NES) and Sega Master System (SMS) game consoles on your television with nothing more than an ESP32 and a sense of nostalgia.
+When all you need is a little escape from today’s disconcerting reality, [ESP_8_BIT](https://esp32.com/viewtopic.php?f=2&t=15565) is the gadget you should turn to! With [Rossum](https://github.com/rossumur)’s new creation, you can enjoy Atari 8-bit computers, Nintendo Entertainment System (NES) and Sega Master System (SMS) game consoles on your television with nothing more than an ESP32 and a sense of nostalgia.
 
 [*Keep Reading*](https://www.espressif.com/en/news/ESP_8_BIT)
 
