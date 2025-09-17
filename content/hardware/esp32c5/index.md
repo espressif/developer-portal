@@ -7,7 +7,7 @@ aliases:
 
 **Last updated:** {{< dynamic-block contentPath="persist/chip-support-status/esp32c5.json" jsonKey="timestamp" >}}
 
-The ESP32-C5-DevKitC-1-N8R4 development board is now [available for purchase](../../../blog/2025/05/news-esp32c5-mp/#where-to-buy).
+The ESP32-C5-DevKitC-1-N8R4 development board is now [available for purchase](../../blog/2025/05/news-esp32c5-mp/#where-to-buy).
 
 This page lists the projects in which the ESP32-C5 v1.0 is supported.
 

@@ -45,7 +45,7 @@ Thailand’s Ministry of Education has recently launched an initiative to boost 
     src="img/august-4.webp"
     >}}
 
-A new IoT development kit that is programmable with Zerynth, the [XK12 IoT Starter Kit](https://www.zerynth.com/blog/zerynth-and-xinabox-partnership-brings-an-innovative-iot-toolkit/), is designed to simplify building electronic devices. By combining the XinaBox modular electronics with an ecosystem of software tools in Python, development time, speed to market and costs are expected to be significantly reduced. The XK12 IoT Starter Kit has been built around Espressif’s [ESP32-WROOM-32](https://www.espressif.com/en/products/hardware/esp-wroom-32/overview) module. Powered by Espressif’s flagship SoC, ESP32-WROOM-32 features high performance, a wide range of peripherals, as well as Wi-Fi and Bluetooth connectivity. It is a complete solution tailored to advanced IoT applications
+A new IoT development kit that is programmable with Zerynth, the [XK12 IoT Starter Kit](https://www.zerynth.com/), is designed to simplify building electronic devices. By combining the XinaBox modular electronics with an ecosystem of software tools in Python, development time, speed to market and costs are expected to be significantly reduced. The XK12 IoT Starter Kit has been built around Espressif’s [ESP32-WROOM-32](https://www.espressif.com/en/products/hardware/esp-wroom-32/overview) module. Powered by Espressif’s flagship SoC, ESP32-WROOM-32 features high performance, a wide range of peripherals, as well as Wi-Fi and Bluetooth connectivity. It is a complete solution tailored to advanced IoT applications
 
 ## ESP32-based Cereal Distribution Machine
 

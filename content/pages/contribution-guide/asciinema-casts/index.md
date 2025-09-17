@@ -20,7 +20,7 @@ authors:
 
 ### Word of caution
 
-Use asciinema casts for output logs or to demonstrate things in action. Avoid using asciinema casts for interactive guides as many users [prefer](https://news.ycombinator.com/item?id=38137005) scrolling through commands and copying them from code snippets instead of fishing the commands out of an asciinema cast.
+Use asciinema casts for output logs or to demonstrate things in action. Avoid using asciinema casts for interactive guides as users in general prefer scrolling through commands and copying them from code snippets instead of fishing the commands out of an asciinema cast.
 
 
 ## Usage
