@@ -13,7 +13,7 @@ tags:
 ---
 Hi everyone,
 
-Espressif is taking part in the [Smart Home Expo](https://www.smarthomeexpo.in/why-smart-home-expo.php) next month in Mumbai, India, which will take place at the Jio World Convention Centre, on 20–21 April 2022. The Smart Home Expo is India’s largest comprehensive trade show and conference that demonstrates the best smart-home technology from across the globe. With over 100+ brands, the exhibition is bound to be an action-packed event featuring the latest market trends, game-changing smart-home technology, live demos, new product launches, technical seminars, as well as exciting new opportunities. The Smart Home Expo in 2022 will also showcase automation technology for offices and hotels.
+Espressif is taking part in the [Smart Home Expo](https://www.smarthomeexpo.in/) next month in Mumbai, India, which will take place at the Jio World Convention Centre, on 20–21 April 2022. The Smart Home Expo is India’s largest comprehensive trade show and conference that demonstrates the best smart-home technology from across the globe. With over 100+ brands, the exhibition is bound to be an action-packed event featuring the latest market trends, game-changing smart-home technology, live demos, new product launches, technical seminars, as well as exciting new opportunities. The Smart Home Expo in 2022 will also showcase automation technology for offices and hotels.
 
 {{< figure
     default=true

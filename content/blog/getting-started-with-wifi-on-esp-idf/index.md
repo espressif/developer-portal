@@ -404,7 +404,7 @@ esp_err_t tutorial_init(void)
 
 In particular, we can notice that the initialization step is similar to the previous example that uses `example_connect()`. Furthermore, there are additional initialization steps, such as defining the event loop, registering the event handler, and creating the network interface. The documentation for these additional steps can be found here:
 - [Event Loop Library](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/esp_event.html#event-loop-library)
-- [Event Handler](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/event-handling.html#event-handling)
+- [Event Handler](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/esp_event.html#event-loop-library)
 - [Netif (Network Interface)](https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32/api-reference/network/esp_netif.html?highlight=netif_create_default#_CPPv433esp_netif_create_default_wifi_stav)
 
 In this tutorial, we also use Event Bits to indicate what Wi-Fi event has occurred. The details on Event Bits and Event Groups can be found [here](https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32/api-reference/system/freertos_idf.html?highlight=eventgroup#_CPPv417xEventGroupCreatev).
@@ -468,7 +468,7 @@ We can also configure the hardware resources allocated for managing Wi-Fi. For i
 
 **Event Handler for Wi-FI and IP events**
 
-For this example, we created simple event handlers to log events related to [Wi-Fi](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_wifi.html?highlight=wifi_event#_CPPv412wifi_event_t) (defined under `wifi_event_t`) or [IP layer](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_netif.html?highlight=ip_event#_CPPv410ip_event_t) (defined under `ip_event_t`).
+For this example, we created simple event handlers to log events related to [Wi-Fi](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_wifi.html?highlight=wifi_event#_CPPv412wifi_event_t) (defined under `wifi_event_t`) or [IP layer](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_netif.html#ip-events) (defined under `ip_event_t`).
 
 The important notable events in establishing Wi-Fi are:
 - `WIFI_EVENT_STA_START` : The configuration for STA is completed
