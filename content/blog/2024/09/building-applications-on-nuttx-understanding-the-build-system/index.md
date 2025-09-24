@@ -1,12 +1,14 @@
 ---
 title: "Building Applications on NuttX: Understanding the Build System"
-date: 2024-09-16T08:00:00-03:00
+date: 2024-09-16
+lastmod: 2025-09-26
 tags: ["NuttX", "Apache", "ESP32", "POSIX", "Linux", "Tutorial"]
 series: ["nuttx-apps"]
 series_order: 1
 showAuthor: false
 authors:
     - "tiago-medicci"
+summary: "This article shows how to port and build an application form other Posix-compliant systems to NuttX."
 ---
 
 ## Developing a Project with Existing Applications
