@@ -1,6 +1,7 @@
 ---
 title: "Getting Started with NuttX and ESP32"
-date: 2024-06-20T16:54:43-03:00
+date: 2020-11-30
+lastmod: 2024-06-20
 tags: ["NuttX", "Apache", "ESP32", "POSIX", "Linux"]
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
@@ -8,6 +9,7 @@ authors:
     - "tiago-medicci"
     - "eren-terzioglu"
     - "filipe-cavalcanti"
+summary: "This article provides a tutorial to get started with NuttX."
 ---
 
 ## Introduction to Apache NuttX RTOS
@@ -280,3 +282,7 @@ NuttX is one of the most preferred RTOS for developers familiar with Linux inter
 [1]: https://nuttx.apache.org/
 [2]: https://youtu.be/DXbByNeatcU?si=BhxTyNqiZv3HPztl&t=53
 [3]: https://nuttx.apache.org/docs/latest/applications/wireless/wapi/commands
+
+---
+
+The [original article](https://medium.com/the-esp-journal/getting-started-with-esp32-and-nuttx-fd3e1a3d182c) was published on Medium, on the [ESP Journal](https://medium.com/the-esp-journal). It has since been updated.
