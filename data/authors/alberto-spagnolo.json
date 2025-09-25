@@ -1,0 +1,9 @@
+{
+    "name": "Alberto Spagnolo",
+    "image" : "img/authors/alberto-spagnolo.webp",
+    "bio": "Senior firmware developer @ WeDo",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/albertospagnolo/" },
+        { "github": "https://github.com/albertospagnolo" }
+    ]
+}
