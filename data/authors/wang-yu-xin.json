@@ -1,0 +1,8 @@
+{
+    "name": "Wang Yuxin",
+    "image" : "img/authors/espressif.png",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "github": "https://github.com/WangYuxin-esp" }
+    ]
+}

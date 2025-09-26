@@ -34,7 +34,7 @@ More Workshops
 
 ## Notable Events
 
-<!-- {{< article link="/pages/chip-support-status/esp32c5/" >}} -->
+{{< article link="/events/devcon25/" >}}
 
 <br>
 {{< button href="events/" target="_self" >}}

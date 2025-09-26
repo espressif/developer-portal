@@ -64,7 +64,7 @@ If you want to create and publish your own component, we recommend that you watc
 
 You can also find components by browsing our [ESP Registry](https://components.espressif.com) platform.
 
-In [assignment 3.2](assignment-3-2/), you will have a chance to create your own component and use it in your project.
+In [assignment 3.2](../assignment-3-2/), you will have a chance to create your own component and use it in your project.
 
 
 ### Frameworks
@@ -264,4 +264,4 @@ You can find the board schematic on the [KiCad Libraries GitHub Repository](http
 Now that we have a high-level overview of both hardware and firmware, we're ready to start the first assignment.
 
 ### Next Step
-> Next Assignment &rarr; __[assignment 1.1](assignment-1-1)__
+> Next Assignment &rarr; __[assignment 1.1](../assignment-1-1)__
