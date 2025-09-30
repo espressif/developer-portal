@@ -1,0 +1,50 @@
+name: Cron job to check internal links weekly
+
+# Schedule to run the link checker every Monday at 2:00 AM UTC
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  cron-check-int-links:
+    if: github.repository_owner == 'espressif'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install broken-link-checker
+        run: npm install -g broken-link-checker
+
+      - name: Build Hugo site
+        run: |
+          hugo -D  # Include draft content if needed
+
+      - name: Start Hugo server
+        run: |
+          nohup hugo server -p 1313 &
+          sleep 5  # Wait for server to start
+
+      - name: Check internal links
+        id: linkcheck
+        run: |
+          broken=$(blc http://localhost:1313/ --recursive --ordered --follow --exclude-external | awk '
+            /Getting links from:/ { cluster=""; header=$0; next }
+            /BROKEN/ { cluster=cluster $0 "\n"; next }
+            /^Finished!/ { if(cluster) { printf "%s\n%s\n", header, cluster } }
+          ')
+          echo "$broken"
+          echo "::set-output name=broken::$broken"
+
+      - name: Fail if broken links found
+        if: steps.linkcheck.outputs.broken != ''
+        run: |
+          echo "Broken links detected:"
+          echo "${{ steps.linkcheck.outputs.broken }}"
+          exit 1
