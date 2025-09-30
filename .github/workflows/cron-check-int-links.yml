@@ -1,18 +1,33 @@
 name: Cron job to check internal links weekly
 
-# Schedule to run the link checker every Monday at 2:00 AM UTC
+# # Schedule to run the link checker every Monday at 2:00 AM UTC
+# on:
+#   schedule:
+#     - cron: '0 2 * * 1'
+#   # Allow manual runs from the Actions tab
+#   workflow_dispatch:
+
 on:
-  schedule:
-    - cron: '0 2 * * 1'
-  # Allow manual runs from the Actions tab
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   cron-check-int-links:
     if: github.repository_owner == 'espressif'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Install Hugo CLI
+        env:
+          HUGO_VERSION: 0.147.5
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -21,10 +36,6 @@ jobs:
 
       - name: Install broken-link-checker
         run: npm install -g broken-link-checker
-
-      - name: Build Hugo site
-        run: |
-          hugo -D  # Include draft content if needed
 
       - name: Start Hugo server
         run: |
@@ -39,12 +50,14 @@ jobs:
             /BROKEN/ { cluster=cluster $0 "\n"; next }
             /^Finished!/ { if(cluster) { printf "%s\n%s\n", header, cluster } }
           ')
+          echo ""
           echo "$broken"
-          echo "::set-output name=broken::$broken"
+          echo "broken<<EOF" >> $GITHUB_ENV
+          echo "$broken" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-      - name: Fail if broken links found
-        if: steps.linkcheck.outputs.broken != ''
+      - name: Suggestions
+        if: env.broken != ''
         run: |
-          echo "Broken links detected:"
-          echo "${{ steps.linkcheck.outputs.broken }}"
+          echo -e "\nPlease review the links reported in Check internal links step above.\n"
           exit 1
