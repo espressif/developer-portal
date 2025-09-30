@@ -1,0 +1,9 @@
+{
+    "name": "Jan Procházka",
+    "image" : "img/authors/jan-prochazka.webp",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/jan-procházka-ab7399173/" },
+        { "github": "https://github.com/p-r-o-c-h-y" }
+    ]
+}
