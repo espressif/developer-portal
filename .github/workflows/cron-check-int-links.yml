@@ -1,0 +1,65 @@
+name: Cron job to check internal links weekly
+
+# Schedule to run the link checker every Monday at 2:00 AM UTC
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  cron-check-int-links:
+    if: github.repository_owner == 'espressif'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Hugo CLI
+        env:
+          HUGO_VERSION: 0.147.5
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install broken-link-checker
+        run: npm install broken-link-checker
+
+      - name: Start Hugo server
+        run: |
+          hugo server --quiet --port 1313 >/dev/null 2>&1 &
+          until curl -fs http://localhost:1313/ >/dev/null 2>&1; do
+            sleep 0.2
+          done
+          echo "✅ Hugo preview server is ready at http://localhost:1313"
+
+      - name: Check internal links
+        id: linkcheck
+        run: |
+          printf "\n🔗 Checking internal links...\n"
+
+          broken=$(npx blc http://localhost:1313/ --recursive --ordered --follow --exclude-external | awk '
+            /Getting links from:/ { cluster=""; header=$0; next }
+            /BROKEN/ { cluster=cluster $0 "\n"; next }
+            /^Finished!/ { if(cluster) { printf "%s\n%s\n", header, cluster } }
+          ')
+
+          printf "\n%s\n\n" "$broken"
+
+          if [ -n "$broken" ]; then
+            echo "❌ Broken internal links detected."
+            exit 1
+          fi
+
+      - name: Stop Hugo server
+        if: always()
+        run: |
+          pkill -f "hugo server"
+          echo "🛑 Hugo server stopped"

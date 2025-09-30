@@ -1,4 +1,4 @@
-name: Cron job to check links weekly
+name: Cron job to check external links weekly
 
 # Schedule to run the link checker every Monday at 2:00 AM UTC
 on:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  cron-check-links:
+  cron-check-ext-links:
     if: github.repository_owner == 'espressif'
     runs-on: ubuntu-latest
     steps:
