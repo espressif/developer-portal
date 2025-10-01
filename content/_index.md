@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/07/esp-rainmaker-mcp-server/" >}}
+{{< article link="/blog/2025/09/espressif_logging/" >}}
 <br>
-{{< article link="/blog/2025/09/esp-wifi-remote/" >}}
+{{< article link="/blog/2025/09/matter_w_esp_tee_c6/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
