@@ -135,4 +135,5 @@ Espressif remains committed to providing **transparent, practical, and secure** 
 
 ## Updates
 
-**August 2025:** [Preparing for RED DA (EN 18031) Compliance](https://www.youtube.com/watch?v=j-qSfqoy_Wg) - Watch our recorded webinar with Brightsight covering RED DA compliance requirements and implementation guidance.
+- **August 2025:** [Preparing for RED DA (EN 18031) Compliance](https://www.youtube.com/watch?v=j-qSfqoy_Wg) - Watch our recorded webinar with Brightsight covering RED DA compliance requirements and implementation guidance.
+- **September 2025:** [Practical RED DA Compliance – Tools & Real-World Insights](https://www.youtube.com/watch?v=gOt1so_r0H8) - Watch our recorded webinar with CyberWhiz covering practical RED DA compliance tools and real-world insights.
