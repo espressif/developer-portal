@@ -27,7 +27,7 @@ buildFuture = true
 
 [params.Author]
   name = "John Lee"
-  image = "img/authors/espressif.png"
+  image = "img/authors/espressif.webp"
   bio = "Espressif Systems"
   links = [
     { "linkedin" = "https://www.linkedin.com/company/espressif-systems" },
