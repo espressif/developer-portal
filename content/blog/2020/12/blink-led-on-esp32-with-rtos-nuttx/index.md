@@ -1,25 +1,25 @@
 ---
 title: "Blink LED on ESP32 with RTOS NuttX"
-date: 2020-11-30
+date: 2020-12-01
+lastmod: 2025-09-26
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - sara-monteiro
 tags:
   - Nuttx
   - Esp32
-
+summary: "This is a tutorial on how to blink an LED with NuttX after getting started." 
 ---
-{{< figure
-    default=true
-    src="img/blink-1.webp"
-    >}}
+\
+{{< alert >}}
+**This article is under review and may contain outdated information.**
+{{< /alert >}}
 
 ## Introduction
 
 This article is part of the “First Steps with ESP32 and NuttX” series. A series whose objective is to present an overview of the NuttX Operating System and to provide instructions for using NuttX on ESP32.
 
-The [first part](/blog/getting-started-with-esp32-and-nuttx) of the series showed how to prepare the environment, compile and build the Operating System (NuttX) until uploading the firmware to the SoC (ESP32).
+The [first part](/blog/2020/11/getting-started-with-esp32-and-nuttx) of the series showed how to prepare the environment, compile and build the Operating System (NuttX) until uploading the firmware to the SoC (ESP32).
 
 This is the second part and will demonstrate how to run the famous “Hello World” from the Embedded Systems world, i.e., an application that blinks a LED. The evaluation board used here is a DevKit v1 and the built-in LED will be used for convenience. If your DevKit does not come with a built-in LED, just connect an LED to pin 2 in series with a resistor as it will be briefly discussed in the execution section.
 
@@ -54,7 +54,7 @@ Exit the menu via “Exit” and save the configuration.
 
 ## Building and Flashing
 
-If you did not add the paths for the cross compiler binaries and for the esptool to PATH permanently as suggested in the [Getting Started](/blog/getting-started-with-esp32-and-nuttx), run the following commands to load these paths.
+If you did not add the paths for the cross compiler binaries and for the esptool to PATH permanently as suggested in the [Getting Started](/blog/2020/11/getting-started-with-esp32-and-nuttx), run the following commands to load these paths.
 
 ```
 export PATH=$PATH:/opt/xtensa/xtensa-esp32-elf/bin
@@ -121,7 +121,7 @@ and enable the SMP option.
 
 You can keep yourself updated through the following link:
 
-[https://github.com/apache/incubator-nuttx/tree/master/boards/xtensa/esp32/esp32-devkitc](https://github.com/apache/incubator-nuttx/tree/master/boards/xtensa/esp32/esp32-devkitc)
+[https://github.com/apache/nuttx/tree/master/boards/xtensa/esp32/esp32-devkitc](https://github.com/apache/nuttx/tree/master/boards/xtensa/esp32/esp32-devkitc)
 
 Currently, the support for debugging with OpenOCD and eFUSE are in development! Sooner, they will also be available!
 
@@ -132,3 +132,7 @@ So, stay tuned!
 To participate in the Nuttx mail list, you can send an email to [dev-subscribe@nuttx.apache.org](mailto:dev-subscribe@nuttx.apache.org).
 
 For help, doubts, bugs reports, and discussion regarding NuttX, you can send an email to [dev@nuttx.apache.org](mailto:dev@nuttx.apache.org).
+
+---
+
+The [original article](https://medium.com/the-esp-journal/blink-led-on-esp32-with-rtos-nuttx-d33c7dc62156) was published on Medium, on the [ESP Journal](https://medium.com/the-esp-journal). It has since been updated.

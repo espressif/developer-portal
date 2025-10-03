@@ -89,7 +89,7 @@ git clone https://github.com/mcu-tools/mcuboot.git
     - If using Windows, make sure all paths are correct.
     - Make sure NINJA is working properly. Having errors of any kind is a bad sign.
     - Stop at the ninja flashing command.
-- Now, the Zephyr image needs to be rebuilt to workwith MCUboot - Espressif Port. This is not automatic.
+- Now, the Zephyr image needs to be rebuilt to work with MCUboot - Espressif Port. This is not automatic.
     - The Kconfig option enabling MCUboot must be kept, so Zephyr is built accordingly.
     - There is no need to build MCUboot, as it as already done with the steps above and flashed to the device.
     - Only Zephyr needs to be built. This is done by building it without using the ```--sysbuild``` option, similar to the Manual build.
