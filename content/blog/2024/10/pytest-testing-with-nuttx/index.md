@@ -1,10 +1,12 @@
 ---
 title: "Testing applications with Pytest and NuttX"
 date: 2024-10-04
+lastmod: 2025-09-26
 tags: ["NuttX", "Apache", "ESP32", "Pytest", "Testing"]
 showAuthor: false
 authors:
     - "filipe-cavalcanti"
+summary: "How Pytest is used for testing the NuttX RTOS on Espressif devices."
 ---
 
 ## Introduction

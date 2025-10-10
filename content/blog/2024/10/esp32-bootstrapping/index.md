@@ -1,10 +1,12 @@
 ---
 title: "ESP32 bootstrapping in Zephyr"
-date: 2024-10-30T10:18:10+02:00
+date: 2024-10-30
+lastmod: 2025-09-26
 showAuthor: false
 authors:
   - "marek-matej"
 tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6", "ESP-IDF", "Zephyr"]
+summary: "This article explains the booting process of Espressif devices up to ESP32-C6 (and probably newer devices)."
 ---
 
 Those acquainted with the ESP32 system-on-chip (SoC) family know the complexity involved in analyzing its booting process. From navigating the embedded ROM bootloader, facilitated by comprehensive tooling, to initiating the 2nd stage bootloader, which subsequently launches the user application. The procedure deviates significantly from the the straightforward "jump-to-reset-vector" way of starting the user program, as we can see on the ARM architecture.

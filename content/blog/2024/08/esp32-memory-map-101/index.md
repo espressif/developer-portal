@@ -1,12 +1,14 @@
 ---
 title: "ESP32's family Memory Map 101"
-date: 2024-08-20T18:56:49+02:00
-tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6", "Zephyr"]
+date: 2024-08-20
+lastmod: 2025-09-25
+tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6", "Zephyr", "Memory"]
 showAuthor: false
 authors:
   - "marek-matej"
 aliases:
-  - esp32s-family-memory-map-101
+  - [esp32s-family-memory-map-101]
+summary: "This article addresses the complexity of Espressif SoCs by offering a visual, structured compilation of crucial technical data from their datasheets and TRMs. The main takeaway for the reader is a simplified, actionable understanding of the memory maps, caches, peripherals, and eFuse blocks, which is essential for low-level system and driver development."
 ---
 
 

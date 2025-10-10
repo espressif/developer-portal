@@ -1,11 +1,13 @@
 ﻿---
 title: "Introduction to Zephyr OS Tracing and Profiling"
-date: 2024-11-15T06:54:17+08:00
+date: 2024-11-15
+lastmod: 2025-09-25
 showAuthor: false
 featureAsset: "featured-gauge.webp"
 authors:
   - "raffael-rostagno"
 tags: ["ESP32", "Tracing",  "Profiling","Zephyr"]
+summary: "This is an introduction to the critical embedded system debugging techniques of tracing and profiling within the Zephyr RTOS. After reading this article, you can use Zephyr's native tracing tools to gain a visual, in-depth understanding of system dynamics, helping to evaluate performance, spot timing issues, and diagnose complex problems like memory leaks or thread interaction glitches."
 ---
 
 Embedded systems can be quite complex, depending on the architecture, application size and nature. Even for an experienced embedded developer, understanding the interplay of threads, interrupts, and multiple processes that run in a large application can be challenging. We humans are (mostly) visual by nature, and having the means to *visualize* what is happening in a given system can really open up possibilities. Without the right tools we are often in the dark, quite literally.

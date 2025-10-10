@@ -1,8 +1,8 @@
 ---
 title: "Core Dump: A Powerful Tool for Debugging Programs in Zephyr with ESP32 Boards"
 date: 2023-07-27
+lastmod: 2025-09-26
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - lucas-tamborrino
 tags:
@@ -11,12 +11,8 @@ tags:
   - Debugging Tools
   - Esp32
   - Debug
-
+summary: "How to use Zephyr Core Dump feature with Espressif Devices."
 ---
-{{< figure
-    default=true
-    src="img/core-1.webp"
-    >}}
 
 [Zephyr OS](https://www.zephyrproject.org/) is an open-source, scalable, and adaptable real-time operating system (RTOS) for multiple hardware platforms, including [Espressif’s](https://www.espressif.com/) SoCs ESP32, ESP32S2, ESP32C3, and ESP32S3. Zephyr OS provides a wide range of features for embedded systems development, including support for generating and analyzing core dumps on unrecoverable software errors.
 
