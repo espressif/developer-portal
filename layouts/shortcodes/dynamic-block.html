@@ -71,7 +71,7 @@ Toggle for local testing: set to true to load JSON locally from contentPath
 (relative to your index.md location).
 Leave false (default) to resolve via .Site.BaseURL (web mode).
 */}}
-{{ $localMode := true }}  <!-- change to true for local -->
+{{ $localMode := false }}  <!-- change to true for local -->
 
 
 {{ $uniqueID := .Get "jsonKey" | urlize }} <!-- Generate a unique ID -->
