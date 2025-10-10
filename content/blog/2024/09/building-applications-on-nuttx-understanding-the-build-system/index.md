@@ -1,19 +1,21 @@
 ---
 title: "Building Applications on NuttX: Understanding the Build System"
-date: 2024-09-16T08:00:00-03:00
+date: 2024-09-16
+lastmod: 2025-09-26
 tags: ["NuttX", "Apache", "ESP32", "POSIX", "Linux", "Tutorial"]
 series: ["nuttx-apps"]
 series_order: 1
 showAuthor: false
 authors:
     - "tiago-medicci"
+summary: "This article shows how to port and build an application form other Posix-compliant systems to NuttX."
 ---
 
 ## Developing a Project with Existing Applications
 
 The process of building an application in NuttX - whether it is a custom application or one that already exists and targets other operating systems - follows the principles of the NuttX build system. Although the NuttX documentation covers aspects of the application compilation process in various articles and documents, we will delve deeper into some of these options in this article.
 
-For those who are not familiar with NuttX, I recommend reading the article [Getting Started with NuttX and ESP32]({{< ref "blog/nuttx-getting-started/index.md" >}}) or referring to the [*Getting Started*](https://nuttx.apache.org/docs/latest/quickstart/index.html) section in the official NuttX documentation. I would like to highlight NuttX's great advantage: being a POSIX-compliant system allows for easy integration of many applications into the system. About that, there's an old saying:
+For those who are not familiar with NuttX, I recommend reading the article [Getting Started with NuttX and ESP32]({{< ref "blog/2020/11/nuttx-getting-started/index.md" >}}) or referring to the [*Getting Started*](https://nuttx.apache.org/docs/latest/quickstart/index.html) section in the official NuttX documentation. I would like to highlight NuttX's great advantage: being a POSIX-compliant system allows for easy integration of many applications into the system. About that, there's an old saying:
 
 > Don't reinvent the wheel. Someone may have already developed an application to solve your problem!
 
