@@ -1,6 +1,7 @@
 ---
 title: "Introducing ESP_NEW_JPEG: An Efficient JPEG Encoder and Decoder"
 date: 2025-09-17
+lastmod: 2025-11-06
 showAuthor: false
 authors:
   - lin-xu
@@ -44,7 +45,7 @@ ESP_NEW_JPEG supports baseline profile JPEG encoding and decoding. Features such
 Basic features supported by the encoder:
 
 - Support encoding for any width and height
-- Support pixel formats: RGB888, RGBA, YCbYCr, YCbY2YCrY2, and GRAY
+- Support pixel formats: RGB888, RGBA, RGB565(big endian), RGB565(little endian), YCbYCr, YCbY2YCrY2, CbYCrY and GRAY
   - When using the YCbY2YCrY2 format, only YUV420 and Gray subsampling are supported
 - Support YUV444, YUV422, YUV420, and Gray subsampling
 - Support quality settings in the range of 1-100
@@ -263,6 +264,40 @@ void user_logic()
     esp_jpeg_stream_close();
 }
 ```
+
+## ESP_NEW_JPEG vs ESP_JPEG Comparison
+
+Two JPEG libraries are available for different use cases: [ESP_NEW_JPEG](https://components.espressif.com/components/espressif/esp_new_jpeg) and [ESP_JPEG](https://components.espressif.com/components/espressif/esp_jpeg). Understanding the differences between these libraries can help you choose the most suitable one for your project.
+
+ESP_NEW_JPEG is a feature-complete and performance-optimized JPEG codec library that supports both encoding and decoding, along with advanced image processing capabilities. ESP_JPEG is a lightweight decoder library based on the Tiny JPEG Decompressor (TJpgDec), focusing on minimal memory consumption and simplicity.
+
+The following table provides a detailed comparison of the two libraries:
+
+| Feature          | ESP_NEW_JPEG                                           | ESP_JPEG                                                                |
+|------------------|--------------------------------------------------------|-------------------------------------------------------------------------|
+| Encoding         | ✅ Supports multiple formats                            | ❌ Not supported                                                         |
+| Decoding         | ✅ Advanced features (scale, clipper, rotate)           | ✅ Basic decoding with fixed scaling                                     |
+| Pixel Formats    | RGB888, RGBA, RGB565, YCbYCr, YCbY2YCrY2, CbYCrY, GRAY | RGB888, RGB565                                                          |
+| Image Processing | ✅ Scale, clipper, rotate (0°, 90°, 180°, 270°)         | ✅ Fixed scaling ratios (1/1, 1/2, 1/4, 1/8)                             |
+| Block Mode       | ✅ Both encoder and decoder                             | ❌ Not supported                                                         |
+| ROM Support¹     | ❌ Not available                                        | ✅ Available on ESP32, ESP32-S3, ESP32-C3, ESP32-C6, ESP32-C5, ESP32-C61 |
+| API Complexity   | Handle-based, more features                            | Simple API                                                              |
+| Performance      | Higher throughput                                      | Lower memory footprint                                                  |
+
+> ¹ "[ROM Support](https://components.espressif.com/components/espressif/esp_jpeg/versions/1.3.1/readme#tjpgdec-in-rom)" indicates whether the JPEG library is built into the chip’s ROM. A ROM-based implementation helps reduce Flash usage.
+
+When to choose ESP_NEW_JPEG:
+
+- You need JPEG encoding functionality
+- You need higher performance
+- Your application requires advanced image processing features (rotation, custom scaling, clipper)
+- You want to support multiple pixel formats
+
+When to choose ESP_JPEG:
+
+- You only need JPEG decoding functionality
+- Memory usage is a critical constraint
+- You're using chips with ROM support and want to save flash space
 
 ## Conclusion
 
