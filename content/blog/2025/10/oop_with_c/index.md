@@ -67,7 +67,7 @@ An *opaque pointer* is a pointer to a type whose contents are hidden from the us
 {{< /alert >}}
 
 #### Error Handling
-Before looking deeper at how methods are structured in C, it’s important to touch on __error handling__. While not strictly part of object-oriented programming, it directly affects the design of function signatures in OOP-style APIs: many “methods” return status codes instead of the actual result, leaving the caller to check and handle errors explicitly. This convention is widely used in ESP-IDF and is key to understanding how its APIs are meant to be used. For a deeper dive, see the article [ESP-IDF tutorial series: Errors](../errors_and_logging/).
+Before looking deeper at how methods are structured in C, it’s important to touch on __error handling__. While not strictly part of object-oriented programming, it directly affects the design of function signatures in OOP-style APIs: many “methods” return status codes instead of the actual result, leaving the caller to check and handle errors explicitly. This convention is widely used in ESP-IDF and is key to understanding how its APIs are meant to be used. For a deeper dive, see the article [ESP-IDF tutorial series: Errors](/blog/2025/09/espressif_logging/).
 
 #### Implementation example
 

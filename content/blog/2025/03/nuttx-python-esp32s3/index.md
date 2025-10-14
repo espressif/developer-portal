@@ -39,7 +39,7 @@ Check the [ESP Product Selector](https://products.espressif.com/) to find suitab
 
 ### Software Requirements
 
-For those new to NuttX, we recommend reviewing the guide [Getting Started with NuttX and ESP32](../../../nuttx-getting-started) to configure your development environment for building NuttX applications.
+For those new to NuttX, we recommend reviewing the guide [Getting Started with NuttX and ESP32](/blog/2020/11/nuttx-getting-started) to configure your development environment for building NuttX applications.
 
 ### Compiling and Flashing
 
