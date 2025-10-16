@@ -1,10 +1,12 @@
 ---
 title: "Enabling External PSRAM for Zephyr Applications on ESP32 SoCs"
-date: 2024-12-30T00:00:00-00:00
+date: 2024-12-30
+lastmod: 2025-10-16
 showAuthor: false
 authors:
   - "marcio-ribeiro"
 tags: ["ESP32", "ESP32-S2", "ESP32-S3", "Zephyr", "PSRAM", "SPIRAM"]
+summary: "This article presents ideas and suggestions on different scenarios to use the PSRAM available in some Espressif devices."
 ---
 
 Although ESP32 SoCs typically feature a few hundred kilobytes of internal SRAM, some embedded IoT applications—such as those featuring sophisticated graphical user interfaces, handling large data volumes, or performing complex data processing—may require much more RAM. To meet these demands, Espressif provides modules that feature external PSRAM.
@@ -105,13 +107,9 @@ Below are the main parameters related to PSRAM, along with a brief description o
 
 ## Installing Zephyr: A Step-by-Step Guide
 
-To install Zephyr RTOS and the necessary tools, follow the instructions in the Zephyr's [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html). By the end of the process, you will have a command-line Zephyr development environment set up and ready to build your application with `west` — the meta-tool responsible for building your application and flashing the generated binary, and other tasks.
+To install Zephyr RTOS and the necessary tools, follow the instructions in the [Getting Started Guide](https://developer.espressif.com/blog/2021/02/zephyr-rtos-on-esp32-first-steps/). By the end of the process, you will have a command-line Zephyr development environment set up and ready to build your application.
 
-Additionally, you need to execute the following command to prepare your environment for building applications for Espressif SoCs:
-
-```sh
-west blobs fetch hal_espressif
-```
+Make sure to follow all the steps with a successful result for each one of them.
 
 ## Using PSRAM for Dynamic Memory Allocation
 
