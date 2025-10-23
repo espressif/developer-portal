@@ -1,6 +1,7 @@
 ---
 title: "Debugging Embedded Graphics with Wokwi and AI: A Raylib Color Mapping Journey"
 date: 2025-11-01
+summary: "Learn how Wokwi simulation and AI-assisted debugging solved a subtle RGB565 color mapping bug when porting Raylib to ESP32, turning hours of hardware debugging into an efficient iterative workflow with automated visual testing."
 showAuthor: false
 authors:
   - "juraj-michalek"
