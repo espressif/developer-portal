@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="700" height="600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 600">
+  <defs>
+    <style>
+      .box { fill: #f0f7ff; stroke: #2563eb; stroke-width: 2; }
+      .loop-box { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; stroke-dasharray: 5,5; }
+      .arrow { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .loop-arrow { stroke: #f59e0b; stroke-width: 2; fill: none; marker-end: url(#arrowhead-orange); stroke-dasharray: 5,5; }
+      .text { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; fill: #1e293b; }
+      .text-bold { font-weight: 600; }
+      .text-small { font-size: 12px; fill: #475569; }
+      .loop-label { font-size: 13px; fill: #d97706; font-weight: 600; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2563eb" />
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f59e0b" />
+    </marker>
+  </defs>
+
+  <!-- Initial Problem -->
+  <rect x="50" y="20" width="600" height="60" rx="5" class="box"/>
+  <text x="350" y="45" text-anchor="middle" class="text text-bold">1. Developer describes problem + shares screenshot</text>
+  <text x="350" y="65" text-anchor="middle" class="text-small">"Display shows vertical yellow/blue stripes"</text>
+  
+  <!-- Arrow down -->
+  <path d="M 350 80 L 350 110" class="arrow"/>
+  
+  <!-- Iteration Loop Box -->
+  <rect x="20" y="120" width="660" height="330" rx="5" class="loop-box"/>
+  <text x="40" y="145" class="loop-label">ITERATIVE DEBUGGING LOOP</text>
+
+  <!-- Step 2: AI Analysis -->
+  <rect x="50" y="160" width="280" height="100" rx="5" class="box"/>
+  <text x="190" y="185" text-anchor="middle" class="text text-bold">2. AI analyzes screenshot</text>
+  <text x="70" y="210" class="text-small">• Identifies vertical stripes</text>
+  <text x="70" y="230" class="text-small">• Reviews framebuffer code</text>
+  <text x="70" y="250" class="text-small">• Checks RGB565 format</text>
+  
+  <!-- Arrow right -->
+  <path d="M 330 210 L 360 210" class="arrow"/>
+  
+  <!-- Step 3: AI Proposes Changes -->
+  <rect x="370" y="160" width="280" height="100" rx="5" class="box"/>
+  <text x="510" y="185" text-anchor="middle" class="text text-bold">3. AI proposes changes</text>
+  <text x="390" y="210" class="text-small">Incorporate developer's suggestions:</text>
+  <text x="390" y="230" class="text-small">• Byte swapping for endianness</text>
+  <text x="390" y="250" class="text-small">• Debug logging for verification</text>
+  
+  <!-- Arrow down -->
+  <path d="M 510 260 L 510 290" class="arrow"/>
+  
+  <!-- Step 4: Build & Simulate -->
+  <rect x="370" y="300" width="280" height="100" rx="5" class="box"/>
+  <text x="510" y="325" text-anchor="middle" class="text text-bold">4. Build and simulate in Wokwi</text>
+  <text x="390" y="350" class="text-small">$ idf.py build</text>
+  <text x="390" y="370" class="text-small">$ wokwi-cli --screenshot ...</text>
+  <text x="390" y="390" class="text-small">[Wokwi captures screenshot]</text>
+  
+  <!-- Arrow left -->
+  <path d="M 370 350 L 340 350" class="arrow"/>
+  
+  <!-- Step 5: AI Verifies -->
+  <rect x="50" y="300" width="280" height="100" rx="5" class="box"/>
+  <text x="190" y="325" text-anchor="middle" class="text text-bold">5. AI reads new screenshot</text>
+  <text x="70" y="350" class="text-small">read_any_files(screenshot.png)</text>
+  <text x="70" y="370" class="text-small">Compares with expected output</text>
+  <text x="70" y="390" class="text-small">Decision: Fixed? Or iterate again?</text>
+  
+  <!-- Loop back arrow -->
+  <path d="M 190 300 L 190 280 L 40 280 L 40 210 L 50 210" class="loop-arrow"/>
+  
+  <!-- Arrow down to success -->
+  <path d="M 190 400 L 190 470" class="arrow"/>
+  <text x="210" y="440" class="text-small" style="fill: #16a34a;">Fixed!</text>
+  
+  <!-- Success box (exit criteria) -->
+  <rect x="50" y="480" width="280" height="40" rx="5" style="fill: #dcfce7; stroke: #16a34a; stroke-width: 2;"/>
+  <text x="190" y="505" text-anchor="middle" class="text text-bold" style="fill: #16a34a;">Result: Solid green color</text>
+
+</svg>

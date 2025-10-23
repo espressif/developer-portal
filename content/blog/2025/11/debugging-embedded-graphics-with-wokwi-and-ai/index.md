@@ -125,39 +125,11 @@ This was then integrated into the CI pipeline using ImageMagick.
 
 ## The Complete Workflow in Action
 
-Here's what a typical debugging iteration looked like:
+Here's what a typical debugging iteration looked like. Note the iterative loop - we went through this cycle **multiple times** before finding the correct solution:
 
-```text path=null start=null
-┌─────────────────────────────────────────────────────┐
-│ 1. Developer describes problem + shares screenshot │
-└────────────────┬────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────┐
-│ 2. AI analyzes code + screenshot via vision API    │
-│    - Identifies vertical stripes pattern           │
-│    - Reviews framebuffer handling code             │
-│    - Checks RGB565 format documentation            │
-└────────────────┬────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────┐
-│ 3. AI proposes code changes                        │
-│    - Direct framebuffer access                     │
-│    - Byte swapping for endianness                  │
-└────────────────┬────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────┐
-│ 4. Build and simulate in Wokwi                     │
-│    $ idf.py build                                  │
-│    $ wokwi-cli --screenshot-time 5000 ...          │
-│    [Wokwi captures display screenshot]             │
-└────────────────┬────────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────────┐
-│ 5. AI reads new screenshot                         │
-│    tool: read_any_files(screenshot.png)            │
-│    Result: Solid green color ✅                    │
-└────────────────────────────────────────────────────┘
-```
+![Debugging workflow diagram showing the iterative loop between AI analysis, code changes, Wokwi simulation, and verification](workflow-diagram.svg)
+
+The key insight is the **feedback loop** (highlighted in yellow): AI proposes changes → build → Wokwi captures screenshot → AI verifies → if not fixed, iterate again. This cycle ran multiple times, with each iteration getting closer to the solution.
 
 ## Key Insights
 
