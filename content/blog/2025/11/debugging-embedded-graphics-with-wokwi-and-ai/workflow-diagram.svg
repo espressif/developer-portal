@@ -5,7 +5,7 @@
       .box { fill: #f0f7ff; stroke: #2563eb; stroke-width: 2; }
       .loop-box { fill: #fef3c7; stroke: #f59e0b; stroke-width: 2; stroke-dasharray: 5,5; }
       .arrow { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
-      .loop-arrow { stroke: #f59e0b; stroke-width: 2; fill: none; marker-end: url(#arrowhead-orange); stroke-dasharray: 5,5; }
+      .loop-arrow { stroke: #f59e0b; stroke-width: 2; fill: none; stroke-dasharray: 5,5; }
       .text { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; fill: #1e293b; }
       .text-bold { font-weight: 600; }
       .text-small { font-size: 12px; fill: #475569; }
