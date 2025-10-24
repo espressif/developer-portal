@@ -1,5 +1,5 @@
 ---
-title: "Debugging Embedded Graphics with Wokwi and AI: A Raylib Color Mapping Journey"
+title: "Debugging Embedded Graphics with Wokwi and AI: Solving a Raylib Color Mapping on ESP32"
 date: 2025-10-24
 summary: "Learn how Wokwi simulation and AI-assisted debugging solved a subtle RGB565 color mapping bug when porting Raylib to ESP32, turning hours of hardware debugging into an efficient iterative workflow with automated visual testing."
 showAuthor: false
@@ -30,12 +30,12 @@ Rather than flash to physical hardware for every test, we used Wokwi - a powerfu
 2. **Integrated Debugger**: Step through code, set breakpoints, and inspect variables without physical hardware
 3. **Fast Iteration Cycles**: No need to physically flash devices between tests
 4. **Reproducible Testing**: Same simulation conditions every time, eliminating hardware variability
-5. **IDE Integration**: Works seamlessly with [VS Code](https://docs.wokwi.com/vscode/getting-started) and [[CLion](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator) for professional development workflows
+5. **IDE Integration**: Works seamlessly with [VS Code](https://docs.wokwi.com/vscode/getting-started) and [CLion](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator) for professional development workflows
 6. **CI/CD Ready**: Automated testing in GitHub Actions with screenshot validation
 
 Our Wokwi setup included:
-- ESP32-S3-BOX-3 board definition (320x240 ILI9341 display)
-- Custom firmware with raylib hello example
+- [ESP32-S3-BOX-3 board](https://github.com/espressif/esp-box) definition (320x240 ILI9341 display)
+- Custom firmware with [Raylib Hello example](https://components.espressif.com/components/georgik/raylib/versions/5.6.0/examples/hello)
 - Automated screenshot capture at specific timestamps
 
 ```bash path=null start=null
@@ -50,7 +50,7 @@ wokwi-cli \
 
 ## The AI-Assisted Debugging Loop
 
-Here's where it got interesting. Instead of manually analyzing each screenshot and making educated guesses, we used Warp's AI agent with vision capabilities to create a feedback loop:
+Here's where it got interesting. Instead of manually analyzing each screenshot and making educated guesses, we used [Warp's AI agent](https://www.warp.dev/) with vision capabilities to create a feedback loop:
 
 ### 1. Initial Problem Identification
 
@@ -72,7 +72,7 @@ For each hypothesis, we followed this pattern:
 
 ```text path=null start=null
 1. AI proposes code change
-2. Build firmware: idf.py @boards/esp-box-3.cfg build
+2. Build firmware
 3. Run Wokwi simulation with screenshot capture
 4. AI reads the screenshot to verify if colors improved
 5. Adjust based on results
@@ -80,11 +80,13 @@ For each hypothesis, we followed this pattern:
 
 This tight feedback loop was possible because:
 - Wokwi provided consistent, reproducible screenshots
-- Warp AI could read images directly via the `read_any_files` tool
+- [Warp AI](https://www.warp.dev/) could read images directly
 - Build times were reasonable (~30 seconds)
 - No physical hardware connection needed
 
-### 4. The Breakthrough: Direct Framebuffer Access
+### 4. The AI iterations: Direct Framebuffer Access
+
+Since we established AI feedback loop, the AI was able to iterate over the problem. Thanks to provided feedback from developer, it was able to drive several iterations of the debugging process.
 
 The AI discovered that the original code used `rlCopyFramebuffer()`, which performed:
 ```text path=null start=null
@@ -118,17 +120,7 @@ for (int i = 0; i < total_pixels; i++) {
 
 **Screenshot verification**: Wokwi showed solid green (test was at 5 seconds when green was displayed) ✅
 
-### 5. Visual Confirmation
-
-The AI also noticed the screenshot was upside-down (raylib's coordinate system has Y-axis flipped compared to the LCD):
-
-```bash path=null start=null
-sips -f vertical screenshot.png  # macOS image flip
-```
-
-This was then integrated into the CI pipeline using ImageMagick.
-
-Result:
+[![ESP32-S3-BOX-3 Hello World](raylib-hello-esp-box-3-green.webp)](https://wokwi.com/experimental/viewer?diagram=https%3A%2F%2Fraw.githubusercontent.com%2Fgeorgik%2Fesp-idf-component-raylib%2Fmain%2Fraylib%2Fexamples%2Fhello%2Fwokwi%2Fesp-box-3%2Fdiagram.json&firmware=https%3A%2F%2Fgithub.com%2Fgeorgik%2Fesp-idf-component-raylib%2Freleases%2Fdownload%2Fv5.6.0%2Fraylib-hello-v5.6.0-esp-box-3.bin)
 
 ## The Complete Workflow in Action
 
@@ -147,18 +139,18 @@ The key insight is the **feedback loop** (highlighted in yellow): AI proposes ch
 3. **Wokwi's Consistency**: Same simulation every time meant we could isolate variables and prove fixes definitively
 4. **AI Vision + Code Understanding**: The AI could correlate visual output with code changes by reading Wokwi screenshots
 5. **Fast Iteration**: ~2 minutes per cycle (build + simulate + analyze) vs. hours with physical hardware
-6. **Professional Development Environment**: Wokwi's VSCode and CLion integration meant we could debug just like with physical hardware
+6. **Professional Development Environment**: Wokwi's [VS Code](https://docs.wokwi.com/vscode/getting-started) and [CLion](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator) integration meant we could debug just like with physical hardware
 
 ### Limitations We Hit
 
-1. **Screenshot Timing**: Had to carefully time captures to match test sequence (red at 2.7s, green at 3.9s, etc.) - though Wokwi's debugger could have helped pause at exact moments
+1. **Screenshot Timing**: Had to carefully time captures to match test sequence (red at 2.7s, green at 3.9s, etc.). The alternative approach is to use Wokwi Scenario files, which allows triggering screenshot based on the log message
 2. **Endianness Assumptions**: Even AI made wrong guesses about byte order initially, requiring multiple iterations
 
 ## Lessons for Embedded Development
 
 ### 1. Simulation-First Development with Wokwi
 
-Don't wait until hardware is available. Wokwi provides a complete development environment:
+Don't wait until hardware is available. Wokwi provides a simulated of MCUs:
 - **Screenshot capture** for visual debugging - essential for graphics bugs
 - **Integrated debugger** with breakpoints and variable inspection
 - **IDE integration** with VSCode and CLion for professional workflows
@@ -233,7 +225,7 @@ Now every commit produces screenshots showing correct color rendering across all
 
 **[▶️ Run online Wokwi ESP32-S3-BOX-3 (320x240)](https://wokwi.com/experimental/viewer?diagram=https%3A%2F%2Fraw.githubusercontent.com%2Fgeorgik%2Fesp-idf-component-raylib%2Fmain%2Fraylib%2Fexamples%2Fhello%2Fwokwi%2Fesp-box-3%2Fdiagram.json&firmware=https%3A%2F%2Fgithub.com%2Fgeorgik%2Fesp-idf-component-raylib%2Freleases%2Fdownload%2Fv5.6.0%2Fraylib-hello-v5.6.0-esp-box-3.bin)**
 
-The time based approach might not be suitable for all the cases. Wokwi can watch for keyword in the [log message to trigger screenshot](https://github.com/wokwi/wokwi-part-tests/blob/main/board-ssd1306/oled-esp32/ssd1306.test.yaml):
+**Note:** The time based approach might not be suitable for all the cases. Wokwi can watch for keyword in the [log message to trigger screenshot](https://github.com/wokwi/wokwi-part-tests/blob/main/board-ssd1306/oled-esp32/ssd1306.test.yaml):
 
 ```yaml
 steps:
@@ -269,12 +261,8 @@ You can test the final result in web browser or flash it to ESP32-S3-BOX-3 using
 - [Wokwi for VS Code](https://docs.wokwi.com/vscode/getting-started)
 - [Wokwi for CLion](https://plugins.jetbrains.com/plugin/23826-wokwi-simulator)
 - [Warp](https://warp.dev) - AI-powered terminal and development environment
-- [Raylib](https://raylib.com) - Simple game programming library
+- [Raylib](https://raylib.com) - Simple and easy-to-use programming library
 - [Raylib ESP-IDF Component](https://github.com/georgik/esp-idf-component-raylib)
 - [Component Registry with Raylib ESP-IDF Component](https://components.espressif.com/components/georgik/raylib/)
 - [Component Registry with Raylib Port ESP-IDF Component](https://components.espressif.com/components/georgik/esp_raylib_port)
 - [Flash Raylib Hello example with ESP-Launchpad](https://georgik.github.io/esp-idf-component-raylib/?flashConfigURL=https://georgik.github.io/esp-idf-component-raylib/config/config.toml)
-
----
-
-*The raylib ESP-IDF component now successfully renders graphics on ESP32 devices with proper RGB565 color mapping, validated through automated Wokwi simulations in CI.*
