@@ -17,7 +17,7 @@ In February this year, we announced the first [esp-hal 1.0 beta] release. Since 
 
 ### What We're Stabilizing Today
 
-esp-hal is far from complete. We've spent many years researching and experimenting to get to this stage. However, to get a stable foundation to build from, the experimentation eventually needs to make way for stability. To achieve this, we've decided to limit the scope of 1.0 stabilization to:
+We've spent many years researching and experimenting to get to this stage (checkout the [esp-hal 1.0 beta] blog post for the longer story!). However, to get a stable foundation to build from, the experimentation eventually needs to make way for stability. To achieve this, we've decided to limit the scope of 1.0 stabilization to:
 
 - Initializing the hal, `esp_hal::init` and the relevant configuration associated with that.
 - Four "core" drivers to start:
@@ -25,22 +25,27 @@ esp-hal is far from complete. We've spent many years researching and experimenti
   - UART
   - SPI
   - I2C
+- `Async` and `Blocking` support for the aforementioned drivers.
 - The `time` module, which provides `Instant`, `Duration`, and `Rate`.
 - A couple of miscellaneous system APIs (SoC reset, etc.).
 - `#[main]` macro.
-- Additional configuration parameters beyond feature flags.
+- Additional configuration mechanism beyond feature flags ([esp-config]).
 
 With the exception of the list above, everything else in esp-hal is now feature gated behind the `unstable` feature. With the scope limited, post 1.0 we can incrementally stabilize drivers, much like the Rust project itself does, building on 1.0's foundation. 
 
 ### What About the Other `no_std` `esp-*` Crates?
 
-esp-hal is the foundation of many of the esp-rs ecosystem crates, [esp-radio] (previously known as esp-wifi) is our next stabilization target, and builds directly on top of esp-hal. The end goal is of course to have every `esp-*` crate with a 1.0+ release eventually.
+esp-hal is the foundation of many of the ecosystem crates, [esp-radio] (previously known as esp-wifi) is our next stabilization target, which will enable the use of WiFi, Bluetooth, ESP-NOW and ieee802.15.4 on the ESP32 family of devices. The end goal is of course to have every `esp-*` crate with a 1.0+ release eventually.
+
+### What about 2.0?
+
+We don't currently have plans for a 2.0. That is to say, we plan on staying on a 1.x version of esp-hal for as long as we can. Over time, we may find some things we missed initially and may wish to make breaking changes; in that case we'd reach for 2.0. We already did some [semver experiments] to explore 1.0/2.0 interop to avoid a complete split ecosystem.
 
 ### Getting Started
 
 The first step is to read our specially curated [book], which explains the ecosystem, tooling and some key embedded concepts for esp-hal.
 
-As part of getting to 1.0, we've created our own project generation tool, [esp-generate] to bootstrap starting a project. This is explained fully in the [book], getting something building today should be as simple as:
+As part of getting to 1.0, we've created our own project generation tool, [esp-generate] to bootstrap starting a project. This is explained fully in the [book], getting something running today should be as simple as:
 
 ```bash
 cargo install esp-generate
@@ -54,21 +59,17 @@ esp-generate
 
 to launch the interactive project generation terminal user interface.
 
+Once you've generated your project, connect your ESP32 and run `cargo run --release`!
+
 ### What’s Next?
 
-If you're a company using (or considering) Rust on our chips, please do contact rust.support@espressif.com, we'd love to hear from you!
+This is just the start. We plan on stabilizing all esp-hal related crates, next up is [esp-radio]. We'll continue developing [esp-hal], overtime we'll stabilize more drivers beyond the core set that we're starting with today. We'll continue to add support for new devices, such as the newly released ESP32-C5, as they go into mass production.
 
-[^1]: There are some binary blobs to run the Wi-Fi driver which we link to.
+This release would not have been possible without the help from the Rust community, the embedded working group, and of course the esp community and contributors which have heavily impacted how we’ve developed our Rust offering. I would also like to thank Espressif, and in particular the Rust team for their hard work in getting us to where we are today!
 
+If you're a company using (or considering using) Rust on our devices, please do contact sales@espressif.com, we'd love to hear from you!
 
 [Espressif]: https://www.espressif.com/
-[Xtensa]: https://en.wikipedia.org/wiki/Tensilica
-[ESP-IDF]: https://github.com/espressif/esp-idf
-[probe-rs]: https://probe.rs/
-[embedded-test]: https://github.com/probe-rs/embedded-test
-[embassy]: https://github.com/embassy-rs
-[official Rust embedded book]: https://docs.rust-embedded.org/book/static-guarantees/typestate-programming.html
-[the tracking issue]: https://github.com/espressif/llvm-project/issues/4
 [espflash]: https://github.com/esp-rs/espflash
 [esp-hal]: https://github.com/esp-rs/esp-hal/tree/main/esp-hal
 [esp-radio]: https://github.com/esp-rs/esp-hal/tree/main/esp-radio
@@ -79,11 +80,4 @@ If you're a company using (or considering) Rust on our chips, please do contact 
 [esp-config]: https://crates.io/crates/esp-config
 [docs.espressif.com/projects/rust]: https://docs.espressif.com/projects/rust/index.html
 [esp-hal 1.0 beta]: https://developer.espressif.com/blog/2025/02/rust-esp-hal-beta/
-
-
-[@ivmarkov]: https://github.com/ivmarkov
-[@jessebraham]: https://github.com/jessebraham
-[@BjoernQ]: https://github.com/BjoernQ
-[@arjanmels]: https://github.com/arjanmels
-[@t-moe]: https://github.com/t-moe
-[@bugadani]: https://github.com/bugadani
+[semver experiments]: https://github.com/MabezDev/semver-playground
