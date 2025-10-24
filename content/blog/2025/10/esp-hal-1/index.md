@@ -25,13 +25,14 @@ We've spent many years researching and experimenting to get to this stage (check
   - UART
   - SPI
   - I2C
-- `Async` and `Blocking` support for the aforementioned drivers.
+- `Blocking` support for the aforementioned drivers.
+- `Async` support for the aforementioned drivers, which work on any executor, including [embassy]'s!.
 - The `time` module, which provides `Instant`, `Duration`, and `Rate`.
 - A couple of miscellaneous system APIs (SoC reset, etc.).
 - `#[main]` macro.
 - Additional configuration mechanism beyond feature flags ([esp-config]).
 
-With the exception of the list above, everything else in esp-hal is now feature gated behind the `unstable` feature. With the scope limited, post 1.0 we can incrementally stabilize drivers, much like the Rust project itself does, building on 1.0's foundation. 
+With the exception of the list above, everything else in esp-hal is now feature gated behind the `unstable` feature. With the scope limited, post 1.0 we can incrementally stabilize drivers, much like the Rust project itself does, building on 1.0's foundation.
 
 ### What About the Other `no_std` `esp-*` Crates?
 
@@ -71,6 +72,7 @@ If you're a company using (or considering using) Rust on our devices, please do 
 
 [Espressif]: https://www.espressif.com/
 [espflash]: https://github.com/esp-rs/espflash
+[embassy]: https://github.com/embassy-rs/embassy
 [esp-hal]: https://github.com/esp-rs/esp-hal/tree/main/esp-hal
 [esp-radio]: https://github.com/esp-rs/esp-hal/tree/main/esp-radio
 [ESP-NOW]: https://www.espressif.com/en/solutions/low-power-solutions/esp-now
