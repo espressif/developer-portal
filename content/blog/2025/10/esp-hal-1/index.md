@@ -13,11 +13,11 @@ tags:
 
 ---
 
-In February this year, we announced the first [esp-hal 1.0 beta] release. Since then we've been hard at work, polishing and preparing for the full release. Today, the Rust team at Espressif is excited to announce the official `1.0.0` release for `esp-hal`, the _first_ vendor-backed Rust SDK!
+In February this year, we announced the first [`esp-hal` 1.0 beta] release. Since then we've been hard at work, polishing and preparing for the full release. Today, the Rust team at Espressif is excited to announce the official `1.0.0` release for `esp-hal`, the _first_ vendor-backed Rust SDK!
 
 ### What We're Stabilizing Today
 
-We've spent many years researching and experimenting to get to this stage (checkout the [esp-hal 1.0 beta] blog post for the longer story!). However, to get a stable foundation to build from, the experimentation eventually needs to make way for stability. To achieve this, we've decided to limit the scope of 1.0 stabilization to:
+We've spent many years researching and experimenting to get to this stage (checkout the [`esp-hal` 1.0 beta] blog post for the longer story!). However, to get a stable foundation to build from, the experimentation eventually needs to make way for stability. To achieve this, we've decided to limit the scope of 1.0 stabilization to:
 
 - Initializing the hal, `esp_hal::init` and the relevant configuration associated with that.
 - Four "core" drivers to start:
@@ -29,7 +29,7 @@ We've spent many years researching and experimenting to get to this stage (check
 - The `time` module, which provides `Instant`, `Duration`, and `Rate`.
 - A couple of miscellaneous system APIs (SoC reset, etc.).
 - `#[main]` macro.
-- Additional configuration mechanism beyond feature flags ([esp-config]).
+- Additional configuration mechanism beyond feature flags ([`esp-config`]).
 
 With the exception of the list above, everything else in `esp-hal` is now feature gated behind the `unstable` feature. With the scope limited, post 1.0 we can incrementally stabilize drivers, much like the Rust project itself does, building on 1.0's foundation.
 
@@ -45,7 +45,7 @@ Unstable in this case refers to API stability. There is varying levels of functi
 
 The first step is to read our specially curated [book], which explains the ecosystem, tooling and some key embedded concepts for `esp-hal`.
 
-As part of getting to 1.0, we've created our own project generation tool, [esp-generate] to bootstrap starting a project. This is explained fully in the [book], but getting something running today should be as simple as:
+As part of getting to 1.0, we've created our own project generation tool, [`esp-generate`] to bootstrap starting a project. This is explained fully in the [book], but getting something running today should be as simple as:
 
 ```bash
 cargo install esp-generate --locked
@@ -76,9 +76,9 @@ If you're a company using (or considering using) Rust on our devices, please do 
 [`esp-radio`]: https://github.com/esp-rs/esp-hal/tree/main/esp-radio
 [ESP-NOW]: https://www.espressif.com/en/solutions/low-power-solutions/esp-now
 [xtensa-lx and xtensa-lx-rt]: https://github.com/esp-rs/esp-hal/tree/main/xtensa-lx-rt
-[esp-generate]: https://github.com/esp-rs/esp-generate
+[`esp-generate`]: https://github.com/esp-rs/esp-generate
 [book]: https://github.com/esp-rs/book
-[esp-config]: https://crates.io/crates/esp-config
+[`esp-config`]: https://crates.io/crates/esp-config
 [docs.espressif.com/projects/rust]: https://docs.espressif.com/projects/rust/index.html
-[esp-hal 1.0 beta]: https://developer.espressif.com/blog/2025/02/rust-esp-hal-beta/
+[`esp-hal` 1.0 beta]: https://developer.espressif.com/blog/2025/02/rust-esp-hal-beta/
 [semver experiments]: https://github.com/MabezDev/semver-playground
