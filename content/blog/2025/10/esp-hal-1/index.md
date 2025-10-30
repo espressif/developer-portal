@@ -10,6 +10,7 @@ tags:
   - Xtensa
   - RISCV
   - Announcement
+summary: "Announcing esp-hal 1.0, the first Rust SDK for embedded devices."
 
 ---
 
