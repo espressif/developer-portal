@@ -41,7 +41,7 @@ esp-hal is the foundation of many of the ecosystem crates, [esp-radio] (previous
 
 The first step is to read our specially curated [book], which explains the ecosystem, tooling and some key embedded concepts for esp-hal.
 
-As part of getting to 1.0, we've created our own project generation tool, [esp-generate] to bootstrap starting a project. This is explained fully in the [book], getting something running today should be as simple as:
+As part of getting to 1.0, we've created our own project generation tool, [esp-generate] to bootstrap starting a project. This is explained fully in the [book], but getting something running today should be as simple as:
 
 ```bash
 cargo install esp-generate --locked
