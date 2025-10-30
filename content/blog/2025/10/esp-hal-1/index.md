@@ -31,15 +31,19 @@ We've spent many years researching and experimenting to get to this stage (check
 - `#[main]` macro.
 - Additional configuration mechanism beyond feature flags ([esp-config]).
 
-With the exception of the list above, everything else in esp-hal is now feature gated behind the `unstable` feature. With the scope limited, post 1.0 we can incrementally stabilize drivers, much like the Rust project itself does, building on 1.0's foundation.
+With the exception of the list above, everything else in `esp-hal` is now feature gated behind the `unstable` feature. With the scope limited, post 1.0 we can incrementally stabilize drivers, much like the Rust project itself does, building on 1.0's foundation.
 
-### What About the Other `no_std` `esp-*` Crates?
+### What Does Unstable Mean for Drivers?
 
-esp-hal is the foundation of many of the ecosystem crates, [esp-radio] (previously known as esp-wifi) is our next stabilization target, which will enable the use of WiFi, Bluetooth, ESP-NOW and ieee802.15.4 on the ESP32 family of devices. The end goal is of course to have every `esp-*` crate with a 1.0+ release eventually.
+Unstable in this case refers to API stability. There is varying levels of functionality for unstable drivers, however they are suitable for most common use cases. Using them, reporting feedback, and/or contributing to improving them will aid their stabilization.
+
+### What About the Other `esp-*` Crates?
+
+`esp-hal` is the foundation of many of the ecosystem crates. [`esp-radio`] (previously known as `esp-wifi`) is our next stabilization target, which will enable the use of WiFi, Bluetooth, ESP-NOW and IEEE802.15.4 on the ESP32 family of devices. The end goal is of course to have every `esp-*` crate with a 1.0+ release eventually.
 
 ### Getting Started
 
-The first step is to read our specially curated [book], which explains the ecosystem, tooling and some key embedded concepts for esp-hal.
+The first step is to read our specially curated [book], which explains the ecosystem, tooling and some key embedded concepts for `esp-hal`.
 
 As part of getting to 1.0, we've created our own project generation tool, [esp-generate] to bootstrap starting a project. This is explained fully in the [book], but getting something running today should be as simple as:
 
@@ -59,7 +63,7 @@ Once you've generated your project, connect your ESP32 and run `cargo run --rele
 
 ### What’s Next?
 
-This is just the start. We plan on stabilizing all esp-hal related crates, next up is [esp-radio]. We'll continue developing [esp-hal], overtime we'll stabilize more drivers beyond the core set that we're starting with today. We'll continue to add support for new devices, such as the newly released ESP32-C5, as they go into mass production.
+This is just the start. We plan on stabilizing all `esp-hal` related crates, next up is [`esp-radio`]. We'll continue developing [`esp-hal`], overtime we'll stabilize more drivers beyond the core set that we're starting with today. We'll continue to add support for new devices, such as the newly released ESP32-C5, as they go into mass production.
 
 This release would not have been possible without the help from the Rust community, the embedded working group, and of course the esp community and contributors which have heavily impacted how we’ve developed our Rust offering. I would also like to thank Espressif, and in particular the Rust team for their hard work in getting us to where we are today!
 
@@ -68,8 +72,8 @@ If you're a company using (or considering using) Rust on our devices, please do 
 [Espressif]: https://www.espressif.com/
 [espflash]: https://github.com/esp-rs/espflash
 [embassy]: https://github.com/embassy-rs/embassy
-[esp-hal]: https://github.com/esp-rs/esp-hal/tree/main/esp-hal
-[esp-radio]: https://github.com/esp-rs/esp-hal/tree/main/esp-radio
+[`esp-hal`]: https://github.com/esp-rs/esp-hal/tree/main/esp-hal
+[`esp-radio`]: https://github.com/esp-rs/esp-hal/tree/main/esp-radio
 [ESP-NOW]: https://www.espressif.com/en/solutions/low-power-solutions/esp-now
 [xtensa-lx and xtensa-lx-rt]: https://github.com/esp-rs/esp-hal/tree/main/xtensa-lx-rt
 [esp-generate]: https://github.com/esp-rs/esp-generate
