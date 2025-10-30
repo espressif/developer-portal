@@ -25,8 +25,7 @@ We've spent many years researching and experimenting to get to this stage (check
   - UART
   - SPI
   - I2C
-- `Blocking` support for the aforementioned drivers.
-- `Async` support for the aforementioned drivers, which work on any executor, including [embassy]'s!.
+- `Async` and `Blocking` modes for the aforementioned drivers.
 - The `time` module, which provides `Instant`, `Duration`, and `Rate`.
 - A couple of miscellaneous system APIs (SoC reset, etc.).
 - `#[main]` macro.
@@ -38,10 +37,6 @@ With the exception of the list above, everything else in esp-hal is now feature 
 
 esp-hal is the foundation of many of the ecosystem crates, [esp-radio] (previously known as esp-wifi) is our next stabilization target, which will enable the use of WiFi, Bluetooth, ESP-NOW and ieee802.15.4 on the ESP32 family of devices. The end goal is of course to have every `esp-*` crate with a 1.0+ release eventually.
 
-### What about 2.0?
-
-We don't currently have plans for a 2.0. That is to say, we plan on staying on a 1.x version of esp-hal for as long as we can. Over time, we may find some things we missed initially and may wish to make breaking changes; in that case we'd reach for 2.0. We already did some [semver experiments] to explore 1.0/2.0 interop to avoid a complete split ecosystem.
-
 ### Getting Started
 
 The first step is to read our specially curated [book], which explains the ecosystem, tooling and some key embedded concepts for esp-hal.
@@ -49,7 +44,7 @@ The first step is to read our specially curated [book], which explains the ecosy
 As part of getting to 1.0, we've created our own project generation tool, [esp-generate] to bootstrap starting a project. This is explained fully in the [book], getting something running today should be as simple as:
 
 ```bash
-cargo install esp-generate
+cargo install esp-generate --locked
 ```
 
 then run
@@ -60,7 +55,7 @@ esp-generate
 
 to launch the interactive project generation terminal user interface.
 
-Once you've generated your project, connect your ESP32 and run `cargo run --release`!
+Once you've generated your project, connect your ESP32 and run `cargo run --release` from your new project directory!
 
 ### What’s Next?
 
