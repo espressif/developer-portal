@@ -19,7 +19,7 @@ In February this year, we announced the first [`esp-hal` 1.0 beta] release. Sinc
 
 We've spent many years researching and experimenting to get to this stage (checkout the [`esp-hal` 1.0 beta] blog post for the longer story!). However, to get a stable foundation to build from, the experimentation eventually needs to make way for stability. To achieve this, we've decided to limit the scope of 1.0 stabilization to:
 
-- Initializing the hal, `esp_hal::init` and the relevant configuration associated with that.
+- Initializing the HAL, `esp_hal::init` and the relevant configuration associated with that.
 - Four "core" drivers to start:
   - GPIO
   - UART
