@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/09/espressif_logging/" >}}
+{{< article link="/blog/2025/10/esp-hal-1/" >}}
 <br>
-{{< article link="/blog/2025/09/matter_w_esp_tee_c6/" >}}
+{{< article link="/blog/2025/10/debugging-embedded-graphics-with-wokwi-and-ai/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
