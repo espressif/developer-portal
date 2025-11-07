@@ -7,6 +7,8 @@ showAuthor: false
 authors:
     - "filipe-cavalcanti"
 summary: "How Pytest is used for testing the NuttX RTOS on Espressif devices."
+aliases:
+  - /blog/pytest-testing-with-nuttx
 ---
 
 ## Introduction
@@ -29,7 +31,7 @@ Pytest allows us to set up a test environment and scale tests easily, using fixt
 
 Pytest integrates with argparse, enabling us to pass arguments to tests via the command line or by specifying them in an .ini file. These arguments can be accessed by any test case when needed.
 
-Another significant advantage of pytest is the large number of available plugins. Pytest provides a standard way to implement [plugins](https://docs.pytest.org/en/stable/reference/plugin_list.html) using its hooks, allowing contributors to share their plugins with the community. 
+Another significant advantage of pytest is the large number of available plugins. Pytest provides a standard way to implement [plugins](https://docs.pytest.org/en/stable/reference/plugin_list.html) using its hooks, allowing contributors to share their plugins with the community.
 
 ## Setting Up the Test Environment
 
@@ -47,7 +49,7 @@ To create the virtual environment, use Python's venv tool and create an environm
 ```
 fdcavalcanti@espubuntu:~/embedded_test$ python3 -m venv venv
 fdcavalcanti@espubuntu:~/embedded_test$ source venv/bin/activate
-(venv) fdcavalcanti@espubuntu:~/embedded_test$ 
+(venv) fdcavalcanti@espubuntu:~/embedded_test$
 ```
 
 Next, upgrade pip (Python’s package manager) and install the following packages:
@@ -74,7 +76,7 @@ pytest    8.3.3
 Now, the environment is ready, and we can begin setting up our tests.
 
 ## Establishing Communication
-    
+
 Before we can test an application, we need to establish working serial communication that we can use in our tests. First, we’ll create a Python class to handle this, and then we’ll explore how pytest can leverage it.
 
 ## Serial Communication Class
@@ -89,7 +91,7 @@ Our class will be called SerialCommunication and will contain the mandatory init
 The following is what our initialization looks like. The timeout argument is important to avoid locking our serial port in case of a failure where the device is unresponsive. It can also be adjusted on the fly for long test cases.
 
 ```python
-import serial  
+import serial
 
 class SerialCommunication:
 def __init__(self, port: str, baudrate: int=115200, timeout: int=10):
@@ -131,7 +133,7 @@ def close(self) -> None:
 I have an [ESP32H2 Devkit](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32h2/esp32-h2-devkitm-1/user_guide.html) connected to my serial port at `/dev/ttyUSB0` and
 running the `nsh` firmware configuration.
 
-If you are not familiar with building NuttX, checkout this article on [getting started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/).
+If you are not familiar with building NuttX, checkout this article on [getting started with NuttX and ESP32](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/).
 
 Below, we will add a simple main routine to our communication.py file to validate that our communication works by sending the help and uname commands and reading the responses.
 
@@ -146,10 +148,10 @@ if __name__ == "__main__":
 Output from the routine above:
 
 ```console
-(venv) fdcavalcanti@espubuntu:~/embedded_test$ python3 communication.py 
+(venv) fdcavalcanti@espubuntu:~/embedded_test$ python3 communication.py
 uname -a
 NuttX 10.4.0 4622e4f996-dirty Sep 27 2024 14:52:14 risc-v esp32h2-devkit
-nsh> 
+nsh>
 ```
 
 So it works. We have the communication basis that allows us to structure our Pytest environment. The same recipe can be followed for communication via telnet, sockets, MQTT, or whatever is needed for the application.
@@ -179,7 +181,7 @@ This first example's conftest.py file will be responsible for one task: creating
 
 Create the conftest file:
 ```
-(venv) fdcavalcanti@espubuntu:~/embedded_test$ touch conftest.py 
+(venv) fdcavalcanti@espubuntu:~/embedded_test$ touch conftest.py
 ```
 
 Then, import the SerialCommunication class and create the fixture using session scope, naming it "target".
@@ -224,7 +226,7 @@ rootdir: /home/fdcavalcanti/embedded_test
 plugins: metadata-3.1.1, html-4.1.1
 collected 1 item
 
-test_uname.py::test_uname_board PASSED [100%] 
+test_uname.py::test_uname_board PASSED [100%]
 ============================== 1 passed in 0.14s ==============================
 ```
 
@@ -250,7 +252,7 @@ def test_dir_create_delete(target):
 	target.write(f"mkdir {directory}")
 	ans = target.write("ls")
 	assert directory in ans
-	
+
 	target.write(f"rmdir {directory}")
 	ans = target.write("ls")
 	assert directory not in ans
@@ -270,7 +272,7 @@ def test_dir_create_delete(target, directory):
 	target.write(f"mkdir {directory}")
 	ans = target.write("ls")
 	assert directory in ans
-	
+
 	target.write(f"rmdir {directory}")
 	ans = target.write("ls")
 	assert directory not in ans
@@ -365,7 +367,7 @@ For more information, refer to the links below.
 
 - [Pytest getting started](https://docs.pytest.org/en/stable/getting-started.html)
 - [Example repository](https://github.com/fdcavalcanti/pytest-nuttx-testing-sample)
-- [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/)
+- [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/)
 - [GoogleTest](http://google.github.io/googletest/)
 - [CppTest](https://cpptest.sourceforge.io/)
 - [Robot Framework](https://robotframework.org/)

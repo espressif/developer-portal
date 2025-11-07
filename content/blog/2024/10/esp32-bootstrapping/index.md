@@ -7,6 +7,8 @@ authors:
   - "marek-matej"
 tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6", "ESP-IDF", "Zephyr"]
 summary: "This article explains the booting process of Espressif devices up to ESP32-C6 (and probably newer devices)."
+aliases:
+  - /blog/esp32-bootstrapping
 ---
 
 Those acquainted with the ESP32 system-on-chip (SoC) family know the complexity involved in analyzing its booting process. From navigating the embedded ROM bootloader, facilitated by comprehensive tooling, to initiating the 2nd stage bootloader, which subsequently launches the user application. The procedure deviates significantly from the the straightforward "jump-to-reset-vector" way of starting the user program, as we can see on the ARM architecture.
@@ -363,7 +365,7 @@ uart:~$
 
 ### MCUboot Zephyr port (ZP)
 
-First lets take a look at how to manually build the MCUboot and the subsequent application. Each `west flash` in the code is using its own flash partition and it is not overwritten by each other. 
+First lets take a look at how to manually build the MCUboot and the subsequent application. Each `west flash` in the code is using its own flash partition and it is not overwritten by each other.
 
 Building and flashing the MCUboot separately at its location:
 ```shell
@@ -525,6 +527,6 @@ The ESP32 port in Zephyr RTOS has variety of booting options.
 ## Additional reading
 
 - [Zephyr RTOS and ESP32](https://www.zephyrproject.org/zephyr-rtos-on-esp32/)
-- [ESP32's memory map](https://developer.espressif.com/blog/esp32-memory-map-101/)
+- [ESP32's memory map](https://developer.espressif.com/blog/2024/08/esp32-memory-map-101/)
 - [ESP32 Programmers memory model](https://developer.espressif.com/blog/esp32-programmers-memory-model/)
 - [ESP32-S3 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf)

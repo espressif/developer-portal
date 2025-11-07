@@ -8,6 +8,8 @@ authors:
   - "raffael-rostagno"
 tags: ["ESP32", "Tracing",  "Profiling","Zephyr"]
 summary: "This is an introduction to the critical embedded system debugging techniques of tracing and profiling within the Zephyr RTOS. After reading this article, you can use Zephyr's native tracing tools to gain a visual, in-depth understanding of system dynamics, helping to evaluate performance, spot timing issues, and diagnose complex problems like memory leaks or thread interaction glitches."
+aliases:
+  - /blog/zephyr-tracing-and-profiling
 ---
 
 Embedded systems can be quite complex, depending on the architecture, application size and nature. Even for an experienced embedded developer, understanding the interplay of threads, interrupts, and multiple processes that run in a large application can be challenging. We humans are (mostly) visual by nature, and having the means to *visualize* what is happening in a given system can really open up possibilities. Without the right tools we are often in the dark, quite literally.
@@ -268,14 +270,12 @@ Even though these examples may be more applicable to analyzing complex systems, 
 
 ## Resources
 
-[1] [Zephyr's Getting Started](https://docs.zephyrproject.org/latest/develop/getting_started/index.html)  
-[2] [Zephyr's tracing subsystem](https://docs.zephyrproject.org/latest/services/tracing/index.html)  
-[3] [Tracing utility macros](https://docs.zephyrproject.org/apidoc/latest/group__subsys__tracing__macros.html)  
-[4] [Zephyr instrumentation subsystem (RFC)](https://github.com/zephyrproject-rtos/zephyr/issues/57373)  
-[5] [Percepio TraceRecorder and Stream Ports](https://docs.zephyrproject.org/latest/services/tracing/index.html#percepio-tracerecorder-and-stream-ports)  
-[The Microscope for Embedded Code: How Tracealyzer Revealed Our Bug](https://percepio.com/the-microscope-for-embedded-code-how-tracealyzer-revealed-our-bug/)  
-[Efficient Firmware Development with Visual Trace Diagnostics](https://percepio.com/percepio-tracealyzer-efficient-firmware-development-with-visual-trace-diagnostics/)  
-[Tracealyzer on Zephyr – Examples from AC6](https://percepio.com/tracealyzer-zephyr-examples-ac6/)  
+[1] [Zephyr's Getting Started](https://docs.zephyrproject.org/latest/develop/getting_started/index.html)
+[2] [Zephyr's tracing subsystem](https://docs.zephyrproject.org/latest/services/tracing/index.html)
+[3] [Tracing utility macros](https://docs.zephyrproject.org/apidoc/latest/group__subsys__tracing__macros.html)
+[4] [Zephyr instrumentation subsystem (RFC)](https://github.com/zephyrproject-rtos/zephyr/issues/57373)
+[5] [Percepio TraceRecorder and Stream Ports](https://docs.zephyrproject.org/latest/services/tracing/index.html#percepio-tracerecorder-and-stream-ports)
+[The Microscope for Embedded Code: How Tracealyzer Revealed Our Bug](https://percepio.com/the-microscope-for-embedded-code-how-tracealyzer-revealed-our-bug/)
+[Efficient Firmware Development with Visual Trace Diagnostics](https://percepio.com/percepio-tracealyzer-efficient-firmware-development-with-visual-trace-diagnostics/)
+[Tracealyzer on Zephyr – Examples from AC6](https://percepio.com/tracealyzer-zephyr-examples-ac6/)
 [Percepio Tracealyzer](https://percepio.com/tracealyzer/)
-
-
