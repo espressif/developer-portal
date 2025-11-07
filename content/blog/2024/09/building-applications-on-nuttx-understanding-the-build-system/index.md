@@ -9,6 +9,8 @@ showAuthor: false
 authors:
     - "tiago-medicci"
 summary: "This article shows how to port and build an application form other Posix-compliant systems to NuttX."
+aliases:
+  - /blog/nuttx-adding-porting-an-app
 ---
 
 ## Developing a Project with Existing Applications
