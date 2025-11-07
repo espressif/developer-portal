@@ -73,7 +73,7 @@ Besides **ESP-IDF** (see [ESP-IDF Getting Started](https://docs.espressif.com/pr
   git clone https://github.com/espressif/esp-self-reflasher.git
   ```
 
-- **NuttX**: in order to build the application that will be migrated to, set the **NuttX** workspace. See [NuttX Getting Started](https://developer.espressif.com/blog/nuttx-getting-started/).
+- **NuttX**: in order to build the application that will be migrated to, set the **NuttX** workspace. See [NuttX Getting Started](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/).
 
 - **MCUboot**: in the case of building the bootloader standalone, follow the instructions [here](https://docs.mcuboot.com/readme-espressif.html).
 

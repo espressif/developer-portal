@@ -10,6 +10,8 @@ authors:
     - "eren-terzioglu"
     - "filipe-cavalcanti"
 summary: "This article provides a tutorial to get started with NuttX."
+aliases:
+- /blog/nuttx-getting-started
 ---
 
 ## Introduction to Apache NuttX RTOS

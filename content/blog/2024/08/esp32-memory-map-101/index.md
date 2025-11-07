@@ -7,7 +7,8 @@ showAuthor: false
 authors:
   - "marek-matej"
 aliases:
-  - [esp32s-family-memory-map-101]
+  - /blog/esp32s-family-memory-map-101
+  - /blog/esp32-memory-map-101
 summary: "This article addresses the complexity of Espressif SoCs by offering a visual, structured compilation of crucial technical data from their datasheets and TRMs. The main takeaway for the reader is a simplified, actionable understanding of the memory maps, caches, peripherals, and eFuse blocks, which is essential for low-level system and driver development."
 ---
 

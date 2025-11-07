@@ -18,7 +18,7 @@ This article will guide you through the different options available for storing 
 by an analysis of some file systems available for use. Then some examples are provided for each file system. Finally, we develop an application that connects to Wi-Fi, updates
 the system clock and logs the current time to a file that is stored on flash.
 
-## About Flash Memory 
+## About Flash Memory
 
 Before diving into the article, we need to understand what is flash memory and its **limitations**. We will refer to it as flash or SPI Flash interchangeably, since
 flash memory in Espressif devices is accessed via SPI bus.
@@ -64,7 +64,7 @@ Espressif devices are available with a range of SPI flash sizes, typically from 
 ## Flash Memory and NuttX
 When using NuttX, a few addresses will define the flash partitioning depending on the bootloader used.
 
-Simple boot is the default bootloader used in NuttX. It is explained in detail for Zephyr in [this article](https://developer.espressif.com/blog/2025/06/simple-boot-explained/), however the same principles apply for NuttX. 
+Simple boot is the default bootloader used in NuttX. It is explained in detail for Zephyr in [this article](https://developer.espressif.com/blog/2025/06/simple-boot-explained/), however the same principles apply for NuttX.
 
 The simple boot approach relies on a single binary file flashed at the beginning of flash memory (0x0000 or 0x1000 for ESP32 and ESP32-S2). There is no limit to the size of the binary except for the maximum flash size.
 
@@ -230,13 +230,13 @@ ERROR: Failed to setup smartfs
 ERROR: Failed to initialize SPI Flash
 
 NuttShell (NSH) NuttX-12.8.0
-nsh> 
+nsh>
 ```
 
 If that is the case, run `mksmartfs /dev/smart0` so the partition is properly formatted.
 When finalized, reboot the board and you should not see any errors, as expected in option 1.
 
-Now run `ls /` to see your file system. A directory called `/data` should be available and that 
+Now run `ls /` to see your file system. A directory called `/data` should be available and that
 is now your SPI Flash available for general use.
 
 ```
@@ -265,7 +265,7 @@ nsh> ls /data
  hello.txt
 nsh> cat /data/hello.txt
 Hello Espressif Developer Portal!
-nsh> 
+nsh>
 ```
 
 ### SPIFFS
@@ -349,7 +349,7 @@ For this to work, we need: functional Wi-Fi, Network Time Protocol (NTP) and som
 look deep into since we have other articles on it, instead, let's go straight to NTP and automating.
 
 Check the following for instructions on wireless connectivity:
-- [NuttX Getting Started](https://developer.espressif.com/blog/nuttx-getting-started/)
+- [NuttX Getting Started](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/)
 - [Wi-Fi Network Configuration for Motor Control](https://developer.espressif.com/blog/2025/07/nuttx-motor-control-and-sensing-data-trans/#wi-fi-network-configuration)
 - [ESP32-C3 NuttX Documentation on Wi-Fi](https://nuttx.apache.org/docs/latest/platforms/risc-v/esp32c3/boards/esp32c3-generic/index.html#wifi)
 
@@ -425,7 +425,7 @@ nsh> ls /etc/init.d
  ..
  rc.sysinit
  rcS
-nsh> 
+nsh>
 ```
 
 Success! We have a simple script that echoes a message before the shell is available.
@@ -464,7 +464,7 @@ Wait until date is synced...
 NuttShell (NSH) NuttX-12.8.0
 nsh> cat /data/log.txt
 Mon, Sep 15 12:48:58 2025
-nsh> 
+nsh>
 ```
 
 Rebooting the board, we should get a new line with the correct time, while still retaining
@@ -474,7 +474,7 @@ in flash the previous date:
 nsh> cat /data/log.txt
 Mon, Sep 15 12:48:58 2025
 Mon, Sep 15 12:51:33 2025
-nsh> 
+nsh>
 ```
 
 ## Conclusion
@@ -508,7 +508,7 @@ These approaches would provide more reliable and efficient date logging, especia
 - [ESP32 Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/security/flash-encryption.html)
 - [ESP32-C6 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf)
 - [NuttX File System Documentation](https://nuttx.apache.org/docs/latest/components/filesystem/index.html)
-- [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/)
+- [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/)
 - [SPIFFS](https://github.com/pellepl/spiffs/wiki)
 - [LittleFS](https://github.com/littlefs-project/littlefs)
 - [FAT FS](https://nuttx.apache.org/docs/latest/components/filesystem/fat.html)

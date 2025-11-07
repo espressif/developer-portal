@@ -13,7 +13,7 @@ In this article, we will examine how the NuttX real-time operating system (RTOS)
 {{< alert icon="eye" >}}
 **Note!**
 
-Note: Reviewing this article together with <cite>[NuttX on an emulated ESP32 using QEMU](https://medium.com/@lucassvaz/nuttx-on-an-emulated-esp32-using-qemu-8d8d93d24c63)</cite> article will help the user to distinguish between the two solutions and to determine the most suitable solution for the needs. Additionally, it is recommended to have knowledge of project compilation through the NuttX official documentation and <cite>[Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/)</cite> article. NuttX project build documentation is available [at this link](https://nuttx.apache.org/docs/latest/).
+Note: Reviewing this article together with <cite>[NuttX on an emulated ESP32 using QEMU](https://medium.com/@lucassvaz/nuttx-on-an-emulated-esp32-using-qemu-8d8d93d24c63)</cite> article will help the user to distinguish between the two solutions and to determine the most suitable solution for the needs. Additionally, it is recommended to have knowledge of project compilation through the NuttX official documentation and <cite>[Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/)</cite> article. NuttX project build documentation is available [at this link](https://nuttx.apache.org/docs/latest/).
 {{< /alert >}}
 
 ## What is Wokwi?
@@ -226,4 +226,4 @@ In this article, we have seen the features of Wokwi and how it can be used with 
 [4]: https://docs.wokwi.com/getting-started/supported-hardware
 [5]: https://docs.wokwi.com/vscode/project-config
 [6]: https://docs.wokwi.com/vscode/debugging
-[7]: https://developer.espressif.com/blog/nuttx-getting-started/
+[7]: https://developer.espressif.com/blog/2020/11/nuttx-getting-started/

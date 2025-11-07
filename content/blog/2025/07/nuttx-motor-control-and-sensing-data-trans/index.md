@@ -225,13 +225,13 @@ int main(int argc, FAR char *argv[])
   int fd;
   struct sensor_accel acc_data;
   char msg_buffer[MAX_MSG_SIZE];
-  
+
   /* Socket variables */
   int server_fd, client_fd;
   struct sockaddr_in server_addr, client_addr;
   socklen_t client_len = sizeof(client_addr);
   int opt = 1;
-  
+
   printf("MPU60x0 Accelerometer Test\n");
   printf("Sample Rate: %d ms (%d Hz)\n", SAMPLE_RATE_MS, 1000/SAMPLE_RATE_MS);
   printf("TCP server starting on port %d\n", TCP_PORT);
@@ -289,7 +289,7 @@ int main(int argc, FAR char *argv[])
     }
 
   printf("Waiting for client connection...\n");
-  
+
   /* Accept client connection */
   client_fd = accept(server_fd, (struct sockaddr *)&client_addr,
                     &client_len);
@@ -314,13 +314,13 @@ int main(int argc, FAR char *argv[])
       /* Send data over TCP */
       ssize_t bytes_sent = send(client_fd, msg_buffer,
                                strlen(msg_buffer), 0);
-      
+
       /* Check if client disconnected */
       if (bytes_sent <= 0)
         {
           printf("Client disconnected, waiting for new connection...\n");
           close(client_fd);
-          
+
           /* Wait for new client */
           client_fd = accept(server_fd, (struct sockaddr *)&client_addr,
                            &client_len);
@@ -373,7 +373,7 @@ nc $HOST $PORT | while IFS="," read -r x y z; do
     printf "X: %6s  Y: %6s  Z: %6s\r" "$x" "$y" "$z"
 done
 
-echo -e "\nConnection closed." 
+echo -e "\nConnection closed."
 ```
 
 ### Testing Application
@@ -394,7 +394,7 @@ Waiting for client connection...
 Now run the client-side bash script. You should see data being received:
 
 ```
-$ ./imu_client.sh 
+$ ./imu_client.sh
 Connecting to IMU server at 10.42.0.199:5000...
 X:  1.168  Y: -0.077  Z:  0.145
 ```
@@ -412,7 +412,7 @@ The following figure shows the results of a simple test where the motor was stop
     src="img/data_analysis.webp"
     >}}
 
-The data and script used to generate the plots are available on the [example repository](https://github.com/fdcavalcanti/nuttx-esp-motor-sensing). 
+The data and script used to generate the plots are available on the [example repository](https://github.com/fdcavalcanti/nuttx-esp-motor-sensing).
 
 ## Conclusion
 
@@ -421,7 +421,7 @@ In this second part of the NuttX motor control series, we successfully transform
 In summary, the achievements in this article include:
 
 - **Wi-Fi connectivity integration:** Configured and connected the ESP32-C6 to wireless networks using NuttX's networking stack
-- **IMU sensor integration:** Implemented MPU6050 accelerometer support via I2C for vibration measurement 
+- **IMU sensor integration:** Implemented MPU6050 accelerometer support via I2C for vibration measurement
 - **Wireless data streaming:** Created a TCP socket-based system for streaming sensor data from the embedded device to a host computer
 - **Cross-platform communication:** Developed both embedded firmware and host-side client scripts for data exchange
 
@@ -433,4 +433,4 @@ The combination of both articles demonstrates how NuttX can be used to build adv
 - [MPU6050 Datasheet](https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf).
 - [ESP32-C6 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf)
 - [Example Repository](https://github.com/fdcavalcanti/nuttx-esp-motor-sensing)
-- [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/)
+- [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/)

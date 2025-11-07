@@ -44,7 +44,7 @@ By adhering to these constraints, we can craft a simplified bootable image that 
 
 In the next section, we’ll walk through how to prepare such an image and modify the application accordingly.
 
-Now its a good time to read [the ROM-loader chapter at related article](https://developer.espressif.com/blog/esp32-bootstrapping/#rom-loader).
+Now its a good time to read [the ROM-loader chapter at related article](https://developer.espressif.com/blog/2024/10/esp32-bootstrapping/#rom-loader).
 
 ## Image build
 
@@ -156,4 +156,4 @@ While this simplified boot approach is not suitable for all applications, it can
 
 ## Additional readings
 
-- [ESP32 bootstrapping article](https://developer.espressif.com/blog/esp32-bootstrapping/).
+- [ESP32 bootstrapping article](https://developer.espressif.com/blog/2024/10/esp32-bootstrapping/).

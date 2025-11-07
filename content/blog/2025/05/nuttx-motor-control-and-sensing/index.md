@@ -23,7 +23,7 @@ In this first article, we'll focus on implementing basic motor control. You'll l
 
 ## Getting Started
 
-If you are not familiar with NuttX, please refer to the NuttX official documentation and <cite>[Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/)</cite> article. This article assumes basic familiarity with the NuttX environment and jumps straight into the application development.
+If you are not familiar with NuttX, please refer to the NuttX official documentation and <cite>[Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/)</cite> article. This article assumes basic familiarity with the NuttX environment and jumps straight into the application development.
 
 As the starting point for our project, we create an empty repository that will be used as an extension of `nuttx-apps`. This approach allows simple integration with the NuttX build system, just like a standard application.
 
@@ -521,5 +521,5 @@ You can access the second article [here](../../07/nuttx-motor-control-and-sensin
 - [NuttX ESP32 Documentation](https://nuttx.apache.org/docs/latest/platforms/risc-v/esp32c6/index.html)
 - [ESP32-C6 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf)
 - [Example Repository](https://github.com/fdcavalcanti/nuttx-esp-motor-sensing)
-- [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/)
+- [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/)
 - [Part 2: NuttX for Motor Control and Sensing: IMU Integration and Wireless Data Streaming](../../07/nuttx-motor-control-and-sensing-data-trans)
