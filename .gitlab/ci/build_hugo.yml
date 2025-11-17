@@ -1,6 +1,6 @@
 build_hugo:
   stage: build_hugo
-  image: "hugomods/hugo:debian-base-0.147.5"
+  image: "hugomods/hugo:debian-base-0.152.2"
   tags:
     - build_docs
   rules:
