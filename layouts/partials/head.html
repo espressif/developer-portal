@@ -171,6 +171,9 @@
 
   {{/* Conditional loaded resources */}}
   {{ partial "vendor.html" . }}
+  {{ partial "vendor_custom.html" . }}
+  {{ partial "learn_custom.html" . }}
+  {{ partial "dynamic_md_block.html" . }}
 
   {{/* Icons */}}
   {{ if templates.Exists "partials/favicons.html" }}

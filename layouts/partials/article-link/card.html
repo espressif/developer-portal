@@ -23,6 +23,12 @@
       {{ end }}
     {{ end }}
 
+    {{/* Allow adding feature images from the assets folder */}}
+    {{ if .Params.featureAsset }}
+      {{- $genericImage := .Params.featureAsset -}}
+      {{- if not $featured }}{{ $featured = resources.Get $genericImage }}{{ end -}}
+    {{ end }}
+
     {{/* page resources */}}
     {{ if not (or $featured $featuredURL) }}
       {{ $images := .Resources.ByType "image" }}

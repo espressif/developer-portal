@@ -47,7 +47,15 @@
 
 
       <div class="min-w-0 min-h-0 max-w-fit">
+
+        {{ if .Params.summary }}
+          <div class="article-summary max-w-prose mb-30">
+            {{ .Summary | emojify }}
+          </div>
+        {{ end }}
+
         {{ partial "series/series.html" . }}
+
         <div class="article-content max-w-prose mb-20">
           {{ .Content }}
           {{ $defaultReplyByEmail := site.Params.replyByEmail }}
@@ -66,8 +74,12 @@
         {{ if (.Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false)) }}
           {{ template "SingleAuthor" . }}
         {{ end }}
+
         {{ partial "series/series-closed.html" . }}
         {{ partial "sharing-links.html" . }}
+
+        {{ partial "giscus-auto.html" . }}
+
         {{ partial "related.html" . }}
       </div>
 
@@ -104,6 +116,9 @@
           {{ warnf "[BLOWFISH] Comments are enabled for %s but no comments partial exists." .File.Path }}
         {{ end }}
       {{ end }}
+
+      {{ partial "mermaid-init.html" . }}
+
     </footer>
   </article>
 {{ end }}
