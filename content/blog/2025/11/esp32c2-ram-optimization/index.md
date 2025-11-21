@@ -47,7 +47,7 @@ The following data shows the amount of free memory on the ESP32-C2 using ESP-IDF
 
 | Test Senario                                 | Default Config (KB free) | Optimized Config (KB free) |
 | -------------------------------------------- | ------------------------ | -------------------------- |
-| station                                      | 95                       | 169                        |
+| WiFi station                                 | 95                       | 169                        |
 | WiFi station + 1TLS(MQTTS)                   | 55                       | 152                        |
 | bleprph_wifi_coex                            | 24                       | 125                        |
 | bleprph_wifi_coex + mbedtls + power_save     | Insufficient             | 115                        |
