@@ -15,7 +15,7 @@ tags: ["ESP32-C2", "Memory Optimization", "Performance", "ESP-IDF"]
 This article is largely based on the [ESP Memory Usage Optimization](https://docs.espressif.com/projects/esp-techpedia/en/latest/esp-friends/advanced-development/performance/reduce-ram-usage.html#memory-usage-comparison) document. If differences appear in the future due to updates, please consider the document as the most accurate source.
 {{< /alert >}}
 
-The ESP32-C2 chip provides 256 KB of available physical RAM, making it an excellent cost-effective solution for IoT applications. However, when testing with default ESP-IDF configuration, running the [BLE + Wi-Fi coexistence example] (https://github.com/espressif/esp-idf/tree/v5.5-beta1/examples/bluetooth/nimble/bleprph_wifi_coex) leaves only 24 KB of free memory—which is insufficient for developing complex applications.
+The ESP32-C2 chip provides 256 KB of available physical RAM, making it an excellent cost-effective solution for IoT applications. However, when testing with default ESP-IDF configuration, running the [BLE + Wi-Fi coexistence example](https://github.com/espressif/esp-idf/tree/v5.5-beta1/examples/bluetooth/nimble/bleprph_wifi_coex) leaves only 24 KB of free memory—which is insufficient for developing complex applications.
 
 The root cause of this issue is that ESP32-C2's default configuration prioritizes performance, compiling many core components into IRAM to improve execution speed. For cost-sensitive applications that primarily require simple control operations, the memory usage can be significantly optimized. With deep optimization, it's possible to free up more than 100 KB of additional memory.
 
