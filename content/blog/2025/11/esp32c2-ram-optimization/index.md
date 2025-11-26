@@ -43,7 +43,7 @@ The following data shows the amount of free memory on the ESP32-C2 using ESP-IDF
 
 ### Test Scenario Descriptions
 
-- **Wi-Fi station**: Following the [Wi-Fi station example](https://github.com/espressif/esp-idf/tree/v5.5-beta1/examples/wifi/station). Print free memory after the device successfully obtains an IP address (GOT_IP event).
+- **Wi-Fi station**: Following the [Wi-Fi station example](https://github.com/espressif/esp-idf/tree/release/v5.5/examples/wifi/getting_started/station). Print free memory after the device successfully obtains an IP address (GOT_IP event).
 - **WiFi station + 1TLS(MQTTS)**: Using the [mqtt/ssl example](https://github.com/espressif/esp-idf/tree/v5.5-beta1/examples/protocols/mqtt/ssl) and print free memory after the MQTT_EVENT_DATA event is triggered.
 - **bleprph_wifi_coex**: Following the [BLE + Wi-Fi coexistence example](https://github.com/espressif/esp-idf/tree/v5.5-beta1/examples/bluetooth/nimble/bleprph_wifi_coex), after the WiFi GOT_IP event is triggered, initialize nimble and enable BLE advertising, then print free memory. 
 - **bleprph_wifi_coex + mbedtls + power_save**: Based on [`bleprph_wifi_coex`](https://github.com/espressif/esp-idf/tree/v5.5-beta1/examples/bluetooth/nimble/bleprph_wifi_coex), integrate [https_mbedtls](https://github.com/espressif/esp-idf/tree/v5.5-beta1/examples/protocols/https_mbedtls) and [power_save](https://github.com/espressif/esp-idf/tree/v5.5-beta1/examples/wifi/power_save) functionality, then print free memory after connecting to the HTTPS server. For the demo implementation and optimization configuration files, refer to [this repository](https://github.com/Jacques-Zhao/ble_wifi_mbetlds_mem_opt_demo).
@@ -90,7 +90,7 @@ Key optimization items include:
 - Optimizing lwIP memory usage
 - Optimizing mbedTLS configuration
 
-For detailed configuration options, refer to the [memory optimization documentation](https://docs.espressif.com/projects/esp-techpedia/zh_CN/latest/esp-friends/advanced-development/performance/reduce-ram-usage.html). Through these optimization configurations (see [sdkconfig.defaults.opt.1](https://github.com/Jacques-Zhao/ble_wifi_mbetlds_mem_opt_demo/blob/main/sdkconfig.defaults.opt.1)), available memory can be increased to 62 KB after all functions are executed.
+Through these optimization configurations (see [sdkconfig.defaults.opt.1](https://github.com/Jacques-Zhao/ble_wifi_mbetlds_mem_opt_demo/blob/main/sdkconfig.defaults.opt.1)), available memory can be increased to 62 KB after all functions are executed.
 
 ## Advanced Optimization
 
