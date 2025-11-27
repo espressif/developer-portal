@@ -1,6 +1,6 @@
 ---
 title: "Optimizing RAM Usage on ESP32-C2"
-date: 2025-11-03
+date: 2025-11-28
 summary: ESP32-C2 has 256 KB of physical RAM, but with default configurations, only 24 KB remains free in typical Wi-Fi + BLE scenarios. This article explores comprehensive memory optimization strategies that can free up over 100 KB of RAM, making complex applications viable on this cost-effective chip.
 authors:
   - zheng-zhong
