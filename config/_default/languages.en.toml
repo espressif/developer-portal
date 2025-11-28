@@ -13,7 +13,7 @@ title = "Developer Portal"
 
 [author]
   name = "Espressif Developer Portal"
-  image = "img/espressif_logo_contour_only.png"
+  image = "img/espressif_logo_only.webp"
   headline = "The developer resources in just one place!"
   bio = "The developer resources in just one place!"
   links = [
