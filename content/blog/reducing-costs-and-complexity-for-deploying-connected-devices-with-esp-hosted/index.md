@@ -87,4 +87,4 @@ This is the Next-Generation ESP-Hosted solution specifically designed for hosts 
 
 __References -__ *1. *[*IoT Developer Survey, Eclipse Foundation*](https://f.hubspotusercontent10.net/hubfs/5413615/2020%20IoT%C2%A0Developer%20Survey%20Report.pdf)*2. *[*GSMA Intelligence Enterprise IoT Survey*](https://data.gsmaintelligence.com/api-web/v2/research-file-download?id=58621970&file=141220-Global-Mobile-Trends.pdf)
 
-*Thanks to *[*Amey Inamdar*](https://medium.com/u/96a9b11b7090?source=post_page-----63ff9511ddef--------------------------------)* for the review and feedback.*
+*Thanks to *[*Amey Inamdar*](https://developer.espressif.com/authors/amey-inamdar/)* for the review and feedback.*
