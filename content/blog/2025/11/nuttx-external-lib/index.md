@@ -1,22 +1,25 @@
 ---
 title: "Integrating External Libraries into NuttX Applications"
 date: 2025-11-19
+lastmod: 2025-11-27
 tags: ["NuttX", "Apache", "ESP32", "ESP32-C6", "RISC-V", "cross-compilation", "static-library"]
 showAuthor: false
 authors:
     - "filipe-cavalcanti"
-summary: "This guide demonstrates how to integrate external libraries into NuttX applications using static libraries and cross-compilation. Learn how to build a library on x86, integrate it into the NuttX simulation environment, and cross-compile for RISC-V targets like the ESP32-C6, all without moving your codebase into the NuttX directory structure."
+summary: "This guide demonstrates how to integrate external libraries into NuttX applications using static libraries and cross-compilation. Learn how to build a library on x86, integrate it into the NuttX simulation environment, and cross-compile for RISC-V targets like the ESP32-C6, all without moving your entire codebase into the NuttX directory structure."
 ---
 
 ## Introduction
 
-When moving your application to NuttX, you often need to add your existing software stack to the NuttX image. This software may run on a different RTOS or even on an x86 environment, but sometimes it must run on multiple target devices. This article shows how to build NuttX with your custom application without moving your entire stack to the NuttX directory. You use a static library and cross-compilation to achieve this.
+When moving your application to NuttX, you may need to add your existing codebase to the NuttX build environment. That is a common scenario where the user application contains mostly hardware-independent logic (such as data processing and analysis) that was originally developed on a POSIX compliant system. Those applications are usually tested on an x86 machine and adapted to run on an RTOS, or, in the case of NuttX, it should not need changes if the codebase is already POSIX compliant.
 
-This article is divided into three parts. The first part introduces and builds the sample library on x86. Then, a second part decribes how to add the library to the NuttX simulation environment and finally, the last part cross-compiles to RISC-V and runs the example on the ESP32-C6.
+This article shows how to build NuttX with your custom application without moving your entire stack to the NuttX directory. You use a static library and cross-compilation to achieve this.
+
+This article is divided into four parts. The first part introduces an example library and builds it on x86. Then, the second part describes how to add the library to the NuttX simulation environment. The third part cross-compiles to RISC-V and runs the example on the ESP32-C6. Finally, the fourth part concludes the article.
 
 ## Using an example library
 
-As an example, we will use an example application library that converts a hexadecimal color string to RGB with the following structure:
+For demonstration purposes, we will use an example application library that converts a hexadecimal color string to RGB with the following structure:
 
 ```
 hex-converter/
@@ -34,7 +37,11 @@ The reference project is available in [this repository](https://github.com/fdcav
 The `hex-converter` library exposes one single function called `hex_to_rgb`. The user provides a pointer to a string representing the hex color and a pointer
 to an array where the R, G, and B values are copied. It is a simple application but very useful as an example.
 
-Clone the repository and build it according to the steps in the README file to produce the static library. To confirm that everything works, run the provided `main` example program. This program accepts a hexadecimal color string as input.
+Now, let's use the library on our x86 machine and see how it operates.
+
+1. Clone the repository
+2. Build the library according to the steps in the README file
+3. Execute the provided `main` example program:
 
 ```bash
 $ ./main "#1A2B3C"
@@ -42,19 +49,22 @@ Input: #1A2B3C
 RGB: (26, 43, 60)
 ```
 
-At this point, the directory should contain a static library called `libhex_to_rgb.a` that will be added to the NuttX build system.
+At this point, the directory should contain a static library called `libhex_to_rgb.a`.
 
 ## Testing on NuttX Simulation 
 
-As an user, you might want to use this library in an application. The first solution might be to copy the entire hex-converter repository to the NuttX application directory and 
+As a user, you might want to use this library in an application. The first solution might be to copy the entire hex-converter repository to the NuttX application directory and 
 add it entirely to the build system. That works but is complicated, not user-friendly, and causes a Makefile mess.
+
+If you are new to NuttX, you can read the [Getting Started with NuttX and ESP32](https://developer.espressif.com/blog/nuttx-getting-started/), which shows how to setup the NuttX development environment.
 
 The simplest way to test this library on NuttX is to modify the ready-to-use Hello World example in the NuttX Apps repository, which could in fact be any application.
 
 With your NuttX environment ready, follow these steps:
 
-1. Copy `libhex_to_rgb.a` from the hex-converter repository to `apps/examples/hello` (the Hello World example directory).
-2. In `apps/hello/Make.defs`, add the hex library, library path, and include path.
+1. Clone the example repository and build `libhex_to_rgb.a` as discussed in [Using an example library](#using-an-example-library)
+2. Copy `libhex_to_rgb.a` to `apps/examples/hello` (the Hello World example directory)
+3. In `apps/hello/Make.defs`, add the hex library, library path, and include path
 
 The Make.defs file should look like this:
 ```
@@ -131,18 +141,20 @@ nsh>
 
 Success! We can compile our library externally, link it to a NuttX application, and use it.
 
-## Using the library on ESP32C6
+Now that simulation works, let's look into a real use case that requires the same code to work on hardware.
 
-Now that simulation works, we must look into a real use case that requires the same code to work on hardware.
-For this, we must compile the library to be supported on our RISC-V target.
+## Using the library on the ESP32-C6
+
+This section shows how to prepare the library for an actual target device—in this case, the ESP32-C6. To do this, we first cross-compile the example library for the RISC-V architecture and then integrate the resulting static library into the Hello World Example that will be executed on our target.
 
 ### Cross-compilation
 
-In the hex-converter Makefile, the CC instruction changes to `riscv-none-elf-gcc` instead of `gcc` when you set the TARGET variable.
-
 Clear the environment to delete the x86 build and rebuild for RISC-V:
+
 1. `make clean`
 2. `make TARGET=riscv32`
+
+When you set the TARGET variable in the hex-converter Makefile, the CC instruction changes from `gcc` to `riscv-none-elf-gcc`.
 
 The same `libhex_to_rgb.a` library is ready, but now it can be used on RISC-V devices. This can be verified easily:
 
@@ -190,7 +202,7 @@ This article demonstrates how to integrate external libraries into NuttX applica
 
 The static library approach offers several advantages. You can develop and test your code on an x86 machine without flashing the target device. The same library works across different architectures with minimal changes, requiring only a recompilation step. This workflow saves development time and simplifies the porting process.
 
-By following these steps, you can add existing software stacks to NuttX without moving your entire codebase into the NuttX directory structure. This approach maintains separation between your application code and the RTOS, making maintenance and updates easier.
+By following these steps, you can add existing applications to NuttX without moving your entire codebase into the NuttX directory structure. This approach maintains separation between your application code and the RTOS, making maintenance and updates easier.
 
 ## Related Resources
 
