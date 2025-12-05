@@ -225,34 +225,34 @@ By placing a header file with the same name in the same directory (or earlier in
 
 **Pre-include Method**
 
-The pre-include method uses the `-include` compiler flag to automatically include a header before every source file is compiled. This is useful for:
+> **Note:** The pre-include method is not recommended in general and should only be used as a last resort when other dependency injection techniques are not feasible.
 
-- Injecting dependency definitions
-- Providing platform-specific macros
-- Replacing standard library functions
+Another approach to dependency injection is the pre-include method, which uses the `-include` compiler flag to automatically include a header before every source file is compiled. This technique can be useful for injecting dependency definitions, providing platform-specific macros, or replacing standard library functions, but it comes with significant drawbacks that make it less desirable than other methods.
 
-Here's an example pattern from a unit test implementation that uses pre-inclusion to inject test dependencies:
+The pre-include method works by instructing the compiler to include a header file before processing each source file, effectively injecting code at the top of every compilation unit. This can be particularly useful in test scenarios where you need to mock dependencies across multiple files.
 
-```cmake
-if(CONFIG_MB_UTEST)
-    set(dep_inj_dir "${CMAKE_CURRENT_LIST_DIR}/freemodbus/unit_test")
-    list(APPEND priv_include_dirs "${dep_inj_dir}/include")
-    foreach(src ${srcs})
-        get_filename_component(src_wo_ext ${src} NAME_WE)
-        if(EXISTS "${dep_inj_dir}/src/${src_wo_ext}_test.c")
-            list(REMOVE_ITEM srcs ${src})
-            list(APPEND srcs "${dep_inj_dir}/src/${src_wo_ext}_test.c")
-            set_property(SOURCE ${src} APPEND_STRING PROPERTY COMPILE_FLAGS
-                " -include ${dep_inj_dir}/include/${src_wo_ext}_test.h -include ${dep_inj_dir}/include/dep_inject.h")
-        endif()
-    endforeach()
-endif()
+For example, an mDNS test implementation uses pre-inclusion to inject test dependencies. In a Makefile, this might look like:
+
+```makefile
+MDNS_C_DEPENDENCY_INJECTION=-include mdns_di.h
+
+mdns.o: ../../mdns.c
+	@echo "[CC] $<"
+	@$(CC) $(CFLAGS) -include mdns_mock.h $(MDNS_C_DEPENDENCY_INJECTION) -c $< -o $@
 ```
 
-This pattern:
-1. Checks if a test version of a source file exists
-2. Replaces the original source with the test version
-3. Pre-includes test headers that provide mock implementations
+The equivalent in CMake:
+
+```cmake
+set(MDNS_C_DEPENDENCY_INJECTION "-include mdns_di.h")
+
+set_source_files_properties(
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../mdns.c
+    PROPERTIES COMPILE_FLAGS "-include mdns_mock.h ${MDNS_C_DEPENDENCY_INJECTION}"
+)
+```
+
+In both cases, the pattern defines a variable containing the pre-include flag for dependency injection and uses it in the compilation command along with other pre-includes. This ensures that the dependency injection header is included before the source file is compiled, allowing mock implementations to be injected seamlessly. However, because this affects every compilation unit and can lead to unexpected side effects, it should be considered a last resort when cleaner dependency injection methods are not available.
 
 ### Linker Wrapping
 
