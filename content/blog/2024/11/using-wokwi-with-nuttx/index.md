@@ -84,6 +84,7 @@ The result will look something like this:
 
 ![make menuconfig](img/make_menuconfig.webp)
 
+In addition to the debugging capability, it is recommended to enable merge bin option to have one binary in case of different bootloader usage such as MCUBoot. To enable that option select `Merge raw binary files into a single file` option under the `Board Selection` menu. The rest of this article assumes that this option is enabled.
 
 After configuration and setup, we can use the following command to compile:
 
@@ -97,6 +98,7 @@ We should see the following output:
 LD: nuttx
 CP: nuttx.hex
 CP: nuttx.bin
+Generated: nuttx.merged.bin
 ```
 
 After the compilation process is successfully completed, we need the `nuttx` file for the simulation.
@@ -115,7 +117,7 @@ For details about Wokwi configuration files, see [here](https://docs.wokwi.com/v
 
 If we go back to the Simulation section after these definitions, we need to do two things:
 
-- Add the `nuttx` file path to the `wokwi.toml` file
+- Add the `nuttx` and `nuttx.merged.bin` file paths to the `wokwi.toml` file
 - Add the circuit diagram in the `diagram.json` file to use in simulation
 
 The file contents we need in this example project will be as follows:
@@ -124,7 +126,7 @@ The file contents we need in this example project will be as follows:
 ```toml
 [wokwi]
 version = 1
-firmware = 'nuttx'
+firmware = 'nuttx.merged.bin'
 elf = 'nuttx'
 ```
 
@@ -135,7 +137,11 @@ elf = 'nuttx'
   "author": "Anonymous maker",
   "editor": "wokwi",
   "parts": [
-    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} } }
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "attrs": { "firmwareOffset": "0"}
+    }
   ],
   "connections": [
     [ "esp:TX", "$serialMonitor:RX", "", [] ],
@@ -144,6 +150,8 @@ elf = 'nuttx'
   "dependencies": {}
 }
 ```
+
+*Note: If merge bin option is not enabled, `firmware` variable in `wokwi.toml` file will be set to `nuttx.bin`, and `firmwareOffset` variable in the `diagram.json` file will be `0x1000`*
 
 After creating the necessary files, we can start the simulation by pressing `F1` and selecting the `Wokwi: Start Simulator` option:
 
@@ -173,12 +181,31 @@ As a result of the process, the `wokwi.toml` file will look like this for this e
 ```toml
 [wokwi]
 version = 1
-firmware = 'nuttx'
+firmware = 'nuttx.merged.bin'
 elf = 'nuttx'
 gdbServerPort=3333
 ```
 
-Also you need to create a launch configuration file for Visual Studio Code. You can create the file at `.vscode/launch.json` path or you can use `Open user settings (JSON)` option with pressing `F1` key.
+After that, press `F1` and select `Wokwi: Start Simulator and Wait for Debugger` to start the simulator. Wokwi will then go into standby mode to allow the debugger to connect. In a separate terminal tab you can run GDB with `xtensa-esp32-elf-gdb` or similar commands for Xtensa devices or `riscv-none-elf-gdb` for RISC-V devices. To establish a proper connection with Wokwi, the following commands need to be applied:
+
+```text
+target remote :3333
+set remote hardware-watchpoint-limit 2
+mon reset halt
+symbol-file nuttx
+flushregs
+c
+```
+
+These commands can be entered manually after starting the debugger, or they can be provided as a script file. For example, if the commands are saved in a file named `gdbinit`, you can run GDB with this command:
+
+```bash
+xtensa-esp32-elf-gdb -x gdbinit
+```
+
+After running the debugger, you can start to debug with Wokwi using the `F5` key in simulator.
+
+If you want to avoid using the terminal-based debugger you can create a launch configuration file for Visual Studio Code. You can create the file at `.vscode/launch.json` path or you can use `Open user settings (JSON)` option with pressing `F1` key. This launch file is optional, does not necessary to enable debugging.
 
 ![NuttX debug](img/wokwi_debug.webp)
 
@@ -201,8 +228,6 @@ Here's a template you can use:
   ]
 }
 ```
-
-After that, press `F1` and select `Wokwi: Start Simulator and Wait for Debugger` to start the simulator. Wokwi will then go into standby mode to allow the debugger to connect. In a separate terminal tab you can run GDB with `xtensa-esp32-elf-gdb` or similar commands for Xtensa devices or `riscv-none-elf-gdb` for RISC-V devices. After running the debugger, you can start to debug with Wokwi using the `F5` key in simulator.
 
 For more detailed information about the debugging, you can visit [this link](https://docs.wokwi.com/guides/debugger).
 
