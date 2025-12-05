@@ -23,7 +23,7 @@ An Arduino library is a collection of code that provides additional functionalit
 
 Arduino libraries can range from simple utility functions to complex drivers for sensors, displays, communication protocols, and more. For ESP32 development, libraries are particularly useful for abstracting hardware-specific features like Wi-Fi, Bluetooth, GPIOs, and peripheral interfaces.
 
-## Library Structure
+### Library Structure
 
 An Arduino library follows a specific directory structure that the Arduino IDE recognizes. Here's the usual structure of a well-organized library:
 
@@ -61,7 +61,7 @@ To create an Arduino library for ESP32, you will need:
 
 If you haven't installed the Arduino Core for ESP32 yet, follow the steps in the article [Getting Started with ESP32 Arduino](https://developer.espressif.com/blog/2025/10/arduino-get-started/).
 
-## Creating a "Hello World" Library
+### Creating a "Hello World" Library
 
 Let's create a simple library from scratch. Our `HelloWorldLib` library will demonstrate the core concepts of library development with a minimal example.
 
@@ -69,7 +69,7 @@ First, we must define what the library needs to do. In this case, we want a simp
 
 With the library's purpose defined, we can start the implementation.
 
-### Step 1: Create the Library Folder Structure
+#### Step 1: Create the Library Folder Structure
 
 First, we need to create the folder structure for our library. Navigate to your Arduino libraries folder and create the following structure:
 
@@ -91,7 +91,7 @@ The Arduino libraries folder is typically located at:
 - **macOS:** `~/Documents/Arduino/libraries/`
 - **Linux:** `~/Arduino/libraries/`
 
-### Step 2: Create the Header File
+#### Step 2: Create the Header File
 
 The header file (`.h`) serves as the public interface of our library. It declares the classes, functions, and constants that users will interact with, without exposing implementation details. When users include our library with `#include <HelloWorld.h>`, they're including this file.
 
@@ -171,7 +171,7 @@ void HelloWorld::sayHelloTo(const char *name) {
 }
 ```
 
-### Step 4: Create the Example Sketch
+#### Step 4: Create the Example Sketch
 
 Example sketches demonstrate how to use the library in practice. They appear in the Arduino IDE under **File > Examples > [LibraryName]** and serve as both documentation and a starting point for users. Good examples are often one of the most valuable parts of a library.
 
@@ -217,7 +217,7 @@ Hello, World!
 Hello, ESP32!
 ```
 
-### Step 5: Create the library.properties File
+#### Step 5: Create the library.properties File
 
 The `library.properties` file contains metadata that the Arduino IDE and Library Manager use to identify, categorize, and display the library. This file is required for the Arduino IDE to recognize the folder as a valid library.
 
@@ -259,7 +259,7 @@ includes=HelloWorld.h
 
 For more information about the `library.properties` file, see the [Arduino Library Specification](https://arduino.github.io/arduino-cli/latest/library-specification/).
 
-### Step 6: Create the keywords.txt File
+#### Step 6: Create the keywords.txt File
 
 The Arduino IDE uses syntax highlighting to color-code different elements in your sketch, making it easier to read and spot errors. Built-in functions like `digitalWrite` and constants like `HIGH` are automatically highlighted, but the IDE doesn't know about your library's custom classes and methods.
 
@@ -303,7 +303,7 @@ HELLO_WORLD_LIB_STRING	LITERAL1
 
 **Important:** Use actual TAB characters between the keyword and its type, not spaces. The Arduino IDE will not recognize the keywords if spaces are used.
 
-### Step 7: Create the README File
+#### Step 7: Create the README File
 
 The `README.md` file is the first thing users see when they visit the library's repository. It should explain what the library does, how to install it, and provide basic usage examples. A clear README reduces support questions and helps users get started quickly.
 
