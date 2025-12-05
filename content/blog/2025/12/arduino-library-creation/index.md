@@ -133,7 +133,7 @@ Key points about the header file:
 - **Include Guards:** Use `#pragma once` to avoid multiple inclusions of the header file and prevent errors and warnings during compilation.
 - **Arduino.h:** It is recommended to include `Arduino.h` to access Arduino core functions and types.
 
-### Step 3: Create the Implementation File
+#### Step 3: Create the Implementation File
 
 The implementation file (`.cpp`) contains the actual logic behind the functions and methods declared in the header. This separation keeps implementation details "hidden" from the user and allows changing the internal code without affecting users, as long as the public interface stays the same.
 
@@ -251,11 +251,13 @@ architectures=esp32
 includes=HelloWorld.h
 ```
 
-> **Note:**
-> - If your library is only compatible with the ESP32 series of microcontrollers, you should set the `architectures` field to `esp32` no matter the SoC you are using (for example, even if you are using the ESP32-C6, the architecture should still be `esp32`).
->
->   On the other hand, if your library is independent of the architecture, setting the `architectures` field to `*` will indicate support for all architectures.
-> - You can also define multiple include files and architectures by separating them with commas.
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
+- If your library is only compatible with the ESP32 series of microcontrollers, you should set the `architectures` field to `esp32` no matter the SoC you are using (for example, even if you are using the ESP32-C6, the architecture should still be `esp32`).
+  
+  On the other hand, if your library is independent of the architecture, setting the `architectures` field to `*` will indicate support for all architectures.
+
+- You can also define multiple include files and architectures by separating them with commas.
+{{< /alert >}}
 
 For more information about the `library.properties` file, see the [Arduino Library Specification](https://arduino.github.io/arduino-cli/latest/library-specification/).
 
@@ -394,8 +396,9 @@ Once your library is ready, you can share it with the community through GitHub a
 
 Before publishing, make sure your library includes a `LICENSE` file. This clarifies how others can use, modify, and distribute your code. Common choices for Arduino libraries include MIT, Apache 2.0, and LGPL. Without a license, others cannot legally use your code. You can easily create a `LICENSE` file using the [Choose a License](https://choosealicense.com/) website.
 
-> **Note:**
-> For your library to be accepted by the Arduino Library Manager, it must be released under an [OSI-approved license](https://opensource.org/licenses).
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
+For your library to be accepted by the Arduino Library Manager, it must be released under an [OSI-approved license](https://opensource.org/licenses).
+{{< /alert >}}
 
 ### Incrementing the Version
 
