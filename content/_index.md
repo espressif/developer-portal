@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/10/esp-hal-1/" >}}
+{{< article link="/blog/2025/11/advanced-porting-libraries-as-components/" >}}
 <br>
-{{< article link="/blog/2025/10/debugging-embedded-graphics-with-wokwi-and-ai/" >}}
+{{< article link="/blog/2025/11/esp32c2-ram-optimization/" >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
