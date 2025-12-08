@@ -22,7 +22,7 @@ jobs:
             echo "Rejecting merge. PR contains the following JPEG or PNG files:"
             echo "$IMAGE_FILES"
             echo "Please convert these files to WebP format. For details, see"
-            echo "https://developer.espressif.com/pages/contribution-guide/writing-content/#use-webp-for-raster-images."
+            echo "https://developer.espressif.com/pages/contribution-guide/writing-content/#use-webp-for-raster-images"
             exit 1
 
           else
