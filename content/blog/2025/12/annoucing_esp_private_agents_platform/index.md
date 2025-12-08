@@ -1,5 +1,5 @@
 ---
-title: "Introducing ESP Private Agents Platform"
+title: "Introducing Private AI Agents Platform"
 date: 2025-12-08
 showAuthor: false
 authors:
@@ -14,10 +14,10 @@ tags:
 
 {{< figure
     src="esp-private-agents-logo.png"
-    alt="ESP Private Agents"
+    alt="Private AI Agents Platform"
 >}}
 
-We are proud to announce "ESP Private Agents Platform" – a self-hosted, multi-modal AI agent platform that you can deploy in your AWS account. This platform is optimized and tuned for building and managing AI Agent that can be integrated in connected devices and companion phone apps and web dashboards. In this blogpost we provide the introduction to this platform.
+We are proud to announce the "Private AI Agents Platform" – a self-hosted, multi-modal AI agent platform that you can deploy in your AWS account. This platform is optimized and tuned for building and managing AI Agents that can be integrated in connected devices and companion phone apps and web dashboards. In this blogpost we provide the introduction to this platform.
 
 ## AI Agents and IoT
 
@@ -25,16 +25,16 @@ The first question we need to answer is what an AI agent is, and why it has beco
 
 ## High Level Architecture
 
-Engineering such an agent implementation for IoT systems requires a careful consideration to modality (text, speech), scalability, security, cost and safety. Keeping all these considerations in mind, the ESP Private Agents Platform is built on AWS cloud services using AWS Fargate as a primary application platform and Amazon Bedrock Foundation Models as backend LLM system. Espressif has made an instance of this available for a [public trial](https://agents.espressif.com/). For the production cases, you can deploy the same in your own AWS account. Here is a high-level architecture of the system.
+Engineering such an agent implementation for IoT systems requires a careful consideration to modality (text, speech), scalability, security, cost and safety. Keeping all these considerations in mind, the Private AI Agents Platform is built on AWS cloud services using AWS Fargate as a primary application platform and Amazon Bedrock Foundation Models as backend LLM system. Espressif has made an instance of this available for a [public trial](https://agents.espressif.com/). For the production cases, you can deploy the same in your own AWS account. Here is a high-level architecture of the system.
 {{< figure
     src="esp-private-agents-block-dia.png"
-    alt="ESP Private Agents Architecture"
+    alt="Private Agents Platform Architecture"
 >}}
 Now let's have a look at how we can create and use agents for various use-cases mentioned above.
 
 ## Defining the Agent
 
-An **Agent** consists of an LLM selection, a system prompt—written in plain English—that defines its behavior, along with a set of tools that give it the ability to perform actions. The **ESP Private Agents** admin dashboard, available at https://agents.espressif.com/, allows you to create and configure agents using pre-built templates or by defining them entirely from scratch.
+An **Agent** consists of an LLM selection, a system prompt—written in plain English—that defines its behavior, along with a set of tools that give it the ability to perform actions. The **AI Agents admin dashboard**, available at https://agents.espressif.com/, allows you to create and configure agents using pre-built templates or by defining them entirely from scratch.
 
 ### LLM Selection
 
@@ -50,11 +50,11 @@ Every agent—whether created from a template or built from scratch—includes a
 
 #### Remote Tools
 
-The Espressif Private Agents Platform supports the **Model Context Protocol (MCP)**, enabling device makers to plug their agents into a much broader ecosystem of third-party MCP-compatible services and tools. With MCP servers, agents can seamlessly interact with external systems—such as querying a knowledge base, communicating to the device cloud, creating a customer ticket, or communicating with other services—without building custom integrations. This pluggability dramatically accelerates development and ensures agents can evolve as the ecosystem grows. The platform also supports OAuth authentication to the MCP servers, allowing securely logging in and getting the user context wherever required.
+The Private AI Agents Platform supports the **Model Context Protocol (MCP)**, enabling device makers to plug their agents into a much broader ecosystem of third-party MCP-compatible services and tools. With MCP servers, agents can seamlessly interact with external systems—such as querying a knowledge base, communicating to the device cloud, creating a customer ticket, or communicating with other services—without building custom integrations. This pluggability dramatically accelerates development and ensures agents can evolve as the ecosystem grows. The platform also supports OAuth authentication to the MCP servers, allowing securely logging in and getting the user context wherever required.
 
 #### Local Tools
 
-In addition to remote tools powered by MCP servers, the Espressif Private Agents Platform also supports **Local Tools**, which allow tool calls to be executed directly on the client—such as the IoT device itself or a companion mobile application. Local Tools enable agents to trigger real-time, device-level actions without requiring any backend integration. For example, if a smart device needs to respond to a voice command like *"Turn off the bedroom fan"*, the developers can simply expose a Local Tool such as `toggleFan` or `setSpeed`, and the agent will deliver the instruction directly to the device or app for immediate execution. This makes Local Tools ideal for tight device control loops, offline-capable interactions, and low-latency experiences, ensuring that agents can act as naturally and responsively as users expect.
+In addition to remote tools powered by MCP servers, the Private AI Agents Platform also supports **Local Tools**, which allow tool calls to be executed directly on the client—such as the IoT device itself or a companion mobile application. Local Tools enable agents to trigger real-time, device-level actions without requiring any backend integration. For example, if a smart device needs to respond to a voice command like *"Turn off the bedroom fan"*, the developers can simply expose a Local Tool such as `toggleFan` or `setSpeed`, and the agent will deliver the instruction directly to the device or app for immediate execution. This makes Local Tools ideal for tight device control loops, offline-capable interactions, and low-latency experiences, ensuring that agents can act as naturally and responsively as users expect.
 
 Once an agent is defined, you can test it directly from the web dashboard to observe how it responds to queries and invokes tools in real time. The dashboard provides an interactive interface for trying out both **text** and **voice** modalities, making it easy to validate behavior, fine-tune prompts, and verify tool integrations before deploying the agent into your application.
 
@@ -92,6 +92,6 @@ With provisioning and configuration complete, your device is now fully connected
 
 ## Trying out Phone App Chat Agent
 
-In addition to running agents on hardware, the **ESP RainMaker Home** app also includes a built-in **Chat Agent** feature that demonstrates how an ESP Private Agent can be integrated directly into a companion mobile application. Any agent you create in the dashboard can be configured as the chat agent within the app, allowing you to test conversational interactions immediately with no additional development required.
+In addition to running agents on hardware, the **ESP RainMaker Home** app also includes a built-in **Chat Agent** feature that demonstrates how AI Agents can be integrated directly into a companion mobile application. Any agent you create in the dashboard can be configured as the chat agent within the app, allowing you to test conversational interactions immediately with no additional development required.
 
 Because the chat agent can invoke **Local Tools**, it can retrieve real-time device status directly from the user's hardware, allowing support scenarios such as *"Why is my purifier showing a red light?"* or *"Check if my fan is connected."* This combination of conversational understanding and live device context enables a much more effective and personalized support experience within the companion app.
