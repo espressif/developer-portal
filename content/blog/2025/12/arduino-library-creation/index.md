@@ -1,9 +1,8 @@
 ---
 title: "Creating an Arduino Library for ESP32"
-date: 2025-12-04
+date: 2025-12-10
 tags: ["Arduino", "ESP32", "Library", "Tutorial"]
 showAuthor: false
-featureAsset: "img/featured/featured-arduino.webp"
 authors:
   - "lucas-vaz"
 summary: "Learn how to create, structure, and publish Arduino libraries for ESP32. This step-by-step guide covers everything from basic library structure to submitting your library to the Arduino Library Manager."
