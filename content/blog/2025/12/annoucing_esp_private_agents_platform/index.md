@@ -28,7 +28,7 @@ The first question we need to answer is what an AI agent is, and why it has beco
 
 ## High Level Architecture
 
-Engineering such an agent implementation for IoT systems requires a careful consideration to modality (text, speech), scalability, security, cost and safety. Keeping all these considerations in mind, the Private AI Agents Platform is built on AWS cloud services using AWS Fargate as a primary application platform and Amazon Bedrock Foundation Models as backend LLM system. Espressif has made an instance of this available for a [public trial](https://agents.espressif.com/). For the production cases, you can deploy the same in your own AWS account. Here is a high-level architecture of the system.
+Engineering such an agent implementation for IoT systems requires a careful consideration to modality (text, speech), scalability, security, cost and safety. Keeping all these considerations in mind, the Private AI Agents Platform is built on AWS cloud services using AWS Fargate as a primary application platform and Amazon Bedrock Foundation Models as backend LLM system. Espressif has made an instance of this available for a [public trial](https://agents.espressif.com). For the production cases, you can deploy the same in your own AWS account. Here is a high-level architecture of the system.
 {{< figure
     src="esp-private-agents-block-dia.png"
     alt="Private Agents Platform Architecture"
@@ -38,9 +38,9 @@ Now let's have a look at how we can create and use agents for various use-cases 
 
 ## Defining the Agent
 
-An **Agent** consists of an LLM selection, a system prompt—written in plain English—that defines its behavior, along with a set of tools that give it the ability to perform actions. The **AI Agents admin dashboard**, available at <https://agents.espressif.com/>, allows you to create and configure agents using pre-built templates or by defining them entirely from scratch.
+An **Agent** consists of an LLM selection, a system prompt—written in plain English—that defines its behavior, along with a set of tools that give it the ability to perform actions. The **AI Agents admin dashboard**, available at <https://agents.espressif.com>, allows you to create and configure agents using pre-built templates or by defining them entirely from scratch.
 
-{{< youtube HhcYJGAx0kU >}}
+{{< youtube eYz9nHDg9Ao >}}
 
 ### LLM Selection
 
@@ -82,7 +82,12 @@ Once your agent is configured, you can run it on real hardware using any of the 
 
 ### 1. Program the firmware
 
-You can flash pre-compiled firmware to these boards directly from your web browser without requiring any toolchain installation. This makes it incredibly easy to get started and validate your agent in minutes. The full source code for the firmware will also be made available soon, allowing developers to explore, customize, and extend the client implementation as needed. For instructions on flashing and using the device please refer to: <https://github.com/espressif/esp-agents-firmware>
+You can flash pre-compiled firmware to these boards directly from your web browser without requiring any toolchain installation. This makes it incredibly easy to get started and validate your agent in minutes. The full source code for the firmware will also be made available soon, allowing developers to explore, customize, and extend the client implementation as needed. For instructions on flashing and using the device please refer to: <https://github.com/espressif/esp-agents-firmware>.
+
+Currently, 2 kinds of firmware are supported:
+
+* Generic Assistant/Friend
+* Voice-assissted Matter Controller with Thread support
 
 ### 2. Provision the device using the ESP RainMaker Home app
 
@@ -100,7 +105,7 @@ With provisioning and configuration complete, your device is now fully connected
 
 A completely different application of the Private Agent Platform is to directly integrate AI Agent into your connected device's companion app. The **ESP RainMaker Home** app also includes a built-in **Chat Agent** feature that demonstrates this. Any agent you create in the dashboard can be configured as the chat agent within the app, allowing you to test conversational interactions immediately with no additional development required.
 
-{{< youtube DE5AlFpgF5Q >}}
+{{< youtube gEo4JWVOQrw >}}
 
 Because the chat agent can invoke **Local Tools**, it can retrieve real-time device status directly from the user's hardware, allowing support scenarios such as *"Why is my purifier showing a red light?"* or *"Check if my fan is connected."* This combination of conversational understanding and live device context enables a much more effective and personalized support experience within the companion app.
 
