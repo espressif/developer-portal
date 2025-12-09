@@ -11,6 +11,7 @@ tags:
   - IoT
   - LLM
   - ESP32
+summary: "This article announces the Private AI Agent Platform"
 ---
 
 {{< figure
@@ -56,7 +57,7 @@ Every agent—whether created from a template or built from scratch—includes a
 
 #### Remote Tools
 
-The Private AI Agents Platform supports the **Model Context Protocol (MCP)**, enabling device makers to plug their agents into a much broader ecosystem of third-party MCP-compatible services and tools. With MCP servers, agents can seamlessly interact with external systems—such as querying a knowledge base, communicating to the device cloud, creating a customer ticket, or communicating with other services—without building custom integrations. This pluggability dramatically accelerates development and ensures agents can evolve as the ecosystem grows. The platform also supports OAuth authentication to the MCP servers, allowing securely logging in and getting the user context wherever required.
+The Private AI Agents Platform supports the [Model Context Protocol (MCP)](https://en.wikipedia.org/wiki/Model_Context_Protocol), enabling device makers to plug their agents into a much broader ecosystem of third-party MCP-compatible services and tools. With MCP servers, agents can seamlessly interact with external systems—such as querying a knowledge base, communicating to the device cloud, creating a customer ticket, or communicating with other services—without building custom integrations. This pluggability dramatically accelerates development and ensures agents can evolve as the ecosystem grows. The platform also supports OAuth authentication to the MCP servers, allowing securely logging in and getting the user context wherever required.
 
 #### Local Tools
 
@@ -109,4 +110,6 @@ A completely different application of the Private Agent Platform is to directly 
 
 Because the chat agent can invoke **Local Tools**, it can retrieve real-time device status directly from the user's hardware, allowing support scenarios such as *"Why is my purifier showing a red light?"* or *"Check if my fan is connected."* This combination of conversational understanding and live device context enables a much more effective and personalized support experience within the companion app.
 
-We are excited hear your feedback once you try this out: <https://agents.espressif.com>
+
+## Conclusion
+In this article we introduced the Private AI Agents Platform and showed how it enabled developers to build and deploy AI agents within their own AWS environments. We outlined how agents were configured using LLMs, system prompts, and tools, and how they were tested across both device hardware and companion apps. Together, these components demonstrated how the platform supported secure and scalable AI-driven interactions for connected products.
