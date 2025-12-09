@@ -14,7 +14,7 @@ tags:
 ---
 
 {{< figure
-    src="esp-private-agents-logo.png"
+    src="esp-private-agents-logo.webp"
     alt="Private AI Agents Platform"
 >}}
 
@@ -30,7 +30,7 @@ The first question we need to answer is what an AI agent is, and why it has beco
 
 Engineering such an agent implementation for IoT systems requires a careful consideration to modality (text, speech), scalability, security, cost and safety. Keeping all these considerations in mind, the Private AI Agents Platform is built on AWS cloud services using AWS Fargate as a primary application platform and Amazon Bedrock Foundation Models as backend LLM system. Espressif has made an instance of this available for a [public trial](https://agents.espressif.com). For the production cases, you can deploy the same in your own AWS account. Here is a high-level architecture of the system.
 {{< figure
-    src="esp-private-agents-block-dia.png"
+    src="esp-private-agents-block-dia.webp"
     alt="Private Agents Platform Architecture"
 >}}
 
@@ -70,13 +70,13 @@ Once your agent is configured, you can run it on real hardware using any of the 
 
 <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0;">
   <figure style="flex: 1; margin: 0;">
-    <img src="2.png" alt="Development Kit 2" style="width: 100%;" />
+    <img src="2.webp" alt="Development Kit 2" style="width: 100%;" />
   </figure>
   <figure style="flex: 1; margin: 0;">
-    <img src="1.png" alt="Development Kit 1" style="width: 100%;" />
+    <img src="1.webp" alt="Development Kit 1" style="width: 100%;" />
   </figure>
   <figure style="flex: 1; margin: 0;">
-    <img src="3.png" alt="Development Kit 3" style="width: 100%;" />
+    <img src="3.webp" alt="Development Kit 3" style="width: 100%;" />
   </figure>
 </div>
 
