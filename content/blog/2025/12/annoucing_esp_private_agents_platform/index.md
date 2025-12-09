@@ -20,7 +20,7 @@ tags:
 
 We are proud to announce the "Private AI Agents Platform" – a self-hosted, multi-modal AI agent platform that you can deploy in your AWS account. This platform is optimized and tuned for building and managing AI Agents that can be integrated in connected devices and companion phone apps and web dashboards. In this blog post we provide an introduction to this platform.
 
-{{< youtube cTvfyHNplrI >}}
+{{< youtube eYz9nHDg9Ao >}}
 
 ## AI Agents and IoT
 
@@ -40,7 +40,7 @@ Now let's have a look at how we can create and use agents for various use-cases 
 
 An **Agent** consists of an LLM selection, a system prompt—written in plain English—that defines its behavior, along with a set of tools that give it the ability to perform actions. The **AI Agents admin dashboard**, available at <https://agents.espressif.com>, allows you to create and configure agents using pre-built templates or by defining them entirely from scratch.
 
-{{< youtube eYz9nHDg9Ao >}}
+{{< youtube HhcYJGAx0kU >}}
 
 ### LLM Selection
 
