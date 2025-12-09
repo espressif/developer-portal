@@ -4,6 +4,7 @@ date: 2025-12-08
 showAuthor: false
 authors:
   - "amey-inamdar"
+  - "chirag-atal"
 tags:
   - AI
   - Agents
@@ -17,11 +18,13 @@ tags:
     alt="Private AI Agents Platform"
 >}}
 
-We are proud to announce the "Private AI Agents Platform" – a self-hosted, multi-modal AI agent platform that you can deploy in your AWS account. This platform is optimized and tuned for building and managing AI Agents that can be integrated in connected devices and companion phone apps and web dashboards. In this blogpost we provide the introduction to this platform.
+We are proud to announce the "Private AI Agents Platform" – a self-hosted, multi-modal AI agent platform that you can deploy in your AWS account. This platform is optimized and tuned for building and managing AI Agents that can be integrated in connected devices and companion phone apps and web dashboards. In this blog post we provide an introduction to this platform.
+
+{{< youtube cTvfyHNplrI >}}
 
 ## AI Agents and IoT
 
-The first question we need to answer is what an AI agent is, and why it has become so relevant for IoT. An AI agent is the workflow implementation that combines large language models (LLMs) with a tool calling layer that allows to read and change device state, invoke APIs, access knowledge base and make decisions based on the context. For device makers, this unlocks a new class of capabilities such as intelligent assistants in companion apps, natural multi-lingual voice interfaces for device control, intelligent customer support that works with the combination of actual device state and authoritative product documentation and ultimately ambient intelligence driven by events from sensors, cloud rules and other services.
+The first question we need to answer is what an AI agent is, and why it has become so relevant for IoT. An AI agent is the workflow implementation that combines large language models (LLMs) with a tool calling layer that allows to read and change device state, invoke APIs, access knowledge base and make decisions based on the context. For device makers, this unlocks a new class of capabilities such as intelligent assistants in companion apps, natural multi-lingual voice interfaces for device control, intelligent customer support that works with the combination of actual device state and authoritative product documentation, and ultimately, ambient intelligence driven by events from sensors, cloud rules and other services.
 
 ## High Level Architecture
 
@@ -30,11 +33,14 @@ Engineering such an agent implementation for IoT systems requires a careful cons
     src="esp-private-agents-block-dia.png"
     alt="Private Agents Platform Architecture"
 >}}
+
 Now let's have a look at how we can create and use agents for various use-cases mentioned above.
 
 ## Defining the Agent
 
-An **Agent** consists of an LLM selection, a system prompt—written in plain English—that defines its behavior, along with a set of tools that give it the ability to perform actions. The **AI Agents admin dashboard**, available at https://agents.espressif.com/, allows you to create and configure agents using pre-built templates or by defining them entirely from scratch.
+An **Agent** consists of an LLM selection, a system prompt—written in plain English—that defines its behavior, along with a set of tools that give it the ability to perform actions. The **AI Agents admin dashboard**, available at <https://agents.espressif.com/>, allows you to create and configure agents using pre-built templates or by defining them entirely from scratch.
+
+{{< youtube HhcYJGAx0kU >}}
 
 ### LLM Selection
 
@@ -64,27 +70,27 @@ Once your agent is configured, you can run it on real hardware using any of the 
 
 <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0;">
   <figure style="flex: 1; margin: 0;">
-    <img src="1.png" alt="Development Kit 1" style="width: 100%;" />
-  </figure>
-  <figure style="flex: 1; margin: 0;">
     <img src="2.png" alt="Development Kit 2" style="width: 100%;" />
   </figure>
   <figure style="flex: 1; margin: 0;">
-    <img src="3.webp" alt="Development Kit 3" style="width: 100%;" />
+    <img src="1.png" alt="Development Kit 1" style="width: 100%;" />
+  </figure>
+  <figure style="flex: 1; margin: 0;">
+    <img src="3.png" alt="Development Kit 3" style="width: 100%;" />
   </figure>
 </div>
 
 ### 1. Program the firmware
 
-You can flash pre-compiled firmware to these boards directly from your web browser without requiring any toolchain installation. This makes it incredibly easy to get started and validate your agent in minutes. The full source code for the firmware will also be made available soon, allowing developers to explore, customize, and extend the client implementation as needed.
+You can flash pre-compiled firmware to these boards directly from your web browser without requiring any toolchain installation. This makes it incredibly easy to get started and validate your agent in minutes. The full source code for the firmware will also be made available soon, allowing developers to explore, customize, and extend the client implementation as needed. For instructions on flashing and using the device please refer to: <https://github.com/espressif/esp-agents-firmware>
 
 ### 2. Provision the device using the ESP RainMaker Home app
 
 Next, open the **ESP RainMaker Home** app to configure the device's Wi-Fi credentials. The app guides you through the provisioning process, ensuring the device connects securely to your network and becomes ready to communicate with your agent.
 
-### 3. Configure the Agent ID into the Device
+### 3. Configure a new Agent into the Device
 
-Once the device is online, use the same mobile app to link it to your agent. Each agent created in the dashboard has a unique **Agent URL** represented as a QR code. Simply scan this QR code with your phone's camera, and the app will automatically write the correct **Agent ID** into the device. Note that, the device firmware has a default agent configured in it which makes it act as a "Friend" of the user. So, this step is optional.
+This is an optional step, where you can change the default Agent running on the device. Once the device is online, use the same mobile app to link it to your agent. Each agent created in the dashboard has a unique **Agent URL** represented as a QR code. Simply scan this QR code with your phone's camera, and the app will automatically write the correct **Agent ID** into the device. Note that, the device firmware has a default agent configured in it which makes it act as a "Friend" of the user.
 
 ### 4. Interact with the device using voice
 
@@ -92,6 +98,10 @@ With provisioning and configuration complete, your device is now fully connected
 
 ## Trying out Phone App Chat Agent
 
-In addition to running agents on hardware, the **ESP RainMaker Home** app also includes a built-in **Chat Agent** feature that demonstrates how AI Agents can be integrated directly into a companion mobile application. Any agent you create in the dashboard can be configured as the chat agent within the app, allowing you to test conversational interactions immediately with no additional development required.
+A completely different application of the Private Agent Platform is to directly integrate AI Agent into your connected device's companion app. The **ESP RainMaker Home** app also includes a built-in **Chat Agent** feature that demonstrates this. Any agent you create in the dashboard can be configured as the chat agent within the app, allowing you to test conversational interactions immediately with no additional development required.
+
+{{< youtube DE5AlFpgF5Q >}}
 
 Because the chat agent can invoke **Local Tools**, it can retrieve real-time device status directly from the user's hardware, allowing support scenarios such as *"Why is my purifier showing a red light?"* or *"Check if my fan is connected."* This combination of conversational understanding and live device context enables a much more effective and personalized support experience within the companion app.
+
+We are excited hear your feedback once you try this out: <https://agents.espressif.com>
