@@ -13,7 +13,7 @@ Connect the Slint frontend with a backend task that performs a Wi-Fi scan and up
 
 Unlike the desktop environment, the embedded environment requires different approaches for WiFi depending on whether you chose `no_std` or `std`:
 
-### `no_std` Path (Recommended) ✅
+### `no_std` Path (Recommended)
 
 **Crates used:**
 - `esp-hal` for hardware abstraction

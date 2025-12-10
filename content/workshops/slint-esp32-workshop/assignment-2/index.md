@@ -1,5 +1,3 @@
-
-
 ---
 title: "Assignment 2: Run GUI on Desktop"
 date: 2025-06-03T00:00:00+01:00
@@ -31,6 +29,9 @@ In this assignment, you will run your first Slint application on your desktop. T
 We will use a ready-to-run version of the project from the Slint ESP workshop:
 
 ```bash
+# Dev version
+git clone https://github.com/georgik/slint-esp-workshop.git
+# Workshop version
 git clone https://github.com/WilstonOreo/slint-esp-workshop.git
 cd slint-esp-workshop/winit
 ```

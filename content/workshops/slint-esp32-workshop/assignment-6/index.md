@@ -1,5 +1,3 @@
-
-
 ---
 title: "Assignment 6: What's Next?"
 weight: 6
@@ -18,18 +16,18 @@ You’ve now gone through the complete process:
 
 There’s a lot more you can explore:
 
-### 🤝 Community
+### Community
 
 Join the community on Matrix to get help, share your project, or contribute:
 - [`#esp-rs:matrix.org`](https://matrix.to/#/#esp-rs:matrix.org)
 
-### 📚 Developer Resources
+### Developer Resources
 
 - [Espressif Developer Portal](https://developer.espressif.com/tags/rust/) — Learn more about using Rust on Espressif chips.
 - [The Rust on ESP Book](https://esp-rs.github.io/book/introduction.html) — A comprehensive reference.
 - [Rust Embedded (no_std) Training](https://esp-rs.github.io/no_std-training/) — Get deeper into embedded Rust development.
 
-### 📦 Awesome ESP Rust
+### Awesome ESP Rust
 
 Explore more examples, tools, templates, and projects:
 - GitHub: [awesome-esp-rust](https://github.com/esp-rs/awesome-esp-rust)
@@ -46,7 +44,7 @@ Some examples you might find inspiring:
 
 - [esp32-s3-rust-axum-example](https://github.com/aedm/esp32-s3-rust-axum-example) — Full Tokio + Axum web server.
 
-### 💡 Contribute Back
+### Contribute Back
 
 This training is open source. Contributions and improvements are welcome!
 - GitHub: [https://github.com/WilstonOreo/slint-esp-workshop](https://github.com/WilstonOreo/slint-esp-workshop)
@@ -61,7 +59,7 @@ Thank you for learning with us!
 
 ---
 
-## 🙌 Credits
+## Credits
 
 This workshop was developed by [Michael Winkelmann](https://winkelmann.site/) and is available as open training.
 

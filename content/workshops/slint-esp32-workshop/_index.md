@@ -23,15 +23,15 @@ This workshop supports both development approaches with **`no_std` (bare-metal) 
 ### `no_std` (Bare-Metal) - **RECOMMENDED** ✅
 
 **Why choose `no_std`:**
-- ✅ **Much simpler setup** - No C/C++ toolchain required
-- ✅ **Pure Rust** - No ESP-IDF complexity  
-- ✅ **Official Espressif support** - First-class citizen in esp-hal ecosystem
-- ✅ Smaller binary size and memory footprint
-- ✅ Better performance and lower latency
-- ✅ Direct hardware control with esp-hal
-- ✅ Faster compilation times
-- ✅ More predictable behavior
-- ✅ **Highly portable code** - Works across different embedded platforms
+- **Much simpler setup** - No C/C++ toolchain required
+- **Pure Rust** - No ESP-IDF complexity  
+- **Official Espressif support** - First-class citizen in esp-hal ecosystem
+- Smaller binary size and memory footprint
+- Better performance and lower latency
+- Direct hardware control with esp-hal
+- Faster compilation times
+- More predictable behavior
+- **Highly portable code** - Works across different embedded platforms
 
 **When to choose `no_std`:** Recommended for most embedded projects, especially when you want a pure Rust experience.
 
@@ -43,10 +43,10 @@ This workshop supports both development approaches with **`no_std` (bare-metal) 
 - You require std-only crates that don't have no_std alternatives
 
 **Considerations with `std`:**
-- ❌ **Complex setup** - Requires full C/C++ ESP-IDF toolchain
-- ❌ Larger binary size and higher memory usage
-- ❌ Slower compilation times
-- ❌ Platform-specific code - harder to port to other embedded platforms
+- **Complex setup** - Requires full C/C++ ESP-IDF toolchain
+- Larger binary size and higher memory usage
+- Slower compilation times
+- Platform-specific code - harder to port to other embedded platforms
 
 **Default Choice:** Start with **`no_std`** for the best embedded Rust experience. Only switch to `std` if you have specific requirements that necessitate it.
 

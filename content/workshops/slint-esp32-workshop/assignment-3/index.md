@@ -1,5 +1,3 @@
-
-
 ---
 title: "Assignment 3: Run GUI on ESP32-S3"
 date: 2025-06-03T00:00:00+01:00
