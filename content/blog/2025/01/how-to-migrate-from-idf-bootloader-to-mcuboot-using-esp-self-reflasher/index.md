@@ -1,6 +1,7 @@
 ---
 title: "How to migrate from IDF Bootloader to MCUboot using ESP Self-Reflasher"
 date: 2025-01-16
+lastmod: 2025-12-09
 showAuthor: false
 authors:
   - "almir-okato"
@@ -66,12 +67,22 @@ The component has examples for each way of operation. Both will be used in this 
 
 Besides **ESP-IDF** (see [ESP-IDF Getting Started](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html)), the following is required:
 
-- **ESP Self-Reflasher**: clone it to `<IDF_DIR>/components` using Git:
+- **ESP Self-Reflasher** examples: as shown in this guide, it is possible to create local copies of the **ESP Self-Reflasher** examples:
 
-  ```bash
-  cd <IDF_DIR>/components
-  git clone https://github.com/espressif/esp-self-reflasher.git
-  ```
+    ```bash
+    idf.py create-project-from-example 'espressif/esp-self-reflasher:boot_swap_download_example'
+    ```
+
+    ```bash
+    idf.py create-project-from-example 'espressif/esp-self-reflasher:boot_swap_embedded_example'
+    ```
+
+    **ESP Self-Reflasher** component can also be installed into a project via the ESP-IDF Component Manager:
+
+    ```bash
+    idf.py add-dependency "espressif/esp-self-reflasher"
+    idf.py reconfigure
+    ```
 
 - **NuttX**: in order to build the application that will be migrated to, set the **NuttX** workspace. See [NuttX Getting Started](https://developer.espressif.com/blog/2020/11/nuttx-getting-started/).
 
@@ -129,17 +140,18 @@ Besides **ESP-IDF** (see [ESP-IDF Getting Started](https://docs.espressif.com/pr
 
 The **ESP Self-Reflasher** component provides the example `boot_swap_download_example`. This can be used as a starting point for the reflashing application.
 
-1. Navigate to the example directory.
+1. Navigate to a directory of your choice and create a local copy from the `boot_swap_download_example`.
 
     ```bash
-    cd <IDF_DIR>/components/esp-self-reflasher/examples/boot_swap_download_example/
+    idf.py create-project-from-example 'espressif/esp-self-reflasher:boot_swap_download_example'
+    cd <SAMPLE_DIR>/boot_swap_download_example/
     ```
 
 2. First, copy the *final target images* (**NuttX** and **MCUboot** binaries) to the directory that will be served for HTTP download.
 
     ```bash
-    cp <NUTTX_DIR>/nuttx.bin <IDF_DIR>/components/esp-self-reflasher/examples/boot_swap_download_example/example_bin_dir/app_upd.bin
-    cp <NUTTX_DIR>/mcuboot-esp32.bin <IDF_DIR>/components/esp-self-reflasher/examples/boot_swap_download_example/example_bin_dir/mcuboot-esp32.bin
+    cp <NUTTX_DIR>/nuttx.bin <SAMPLE_DIR>/boot_swap_download_example/example_bin_dir/app_upd.bin
+    cp <NUTTX_DIR>/mcuboot-esp32.bin <SAMPLE_DIR>/boot_swap_download_example/example_bin_dir/mcuboot-esp32.bin
     ```
 
 3. Configure the example:
@@ -180,16 +192,17 @@ Alternatively, **ESP Self-Reflasher** component can be used without network conn
 
 If the constraint is not a problem, `boot_swap_embedded_example` can be used as start point for the reflashing application. Note that for this guide, the size of the OTA partitions on the partition table may be changed (see next section).
 
-1. Navigate to the example directory.
+1. Navigate to a directory of your choice and create a local copy from the `boot_swap_embedded_example`.
 
     ```bash
-    cd <IDF_DIR>/components/esp-self-reflasher/examples/boot_swap_embedded_example/
+    idf.py create-project-from-example 'espressif/esp-self-reflasher:boot_swap_embedded_example'
+    cd <SAMPLE_DIR>/boot_swap_embedded_example/
     ```
 
 2. In this example, the **MCUboot** bootloader and target reflashing image needs to be merged in one binary as it goes embedded to the application.
 
     ```bash
-    esptool.py -c esp32 merge_bin --output <IDF_DIR>/components/esp-self-reflasher/examples/boot_swap_embedded_example/example_bin_dir/app_upd.merged.bin 0x0000 <NUTTX_DIR>/mcuboot-esp32.bin 0xF000 <NUTTX_DIR>/nuttx.bin
+    esptool.py -c esp32 merge_bin --output <SAMPLE_DIR>/boot_swap_embedded_example/example_bin_dir/app_upd.merged.bin 0x0000 <NUTTX_DIR>/mcuboot-esp32.bin 0xF000 <NUTTX_DIR>/nuttx.bin
     ```
 
     >**Note:**
@@ -260,7 +273,7 @@ The **ESP-IDF**'s `simple_ota_example` will be used as the hypothetical **ESP-ID
 8. Copy the reflashing application binary that was build in the previous section to the directory where the HTTP server will run:
 
     ```bash
-    cp <IDF_DIR>/components/esp-self-reflasher/examples/boot_swap_<MODE>_example/build/boot_swap_<MODE>_example.bin <HTTP_SERVER_DIR>
+    cp <SAMPLE_DIR>/boot_swap_<MODE>_example/build/boot_swap_<MODE>_example.bin <HTTP_SERVER_DIR>
     ```
 
 9. Open a new bash and start the HTTP server for the OTA application. Here is a suggestion for creating the HTTP server using Python:
@@ -275,7 +288,7 @@ The **ESP-IDF**'s `simple_ota_example` will be used as the hypothetical **ESP-ID
     If the `boot_swap_download_example` was used, copy the target reflashing images to the <HTTP_SERVER_DIR> or open another bash and start the HTTP server from where the reflashing images will be downloaded (watch for the <PORT> that cannot be the same):
 
     ```bash
-    cd <IDF_DIR>/components/esp-self-reflasher/examples/boot_swap_download_example/example_bin_dir/
+    cd <SAMPLE_DIR>/boot_swap_download_example/example_bin_dir/
     sudo python -m http.server -b <HOST_IP> <HOST_PORT>
     # e.g. sudo python -m http.server -b 192.168.0.100 8071
     ```
