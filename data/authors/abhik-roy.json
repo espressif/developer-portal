@@ -1,0 +1,9 @@
+{
+    "name": "Abhik Roy",
+    "bio": "Embedded Software Engineer at Espressif",
+    "image": "img/authors/abhik-roy.webp",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/abhik-roy-804ab916/" },
+        { "github": "https://github.com/abhik-roy85" }
+    ]
+}
