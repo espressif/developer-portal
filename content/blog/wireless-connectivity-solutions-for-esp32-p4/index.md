@@ -2,7 +2,7 @@
 title: "Wireless Connectivity Solutions for ESP32-P4"
 date: 2024-09-20
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-espressif-waves.webp"
 authors:
   - anant-raj-gupta
 tags:
