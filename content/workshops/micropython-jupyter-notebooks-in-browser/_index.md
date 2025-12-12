@@ -8,7 +8,6 @@ tags: ["Workshop", "MicroPython", "Jupyter", "Browser"]
 authors:
   - "daniel-paul"
 showTableOfContents: false
-showAuthor: false
 summary: "In this workshop, you will learn how to program Espressif SoCs directly in your browser using MicroPython and Jupyter notebooks. We will primarily be using ESP32-C3-DevKit-RUST-2 development board. In the process, we will cover LED control, wireless communication, sensors, and MQTT."
 ---
 
