@@ -2,7 +2,7 @@
 title: "Matter: Improvements to Espressif DAC Provisioning Service"
 date: 2024-10-01
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
+featureAsset: "img/featured/featured-espressif-waves.webp"
 authors:
   - kedar-sovani
 tags:
@@ -48,5 +48,3 @@ We also support delivering of DACs to in-field devices, that wish to now incorpo
 
 
 If you are working on building Matter products, please [reach out to us](mailto:matter-pki@espressif.com) to check how this aligns with your product deployment workflow.
-
-
