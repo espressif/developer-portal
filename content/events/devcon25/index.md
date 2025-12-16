@@ -4,7 +4,7 @@ date: 2025-09-10
 draft: false
 description: "Espressif Systems Developer Conference 2025"
 summary: "The latest edition of the Espressif DevCon has already taken place. The two days featuring 12 unique talks, streamed live online is now available on YouTube. Participants learned directly from Espressif experts and the community, gaining valuable insights to power their next projects."
-tags: ["event", "announcement", "devcon"]
+tags: ["event", "devcon25", "devcon"]
 showDate: false
 ---
 
@@ -33,5 +33,8 @@ Official site: [devcon.espressif.com](https://devcon.espressif.com/?utm_source=c
 
 ---
 
-### Previous edition
-For reference and recordings from **DevCon24**, visit [DevCon24](https://devcon.espressif.com) and watch the YouTube playlist here: [Watch DevCon24](https://www.youtube.com/watch?v=zO7b0PxaTnw&list=PLOzvoM7_KnrdtDvNgN6b-GQ-kLppmNxab)
+### Previous editions
+
+- [DevCon24](https://devcon.espressif.com/devcon24): Watch on YouTube here: [DevCon24 Playlist](https://www.youtube.com/watch?v=zO7b0PxaTnw&list=PLOzvoM7_KnrdtDvNgN6b-GQ-kLppmNxab)
+- [DevCon23](https://devcon.espressif.com/devcon23): Watch on YouTube here: [DevCon23 Playlist](https://www.youtube.com/playlist?list=PLOzvoM7_KnrdTE57M2Gu7JzNenzy9rGIV)
+- [DevCon22](https://devcon.espressif.com/): Watch on YouTube here: [DevCon22 Playlist](https://www.youtube.com/playlist?list=PLOzvoM7_Knrc6o-n25jYuXRB2T8UKk1NU)
