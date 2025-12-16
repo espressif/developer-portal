@@ -19,6 +19,12 @@ summaryLength = 0
 buildDrafts = true
 buildFuture = true
 
+[deployment]
+  [[deployment.targets]]
+    name = 'preview'
+    url = 's3://developer-portal-preview?region=ap-east-1&prefix=subdir/'
+    exclude = "persist/**"
+
 [pagination]
   pagerSize = 30
 
