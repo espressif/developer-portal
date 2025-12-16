@@ -3,7 +3,7 @@ name: Deploy preview for PR
 on:
   workflow_run:
     workflows:
-      - "Build preview for PR"
+      - "Trigger preview for PR"
     types:
       - completed
 
@@ -17,149 +17,87 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  HUGO_BASEURL: "https://preview-developer.espressif.com/"
-  AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  PREVIEW_BASE: https://preview-developer.espressif.com/
 
 jobs:
-  determine-sync-status:
+  deploy-preview:
     runs-on: ubuntu-latest
-    outputs:
-      pr-number: ${{ steps.read-pr-num.outputs.PR_NUMBER }}
-      sync-status: ${{ steps.check-checksums-s3.outputs.SYNC_STATUS }}
     if: >
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success'
 
     steps:
-      - name: Download artifacts (PR number file)
+      - name: Download PR number artifact
         uses: actions/download-artifact@v4
         with:
-          name: pr-num
+          name: pr-metadata
           path: ./
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Read PR number from file
-        id: read-pr-num
         run: |
-          echo "PR_NUMBER=$(cat pr-num.txt)" >> $GITHUB_OUTPUT
+          PR_NUMBER="$(cat pr_num.txt)"
+          PR_URL="$(cat pr_url.txt)"
+          PR_REF="$(cat pr_head_ref.txt)"
+          PR_SHA="$(cat pr_head_sha.txt)"
 
-      - name: Check if checksums-s3.txt is in S3 bucket
-        id: check-checksums-s3
-        run: |
-          if aws s3 ls s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr$(cat pr-num.txt)/checksums-s3.txt; then
-            echo "SYNC_STATUS=update" >> $GITHUB_OUTPUT
-          else
-            echo "SYNC_STATUS=replace" >> $GITHUB_OUTPUT
-          fi
+          echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_ENV"
+          echo "HUGO_BASEURL=${PREVIEW_BASE}pr${PR_NUMBER}/" >> "$GITHUB_ENV"
+          echo "PR_URL=$PR_URL" >> "$GITHUB_ENV"
+          echo "PR_LINK_TEXT=${PR_URL#https://}" >> "$GITHUB_ENV"
+          echo "PR_REF=$PR_REF" >> "$GITHUB_ENV"
+          echo "PR_SHA=$PR_SHA" >> "$GITHUB_ENV"
 
-  replace-files:
-    runs-on: ubuntu-latest
-    needs: determine-sync-status
-    if: ${{ needs.determine-sync-status.outputs.sync-status == 'replace' }}
-
-    steps:
-      - name: Download artifacts (Public folder)
-        uses: actions/download-artifact@v4
+      - name: Check out PR commit with submodules
+        uses: actions/checkout@v4
         with:
-          name: public-folder
-          path: ./public
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ env.PR_SHA }}
+          submodules: recursive
+          fetch-depth: 0
 
-      - name: Sync public folder with S3 bucket
-        run: |
-          aws s3 sync "$SOURCE_DIR" "$DEST_DIR" --follow-symlinks --delete  --cache-control no-cache
+      - name: Install Hugo
         env:
-          SOURCE_DIR: './public'
-          DEST_DIR: "s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}"
-
-      - name: Download checksums-ci.txt from artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: checksums-ci
-          path: ./
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Copy checksums-ci.txt to s3 bucket
+          HUGO_VERSION: 0.152.2
         run: |
-          aws s3 cp ./checksums-ci.txt s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}/checksums-s3.txt
+          wget --progress=dot:giga -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_withdeploy_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
-  update-files:
-    runs-on: ubuntu-latest
-    needs: determine-sync-status
-    if: ${{ needs.determine-sync-status.outputs.sync-status == 'update' }}
-
-    steps:
-      - name: Download checksums-s3.txt from S3 bucket
+      - name: Rewrite and verify Hugo deployment URL for PR
         run: |
-          aws s3 cp s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}/checksums-s3.txt ./checksums-s3.txt
+          # Rewrite the prefix in hugo.toml
+          sed -i "s|prefix=subdir/|prefix=pr$PR_NUMBER/|g" config/_default/hugo.toml
+          echo "The updated deployment URL for PR:"
+          grep '\&prefix=' config/_default/hugo.toml
 
-      - name: Download checksums-ci.txt from artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: checksums-ci
-          path: ./
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Download artifacts (Public folder)
-        uses: actions/download-artifact@v4
-        with:
-          name: public-folder
-          path: ./public
-          run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Compare checksums and update public-update folder
+      - name: Add preview banner to website
         run: |
-          mkdir -p ./public-update
+          PREVIEW_HTML="<p style='color: rgba(var(--color-primary-600), 1); text-align: center;'>
+            This site is a preview for <a href='$PR_URL' style='text-decoration: underline;'>$PR_LINK_TEXT</a>
+          </p>"
+          echo "$PREVIEW_HTML" >> layouts/partials/header/basic.html
 
-          # Find outdated files and remove them (unique checksums in checksums-s3.txt)
-          comm -23 checksums-s3.txt checksums-ci.txt | awk '{print $1}' > outdated-files.txt
-          if [ -s outdated-files.txt ]; then
-            echo "Removing outdated files from S3:"
-            cat outdated-files.txt
-            for file in $(cat outdated-files.txt); do
-              aws s3 rm s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}/$file > /dev/null 2>&1
-            done
-          fi
-
-          # Copy updated files to public-update (unique checksums in checksums-ci.txt)
-          comm -13 checksums-s3.txt checksums-ci.txt | awk '{print $1}' > updated-files.txt
-          if [ -s updated-files.txt ]; then
-            echo "Copying updated files to public-update folder:"
-            cat updated-files.txt
-            for file in $(cat updated-files.txt); do
-              mkdir -p ./public-update/$(dirname "$file")
-              cp ./public/$file ./public-update/$file
-            done
-          fi
-
-      - name: Sync public-update with S3 bucket
-        run: |
-          aws s3 sync "$SOURCE_DIR" "$DEST_DIR" --follow-symlinks --cache-control no-cache
+      - name: Build website with Hugo
         env:
-          SOURCE_DIR: './public-update'
-          DEST_DIR: "s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}"
-
-      - name: Copy checksums-ci.txt to s3 bucket
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: preview
+          HUGO_ENV: preview
         run: |
-          aws s3 cp ./checksums-ci.txt s3://${{ secrets.PREVIEW_AWS_BUCKET_NAME }}/pr${{ needs.determine-sync-status.outputs.pr-number }}/checksums-s3.txt
+          hugo \
+            --baseURL "$HUGO_BASEURL" \
+            --gc \
+            --minify
 
-  notifications-and-cleanup:
-    runs-on: ubuntu-latest
-    needs: [determine-sync-status, replace-files, update-files]
-    if: |
-      always()
-      && contains(needs.*.result, 'success')
-      && !contains(needs.*.result, 'failure')
+      - name: Deploy preview with Hugo
+        env:
+          # AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          hugo deploy \
+            --target=preview
 
-    steps:
       - name: Post Preview Link to PR
         uses: actions/github-script@v7
         with:
@@ -167,13 +105,13 @@ jobs:
           script: |
             try {
               const { data: comments } = await github.rest.issues.listComments({
-                issue_number: ${{ needs.determine-sync-status.outputs.pr-number }},
+                issue_number: process.env.PR_NUMBER,
                 owner: context.repo.owner,
                 repo: context.repo.repo
               });
 
               // Define the comment body
-              const commentBody = `🎉 A preview for this PR is available at: ${{ env.HUGO_BASEURL }}pr${{ needs.determine-sync-status.outputs.pr-number }}/`;
+              const commentBody = `🎉 A preview for this PR is available at: ${process.env.HUGO_BASEURL}`;
 
               // Look for an existing comment containing the specific text
               const existingComment = comments.find(comment =>
@@ -181,7 +119,6 @@ jobs:
               );
 
               if (existingComment) {
-                // Delete the existing comment
                 await github.rest.issues.deleteComment({
                   comment_id: existingComment.id,
                   owner: context.repo.owner,
@@ -191,7 +128,7 @@ jobs:
 
               // Create a new comment
               await github.rest.issues.createComment({
-                issue_number: ${{ needs.determine-sync-status.outputs.pr-number }},
+                issue_number: process.env.PR_NUMBER,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: commentBody
@@ -201,10 +138,13 @@ jobs:
             }
 
       - name: Invalidate CloudFront cache for PR
-        uses: chetan/invalidate-cloudfront-action@v2
         env:
-          PATHS: "/pr${{ needs.determine-sync-status.outputs.pr-number }}/*"
-          DISTRIBUTION: ${{ secrets.PREVIEW_CLOUDFRONT_DISTRIBUTION }}
+          DISTRIBUTION_ID: ${{ secrets.PREVIEW_CLOUDFRONT_DISTRIBUTION }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          echo "Invalidating CloudFront paths for PR $PR_NUMBER..."
+          aws cloudfront create-invalidation \
+            --distribution-id "$DISTRIBUTION_ID" \
+            --paths "/pr$PR_NUMBER/*"
