@@ -6,7 +6,6 @@ tags: ["Workshop", "RainMaker", "ESP-IDF"]
 authors:
   - "pedro-minatel"
 showTableOfContents: false
-showAuthor: false
 ---
 
 Welcome to the IoT workshop with [ESP RainMaker](https://rainmaker.espressif.com/). The ESP RainMaker was designed to empower you to build, develop, and deploy customized AIoT solutions effortlessly. ESP RainMaker ensures you can achieve your goals with minimal coding and maximum security.
