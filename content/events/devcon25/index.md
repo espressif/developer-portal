@@ -3,37 +3,26 @@ title: "Espressif DevCon25"
 date: 2025-09-10
 draft: false
 description: "Espressif Systems Developer Conference 2025"
-summary: "The next edition of the Espressif DevCon is coming! This announcement reveals the official dates for DevCon25 — two days of 12 unique talks, live online. Learn directly from Espressif experts and the community, and gain insights to power your next project."
+summary: "The latest edition of the Espressif DevCon has already taken place. The two days featuring 12 unique talks, streamed live online is now available on YouTube. Participants learned directly from Espressif experts and the community, gaining valuable insights to power their next projects."
 tags: ["event", "announcement", "devcon"]
 showDate: false
 ---
 
 ## Espressif DevCon25
 
-The fourth edition of the Espressif Developer Conference, **DevCon25**, is coming!  
-Join us for two days of live streaming with Espressif experts and community contributors, delivering **12 unique talks** packed with technical insights, best practices, and inspiration for your next project.
+Espressif DevCon25 has successfully concluded, bringing together developers, community, and innovators from around the world for two days of technical deep dives, product announcements, and hands-on insights into the latest Espressif technologies.
+
+For those who were unable to attend the live sessions, all conference videos are now available on demand. This includes keynotes, technical talks, demos, covering topics such as ESP-IDF advancements, AIoT capabilities, security, connectivity, and the future of Espressif’s ecosystem.
 
 Official site: [devcon.espressif.com](https://devcon.espressif.com/?utm_source=chatgpt.com)
 
-{{< alert icon="calendar" >}}
-**Save the date:** **November 25–26, 2025**, online & free  
-**Format:** Fully livestreamed on YouTube and LinkedIn  
-{{< /alert >}}
+### DevCon25 First Day
 
-### Quick links
-- **Watch on YouTube:** [Espressif Official Channel](https://www.youtube.com/@EspressifSystems)
-- **Watch on LinkedIn:** [Espressif on LinkedIn](https://www.linkedin.com/company/espressif-systems/)  
+{{< youtube KWudbWNwThI >}}
 
----
+### DevCon25 Second Day
 
-### What to expect
-- Approximately **12 talks** from Espressif experts and community contributors  
-- Deep dives into **ESP-IDF**, **Arduino Core for ESP32**, **Matter/Thread**, **Wi-Fi**, **IoT cloud**, **AI on the edge**, and more  
-- Live Q&A
-
-### Who should attend
-- Embedded developers and IoT innovators working with ESP32 series  
-- Makers, educators, and system integrators eager to learn and contribute to the ecosystem
+{{< youtube 5yefeAMjgfg >}}
 
 ---
 
