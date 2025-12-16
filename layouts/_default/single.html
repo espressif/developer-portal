@@ -1,88 +1,50 @@
 {{ define "main" }}
-{{ .Scratch.Set "scope" "single" }}
-
-<article>
-  {{ if .Params.showHero | default (.Site.Params.article.showHero | default false) }}
-  {{ $heroStyle := .Params.heroStyle }}
-  {{ if not $heroStyle }}{{ $heroStyle = .Site.Params.article.heroStyle }}{{ end }}
-  {{ $heroStyle := print "hero/" $heroStyle ".html" }}
-  {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
-  {{ partial $heroStyle . }}
-  {{ else }}
-  {{ partial "hero/basic.html" . }}
-  {{ end }}
-  {{ end }}
-
-  <header id="single_header" class="mt-5 max-w-prose">
-    {{ if .Params.showBreadcrumbs | default (.Site.Params.article.showBreadcrumbs | default false) }}
-    {{ partial "breadcrumbs.html" . }}
-    {{ end }}
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      {{ .Title | emojify }}
-    </h1>
-    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-      {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
-    </div>
-
-    {{ $authorsData := .Site.Data.authors }}
-    {{ $taxonomies := .Site.Taxonomies.authors }}
-    {{ $baseURL := .Site.BaseURL }}
-    {{ $taxonomyLink := 0 }}
-    {{ $showAuthor := 0 }}
-
-    {{ if not (strings.HasSuffix $baseURL "/") }}
-    {{ $baseURL = delimit (slice $baseURL "/") "" }}
+  {{ .Scratch.Set "scope" "single" }}
+  <article>
+    {{/* Hero */}}
+    {{ if .Params.showHero | default (site.Params.article.showHero | default false) }}
+      {{ $heroStyle := .Params.heroStyle }}
+      {{ if not $heroStyle }}{{ $heroStyle = site.Params.article.heroStyle }}{{ end }}
+      {{ $heroStyle := print "hero/" $heroStyle ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
+        {{ partial $heroStyle . }}
+      {{ else }}
+        {{ partial "hero/basic.html" . }}
+      {{ end }}
     {{ end }}
 
-    {{ if not (.Params.showAuthorBottom | default ( .Site.Params.article.showAuthorBottom | default false)) }}
-
-      {{ if .Params.showAuthor | default (.Site.Params.article.showAuthor | default true) }}
-        {{ $showAuthor = 1 }}
-        {{ partial "author.html" . }}
+    {{/* Header */}}
+    <header id="single_header" class="mt-5 max-w-prose">
+      {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
+        {{ partial "breadcrumbs.html" . }}
       {{ end }}
-
-    {{ range $author := .Page.Params.authors }}
-      {{ $authorData := index $authorsData $author }}
-      {{- if $authorData -}}
-          {{ range $taxonomyname, $taxonomy := $taxonomies }}
-            {{ if (eq $taxonomyname $author) }}
-              {{ $taxonomyLink = delimit (slice $baseURL "authors/" $author "/") "" }}
-            {{ end }}
-          {{ end }}
-
-          {{ $finalLink := $taxonomyLink }}
-          {{ $currentLang := $.Site.Language.Lang }}
-          {{ if eq $.Site.LanguagePrefix "" }}
-            {{ $finalLink = printf "%sauthors/%s/" $baseURL $author }}
-          {{ else }}
-            {{ $finalLink = printf "%s%s/authors/%s/" $baseURL $currentLang $author }}
-          {{ end }}
-
-          {{ partial "author-extra.html" (dict "context" . "data" $authorData "link" $finalLink) }}
-        {{- end -}}
-      {{ end }}
-
-      {{ if or $taxonomyLink $showAuthor }}
-      <div class="mb-5"></div>
-      {{ end }}
-
-    {{ end }}
-
-  </header>
-
-  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-
-    {{ if or (and (.Params.showTableOfContents | default (.Site.Params.article.showTableOfContents | default false)) (in
-    .TableOfContents "<ul")) (.Site.Params.article.showRelatedPosts | default false) }} <div
-      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky {{ if hasPrefix .Site.Params.header.layout "fixed" -}}
-        lg:top-[140px]{{ else }}lg:top-10{{ end }}">
-
-        {{ if and (.Params.showTableOfContents | default (.Site.Params.article.showTableOfContents | default false)) (in
-        .TableOfContents "<ul") }} {{ partial "toc.html" . }} {{ end }} {{ if .Site.Params.article.showRelatedPosts |
-          default false }} sd {{ end }} </div>
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
       </div>
+      {{ if not (.Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false)) }}
+        {{ template "SingleAuthor" . }}
       {{ end }}
+    </header>
+
+    {{/* Body */}}
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      {{ $enableToc := site.Params.article.showTableOfContents | default false }}
+      {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
+      {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+      {{ if $showToc }}
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
+            {{ if $showToc }}
+              {{ partial "toc.html" . }}
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+
 
       <div class="min-w-0 min-h-0 max-w-fit">
 
@@ -92,55 +54,113 @@
           </div>
         {{ end }}
 
+        {{ partial "series/series.html" . }}
+
         <div class="article-content max-w-prose mb-20">
-          {{ .Content | emojify }}
+          {{ .Content }}
+          {{ $defaultReplyByEmail := site.Params.replyByEmail }}
+          {{ $replyByEmail := default $defaultReplyByEmail .Params.replyByEmail }}
+          {{ if $replyByEmail }}
+            <strong class="block mt-8">
+              <a
+                target="_blank"
+                class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+                href="mailto:{{ site.Params.Author.email }}?subject={{ replace (printf "Reply to %s" .Title) "\"" "'" }}">
+                Reply by Email
+              </a>
+            </strong>
+          {{ end }}
         </div>
+        {{ if (.Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false)) }}
+          {{ template "SingleAuthor" . }}
+        {{ end }}
+
+        {{ partial "series/series-closed.html" . }}
         {{ partial "sharing-links.html" . }}
 
-        {{ if (eq (.Site.Params.defaultAppearance | default "light") "light") }}
-          {{ partial "giscus_light" . }}
-        {{ else }}
-          {{ partial "giscus_dark" . }}
-        {{ end }}
+        {{ partial "features/giscus-auto.html" . }}
 
         {{ partial "related.html" . }}
       </div>
 
-    {{ with .File }}
-     <script>
-        var oid = "views_{{ .Path }}"
-        var oid_likes = "likes_{{ .Path }}"
-      </script>
+      {{ $translations := .AllTranslations }}
+      {{ with .File }}
+        {{ $path := .Path }}
+        {{ range $translations }}
+          {{ $lang := print "."  .Lang  ".md" }}
+          {{ $path = replace $path $lang ".md" }}
+        {{ end }}
+        {{ $jsPage := resources.Get "js/page.js" }}
+        {{ $jsPage = $jsPage | resources.Minify | resources.Fingerprint (site.Params.fingerprintAlgorithm | default "sha512") }}
+        <script
+          type="text/javascript"
+          src="{{ $jsPage.RelPermalink }}"
+          integrity="{{ $jsPage.Data.Integrity }}"
+          data-oid="views_{{ $path }}"
+          data-oid-likes="likes_{{ $path }}"></script>
       {{ end }}
-      {{ $jsPage := resources.Get "js/page.js" }}
-      {{ $jsPage = $jsPage | resources.Minify | resources.Fingerprint "sha512" }}
-      <script type="text/javascript" src="{{ $jsPage.RelPermalink }}" integrity="{{ $jsPage.Data.Integrity }}"></script>
-
     </section>
-  <footer class="pt-8 max-w-prose print:hidden">
 
-    {{ partial "article-pagination.html" . }}
+    {{/* Footer */}}
+    <footer class="pt-8 max-w-prose print:hidden">
+      {{ partial "article-pagination.html" . }}
+      {{ if .Params.showComments | default (site.Params.article.showComments | default false) }}
+        {{ if templates.Exists "partials/comments.html" }}
+          <div class="pt-3">
+            <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+            <div class="pt-3">
+              {{ partial "comments.html" . }}
+            </div>
+          </div>
+        {{ else }}
+          {{ warnf "[BLOWFISH] Comments are enabled for %s but no comments partial exists." .File.Path }}
+        {{ end }}
+      {{ end }}
 
-    {{ if .Params.showComments | default (.Site.Params.article.showComments | default false) }}
-    {{ if templates.Exists "partials/comments.html" }}
-    <div class="pt-3">
-      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
-      <div class="pt-3">
-        {{ partial "comments.html" . }}
-      </div>
-    </div>
-    {{ else }}
-    {{ warnf "[BLOWFISH] Comments are enabled for %s but no comments partial exists." .File.Path }}
-    {{ end }}
-    {{ end }}
+      {{ partial "features/mermaid-init.html" . }}
 
-    {{ if .Store.Get "hasMermaid" }}
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
-    {{ end }}
+    </footer>
+  </article>
+{{ end }}
 
-  </footer>
-</article>
+{{ define "SingleAuthor" }}
+  {{ $authorsData := site.Data.authors }}
+  {{ $taxonomies := site.Taxonomies.authors }}
+  {{ $baseURL := site.BaseURL }}
+  {{ $taxonomyLink := 0 }}
+  {{ $showAuthor := 0 }}
+  {{ $isAuthorBottom := (.Params.showAuthorBottom | default ( site.Params.article.showAuthorBottom | default false)) }}
+
+  {{ if not (strings.HasSuffix $baseURL "/") }}
+    {{ $baseURL = delimit (slice $baseURL "/") "" }}
+  {{ end }}
+
+  {{ if .Params.showAuthor | default (site.Params.article.showAuthor | default true) }}
+    {{ $showAuthor = 1 }}
+    {{ partial "author.html" . }}
+  {{ end }}
+
+  {{ range $author := .Page.Params.authors }}
+    {{ $authorData := index $authorsData $author }}
+    {{- if $authorData -}}
+      {{ range $taxonomyname, $taxonomy := $taxonomies }}
+        {{ if (eq $taxonomyname $author) }}
+          {{ $taxonomyLink = delimit (slice $baseURL "authors/" $author "/") "" }}
+        {{ end }}
+      {{ end }}
+
+      {{ $finalLink := $taxonomyLink }}
+      {{ $currentLang := site.Language.Lang }}
+      {{ if eq site.LanguagePrefix "" }}
+        {{ $finalLink = printf "%sauthors/%s/" $baseURL $author }}
+      {{ else }}
+        {{ $finalLink = printf "%s%s/authors/%s/" $baseURL $currentLang $author }}
+      {{ end }}
+      {{ partial "author-extra.html" (dict "context" . "data" $authorData "link" $finalLink) }}
+    {{- end -}}
+  {{ end }}
+
+  {{ if or $taxonomyLink $showAuthor }}
+    <div class="{{ cond $isAuthorBottom "mb-10" "mb-5" }}"></div>
+  {{ end }}
 {{ end }}

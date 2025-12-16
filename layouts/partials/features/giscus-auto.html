@@ -1,0 +1,12 @@
+{{/*
+  Injects the correct Giscus component depending on the default appearance.
+  - If the site default theme is "light": loads giscus_light.
+  - Otherwise: loads giscus_dark.
+  This only switches on first render; user theme switching handled by Giscus itself.
+*/}}
+
+{{ if (eq (.Site.Params.defaultAppearance | default "light") "light") }}
+  {{ partial "features/giscus_light" . }}
+{{ else }}
+  {{ partial "features/giscus_dark" . }}
+{{ end }}

@@ -10,7 +10,7 @@ on:
 env:
   TARGET_REPO_URL: "https://github.com/espressif/developer-portal.git"
   TARGET_BRANCH: "main"
-  HUGO_VERSION: 0.147.5
+  HUGO_VERSION: 0.152.2
 
 jobs:
   check-article-details:

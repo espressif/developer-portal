@@ -1,5 +1,9 @@
 # Developer Portal
 
+[![Minimum Hugo Version](https://img.shields.io/static/v1?label=min-Hugo-version&message=0.141.0&color=blue&logo=hugo)](https://github.com/gohugoio/hugo/releases/tag/v0.141.0)
+[![Maximum Hugo Version](https://img.shields.io/static/v1?label=max-Hugo-version&message=0.152.2&color=blue&logo=hugo)](https://github.com/gohugoio/hugo/releases/tag/v0.152.2)
+
+
 This project stores the files for the [Espressif Developer Portal][] website. GitHub Actions statically generate the website using Hugo and pushes it to a web server for online hosting.
 
 [Espressif Developer Portal]: https://developer.espressif.com/
