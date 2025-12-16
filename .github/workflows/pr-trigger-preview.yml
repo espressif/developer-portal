@@ -1,0 +1,48 @@
+name: Trigger preview for PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Collect PR metadata
+        run: |
+          echo "${{ github.event.pull_request.number }}" > pr_num.txt
+          echo "${{ github.event.pull_request.html_url }}" > pr_url.txt
+          echo "${{ github.event.pull_request.head.ref }}" > pr_head_ref.txt
+          echo "${{ github.event.pull_request.head.sha }}" > pr_head_sha.txt
+
+      - name: Debug PR metadata
+        run: |
+          set -euo pipefail
+
+          echo "=== PR metadata from files (if present) ==="
+          for file in \
+            pr_num.txt \
+            pr_url.txt \
+            pr_head_ref.txt \
+            pr_head_sha.txt
+          do
+            if [ -f "$file" ]; then
+              printf "%-18s: %s\n" "$file" "$(cat "$file")"
+            else
+              printf "%-18s: (missing)\n" "$file"
+            fi
+          done
+
+      - name: Upload PR metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-metadata
+          path: |
+            pr_num.txt
+            pr_url.txt
+            pr_head_ref.txt
+            pr_head_sha.txt
