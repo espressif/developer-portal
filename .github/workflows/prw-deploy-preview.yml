@@ -70,6 +70,11 @@ jobs:
           echo "The updated deployment URL for PR:"
           grep '\&prefix=' config/_default/hugo.toml
 
+      - name: Add PR prefix to article links on main page
+        run: |
+          # Add pr$PR_NUMBER to all article links in index.md
+          sed -i "s|\({{< article link=\"\)/|\1/pr$PR_NUMBER/|g" content/_index.md
+
       - name: Add preview banner to website
         run: |
           PREVIEW_HTML="<p style='color: rgba(var(--color-primary-600), 1); text-align: center;'>
