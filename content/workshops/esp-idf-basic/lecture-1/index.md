@@ -1,9 +1,11 @@
 ---
 title: "ESP-IDF Basics - Lecture 1"
 date: "2025-08-05"
+lastmod: "2026-01-20"
 series: ["WS00A"]
 series_order: 1
 showAuthor: false
+summary: "In this lesson, we are preparing the ground for the first practical exercise. We introduce ESP-IDF, the official Espressif framework for IoT application development, then explore its architecture, main components, and development tools. We also examine the hardware used in the workshop, based on the ESP32-C3 SoC."
 ---
 
 ## ESP-IDF Introduction
@@ -54,6 +56,15 @@ During the assignments, you will learn how to include both internal libraries pr
 
 Components are packages that include libraries along with additional files for dependency management, metadata, and configuration.
 
+
+{{< figure
+default=true
+src="../assets/esp_idf_components.webp"
+height=300
+caption="Fig.2 - ESP-IDF Components"
+
+>}}
+
 They are used to add new features such as sensor drivers, communication protocols, board support packages, and other functionalities not included in ESP-IDF by default. Some components are already integrated into example projects, and ESP-IDF itself adopts the external component model to promote modularity.
 
 Using components enhances maintainability and accelerates development by enabling code reuse and sharing across multiple projects.
@@ -86,40 +97,40 @@ In addition to libraries, ESP-IDF includes the necessary tools to compile, flash
 
 You can develop applications for Espressif devices using any plain text editor, such as [Gedit](https://gedit-text-editor.org/) or [Notepad++](https://notepad-plus-plus.org/), by following the [manual installation guide](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html#manual-installation) provided in Espressif's documentation.
 
-However, for this workshop, we will use an IDE (Integrated Development Environment) to streamline both development and setup. Espressif supports several IDEs, but we will focus on Visual Studio Code (VSCode). Espressif provides an official VSCode extension called [`ESP-IDF`](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension), which enables you to develop, compile, flash, and debug your projects directly within the editor.
+However, for this workshop, we will use an IDE (Integrated Development Environment) to streamline both development and setup. Espressif supports several IDEs, but we will focus on Visual Studio Code (VS Code). Espressif provides an official VS Code extension called [`ESP-IDF`](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension), which enables you to develop, compile, flash, and debug your projects directly within the editor.
 
-To give you an idea, the ESP-IDF VSCode Extension manages the toolchain and gives you some useful commands which we will use later, such as:
+To give you an idea, the ESP-IDF VS Code Extension manages the toolchain and gives you some useful commands which we will use later, such as:
 
 * `> ESP-IDF: Build Your Project`
 * `> ESP-IDF: Set Espressif Device Target`
 * `> ESP-IDF: Full clean project`
 
 
-The character `>` indicates VSCode Command Palette, which can be opened by pressing `F1` or `Ctrl`+`Shift`+`P` (or `Cmd`+`Shift`+`P`).
+The character `>` indicates VS Code Command Palette, which can be opened by pressing `F1` or `Ctrl`+`Shift`+`P` (or `Cmd`+`Shift`+`P`).
 
 All these commands are wrappers around the main `ESP-IDF` front-end tool which is [`idf.py`](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/tools/idf-py.html).
 
 ## Hardware used in this workshop
 
-In this workshop we will use an [ESP32-C3 SoC](https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf) based module, called [ESP32-C3-Mini-1-N4](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf). You can spot the ESP32-C3-Mini-1-N4 on your workshop board (see Fig. 2). The ESP32-C3 SoC is under the ESP32-C3-Mini-1-N4 shield.
+In this workshop we will use an [ESP32-C3 SoC](https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf) based module, called [ESP32-C3-Mini-1-N4](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf). You can spot the ESP32-C3-Mini-1-N4 on your workshop board (see Fig. 3). The ESP32-C3 SoC is under the ESP32-C3-Mini-1-N4 shield.
 
 {{< figure
 default=true
 src="../assets/lec_1_module.webp"
 height=500
-caption="Fig.2 - ESP32-C3 SoC, module, and workshop board"
+caption="Fig.3 - ESP32-C3 SoC, module, and workshop board"
     >}}
 
 ### ESP32-C3 SoC
 
-ESP32-C3 is a highly-integrated SoC equipped with a 32-bit RISC-V processor, supporting 2.4 GHz Wi-Fi and Bluetooth LE connectivity. The functional block diagram for ESP32-C3 is shown in Figure 3.
+ESP32-C3 is a highly-integrated SoC equipped with a 32-bit RISC-V processor, supporting 2.4 GHz Wi-Fi and Bluetooth LE connectivity. The functional block diagram for ESP32-C3 is shown in Fig.4.
 
 <!-- ![ESP32-C3 Block Diagram](../assets/esp32-c3-overview.webp) -->
 {{< figure
 default=true
 src="../assets/esp32-c3-overview.webp"
 height=500
-caption="Fig.3 - ESP32-C3 Block Diagram"
+caption="Fig.4 - ESP32-C3 Block Diagram"
     >}}
 
 ESP32-C3 has the following features:
@@ -173,10 +184,12 @@ The module we will use is the ESP32-C3-MINI-1-N4. As the name suggests, it inclu
 default=true
 src="../assets/esp-board-top.webp"
 height=500
-caption="Fig.2 - Workshop board"
+caption="Fig.5 - Workshop board"
     >}}
 
 #### Board peripheral overview
+
+You can find the schematic of the version 1 of the DevKit on the [github page](https://github.com/esp-rs/esp-rust-board/blob/master/hardware/esp-rust-board/schematic/esp-rust-board.pdf).
 
 __I2C peripheral__
 
@@ -265,3 +278,5 @@ Now that we have a high-level overview of both hardware and firmware, we're read
 
 ### Next Step
 > Next Assignment &rarr; __[assignment 1.1](../assignment-1-1)__
+
+> Or [go back to navigation menu](../#agenda)
