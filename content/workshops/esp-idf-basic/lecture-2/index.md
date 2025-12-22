@@ -1,9 +1,11 @@
 ---
 title: "ESP-IDF Basics - Lecture 2"
 date: "2025-08-05"
+lastmod: "2026-01-20"
 series: ["WS00A"]
 series_order: 4
 showAuthor: false
+summary: "In this lesson, we introduce the layered structure of Internet communication, explaining the ISO/OSI model and the data encapsulation process. We also explore HTTP and MQTT protocols, showing how REST APIs and the JSON format enable communication between IoT devices and applications."
 ---
 
 ## Internet connectivity
@@ -12,9 +14,7 @@ Applications communicate over the internet using different protocols, many of wh
 
 The __ISO/OSI model__ is a _conceptual_ framework that breaks down how data (like messages, videos, or web pages) travels across networks — including Wi-Fi and Ethernet — into __seven steps (layers)__. Each layer has its own job and uses specific __protocols__ (rules or languages for communication).
 
-The **ISO/OSI model** is a *conceptual* framework that explains how data such as messages, videos, or web pages travels across networks like Wi-Fi or Ethernet. It organizes this process into seven *layers*, each with a specific role and associated *protocols* --- the rules that govern communication at that layer.
-
-It is typically visualized like on Fig.1.
+The __ISO/OSI model__ is typically visualized like on Fig.1.
 <!-- ![Encapsulation in Ethernet](../assets/lec_2_encapsulation.webp) -->
 {{< figure
 default=true
@@ -24,31 +24,30 @@ caption="Fig.1 - ISO OSI Stack"
     >}}
 Starting from the bottom, the layers are:
 1. __Physical__ - This is the actual hardware: radio signals, antennas, and frequencies.<br>
-   🔧 *Example: Wi-Fi, Ethernet*
+   *Example: Wi-Fi, Ethernet*
 
 2. __Data Link__ - Controls the direct connection between devices (like your laptop and router) and handles things like access to the wireless channel.<br>
-   🔧 *Example: MAC (Media Access Control)*
+   *Example: MAC (Media Access Control)*
 
 3. __Network__ - Figures out how data gets from one network to another.<br>
-   🔧 *Example: IP (Internet Protocol)*
+   *Example: IP (Internet Protocol)*
 
 4. __Transport__ - Makes sure data is delivered correctly and in the right order.<br>
-   🔧 *Examples: TCP (Transmission Control Protocol), UDP (User Datagram Protocol)*
+   *Examples: TCP (Transmission Control Protocol), UDP (User Datagram Protocol)*
 
 5. __Session__ - Manages and maintains connections between devices or applications.<br>
-   🔧 *No single protocol in Wi-Fi, but session handling happens in apps using things like NetBIOS, SMB, or TLS*
+   *No single protocol in Wi-Fi, but session handling happens in apps using things like NetBIOS, SMB, or TLS*
 
 6. __Presentation__ - Translates data so it's readable on both ends (like turning an encrypted message back into text).<br>
-   🔧 *Examples: SSL/TLS (used for encryption), JPEG, MP3, ASCII*
+   *Examples: SSL/TLS (used for encryption), JPEG, MP3, ASCII*
 
 7. __Application__ - What the user sees: websites, video calls, email, etc.<br>
-   🔧 *Examples: HTTP (web), HTTPS (secure web), SMTP (email), FTP (file transfer), DNS (domain names)*
+   *Examples: HTTP (web), HTTPS (secure web), SMTP (email), FTP (file transfer), DNS (domain names)*
 
 
 Some of the layers of this conceptual framework can me managed by a single protocol. For instance the Ethernet protocol takes care of both the physical and the data link layers.
 
-Each layer passes its work to the next.
-You can combine these layers as it usually happens. For instance the __MQTT__ protocol sits at the same level as HTTP. Both of them make use of the TCP/IP stack.
+Higher level protocols may use the same lower level stack. For instance the __MQTT__ protocol sits at the same level as HTTP. Both of them make use of the TCP/IP stack.
 
 ### Encapsulation
 
@@ -182,6 +181,17 @@ A simple HTML page served by an ESP device might look like this:
 </html>
 ```
 
+
+In Fig.5 you can see the HTML code rendering.
+
+{{< figure
+default=true
+src="../assets/lec_2_html_rendering.webp"
+height=300
+caption="Fig.5 - HTML page rendering"
+    >}}
+
+
 Serving HTML content from your ESP device allows users to interact with it through any web browser, with no additional software required.
 
 ### JSON: REST API
@@ -227,3 +237,5 @@ Now you have all the technical background to start the assignments.
 ### Next step
 
 > Next assignment &rarr; __[Assignment 2.1](../assignment-2-1/)__
+
+> Or [go back to navigation menu](../#agenda)
