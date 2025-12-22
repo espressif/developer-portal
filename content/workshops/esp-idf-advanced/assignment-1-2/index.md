@@ -13,27 +13,32 @@ In this assignment, we will refactor the connection to Wi-Fi and MQTT code to fi
 
 #### Assignment details
 
-You should create a `cloud_manager` component with the following methods
+Create a `cloud_manager` component with
 
-* `cloud_manager_t *cloud_manager_create(void);`
-* `esp_err_t cloud_manager_connect(cloud_manager_t *manager);`
-* `esp_err_t cloud_manager_disconnect(cloud_manager_t *manager);`
-* `esp_err_t cloud_manager_send_temperature(cloud_manager_t *manager, float temp);`
-* `esp_err_t cloud_manager_send_alarm(cloud_manager_t *manager);`
-* `void cloud_manager_delete(cloud_manager_t *manager);`
+* The following public interface:<br>
+   ```c
+    cloud_manager_t *cloud_manager_create(void);
+    esp_err_t cloud_manager_connect(cloud_manager_t *manager);
+    esp_err_t cloud_manager_disconnect(cloud_manager_t *manager);
+    esp_err_t cloud_manager_send_temperature(cloud_manager_t *manager, float temp);
+    esp_err_t cloud_manager_send_alarm(cloud_manager_t *manager);
+    void cloud_manager_delete(cloud_manager_t *manager);
+    ```
 
-The following parameters should be set through `menuconfig`:
+* The following parameters - settable through `menuconfig`:
+  * Broker URL (move it from the main to the `cloud_manager` component)
+  * The channel where the temperature is published (`sensor/temperature` by default)
+  * The channel where the alarm is published (`sensor/alarm` by default)
 
-1. Broker URL (move it from the main to the `cloud_manager` component)
-2. The channel where the temperature is published (`sensor/temperature` by default)
-3. The channel where the alarm is published (`sensor/alarm` by default)
-
-## Assignment steps outline
+## Solution outline
 
 1. Create a new component and fill `cloud_manager.h`
    * Add the suggested methods<br>
-   * Add an opaque declaration `typedef struct cloud_manager_t cloud_manager_t;`<br>
-   _Note: In `cloud_manager.h` you need to import just `esp_err.h`_
+   * Add an opaque declaration `typedef struct cloud_manager_t cloud_manager_t;`
+  
+{{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
+In `cloud_manager.h` you need to import just `esp_err.h`
+{{< /alert >}}
 2. Fill `cloud_manager.c`<br>
    * Implement `cloud_manager_t` as: <br>
       ```c
@@ -237,7 +242,9 @@ endmenu
 </details>
 
 
-You can find the whole solution project on the [assignment_1_2](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_1_2) folder on the github repo.
+You can find the whole solution project on the [assignment_1_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_2) folder on the github repo.
 
 
-> Next step: [assignment 1.3](../assignment-1-3/)
+> Next step: [Assignment 1.3](../assignment-1-3/)
+
+> Or [go back to navigation menu](../#agenda)

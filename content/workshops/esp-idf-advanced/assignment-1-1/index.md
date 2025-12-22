@@ -11,22 +11,35 @@ summary: "Create the `alarm` component and refactor the code to use it. (Guided)
 
 ## Assignment steps
 
-You will:
-
+1. Download the `assignment_1_1_base` code
 1. Run the example (to make sure that everything is working)
 2. Create an `alarm` component
-2. Add the component configuration
+3. Add the component configuration
 
-### Run the example
+## Download the `assignment_1_1_base` code
 
-To test that everything it's working, first you need to just run the example.
+There are two ways to download the code:
 
-* Clone the repo with the starting code<br>
-   ```bash
-    git clone https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code
+1. **Download the ZIP file from the repository:**
+
+   * Go to the [GitHub repository](https://github.com/espressif/developer-portal-codebase)
+   * Click the green **“Code”** button
+   * In the dropdown menu that appears, click **“Download ZIP”**
+
+2. **Clone the repository using `git`:**
+
+   ```console
+   git clone https://github.com/espressif/developer-portal-codebase
    ```
+
+## Run the example 
+
+To test that everything it's working, first you need to run the example.
+
 * Open the folder `assignment_1_1_base` with VSCode<br>
-   _Note: `assigment_1_1_base` and `assignment_3_2_base` are starting code. All other folders contain the solution for the assignments_
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
+Among the folders in the repository, `assignment_1_1_base` and `assignment_3_2_base` contain the starter code for assignments 1.1 and 3.2, respectively. All other folders contain the solutions for the exercises.
+{{< /alert >}}
 * Set the target: `> ESP-IDF: Set Espressif Device Target`
 * Select the port: `> ESP-IDF: Select Port to Use (COM, tty, usbserial)`
 * Set the AP data:<br>
@@ -37,7 +50,7 @@ To test that everything it's working, first you need to just run the example.
    * `> ESP-IDF: Build, Flash, and Start a Monitor on Your Device`<br>
       _(or hit the flame icon (&#128293;) located in the bottom bar)_
 
-You should now see the example running and connecting to your WiFi network and to the `mqtt://test.mosquitto.org` server.
+You should now see the example running and connecting to your WiFi network and to the `mqtt://test.mosquitto.org` server. You can verify the connection by checking the terminal output. 
 
 <details>
 <summary>Show terminal output</summary>
@@ -187,16 +200,23 @@ To create the alarm component, you need to
 
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
-You didn't need to add `REQUIRES esp_timer` in the main component, because it inherited dependencies from the main application's build configuration
+You didn't need to add `REQUIRES esp_timer` in the main component, because it automatically "REQUIRES" all other components in the build 
 {{< /alert >}}
+
+4. Remove "alarm.c" from the `main/CMakeLists.txt`<br>
+   ```console
+   idf_component_register(SRCS "app_main.c"
+                    INCLUDE_DIRS ".")
+   ```
 
 ### Add the component configuration
 
-In `alarm.c` file, you can see two hardcoded values
-```c
-#define ALARM_THRESHOLD_PERCENT     2     // 2% chance
-#define ALARM_REFRESH_INTERVAL_MS   1000   // reevaluate every 1000 ms
-```
+* Open the file `components/alarm/alarm.c`
+* There you can find two hardcoded values<br>
+    ```c
+    #define ALARM_THRESHOLD_PERCENT     2     // 2% chance
+    #define ALARM_REFRESH_INTERVAL_MS   1000   // reevaluate every 1000 ms
+    ```
 
 We will replace these values with component configurations.
 
@@ -311,6 +331,8 @@ __`Kconfig`__
 ```
 </details>
 
-You can find the whole solution project on the [assignment_1_1](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_1_1) folder on the github repo.
+You can find the whole solution project on the [assignment_1_1](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_1) folder on the github repo.
 
-> Next step: [assignment_1_2](../assignment-1-2/)
+> Next step: [Assignment 1.2](../assignment-1-2/)
+
+> Or [go back to navigation menu](../#agenda)
