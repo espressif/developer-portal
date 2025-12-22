@@ -7,9 +7,9 @@ showAuthor: false
 summary: "Explore core dump -- guided"
 ---
 
-## Core dump
-
-For this assignment, you need to get the [assignment_3_2_base](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_3_2_base) project.
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
+For this assignment, you need to get the [assignment_3_2_base](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_3_2_base) project.
+{{< /alert >}}
 
 ## Assignment steps
 
@@ -328,19 +328,16 @@ Rebuild and run the application
 * `> ESP-IDF: Build, Flash and Start a Monitor`
 
 
-Another crash!
-
-If you still have time, try to solve it by moving to [assignment 3.3](../assignment-3-3/).
-
-If you don't, don't worry: all the following assignments will be based on the [assignment 2.1](../assignment-2-1/) code.
-
+Another crash! If you still have time, try to solve it by moving to [assignment 3.3](../assignment-3-3/). 
 
 ## Conclusion
 
 In this assignment, we learnt how to create a core dump and how to analyze it to understand the reason of a core crash.
 Core dump analysis is a very strong tool to debug your application.
 
-If you still have time, try [assignment 3.3](../assignment-3-3/)
+> If you still have time, try [assignment 3.3](../assignment-3-3/)
 
 Otherwise
 > Next step: [Lecture 4](../lecture-4/)
+
+> Or [go back to navigation menu](../#agenda)

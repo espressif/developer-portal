@@ -11,14 +11,13 @@ In this assignment, you will analyze the binary image size and optimize the memo
 
 ## Assignment steps
 
-We will:
-
 1. Build the original project to spot any oversized or suspicious sections (e.g., .text, .data, .rodata) that may hide unoptimized code.
 2. Change configuration to reduce it.
 3. Rebuild the project to check the improvement.
 
-### Build the original project
+## Build the original project
 
+* Reopen the last assignment code (it can be both 2.1 or 2.2)
 * `> ESP-IDF: Full Clean Project`
 * `> ESP-IDF: Build Your Project`
 
@@ -34,8 +33,8 @@ caption="Fig.1 - Size calculation"
 
 #### Removing the logs
 
-* Remove the logging output in the menuconfig<br>
-   _if you don't remember how to do that, check [assignment 1.3](../assignment-1-3/)_
+* Remove the logging output in the `menuconfig`<br>
+   _if you don't remember how to do that, check [assignment 1.3](../assignment-1-3/#changing-the-configuration-in-menuconfig)_
 * `> ESP-IDF: Build Your Project`
 
 <!-- ![](../assets/assignment_3_1_size_before.webp) -->
@@ -86,4 +85,6 @@ We gained another 6.7kb.
 
 In this assignment, we saw how to check the size of our binary and how to use the menuconfig to removed unused options to improve the memory footprint of our application.
 
-> Next step: [assignment 3.2](../assignment-3-2/)
+> Next step: [Assignment 3.2](../assignment-3-2/)
+
+> Or [go back to navigation menu](../#agenda)

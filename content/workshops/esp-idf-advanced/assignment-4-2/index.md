@@ -7,7 +7,7 @@ showAuthor: false
 summary: "Create a custom partition table"
 ---
 
-In this assignment, you'll set a custom partiton table using VSCode.
+In this assignment, you'll set a custom partition table using VS Code.
 
 ## Assignment steps
 
@@ -29,8 +29,10 @@ caption="Custom partition table"
 
 * Build the partition table: `> ESP-IDF: Build Partition Table`
 * Flash the partition table: `> ESP-IDF: Flash (UART) Your Project`
+* Read the partition table again. 
 
 
+<summary>Partition table output</summary>
 
 ```bash
 Parsing binary partition input...
@@ -46,5 +48,8 @@ ota_1,app,ota_1,0x210000,1M,
 fs,data,spiffs,0x310000,64K,
 ```
 
+</details>
 
-> Next step: [assignment 4.3](../assignment-4-3)
+> Next step: [Assignment 4.3](../assignment-4-3)
+
+> Or [go back to navigation menu](../#agenda)

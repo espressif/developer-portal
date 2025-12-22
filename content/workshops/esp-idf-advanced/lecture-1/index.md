@@ -9,9 +9,15 @@ summary: "In this lecture, we explore the ESP-IDF build system, built on CMake a
 
 ## Introduction
 
-In this lecture, we will explore ESP-IDF build system.
 
-The ESP-IDF build system is built on top of __CMake__ and __Ninja__, two powerful tools that make project configuration and compilation fast and efficient. CMake is responsible for setting up your project and generating the necessary build files, while Ninja handles the actual building process with speed and minimal overhead.
+The ESP-IDF build system is built on top of __CMake__ and __Ninja__. CMake is responsible for setting up your project and generating the necessary build files, while Ninja handles the actual building process with minimal overhead.
+
+{{< figure
+default=true
+src="../assets/lecture_1_build_system.webp"
+height=500
+caption="Build system tool chain"
+    >}}
 
 To simplify development, ESP-IDF provides a command-line tool called `idf.py`. This tool acts as a front-end to CMake and Ninja, managing project setup, building, and flashing the firmware to your device using `esptool.py`. It also gives you access to a configuration menu where you can customize your project's settings, which are saved in a single `sdkconfig` file. IDEs like VSCode and Espressif IDE (Eclipse) usually offer wrappers around the `idf.py` tool.
 
@@ -27,8 +33,6 @@ In ESP-IDF, projects are organized into __components__ --- self-contained, modul
 
 For example, interfacing with a sensor can be handled by a dedicated component that encapsulates all communication and data processing logic, eliminating the need to rewrite code in every project.
 
-The ESP-IDF framework itself is kept separate from your project and is referenced using the `IDF_PATH` environment variable. To build and flash your code, you’ll need the appropriate toolchain installed and accessible via your system’s `PATH`.
-
 A typical component includes:
 
 - Source code
@@ -36,7 +40,14 @@ A typical component includes:
 - `CMakeLists.txt` file for build configuration
 - `idf_component.yml` file that describes dependencies and version information
 
-This structure allows components to be easily integrated and managed within ESP-IDF projects, supporting modular development and code sharing [Component Management and Usage](https://docs.espressif.com/projects/esp-techpedia/en/latest/esp-friends/advanced-development/component-management.html).
+{{< figure
+default=true
+src="/workshop-esp-idf/workshops/esp-idf-basic/assets/esp_idf_components.webp"
+height=200 
+caption="Fig.1 - Component structure"
+>}}
+
+This structure allows components to be easily integrated and managed within ESP-IDF projects, supporting modular development and code sharing. Additional info can be found at the page [component Management and Usage](https://docs.espressif.com/projects/esp-techpedia/en/latest/esp-friends/advanced-development/component-management.html).
 
 ### Component manager
 
@@ -50,7 +61,7 @@ When you build your project, the Component Manager fetches all required componen
 
 ### Board Support Packages (BSP) in ESP-IDF
 
-One kind of ESP-IDF component is the __Board Support Package (BSP)__, a versioned component that encapsulates hardware initialization for a specific development board. BSPs provide pre-configured drivers and a consistent API for accessing onboard peripherals such as LEDs, buttons, displays, touch panels, audio codecs, and SD cards. Like any ESP-IDF component, a BSP can be integrated into a project via the component manager using `idf_component.yml`.
+One kind of ESP-IDF component is the __Board Support Package (BSP)__, a versioned component that encapsulates hardware initialization for a specific development board. BSPs provide pre-configured drivers and a consistent API for accessing onboard peripherals such as LEDs, buttons, displays, touch panels, audio codecs, and SD cards. Like any ESP-IDF component, a BSP can be integrated into a project via the component manager using the `idf.py add-dependency` which will update the `idf_component.yml`.
 
 On a basic board like the ESP32-C6-DevKit, the BSP abstracts setup for components like the onboard button and addressable LED. On more complex platforms (e.g., ESP32-S3-BOX-3), it includes initialization for multiple peripherals such as displays and audio devices—packaged as a single, reusable component.
 
@@ -83,7 +94,7 @@ After you create a project from the example `hello_world`, your project folder w
 └── sdkconfig.old
 ```
 
-To create a component, press <kbd>F1</kbd> to enter the Command palette and type:
+To create a component, press `F1` or `CTRL`+`SHIFT`+`P` to enter the Command palette and type:
 
 * `> ESP-IDF: Create a new ESP-IDF Component`<br>
    &rarr; `led_toggle`
@@ -135,9 +146,8 @@ typedef struct {
     bool status;
 }led_gpio_t;
 
-esp_err_t config_led(led_gpio_t * led_gpio);
-esp_err_t drive_led(led_gpio_t * led_gpio);
-esp_err_t toggle_led(led_gpio_t * led_gpio);
+esp_err_t led_config(led_gpio_t * led_gpio);
+esp_err_t led_drive(led_gpio_t * led_gpio);
 ```
 
 __After a full clean__, you can simply include it in your main file and call its functions:
@@ -151,8 +161,8 @@ void app_main(void)
 
     led_gpio_t led_board = { .gpio_nr = 5, .status = true };
 
-    config_led(led_board)
-    drive_led(led_board)
+    led_config(led_board)
+    led_drive(led_board)
 }
 ```
 
@@ -234,9 +244,6 @@ To maintain separate configurations for development and production:
 
 This creates an isolated build directory (`build_prod1`) and applies the specified default configuration layers. As a result, you can maintain reproducible and isolated builds across different environments.
 
-
-By effectively leveraging `sdkconfig.defaults`, multiple defaults files, and profile-based builds, ESP-IDF projects can achieve greater configurability, repeatability, and clarity across various development scenarios.
-
 We will explore this topic more in-depth in the [assignment 1.3](../assignment-1-3/).
 
 ## Conclusion
@@ -244,8 +251,9 @@ We will explore this topic more in-depth in the [assignment 1.3](../assignment-1
 The ESP-IDF build system provides a powerful foundation for developing embedded applications. With modular components, managed dependencies, and support for reusable Board Support Packages (BSPs), developers can build scalable and maintainable projects. Tools like `idf.py`, the Component Manager, and profile-based build configurations streamline both development and deployment workflows. By mastering these tools and practices, you'll be well-equipped to create robust firmware across a variety of hardware platforms and development scenarios.
 
 
-> Next Step: [assignment_1_1](../assignment-1-1/)
+> Next Step: [Assignment 1.1](../assignment-1-1/)
 
+> Or [go back to navigation menu](../#agenda).
 ## Additional information
 
 * [What is the ESP Component Registry?](https://developer.espressif.com/blog/2024/10/what-is-the-esp-registry/)

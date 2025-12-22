@@ -209,3 +209,5 @@ It deletes the sensor object and the temperature reading is using an invalid poi
 </details>
 
 > Next step: [Lecture 4](../lecture-4/)
+
+> Or [go back to navigation menu](../#agenda)

@@ -9,7 +9,7 @@ summary: "In this article, we explore the event loop—a core component of Espre
 
 ## Introduction
 
-Managing asynchronous events—such as Wi-Fi connectivity, timers, or custom application signals—can be challenging in embedded systems. Espressif's ESP-IDF addresses this complexity through its event loop library, which allows components to define events and register handlers that respond when those events occur. This model encourages loose coupling between components and promotes a clean, __event-driven programming__ style by deferring execution to a dedicated context rather than handling events directly in interrupt service routines or application threads.
+Managing asynchronous events—such as Wi-Fi connectivity, timers, or signals—can be challenging in embedded systems. Espressif's ESP-IDF addresses this complexity through its event loop library, which allows components to define events and register handlers that respond when those events occur. This model encourages loose coupling between components and promotes a clean, __event-driven programming__ style by deferring execution to a dedicated context rather than handling events directly in interrupt service routines or application threads.
 
 ### When are event loop useful
 
@@ -139,7 +139,9 @@ esp_event_post_to(user_loop, MY_EVENT_BASE, MY_EVENT_ID, &event_data, sizeof(eve
 The event loop mechanism in Espressif's ESP-IDF framework offers a powerful way to handle asynchronous events cleanly and efficiently. Used by default for system-level notifications like Wi-Fi connectivity, the event loop can also be extended for custom application needs through user-defined loops. By facilitating decoupled, ordered, and modular event processing, this architecture helps developers build more maintainable and scalable embedded systems—especially in complex IoT applications.
 
 
-> Next step: [assignment 2.1](../assignment-2-1/)
+> Next step: [Assignment 2.1](../assignment-2-1/)
+
+> Or [go back to navigation menu](../#agenda)
 
 ## Further reading
 
