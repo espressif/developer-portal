@@ -2,7 +2,7 @@
 <!--
 ⚠️ PRE-SUBMISSION REMINDERS
 1. Read the project style guidelines (CONTRIBUTING.md).
-2. For Work In Progress, please use the Draft PR feature.
+2. For Work In Progress, please prepend `Draft: ` to your MR title.
 3. Ensure you have tested locally with Hugo.
 -->
 
@@ -32,7 +32,7 @@ Please note the expected review time:
     - [ ] This item is N/A
     - Add subject matter experts (your team members, experts in the field)
 - [ ] Once tech review mostly done, initiate **editorial review**
-    - Add technical editors (`@f-hollow`, `@FBEZ`, and/or `@pedrominatel`)
+    - Add technical editors (`@kirill.chalov`, `@francesco.bez`, and/or `@pedro.minatel`)
 
 ## Checks
 
@@ -66,7 +66,7 @@ Please note the expected review time:
 
 <!--
 - Fixes #ISSUENUMBER
-- Related #PRNUMBER
+- Related !MRNUMBER
 - Links to related documentation
 -->
 
