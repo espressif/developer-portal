@@ -1,6 +1,7 @@
 ---
 title: "Arduino ESP32 support version 2.0.0 is out!"
 date: 2021-08-31
+lastmod: 2025-10-16
 showAuthor: false
 featureAsset: "img/featured/featured-arduino.webp"
 authors:
@@ -13,7 +14,7 @@ tags:
   - Esp32
   - USB
   - IoT
-
+summary: "Annoucement of Arduino 2.0.0 release."
 ---
 Arduino is definitely one of the most popular embedded development frameworks, and this popularity is mostly due to its simplicity and huge community.
 

@@ -1,11 +1,12 @@
 ---
 title: "Espresso Machine PID controller using ESP32 and RainMaker"
-date: 2024-06-19T10:18:17+08:00
+date: 2024-06-19
+lastmod: 2025-10-16
 showAuthor: false
-featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - "raffael-rostagno"
 tags: ["ESP32", "ESP-IDF", "RainMaker"]
+summary: "This article is about upgrading a regular low cost Espresso machine by adding an ESP32 for both control and connectivity."
 ---
 
 ## 1. Introduction
