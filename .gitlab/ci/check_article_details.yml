@@ -150,32 +150,38 @@ check_article_details:
 
         # Check article details against this decision tree
         #
-        # Is folder_ym = current_ym?
-        # ├── Yes → Is article_date < current_date?
-        # │   ├── Yes → Warn: article date is in the past
-        # │   └── No → OK
-        # └── No → Is folder_ym > current_ym?
-        #     ├── Yes → Is folder_ym != article_ym?
-        #     │   ├── Yes → Warn: Make folder_ym and article_date consistent
-        #     │   └── No  → OK
-        #     └── No  → Warn: folder_year and folder_month are in the past
-        #
-        if [ "$folder_ym" = "$current_ym" ]; then
-          if [ "$article_date" \< "$current_date" ]; then
-            echo "❌ Publishing date in the article's YAML header is in the past: $article_date."
-            echo "   Once the article is approved, update the date to a present or future day and make sure it matches the article's 'content/blog/YYYY/MM/' folder."
-            article_error=1
-          fi
-        elif [ "$folder_ym" \> "$current_ym" ]; then
-          if [ "$folder_ym" != "$article_ym" ]; then
-            echo "❌ Folder and article date are inconsistent: $folder_ym vs $article_date."
-            echo "   Move the article to a present or future 'content/blog/YYYY/MM/' folder and add a matching publishing date in the article's YAML header."
-            article_error=1
-          fi
-        else
-          echo "❌ Folder is in the past: $folder_ym."
+        # Is folder_ym != article_ym?
+        # ├── Yes → Warn: folder_ym and article_ym must match
+        # └── No →
+        #     Is folder_ym < current_ym?
+        #     ├── Yes → Warn: folder is in the past
+        #     └── No →
+        #         Is folder_ym > current_ym?
+        #         ├── Yes → OK (scheduled for a future month)
+        #         └── No  →  # folder_ym == current_ym
+        #             Is article_date < current_date?
+        #             ├── Yes → Warn: article date is in the past
+        #             └── No  → OK
+        if [ "$folder_ym" != "$article_ym" ]; then
+          echo "❌ Article's YYYY/MM folder and publishing date are inconsistent: $folder_ym and $article_date."
           echo "   Move the article to a present or future 'content/blog/YYYY/MM/' folder and add a matching publishing date in the article's YAML header."
           article_error=1
+        else
+          if [ "$folder_ym" \< "$current_ym" ]; then
+            echo "❌ Wrong folder: $folder_ym."
+            echo "   Move the article to a present or future 'content/blog/YYYY/MM/' folder and add a matching publishing date in the article's YAML header."
+            article_error=1
+          elif [ "$folder_ym" \> "$current_ym" ]; then
+            # Folder is a future month -> OK
+            :
+          else
+            # folder_ym == current_ym
+            if [ "$article_date" \< "$current_date" ]; then
+              echo "❌ Publishing date in the article's YAML header is in the past: $article_date."
+              echo "   Once the article is approved, update the date to a present or future day and make sure it matches the article's 'content/blog/YYYY/MM/' folder."
+              article_error=1
+            fi
+          fi
         fi
 
         # Report if article summary is not provided
