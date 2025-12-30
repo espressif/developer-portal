@@ -88,7 +88,7 @@ You can flash pre-compiled firmware to these boards directly from your web brows
 Currently, 2 kinds of firmware are supported:
 
 * Generic Assistant/Friend
-* Voice-assissted Matter Controller with Thread support
+* Voice-assisted Matter Controller with Thread support
 
 ### 2. Provision the device using the ESP RainMaker Home app
 
