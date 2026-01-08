@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2025/11/advanced-porting-libraries-as-components/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/01/thread-credential-sharing/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2025/11/esp32c2-ram-optimization/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2025/12/annoucing_esp_private_agents_platform/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
@@ -25,7 +25,7 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/esp-idf-basic/" showSummary=true compactSummary=true >}}
+{{< article link="/workshops/esp-idf-advanced/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="workshops/" target="_self" >}}
