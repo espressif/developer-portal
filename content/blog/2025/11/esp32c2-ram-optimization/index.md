@@ -5,7 +5,12 @@ summary: ESP32-C2 has 256 KB of physical RAM, but with default configurations, o
 authors:
   - zheng-zhong
   - he-xin-lin
-tags: ["ESP32-C2", "Memory Optimization", "Performance", "ESP-IDF"]
+tags:
+  - ESP32-C2
+  - ESP-IDF
+  - practitioner
+  - how-to
+  - memory management
 ---
 
 ## Overview
