@@ -96,7 +96,6 @@ The tag categories below refer to the respective sections in [Recommended tags](
   - `ESP-IDF`
   - `ESP RainMaker`
   - `ESP-ADF`
-  - `ESP-TEE`
   - `Arduino`
 - OS
   - `bare metal`
@@ -191,6 +190,7 @@ The tag categories below refer to the respective sections in [Recommended tags](
   - `Zigbee`
   - `WebRTC`
 - `Compiling`
+  - `GCC`
   - `CMake`
   - `LLVM`
   - `partition table`
@@ -232,6 +232,7 @@ The tag categories below refer to the respective sections in [Recommended tags](
 - `programming`
 - `robotics`
 - `machine vision`
+- `audio`
 
 ### Industry keywords
 
@@ -245,15 +246,16 @@ The tag categories below refer to the respective sections in [Recommended tags](
 
 ### Third-party products and titles
 
+- `OpenOCD`
 - `ChatGPT`
 - `GitHub CoPilot`
-- `Alexa`
+- `KiCad`
 - `CLion`
-- `Apache`
 - `Jupyter Notebooks` (Jupyter)
 - `WLED`
 - `Eclipse`
 - `VS Code`
+- `Alexa`
 - `Home Assistant`
 
 ### Other
