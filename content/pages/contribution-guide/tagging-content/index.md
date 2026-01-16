@@ -11,8 +11,7 @@ authors:
 This article is split into the following parts:
 
 - **Guidelines for assigning tags** -- gives you some background information
-- **Assign tags** -- instructs you on how to assign tags
-- **Recommended tags** -- gives you a list of tags to choose from
+- **Assign tags** -- instructs you on how to and what tags to assign
 
 
 ## Guidelines for assigning tags
@@ -56,21 +55,29 @@ Once you familiarize yourself with these guidelines, go to [Assign tags](#assign
 
 Take the following steps:
 
-- From the tag categories listed below, choose around **four to six** tags that apply to your content. The recommended tags are marked in `monospace`, the rest is taxonomy words and notes to assist in choosing tags.
-- In your article's YAML frontmatter, add these tags as follows:
-  ```sh
-  tags:
-    - tag1
-    - tag2
-    - ...
-  ```
+1. Choose appropriate tags as explained in [Tagging process](#tagging-process).
+2. In your article's YAML frontmatter, add these tags as follows:
+    ```sh
+    tags:
+      - tag1
+      - tag2
+      - ...
+    ```
 
-The tag categories below refer to the respective sections in [Recommended tags](#recommended-tags).
+### Tagging process
+
+Navigate to mandatory and lower-priority tag category subsections listed below and choose **four to six** tags in total that best describe your content. Please note that the actual tags are marked in `monospace`, the rest is taxonomy words and comments to assist in choosing tags.
+
+Mandatory categories:
 
 <!-- no toc -->
 - [Hardware type / Software framework / OS / IDE](#hardware-type--software-framework--os--ide)
-- [Complexity](#complexity) (mostly for learning materials)
+- [Complexity](#complexity) (optional for in-depth explanations)
 - [Content type](#content-type)
+
+Lower-priority categories:
+
+<!-- no toc -->
 - [Community involvement](#community-involvement)
 - [Additional hardware information](#additional-hardware-information)
 - [Additional software information](#additional-software-information)
@@ -80,8 +87,6 @@ The tag categories below refer to the respective sections in [Recommended tags](
 - [Third-party products and titles](#third-party-products-and-titles)
 - [Other](#other)
 
-
-## Recommended tags
 
 ### Hardware type / Software framework / OS / IDE
 
@@ -117,7 +122,9 @@ The tag categories below refer to the respective sections in [Recommended tags](
 
 ### Content type
 
-- `new product` (NPI))
+If content is a mixture of overview and how-to / tutorial, how-to and tutorial tags take precedence.
+
+- `new product` (NPI)
 - `announcement` (news, newsletter)
 - `release` (software releases)
 - `overview`
@@ -128,7 +135,6 @@ The tag categories below refer to the respective sections in [Recommended tags](
 - benchmarks / performance
 - product development
 - DIY project
-- debugging
 
 ### Community involvement
 
@@ -209,6 +215,7 @@ The tag categories below refer to the respective sections in [Recommended tags](
   - `zero-code`
   - `low-code`
   - `CLI`
+  - `debugging`
   - `multimedia processing` (multimedia)
     - `video processing` (H.264, H.265, motion detection)
     - `image processing` (JPEG)
