@@ -7,7 +7,7 @@ showAuthor: false
 summary: "Event loop: Manage temperature and alarm sensor via events (guided)"
 ---
 
-In this assignment, we will decouple the alarm and temperature code by using the default event loop. 
+In this assignment, we will decouple the alarm and temperature reading code by using the default event loop. 
 
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
@@ -76,7 +76,7 @@ We create the two event handler functions which do the actual job of posting the
 
 #### Register the handler functions
 
-* In the `app_main` register the two handler function:
+* In the `app_main`, register the two handler function:
 
     ```c
     ESP_ERROR_CHECK(esp_event_handler_register(TEMP_EVENT_BASE, TEMP_EVENT_MEASURE, temp_event_handler, NULL));

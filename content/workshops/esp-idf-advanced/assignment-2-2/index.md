@@ -14,7 +14,7 @@ In this assignment you'll extend the functionality from Assignment 2.1 by introd
 * The code for detecting a GPIO press is provided below.
 * You need to integrate the logic into the existing event loop.
 * Use the same `ALARM_EVENT_BASE` as the alarm trigger used before.
-* Create a `ALARM_EVENT_BUTTON` to differenciate it from the `ALARM_EVENT_CHECK`.
+* Create a `ALARM_EVENT_BUTTON` to differentiate it from the `ALARM_EVENT_CHECK`.
 
 ## Tips
 
@@ -216,7 +216,7 @@ void app_main(void)
 </details>
 
 
-You can find the whole solution project on the [assignment_2_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_2_2) folder on the github repo.
+You can find the complete solution project on the [assignment_2_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_2_2) folder on the github repo.
 
 
 ### Next step

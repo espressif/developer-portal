@@ -969,7 +969,7 @@ We can see that:
 * The flash encryption is set (`SPI_BOOT_CRYPT_CNT`).
 * One of the eFuse blocks has been reserved to store the encryption key.
 
-Now your device has flash encryption. Since we selected the development, you can still flash it again using the serial port.
+Now your device has flash encryption enabled. Since we selected the development, you can still flash it again using the serial port.
 
 ## Conclusion
 

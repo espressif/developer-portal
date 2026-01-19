@@ -7,7 +7,7 @@ showAuthor: false
 summary: "Support multiple configurations via sdkconfigs (Guided)"
 ---
 
-In this assignment, you will create two versions of `sdkconfig`, one for production and the other debug.
+In this assignment, you will create two versions of `sdkconfig`: one for production and the other debug.
 The only difference between the two is the logging: Debug will display all logs, while production has all the logs suppressed.
 
 ## Assignment goal
@@ -144,7 +144,7 @@ CONFIG_LOG_DEFAULT_LEVEL_INFO=y
 </details>
 
 
-You can find the whole solution project in the [assignment_1_3](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_3)  folder in the GitHub repo.
+You can find the complete solution project in the [assignment_1_3](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_3)  folder in the GitHub repo.
 
 > Next step: [Lecture 2](../lecture-2/)
 

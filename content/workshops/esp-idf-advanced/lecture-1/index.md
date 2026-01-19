@@ -61,7 +61,7 @@ When you build your project, the Component Manager fetches all required componen
 
 ### Board Support Packages (BSP) in ESP-IDF
 
-One kind of ESP-IDF component is the __Board Support Package (BSP)__, a versioned component that encapsulates hardware initialization for a specific development board. BSPs provide pre-configured drivers and a consistent API for accessing onboard peripherals such as LEDs, buttons, displays, touch panels, audio codecs, and SD cards. Like any ESP-IDF component, a BSP can be integrated into a project via the component manager using the `idf.py add-dependency` which will update the `idf_component.yml`.
+One type of ESP-IDF component is the __Board Support Package (BSP)__, a versioned component that encapsulates hardware initialization for a specific development board. BSPs provide pre-configured drivers and a consistent API for accessing onboard peripherals such as LEDs, buttons, displays, touch panels, audio codecs, and SD cards. Like any ESP-IDF component, a BSP can be integrated into a project via the component manager using the `idf.py add-dependency` which will update the `idf_component.yml`.
 
 On a basic board like the ESP32-C6-DevKit, the BSP abstracts setup for components like the onboard button and addressable LED. On more complex platforms (e.g., ESP32-S3-BOX-3), it includes initialization for multiple peripherals such as displays and audio devices—packaged as a single, reusable component.
 
