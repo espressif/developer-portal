@@ -1,13 +1,14 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Introduction"
+title: "ESP-IDF and ESP32-C6 Workshop - Introduction"
 date: 2024-07-01T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
-series: ["WS001"]
+series: ["WS001EN"]
 series_order: 1
 showAuthor: false
 ---
 
-## Lecture: ESP-IDF Introduction
+## Lecture: ESP-IDF introduction
 
 The ESP-IDF (Espressif IoT Development Framework) is the official operating system and development framework for the ESP32 series of microcontrollers by Espressif Systems. It provides a comprehensive environment for building IoT applications with robust networking, security, and reliability features.
 
@@ -26,9 +27,10 @@ The ESP-IDF platform architecture is mainly divided into 3 layers:
 - **AIoT Application**
   - This is your application.
 
-{{< gallery >}}
-  <img src="../assets/esp-idf-highlevel.webp" />
-{{< /gallery >}}
+{{< figure
+    default=true
+    src="assets/esp-idf-highlevel.webp"
+    >}}
 
 All the necessary blocks for building your application will be included on the ESP-IDF platform.
 
@@ -52,10 +54,10 @@ Visit the ESP-IDF project on GitHub to get the updated list of supported version
 
 ## Introduction to the ESP32-C6
 
-The ESP32-C6 is a Ultra-low-power SoC with RISC-V single-core microprocessor, 2.4 GHz Wi-Fi 6 (802.11ax), Bluetooth® 5 (LE), Zigbee and Thread (802.15.4). It has an optional 4 MB flash in the chip’s package,30 or 22 GPIOs, rich set of peripherals including:
+The ESP32-C6 is a Ultra-low-power SoC with RISC-V single-core microprocessor, 2.4 GHz Wi-Fi 6 (802.11ax), Bluetooth® 5 (LE), Zigbee and Thread (802.15.4). It has an optional 4 MB flash in the chip’s package, 30 or 22 GPIOs, rich set of peripherals including:
 
 {{< gallery >}}
-  <img src="../assets/esp32-c6-diagram.webp" class="grid-w22" />
+  <img src="assets/esp32-c6-diagram.webp" class="grid-w22" />
 {{< /gallery >}}
 
 - 30 GPIOs (QFN40), or 22 GPIOs (QFN32)
@@ -157,14 +159,14 @@ Here is the development board feature list:
 #### Board description
 
 {{< gallery >}}
-  <img src="../assets/esp32-c6-devkitc-1-v1.2-annotated-photo.webp" class="grid-w22" />
-  <img src="../assets/esp32-c6-devkitc-1-v1.2-block-diagram.webp" class="grid-w22" />
+  <img src="assets/esp32-c6-devkitc-1-v1.2-annotated-photo.webp" class="grid-w22" />
+  <img src="assets/esp32-c6-devkitc-1-v1.2-block-diagram.webp" class="grid-w22" />
 {{< /gallery >}}
 
 #### Board pin-layout
 
 {{< gallery >}}
-  <img src="../assets/esp32-c6-devkitc-1-pin-layout.webp" class="grid-w22" />
+  <img src="assets/esp32-c6-devkitc-1-pin-layout.webp" class="grid-w22" />
 {{< /gallery >}}
 
 #### J1 connector

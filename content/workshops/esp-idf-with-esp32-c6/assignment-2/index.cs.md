@@ -1,6 +1,7 @@
 ---
 title: "Workshop: ESP-IDF a ESP32-C6 - Úkol 2"
 date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
 series: ["WS001CZ"]
 series_order: 3
@@ -38,20 +39,20 @@ Nový projekt lze vytvořit přes GUI i přes příkazovou řádku. Pro ty, kdo 
 
 **GUI**
 
-Otevřeme ESP-IDF Explorer (ikonka Espressifu v taskbaru nebo přes *View -> Open View -> ESP-IDF: Explorer*) a vybereme příkaz **New Project Wizard**. Dále postupujeme podle obrázků:
+Otevřeme ESP-IDF Explorer (ikonka Espressifu v taskbaru nebo přes *View -> Open View -> ESP-IDF: Explorer*) a vybereme příkaz **New Project Wizard** (může být schovaný v **Advanced** menu). Dále postupujeme podle obrázků:
 
 {{< figure
     default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/wizard-1.webp"
+    src="assets/wizard-1.webp"
     title="První krok tvorby nového projektu"
     caption="Vytvoření nového projektu. Seriový port není podstatný, půjde změnit později."
     >}}
 
 {{< figure
     default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/wizard-2.webp"
+    src="assets/wizard-2.webp"
     title="Druhý krok tvorby nového projektu"
-    caption="V dalším kroku vybereme, na jaké šabloně náš projekt založíme. Zvolíme *get-started/sample_project* a vytvoříme projekt"
+    caption="V dalším kroku vybereme, na jaké šabloně náš projekt založíme. Zvolíme *get-started/hello_world* a vytvoříme projekt."
     >}}
 
 Po vytvoření projektu se vpravo dole objeví nenápadné okénko, které se vás zeptá, zda chcete otevřít nově vytvořený projekt v novém okně. Kliněte na "Yes".
@@ -93,14 +94,14 @@ Nyní jsme připraveni přidat komponentu [espressif/led_strip](https://componen
 
 {{< figure
     default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/ledstrip-1.webp"
+    src="assets/ledstrip-1.webp"
     title="Instalace led_strip komponenty 1"
     caption="Vyhledání komponenty"
     >}}
 
 {{< figure
     default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/ledstrip-2.webp"
+    src="assets/ledstrip-2.webp"
     title="Instalace led_strip komponenty 2"
     caption="Vyhledání komponenty"
     >}}
@@ -119,7 +120,7 @@ Můžete si všimnout, že v hlavním adresáři projektu (**main**) se vytvoři
 dependencies:
   espressif/led_strip: "^2.5.3"
   idf:
-    version: ">=4.1.0"
+    version: ">=4.4"
 ```
 
 Závislé komponenty můžete do tohoto souboru přidávat také ručně, bez použití jakýchkoli příkazů.
@@ -128,7 +129,7 @@ Nyní se již vrhneme na samotné programování.
 
 3. **Vytvoření funkce, která nakonfiguruje LED a ovladač RMT**
 
-Otevřeme si soubor ``main.c``. Nejdříve musíme importovat knihovnu `led_strip.h`...
+Otevřeme si soubor ``hello_world_main.c``. Nejdříve musíme importovat knihovnu `led_strip.h`...
 
 ```c
 #include "led_strip.h"
@@ -224,16 +225,18 @@ Samotné nastavení hodnoty pixelu nestačí; aby se hodnoty nastavené v předc
 led_strip_refresh(led_strip);
 ```
 
-Pokud chceme celý LED pásek vypnout, můžeme k tomu použít funkci `led_strip_clear(led_strip)`.
+Pokud chceme celý LED pásek vypnout, můžeme k tomu použít funkci `led_strip_clear(led_strip);`.
 
 10. **Přeložení a odeslání kódu do desky**
 
 Když je náš kód kompletní, musíme ho nějakým způsobem dostat do naší desky. Celý proces se dá rozdělit do 4 kroků:
 
-* Určení **targetu**: konkrétní desky, kterou používáme. V záložce *ESP-IDF explorer* v části *Commands* vybereme možnost **Set Espressif Target (IDF_TARGET)**, zvolíme možnost **esp32c6** a v následné nabídce vybereme možnost **ESP32-C6 chip (via builtin USB-JTAG)**.
-* **Build**: sestavení aplikace a vytvoření binárního souboru, který budeme nahrávat. Na stejném místě jako posledně klikneme na příkaz **Build**.
-* Výběr správného **seriového portu**, ke kterému je naše deska připojená. I seriový port nastavíme pomocí příkazu v *ESP-IDF Exploreru*, tentokrát pomocí **Set Serial Port**.
-* **Flash**: nahrání binárního souboru na desku. K tomu nám poslouží stejnojmenný příkaz, který lze nalézt hned vedle ostatních. 
+* Určení **targetu**: konkrétní desky, kterou používáme. V záložce *ESP-IDF explorer* v části *Commands* vybereme možnost **Set Espressif Device Target (IDF_TARGET)**, zvolíme možnost **esp32c6** a v následné nabídce vybereme možnost **ESP32-C6 chip (via builtin USB-JTAG)**.
+* **Build**: sestavení aplikace a vytvoření binárního souboru, který budeme nahrávat. Na stejném místě jako posledně klikneme na příkaz **Build Project**.
+* Výběr správného **seriového portu**, ke kterému je naše deska připojená. I seriový port nastavíme pomocí příkazu v *ESP-IDF Exploreru*, tentokrát pomocí **Select Port to Use**.
+* **Flash**: nahrání binárního souboru na desku. K tomu nám poslouží stejnojmenný příkaz, který lze nalézt hned vedle ostatních. Pokud se nás VScode zeptá na "flash method", vybereme "UART". 
+
+Pokud někdo omylem vybere špatnou flashovací metodu (např JTAG), stačí v souboru `.vscode/settings.json` manuálně upravit `"idf.flashType":` na  `"UART"`.
 
 > Všechny příkazy lze vyvolat také pomocí *Command Pallete*, kterou otevřete kombinací kláves Ctrl + Shift + P nebo ⇧ + ⌘ + P. Příkazy se ovšem jmenují občas trochu jinak (například místo *Select Serial Port* se příkaz jmenuje *ESP-IDF: Select Port to Use* ). Oba přístupy ale můžete libovolně kombinovat.  
 
@@ -295,7 +298,7 @@ Vestavěná LED by se měla rozsvítit červeně.
 
 V předchozí části jsme se naučili, jak přidávat do projektu komponenty. Teď si povíme něco o BSP - *board support package*. 
 
-BSP je komponenta, který umožňuje jednoduše konfigurovat periferie (LED, tlačítko...) nějaké specifické vývoojové desky. Konkrétně náš **ESP32-C6-DevKit** má jedno tlačítko připojené na **GPIO9** a jednu adresovatelnou LED na pinu **GPIO8**. V BSP pro tuhle konkrétní desku tedy budou tyhle dvě periferie nakonfigurované a pokud BSP použijeme, nemusíme se starat o konfiguraci pinů ani přidávat žádné další komponenty, které by se o dané periferie staraly.
+BSP je komponenta, který umožňuje jednoduše konfigurovat periferie (LED, tlačítko...) nějaké specifické vývojové desky. Konkrétně náš **ESP32-C6-DevKit** má jedno tlačítko připojené na **GPIO9** a jednu adresovatelnou LED na pinu **GPIO8**. V BSP pro tuhle konkrétní desku tedy budou tyhle dvě periferie nakonfigurované a pokud BSP použijeme, nemusíme se starat o konfiguraci pinů ani přidávat žádné další komponenty, které by se o dané periferie staraly.
 
 Příklad s naším kitem je pro BSP poměrně jednoduchý, ale existují i složitější vývojové desky, třeba **ESP32-S3-BOX-3**. BSP pro tento kit si tedy poradí se všemi periferiemi, jako jsou například displej, senzory, LED, ale také např. audio kodeky. Všechno v jediném balíčku a bez žádných dodatečných komponent.
 
@@ -312,12 +315,14 @@ Níže si popíšeme, jak na to:
 
 1. **Vytvoření nového projektu z příkladu**
 
-Abychom vytvořili nový projekt z příkladu, který je součástí komponenty, musíme se na chvíli přesunout do ESP-IDF příkazové řádky. Tu vyvoláme buď jako příkaz *ESP-IDF: Open ESP-IDF Terminal* v *Command Palette* nebo najdeme příkaz *ESP-IDF Terminal* jako tlačítko v části *Commands* našeho *ESP-IDF Exploreru*.
+Abychom vytvořili nový projekt z příkladu, který je součástí komponenty, musíme se na chvíli přesunout do ESP-IDF příkazové řádky. Tu vyvoláme buď jako příkaz *ESP-IDF: Open ESP-IDF Terminal* v *Command Palette* nebo najdeme příkaz *ESP-IDF Terminal* jako tlačítko v části *Commands* našeho *ESP-IDF Exploreru*. Abychom nevytvářeli projekt uvnitř projektu, posuneme se nejdříve o adresář výše.
 
 ```bash
+cd ..
 idf.py create-project-from-example "espressif/esp_bsp_generic^1.2.0:generic_button_led"
 ```
-Následně projekt otevřeme a **zkontrolujeme**, že soubor `main/idf_component.yaml` vypadá následovně:
+
+Následně v novém okně projekt otevřeme (bude ve stejné složce jako ten předchozí) a **zkontrolujeme**, že soubor `main/idf_component.yaml` vypadá následovně:
 
 ```yaml
 dependencies:
@@ -414,7 +419,6 @@ static void btn_handler(void *button_handle, void *usr_data)
     led_indicator_start(leds[0], example_sel_effect);
 #endif
 }
-#endif
 
 void app_main(void)
 {

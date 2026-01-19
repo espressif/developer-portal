@@ -1,6 +1,7 @@
 ---
 title: "Workshop: ESP-IDF a ESP32-C6 - Úkol 5"
 date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
 series: ["WS001CZ"]
 series_order: 6
@@ -14,11 +15,13 @@ Existuje několik metod, jak Wi-Fi provisioning zajistit. Některá zařízení 
 
 ESP32 samozřejmě tuhle možnost také podporuje. Můžete se s ní setkat v projektech, jakými je třeba náš [ESP RainMaker](https://rainmaker.espressif.com/).
 
-### Praktická ukázka, jak na Wi-Fi provisioning
+### Praktická ukázka: Jak na Wi-Fi provisioning
 
-V předchozím úkolu jsme si ukázali, jak s pomocí NVS nastavit a přečíst údaje z flash paměti. Oproti zapisování údajů napevno do kódu to je jistě pokrok, ale ruční zapisování údaju do flash paměti pořád není zrovna pohodlné. 
+V kapitole 3 jsme SSID a heslo zapisovali přímo do kódu, což je sice nejrychlejší, ale také nejkomplikovanější varianta (při každé změně musíme zkompilovat a nahrát celý projekt).
 
-Teď si ukážeme, jak s pomocí mobilního telefonu s Androidem nebo iOS nastavit Wi-Fi údaje přes BLE.
+Ukládání dat do NVS v kapitole 4 ukazuje sice poněkud praktičtější verzi, kdy si kód sám vyčte data z paměti, ale my je tam stále musíme ručně zapsat, což rozhodně ideální není.
+
+Teď si ukážeme, jak s pomocí mobilního telefonu s Androidem nebo iOS nastavit Wi-Fi údaje přes BLE (Bluetooth Low Energy).
 
 1. **Instalace mobilní aplikace**
 
@@ -32,7 +35,7 @@ Nejdříve si potřebujete stáhnout aplikaci pro BLE provisioning:
 Vytvoříme nový projekt s využitím příkladu `provisioning` -> `wifi_prov_mgr`. Buď lze vytvořit pomocí příkazu níže:
 
 ```bash
-idf.py create-project-from-example "espressif/network_provisioning^1.0.2:wifi_prov"
+idf.py create-project-from-example "espressif/network_provisioning^1.2.0:wifi_prov"
 ```
 
 ...nebo pomocí GUI:
@@ -64,11 +67,11 @@ Po sestavení a nahrání aplikace si otevřeme `ESP-IDF Serial Monitor`.
 V aplikaci `ESP BLE provisioning` na vašem mobilním telefonu následujte kroky tak, jak jsou zobrazené níže: 
 
 {{< gallery >}}
-  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-1.webp" class="grid-w33" />
-  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-2.webp" class="grid-w33" />
-  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-3.webp" class="grid-w33" />
-  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-4.webp" class="grid-w33" />
-  <img src="/workshops/esp-idf-with-esp32-c6/assets/provisioning-app-5.webp" class="grid-w33" />
+  <img src="assets/provisioning-app-1.webp" class="grid-w33" />
+  <img src="assets/provisioning-app-2.webp" class="grid-w33" />
+  <img src="/assets/provisioning-app-3.webp" class="grid-w33" />
+  <img src="assets/provisioning-app-4.webp" class="grid-w33" />
+  <img src="assets/provisioning-app-5.webp" class="grid-w33" />
 {{< /gallery >}}
 
 QR kód vám vaše vývojová deska vypíše do seriové linky (seriový monitor otevřete příkazem *Monitor* v *ESP-IDF Exploreru*).
