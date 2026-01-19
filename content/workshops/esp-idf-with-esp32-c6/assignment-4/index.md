@@ -1,47 +1,54 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 4: Try using NVS"
-date: 2024-06-27T00:00:00+01:00
+title: "Workshop: ESP-IDF and ESP32-C6 - Assignment 4"
+date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
-series: ["WS001"]
+series: ["WS001EN"]
 series_order: 5
 showAuthor: false
 ---
 
-## Assignment 4: Try using NVS
+## Assignment 4: The same, but with NVS
 
-As you can see from the last assignment, the Wi-Fi credentials were stored hard-coded. This is not the ideal solution for storing this kind of data, because mainly you can not change them easily, and, what is more important, this adds vulnerability to your project.
+In the previous assignment, we used the simplest option for storing SSID and password; we defined constants directly in the code. Not only is this approach not ideal in terms of changes, where every change in SSID or password must be applied directly in the code and reflash our application. This method also brings considerable security risks.
 
-On this assignment, we will see how to store data to [Non-Volatile-Storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/api-reference/storage/nvs_flash.html). NVS is often called "emulated EEPROM", but the ESP32 does not have any embedded EEPROM, so NVS uses flash memory.
+In this assignment, we will look at how to work with [Non-Volatile-Storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/api-reference/storage/nvs_flash.html). NVS is often called "emulated EEPROM". However, ESP32 does not have any built-in EEPROM, so NVS uses flash memory (the same one where we also store our application).
 
 {{< alert icon="circle-info">}}
-For this assignment, we will use the same project as we used in the previous assignment [Connect to Wi-Fi](../assignment-3/).
+In this assignment, we will use the same project that we used in the previous two assignments.
 {{< /alert >}}
 
-The NVS library was designed to store small key-value pairs, including `integer`, `string`, and `blob` types.
+The principle of data storage in the NVS library is based on key-value pairs (similar to a dictionary in Python), including types `integer`, `string`, and `blob` (binary data of variable length).
 
-> String values are currently limited to 4000 bytes. This includes the null terminator. Blob values are limited to 508,000 bytes or 97.6% of the partition size - 4000 bytes, whichever is lower.
+> The size of strings (including the null terminator) is currently limited to 4000 bytes. Blobs are limited to 508,000 bytes or 97.6% of partition size (4000 bytes in our case), whichever is smaller.
 
-This library can be used to store several different configurations or values you will need to persist on the flash memory.
+NVS is useful especially when we need to store one or more configurations that need to remain persistent - permanently stored in flash memory.
 
-### Hands-on with NVS
+### Practical demo of NVS
 
-For this hands-on, we will need to prepare a project for NVS, create the NVS data file with the Wi-Fi credentials, set the default values, add the NVS code, and change the example to read the Wi-Fi credentials from the NVS.
+In the demo, we will show how to prepare a *partition table*, NVS data file and change the code from the previous assignment so that Wi-Fi name and password are read from NVS.
 
-1. **Create the partition file**
+1. **Creating a partition table**
 
-To create the partition table file, use the Partition Table Editor from the Espressif-IDE. To open the editor, right-click on the project, `ESP-IDF` -> `Partition Table Editor`:
+As we said, NVS uses flash memory. But it is also used for other data. So we need to modify the partition table and allocate space for our NVS partition.
 
-{{< gallery >}}
-  <img src="../assets/partition-editor-menu.webp" />
-{{< /gallery >}}
+Using the well-known shortcut Ctrl + Shift + P, we open *Command Palette* and search for *Open Partition Table Editor UI*.
 
-Leave the default values and click `Save and Quit`.
+{{< alert icon="circle-info">}}
+If you cannot open the Partition Table Editor, verify that you have the Partition Table -> Partition Table option set to Custom partition table CSV in the configuration.
+{{< /alert >}}
 
-{{< gallery >}}
-  <img src="../assets/partition-editor.webp" />
-{{< /gallery >}}
 
-The default `partitions.csv` will be created with the following structure:
+We fill the table using "Add New Row" as shown in the image:
+
+{{< figure
+    default=true
+    src="assets/nvs-1.webp"
+    title="Partition table contents"
+    caption="NVS table contents"
+    >}}
+
+After clicking the "Save" button, the basic partition table ``partitions.csv`` will be saved and created, which will look like this:
 
 ```text
 # ESP-IDF Partition Table
@@ -51,31 +58,22 @@ phy_init, data, phy,     0xf000,  0x1000,
 factory,  app,  factory, 0x10000, 1M,
 ```
 
-You can change later the partitions according to your needs.
+Values are also editable directly and individual partitions can be modified according to your own needs.
 
-2. **Create the NVS data file**
+2. **Creating NVS file**
 
-For the NVS editor, you will need to open the editor by going to `ESP-IDF` -> `NVS Table Editor`.
+We open the NVS editor similarly: again using Ctrl + Shift + P we open *Command Palette* and select *Open NVS partition editor*. Then we enter the file name (``nvs.csv``) and press Enter. A window similar to the one below will open:
 
-{{< gallery >}}
-  <img src="../assets/nvs-editor-menu.webp" />
-{{< /gallery >}}
+{{< figure
+    default=true
+    src="assets/nvs-2.webp"
+    title="NVS table contents"
+    content="NVS table contents"
+    >}}
 
-After that, add the namespace `storage` and the keys `SSID` and `password`, then click `Save and Quit`.
+We change the value `Size of partition (bytes)` to `0x6000` (same value as in partition table), add rows using "Add New Row" and fill them according to the image above. Then we press "Save".
 
-{{< gallery >}}
-  <img src="../assets/nvs-editor.webp" />
-{{< /gallery >}}
-
-Set the `Size of partition in bytes` to `0x6000` (the same value as in the `partitions.csv` file) and add the following:
-
-- **storage** type `namespace`,
-- **ssid** type `data`, encoding `string` and value `network-ssid`
-- **password** type `data`, encoding `string` and value `network-password`
-
-> Please change the SSID and password values according to the workshop network or the network you will connect to.
-
-After the NVS table is created, the file `nvs.csv` will be added to the project with the following content:
+Finally, we can open the `nvs.csv` file and verify that it looks the same as the one below:
 
 ```text
 key,type,encoding,value
@@ -85,9 +83,22 @@ password,data,string,"network-password"
 
 ```
 
-3. **Include the NVS code**
+3. **Incorporating NVS code into our project**
 
-After the NVS initialization, the partition can be opened:
+We will need a skeleton of a new function `esp_err_t get_wifi_credentials`, into which we will write code for reading data from NVS:
+
+```c
+char ssid[32];
+char password[64];
+
+esp_err_t get_wifi_credentials(void){
+
+	//TODO
+}
+
+```
+
+After we have already performed NVS initialization in the previous assignment, we can open the NVS partition:
 
 ```c
     ESP_LOGI(TAG, "Opening Non-Volatile Storage (NVS) handle");
@@ -100,7 +111,7 @@ After the NVS initialization, the partition can be opened:
     ESP_LOGI(TAG, "The NVS handle successfully opened");
 ```
 
-Then the values from the NVS can be read:
+Then we can start reading individual values:
 
 ```c
 
@@ -115,11 +126,10 @@ esp_err_t get_wifi_credentials(void){
     nvs_handle_t nvs_mem_handle;
     err = nvs_open_from_partition("nvs", "storage", NVS_READWRITE, &nvs_mem_handle);
     if (err != ESP_OK) {
-		led_strip_set_pixel(led_strip, 0, 25, 0, 0);
-    	led_strip_refresh(led_strip);
         ESP_LOGE(TAG, "Error (%s) opening NVS handle!\n", esp_err_to_name(err));
         return err;
     }
+
     ESP_LOGI(TAG, "The NVS handle successfully opened");
 
 	size_t ssid_len = sizeof(ssid);
@@ -136,7 +146,7 @@ esp_err_t get_wifi_credentials(void){
 }
 ```
 
-Now you need to change the Wi-Fi config to get the NVS values:
+Now we still need to pass SSID and password to the configuration structure:
 
 ```c
     wifi_config_t wifi_config = {
@@ -153,30 +163,30 @@ Now you need to change the Wi-Fi config to get the NVS values:
     strncpy((char*)wifi_config.sta.password, password, sizeof(wifi_config.sta.password));
 ```
 
-Call the `get_wifi_credentials` before `wifi_init_sta` in the `app_main` function:
+Don't forget to call our newly created function `get_wifi_credentials` before `wifi_init_sta` in the main function `app_main`:
 
 ```c
 ESP_ERROR_CHECK(get_wifi_credentials());
 ```
 
-4. **Change the build to include the NVS**
+4. **Build configuration**
 
-Now you need to change the file `main/CMakeLists.txt` to add the `nvs_create_partition_image`.
+Since we are using a custom *partition table* and NVS, we need to change a few things in CMake as well, specifically in the `main/CMakeLists.txt` file we call a function that adds the NVS table to its place (`nvs_create_partition_image`):
 
 ```c
 idf_component_register(
     SRCS main.c         # list the source files of this component
     INCLUDE_DIRS        # optional, add here public include directories
     PRIV_INCLUDE_DIRS   # optional, add here private include directories
-    REQUIRES            # optional, list the public requirements (component names)
+    REQUIRES            esp_wifi esp_netif esp_event nvs_flash # optional, list the public requirements (component names)
     PRIV_REQUIRES       # optional, list the private requirements
 )
 nvs_create_partition_image(nvs ../nvs.csv FLASH_IN_PROJECT)
 ```
 
-5. **Change the default configuration file to change the SDKConfig**
+5. **Partition table configuration**
 
-If you do not have the file `sdkconfig.defaults`, create one in the same folder as the `sdkconfig` file and add the following configuration:
+Now we still need to tell ESP-IDF to use our partition table. We do this by opening the `sdkconfig.defaults` file in the project root directory (if it's not there, we create it) and add the following values to it:
 
 ```c
 CONFIG_PARTITION_TABLE_CUSTOM=y
@@ -184,11 +194,9 @@ CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
 CONFIG_PARTITION_TABLE_FILENAME="partitions.csv"
 ```
 
-This will trigger the binary creation with the predefined values from the `nvs.csv` file.
+Now we can change SSID and password without having to intervene directly in the application source code.
 
-Now you can handle and change the **SSID** and **password** as you prefer directly from the NVS.
-
-#### Assignment Code
+#### Complete code
 
 ```c
 #include <stdio.h>
@@ -320,6 +328,8 @@ esp_err_t get_wifi_credentials(void){
 
     err = nvs_get_str(nvs_mem_handle, "password", password, &pass_len);
     ESP_ERROR_CHECK(err);
+    
+    ESP_LOGI(TAG, "Retrieved ssid: %s, password: %s", ssid, password);
 
     nvs_close(nvs_mem_handle);
     return ESP_OK;
@@ -346,6 +356,6 @@ void app_main(void)
 
 ## Next step
 
-Too complicated? Let's make things easier.
+Does it seem complicated to you? Let's simplify it!
 
-[Assignment 5: Wi-Fi provisioning (EXTRA)](../assignment-5)
+[Assignment 5: Wi-Fi provisioning](../assignment-5)
