@@ -242,7 +242,7 @@ endmenu
 </details>
 
 
-You can find the whole solution project on the [assignment_1_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_2) folder on the github repo.
+You can find the complete solution project on the [assignment_1_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_2) folder on the github repo.
 
 
 > Next step: [Assignment 1.3](../assignment-1-3/)

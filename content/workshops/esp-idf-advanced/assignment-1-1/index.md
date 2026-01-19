@@ -50,7 +50,7 @@ Among the folders in the repository, `assignment_1_1_base` and `assignment_3_2_b
    * `> ESP-IDF: Build, Flash, and Start a Monitor on Your Device`<br>
       _(or hit the flame icon (&#128293;) located in the bottom bar)_
 
-You should now see the example running and connecting to your WiFi network and to the `mqtt://test.mosquitto.org` server. You can verify the connection by checking the terminal output. 
+You should now see the example running and connecting to your Wi-Fi network and to the `mqtt://test.mosquitto.org` server. You can verify the connection by checking the terminal output. 
 
 <details>
 <summary>Show terminal output</summary>
@@ -331,7 +331,7 @@ __`Kconfig`__
 ```
 </details>
 
-You can find the whole solution project on the [assignment_1_1](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_1) folder on the github repo.
+You can find the complete solution project on the [assignment_1_1](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_1) folder on the github repo.
 
 > Next step: [Assignment 1.2](../assignment-1-2/)
 
