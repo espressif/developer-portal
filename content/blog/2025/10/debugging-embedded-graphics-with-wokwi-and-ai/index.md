@@ -5,7 +5,14 @@ summary: "Learn how Wokwi simulation and AI-assisted debugging solved a subtle R
 showAuthor: false
 authors:
   - "juraj-michalek"
-tags: ["ESP32-S3", "Raylib", "Wokwi", "CI/CD", "Graphics", "Debugging", "Simulation", "AI"]
+tags:
+  - Wokwi
+  - practitioner
+  - debugging
+  - porting
+  - library
+  - AI
+  - CI/CD
 ---
 
 ## Introduction

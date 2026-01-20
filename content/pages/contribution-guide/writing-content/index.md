@@ -282,6 +282,11 @@ To embed a video in your article, upload it to a video streaming platform such a
 If you give your consent and share the video file with us, we can also upload it to BiliBili to make it accessible in more geographic areas.
 
 
+## Tag the content
+
+Assign tags to your content following the guidelines in [Tagging content](../tagging-content/).
+
+
 ## Use pre-commit
 
 This project has a [pre-commit][] hook that can perform the following checks:

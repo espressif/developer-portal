@@ -4,7 +4,13 @@ date: 2025-01-06
 showAuthor: false
 authors:
   - "pedro-minatel"
-tags: ["WLED", "Community", "LED", "Arduino", "OSS"]
+tags:
+  - Arduino
+  - beginner
+  - how-to
+  - community software
+  - WLED
+  - LED
 ---
 
 Making amazing lighting installations might seem very complex, requiring a lot of expensive hardware and software. However, it can't be further from the truth. With an ESP32 or ESP8266 at hand and with the help of some software from our wonderful community, this is not that complex. Try it yourself, and you will be pleasantly surprised.

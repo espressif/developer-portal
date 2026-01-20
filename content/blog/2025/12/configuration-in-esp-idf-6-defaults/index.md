@@ -4,8 +4,12 @@ date: 2025-12-22
 authors:
     - "jan-beran"
 tags:
-  - Configuration
+  - ESP-IDF
+  - practitioner
+  - overview
   - esp-idf-kconfig
+  - idf.py
+  - sdkconfig
 summary: This article explains what are the default values in the ESP-IDF configuration and how they are managed in the configuration system in ESP-IDF 6.1. The purpose and behavior of default values are described. This article also explains what is a conflict in default values and how to resolve it with the "idf.py refresh-config" command.
 ---
 

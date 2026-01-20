@@ -11,6 +11,8 @@ summary: "Replace it with a brief summary that captures the essence of (1) what 
 #  - Add author name(s) below
 authors:
   - "author-name" # same as in the file paths above
-# Add tags
-tags: ["Tag1", "Tag2"]
+# Add tags (for details, see https://developer.espressif.com/pages/contribution-guide/tagging-content/)
+tags:
+  - tag1
+  - tag2
 ---

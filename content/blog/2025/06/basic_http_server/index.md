@@ -5,7 +5,11 @@ showAuthor: false
 summary: "This article shows how to create a simple HTTP server. It explains the functions you need and the setup required. After reading this, you should be able to create your own HTTP server on Espressif devices."
 authors:
   - "francesco-bez"
-tags: ["ESP32C3", "HTTP", "Connectivity"]
+tags:
+  - ESP-IDF
+  - practitioner
+  - tutorial
+  - HTTP server
 ---
 
 ## Introduction
