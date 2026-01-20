@@ -1,7 +1,11 @@
 ---
 title: "Creating an Arduino Library for ESP32"
 date: 2025-12-15
-tags: ["Arduino", "ESP32", "Library", "Tutorial"]
+tags:
+  - Arduino
+  - beginner
+  - tutorial
+  - library
 showAuthor: false
 authors:
   - "lucas-vaz"
