@@ -1,7 +1,8 @@
 ---
 title: "Workshop: ESP-IDF a ESP32-C6"
 date: 2024-09-30T00:00:00+01:00
-tags: ["Workshop", "ESP-IDF", "ESP32-C6", "Espressif IDE"]
+lastmod: 2026-01-20
+tags: ["Workshop", "ESP-IDF", "ESP32-C6", "Espressif VSCode plugin"]
 
 ---
 
@@ -44,7 +45,7 @@ Potřebný software:
 
 - [Visual Studio Code](https://code.visualstudio.com/download)
 - [ESP-IDF plugin pro VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use)
-- Aplikace **ESP BLE Prov** vašem mobilním telefonu:
+- Aplikace **ESP BLE Prov**:
     - Android: [ESP BLE Prov](https://play.google.com/store/apps/details?id=com.espressif.provble&pcampaignid=web_share)
     - iOS: [ESP BLE Prov](https://apps.apple.com/us/app/esp-ble-provisioning/id1473590141)
 ## Časová náročnost
@@ -61,6 +62,6 @@ Pokud máte k workshopu jakýkoli feedback, neváhejte založit novou [diskuzi n
 
 ## Závěrem
 
-V celém Espressifu doufáme, že vám workshop přinese znalosti, které budou sloužit jako pevný základ pro vaše budoucí projekty. Díky za čas a úsilí, které jste workshopu věnovali, a těšíme se na projekty, které s našimi čipy v budoucnu vytvoříte!
+Doufáme, že vám workshop přinese znalosti, které budou sloužit jako pevný základ pro vaše budoucí projekty. Díky za čas a úsilí, které jste workshopu věnovali, a těšíme se na projekty, které s našimi čipy v budoucnu vytvoříte!
 
 ---

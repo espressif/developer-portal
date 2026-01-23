@@ -1,6 +1,7 @@
 ---
 title: "Workshop: ESP-IDF a ESP32-C6 - Úkol 4"
 date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
 series: ["WS001CZ"]
 series_order: 5
@@ -9,9 +10,9 @@ showAuthor: false
 
 ## Úkol 4: Totéž, ale s NVS
 
-V minulém úkolu jsme použili tu nejjednoduší možnost uložení SSID a hesla; definovali jsme si konstanty přímo v kódu. Nejen, že tenhle postup není ideální z hlediska změn, kdy každou změnu v SSID nebo heslu musíme aplikovat přímo v kódu a přehrát naši aplikaci. Tento způsob také přináší nemalá bezpečnostní rizika.
+V minulém úkolu jsme použili tu nejjednoduší možnost uložení SSID a hesla; definovali jsme si konstanty přímo v kódu. Nejen, že tenhle postup není ideální z hlediska změn, kdy každou změnu v SSID nebo heslu musíme aplikovat přímo v kódu a přeflashovat naši aplikaci. Tento způsob také přináší nemalá bezpečnostní rizika.
 
-V tomhle úkolu se podíváme, jak pracovat s [Non-Volatile-Storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/api-reference/storage/nvs_flash.html). Často se NVS říká "emulovaná EEPROM". ESP32 ale žádnou EEPROM vestavěnou nemá, takže NVS používá paměť flash.
+V tomhle úkolu se podíváme, jak pracovat s [Non-Volatile-Storage (NVS)](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/api-reference/storage/nvs_flash.html). Často se NVS říká "emulovaná EEPROM". ESP32 ale žádnou EEPROM vestavěnou nemá, takže NVS používá paměť flash (tu samou, kam ukládáme i naši aplikaci).
 
 {{< alert icon="circle-info">}}
 V tomhle úkolu použijeme ten samý projekt, který jsme používali v minulých dvou úkolech.
@@ -42,7 +43,7 @@ Tabulku naplníme pomocí "Add New Row" tak, jak je vidno na obrázku:
 
 {{< figure
     default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/nvs-1.webp"
+    src="assets/nvs-1.webp"
     title="Obsah partition tabulky"
     >}}
 
@@ -64,7 +65,7 @@ NVS editor otevřeme podobně: opět pomocí Ctrl + Shift + P otevřeme *Command
 
 {{< figure
     default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/nvs-2.webp"
+    src="assets/nvs-2.webp"
     title="Obsah NVS tabulky"
     >}}
 
@@ -324,6 +325,8 @@ esp_err_t get_wifi_credentials(void){
 
     err = nvs_get_str(nvs_mem_handle, "password", password, &pass_len);
     ESP_ERROR_CHECK(err);
+    
+    ESP_LOGI(TAG, "Retrieved ssid: %s, password: %s", ssid, password);
 
     nvs_close(nvs_mem_handle);
     return ESP_OK;

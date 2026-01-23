@@ -1,8 +1,9 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 2: Create a new project with Components"
-date: 2024-06-29T00:00:00+01:00
+title: "Workshop: ESP-IDF and ESP32-C6 - Assignment 2"
+date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
-series: ["WS001"]
+series: ["WS001EN"]
 series_order: 3
 showAuthor: false
 ---
@@ -11,91 +12,152 @@ showAuthor: false
 
 ---
 
-In this assignment, we will show how to use components to accelerate your development.
-Components are similar to libraries, adding new features like drivers for sensors, protocols, board support package, and any other feature that is not included in ESP-IDF by default. Certain components are already part of some examples and ESP-IDF also uses the external component approach to make ESP-IDF more modular.
+In this assignment, we will show how to work with **Components** and how to use them to speed up the development of your projects.
 
-Using components not only makes your project easier to maintain but also improves the development speed by reusing and sharing components with different projects.
+Components are similar to libraries (like those from Arduino IDE); they also contain various additional functionality that you wouldn't find in basic ESP-IDF. For example, let's mention various drivers for sensors, protocol components, or BSP, *board support package*, which will be discussed later. Some components are already a direct part of some ESP-IDF examples, but it is also possible to use external components thanks to the modular structure of ESP-IDF.
 
-If you want to create and publish your own component, we recommend that you watch the talk [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc).
+By using components, not only is project maintainability simplified, but its development is also significantly accelerated. Components also allow the same functionality to be reused across different projects.
+
+If you want to create and publish your own component (for example for your specific sensor), we recommend that you watch the talk [DevCon23 - Developing, Publishing, and Maintaining Components for ESP-IDF](https://www.youtube.com/watch?v=D86gQ4knUnc).
 
 {{< youtube D86gQ4knUnc >}}
 
-You can also find components using our [ESP Registry](https://components.espressif.com) platform.
+You can browse components, for example, through the [ESP Registry](https://components.espressif.com) platform.
 
-To show how to use components, we will create a new project from scratch and add the component LED strip. Later, we will change the approach to work with the Board Support Packages (BSP).
+We will demonstrate the use of components on a new project, where we will write a simple application from scratch that will blink the built-in RGB LED using a component for LED strips. Later we will show how we can use a BSP (*board support package*) component for the same purpose, which was mentioned above.
 
-### Hands-on with components
+### Working with components
 
-This hands-on guide will use a component for the RGB LED (WS2812) connected to `GPIO8` and the [Remote Control Transceiver](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) peripheral to control the data transfer to the addressable LEDs.
+We will use the following two components:
 
-1. **Create a new project**
+* Component for RGB LED (WS2812) strips, although in our case the LED "strip" will be only a single built-in LED connected to `GPIO8`.
+* [Remote Control Transceiver](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/peripherals/rmt.html) (RMT) component, which we will use to control the data flow to the LED.
 
-Create a new project in Espressif-IDE.
+1. **Creating a new project**
 
-**Command Line Interface**
+A new project can be created via GUI or command line. For those who don't work much with terminal (CLI), it can be somewhat scary, but in the future it will help you, for example, in situations where you will use ESP-IDF with an IDE other than VSCode (or completely standalone). Both examples are given below.
 
-To create the project from the command line interface (CLI), you can use the following command. Make sure you have your ESP-IDF installed.
+**GUI**
+
+Open ESP-IDF Explorer (Espressif icon in taskbar or via *View -> Open View -> ESP-IDF: Explorer*) and select **New Project Wizard** command (may be hidden in **Advanced** menu). Then proceed according to the pictures:
+
+{{< figure
+    default=true
+    src="assets/wizard-1.webp"
+    title="First step of creating a new project"
+    caption="Creating a new project. Serial port is not important, it can be changed later."
+    >}}
+
+{{< figure
+    default=true
+    src="assets/wizard-2.webp"
+    title="Second step of creating a new project"
+    caption="In the next step we choose what template to base our project on. We choose *get-started/hello_world* and create the project."
+    >}}
+
+
+After creating the project, an unobtrusive window will appear in the bottom right, which will ask you whether you want to open the newly created project in a new window. Click "Yes".
+
+**CLI**
+
+In the ESP-IDF Explorer in the *commands* tab, select ESP-IDF Terminal, which will open at the bottom of the screen. To create a new project:
+
+* Create and go to the folder where we want to have our project
+* Create the project
+* Go to it
 
 ```bash
+mkdir ~/my-workshop-folder 
+cd ~/my-workshop-folder 
 idf.py create-project my-workshop-project
 cd my-workshop-project
 ```
 
-Now you can set the SoC target by the following command:
+> If the `idf.py ...` commands don't work for you, make sure you're using ESP-IDF Terminal and not just a regular console.
+
+Now we need to set the so-called **target**. This word can have multiple meanings in the context of ESP-IDF, but in our case it will always mean **the type of SoC we are using**. In our case it is ESP32-C6 chip (via Builtin USB JTAG).
+
+In CLI there is a slight problem, as there may be a mismatch between VSCode and ESP-IDF, so it is better to set an environment variable instead of a command.
 
 ```bash
-idf.py set-target esp32c6
+export IDF_TARGET=esp32c6
+# idf.py set-target esp32c6
 ```
 
-This command will set the target for this project and it will build for the specified target only.
+Now we are ready to add the [espressif/led_strip](https://components.espressif.com/components/espressif/led_strip/versions/2.5.3) component. As already mentioned, the component will take care of all the necessary drivers for our LED "strip" with one built-in diode.
 
-The next step is to add the component [espressif/led_strip](https://components.espressif.com/components/espressif/led_strip/versions/2.5.3). This component will add all the necessary drivers for the addressable LED (board LED).
+2. **Adding a component**
 
-2. **Add the component**
+**GUI**
 
-Now we will add the component to the project.
+* Open *View -> Command Palette* (Ctrl + Shift + P or ⇧ + ⌘ + P) and type *ESP-IDF: Show ESP Component Registry* in the newly opened line. Now search for **espressif/led_strip** (searching may take a few seconds when seemingly nothing happens), click on the component, select the correct version (**2.5.3**) and click *Install*.
 
-> **Note**: Before adding the component, it is mandatory to do a project full clean, otherwise the CMake will not re-run.
+**WARNING:** We are using an older version of the component, don't forget to select it from
+
+{{< figure
+    default=true
+    src="assets/ledstrip-1.webp"
+    title="Installing led_strip component 1"
+    caption="Component search"
+    >}}
+
+{{< figure
+    default=true
+    src="assets/ledstrip-2.webp"
+    title="Installing led_strip component 2"
+    caption="Component installation"
+    >}}
+
+**CLI**
 
 ```bash
 idf.py add-dependency "espressif/led_strip^2.5.3"
 ```
 
-You will note that a new file, **idf_component.yml** will be created inside the main folder, after adding the dependency. On the first build, the folder **managed_components** will be created and the component will be downloaded inside this folder.
+You may notice that a new file named **idf_component.yml** has been created in the main project directory (**main**). On the first build, the **managed_components** folder will also be created and the component will be downloaded to it if it was added via CLI. If you added the component via GUI, everything will be created even without build.
 
 ```yaml
+# Contents of idf_component.yml
 dependencies:
   espressif/led_strip: "^2.5.3"
   idf:
-    version: ">=4.1.0"
+    version: ">=4.4"
 ```
 
-You can also change this file manually to include dependencies to your project.
+You can also add dependent components to this file manually, without using any commands.
 
-For this assignment, please follow the steps.
+Now we will throw ourselves into the programming itself.
 
-3. **Create a function to configure the LEDs and the RMT peripheral driver**
+3. **Creating a function that configures the LED and RMT driver**
 
-Include the `led_strip.h` header file.
+Let's open the file ``hello_world_main.c``. First we need to import the `led_strip.h` library...
 
 ```c
 #include "led_strip.h"
 ```
 
-and create the function to configure the LED.
+...declare the necessary constants...
 
 ```c
-led_strip_handle_t configure_led(void)
+// 10MHz resolution, 1 tick = 0.1us (led strip needs a high resolution)
+#define LED_STRIP_RMT_RES_HZ  (10 * 1000 * 1000)
+```
+
+...and create a function skeleton for configuration:
+
+```c
+led_strip_handle_t led_strip;
+void configure_led(void)
 {
     // Your code goes here
 }
 ```
 
-You will use this function for the following 3 steps.
+You will write the following 3 steps into this function in place of the comment `Your code goes here`.
 
-4. **Configure the LED strip**
+4. **LED "strip" configuration**
 
-Use the `led_strip_config_t` structure to configure the LED strip. For the **ESP32-C6-DevKit-C**, the LED model is the WS2812.
+We use the `led_strip_config_t` structure. For **ESP32-C6-DevKit-C**, the LED is of type WS2812.
 
 ```c
     led_strip_config_t strip_config = {
@@ -112,9 +174,9 @@ Use the `led_strip_config_t` structure to configure the LED strip. For the **ESP
     };
 ```
 
-5. **Configure the RMT driver**
+5. **RMT configuration**
 
-Use the `led_strip_rmt_config_t` structure to configure the RMT peripheral driver.
+We use the `led_strip_rmt_config_t` structure:
 
 ```c
     led_strip_rmt_config_t rmt_config = {
@@ -127,46 +189,61 @@ Use the `led_strip_rmt_config_t` structure to configure the RMT peripheral drive
     };
 ```
 
-6. **Create the RMT device**
+6. **Creating RMT device**
 
 ```c
 led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip);
 ```
 
-7. **Create the LED strip handle**
+7. **Creating an object for the LED "strip"**
+
+When we have the `configure_led()` function ready, we can call it in the main `app_main` function.
 
 ```c
-led_strip = configure_led();
+configure_led();
 ```
 
-8. **Set the LED RGB color**
+8. **Setting colors**
+
+To set the color, we use the `led_strip_set_pixel` function with the following parameters:
+- `led_strip`: our configured LED "strip" object
+- `0`: diode index in the strip (since we only have one, the index will always be 0)
+- `20`: red (RED) component with values between 0 and 255
+- `0`: green (GREEN) component with values between 0 and 255
+- `0`: blue (BLUE) component with values between 0 and 255
 
 ```c
 led_strip_set_pixel(led_strip, 0, 20, 0, 0);
 ```
 
-Where the arguments are:
+> Try different values for R,G,B channels!
 
-- `0` is the LED number (in this case 0 because we have only one)
-- `20` is the RED that could be from 0 to 255 (max brightness)
-- `0` is the GREEN that could be from 0 to 255 (max brightness)
-- `0` is the BLUE that could be from 0 to 255 (max brightness)
+9. **Update LED "strip" values**
 
-> You can try and change the RGB values to vary the color!
-
-9. **Refresh the LED strip**
-
-This function must be called to update the LED pixel color.
+Just setting the pixel value is not enough; for the values set in the previous step to take effect, the entire "strip" must first be refreshed:
 
 ```c
 led_strip_refresh(led_strip);
 ```
 
-To clear the RBG LED (off), you can use the function `led_strip_clear(led_strip)`.
+If we want to turn off the entire LED strip, we can use the function `led_strip_clear(led_strip);`.
 
-#### Assignment Code
+10. **Building and uploading code to the board**
 
-Here you can find the full code for this assignment:
+When our code is complete, we need to somehow get it into our board. The entire process can be divided into 4 steps:
+
+* Determining the **target**: the specific board we are using. In the *ESP-IDF explorer* tab in the *Commands* section, select **Set Espressif Device Target (IDF_TARGET)**, choose **esp32c6** and in the subsequent menu select **ESP32-C6 chip (via builtin USB-JTAG)**.
+* **Build**: building the application and creating a binary file that we will upload. In the same place as last time, click on the **Build Project** command.
+* Selecting the correct **serial port** to which our board is connected. We also set the serial port using a command in *ESP-IDF Explorer*, this time using **Select Port to Use**.
+* **Flash**: uploading the binary file to the board. The command of the same name will serve us for this, which can be found right next to the others. If VScode asks us about "flash method", we select "UART".
+
+If someone accidentally selects the wrong flash method (e.g. JTAG), just manually edit `"idf.flashType":` to `"UART"` in the `.vscode/settings.json` file.
+
+> All commands can also be invoked using *Command Palette*, which you open with the key combination Ctrl + Shift + P or ⇧ + ⌘ + P. However, the commands are sometimes named slightly differently (for example, instead of *Select Serial Port*, the command is called *ESP-IDF: Select Port to Use*). You can freely combine both approaches.
+
+#### Complete code
+
+Below you can find the complete and commented code for this assignment:
 
 ```c
 #include <stdio.h>
@@ -215,82 +292,75 @@ void app_main(void)
 }
 ```
 
-#### Expected results
+#### Expected result
 
-The LED should turn on in RED.
+The built-in LED should light up red.
 
-### Hands-on with BSP
+### Part two: the same, but with BSP
 
-Now you know how to add a new component to your project, we will introduce the concept of working with BSP.
+In the previous part, we learned how to add components to a project. Now let's talk about BSP - *board support package*.
 
-The Board Support Package (BSP) is a package that describes the supported peripherals in a particular board. For example, the **ESP32-C6-DevKit** has one button connected to the **GPIO9** and one addressable LED connected to the **GPIO8**. In the BSP for this development kit, we can assume that the configuration for both peripherals will be handled by the BSP and we do not need to set the GPIOs or to add any extra component for handling the peripherals.
+BSP is a component that allows easy configuration of peripherals (LED, button...) of some specific development board. Specifically, our **ESP32-C6-DevKit** has one button connected to **GPIO9** and one addressable LED on pin **GPIO8**. In the BSP for this specific board, these two peripherals will therefore be configured and if we use BSP, we don't have to worry about pin configuration or add any other components that would take care of the given peripherals.
 
-This development kit is quite simple for a BSP, but if we consider a more complex board, like the **ESP32-S3-BOX-3**, the BSP will handle all the peripherals, including the display, sensors, audio codecs, and LEDs for example.
+The example with our kit is relatively simple for BSP, but there are also more complex development boards, for example **ESP32-S3-BOX-3**. The BSP for this kit can therefore handle all peripherals, such as displays, sensors, LEDs, but also e.g. audio codecs. Everything in one package and without any additional components.
 
-Some of the advantages of using a BSP include:
+The advantages of using BSP are for example:
 
-- Easy initial configuration for the board features.
-- Code reuse across projects with the same board.
-- Reduces the board configuration mistakes.
-- Ensures that all the dependencies will be included on the project.
+- Easy initial configuration
+- Code reuse across different projects with the same development kit
+- Reduces the number of board configuration errors
+- Ensures that all necessary dependencies are part of the project
 
-For this hands-on guide, we will also show how to create a new project from the component example. The component to be used in this hands-on guide is [espressif/esp_bsp_generic](https://components.espressif.com/components/espressif/esp_bsp_generic/).
-Some of the components includes examples that shows on how to use the component. You can create a new project based on this example following these steps:
+In addition to working with BSP, we will also show how to create a project from some example that is part of a component, in our case the [espressif/esp_bsp_generic](https://components.espressif.com/components/espressif/esp_bsp_generic/) component and the example [examples/generic_button_led](https://components.espressif.com/components/espressif/esp_bsp_generic/versions/1.2.0/examples/generic_button_led?language=en). Some components also contain demonstration projects that show how to properly use such a component.
 
-1. **Create a new project from the example**
+Below we will describe how to do it:
 
-To create a new project from a component example, we will use the terminal and not the Espressif-IDE. This feature is not yet implemented inside the IDE.
+1. **Creating a new project from an example**
 
-Let's get the generic BSP [examples/generic_button_led](https://components.espressif.com/components/espressif/esp_bsp_generic/versions/1.2.0/examples/generic_button_led?language=en) and create a new project using the BSP.
-
-**Alternative way**
-
-If you are using the terminal, you can run the command below to create a new project from the example.
+To create a new project from an example that is part of a component, we need to move to the ESP-IDF command line for a while. We can invoke it either as the *ESP-IDF: Open ESP-IDF Terminal* command in *Command Palette* or find the *ESP-IDF Terminal* command as a button in the *Commands* section of our *ESP-IDF Explorer*. To avoid creating a project within a project, we first move up one directory.
 
 ```bash
+cd ..
 idf.py create-project-from-example "espressif/esp_bsp_generic^1.2.0:generic_button_led"
 ```
 
-This command will create all the necessary files with the example code ready to be configured.
-
-**Creating a new project**
-
-The way to use the BSP with the Espressif-IDE is to create a blank project and add the manifest file manually.
-
-To do that, create a new blank project for the ESP32-C6 and inside the `main` folder create the file `idf_component.yml` with the following content:
+Then we open the project in a new window (it will be in the same folder as the previous one) and **check** that the `main/idf_component.yaml` file looks as follows:
 
 ```yaml
-## IDF Component Manager Manifest File
 dependencies:
-  espressif/esp_bsp_generic: "^1.2.0"
-  ## Required IDF version
-  idf:
-    version: ">=4.1.0"
+  esp_bsp_generic:
+    version: ^1.2.0
+description: BSP Display example
 ```
 
-2. **Setup the peripherals**
+If, for example, the BSP version doesn't match, we change it to `^1.2.0`, as shown in the example above.
 
-Since we are using the generic BSP, we need to set the configuration parameters using the configuration menu.
+2. **Setting peripherals**
 
-- LED connected to the **GPIO8** via RMT (addressable)
+Since we are using generic BSP, we still won't avoid configuration. Again we will work with LED, so we need to set that our board has one LED on pin **GPIO8** (and we will control it using RMT).
 
-The configuration parameters can be set in the file `sdkconfig`.
+ESP-IDF uses the Kconfig language and the kconfiglib library to configure projects. We invoke the configuration menu using:
+- *SDK Configuration Editor (menuconfig)* command in *ESP-IDF: Explorer*
+- By searching for this command in *Command Palette* (Ctrl + Shift + P)
+- In CLI using the ``idf.py menuconfig`` command, called in the project root folder.
 
-> **Note**: If the `sdkconfig` file does not exist in the project folder, you need to build the project. This file is only created after the first build.
-
-On the SDK Configuration, go to `Component config` -> `Board Support Package (generic)`
+In the configuration menu, go to `Component config` -> `Board Support Package (generic)` and set:
 
 - **Buttons**
-  - Set `Number of buttons in BSP` to `0`
+  - `Number of buttons in BSP` to `0`
 - **LEDs**
-  - Set `LED type` to `Addressable RGB LED`
-  - Set `Number of LEDs in BSP` to `1`
-  - Set `Addressable RGB LED GPIO` to `8`
-  - Set `Addressable RGB LED backend peripheral` to `RMT`
+  - `LED type` to `Addressable RGB LED`
+  - `Number of LEDs in BSP` to `1`
+  - `Addressable RGB LED GPIO` to `8`
+  - `Addressable RGB LED backend peripheral` to `RMT`
+
+Finally, don't forget to save everything with the **Save** button in the top right.
+
+> The configuration menu invoked via ``idf.py menuconfig`` is controlled with arrows, you enter the menu with enter and exit it with backspace. The final exit is done with the Escape key and subsequent pressing (Y) to confirm saving.
 
 3. **Build and flash**
 
-Copy this code to the `main.c` file.
+Copy the code below into the `main.c` file of our BSP project:
 
 ```c
 #include <stdio.h>
@@ -306,15 +376,17 @@ void app_main(void)
 }
 ```
 
-Now you can build and flash (run) the example to your device.
+Now you can build and upload the project to your development board.
 
-> You might need to full clean your project before building if you have added the files and the component manually. For this, run:
+> If a problem occurred during assembly, try deleting build files:
 >
 > `idf.py fullclean`
+>
+> or *Full Clean* in *ESP-IDF Explorer*
 
-#### Extra
+#### Extra part
 
-To see the functionalities from this BSP, you can run the following code. You might need to change the configuration to add the button.
+If you want to try other functionality from this BSP, try running the following code. You may need to adjust the configuration and add a button.
 
 ```c
 #include <stdio.h>
@@ -349,7 +421,6 @@ static void btn_handler(void *button_handle, void *usr_data)
     led_indicator_start(leds[0], example_sel_effect);
 #endif
 }
-#endif
 
 void app_main(void)
 {
@@ -378,9 +449,8 @@ void app_main(void)
 }
 ```
 
-
 ## Next step
 
-Let there be light! Now it is time to connect to Wi-Fi!
+Let there be light! When we can do basic tasks with ESP and IDE, we are ready to connect to WiFi too!
 
 [Assignment 3: Connect to Wi-Fi](../assignment-3)

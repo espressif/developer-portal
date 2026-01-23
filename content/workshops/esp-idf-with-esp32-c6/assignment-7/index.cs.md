@@ -1,6 +1,7 @@
 ---
 title: "Workshop: ESP-IDF a ESP32-C6 - Úkol 7"
 date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
 series: ["WS001CZ"]
 series_order: 8
@@ -33,14 +34,14 @@ Můžete se podívat na DevCon23 talk [Low-Power Features of ESP32-C6: Target Wa
 
 #### ULP pinout
 
-Poznámka: LP jádro používá specifický set pinů. Pokud budete potřebovat vědět detaily, použijte [rozložení pinů](../introduction/#board-pin-layout), abyste věděli, které piny budou s LP jádrem spolupracovat.
+ULP jádro používá specifický set pinů. Pokud budete potřebovat vědět detaily, použijte [rozložení pinů](../introduction/#board-pin-layout), abyste věděli, které piny budou s LP jádrem spolupracovat.
 
 ### Praktická práce s LP jádrem
 
-V této ukázce si napíšeme kód, který rozbliká LED. Jednou se o řízení bude starat "velké" HP jádro, podruhé tutéž práci zastane LP jádro. Zkusíme přitom porovnat spotřebu. 
+V této ukázce si napíšeme kód, který rozbliká LED. Jednou se o řízení bude starat "velké" HP jádro, podruhé tutéž práci zastane ULP jádro. Zkusíme přitom porovnat spotřebu. 
 
 {{< alert icon="eye">}}
-**Pro tento úkol vytvoříme nový prázdný projekt.**
+**Pro tento úkol vytvoříme nový prázdný projekt.** Pro podrobnější instrukce navštivte 1. kapitolu (vytváření projektu z příkladu `hello world`).
 {{< /alert >}}
 
 1. **Vytvořte složku `main/ulp` a uvnitř soubor `main.c`**
@@ -96,13 +97,13 @@ V tomto kódu povolujeme přerušení (*interrupt*) na LP jádře pomocí `ulp_l
 
 Nyní se spustí smyčka pro blikání a *wake up counter*. Hodnota našeho GPIO je nastavená funkcí `ulp_lp_core_gpio_set_level`. Pokud je počet zmáčknutí tlačítka 4 nebo výše, spustí se HP jádro funkcí `ulp_lp_core_wakeup_main_processor`.
 
-2. **Změny v `CMakeLists.txt`**
+2. **Změny v `main/CMakeLists.txt`**
 
 V CMake musíme nastavit jméno ULP aplikace, zdrojové soubory a další...
 
 ```text
 # Set usual component variables
-set(app_sources "main.c")
+set(app_sources "hello_world_main.c")
 idf_component_register(SRCS ${app_sources}
                        REQUIRES ulp
                        WHOLE_ARCHIVE)
@@ -127,7 +128,7 @@ ulp_embed_binary(${ulp_app_name} "${ulp_sources}" "${ulp_exp_dep_srcs}")
 
 ```
 
-3. **Kód v `main.c` pro HP jádro**
+3. **Kód v `main/hello_world_main.c` pro HP jádro**
 
 ```c
 #include <stdio.h>
@@ -213,8 +214,8 @@ void app_main(void)
     init_ulp_program();
 
     /* Go back to sleep, only the ULP will run */
-    printf("Entering in deep sleep\n\n");
-    printf("Press the wake button at least 3 or 4 times to wakeup the main CPU again\n");
+    printf("Entering Deep-sleep mode\n\n");
+    printf("Press the wake button at least 3 or 4 times to wake up the main CPU again\n");
     vTaskDelay(10);
 
     ESP_ERROR_CHECK( esp_sleep_enable_ulp_wakeup());
@@ -260,7 +261,15 @@ Na tenhle příklad budete navíc potřebovat 2 LED a jedno tlačítko připojen
 
 - Modrá LED -> **GPIO4**
 - Zelená LED -> **GPIO5**
-- Čudlík (pull-down, active high) -> **GPIO0**
+- Čudlík (pull-down, active high) -> **GPIO0**. Jinak řečeno, jednu "stranu" tlačítka připojíme na **3.3V** a druhou na **GPIO0**. Navíc ještě mezi **GPIO0** a **GND** připojíme rezistor. 
+
+{{< figure
+    default=true
+    src="assets/button.webp"
+    title="Schéma tlačítka"
+    caption="Schéma tlačítka"
+    >}}
+
 
 6. **Build, flash, a monitor výstupu z desky**
 
@@ -275,14 +284,14 @@ In active mode
 Long press the wake button to put the chip to sleep and run the ULP
 ```
 
-Pokud dlouze stiskneme tlačítko, mělo by dojít k aktivaci LP jádra a přepnutí HP jádra do *deep sleep mode*. Modrá LED začne blikat s frekvení jedné vteřiny s následujícím výstupem:
+Pokud dlouze stiskneme tlačítko, mělo by dojít k aktivaci LP jádra a přepnutí HP jádra do *Deep-sleep mode*. Modrá LED začne blikat s frekvení jedné vteřiny s následujícím výstupem:
 
 ```text
-Entering in deep sleep
-Press the wake button at least 3 or 4 times to wakeup the main CPU again
+Entering Deep-sleep mode
+Press the wake button at least 3 or 4 times to wake up the main CPU again
 ```
 
-Probuzení z *deep sleep mode* provedeme čtyřkliknutím na tlačítko:
+Probuzení z *Deep-sleep mode* provedeme čtyřkliknutím na tlačítko:
 
 ```text
 ULP woke up the main CPU!
@@ -297,7 +306,7 @@ Pro měření spotřeby používáme vyvyedený konektor J5 a vhodný nástroj, 
 S využitím "velkého" HP jádra je průměrná spotřeba za 10 vteřin zhruba **22.32mA**.
 
 {{< gallery >}}
-  <img src="/workshops/esp-idf-with-esp32-c6/assets/ulp-hp-core.webp" />
+  <img src="assets/ulp-hp-core.webp" />
 {{< /gallery >}}
 
 **LED blikání s LP jádrem**
@@ -305,7 +314,7 @@ S využitím "velkého" HP jádra je průměrná spotřeba za 10 vteřin zhruba 
 Pokud ale aplikaci přeneseme na LP jádro, rázem spadneme o řád níže: **2.97mA**.
 
 {{< gallery >}}
-  <img src="/workshops/esp-idf-with-esp32-c6/assets/ulp-lp-core.webp" />
+  <img src="assets/ulp-lp-core.webp" />
 {{< /gallery >}}
 
 Když přepneme jádra, dosáhneme úspory (až) **86.7%** pro stejný úkol. Příklad je ale pouze orientační a reálně hodnoty se samozřejmě budou lišit. 

@@ -1,23 +1,23 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 7: Try using the Low Power core"
-date: 2024-06-24T00:00:00+01:00
+title: "Workshop: ESP-IDF and ESP32-C6 - Assignment 7"
+date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
-series: ["WS001"]
+series: ["WS001EN"]
 series_order: 8
 showAuthor: false
 ---
 
-## Assignment 7: Try using the Low Power core
+## Assignment 7: Low Power core
 
 ---
+ESP32-C6 has two cores: a high-power (HP) core for standard use and a low-power (LP) core to minimize consumption.
 
-The ESP32-C6 has 2 cores, the high-power (HP) core and the low-power (LP) core.
+The second core is often called **Ultra-Low-Power (ULP) core** mainly in English and is designed primarily to handle simple tasks while the main (HP) core is in sleep mode, which significantly reduces electrical energy consumption. This function will certainly be appreciated by those who build battery-powered projects, where it's not so much about performance, but rather about efficiency.
 
-Usually called **Ultra-Low-Power (ULP)**, the second core is designed to handle simple tasks while the HP core is in a sleep mode, which significantly reduces power consumption. This feature is particularly beneficial for battery-powered IoT devices where energy efficiency is critical.
+The ULP core can function independently of the HP core, where it can, for example, collect data from sensors and perform their basic processing, or control GPIO, all with absolutely minimal consumption and a 20 MHz clock, which is comparable to, for example, an Arduino UNO. If you are interested in a complete overview of what this core can do, visit the documentation on [ULP LP-Core Coprocessor Programming](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c6/api-reference/system/ulp-lp-core.html#).
 
-The ULP LP core can operate independently of the main HP core, performing tasks such as sensor data acquisition and processing, as well as controlling GPIOs with minimal power consumption. For the complete API reference, please go to the guide [ULP LP-Core Coprocessor Programming](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c6/api-reference/system/ulp-lp-core.html#).
-
-### The LP core
+### (U)LP core
 
 - 32-bit RISC-V core @20MHz
 - 16KB LP SRAM
@@ -28,27 +28,23 @@ The ULP LP core can operate independently of the main HP core, performing tasks 
   - UART
   - I2C
 
-You can watch the DevCon23 talk [Low-Power Features of ESP32-C6: Target Wake Time + LP Core](https://www.youtube.com/watch?v=FpTwQlGtV0k), which covers the LP features and the TWT. Please save to watch later as a complementary material.
+You can watch the DevCon23 talk [Low-Power Features of ESP32-C6: Target Wake Time + LP Core](https://www.youtube.com/watch?v=FpTwQlGtV0k), which covers some aspects of the LP core and TWT.
 
 {{< youtube FpTwQlGtV0k >}}
 
 #### ULP pinout
 
-Note that the ULP uses a specific set of pins. Please use the [board pin layout](../introduction/#board-pin-layout) to know which pins you can use to access the ULP LP core.
+The ULP core uses a specific set of pins. If you need to know the details, use the [pin layout](../introduction/#board-layout) to know which pins will work with the LP core.
 
-### Hands-on with the LP core
+### Practical work with LP core
 
----
+In this demo, we will write code that blinks an LED. Once the "big" HP core will take care of the control, the second time the ULP core will do the same job. We will try to compare consumption at the same time.
 
-For this hands-on, we will walk through the ULP programming to create a blink program to run on the HP core and on the LP core to compare the power consumption on a similar task.
-
-**This hands-on requires the [ESP-IDF v5.4](https://github.com/espressif/esp-idf/tree/master) (master branch) and some additional hardware (LED and button)**
-
-{{< alert icon="circle-info">}}
-For this assignment, you will need to create a new blank project.
+{{< alert icon="eye">}}
+**For this assignment, we will create a new empty project.** For more detailed instructions, visit chapter 1 (creating a project from the `hello world` example).
 {{< /alert >}}
 
-1. **Create the `main/ulp` folder and `main.c` file**
+1. **Create the `main/ulp` folder and a `main.c` file inside**
 
 ```c
 #include <stdint.h>
@@ -97,18 +93,17 @@ int main (void)
 }
 ```
 
-In this code, the interrupt for the push button (wakeup) will be enabled on the LP core by the function `ulp_lp_core_intr_enable` and the GPIO0 will be set as the input pin, triggered by the positive edge (when the state goes from low to high) and attached to the interrupt by the function `ulp_lp_core_gpio_intr_enable`. The wake up counter will be handled by the interrupt handler `ulp_lp_core_lp_io_intr_handler`.
+In this code, we enable interrupts on the LP core using `ulp_lp_core_intr_enable`, while setting `GPIO0` as an input pin, activated by a rising edge (signal transition from LOW to HIGH state). We use the `ulp_lp_core_gpio_intr_enable` function to connect the pin and interrupt. The *Wake up counter* will be handled by the *interrupt handler* `ulp_lp_core_lp_io_intr_handler`.
 
-Now the loop for the blink and the wakeup counter check will start. The GPIO level is set by the function `ulp_lp_core_gpio_set_level`. If the number of pushes is 4 or higher, the HP core will wake up by the function `ulp_lp_core_wakeup_main_processor`.
+Now a loop for blinking and *wake up counter* starts. The value of our GPIO is set by the `ulp_lp_core_gpio_set_level` function. If the number of button presses is 4 or more, the HP core is started by the `ulp_lp_core_wakeup_main_processor` function.
 
-2. **Change the `CMakeLists.txt`**
+2. **Change the `main/CMakeLists.txt` file**
 
-You need to set the ULP application name, source files, etc.
+In CMake we need to set the ULP application name, source files and more...
 
 ```text
 # Set usual component variables
-set(app_sources "main.c")
-
+set(app_sources "hello_world_main.c")
 idf_component_register(SRCS ${app_sources}
                        REQUIRES ulp
                        WHOLE_ARCHIVE)
@@ -133,7 +128,7 @@ ulp_embed_binary(${ulp_app_name} "${ulp_sources}" "${ulp_exp_dep_srcs}")
 
 ```
 
-3. **Change the `main.c` for the HP core**
+3. **Change the `main/hello_world_main.c` file for the HP core**
 
 ```c
 #include <stdio.h>
@@ -219,8 +214,8 @@ void app_main(void)
     init_ulp_program();
 
     /* Go back to sleep, only the ULP will run */
-    printf("Entering in deep sleep\n\n");
-    printf("Press the wake button at least 3 or 4 times to wakeup the main CPU again\n");
+    printf("Entering Deep-sleep mode\n\n");
+    printf("Press the wake button at least 3 or 4 times to wake up the main CPU again\n");
     vTaskDelay(10);
 
     ESP_ERROR_CHECK( esp_sleep_enable_ulp_wakeup());
@@ -243,9 +238,10 @@ static void init_ulp_program(void)
 }
 ```
 
-4. **Enable the ULP on the SDK configuration**
+4. **Enable the LP core in the configuration**
 
-To enable the ULP, we need to set the following configurations in the `sdkconfig`. You can create the `sdkconfig.defaults` with the following content:
+To enable the LP core and be able to compile for it, we need to set the following configuration parameters in the project configuration.
+For example, by creating `sdkconfig.defaults` with the following content:
 
 ```text
 # Enable ULP
@@ -261,33 +257,40 @@ CONFIG_LOG_DEFAULT_LEVEL=2
 
 5. **Hardware setup**
 
-For this example, you will need 2 LEDs and one push button connected as follows:
+For this example, you will also need 2 LEDs and one button connected to the following pins:
 
 - Red LED -> **GPIO4**
 - Green LED -> **GPIO5**
-- Push button (pull-down, active high) -> **GPIO0**
+- Button (pull-down, active high) -> **GPIO0**. In other words, we connect one "side" of the button to **3.3V** and the other to **GPIO0**. Additionally, we connect a resistor between **GPIO0** and **GND**.
 
-6. **Build, flash, and monitor the log output**
+{{< figure
+    default=true
+    src="assets/button.webp"
+    title="Button pinout"
+    caption="Button pinout"
+    >}}
 
-For the ULP flashing and monitoring, please use the USB port labeled as **UART**. We recommend you do **Erase Flash** before flashing this example.
+6. **Build, flash, and monitor output from the board**
 
-#### Expected results on the ULP assignment
+Check that you are using the USB port labeled **UART** for uploading and subsequent monitoring of output. You won't break anything by erasing the flash memory (command *Erase Flash*) before we upload this example.
 
-After flashing, the green LED will start blinking every 1 second with the following log output.
+#### What should happen...
+
+After flashing, the green LED should start blinking every second with the following output:
 
 ```text
 In active mode
 Long press the wake button to put the chip to sleep and run the ULP
 ```
 
-Now to enter deep sleep and activate the ULP, long-press the push button, then the red LED will start blinking every 1 second with the following log output:
+If we press and hold the button for a few seconds, the LP core should be activated and the HP core should switch to *Deep-sleep mode*. The red LED starts blinking at a frequency of one second with the following output:
 
 ```text
-Entering in deep sleep
-Press the wake button at least 3 or 4 times to wakeup the main CPU again
+Entering Deep-sleep mode
+Press the wake button at least 3 or 4 times to wake up the main CPU again
 ```
 
-To wake up from deep sleep, press the push button 4 times.
+To wake up from *Deep-sleep mode*, press the push button four times:
 
 ```text
 ULP woke up the main CPU!
@@ -295,27 +298,23 @@ In active mode
 Long press the wake button to put the chip to sleep and run the ULP
 ```
 
-To measure the power consumption, we use the **J5** jumper and a power analysis tool, like the [JouleScope](https://www.joulescope.com/) or the [PPK2](https://www.nordicsemi.com/Products/Development-hardware/Power-Profiler-Kit-2).
+For power consumption measurement, we use the exposed J5 connector and a suitable tool, such as [JouleScope](https://www.joulescope.com/) [PPK2](https://www.nordicsemi.com/Products/Development-hardware/Power-Profiler-Kit-2).
 
-**LED blink running on HP core**
+**LED blinking with HP core**
 
-Running on the HP core, the average power consumption in a 10 seconds window is: **22.32mA**.
+Using the "big" HP core, the average consumption over 10 seconds is approximately **22.32mA**.
 
-{{< gallery >}}
-  <img src="../assets/ulp-hp-core.webp" />
-{{< /gallery >}}
+<img src="assets/ulp-hp-core.webp" />
 
-**LED blink running on the LP core**
+**LED blinking with LP core**
 
-Running on the LP core, the average power consumption in a 10 seconds window is: **2.97mA**.
+But if we transfer the application to the LP core, the average power consumption in a 10 seconds window lowers by the order of magnitude: **2.97mA**.
 
-{{< gallery >}}
-  <img src="../assets/ulp-lp-core.webp" />
-{{< /gallery >}}
+<img src="assets/ulp-lp-core.webp" />
 
-When switching from the HP core to the LP core, the power reduces approximately by **86.7%** for a similar task.
+When we switch cores, we achieve savings of (up to) **86.7%** for the same task. However, the example is only indicative and the actual values will of course differ.
 
-You can explore more examples for the ULP, including:
+More examples with LP core (in English):
 
 - [LP Core simple example with GPIO Polling](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/gpio)
 - [LP Core Pulse Counting Example](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/gpio_intr_pulse_counter)
@@ -323,72 +322,20 @@ You can explore more examples for the ULP, including:
 - [LP I2C Example](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/lp_i2c)
 - [LP UART Examples](https://github.com/espressif/esp-idf/tree/master/examples/system/ulp/lp_core/lp_uart)
 
-#### Extra: Power Management
-
-If you are not using Wi-Fi 6, you can still reduce power consumption between the beacon packages.
-
-The new power management logic present on all Wi-Fi capable SoCs allows you to reduce power consumption on Wi-Fi connection when using the DTIM1. By enabling this feature, the HP core will sleep between the beacon packets.
-
-1. **Create a new project using the power management example**
-
-Create a new project based on the example `wifi/power_save`.
-
-2. **Set the SDK configuration**
-
-Change the `sdkconfig` file to set the Wi-Fi credentials and the power save mode.
-
-3. **Build, flash, and monitor**
-
-Now build and flash the application.
-
-4. **Results**
-
-You can use the **J5** jumper to measure the power consumption using your favorite power measurement tool.
-
-Here you can see the power consumption in three different modes.
-
-**Power save mode: none**
-
-Average power consumption in this mode: **74.87mA**
-
-{{< gallery >}}
-  <img src="../assets/power-save-none.webp" />
-{{< /gallery >}}
-
-**Power save mode: minimum modem**
-
-Average power consumption in this mode: **23.84mA**
-
-{{< gallery >}}
-  <img src="../assets/power-save-minimum.webp" />
-{{< /gallery >}}
-
-**Power save mode: maximum modem**
-
-Average power consumption in this mode: **13.46mA**
-
-{{< gallery >}}
-  <img src="../assets/power-save-maximum.webp" />
-{{< /gallery >}}
-
-This power save option can be used to reduce the power consumption on battery operated devices, when the Wi-Fi 6 TWT is not an option. You can use this feature on any ESP32 with the Wi-Fi capability.
-
 ## Conclusion
 
-Thank you for participating in this workshop about ESP-IDF and the ESP32-C6. We hope you found the sessions informative and the assignments engaging.
+Thank you very much for participating in our workshop and we hope it brought you something useful!
 
-Throughout this workshop, we covered a range of essential skills:
+During the workshop, we went through several different topics:
 
-- **Assignment 1**: You successfully installed the Espressif-IDE to have all necessary tools to start development.
-- **Assignment 2**: You learned how to create a new project with components, which is crucial for structuring and managing your projects effectively.
-- **Assignment 3**: You connected to Wi-Fi, a fundamental step for many IoT applications.
-- **Assignment 4**: You tried using NVS (Non-Volatile Storage) and gained the ability to manage persistent data.
-- **Assignment 5 (EXTRA)**: You explored Wi-Fi provisioning and gained insights into setting up and configuring Wi-Fi networks.
-- **Assignment 6 (EXTRA)**: You delved into various communication protocols supported by the ESP32-C6, including implementing the TSL certificate bundle for secure communications.
-- **Assignment 7**: You utilized the LP core and learned how to manage power consumption efficiently using the low-power core.
+- **Assignment 1**: We successfully installed ESP-IDF and learned the basics of its use.
+- **Assignment 2**: We learned how to create a new project, what components are and how to work with them.
+- **Assignment 3**: We connected to Wi-Fi, which is probably the most important step in the entire IoT world.
+- **Assignment 4**: We tried NVS (Non-Volatile Storage) and working with persistent data. We also talked about what a *partition table* is and how to modify it.
+- **Assignment 5**: We tried *Wi-Fi provisioning* and learned how to take Wi-Fi configuration on our devices to the next level.
+- **Assignment 6**: We dove into some of the protocols that ESP32-C6 supports, including TLS certificates for secure communication.
+- **Assignment 7**: We tried the LP core and learned how to control consumption.
 
-By completing these assignments, you have gained a comprehensive understanding of the ESP32-C6 SoC and the ESP-IDF. This knowledge will serve as a solid foundation for building efficient and powerful IoT applications.
+Even though we went through several quite diverse topics, we barely scratched the surface. Both ESP32 and ESP-IDF offer much more. However, we all hope that with this workshop we have given you a solid foundation on which you will be able to continue working and developing your projects on your own.
 
-We hope that the skills and insights you have gained will inspire you to create innovative solutions with the ESP32-C6 SoC and the ESP-IDF. Your time and engagement in this workshop are greatly appreciated, and we look forward to seeing the impressive projects you will develop in the future.
-
-Thank you once again for your participation!
+Thank you once again for participating and we look forward to your projects!
