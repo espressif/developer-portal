@@ -11,7 +11,7 @@ tags:
   - esp-idf-kconfig
   - idf.py
   - sdkconfig
-summary: This article explains what are the default values in the ESP-IDF configuration and how they are managed in the configuration system in the ESP-IDF v6. The purpose and behavior of default values are described. This article also explains what is a conflict in default values and how to resolve it with the "idf.py refresh-config" command.
+summary: This article explains what are the default values in the ESP-IDF configuration and how they are managed in the configuration system in the upcoming ESP-IDF v6. The purpose and behavior of default values are described. This article also explains what is a conflict in default values and how to resolve it with the "idf.py refresh-config" command.
 ---
 
 ## Introduction
@@ -21,6 +21,12 @@ ESP-IDF allows users to control many aspects of the build process and behavior o
 We will first explain how configuration works in ESP-IDF v5, which has been a standard for a long time. We also demonstrate how default values are managed in ESP-IDF v5 and specify what is the issue with the current solution and how we can overcome it.
 
 Then, we will move to the new process of managing default values, which is available in the ESP-IDF v6.0. We will learn how this configuration system handles default values and how their behavior differs from the previous version when `idf.py menuconfig` is executed. We will also explain what is a default value conflict and how to resolve it with the `idf.py refresh-config` command, available in ESP-IDF v6.1+ and what are the alternatives for ESP-IDF v6.0.
+
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
+
+Currently (January of 2026), ESP-IDF v6.1 is not released yet and v6.0 is a beta/pre-release. However, you can still try and test features described in this article by using [ESP_IDF master branch from Github](https://github.com/espressif/esp-idf).
+
+{{< /alert >}}
 
 ## Configuration in ESP-IDF v5 and Older
 
