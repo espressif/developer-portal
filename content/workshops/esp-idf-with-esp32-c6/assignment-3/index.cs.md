@@ -1,6 +1,7 @@
 ---
 title: "Workshop: ESP-IDF a ESP32-C6 - Úkol 3"
 date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
 series: ["WS001CZ"]
 series_order: 4
@@ -13,7 +14,7 @@ showAuthor: false
 
 Nyní je konečně čas připojit naši ESP32-C6 k Wi-Fi síti. ESP32-C6 podporuje oba standardy Wi-Fi 4 a Wi-Fi 6 na frekvenci 2.4 GHz.
 
-[Wi-Fi konektivita](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32c6/api-reference/network/esp_wifi.html) je jednou z nejdůležitějších vlastností většiny čipů z rodiny ESP32 a je to jedna z podstatných součástí jejich úspěchu. Díky Wi-Fi je možné vaše IoT zařízení připojit k internetu a skutečně využít všechny jeho funkce. Tím se nutně nemyslí jen připojení ke cloudovým službám, ale také např. *over-the-air (OTA)* updaty, vzdálené ovládání a monitoring a mnohem víc.
+[Wi-Fi konektivita](https://docs.espressif.com/projects/esp-idf/en/release-v5.5/esp32c6/api-reference/network/esp_wifi.html) je jednou z nejdůležitějších vlastností většiny čipů z rodiny ESP32 a je to jedna z podstatných součástí jejich úspěchu. Díky Wi-Fi je možné vaše IoT zařízení připojit k internetu a skutečně využít všechny jeho funkce. Tím se nutně nemyslí jen připojení ke cloudovým službám, ale také např. *over-the-air (OTA)* updaty, vzdálené ovládání a monitoring a mnohem víc.
 
 ESP32 podporuje dva módy: *Station* a *SoftAP*:
 
@@ -24,7 +25,14 @@ Pro tento úkol znovupoužijeme projekt, se kterým jsme pracovali při minulém
 
 #### Připojení k Wi-Fi
 
-Abychom mohli začít Wi-Fi používat, potřebujeme nastavit ovladač Wi-Fi: musíme zadat **SSID** a **heslo**.
+Abychom mohli začít Wi-Fi používat, musíme frameowrku říct, že budeme používat Wi-Fi:
+do souboru `main/CMakeLists.txt`, specificky do funkce `idf_component_register` přidáme násleudjící řádek:
+
+```text
+REQUIRES esp_wifi esp_netif esp_event nvs_flash
+```
+
+Nyní potřebujeme nastavit ovladač Wi-Fi: musíme zadat **SSID** a **heslo**.
 
 1. **Zkopírujeme si kostru**
 
@@ -49,7 +57,7 @@ Abychom mohli začít Wi-Fi používat, potřebujeme nastavit ovladač Wi-Fi: mu
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
 
-static led_indicator_handle_t leds[BSP_LED_NUM];
+static led_indicator_handle_t leds[1];
 
 static EventGroupHandle_t s_wifi_event_group;
 static int s_retry_num = 0;
@@ -59,7 +67,7 @@ static const char *TAG = "workshop";
 // TODO handler
 
 void wifi_init_sta(void)
-{WS001
+{
     s_wifi_event_group = xEventGroupCreate();
    //TODO
 }
@@ -80,7 +88,7 @@ void app_main(void)
 
 2. **Inicializace Wi-Fi**
 
-Inicializace Wi-Fi se skládá z těchto kroků, kteeré doplníme do funkce `wifi_init_sta()`:
+Inicializace Wi-Fi se skládá z těchto kroků, které doplníme do funkce `wifi_init_sta()`:
 
 - Inicializace TCP/IP stacku:
 
@@ -167,11 +175,9 @@ Inicializace Wi-Fi se skládá z těchto kroků, kteeré doplníme do funkce `wi
     }
 ```
 
-Další části nejsou nutné, ale jsou užitečné.
-
 3. **Vytvoření Wi-Fi event handler-u**
  
-Ten nebude součástí ani `app_main` ani `wifi_init_sta`, ale bude na stejné úrovni jako tyto dvě funkce:
+Ten nebude součástí ani `app_main` ani `wifi_init_sta`, ale bude na stejné úrovni jako tyto dvě funkce. Musí se nacházet před `wifi_init_sta`, na místě komentáře `//TODO event handler`:
 
 ```c
 static void event_handler(void* arg, esp_event_base_t event_base,
@@ -202,7 +208,7 @@ static void event_handler(void* arg, esp_event_base_t event_base,
 
 4. **Kontrola inicializace NVS**
 
-O NVS bude řeč v příštím úkolu, nyní to tedy bude trochu *blackbox*. Tneto kód doplníme do `app_main`.
+O NVS bude řeč v příštím úkolu, nyní to tedy bude trochu *blackbox*. Tento kód doplníme do `app_main`.
 
 ```c
     esp_err_t ret = nvs_flash_init();
@@ -211,24 +217,23 @@ O NVS bude řeč v příštím úkolu, nyní to tedy bude trochu *blackbox*. Tne
       ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
+
+    ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
+    ESP_LOGI(TAG, "LEDs initialized successfully");
+    led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
 ```
 
 5. **Inicializace Wi-Fi**
 
-Posledním krokem je zavolání naší funkce:
+Posledním krokem je zavolání naší funkce v `app_main`:
 
 ```c
 wifi_init_sta();
 ```
 
+Nyní už můžete svůj kód sestavit a nahrát. 
+
 Funkce `ESP_LOGI` a `ESP_LOGE` vypisují data do seriové linky. Poté, co nahrajeme program do vývojové desky, můžeme otevřít komunikaci s deskou pomocí příkazu *Monitor* v ESP-IDF Exploreru nebo pomocí *ESP-IDF: Monitor Device* přes *Command Pallete*.
-
-Nyní už můžete svůj kód sestavit a nahrát. Pokud budete mít problém s překladem, kdy vám bude systém hlásit `fatal error: esp_wifi.h: No such file or directory`, přidejte následující text do `main/CMakeLists.txt`, specificky do funkce `idf_component_register`:
-
-```text
-REQUIRES esp_wifi esp_netif esp_event nvs_flash
-```
-
 
 #### Kompletní kód
 
@@ -255,7 +260,7 @@ Níže můžete najít kompletní kód pro tento úkol:
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT      BIT1
 
-static led_indicator_handle_t leds[BSP_LED_NUM];
+static led_indicator_handle_t leds[1];
 
 static EventGroupHandle_t s_wifi_event_group;
 static int s_retry_num = 0;
@@ -349,6 +354,7 @@ void app_main(void)
     ESP_ERROR_CHECK(ret);
 
     ESP_ERROR_CHECK(bsp_led_indicator_create(leds, NULL, BSP_LED_NUM));
+    ESP_LOGI(TAG, "LEDs initialized successfully");
     led_indicator_set_rgb(leds[0], SET_IRGB(0, 0x0, 0x0, 0x20));
 
     wifi_init_sta();

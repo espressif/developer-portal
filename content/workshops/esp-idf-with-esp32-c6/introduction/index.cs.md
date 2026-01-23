@@ -1,6 +1,7 @@
 ---
 title: "Workshop: ESP-IDF a ESP32-C6: Úvod"
 date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
 series: ["WS001CZ"]
 series_order: 1
@@ -28,7 +29,7 @@ Architektura frameworku ESP-IDF je rozdělená do 3 vrstev:
 
 {{< figure
     default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/esp-idf-highlevel.webp"
+    src="assets/esp-idf-highlevel.webp"
     >}}
 
 ### Frameworks
@@ -53,11 +54,9 @@ ESP-IDF se stále vyvíjí. Pro aktuální informace o podporovaných verzích n
 
 ESP32-C6 je *ultra-low-power* čip s architekturou RISC-V. Obsahuje jedno "plnohodnotné" a jedno ULP (*ultra-low-power*) jádro a podporuje všechny běžné bezdrátové technologie:  2.4 GHz Wi-Fi 6 (802.11ax), Bluetooth® 5 (LE), Zigbee a Thread (802.15.4). K dispozici je volitelná 4MB flash paměť přímo v pouzdře čipu, 22 nebo 30 GPIO pinů a bohatá nabídka periferií:
 
-{{< figure
-    default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/esp32-c6-diagram.webp"
-    title="Blokový diagram ESP32-C6"
-    >}}
+{{< gallery >}}
+  <img src="assets/esp32-c6-diagram.webp" class="grid-w22" />
+{{< /gallery >}}
 
 
 - 30 (QFN40) nebo 22 (QFN32) pinů
@@ -116,27 +115,16 @@ Níže jsou uvedené základní vlastnosti vývojého kitu:
 
 #### Popis desky
 
-{{< figure
-    default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/esp32-c6-devkitc-1-v1.2-annotated-photo.webp"
-    title="Schéma kitu ESP32-C6-DevKit-C"
-    >}}
-  
-{{< figure
-    default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/esp32-c6-devkitc-1-v1.2-block-diagram.webp"
-    title="Blokový diagram kitu ESP32-C6-DevKit-C"
-    >}}
+{{< gallery >}}
+  <img src="assets/esp32-c6-devkitc-1-v1.2-annotated-photo.webp" class="grid-w22" />
+  <img src="assets/esp32-c6-devkitc-1-v1.2-block-diagram.webp" class="grid-w22" />
+{{< /gallery >}}
 
 #### Pinout desky
 
-
-
-{{< figure
-    default=true
-    src="/workshops/esp-idf-with-esp32-c6/assets/esp32-c6-devkitc-1-pin-layout.webp"
-    title="Pinout kitu ESP32-C6-DevKit-C"
-    >}}
+{{< gallery >}}
+  <img src="assets/esp32-c6-devkitc-1-pin-layout.webp" class="grid-w22" />
+{{< /gallery >}}
 
 #### J1 pinové pole
 
