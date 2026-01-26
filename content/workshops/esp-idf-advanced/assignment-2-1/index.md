@@ -258,7 +258,7 @@ void app_main(void)
 
 </details>
 
-You can find the whole solution project in the [assignment_2_1](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_2_1) folder in the GitHub repo.
+You can find the complete solution project in the [assignment_2_1](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_2_1) folder in the GitHub repo.
 
 ## Conclusion
 
