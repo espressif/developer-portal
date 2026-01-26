@@ -1,6 +1,7 @@
 ---
-title: "Changes in the Configuration System in ESP-IDF 6.1: Default Values"
+title: "Changes in the Configuration System in ESP-IDF v6: Default Values"
 date: 2025-12-22
+lastmod: 2026-01-22
 authors:
     - "jan-beran"
 tags:
@@ -10,7 +11,7 @@ tags:
   - esp-idf-kconfig
   - idf.py
   - sdkconfig
-summary: This article explains what are the default values in the ESP-IDF configuration and how they are managed in the configuration system in ESP-IDF 6.1. The purpose and behavior of default values are described. This article also explains what is a conflict in default values and how to resolve it with the "idf.py refresh-config" command.
+summary: This article explains what are the default values in the ESP-IDF configuration and how they are managed in the configuration system in the upcoming ESP-IDF v6. The purpose and behavior of default values are described. This article also explains what is a conflict in default values and how to resolve it with the "idf.py refresh-config" command.
 ---
 
 ## Introduction
@@ -19,7 +20,13 @@ ESP-IDF allows users to control many aspects of the build process and behavior o
 
 We will first explain how configuration works in ESP-IDF v5, which has been a standard for a long time. We also demonstrate how default values are managed in ESP-IDF v5 and specify what is the issue with the current solution and how we can overcome it.
 
-Then, we will move to the new process of managing default values, which is available in the ESP-IDF 6.1. We will learn how configuration system in ESP-IDF 6.1 handles default values and how their behavior differs from the previous version when `idf.py menuconfig` is executed. We will also explain what is a default value conflict and how to resolve it with the `idf.py refresh-config` command.
+Then, we will move to the new process of managing default values, which is available in the ESP-IDF v6.0. We will learn how this configuration system handles default values and how their behavior differs from the previous version when `idf.py menuconfig` is executed. We will also explain what is a default value conflict and how to resolve it with the `idf.py refresh-config` command, available in ESP-IDF v6.1+ and what are the alternatives for ESP-IDF v6.0.
+
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
+
+Currently (January of 2026), ESP-IDF v6.1 is not released yet and v6.0 is a beta/pre-release. However, you can still try and test features described in this article by using [ESP_IDF master branch from Github](https://github.com/espressif/esp-idf).
+
+{{< /alert >}}
 
 ## Configuration in ESP-IDF v5 and Older
 
@@ -113,11 +120,11 @@ If you look at the definition of the `OPTION` config option from the Kconfig, yo
 
 As said before, configuration system saves the values for all config options in the sdkconfig file. However, when it loads those values back, it "locks" config options on those values -- meaning their default values (as we saw them in Kconfig file) will no longer be in use and only user-made changed will be applied. This can lead to confusing situations, like the one just described.
 
-{{< figure default=true src="img/menuconfig.webp" height=500 caption="How menuconfig loads and saves values in ESP-IDF v5." >}}
+{{< figure default=true src="img/menuconfig.webp" height=500 caption="How menuconfig loads and saves values in ESP-IDF v5.x" >}}
 
-## Configuration in ESP-IDF 6.1
+## Configuration in ESP-IDF v6
 
-The new configuration system solves this problem by storing not only the value for every config option, but also the information whether the value is user-set or default. Let's go through the process again and explain the differences.
+The new configuration system, which is available in ESP-IDF v6.0 and newer, solves this problem by storing not only the value for every config option, but also the information whether the value is user-set or default. Let's go through the process again and explain the differences.
 
 When a fresh project is built for the first time, configuration system loads the relevant Kconfig files and saves default values to the sdkconfig file like before, but this time it adds additional `# default:` marks:
 
@@ -141,7 +148,7 @@ CONFIG_OPTION=0
 ```
 The `CONDITIONAL_OPTION` option no longer have the `# default:` mark, which is expected since we manually assigned user-set value to it. What is noteworthy is that `OPTION` **registered this change**; the original condition for the first default value is no longer valid, so the system now applies the second default value instead.
 
-{{< figure default=true src="img/new_menuconfig.webp" height=500 caption="How menuconfig loads and saves values in ESP-IDF v6." >}}
+{{< figure default=true src="img/new_menuconfig.webp" height=500 caption="How menuconfig loads and saves values in ESP-IDF v6.x" >}}
 
 ### Default Value Conflicts
 
@@ -177,25 +184,28 @@ Or, if there is not only one config option that has changed, but several, we wan
 
 #### idf.py refresh-config
 
-The `idf.py refresh-config` command solves default value conflicts in respect to the policy specified by `--policy` argument, which can have following values:
+The `idf.py refresh-config` command, which is available in ESP-IDF v6.1+, solves default value conflicts in respect to the policy specified by `--policy` argument, which can have following values:
 
 * `sdkconfig`: default values from sdkconfig file will be used. In our case, the `OPTION` config option would have default value 0.
 * `kconfig`: default values from Kconfig file will be used. That means the `OPTION` config option would have the value 99.
 * `interactive`: this option allows the user to choose the source of default value for each affected config option manually.
 
-{{< figure default=true src="img/refresh-config.webp" height=500 caption="How idf.py refresh-config works based on defaults policy chosen" >}}
+{{< alert >}}
+This command is not planned to be available in ESP-IDF v6.0. You will still be notified in a default value mismatch occurs, but the recommended procedure is to set given config option manually to a desired value in menuconfig. 
+{{< /alert >}}
 
+{{< figure default=true src="img/refresh-config.webp" height=500 caption="How idf.py refresh-config works based on defaults policy chosen" >}}
 
 ## Conclusion
 
 In this article, we explained:
 
 * How default values work in ESP-IDF v5 and the limitations of the current approach
-* The new default value management system introduced in ESP-IDF 6.1 
+* The new default value management system introduced in ESP-IDF v6.1 
 * What default value conflicts are and how they can occur during component updates
 * How to resolve conflicts using the new `idf.py refresh-config` command with different policies
 
-The new configuration system in ESP-IDF 6.1 provides more intuitive behavior for default values while maintaining backward compatibility and giving users control over how conflicts are resolved.
+The new configuration system in ESP-IDF v6 provides more intuitive behavior for default values while maintaining backward compatibility. ESP-IDF v6.1 also provides users with control over how conflicts are resolved.
 
 ## Further Reading
 
