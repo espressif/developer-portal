@@ -1,0 +1,8 @@
+extends: existence
+message: "Use the Oxford comma in '%s'."
+link: https://mos.espressif.com/punctuation.html#intricacies-of-using-the-oxford-comma
+scope: text
+level: suggestion
+nonword: true
+tokens:
+  - '(?:\b[\w-`]+(?: [\w-`]+)?, ){1,}[\w-`]+ (and|or) [\w-`]+\b'
