@@ -5,3 +5,7 @@ resources
 .hugo_build.lock
 .vscode
 .idea
+
+# Front Matter Ext
+.frontmatter/*
+frontmatter.json
