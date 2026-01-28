@@ -6,6 +6,6 @@ resources
 .vscode
 .idea
 
-# Front Matter Ext
+# VS Code extension bierner.markdown-yaml-preamble
 .frontmatter/*
 frontmatter.json
