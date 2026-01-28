@@ -1,6 +1,6 @@
 ---
 title: Introducing esp-button component
-date: 2026-02-06
+date: 2026-02-18
 authors:
     - pedro-minatel
 tags:
@@ -209,4 +209,8 @@ We encourage you to try the esp-button component in your next ESP-IDF project an
 
 ## Resources
 
-- [Component Documentation](https://components.espressif.com/components/espressif/button)
+- [esp-button Component on ESP Component Registry](https://components.espressif.com/components/espressif/button)
+- [ESP Component Registry Documentation](https://docs.espressif.com/projects/idf-component-manager/en/latest/)
+- [ESP32-C3-DevKit-RUST-2 Documentation](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkit-rust-2/index.html)
+- [What is the ESP Component Registry?](https://developer.espressif.com/blog/2024/10/what-is-the-esp-registry/)
+- [GitHub - esp-button Repository](https://github.com/espressif/esp-iot-solution)
