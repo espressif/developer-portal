@@ -1,8 +1,8 @@
 ---
 title: "Arduino for ESP32-S2 and ESP32-C3 is coming!"
 date: 2021-06-08
+lastmod: 2025-10-16
 showAuthor: false
-featureAsset: "img/featured/featured-arduino.webp"
 authors:
   - pedro-minatel
 tags:
@@ -11,12 +11,8 @@ tags:
   - Esp32
   - Risc V
   - IoT
-
+summary: "Annoucing support for new devices to the Arduino Core for Espressif. How to enable them in the 2.0.0rc1 release."
 ---
-{{< figure
-    default=true
-    src="img/arduino-1.webp"
-    >}}
 
 > This tutorial was created based on the Arduino for ESP32 version 2.0.0-alpha1 (preview version) on April 30th, 2021.
 

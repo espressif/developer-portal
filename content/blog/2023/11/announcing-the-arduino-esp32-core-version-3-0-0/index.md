@@ -1,6 +1,7 @@
 ---
 title: "Announcing the Arduino ESP32 Core version 3.0.0"
 date: 2023-11-02
+lastmod: 2025-10-16
 showAuthor: false
 featureAsset: "img/featured/featured-arduino.webp"
 authors:
@@ -11,6 +12,7 @@ tags:
   - AIoT
   - ESP32
   - DIY
+summary: "Annoucing the version 3.0.0 of the Arduino Core for Espressif devices, as well the Arduino Component for ESP-IDF. Now, ESP32-C6 and ESP32-H2 are supported."
 ---
 
 Espressif Systems is announcing the new release of the Arduino ESP32 core including support for the ESP32-C6 and ESP32-H2 with the most recent ESP-IDF 5.1

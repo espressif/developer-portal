@@ -1,6 +1,7 @@
 ---
 title: "Zephyr Support Status"
 date: 2025-08-27
+lastmod: 2025-10-20
 showAuthor: false
 authors:
   - "ricardo-tafas"
@@ -34,61 +35,13 @@ Since the release of version 4.0 for the ESP32-C3, the system has been considere
 
 ### Peripheral Support Table
 
-| Peripheral / Subsystem             | ESP32              | ESP32-S2           | ESP32-S3           | ESP32-C2               | ESP32-C3           | ESP32-C6           | ESP32-P4           |
-|:-----------------------------------|:------------------:|:------------------:|:------------------:|:----------------------:|:------------------:|:------------------:|:------------------:|
-| Chip Revision (minimum)            | 3.0                | 0.0                | 0.1                | 1.0                    | 0.4                | 0.2                | :x:                |
-| Chip Revision (current)            | 3.1                | 1.0                | 0.2                | 1.2                    | 1.1                | 0.2                | :x:                |
-| CPU                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| IRQ                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| TIMERS                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| UART                               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| I2C                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| SPI                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| SPI FLASH                          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| SPI RAM                            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :no_entry_sign:        | :no_entry_sign:    | :no_entry_sign:    | :x:                |
-| Cryptography                       | :x:                | :x:                | :x:                | :x:                    | :x:                | :x:                | :x:                |
-| Wi-Fi                              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :no_entry_sign:    |
-| Bluetooth                          | :heavy_check_mark: | :no_entry_sign:    | :heavy_check_mark: | :heavy_plus_sign:      | :heavy_check_mark: | :heavy_plus_sign:  | :no_entry_sign:    |
-| Bluetooth Mesh                     | :x:                | :x:                | :x:                | :x:                    | :x:                | :x:                | :no_entry_sign:    |
-| IEEE802.15.4                       | :no_entry_sign:    | :no_entry_sign:    | :no_entry_sign:    | :no_entry_sign:        | :no_entry_sign:    | :heavy_check_mark: | :no_entry_sign:    |
-| DMA                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| GPIO                               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| TWAI                               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :x:                    | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| E-FUSE                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_plus_sign:      | :heavy_check_mark: | :heavy_plus_sign:  | :x:                |
-| ADC                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| DAC                                | :heavy_check_mark: | :heavy_check_mark: | :no_entry_sign:    | :no_entry_sign:        | :no_entry_sign:    | :no_entry_sign:    | :no_entry_sign:    |
-| MCPWM                              | :heavy_check_mark: | :no_entry_sign:    | :heavy_check_mark: | :no_entry_sign:        | :no_entry_sign:    | :heavy_check_mark: | :x:                |
-| LEDPWM                             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| PCNT                               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :no_entry_sign:        | :no_entry_sign:    | :heavy_check_mark: | :x:                |
-| TRNG                               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| LCD                                | :no_entry_sign:    | :no_entry_sign:    | :x:                | :no_entry_sign:        | :no_entry_sign:    | :no_entry_sign:    | :x:                |
-| WATCHDOG                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| LOW POWER (Light Sleep)            | :heavy_plus_sign:  | :heavy_plus_sign:  | :heavy_plus_sign:  | :heavy_plus_sign:      | :heavy_plus_sign:  | :heavy_plus_sign:  | :x:                |
-| LOW POWER (Deep Sleep)             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_plus_sign:      | :heavy_check_mark: | :heavy_plus_sign:  | :x:                |
-| LOW POWER (Peripherals)            | :x:                | :x:                | :x:                | :x:                    | :x:                | :x:                | :x:                |
-| RTC                                | :x:                | :x:                | :x:                | :x:                    | :x:                | :x:                | :x:                |
-| USB OTG                            | :no_entry_sign:    | :x:                | :x:                | :x:                    | :no_entry_sign:    | :x:                | :x:                |
-| USB CDC                            | :no_entry_sign:    | :no_entry_sign:    | :heavy_check_mark: | :x:                    | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| ETH MAC                            | :heavy_check_mark: | :no_entry_sign:    | :no_entry_sign:    | :no_entry_sign:        | :no_entry_sign:    | :no_entry_sign:    | :x:                |
-| SDHC                               | :heavy_check_mark: | :no_entry_sign:    | :heavy_check_mark: | :no_entry_sign:        | :no_entry_sign:    | :x:                | :x:                |
-| SDIO (slave)                       | :x:                | :x:                | :x:                | :x:                    | :x:                | :x:                | :x:                |
-| CAMERA                             | :no_entry_sign:    | :no_entry_sign:    | :heavy_check_mark: | :no_entry_sign:        | :no_entry_sign:    | :no_entry_sign:    | :x:                |
-| I2S                                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :x:                    | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| LP CPU                             | :no_entry_sign:    | :x:                | :x:                | :x:                    | :no_entry_sign:    | :x:                | :x:                |
-| SMP                                | :x:                | :no_entry_sign:    | :x:                | :no_entry_sign:        | :no_entry_sign:    | :no_entry_sign:    | :x:                |
-| AMP                                | :heavy_plus_sign:  | :no_entry_sign:    | :heavy_plus_sign:  | :no_entry_sign:        | :no_entry_sign:    | :no_entry_sign:    | :x:                |
-| FLASH ENCRYPTION                   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_plus_sign:      | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| SecureBoot V2                      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_plus_sign:      | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| DFS                                | :x:                | :x:                | :x:                | :x:                    | :x:                | :x:                | :x:                |
-| OPENOCD                            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| MCUBOOT (Zephyr port)              | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| MCUBOOT (Espressif port)           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_plus_sign:      | :heavy_check_mark: | :heavy_check_mark: | :x:                |
+{{< dynamic-block contentPath="persist\software\zephyr-status\zephyr-status.json" jsonKey="periph_support_table_simple" >}}
+
 
 **Legend:**
-* :heavy_check_mark: : Supported
-* :heavy_plus_sign: : Work in Progress / Partially Supported
-* :x: : Not yet Supported
-* :no_entry_sign: : Not available on this device
+* ✔️ : Supported
+* ❌ : Not yet Supported
+* 🚫 : Not available on this device
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 - *Current chip versions* are listed as supported in Zephyr. For the latest chip versions, please consult the Espressif website.  
@@ -108,14 +61,7 @@ Since the release of version 4.0 for the ESP32-C3, the system has been considere
 
 Espressif fully adheres to the Zephyr schedule and plans its development around Zephyr's public roadmap. The first ready-for-production release of Zephyr for Espressif products was version 4.0, targeting the ESP32-C3.
 
-| Release Version | Date        | Expected New Device Support          | Comments | 
-|:----------------|:-----------:|:------------------------------------:|:--------:|
-| 4.2             | Jul 2025    |                                      | Current  |
-| 4.3             | Nov 2025    | ESP32-H2, ESP32-P4                   |          |
-| 4.4             | Mar 2026    | ESP32-C5, ESP32-C61, ESP32-H4        |          |
-| 4.5             | Jul 2026    |                                      |          |
-| 4.6             | Nov 2026    |                                      |          |
-| 4.7             | Mar 2027    |                                      | LTS      |
+{{< dynamic-block contentPath="persist\software\zephyr-status\zephyr-status.json" jsonKey="version_table_simple" >}}
 
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
@@ -141,4 +87,5 @@ Espressif does not control the Zephyr Project and does not claim any ownership o
 
 Accordingly, elements such as release dates, planning, issue classification, relevance levels, major technical decisions, and the activities of the Technical Steering Committee (TSC) and the broader community, as well as much of the information found on the Zephyr Project's GitHub, are not under Espressif's control or supervision.
 
-Espressif remains fully committed to adhering the Zephyr Project's rules, regulations, and governance, just like any other regular contributor.
+Espressif remains fully committed to adhering the Zephyr Project's rules, regulations, and governance, just like any other regular contributor. For this reason, Zephyr RTOS is part of Espressif SDK offering, and it is a solution that can be used along with supported Espressif chips.
+

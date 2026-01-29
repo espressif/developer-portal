@@ -231,7 +231,7 @@ ROM memories hold the primary bootloader code and other library functions availa
 
 **SRAM**
 
-The ESP32-C3 has two SRAM modules. SRAM1 can be configured as the instruction cache buffer, or accessed as static r/w memory. The SRAM1 is a general-purpose r/w memory that can be accessed via instruction and data bus.
+The ESP32-C3 has two SRAM modules. SRAM0 can be configured as the instruction cache buffer, or accessed as static r/w memory. The SRAM1 is a general-purpose r/w memory that can be accessed via instruction and data bus.
 
 **RTC-SRAM**
 

@@ -1,15 +1,12 @@
 ---
 title: "Simple Boot explained"
 date: 2025-06-30
+lastmod: 2025-10-17
 authors:
   - "marek-matej"
 tags:
-  - ESP32
-  - ESP32-S2
-  - ESP32-S3
-  - ESP32-C3
-  - ESP32-C6
-  - ESP32-C2
+  - Bootloader
+  - Simpleboot
   - ESP-IDF
   - Zephyr
   - NuttX
