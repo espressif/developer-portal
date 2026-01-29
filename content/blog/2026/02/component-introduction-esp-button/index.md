@@ -72,7 +72,9 @@ Here's a practical example demonstrating how to set up the esp-button component 
 
 This example creates a button application that detects multiple button events on GPIO pin 9. The code initializes the button hardware, configures timing parameters for different press types, and registers callback functions that execute when specific button events are detected. When you interact with the button, the appropriate callback function is triggered, logging the event type to the console for monitoring and debugging purposes.
 
-> **Note**: This example uses the [**ESP32-C3-DevKit-RUST-2**](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkit-rust-2/index.html) development board. GPIO pin 9 is the button pin on this board, but you can adapt the GPIO pin number to match your specific hardware configuration.
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
+This example uses the [**ESP32-C3-DevKit-RUST-2**](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkit-rust-2/index.html) development board. GPIO pin 9 is the button pin on this board, but you can adapt the GPIO pin number to match your specific hardware configuration.
+{{< /alert >}}
 
 ### Step 1: Include Required Headers
 
