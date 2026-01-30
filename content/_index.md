@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2026/01/thread-credential-sharing/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/01/esp32p4-robotic-arm-design/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2025/12/annoucing_esp_private_agents_platform/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/01/introducing-esp-matter-camera/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
