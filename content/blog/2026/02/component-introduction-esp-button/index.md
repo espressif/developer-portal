@@ -5,8 +5,11 @@ authors:
     - pedro-minatel
 tags:
     - ESP-IDF
-    - Library
-    - Registry
+    - practitioner
+    - tutorial
+    - ESP-IDF component
+    - community software
+    - GPIO
 summary: Learn how to use the ESP-IDF esp-button component to handle GPIO buttons with event detection, debouncing, and callbacks. A step-by-step guide with practical code examples.
 ---
 
