@@ -16,13 +16,11 @@ Buttons are fundamental input elements in embedded systems, yet handling them pr
 
 The esp-button component provides a comprehensive solution for managing physical buttons in your ESP32 projects, supporting both GPIO-based buttons and ADC-based button matrices.
 
-The esp-button component is available on the ESP component registry.
+The esp-button component is one of many components available on the ESP component registry.
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
-The [ESP Component Registry](https://developer.espressif.com/blog/2024/10/what-is-the-esp-registry/) is a centralized platform that hosts reusable software components for ESP-IDF projects. It simplifies development by providing pre-built, tested libraries that can be easily integrated into your applications. 
+The [ESP Component Registry](https://developer.espressif.com/blog/2024/10/what-is-the-esp-registry/) is a centralized platform that hosts reusable software components for ESP-IDF projects. It simplifies development by providing pre-built, tested libraries that can be easily integrated into an application, helping developers accelerate their projects by leveraging community‑tested solutions.
 {{< /alert >}}
-
-The [ESP Component Registry](https://developer.espressif.com/blog/2024/10/what-is-the-esp-registry/) is a centralized platform that hosts reusable software components for ESP-IDF projects. It simplifies development by providing pre-built, tested libraries that can be easily integrated into your applications. The esp-button component is one of many components available in the registry, designed to help developers accelerate their projects by leveraging community-tested solutions.
 
 ## Key Features
 
