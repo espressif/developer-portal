@@ -60,9 +60,18 @@ This example creates a button application that detects multiple button events on
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 This example uses the [**ESP32-C3-DevKit-RUST-2**](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkit-rust-2/index.html) development board. GPIO pin 9 is the button pin on this board, but you can adapt the GPIO pin number to match your specific hardware configuration.
+{{< /alert >}}
+
+### Hardware
+
+The ESP32-C3-DevKit-RUST-2 board features a built-in button connected to GPIO9. This button is connected between the GPIO pin and ground with an external 10kΩ pull-up resistor, configuring it as an active-low input. When pressed, the button pulls GPIO9 to ground (logic low), and when released, the pull-up resistor brings the pin back to VCC (logic high).
+
+<figure style="width: 60%; margin: 0 auto;">
+  <img src="button-schematic.webp" alt="Button Schematic on the ESP32-C3-DevKit-RUST-2">
+  <figcaption>Button Schematic on the ESP32-C3-DevKit-RUST-2</figcaption>
+</figure>
 
 **Note**: GPIO9 on the ESP32-C3 is a boot strapping pin used for download mode. Avoid pressing the button during boot to prevent entering download mode unintentionally.
-{{< /alert >}}
 
 ### Component Installation
 
