@@ -199,7 +199,7 @@ The component handles multiple event types including single clicks, double click
 
 ## Complete Source Code
 
-The full source code for this example is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository.
+The full source code for this example is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase/tree/main/content/blog/component-introduction-button) repository.
 
 ## Conclusion
 
