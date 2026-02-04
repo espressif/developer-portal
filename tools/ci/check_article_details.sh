@@ -7,7 +7,6 @@ set -euo pipefail
 
 TARGET_REPO_URL="${TARGET_REPO_URL:-https://github.com/espressif/developer-portal.git}"
 TARGET_BRANCH="${TARGET_BRANCH:-main}"
-HUGO_VERSION="${HUGO_VERSION:-0.152.2}"
 TEMP_ROOT="temp_ci"
 REQUIRED_TOOLS=(
     git
@@ -148,21 +147,126 @@ collect_changed_files() {
   mkdir -p "$TEMP_ROOT"
   TEMP_DIR="$(mktemp -d "${TEMP_ROOT}/check-article-details.XXXXXX")"
 
+  git diff --name-only "$base_ref"...HEAD \
+    | grep -E '^content/(blog|workshops)/.*' \
+    > "$TEMP_DIR/files-changed.txt" || true
+
+  echo
+  echo "List of changed content files:"
+  cat "$TEMP_DIR/files-changed.txt"
+
+  if [[ -s "$TEMP_DIR/files-changed.txt" ]]; then
+    check_for_spaces_in_paths "$TEMP_DIR/files-changed.txt" || exit 1
+    check_changed_filenames_and_paths "$TEMP_DIR/files-changed.txt" || overall_error=1
+  fi
+
   git diff --name-only --diff-filter=A "$base_ref"...HEAD \
-      | grep -E '^content/blog/.*/index.md$' \
-      > "$TEMP_DIR/index-added.txt" || true
+    | grep -E '^content/blog/.*/index.md$' \
+    > "$TEMP_DIR/index-added.txt" || true
 
   echo
   echo "List of added index files:"
   cat "$TEMP_DIR/index-added.txt"
 
-  git diff --name-only --diff-filter=M "$base_ref"...HEAD \
-      | grep -E '^content/(blog|workshops)/.*/(_)?index.md$' \
-      > "$TEMP_DIR/index-updated.txt" || true
+  git diff --name-status "$base_ref"...HEAD \
+    | grep -E '^[MR][0-9]*[[:space:]]+content/(blog|workshops)/.*/index\.md' \
+    | awk '
+        $1=="M" {print $2}
+        $1 ~ /^R/ && $1!="R100" {print $3}
+      ' > "$TEMP_DIR/index-updated.txt" || true
 
   echo
   echo "List of updated index files:"
   cat "$TEMP_DIR/index-updated.txt"
+
+  git diff --name-status "$base_ref"...HEAD \
+    | grep -E '^[MR][0-9]*[[:space:]]+content/(blog|workshops)/.*/index\.md' \
+    | grep '^R' \
+    | awk '
+      $2 ~ /(\/|^)_?index\.md$/ || $3 ~ /(\/|^)_?index\.md$/ {
+          print $2 " > " $3
+      }
+    ' > "$TEMP_DIR/folders-renamed.txt" || true
+
+  echo
+  echo "List of renamed articles:"
+  cat "$TEMP_DIR/folders-renamed.txt" \
+    | sed -E 's:\/_?index\.md::g'
+}
+
+
+###############################################################################
+# FILE NAME VERIFICATION
+###############################################################################
+
+check_for_spaces_in_paths() {
+  local input_file="$1"
+  local job_error=0
+  local bad=""
+
+  while IFS= read -r line; do
+    if [[ "$line" == *" "* ]]; then
+      job_error=1
+      bad+="$line"$'\n'
+      echo $bad
+    fi
+  done < "$input_file"
+
+  if [[ $job_error -eq 1 ]]; then
+    echo
+    echo "❌ Spaces are not allowed. Please remove spaces in the following file paths:"
+    printf "%s" "$bad"
+    return 1
+  else
+    echo
+    echo "No spaces found it file paths."
+  fi
+
+  return 0
+}
+
+check_changed_filenames_and_paths() {
+  local input_file="$1"
+
+  local job_error=0
+  local saw_index_md=0
+  local bad_files=""
+  local bad_chars=""
+
+  bad_chars='_:;,$%#@!?'
+
+  while IFS= read -r line; do
+    # Track if this path ends with _index.md
+    if [[ "$line" == */_index.md ]]; then
+      saw_index_md=1
+    fi
+
+    # Remove trailing /_index.md if present
+    cleaned="${line%/_index.md}"
+
+    # If the cleaned path still has an underscore, it's invalid
+    if [[ "$cleaned" =~ [$bad_chars] ]]; then
+      bad_files+="$line"$'\n'
+    fi
+  done < "$input_file"
+
+  if [[ -n "$bad_files" ]]; then
+    echo
+    echo "❌ Remove underscores and unusual characters ($bad_chars) in these paths:"
+    if [[ "$saw_index_md" -eq 1 ]]; then
+      echo "   (filename \"_index.md\" is allowed)"
+    fi
+    printf "%s" "$bad_files"
+    job_error=1
+  else
+    echo "No bad characters found in filenames and paths."
+  fi
+
+  if [ "$job_error" -eq 0 ]; then
+    return 0
+  fi
+
+  return 1
 }
 
 
@@ -171,6 +275,7 @@ collect_changed_files() {
 ###############################################################################
 
 extract_added_metadata() {
+  echo
   echo "Extracting added article metadata..."
 
   if [[ ! -s "$TEMP_DIR/index-added.txt" ]]; then
@@ -246,6 +351,7 @@ extract_added_metadata() {
 ###############################################################################
 
 validate_added_articles() {
+  echo
   echo "Validating added articles..."
 
   local article_data="$TEMP_DIR/article_data.json"
@@ -344,13 +450,11 @@ validate_added_articles() {
     fi
 
     if [ "$article_error" -eq 0 ]; then
-      echo "OK"
+      echo "Article path and YAML frontmatter details are correct."
     else
       job_error=1
     fi
   done < <(jq -r 'keys[]' "$article_data")
-
-  echo
 
   if [ "$job_error" -eq 0 ]; then
     return 0
@@ -365,6 +469,7 @@ validate_added_articles() {
 ###############################################################################
 
 validate_author_presence() {
+  echo
   echo "Validating author presence..."
 
   local job_author_error=0
@@ -380,7 +485,8 @@ validate_author_presence() {
   # Build folders with new articles only
   hugo \
     --environment preview \
-    --contentDir "$HUGO_TEMP_CONTENT"
+    --contentDir "$HUGO_TEMP_CONTENT" \
+    > /dev/null 2>&1
 
   # Check if html files were built successfully
   while IFS= read -r md_file; do
@@ -412,8 +518,6 @@ validate_author_presence() {
     fi
   done < "$INDEX_LIST"
 
-  echo
-
   if [ "$job_author_error" -eq 0 ]; then
     return 0
   fi
@@ -427,12 +531,8 @@ validate_author_presence() {
 ###############################################################################
 
 validate_updated_articles() {
+  echo
   echo "Validating updated articles..."
-
-  if [[ ! -s "$TEMP_DIR/index-updated.txt" ]]; then
-      echo "No updated index files."
-      return 0
-  fi
 
   local job_error=0
   local DATE_REGEX='^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
@@ -478,13 +578,11 @@ validate_updated_articles() {
     fi
 
     if [ "$article_error" -eq 0 ]; then
-      echo "OK"
+      echo "lastmod date validated successfully."
     else
       job_error=1
     fi
   done < "$TEMP_DIR/index-updated.txt"
-
-  echo
 
   if [ "$job_error" -eq 0 ]; then
     return 0
@@ -493,6 +591,61 @@ validate_updated_articles() {
   return 1
 }
 
+validate_aliases_in_renamed_articles() {
+  echo
+  echo "Validating aliases in renamed articles for URL redirects..."
+
+  local job_error=0
+
+  while IFS='>' read -r old_name new_name; do
+    old_name=$(echo "$old_name" | xargs)   # trim spaces
+    new_name=$(echo "$new_name" | xargs)
+
+    index_file="$new_name"
+
+    echo
+    echo "Article: $index_file"
+
+    if [ ! -f "$index_file" ]; then
+      echo "❌ index.md not found in $new_name"
+      job_error=1
+    fi
+
+    alias_path=$(dirname "$old_name" | sed 's:^content::')
+
+    if ! awk -v alias="$alias_path" '
+        # Detect aliases: section
+        $0 ~ /^aliases:/ { in_aliases=1; next }
+
+        # Stop when a new YAML root key starts
+        in_aliases && $0 ~ /^[A-Za-z0-9_-]+:/ { in_aliases=0 }
+
+        # Check only bullet lines: "- something"
+        in_aliases && $0 ~ /^[[:space:]]*-/ {
+            if (index($0, alias) > 0) {
+                found=1
+            }
+        }
+
+        END { exit(!found) }
+    ' "$index_file"
+    then
+        echo "❌ Missing or incorrect alias for old URL redirects"
+        echo "   Expected in YAML header:"
+        echo "aliases:"
+        echo "  - $alias_path"
+        job_error=1
+    else
+        echo "Alias validated successfully."
+    fi
+  done < "$TEMP_DIR/folders-renamed.txt"
+
+  if [ "$job_error" -eq 0 ]; then
+    return 0
+  fi
+
+  return 1
+}
 
 ###############################################################################
 # MAIN
@@ -517,31 +670,36 @@ banner "🔁 Fetching target repo..."
 
 ensure_target_remote
 BASE_REF="$(resolve_base_ref)"
+
+banner "🔎 Checking changed filenames and paths..."
+
 collect_changed_files "$BASE_REF"
 
 banner "🔎 Checking added files..."
 
 if [[ -s "$TEMP_DIR/index-added.txt" ]]; then
-    extract_added_metadata || overall_error=1
-    validate_added_articles || overall_error=1
-    validate_author_presence || overall_error=1
+  extract_added_metadata || overall_error=1
+  validate_added_articles || overall_error=1
+  validate_author_presence || overall_error=1
 else
-    echo "No added files."
+  echo "No added index files."
 fi
 
 banner "🔎 Checking updated files..."
 
 if [[ -s "$TEMP_DIR/index-updated.txt" ]]; then
-    validate_updated_articles || overall_error=1
-else
-    echo "No updated files."
+  validate_updated_articles || overall_error=1
 fi
 
-if [ "$overall_error" -ne 0 ]; then
-  echo
-  echo "❌ One or more validation steps failed."
-  exit 1
+if [[ -s "$TEMP_DIR/folders-renamed.txt" ]]; then
+  validate_aliases_in_renamed_articles || overall_error=1
 fi
 
 echo
-echo "✅ All required checks passed."
+echo "=========================================="
+if [ "$overall_error" -ne 0 ]; then
+  echo "❌ One or more validation steps failed."
+  exit 1
+else
+  echo "✅ All required checks passed."
+fi
