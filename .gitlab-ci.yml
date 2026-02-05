@@ -1,5 +1,6 @@
 include:
   - '.gitlab/ci/common.yml'
+  - '.gitlab/ci/check_repo_consistency.yml'
   - '.gitlab/ci/check_article_details.yml'
   - '.gitlab/ci/build_hugo.yml'
   - '.gitlab/ci/deploy_preview.yml'
@@ -8,6 +9,7 @@ include:
   - '.gitlab/ci/comment_github.yml'
 
 stages:
+  - check_repo
   - check_article
   - build_hugo
   - deploy_preview
