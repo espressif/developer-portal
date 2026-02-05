@@ -1,0 +1,18 @@
+name: Check repo consistency
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-repo-consistency:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history to ensure we can access all branches
+
+      - name: Run shared consistency checks
+        run: |
+          bash tools/ci/check_repo_consistency.sh

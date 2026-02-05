@@ -1,0 +1,13 @@
+check_repo_consistency:
+  stage: check_repo
+  image: ubuntu:latest
+  tags:
+    - deploy_docs
+    - shiny
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  before_script:
+    - apt-get update && apt-get install -y git
+  script:
+    - |
+      bash tools/ci/check_repo_consistency.sh
