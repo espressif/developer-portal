@@ -33,6 +33,7 @@ buildFuture = true
 
 [params.Author]
   name = "John Lee"
+  company = "Espressif Systems"
   image = "img/authors/espressif.png"
   bio = "Espressif Systems"
   links = [

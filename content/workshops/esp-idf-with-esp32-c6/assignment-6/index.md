@@ -1,15 +1,16 @@
 ---
-title: "ESP-IDF with ESP32-C6 Workshop - Assignment 6: Protocols"
-date: 2024-06-25T00:00:00+01:00
+title: "Workshop: ESP-IDF and ESP32-C6 - Assignment 6"
+date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
-series: ["WS001"]
+series: ["WS001EN"]
 series_order: 7
 showAuthor: false
 ---
 
-## Assignment 6: Protocols (EXTRA)
+## Assignment 6: Protocols
 
-Currently, ESP-IDF supports a variety of protocols including but not limited to:
+Currently, ESP-IDF supports a bunch of protocols, such as:
 
 - HTTP and HTTPS
 - ICMP
@@ -20,39 +21,34 @@ Currently, ESP-IDF supports a variety of protocols including but not limited to:
 - Modbus
 - SMTP
 - SNTP
+- ...and many more
 
-You can explore the protocols directly in the [ESP-IDF examples](https://github.com/espressif/esp-idf/tree/master/examples), [esp-protocols](https://github.com/espressif/esp-protocols), or the [ESP Registry](https://components.espressif.com) (Component Manager).
+You can explore how to work with protocols directly based on examples in the [ESP-IDF examples](https://github.com/espressif/esp-idf/tree/master/examples), [esp-protocols](https://github.com/espressif/esp-protocols), or [ESP Registry](https://components.espressif.com) folders.
 
-### Hands-on with protocols
+### Practical example with protocols
 
-In this hands-on, we will use the x509 certificate bundle and make your development easier when dealing with some protocols that require a certificate for secure connection, including HTTPS.
+In this example, we will use *ESP x509 Certificate Bundle* to simplify our work with some protocols that require certificates, such as HTTPS.
 
-The [ESP x509 Certificate Bundle API](https://docs.espressif.com/projects/esp-idf/en/release-v5.3/esp32/api-reference/protocols/esp_crt_bundle.html?highlight=bundle#esp-x509-certificate-bundle) provides a collection of certificates for TLS server verification, automatically generated from [Mozilla's NSS root certificate store](https://wiki.mozilla.org/CA/Included_Certificates). This bundle contains more than 130 certificates and it's constantly updated.
+[ESP x509 Certificate Bundle API](https://docs.espressif.com/projects/esp-idf/en/release-v5.2/esp32/api-reference/protocols/esp_crt_bundle.html?highlight=bundle#esp-x509-certificate-bundle) provides a collection of certificates for verification on a TLS server, which are automatically generated from [Mozilla's NSS root certificates](https://wiki.mozilla.org/CA/Included_Certificates). This bundle contains more than 130 certificates and is constantly updated.
 
-By using the certificate bundle to make a secure HTTPS connection using TLS (ESP-TLS), you do not need to load a root certificate manually or to update in case of expired certificates.
+By using this bundle, we don't have to manually upload any root certificates for secure HTTPS connection using TLS (ESP-TLS), nor do we have to renew them when they expire.
 
-1. **Open the Wi-Fi connection assignment project**
+1. **Verify that the previous steps work as they should**
 
-{{< alert icon="circle-info">}}
-For this assignment, we will continue editing the [Wi-Fi project - Trying NVS](../assignment-4/) or you can create a new project based on the [protocols/https_x509_bundle](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_x509_bundle).
-{{< /alert >}}
+In this assignment, we will continue to modify the project we have been working on so far. It is therefore good to verify that at this point the project can be built, uploaded and that the board successfully connects to Wi-Fi.
 
-Open the project and make sure the project is building and the Wi-Fi connection is working.
+> During this assignment we will need an Internet connection.
 
-> This assignment will require Internet connection.
+2. **Configuration modification**
 
-2. **Edit the SDK configuration**
+Open the configuration menu (Ctrl + Shift + P and search for *SDK Configuration Editor*) and in the configuration menu go to `Component config` -> `mbedTLS` -> `Certificate Bundle`. There check that:
 
-Go to the SDK configuration and check the certificate bundle settings.
-
-`Component config` -> `mbedTLS` -> `Certificate Bundle`
-
-- Check `Enable trusted root certificate bundle`
-- Select `Use the full default certificate bundle` on the `Default certificate bundle options`
+- `Enable trusted root certificate bundle` is checked
+- In the `Default certificate bundle options` menu, the `Use the full default certificate bundle` option is selected
 
 3. **Code for TLS connection**
 
-Add the includes:
+We add the necessary `#include`s...
 
 ```c
 #include "lwip/err.h"
@@ -64,8 +60,7 @@ Add the includes:
 #include "esp_crt_bundle.h"
 ```
 
-Add the defines and the URL list that we will try to connect to using the bundle:
-
+...and definitions of URL links that we will try to connect to using the certificate:
 ```c
 #define MAX_URLS    4
 
@@ -73,15 +68,15 @@ static const char *web_urls[MAX_URLS] = {
     "https://www.github.com",
     "https://espressif.com",
     "https://youtube.com",
-    "https://acesso.gov.br",
+    "https://seznam.cz",
 };
 ```
 
-You can modify this list to include your URLs to test the connection.
+If you want, you can change the list and put your own pages there.
 
-4. **Create a task to try to connect to the given URLs**
+4. **Creating a task that will try to connect to URLs from the previous step**
 
-This task will try to connect to each URL.
+This task will try to connect to each of the URLs from the list above.
 
 ```c
 static void event_handler(void* arg, esp_event_base_t event_base,
@@ -110,13 +105,13 @@ static void event_handler(void* arg, esp_event_base_t event_base,
 }
 ```
 
-Create the task after the `wifi_init_sta`:
+We create the task after calling the `wifi_init_sta` function:
 
 ```c
 xTaskCreate(&https_get_task, "https_get_task", 8192, NULL, 5, NULL);
 ```
 
-#### Assignment Code
+#### Complete code
 
 ```c
 #include <stdio.h>
@@ -328,6 +323,6 @@ void app_main(void)
 
 ## Next step
 
-Too much energy consumed so far? Let's reduce the energy consumption.
+Have you exhausted all your energy? Let's save some!
 
-[Assignment 7: Try using the LP core](../assignment-7)
+[Assignment 7: Low Power Core](../assignment-7)

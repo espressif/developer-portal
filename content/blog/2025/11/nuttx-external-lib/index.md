@@ -2,7 +2,13 @@
 title: "Integrating External Libraries into NuttX Applications"
 date: 2025-11-19
 lastmod: 2025-11-27
-tags: ["NuttX", "Apache", "ESP32", "ESP32-C6", "RISC-V", "cross-compilation", "static-library"]
+tags:
+  - NuttX
+  - practitioner
+  - how-to
+  - RISC-V
+  - cross-compilation
+  - library
 showAuthor: false
 authors:
     - "filipe-cavalcanti"

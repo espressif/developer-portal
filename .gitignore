@@ -5,4 +5,7 @@ resources
 .hugo_build.lock
 .vscode
 .idea
-.frontmatter
+
+# VS Code extension bierner.markdown-yaml-preamble
+.frontmatter/*
+frontmatter.json

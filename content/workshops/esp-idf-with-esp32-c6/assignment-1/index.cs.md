@@ -1,6 +1,7 @@
 ---
 title: "Workshop: ESP-IDF a ESP32-C6 - Úkol 1"
 date: 2024-09-30T00:00:00+01:00
+lastmod: 2026-01-20
 showTableOfContents: false
 series: ["WS001CZ"]
 series_order: 2
@@ -15,15 +16,20 @@ Abyste byli schopní zvládnout všechny úkoly v tomto workshopu, budete potře
 
 V obou případech budeme postupovat podle návodu na [githubových stránkách ESP-IDF pluginu pro VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use).
 
+{{< tabs groupId="config" >}}
+  {{% tab name="Windows" %}}
+
 ### Instalace pro Windows
 
 1. Nainstalujte [Visual Studio Code](https://code.visualstudio.com/download)
 2. Nainstalujte potřebné [ovladače](https://www.silabs.com/documents/public/software/CP210x_Universal_Windows_Driver.zip)
-2. Ve VS Code otevřete **Extensions** (Ctrl + Shift + X nebo ⇧ + ⌘ + X)
-3. Najděte [ESP-IDF plugin](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) a nainstalujte ho
-4. Otevřete *View -> Command Pallete* (Ctrl + Shift + P nebo ⇧ + ⌘ + P) a do nově otevřené řádky napište *Configure ESP-IDF Extension*
-5. Vyberte možnost **Express** a následně vyberte Github jako download server a release/v5.3 jako ESP-IDF version
-6. Klikněte na "Install"
+3. Ve VS Code otevřete **Extensions** (Ctrl + Shift + X nebo ⇧ + ⌘ + X)
+4. Najděte [ESP-IDF plugin](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) a nainstalujte ho
+5. Otevřete *View -> Command Pallete* (Ctrl + Shift + P nebo ⇧ + ⌘ + P) a do nově otevřené řádky napište *Configure ESP-IDF Extension*
+6. Vyberte možnost **Express** a následně vyberte Github jako download server a release/v5.5 jako ESP-IDF version
+7. Klikněte na "Install"
+  {{% /tab %}}
+  {{% tab name="Linux a Mac" %}}
 
 ### Instalace pro Linux a Mac
 
@@ -32,8 +38,10 @@ V obou případech budeme postupovat podle návodu na [githubových stránkách 
 3. Ve VS Code otevřete **Extensions** (Ctrl + Shift + X nebo ⇧ + ⌘ + X)
 4. Najděte [ESP-IDF plugin](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) a nainstalujte ho
 5. Otevřete *View -> Command Pallete* (Ctrl + Shift + P nebo ⇧ + ⌘ + P) a do nově otevřené řádky napište *Configure ESP-IDF Extension*
-6. Vyberte možnost **Express** a následně vyberte Github jako download server a release/v5.3 jako *ESP-IDF version*
+6. Vyberte možnost **Express** a následně vyberte Github jako download server a release/v5.5 jako *ESP-IDF version*
 7. Klikněte na "Install"
+  {{% /tab %}}
+{{< /tabs >}}
 
 
 ### Instalace ESP BLE Prov
@@ -51,8 +59,14 @@ Možná jste si všimli, že během instalace ESP-IDF pluginu jste vybírali i v
 
 ESP-IDF je **samostatný framework**, který lze používat i bez VSCode a pluginu. Ovládá se z příkazové řádky (nemá tedy žádné GUI) a obsahuje všechnu logiku pro build, flashování i monitorování aplikace. Když tedy zmáčknete např. tlačítko *Build* v *ESP-IDF Exploreru* (nebojte, v dalších lekcích si vysvětlíme, co to znamená), nakonec se stejně zavolá příkaz `idf.py build`. 
 
-ESP-IDF plugin je **wrapper/adaptér**, který zpřístupňuje funkcionalitu ESP-IDF ve VSCode. Jinak řečeno, propojuje VSCode a framework ESP-IDF: vytváří GUI v podobě *ESP-IDF Exploreru* a zároveň se stará o to, aby tlačítka plnila svou funkci, výstup příkazů se korektně zobrazoval ve VSCode, aby se konfigurace frameworku správně projevila a podobně. Ke svému fungování ale potřebuje právě i frameowrk, který běží v pozadí.
+ESP-IDF VSCode plugin je **wrapper/adaptér**, který zpřístupňuje funkcionalitu ESP-IDF ve VSCode. Jinak řečeno, propojuje VSCode a framework ESP-IDF: vytváří GUI v podobě *ESP-IDF Exploreru* a zároveň se stará o to, aby tlačítka plnila svou funkci, výstup příkazů se korektně zobrazoval ve VSCode, aby se konfigurace frameworku správně projevila a podobně. Ke svému fungování ale potřebuje právě i frameowrk, který běží v pozadí.
+
+{{< alert icon="circle-info">}}
+Samotný ESP-IDF framework se dá používat i jinak, než jen s pluginem do VSCode. Podporu pro něj má [Clion](https://developer.espressif.com/blog/clion/), [Eclipse](https://developer.espressif.com/blog/eclipse-plugin-for-esp-idf/) a v neposlední řadě ho můžete používat samostatně, [přímo z příkazové řádky](https://developer.espressif.com/blog/getting-started-with-esp-idf/). 
+
+Nicméně, v tomto workshopu budeme používat výhradně **plugin do VSCode**.
+{{< /alert >}}
 
 Nyní byste měli mít funkční ESP-IDF plugin pro VSCode a nastavené ESP-IDF. Můžeme se tedy pustit do druhé části tutoriálu:
 
-[Úkol 2: Vytváření projektů a Komponenty](../assignment-2)  
+[Úkol 2: Vytváření projektu a Komponenty](../assignment-2)  
