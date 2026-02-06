@@ -1,0 +1,103 @@
+{{- $link := .Get "link" -}}
+{{- $title := .Get "title" -}}
+{{- $summary := .Get "summary" | default "" -}}
+{{- $showSummary := .Get "showSummary" -}}
+{{- $compactSummary := .Get "compactSummary" | default false -}}
+{{- $featureImage := .Get "featureimage" -}}
+{{- $featureImageAlt := .Get "featureImageAlt" | default $title -}}
+{{- $source := .Get "source" -}}
+{{- $compact := .Get "compact" | default false -}}
+{{- $inExternalPages := and .Parent (eq .Parent.Name "external-pages") -}}
+{{- $imageFit := .Get "imageFit" | default "cover" -}}
+{{- $imagePosition := .Get "imagePosition" | default "center" -}}
+{{- $imageZoom := .Get "imageZoom" | default "1" -}}
+
+{{- if not $link -}}
+  {{- errorf "[external-page] missing required parameter: link (%s)" .Position -}}
+{{- end -}}
+{{- if not $title -}}
+  {{- errorf "[external-page] missing required parameter: title (%s)" .Position -}}
+{{- end -}}
+
+{{- $constrainItemsWidth := site.Params.list.constrainItemsWidth | default false -}}
+{{- $cardClasses := "flex flex-col md:flex-row relative" -}}
+{{- $imgWrapperClasses := "" -}}
+{{- $cardContentClasses := "" -}}
+
+{{- if or $compact $inExternalPages -}}
+  {{- $cardClasses = "flex flex-col relative h-full overflow-hidden rounded-md border-2 border-neutral-200 dark:border-neutral-700 shadow-2xl" -}}
+  {{- $cardContentClasses = "p-4 pt-2" -}}
+{{- else if site.Params.list.showCards -}}
+  {{- $cardClasses = printf "%s overflow-hidden rounded-md border-2 border-neutral-200 dark:border-neutral-700 shadow-2xl" $cardClasses -}}
+  {{- $cardContentClasses = printf "%s p-4 pt-2" $cardContentClasses -}}
+{{- else -}}
+  {{- $imgWrapperClasses = printf "%s thumbnail-shadow md:mr-7" $imgWrapperClasses -}}
+  {{- $cardContentClasses = printf "%s mt-3 md:mt-0" $cardContentClasses -}}
+{{- end -}}
+
+{{- if and $constrainItemsWidth (not (or $compact $inExternalPages)) -}}
+  {{- $cardClasses = printf "%s max-w-prose" $cardClasses -}}
+{{- end -}}
+
+{{- $featuredURL := "" -}}
+{{- if $featureImage -}}
+  {{- if or (strings.HasPrefix $featureImage "http:") (strings.HasPrefix $featureImage "https:") -}}
+    {{- $featuredURL = $featureImage -}}
+  {{- else -}}
+    {{- with resources.Get $featureImage -}}
+      {{- $featuredURL = .RelPermalink -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<section class="relative z-10 not-prose space-y-10 w-full mb-5 bg-neutral dark:bg-neutral-800">
+  <article class="{{ $cardClasses }} bg-neutral dark:bg-neutral-800">
+    {{ with $featuredURL }}
+      <div class="flex-none relative overflow-hidden {{ if or $compact $inExternalPages }}aspect-[16/9]{{ end }} {{ $imgWrapperClasses }} thumbnail">
+        <img
+          src="{{ . }}"
+          alt="{{ $featureImageAlt | emojify }}"
+          loading="lazy"
+          decoding="async"
+          style="transform: scale({{ $imageZoom }});"
+          class="not-prose absolute inset-0 w-full h-full {{ if eq $imageFit "contain" }}object-contain{{ else }}object-cover{{ end }} {{ if eq $imagePosition "top" }}object-top{{ else if eq $imagePosition "bottom" }}object-bottom{{ else if eq $imagePosition "left" }}object-left{{ else if eq $imagePosition "right" }}object-right{{ else }}object-center{{ end }}">
+      </div>
+    {{ end }}
+    <div class="{{ $cardContentClasses }}">
+      <header class="items-center text-start text-xl font-semibold">
+        <a
+          href="{{ $link }}"
+          target="_blank"
+          rel="external noopener noreferrer"
+          class="not-prose before:absolute before:inset-0 decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 hover:underline hover:underline-offset-2">
+          <h2>
+            {{ $title | emojify }}
+            <span class="cursor-default align-top text-xs text-neutral-400 dark:text-neutral-500">
+              <span class="rtl:hidden">&#8599;</span>
+              <span class="ltr:hidden">&#8598;</span>
+            </span>
+          </h2>
+        </a>
+      </header>
+      {{ if $source }}
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          {{ $source }}
+        </div>
+      {{ end }}
+      {{- $shouldShowSummary := false -}}
+      {{- if ne $showSummary nil -}}
+        {{- $shouldShowSummary = $showSummary -}}
+      {{- else -}}
+        {{- $shouldShowSummary = site.Params.list.showSummary | default false -}}
+      {{- end -}}
+      {{ if and $shouldShowSummary $summary }}
+        <div class="overflow-hidden pt-1">
+          <div class="{{ if or $compactSummary $compact $inExternalPages }}line-clamp-3{{ end }} prose dark:prose-invert max-w-fit">
+            {{ $summary | markdownify }}
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </article>
+
+</section>
