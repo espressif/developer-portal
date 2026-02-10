@@ -1,6 +1,7 @@
 ---
 title: "Debugging with ESP-IDF VS Code extension: Part 2"
 date: 2025-06-12
+lastmod: 2026-02-11
 showAuthor: false
 authors:
   - francesco-bez
@@ -28,7 +29,7 @@ In this article, we will:
 
 __Prerequisites__
 
-This article is the second part of a series. For the setup, please refer to the [first part]().
+This article is the second part of a series. For the setup, please refer to the [first part](../../05/debugging-with-vscode/).
 <!-- 
 Before you begin, make sure you have the following:
 
