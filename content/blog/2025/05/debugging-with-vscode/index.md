@@ -1,6 +1,7 @@
 ---
 title: "Debugging with ESP-IDF VS Code extension: Part 1"
 date: 2025-05-20
+lastmod: 2026-02-10
 showAuthor: false
 authors:
   - francesco-bez
@@ -261,3 +262,5 @@ If it's still not working, connect your board via UART0 pins (which in an develo
 ## Conclusion
 
 In this tutorial, you learned how to connect your Espressif module via JTAG and start the openOCD server. In part two, we'll launch `gdb` and explore the code using various commands.
+
+> Go to [Part 2](../../06/debugging-with-vscode-part-2/)
