@@ -11,12 +11,26 @@ The idea is to split the CI-independent logic used in CI jobs and keep it in reu
 To run a script locally, go to the repo root and execute:
 
 ```bash
-bash tools/ci/check_article_details.sh
+bash tools/ci/<script>.sh
 ```
+
+The following scripts are available:
+
+- [README](#readme)
+  - [Check repo consistency](#check-repo-consistency)
+  - [Check article details](#check-article-details)
+
+## Check repo consistency
+
+The script `tools/ci/check_repo_consistency.sh` validates the changes that affect the git repo integrity, hugo builds and more. As of now, the following checks are realized:
+
+- Forbidden file types, such as PNG, JPEG, etc.
+- In layouts/shortcodes/dynamic-block.html, the setting `localMode` must be false
+
 
 ## Check article details
 
-This script validates content changes in a feature branch:
+The script `tools/ci/check_article_details.sh` validates content changes in a feature branch:
 
 - Changed filenames and paths in `content/blog/` and `content/workshops/`:
   - Files and folders must not contain spaces
