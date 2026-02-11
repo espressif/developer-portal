@@ -17,3 +17,5 @@ showViews : false
 showZenMode : false
 disableComments : true
 ---
+
+Assign tags to your content following the guidelines in [Tagging content](../pages/contribution-guide/tagging-content/).
