@@ -13,6 +13,8 @@ tags:
   - ESP32
   - DIY
 summary: "Annoucing the version 3.0.0 of the Arduino Core for Espressif devices, as well the Arduino Component for ESP-IDF. Now, ESP32-C6 and ESP32-H2 are supported."
+aliases:
+  - /blog/announcing-the-arduino-esp32-core-version-3-0-0
 ---
 
 Espressif Systems is announcing the new release of the Arduino ESP32 core including support for the ESP32-C6 and ESP32-H2 with the most recent ESP-IDF 5.1
