@@ -12,7 +12,7 @@ tags:
   - AIoT
   - ESP32
   - DIY
-summary: "Annoucing the version 3.0.0 of the Arduino Core for Espressif devices, as well the Arduino Component for ESP-IDF. Now, ESP32-C6 and ESP32-H2 are supported."
+summary: "Announcing the version 3.0.0 of the Arduino Core for Espressif devices, as well the Arduino Component for ESP-IDF. Now, ESP32-C6 and ESP32-H2 are supported."
 aliases:
   - /blog/announcing-the-arduino-esp32-core-version-3-0-0
 ---

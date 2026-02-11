@@ -14,7 +14,7 @@ tags:
   - Esp32
   - USB
   - IoT
-summary: "Annoucement of Arduino 2.0.0 release."
+summary: "Announcement of Arduino 2.0.0 release."
 aliases:
   - /blog/arduino-esp32-support-version-2-0-0-is-out
 ---

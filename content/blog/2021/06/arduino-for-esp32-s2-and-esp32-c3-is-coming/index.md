@@ -11,7 +11,7 @@ tags:
   - Esp32
   - Risc V
   - IoT
-summary: "Annoucing support for new devices to the Arduino Core for Espressif. How to enable them in the 2.0.0rc1 release."
+summary: "Announcing support for new devices to the Arduino Core for Espressif. How to enable them in the 2.0.0rc1 release."
 aliases:
   - /blog/arduino-for-esp32-s2-and-esp32-c3-is-coming
 ---
