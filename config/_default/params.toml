@@ -17,7 +17,7 @@ mainSections = ["blog"]
 
 disableImageOptimization = false
 disableTextInHeader = false
-logo = "img/espressif_logo_contour.png"
+logo = "img/espressif_logo.webp"
 
 # defaultBackgroundImage = "/img/ocean.jpg"
 # defaultFeaturedImage = "/img/ocean.jpg"
