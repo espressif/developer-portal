@@ -218,6 +218,13 @@ The component's comprehensive event detection system, including support for sing
 
 Whether you're building a smart home device, an IoT gateway, or an industrial control panel, the espressif/button component handles the complexity of reliable button input detection so you can concentrate on creating great user experiences. Available through the ESP Component Registry, it's easy to integrate and comes with the reliability and support of an official Espressif component.
 
+## Learn More
+
+To deepen your understanding of GPIO fundamentals and how they work with button components, check out our tutorial:
+
+- [ESP-IDF tutorial series: GPIO get started - Part 1](/blog/2026/02/esp-idf-tutorial-gpio-get-started/)
+- [ESP-IDF tutorial series: GPIO get started - Part 2](/blog/2026/02/esp-idf-tutorial-gpio-get-started-2/)
+
 ## Resources
 
 - [button Component on ESP Component Registry](https://components.espressif.com/components/espressif/button)
