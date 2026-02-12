@@ -86,11 +86,41 @@ Leave false (default) to resolve via .Site.BaseURL (web mode).
   {{ $fullURL = printf "%s%s" .Site.BaseURL $contentPath }}
 {{ end }}
 
+<style>
+#content-{{ $uniqueID }} h1,
+#content-{{ $uniqueID }} h2,
+#content-{{ $uniqueID }} h3,
+#content-{{ $uniqueID }} h4,
+#content-{{ $uniqueID }} h5,
+#content-{{ $uniqueID }} h6 {
+  scroll-margin-top: 100px; /* Adjust this value to match your header height */
+}
+</style>
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const url = '{{ if $localMode }}{{ $contentPath }}{{ else }}{{ $fullURL }}{{ end }}';
     const jsonKey = '{{ $jsonKey }}';
     const uniqueID = '{{ $uniqueID }}';
+
+    // Configure marked to generate heading IDs (alternative approach)
+    marked.use({
+      hooks: {
+        postprocess(html) {
+          // Add IDs to headings after HTML is generated
+          return html.replace(/<h([1-6])>(.*?)<\/h\1>/g, (match, level, text) => {
+            const slug = text
+              .replace(/<[^>]*>/g, '') // Remove any HTML tags
+              .toLowerCase()
+              .replace(/[^\w\s-]/g, '')
+              .replace(/\s+/g, '-')
+              .replace(/-+/g, '-')
+              .trim();
+            return `<h${level} id="${slug}">${text}</h${level}>`;
+          });
+        }
+      }
+    });
 
     fetch(url) // Fetch the JSON file
       .then(response => {
