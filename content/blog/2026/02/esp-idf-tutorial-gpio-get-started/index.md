@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF tutorial series: GPIO get started - Part 1"
 date: "2026-02-02"
+lastmod: "2026-02-13"
 # If default Espressif author is needed, uncomment this
 # showAuthor: true
 # Add a summary
@@ -535,3 +536,5 @@ void app_main(void)
 In this article, we went through a practical introduction to GPIO programming. We explored how to configure and control an output GPIO on Espressif SoCs, set up a blinking LED, and used FreeRTOS for timing.
 
 In the next article, we will explore how to use a GPIO as an input.
+
+> Go to [Part 2](../esp-idf-tutorial-gpio-get-started-2/)
