@@ -32,9 +32,9 @@ Dive into our latest workshops and master the skills you need to maximize the po
 More Workshops
 {{< /button >}}
 
-## Notable Events
+## Upcoming Events
 
-{{< article link="/events/devcon25/" showSummary=true compactSummary=true >}}
+{{< article link="/events/embedded-world-2026/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="events/" target="_self" >}}
