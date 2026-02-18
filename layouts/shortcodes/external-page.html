@@ -7,7 +7,6 @@
 {{- $featureImageAlt := .Get "featureImageAlt" | default $title -}}
 {{- $source := .Get "source" -}}
 {{- $compact := .Get "compact" | default false -}}
-{{- $inExternalPages := and .Parent (eq .Parent.Name "external-pages") -}}
 {{- $imageFit := .Get "imageFit" | default "cover" -}}
 {{- $imagePosition := .Get "imagePosition" | default "center" -}}
 {{- $imageZoom := .Get "imageZoom" | default "1" -}}
@@ -24,7 +23,7 @@
 {{- $imgWrapperClasses := "" -}}
 {{- $cardContentClasses := "" -}}
 
-{{- if or $compact $inExternalPages -}}
+{{- if $compact -}}
   {{- $cardClasses = "flex flex-col relative h-full overflow-hidden rounded-md border-2 border-neutral-200 dark:border-neutral-700 shadow-2xl" -}}
   {{- $cardContentClasses = "p-4 pt-2" -}}
 {{- else if site.Params.list.showCards -}}
@@ -35,7 +34,7 @@
   {{- $cardContentClasses = printf "%s mt-3 md:mt-0" $cardContentClasses -}}
 {{- end -}}
 
-{{- if and $constrainItemsWidth (not (or $compact $inExternalPages)) -}}
+{{- if and $constrainItemsWidth (not $compact) -}}
   {{- $cardClasses = printf "%s max-w-prose" $cardClasses -}}
 {{- end -}}
 
@@ -53,7 +52,7 @@
 <section class="relative z-10 not-prose space-y-10 w-full mb-5 bg-neutral dark:bg-neutral-800">
   <article class="{{ $cardClasses }} bg-neutral dark:bg-neutral-800">
     {{ with $featuredURL }}
-      <div class="flex-none relative overflow-hidden {{ if or $compact $inExternalPages }}aspect-[16/9]{{ end }} {{ $imgWrapperClasses }} thumbnail">
+      <div class="flex-none relative overflow-hidden {{ if $compact }}aspect-[16/9]{{ end }} {{ $imgWrapperClasses }} thumbnail">
         <img
           src="{{ . }}"
           alt="{{ $featureImageAlt | emojify }}"
@@ -92,7 +91,7 @@
       {{- end -}}
       {{ if and $shouldShowSummary $summary }}
         <div class="overflow-hidden pt-1">
-          <div class="{{ if or $compactSummary $compact $inExternalPages }}line-clamp-3{{ end }} prose dark:prose-invert max-w-fit">
+          <div class="{{ if or $compactSummary $compact }}line-clamp-3{{ end }} prose dark:prose-invert max-w-fit">
             {{ $summary | markdownify }}
           </div>
         </div>
