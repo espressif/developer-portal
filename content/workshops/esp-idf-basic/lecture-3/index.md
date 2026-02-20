@@ -1,9 +1,11 @@
 ---
 title: "ESP-IDF Basics - Lecture 3"
 date: "2025-08-05"
+lastmod: "2026-02-19"
 series: ["WS00A"]
 series_order: 8
 showAuthor: false
+summary: "In this lecture we'll explore how to include libraries inside ESP-IDF, external libraries, and components from the ESP Component Registry"
 ---
 
 ## Introduction
@@ -32,7 +34,7 @@ During the assignments, the goal will be to control the LED and the I2C sensor (
 
 {{< figure
 default=true
-src="../assets/lec_3_led_gpio.webp"
+src="../assets/lec-3-led-gpio.webp"
 caption="Fig.1 - GPIO connected to the LED"
     >}}
 
@@ -68,11 +70,13 @@ REQUIRES esp_driver_gpio
 ```
 
 Note that the header file and the required path are different: When including a library, make sure you check the [programming guide](https://docs.espressif.com/projects/esp-idf/en/v5.4.1/esp32c3/index.html) first.
-You need to:
 
-* In the upper left corner, choose the core (ESP32-C3)
-* Find the page for the peripheral (GPIO)
-* Find the section [API Reference](https://docs.espressif.com/projects/esp-idf/en/v5.4.1/esp32c3/api-reference/peripherals/gpio.html#api-reference-normal-gpio)
+To find the string for the `REQUIRES` path, do the following:
+
+* Open the ESP-IDF Programming Guide
+* In the upper left corner, choose the SoC (in our case, ESP32-C3)
+* Find the relevant peripheral API reference (in our case, GPIO)
+* In the peripheral API reference, find the Header File section for the required header (in our case, [normal GPIO](https://docs.espressif.com/projects/esp-idf/en/v5.4.1/esp32c3/api-reference/peripherals/gpio.html#api-reference-normal-gpio))
 
 #### Configuration
 
@@ -189,7 +193,7 @@ For our last external library (button), we will use the component manager and re
 
 {{< figure
 default=true
-src="../assets/lec_3_registry.webp"
+src="../assets/lec-3-registry.webp"
 caption="Fig.2 - espressif/button component"
     >}}
 
@@ -255,3 +259,5 @@ In this short lecture, we explored two main ways to include external libraries: 
 ### Next step
 
 > Next assignment &rarr; [Assignment 3.1](../assignment-3-1/)
+
+> Or [go back to navigation menu](../#agenda)
