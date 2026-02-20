@@ -1,7 +1,7 @@
 ---
 title: "Getting Started with NuttX and ESP32"
 date: 2020-11-30
-lastmod: 2024-06-20
+lastmod: 2026-02-19
 tags: ["NuttX", "Apache", "ESP32", "POSIX", "Linux"]
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
@@ -96,7 +96,7 @@ Once the NuttX dependencies are available, it’s time to install the compilatio
 Install `esptool`:
 
 ```bash
-pip install esptool==4.8.dev4
+pip install esptool
 ```
 Finally, install the toolchains to build the Espressif SoCs. It can be installed depending on the SoC being used, but it is highly recommended to keep all of them installed.
 
@@ -123,66 +123,44 @@ echo "export PATH=$HOME/riscv-none-elf-gcc/xpack-riscv-none-elf-gcc-13.2.0-2/bin
 ```
 
 This last step is optional and applicable only if you want to make the toolchain available automatically, even after a restart. On the other hand, exporting it to the `PATH` variable before using it is sufficient.
-Please also note that the `~.bashrc` is automatically sourced after a logout/login or after restarting the machine.
+Please also note that the `~/.bashrc` is automatically sourced after a logout/login or after restarting the machine.
 
-Make sure to either **1)** export the `PATH` with the toolchain or **2)** source the `~.bashrc` or **3)** logout and login or **4)** restart the machine.
+Make sure to either\
+**1)** export the `PATH` with the toolchain or\
+**2)** source the `~.bashrc` or\
+**3)** logout and login or\
+**4)** restart the machine.
 
 #### Xtensa SoCs (ESP32, ESP32-S2, ESP32-S3)
 
-Each Xtensa-based device has its own toolchain, which needs to be downloaded and configured separately. Please, double-check [ESP32](https://nuttx.apache.org/docs/latest/platforms/xtensa/esp32/index.html#esp32-toolchain), [ESP32-S2](https://nuttx.apache.org/docs/latest/platforms/xtensa/esp32s2/index.html#esp32-s2-toolchain) and [ESP32-S3](https://nuttx.apache.org/docs/latest/platforms/xtensa/esp32s3/index.html#esp32-s3-toolchain) toolchain sections to get the link for the recommended toolchain for each SoC.
+Each Xtensa-based device has its own toolchain. However, they can be downloaded and configured in a bundle.
 
-##### **ESP32**:
-
-Although ESP32, ESP32-S2 and ESP32-S3 have their own toolchain, the process of downloading and installing is very similar:
-
-First of all, export a variable to identify the toolchain being installed:
-
-```bash
-export CHIPNAME=esp32
-```
+In a similar approach to RISC-V toolchain, visit the [ESP32-S3's Toolchain section](https://nuttx.apache.org/docs/latest/platforms/xtensa/esp32s3/index.html#esp32-s3-toolchain) in the NuttX documentation to check for the newest recommended Xtensa toolchain.
 
 Create a directory to install the toolchain. It can be on your home directory:
 ```bash
-mkdir -p ~/xtensa-$CHIPNAME-elf-gcc
+mkdir -p ~/xtensa-esp-elf
 ```
 
 Download and extract the toolchain on the new directory:
 ```bash
-cd ~/xtensa-$CHIPNAME-elf-gcc
-wget https://github.com/espressif/crosstool-NG/releases/download/esp-12.2.0_20230208/xtensa-$CHIPNAME-elf-12.2.0_20230208-x86_64-linux-gnu.tar.xz
-tar -xf xtensa-$CHIPNAME-elf-12.2.0_20230208-x86_64-linux-gnu.tar.xz
+cd ~/xtensa-esp-elf
+wget https://github.com/espressif/crosstool-NG/releases/download/esp-14.2.0_20241119/xtensa-esp-elf-14.2.0_20241119-x86_64-linux-gnu.tar.xz
+tar -xf xtensa-esp-elf-14.2.0_20241119-x86_64-linux-gnu.tar.xz
 ```
 
 Once extracted, add the location of the binaries to the user’s PATH and reload the terminal:
 
 ```bash
-echo "export PATH=$HOME/xtensa-$CHIPNAME-elf-gcc/xtensa-$CHIPNAME-elf/bin:\$PATH" >> ~/.bashrc
+echo "export PATH=$HOME/xtensa-esp-elf/xtensa-esp-elf/bin:\$PATH" >> ~/.bashrc
 ```
 
 To check if the toolchain is properly installed:
 ```bash
 xtensa-esp32-elf-gcc --version
+xtensa-esp32s2-elf-gcc --version
+xtensa-esp32s3-elf-gcc --version
 ```
-
-##### **ESP32-S2**:
-
-Similarly, for ESP32-S2:
-
-```bash
-export CHIPNAME=esp32s2
-```
-
-And run the same steps to create the directory to install the toolchain, download and extract the toolchain and export it to the `PATH`, as it was done for [ESP32](#esp32).
-
-##### **ESP32-S3**:
-
-Similarly, for ESP32-S3:
-
-```bash
-export CHIPNAME=esp32s3
-```
-
-And run the same steps to create the directory to install the toolchain, download and extract the toolchain and export it to the `PATH`, as it was done for [ESP32](#esp32).
 
 ### Getting NuttX
 
