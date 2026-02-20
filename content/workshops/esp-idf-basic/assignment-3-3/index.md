@@ -1,15 +1,13 @@
 ---
 title: "ESP-IDF Basics - Assign. 3.3"
 date: "2025-08-05"
+lastmod: "2026-01-20"
 series: ["WS00A"]
 series_order: 11
 showAuthor: false
 ---
 
-## Putting it all together
-
-
-In this assignment, you will put combine all you have done together by adding the two routes below to your HTTP server.
+In this assignment, you will put all you have done together by adding the two routes below to your HTTP server.
 
 For this assignment, you have to
 
@@ -18,13 +16,10 @@ For this assignment, you have to
 ```json
 {
    'temperature': float,
-   'humidity': float
 }
 ```
 
-### Optional task
-
-2. (Optional) add route `POST /startblink/` which flashes the led according to the temperature reading
+1. (Optional) add route `POST /startblink/` which flashes the led according to the temperature reading
    * Flashes the number of tens digit (e.g. 29 degrees &rarr; 2) with 400ms on and 200ms off
    * Pauses 1 sec
    * Flashes the number of units digit (e.g. 29 degrees &rarr; 2) with 400ms on and 200ms off
@@ -37,3 +32,5 @@ You have create a basic IoT application, putting together sensor reading and HTT
 ### Next step
 
 > Next step &rarr; [Conclusion](../#conclusion)
+
+> Or [go back to navigation menu](../#agenda)
