@@ -8,6 +8,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - "lucas-vaz"
 summary: "This article presents information on how to use ESP-NOW with the Arduino core for Espressif devices."
+aliases:
+  - /blog/arduino-esp-now-lib
 ---
 
 [ESP-NOW](https://www.espressif.com/en/solutions/low-power-solutions/esp-now) is a connectionless Wi-Fi communication protocol developed by Espressif for its microcontrollers. It allows for efficient, low-power, and low-latency peer-to-peer communication. This article will guide you through the essentials of using the new ESP-NOW library included in Arduino 3.0.0, from basic setup to advanced features.

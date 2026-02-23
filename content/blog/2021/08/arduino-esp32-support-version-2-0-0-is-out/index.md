@@ -14,7 +14,9 @@ tags:
   - Esp32
   - USB
   - IoT
-summary: "Annoucement of Arduino 2.0.0 release."
+summary: "Announcement of Arduino 2.0.0 release."
+aliases:
+  - /blog/arduino-esp32-support-version-2-0-0-is-out
 ---
 Arduino is definitely one of the most popular embedded development frameworks, and this popularity is mostly due to its simplicity and huge community.
 
