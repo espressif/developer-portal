@@ -236,13 +236,17 @@ check_changed_filenames_and_paths() {
   bad_chars='_:;,$%#@!?'
 
   while IFS= read -r line; do
-    # Track if this path ends with _index.md
-    if [[ "$line" == */_index.md ]]; then
+    # Track if this path ends with _index*.md
+    if [[ "$line" == */_index*.md ]]; then
       saw_index_md=1
     fi
 
-    # Remove trailing /_index.md if present
-    cleaned="${line%/_index.md}"
+    # Remove trailing _index*.md if present
+    if [[ "$line" == */_index*.md ]]; then
+      cleaned="${line%/_index*.md}"
+    else
+      cleaned="$line"
+    fi
 
     # If the cleaned path still has an underscore, it's invalid
     if [[ "$cleaned" =~ [$bad_chars] ]]; then
@@ -254,7 +258,7 @@ check_changed_filenames_and_paths() {
     echo
     echo "❌ Remove underscores and unusual characters ($bad_chars) in these paths:"
     if [[ "$saw_index_md" -eq 1 ]]; then
-      echo "   (filename \"_index.md\" is allowed)"
+      echo "   (filename \"_index*.md\" is allowed)"
     fi
     printf "%s" "$bad_files"
     job_error=1
