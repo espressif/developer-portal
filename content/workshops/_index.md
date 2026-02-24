@@ -3,7 +3,7 @@ title: "Workshops"
 description: "Here you can find workshops about Espressif products."
 date: 2024-06-03T10:00:00+01:00
 draft: false
-showDate: false
+showDate: true
 showDateUpdated: false
 showHeadingAnchors: false
 showPagination: false
@@ -13,7 +13,6 @@ showWordCount: false
 showSummary: false
 
 cascade:
-  showDate: false
   showAuthor: false
   invertPagination: true
   sharingLinks: false
