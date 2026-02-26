@@ -19,6 +19,8 @@ showLikes : false
 showViews : false
 showZenMode : false
 disableComments : true
+aliases:
+  - /survey-ew26/
 ---
 
 <style>
