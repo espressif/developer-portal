@@ -148,6 +148,16 @@ Whether you're looking for community support, technical documentation, or explor
 
 {{< /timelineItem >}}
 
+{{< timelineItem icon="download" header="Downloads" >}}
+
+- [Espressif EW26 ESP IDF Flyer](https://dl.espressif.com/public/Espressif-EW26-ESP-IDF-Flyer.pdf)
+- [Espressif EW26 Arduino Flyer](https://dl.espressif.com/public/Espressif-EW26-Arduino-Flyer.pdf)
+- [Espressif EW26 NuttX Flyer](https://dl.espressif.com/public/Espressif-EW26-NuttX-Flyer.pdf)
+- [Espressif EW26 Rust Flyer](https://dl.espressif.com/public/Espressif-EW26-Rust-Flyer.pdf)
+- [Espressif EW26 Zephyr Flyer](https://dl.espressif.com/public/Espressif-EW26-Zephyr-Flyer.pdf)
+
+{{< /timelineItem >}}
+
 {{< timelineItem icon="star" header="Community" >}}
 
 {{< external-page
