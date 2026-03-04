@@ -27,36 +27,14 @@ Register
 
 ## Resources and Materials
 
-{{< external-page
-  link="https://dl.espressif.com/public/Espressif-EW26-ESP-IDF-Flyer.pdf"
-  title="Espressif EW26 ESP IDF Flyer"
-  source="Espressif"
->}}
-
-{{< external-page
-  link="https://dl.espressif.com/public/Espressif-EW26-Arduino-Flyer.pdf"
-  title="Espressif EW26 Arduino Flyer"
-  source="Espressif"
->}}
-
-{{< external-page
-  link="https://dl.espressif.com/public/Espressif-EW26-NuttX-Flyer.pdf"
-  title="Espressif EW26 NuttX Flyer"
-  source="Espressif"
->}}
-
-{{< external-page
-  link="https://dl.espressif.com/public/Espressif-EW26-Rust-Flyer.pdf"
-  title="Espressif EW26 Rust Flyer"
-  source="Espressif"
->}}
-
-{{< external-page
-  link="https://dl.espressif.com/public/Espressif-EW26-Zephyr-Flyer.pdf"
-  title="Espressif EW26 Zephyr Flyer"
-  source="Espressif"
->}}
-
 {{< button href="/pages/resources/" target="_self" >}}
 Resources
 {{< /button >}}
+
+### Flyers
+
+- [Download ESP-IDF](https://dl.espressif.com/public/Espressif-EW26-ESP-IDF-Flyer.pdf)
+- [Download Arduino](https://dl.espressif.com/public/Espressif-EW26-Arduino-Flyer.pdf)
+- [Download NuttX](https://dl.espressif.com/public/Espressif-EW26-NuttX-Flyer.pdf)
+- [Download Rust](https://dl.espressif.com/public/Espressif-EW26-Rust-Flyer.pdf)
+- [Download Zephyr](https://dl.espressif.com/public/Espressif-EW26-Zephyr-Flyer.pdf)
