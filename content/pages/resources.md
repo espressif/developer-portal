@@ -202,6 +202,12 @@ Whether you're looking for community support, technical documentation, or explor
 >}}
 
 {{< external-page
+  link="https://www.espressif.com/en/about_espressif_2026"
+  title="Espressif Brochure Embedded World 2026"
+  source="Espressif"
+>}}
+
+{{< external-page
   link="https://dl.espressif.com/public/Espressif-EW26-ESP-IDF-Flyer.pdf"
   title="Espressif EW26 ESP IDF Flyer"
   source="Espressif"
