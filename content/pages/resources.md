@@ -196,6 +196,12 @@ Whether you're looking for community support, technical documentation, or explor
 {{< timelineItem icon="download" header="Downloads" >}}
 
 {{< external-page
+  link="https://dl.espressif.com/public/Espressif-SoC-Portfolio-2026.pdf"
+  title="Espressif SoC Portfolio 2026"
+  source="Espressif"
+>}}
+
+{{< external-page
   link="https://dl.espressif.com/public/Espressif-EW26-ESP-IDF-Flyer.pdf"
   title="Espressif EW26 ESP IDF Flyer"
   source="Espressif"

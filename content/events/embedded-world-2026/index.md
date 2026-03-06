@@ -31,6 +31,10 @@ Register
 Resources
 {{< /button >}}
 
+### Downloads
+
+- [Espressif SoC Portfolio 2026](https://dl.espressif.com/public/Espressif-SoC-Portfolio-2026.pdf)
+
 ### Flyers
 
 - [Download ESP-IDF](https://dl.espressif.com/public/Espressif-EW26-ESP-IDF-Flyer.pdf)
