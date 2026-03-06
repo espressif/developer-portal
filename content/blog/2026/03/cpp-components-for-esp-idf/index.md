@@ -112,19 +112,6 @@ idf.py add-dependency "elrebo-de/deep_sleep^1.2.1"
 ```
 Executing this command adds the dependency to the dependencies section of idf-component.yml.
 
-### Add the Component as a Requirement in CMakeLists.txt
-
-Here is an example for using elrebo-de/deep_sleep:
-```txt
-idf_component_register( SRCS "main.cpp"
-                        INCLUDE_DIRS "."
-                        REQUIRES "elrebo-de__deep_sleep"
-                                 "esp_driver_gpio"
-                      )
-
-```
-As you see, the slash (`/`) between namespace and component name is replaced by two underscores  (`__`).
-
 ### Create a C++ Main Program and Include the Header File of the Component
 Because the components are C++ classes the calling program must also be a C++ program. There you can include the header files of the needed components. In C++ main programs (`main.cpp`) the function app_main must be specified with `extern "C"`, so that it has C linkage.
 
