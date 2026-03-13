@@ -67,7 +67,7 @@ Once an agent is defined, you can test it directly from the web dashboard to obs
 
 ## Getting Started on a Real Device: Step-by-Step
 
-Once your agent is configured, you can run it on real hardware using any of the three supported development kits: **EchoEar**, **ESP32-S3-Box**, and **M5Stack Core S3**. The **agent client** is fully compatible with all three platforms, enabling you to test voice interactions, tool execution, and end-to-end behavior exactly as users would experience it.
+Once your agent is configured, you can run it on real hardware using any of the three supported development kits: **ESP-VoCat**, **ESP32-S3-Box**, and **M5Stack Core S3**. The **agent client** is fully compatible with all three platforms, enabling you to test voice interactions, tool execution, and end-to-end behavior exactly as users would experience it.
 
 <div style="display: flex; gap: 1rem; justify-content: center; margin: 2rem 0;">
   <figure style="flex: 1; margin: 0;">
