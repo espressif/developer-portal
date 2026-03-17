@@ -47,7 +47,7 @@ Sometimes you want to enter Deep Sleep mode after your SoC has done its work. Wa
 
 To use this component you have to create an instance of class DeepSleep and to define variable bootCount as an RTC_DATA_ATTR in the beginning of your program.
 
-After your program has done its duty, you have to enable timer wake up and/or a GPIO button wake up and go to Deep Sleep. 
+Once your application has completed its tasks, configure the desired wake up source, either a timer or a GPIO button, before putting the device into Deep Sleep mode.
 
 ```C++
 #include "deep_sleep.hpp"
