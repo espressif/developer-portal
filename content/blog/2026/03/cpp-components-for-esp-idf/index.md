@@ -10,7 +10,7 @@ showAuthor: false
 featureAsset: "featured-cpp-components.webp"
 authors:
     - "christoph-oberle"
-summary: "For beginners it is not easy to establish a minimal working environment for the ESP32 SoCs with e.g. Wifi, buttons, LEDs and waking up from Deep Sleep. Unfortunately such a minimal environment is necessary to get things done. This article describes some components which help to set up this environment. By using C++ the complexity is hidden inside the component classes."
+summary: "This article presents two C++ ESP32 components: Wifi Manager for seamless network connection and Deep Sleep for power-saving operation, both easily integrated using provided code examples. It also lists additional ESP-IDF components to streamline development."
 ---
 
 ## Components for the Minimal Working Environment: Two Examples
