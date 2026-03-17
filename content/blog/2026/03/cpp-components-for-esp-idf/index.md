@@ -17,7 +17,7 @@ summary: "This article presents two C++ ESP32 components: Wifi Manager for seaml
 
 ### 1. Wifi Manager Component
 
-The easiest method to connect an ESP32 chip with the local network is to establish a Wifi connection. With this component there is no need to give the Wifi credentials (SSID and password) in configuration parameters It starts a Wifi access point and a captive portal. This allows to choose the SSID from a list of Wifi networks and enter the password. Then a connection to the given Wifi network is established. The SSID and the password only have to be entered once, because they are stored in non-volatile flash storage, from where they are retrieved on subsequent startups.
+The easiest method to connect an ESP32 chip with the local network (LAN) is to establish a Wi-Fi connection. With this component there is no need to give the Wi-Fi credentials (SSID and password) in configuration parameters, because it starts a Wi-Fi access point with a login page. This allows to choose the SSID from a list of Wi-Fi networks and enter the password. Then a connection to the given Wi-Fi network is established. The SSID and the password only have to be entered once, because they are stored in non-volatile flash storage, from where they are retrieved on subsequent startups.
 
 To use this component you only have to create an instance of class Wifi in the beginning of your program, everything else is done inside the class.
 
