@@ -116,7 +116,7 @@ Executing this command adds the dependency to the dependencies section of idf-co
 Because the components are C++ classes the calling program must also be a C++ program. There you can include the header files of the needed components. In C++ main programs (`main.cpp`) the function app_main must be specified with `extern "C"`, so that it has C linkage.
 
 This is the beginning of a main.cpp file which is used in the example of the deep_sleep component. 
-For the deep_sleep component the header file deep_sleep.hpp is included, the int variable bootCount is defined in RTC_DATA storage and an instance of class DeepSleep is defined:
+For the deep_sleep component the header file deep_sleep.hpp is included, the int variable `bootCount` is defined in RTC_DATA storage and an instance of class DeepSleep is defined:
 ```C++
 /*
  * Example program to use deep_sleep functionality with elrebo-de/deep_sleep
