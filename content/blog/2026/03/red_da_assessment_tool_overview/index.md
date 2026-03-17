@@ -1,6 +1,6 @@
 ---
 title: "RED DA Assessment Tool: Streamline Your ESP32 Cybersecurity Compliance"
-date: 2025-11-01
+date: 2026-03-17
 showAuthor: false
 authors:
   - aditya-patwardhan
@@ -15,49 +15,88 @@ tags:
 summary: "The RED DA Assessment Tool simplifies the process of achieving cybersecurity compliance for ESP32 devices in line with the EU's EN 18031 standards. This article explains how the tool helps you gather, validate, and generate all necessary documentation for RED Delegated Act self-assessment, including uploading configuration and SBOM files, completing risk assessments, mapping technical requirements, and preparing a declaration of conformity—making self-declaration fast, accurate, and accessible for IoT developers."
 ---
 
-Getting your ESP32-based product ready for the European market? The RED DA Assessment Tool streamlines the self-assessment process for EN 18031 compliance. This guide walks you through everything you need to know to generate your RED Delegated Act assessment documents quickly and correctly, supporting the self-declaration pathway outlined in our [RED DA compliance series](https://developer.espressif.com/blog/2025/04/esp32-red-da-en18031-compliance-guide/).
+<style>
+/* Custom CSS to fix image brightness issues */
+.prose figure img,
+.prose img,
+img[src*=".webp"],
+img[src*="product_details"] {
+    filter: none !important;
+    opacity: 1 !important;
+    brightness: 1 !important;
+    contrast: 1 !important;
+    -webkit-filter: none !important;
+}
 
-## What is the RED DA Assessment Tool?
+/* Ensure no dark mode filters affect images */
+.dark .prose figure img,
+.dark .prose img,
+.dark img[src*=".webp"],
+.dark img[src*="product_details"] {
+    filter: none !important;
+    opacity: 1 !important;
+    brightness: 1 !important;
+    contrast: 1 !important;
+    -webkit-filter: none !important;
+}
 
-The RED DA Assessment Tool is a web-based application available at [https://red-da-assessment-tool.security.espressif.com](https://red-da-assessment-tool.security.espressif.com) that helps you perform the **self-assessment process** for RED Delegated Act (EN 18031) compliance. Instead of manually filling out complex forms, the tool automatically reads your ESP-IDF project configuration and generates the technical documentation needed for self-declaration.
+/* Prevent any hover effects that might dim images */
+.prose figure:hover img,
+.prose img:hover,
+img[src*=".webp"]:hover,
+img[src*="product_details"]:hover {
+    filter: none !important;
+    opacity: 1 !important;
+    brightness: 1 !important;
+    contrast: 1 !important;
+    -webkit-filter: none !important;
+}
 
-This tool directly supports the **Self-Declaration Using Espressif Templates** pathway described in our [RED DA compliance guide](https://developer.espressif.com/blog/2025/07/esp32-red-da-en18031-compliance-guide-part2/), allowing you to:
-- Generate the required technical documentation
-- Complete your product risk assessment
-- Prepare your Declaration of Conformity (DoC)
-- Create submission-ready compliance packages
+/* Specifically target animated WebP files */
+img[src*="product_details.webp"],
+div img[src*="product_details.webp"] {
+    filter: none !important;
+    opacity: 1 !important;
+    brightness: 1 !important;
+    contrast: 1 !important;
+    -webkit-filter: none !important;
+    image-rendering: auto !important;
+    color-profile: auto !important;
+    -webkit-color-profile: auto !important;
+}
 
-No installation required - just open your browser and start your self-assessment.
+/* Additional override for any container that might affect the animated image */
+div[style*="text-align: center"] img {
+    filter: none !important;
+    opacity: 1 !important;
+    brightness: 1 !important;
+    contrast: 1 !important;
+    -webkit-filter: none !important;
+}
+</style>
 
-## Why do you need this?
+The RED Delegated Act is now in effect. If you're selling wireless products in the EU market, you must demonstrate EN 18031 compliance — and the clock is ticking. Starting **August 2025**, all new products placed on the EU market need to meet these cybersecurity requirements. The RED DA will remain applicable until the **Cyber Resilience Act (CRA)** takes over in **December 2027**, after which the CRA will set the new baseline for cybersecurity compliance across the EU.
 
-As outlined in our [RED DA compliance guide](https://developer.espressif.com/blog/2025/04/esp32-red-da-en18031-compliance-guide/), the **RED Delegated Act (EN 18031)** introduces mandatory cybersecurity requirements for wirelessly connected products sold in the EU market.
+The compliance process typically involves weeks of manual documentation — mapping security features to standards, writing risk assessments, and preparing declarations of conformity. The **RED DA Assessment Tool** reduces this to a single guided session. Upload your ESP-IDF project files, answer a questionnaire (mostly pre-filled from your configuration), and download a complete, submission-ready compliance package.
 
-The three main cybersecurity requirements under Article 3(3) are:
-- **Article 3(3)(d):** Protection of network connections
-- **Article 3(3)(e):** Protection of personal data and user privacy
-- **Article 3(3)(f):** Protection against financial fraud
+**[Try it now at red-da-assessment-tool.security.espressif.com](https://red-da-assessment-tool.security.espressif.com)**
 
-For self-assessment, manufacturers must create comprehensive technical documentation. The RED DA Assessment Tool streamlines this process by:
+## What does the tool do?
 
-- **Automating documentation**: Generates the required technical specifications and risk assessments
-- **Ensuring completeness**: Covers all applicable EN 18031 requirements based on your device configuration
-- **Supporting self-declaration**: Creates the documentation needed for the cost-effective self-assessment pathway
-- **Professional output**: Generates compliance packages ready for regulatory review
+The RED DA Assessment Tool is a web application that automates the **self-assessment process** for RED Delegated Act (EN 18031) compliance. It directly supports the **Self-Declaration Using Espressif Templates** pathway described in our [RED DA compliance guide](https://developer.espressif.com/blog/2025/07/esp32-red-da-en18031-compliance-guide-part2/).
 
-## Key Benefits
+Here's what it handles for you:
 
-The RED DA Assessment Tool transforms the complex EN 18031 self-assessment process into a simple, guided workflow. By automatically analyzing your ESP-IDF configuration and mapping it to EN 18031 requirements, it enables the cost-effective self-declaration pathway described in our [compliance guide series](https://developer.espressif.com/blog/2025/07/esp32-red-da-en18031-compliance-guide-part2/).
+- **Reads your ESP-IDF configuration** and automatically maps security features to EN 18031 requirements
+- **Pre-fills the security questionnaire** based on your `sdkconfig.json` — no need to manually look up what's enabled
+- **Scans your SBOM** for known vulnerabilities and structures the risk assessment
+- **Generates a complete compliance package** — product risk assessment, EN 18031 mapping, technical specs, and a Declaration of Conformity template
 
-- **Supports self-declaration**: Creates all documentation needed for the self-assessment pathway
-- **Automated risk assessment**: Generates required security risk analysis based on your configuration
-- **EN 18031 mapping**: Automatically maps your ESP32 security features to compliance requirements
-- **Complete documentation package**: Provides everything needed for regulatory submission
-- **Cost-effective**: Enables self-declaration instead of expensive third-party assessment
+No installation required — just open your browser, sign in, and start your assessment.
 
 ## Before You Start: What You'll Need
 
-To use the tool effectively, gather these files from your ESP-IDF project:
+Gather these files from your ESP-IDF project:
 
 ### Required Files
 
@@ -159,24 +198,22 @@ The downloadable template file contains more detailed example content to help gu
 
 ## Step-by-step guide
 
-### Step 1: Access the tool
+### Step 1: Sign in
 
-The RED DA Assessment Tool is available online - no installation required! Simply visit:
-
-**[https://red-da-assessment-tool.security.espressif.com](https://red-da-assessment-tool.security.espressif.com)**
+Visit **[red-da-assessment-tool.security.espressif.com](https://red-da-assessment-tool.security.espressif.com)** and sign in using your **GitHub**, **Google**, or **Apple** account. This is a one-time step — once signed in, you can access the tool directly on subsequent visits.
 
 {{< figure
 default=true
-src="images/home.webp"
+src="images/login.webp"
 height=500
-caption="RED DA Assessment Tool Interface"
+caption="Sign in with your preferred account"
     >}}
 
 ### Step 2: Choose Your Starting Point
 
 You have two options:
-- **🚀 Start New Assessment** - Begin a fresh assessment
-- **📁 Import Previous Session** - Upload your previous assessment zip package to continue or modify an existing assessment
+- **Start New Assessment** - Begin a fresh assessment
+- **Import Previous Session** - Upload your previous assessment zip package to continue or modify an existing assessment
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 **Using Import Previous Session**: If you completed an assessment before, you received a zip package with all your assessment data. Upload this zip file to:
@@ -184,6 +221,13 @@ You have two options:
 - **Generate updated reports** with new information while keeping your previous work
 - **Create variations** for similar products by modifying existing assessments
 {{< /alert >}}
+
+{{< figure
+default=true
+src="images/home.webp"
+height=500
+caption="RED DA Assessment Tool Home Page"
+    >}}
 
 ### Step 3: Provide product details
 
@@ -267,19 +311,11 @@ height=500
 caption="Vulnerability Assessment"
     >}}
 
-### Step 7: Report generation
+### Step 7: Review and Download Your Compliance Package
 
-After completing the vulnerability assessment, the tool automatically generates your complete self-assessment documentation package. This happens instantly without any additional action required from you.
+After completing the vulnerability assessment, the tool generates your complete self-assessment documentation package. You can review it, go back to any previous step to make changes, regenerate, and download when ready.
 
-### Step 8: Review and Download Your Compliance Package
-
-Now you can review the generated report and make updates if needed. You have the flexibility to:
-- **Review the complete report** before finalizing
-- **Go back to any previous step** to modify information
-- **Regenerate the report** after making changes
-- **Download your final compliance package**
-
-Your complete self-assessment documentation downloads as a comprehensive package containing:
+Your compliance package downloads as a comprehensive bundle containing:
 
 **Main Assessment Report** (`ESP32-C3_RED-DA_Assessment_2025-11-01.xlsx`):
 - **Product Risk Assessment**: Security risk analysis for Article 3.3(d) compliance
@@ -344,28 +380,35 @@ Your compliance package includes:
 - This is normal for custom configurations
 - Review these sections carefully and fill in manually
 
+## RED DA and the Cyber Resilience Act (CRA)
+
+The RED Delegated Act is the current regulatory requirement, but it's not the end of the road. The **Cyber Resilience Act (CRA)** — a broader EU regulation covering all products with digital elements — will become applicable in **December 2027**. Once the CRA takes effect, it will supersede the RED DA for cybersecurity requirements.
+
+What this means for you:
+- **Now through December 2027**: RED DA (EN 18031) compliance is mandatory for wireless products in the EU
+- **From December 2027**: The CRA will set the new cybersecurity baseline, with its own conformity assessment procedures
+- **Your RED DA documentation is still valuable**: The security measures and documentation you prepare now will form a strong foundation for CRA compliance
+
+Starting your compliance journey now with the RED DA Assessment Tool puts you ahead — both for current market access and for the transition to the CRA.
+
 ## What happens next?
 
 After generating your self-assessment documentation:
 
-### For Self-Declaration (Most Common Path)
 1. **Review your compliance package** - Verify all technical details and risk assessments
 2. **Sign the Declaration of Conformity** - Complete the DoC template provided
 3. **Maintain documentation** - Keep all records for 10 years as required by regulation
 4. **Apply CE marking** - Mark your compliant products for EU market entry
 5. **Monitor for updates** - Ensure ongoing compliance with any firmware updates
 
-### If Additional Assessment is Needed
-Some products may require [Notified Body assessment](https://developer.espressif.com/blog/2025/04/esp32-red-da-en18031-compliance-guide/#notified-body-assessment-process) if they:
-- Allow users to choose not to set passwords
-- Have compatibility issues with parental controls (toys/childcare)
-- Handle financial transactions requiring additional authentication
+{{< alert iconColor="#df8e1d" cardColor="#edcea3">}}
+Some products may require [Notified Body assessment](https://developer.espressif.com/blog/2025/04/esp32-red-da-en18031-compliance-guide/#notified-body-assessment-process) if they allow users to choose not to set passwords, have compatibility issues with parental controls (toys/childcare), or handle financial transactions requiring additional authentication.
+{{< /alert >}}
 
-### Regulatory Compliance
-- **Market surveillance authorities** may request your documentation at any time
-- **Keep documentation readily available** for inspection
-- **Ensure manufacturing consistency** maintains the assessed configuration
+## Get Started
 
-## Conclusion
+The RED DA Assessment Tool is available now. Upload your files, generate your compliance package, and get your ESP32 product ready for the EU market.
 
-The RED DA Assessment Tool simplifies the EN 18031 compliance process by automating documentation generation, risk assessment, and standards mapping. Since the RED Delegated Act is now in effect, all new products entering the EU market must perform this mandatory compliance step. The tool makes EN 18031 compliance accessible through the self-declaration pathway, enabling most manufacturers to complete their assessment without expensive third-party certification.
+**[Start your assessment at red-da-assessment-tool.security.espressif.com](https://red-da-assessment-tool.security.espressif.com)**
+
+Have questions or feedback? Reach out to us through the [Espressif Developer Portal](https://developer.espressif.com).
