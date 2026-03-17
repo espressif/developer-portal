@@ -12,7 +12,7 @@ authors:
     - "christoph-oberle"
 summary: "This article presents two C++ ESP32 components: Wifi Manager for seamless network connection and Deep Sleep for power-saving operation, both easily integrated using provided code examples. It also lists additional ESP-IDF components to streamline development."
 ---
-
+For beginners it is not easy to establish a minimal working environment for the ESP32 SoCs with e.g. Wifi, buttons, LEDs and waking up from Deep Sleep. Unfortunately such a minimal environment is necessary to get things done. In this article, we will [...] in order to [...] etc
 ## Components for the Minimal Working Environment: Two Examples
 
 ### 1. Wifi Manager Component
