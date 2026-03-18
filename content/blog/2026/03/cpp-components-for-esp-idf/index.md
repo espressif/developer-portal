@@ -179,6 +179,7 @@ Finally you send the ESP chip to Deep Sleep with method `GoToDeepSleep()`.
     // this statement will not be reached, if GoToDeepSleep is working
     ESP_LOGI(tag, "GoToDeepSleep rc=%u", rc);
 }
+```
 ## Step by Step Guide
 Let us start with an empty ESP program, then we add the WiFi functionality and finally the Deep Sleep functionality.
 
@@ -195,8 +196,6 @@ Let us start with an empty ESP program, then we add the WiFi functionality and f
 ### Step 11: Configure the Wakeup Sources
 ### Step 12: Go to Deep Sleep
 ### Summary: What did we achieve
-
-```
 
 ## Available Components for a Minimal Working Environment
 Currently there are the following components ready to use with ESP IDF V5.5+ published on ESP Component Registry.
