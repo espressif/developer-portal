@@ -26,18 +26,22 @@ jobs:
 
       - name: Set environment variables
         id: set-env
+        env:
+          TARGET_REPO_URL: ${{ inputs.target_repo_url }}
+          TARGET_BRANCH: ${{ inputs.target_branch }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           # Add target remote and fetch its branches
-          git remote add target ${{ inputs.target_repo_url }}
-          git fetch target ${{ inputs.target_branch }}
+          git remote add target -- "$TARGET_REPO_URL"
+          git fetch target -- "$TARGET_BRANCH"
 
           # Extract the base commit ID where the feature branch diverged from main
-          base_commit=$(git merge-base target/${{ inputs.target_branch }} ${{ github.event.pull_request.head.ref }})
+          base_commit=$(git merge-base -- "target/$TARGET_BRANCH" "$PR_HEAD_REF")
           echo "BASE_COMMIT=$base_commit" | tee -a $GITHUB_ENV
 
           # Extract the head commit ID on the feature branch
-          head_commit=${{ github.event.pull_request.head.sha }}
-          echo "HEAD_COMMIT=$head_commit" | tee -a $GITHUB_ENV
+          echo "HEAD_COMMIT=$PR_HEAD_SHA" | tee -a $GITHUB_ENV
 
       - name: Create baseline branch by reverting feature branch changes
         run: |
@@ -45,7 +49,7 @@ jobs:
           git checkout -b feature-baseline
 
           # Reset the new branch to the base commit
-          git reset --hard ${{ env.BASE_COMMIT }}
+          git reset --hard "$BASE_COMMIT"
 
       - name: Dump all links from feature-baseline
         uses: lycheeverse/lychee-action@v2.0.2
@@ -58,16 +62,18 @@ jobs:
           output: links-baseline.txt
 
       - name: Check out feature branch
-        run: git checkout ${{ github.head_ref }}
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: git switch -- "$HEAD_REF"
 
       - name: Append links-baseline.txt to .lycheeignore
         run: cat links-baseline.txt >> .lycheeignore
 
       - name: Dump names of files altered in PR and append hash sign to find links with anchors
         run: |
-          git diff --name-only --diff-filter=DM ${{ env.BASE_COMMIT }} ${{ env.HEAD_COMMIT }} > altered-files.txt
+          git diff --name-only --diff-filter=DM "$BASE_COMMIT" "$HEAD_COMMIT" > altered-files.txt
           sed -i 's|$|#|' altered-files.txt
-          git diff --name-status --diff-filter=R ${{ env.BASE_COMMIT }} ${{ env.HEAD_COMMIT }} | awk '{print $2}' > renamed-files.txt
+          git diff --name-status --diff-filter=R "$BASE_COMMIT" "$HEAD_COMMIT" | awk '{print $2}' > renamed-files.txt
           sed -i 's|$|#|' renamed-files.txt
 
       - name: Print altered-files.txt
