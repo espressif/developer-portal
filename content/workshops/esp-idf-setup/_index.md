@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF workshop - Preliminary setup"
-date: "2026-03-20"
+date: "2026-03-19"
 summary: "This guide outlines the preliminary steps to set up your work environment and follow the workshops."
 ---
 
