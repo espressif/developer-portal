@@ -6,7 +6,7 @@ summary: "This guide outlines the preliminary steps to set up your work environm
 
 ## VS Code Installation
 
-* Go to the [VS Code download site](code.visualstudio.com/downloads)
+* Go to the [VS Code download site](https://code.visualstudio.com/downloads)
 * Download and install the Windows version
   ![](../assets/setup/1-windows-vscode-download.webp)
 
