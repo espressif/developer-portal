@@ -8,7 +8,7 @@ summary: "This guide outlines the preliminary steps to set up your work environm
 
 * Go to the [VS Code download site](https://code.visualstudio.com/downloads)
 * Download and install the macOS version
-  ![](../assets/setup//1-ubuntu-vscode-download.webp)
+  ![](../assets/setup/1-ubuntu-vscode-download.webp)
 
 {{< alert iconColor="#df8e1d" cardColor="#edcea3">}}
 This guide uses macOS Sequoia.
