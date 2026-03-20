@@ -1,6 +1,6 @@
 ---
 title: "Announcing ESP-IDF v6.0"
-date: 2026-03-19
+date: 2026-03-20
 showAuthor: false
 featureAsset: "img/featured/featured-esp-idf.webp"
 authors:
@@ -227,4 +227,3 @@ ESP-IDF v6.0 is available now. We encourage you to try it out and share your fee
 ## Conclusion
 
 [ESP-IDF 6.0 is out now](https://github.com/espressif/esp-idf/releases/tag/v6.0). Whether you're starting a new project or upgrading an existing one, we hope you find something useful and interesting in this release. As always—we're excited to see what you'll build with it.
-
