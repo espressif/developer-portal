@@ -1,0 +1,11 @@
+author:
+  byline:
+    espressif: Autor Espressif
+    community: Autor komunity
+    partner: Partnerský autor
+article:
+  disclaimer:
+    third_party_author: |
+      **Upozornění:**
+
+      Tento článek napsal partnerský nebo komunitní autor. Vyjádřené názory a doporučení jsou názory autora a nemusí nutně odrážet stanoviska společnosti Espressif. Espressif nemůže zaručit, že obsah zůstane aktuální. Průběžná údržba a aktualizace jsou odpovědností autora.
