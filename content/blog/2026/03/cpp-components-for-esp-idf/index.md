@@ -513,7 +513,7 @@ dependencies:
   elrebo-de/wifi_manager: ^1.4.2
   elrebo-de/deep_sleep: ^1.2.1
 ```
-The new dependency to `elrebo/deep_sleep` has been added.
+The new dependency to `elrebo-de/deep_sleep` has been added.
 
 When `idf.py set-target esp32c3` is executed, an additional component for Deep Sleep is added into directory `managed_components`.
 ### Step 5: Integrate `deep_sleep` into your `main.cpp` program
