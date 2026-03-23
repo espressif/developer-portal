@@ -92,13 +92,12 @@ jobs:
 
       - name: Deploy preview with Hugo
         env:
-          # AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
+          HUGO_ENVIRONMENT: preview
+          HUGO_ENV: preview
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: |
-          hugo deploy \
-            --target=preview
+        run: hugo deploy --target=preview
 
       - name: Post Preview Link to PR
         uses: actions/github-script@v7
