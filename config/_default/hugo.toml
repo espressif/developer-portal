@@ -22,7 +22,7 @@ buildFuture = true
 [deployment]
   [[deployment.targets]]
     name = 'preview'
-    url = 's3://developer-portal-preview?region=ap-east-1&prefix=subdir/'
+    url = 's3://__PREVIEW_AWS_BUCKET_NAME__?region=ap-east-1&prefix=subdir/'
     exclude = "persist/**"
 
 [pagination]
