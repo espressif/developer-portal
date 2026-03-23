@@ -1,6 +1,7 @@
 ---
 title: "Understanding the EU Cyber Resilience Act (CRA)"
 date: 2026-03-16
+lastmod: 2026-03-23
 showAuthor: false
 authors:
   - sachin-billore
@@ -131,7 +132,7 @@ Compliance does not end at market entry. Manufacturers must:
 The CRA establishes lifecycle-based cybersecurity accountability.
 
 
-## Obligations: OEM vs. Platform Vendor (Espressif Systems)
+## Obligations: OEM vs. Platform Vendor
 
 ### OEM (Product Manufacturer) Obligations
 
@@ -163,39 +164,37 @@ These practices help manufacturers integrate the platform securely and meet thei
 
 ## How Espressif Will Support OEM Customers for CRA Compliance
 
-Espressif is committed to supporting customers through:
+Espressif is committed to supporting customers in meeting CRA cybersecurity requirements across the full product lifecycle — from secure design to post-market vulnerability management.
 
-### Secure Hardware Capabilities
-- Hardware root-of-trust
-- Secure Boot
-- Flash Encryption
-- Cryptographic accelerators
-- eFuse-based key storage
+### Cybersecurity Requirements
 
-### Secure Software Framework
-- Open-source and actively maintained
-- Regular security patches
-- Coordinated vulnerability disclosure process
-- Secure OTA update mechanisms
-- Industry-standard cryptographic libraries
+Espressif provides platform capabilities and guidance that help OEMs address CRA essential cybersecurity requirements ([Annex I Part I](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120#anx_I)) across design, development, and deployment:
 
-### Documentation and Compliance Guidance
-- Security application notes
-- Production configuration guidelines
-- Reference architectures for secure provisioning
-- Mapping guidance aligned with CRA after the harmonized standard are available
+- **Secure hardware capabilities** hardware root-of-trust, secure boot, flash encryption, secure key storage (eFuse), and cryptographic accelerators and other proprietary security peripherals to provide a secure hardware foundation for the product
 
-### Transparency and Vulnerability Management
-- Public security advisories
-- Long-term maintenance branches
-- Clear vulnerability reporting channels
+- **Secure software framework (ESP-IDF)** as an open-source, actively maintained platform with regular security patches, secure OTA update mechanisms, industry-standard cryptographic libraries, and coordinated vulnerability disclosure
 
-### Collaboration and Customer Support
-- Recommendations on security configuration reviews
-- Best-practice recommendations for lifecycle management
-- Support for third-party certification and conformity activities
+- **Documentation and compliance guidance** including security application notes, production configuration guidelines, reference architectures for secure provisioning, and alignment with CRA requirements and future harmonized standards
 
-Espressif maintains a comprehensive product security program to support customers in meeting their cybersecurity and compliance obligations. More details about Espressif’s security processes, vulnerability handling practices, and security advisories are available on the Espressif [Product Security page.](https://docs.espressif.com/projects/esp-product-security/en/latest/)
+- **Collaboration and customer support** including secure configuration guidance, lifecycle management best practices, and support for certification activities
+
+Espressif maintains a comprehensive product security program. More details please refer Espressif [Product Security page.](https://docs.espressif.com/projects/esp-product-security/en/latest/)
+
+### Vulnerability Management
+
+Espressif provides processes, supported by transparent mechanisms and tools, to help OEMs implement vulnerability handling requirements ([Annex I Part II](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120#anx_I)) aligned with CRA:
+
+- [**SBOM (Software Bill of Materials) support**](https://developer.espressif.com/blog/software-bill-of-materials/) to track third-party components and assess vulnerability impact
+
+- [**ESP-IDF Security Dashboard**](https://espressif.github.io/esp-idf-security-dashboard/) to monitor vulnerabilities, affected components, and fixes
+
+- [**Espressif Security Incident Response Process**](https://www.espressif.com/sites/default/files/Espressif%20Security%20Incident%20Response%20Process%20v1.0_EN.pdf) with coordinated disclosure practices and publish security advisories
+
+- **Long-Term Support (LTS) releases** with sustained security updates and maintenance over defined support lifecycles, aligned with [Espressif support policy](https://github.com/espressif/esp-idf/blob/master/SUPPORT_POLICY.md) and defined maintenance periods
+
+- [**Secure OTA update mechanisms**](https://developer.espressif.com/blog/ota-updates-framework/) to enable authenticated, integrity-protected, and reliable delivery of security patches throughout the product lifecycle
+
+For additional details on vulnerability management and the security lifecycle for ESP32 products, see the related [blog.](https://developer.espressif.com/blog/2026/03/esp32-security-updates/)
 
 ## Final Thoughts
 
@@ -225,10 +224,13 @@ For assistance, customers can contact [sales@espressif.com](mailto:sales@espress
 **A:** The CRA will also apply to the same categories of radio equipment currently covered by the RED DA. These products must follow RED DA cybersecurity rules if placed on the market between 1 August 2025 and December 2027 and will follow CRA rules if placed on the market from December 2027 onward. Even after the RED DA is repealed, market surveillance will continue to check compliance for products sold during that earlier period.
 
 **Q4: For how long must a manufacturer provide security updates?**\
-**A:** Manufacturers must provide security updates for the declared support period, which must be proportionate to the product’s expected lifetime and clearly communicated to users as required under the CRA.
+**A:** Manufacturers must provide security updates for the declared support period, aligned with the product’s expected lifetime. As a general rule, this period should be **at least 5 years** from when the product is placed on the market, unless a shorter period is justified by the product’s intended use or lifecycle. The support period and update commitments must be clearly communicated to users at the time of purchase.
 
 **Q5: Do products already placed on the market need to comply with the CRA?**\
 **A:** Products placed on the EU market before the CRA’s full application date (11 December 2027) are generally not retroactively affected. Products placed on the market after that date must fully comply with the CRA requirements. However, any product placed on the market after 11 September 2026 must already follow the vulnerability reporting obligations under [Article 14](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120#art_14) of the CRA.
+
+**Q6: How should OEMs handle vulnerabilities in ESP32-based products?**\
+**A:** OEMs should establish a structured vulnerability management process aligned with CRA requirements. This includes monitoring Espressif security advisories and the ESP-IDF Security Dashboard, assessing impact using SBOM data, applying fixes or mitigations, and deploying updates through secure OTA mechanisms. OEMs should also maintain internal tracking, coordinate disclosure where required, and ensure timely reporting of actively exploited vulnerabilities or severe incidents in line with CRA [Article 14](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120#art_14) obligations.
 
 ## References
 - [Cyber Resilience Act (Regulation (EU) 2024/2847)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120)
