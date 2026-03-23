@@ -12,7 +12,8 @@ permissions:
   id-token: write
   pull-requests: write
 
-concurrency:
+# Allow only one concurrent deployment
+  concurrency:
   group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
   cancel-in-progress: false
 
