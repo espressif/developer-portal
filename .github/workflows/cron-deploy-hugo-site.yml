@@ -45,16 +45,14 @@ jobs:
             --gc \
             --minify
 
-      - name: Copy files to AWS S3 with AWS CLI
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --follow-symlinks --delete --exclude "persist/*"
+      - name: Deploy prod with Hugo
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
-          SOURCE_DIR: './public'
-          AWS_REGION: ${{ secrets.AWS_REGION }}
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: hugo deploy --target=production
 
   invalidate-cache:
     needs: build-and-deploy
