@@ -11,7 +11,7 @@ buildFuture = false
 [deployment]
   [[deployment.targets]]
     name = 'production'
-    url = 's3://kirill-devportal?region=ap-east-1'
+    url = 's3://__AWS_BUCKET_NAME__?region=ap-east-1'
     exclude = "persist/**"
 
 [services]

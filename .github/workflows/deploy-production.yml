@@ -37,6 +37,16 @@ jobs:
       - name: Install Hugo
         run: bash tools/ci/install-hugo.sh
 
+      - name: Inject production S3 bucket into Hugo config
+        env:
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+        run: |
+          sed -i "s|__AWS_BUCKET_NAME__|${AWS_BUCKET_NAME}|g" config/production/hugo.toml
+          if grep -q '__AWS_BUCKET_NAME__' config/production/hugo.toml; then
+            echo 'Production bucket placeholder was not replaced (check AWS_BUCKET_NAME secret).'
+            exit 1
+          fi
+
       - name: Build website with Hugo
         env:
           # For maximum backward compatibility with Hugo modules

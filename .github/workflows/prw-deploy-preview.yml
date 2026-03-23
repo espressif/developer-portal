@@ -13,7 +13,7 @@ permissions:
   pull-requests: write
 
 # Allow only one concurrent deployment
-  concurrency:
+concurrency:
   group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
   cancel-in-progress: false
 
@@ -61,10 +61,16 @@ jobs:
         run: bash tools/ci/install-hugo.sh
 
       - name: Rewrite and verify Hugo deployment URL for PR
+        env:
+          PREVIEW_AWS_BUCKET_NAME: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
         run: |
-          # Rewrite the prefix in hugo.toml
+          sed -i "s|__PREVIEW_AWS_BUCKET_NAME__|${PREVIEW_AWS_BUCKET_NAME}|g" config/_default/hugo.toml
           sed -i "s|prefix=subdir/|prefix=pr$PR_NUMBER/|g" config/_default/hugo.toml
-          echo "The updated deployment URL for PR:"
+          if grep -q '__PREVIEW_AWS_BUCKET_NAME__' config/_default/hugo.toml; then
+            echo 'Preview bucket placeholder was not replaced (check PREVIEW_AWS_BUCKET_NAME secret).'
+            exit 1
+          fi
+          echo "The updated deployment prefix for PR:"
           grep '\&prefix=' config/_default/hugo.toml
 
       - name: Add PR prefix to article links on main page
