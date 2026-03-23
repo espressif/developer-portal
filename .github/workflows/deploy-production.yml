@@ -29,17 +29,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Install Hugo
-        env:
-          HUGO_VERSION: 0.152.2
-        run: |
-          wget --progress=dot:giga -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_withdeploy_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
-
       - name: Check out repo
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Install Hugo
+        run: bash tools/ci/install-hugo.sh
 
       - name: Build website with Hugo
         env:
