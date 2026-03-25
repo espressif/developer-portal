@@ -1,5 +1,6 @@
 {
     "name": "John Lee",
+    "type": "espressif",
     "image" : "img/authors/espressif.webp",
     "bio": "Espressif Systems",
     "social": [

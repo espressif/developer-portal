@@ -1,0 +1,121 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "list" }}
+  {{ $showHero := .Params.showHero | default site.Params.taxonomy.showHero | default false }}
+  {{ if $showHero }}
+    {{ $heroStyle := print "hero/" site.Params.taxonomy.heroStyle ".html" }}
+    {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
+      {{ partial $heroStyle . }}
+    {{ else }}
+      {{ partial "hero/basic.html" . }}
+    {{ end }}
+  {{- end -}}
+
+  <header class="mt-5">
+    {{ if .Params.showBreadcrumbs | default (site.Params.taxonomy.showBreadcrumbs | default false) }}
+      {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      {{ partial "article-meta/taxonomy.html" (dict "context" . "scope" "single") }}
+    </div>
+  </header>
+
+  {{ if .Content }}
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      <div class="min-w-0 min-h-0 max-w-prose">
+        {{ .Content }}
+      </div>
+    </section>
+    {{ $jsPage := resources.Get "js/page.js" }}
+    {{ $jsPage = $jsPage | resources.Minify | resources.Fingerprint (site.Params.fingerprintAlgorithm | default "sha512") }}
+    <script
+      type="text/javascript"
+      src="{{ $jsPage.RelPermalink }}"
+      integrity="{{ $jsPage.Data.Integrity }}"
+      data-oid="views_taxonomy_{{ .Data.Plural }}"
+      data-oid-likes="likes_taxonomy_{{ .Data.Plural }}"></script>
+  {{ end }}
+
+  {{ $espressifTerms := slice }}
+  {{ $communityTerms := slice }}
+  {{ $partnerTerms := slice }}
+
+  {{ range .Data.Terms.Alphabetical }}
+    {{ $authorType := "espressif" }}
+    {{ with index site.Data.authors .Term }}
+      {{ with .type }}
+        {{ $authorType = lower . }}
+      {{ end }}
+    {{ end }}
+    {{ if not (in (slice "espressif" "partner" "community") $authorType) }}
+      {{ $authorType = "espressif" }}
+    {{ end }}
+
+    {{ if eq $authorType "community" }}
+      {{ $communityTerms = $communityTerms | append . }}
+    {{ else if eq $authorType "partner" }}
+      {{ $partnerTerms = $partnerTerms | append . }}
+    {{ else }}
+      {{ $espressifTerms = $espressifTerms | append . }}
+    {{ end }}
+  {{ end }}
+
+  {{ $cardView := site.Params.taxonomy.cardView }}
+
+  {{ if gt (len $espressifTerms) 0 }}
+    <section class="mt-8">
+      <h2 class="mb-4 text-2xl font-bold text-neutral-800 dark:text-neutral">{{ i18n "author.byline.espressif" }}</h2>
+      {{ if $cardView }}
+        <div class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          {{ range $espressifTerms }}
+            {{ partial "term-link/card.html" . }}
+          {{ end }}
+        </div>
+      {{ else }}
+        <div class="flex flex-wrap max-w-prose -mx-2 overflow-hidden">
+          {{ range $espressifTerms }}
+            {{ partial "term-link/text.html" . }}
+          {{ end }}
+        </div>
+      {{ end }}
+    </section>
+  {{ end }}
+
+  {{ if gt (len $partnerTerms) 0 }}
+    <section class="mt-10">
+      <h2 class="mb-4 text-2xl font-bold text-neutral-800 dark:text-neutral">{{ i18n "author.byline.partner" }}</h2>
+      {{ if $cardView }}
+        <div class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          {{ range $partnerTerms }}
+            {{ partial "term-link/card.html" . }}
+          {{ end }}
+        </div>
+      {{ else }}
+        <div class="flex flex-wrap max-w-prose -mx-2 overflow-hidden">
+          {{ range $partnerTerms }}
+            {{ partial "term-link/text.html" . }}
+          {{ end }}
+        </div>
+      {{ end }}
+    </section>
+  {{ end }}
+
+  {{ if gt (len $communityTerms) 0 }}
+    <section class="mt-10">
+      <h2 class="mb-4 text-2xl font-bold text-neutral-800 dark:text-neutral">{{ i18n "author.byline.community" }}</h2>
+      {{ if $cardView }}
+        <div class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          {{ range $communityTerms }}
+            {{ partial "term-link/card.html" . }}
+          {{ end }}
+        </div>
+      {{ else }}
+        <div class="flex flex-wrap max-w-prose -mx-2 overflow-hidden">
+          {{ range $communityTerms }}
+            {{ partial "term-link/text.html" . }}
+          {{ end }}
+        </div>
+      {{ end }}
+    </section>
+  {{ end }}
+{{ end }}

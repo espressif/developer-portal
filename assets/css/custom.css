@@ -49,3 +49,46 @@ table th[align="center"], table td[align="center"] {
 table th[align="right"], table td[align="right"] {
   text-align: right;
 }
+
+/* Author card byline (data/authors/*.json `type`: espressif | partner | community) */
+.author-byline {
+  font-size: 0.6rem;
+  line-height: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.author-byline--espressif {
+  display: flex;
+  align-items: center;
+  column-gap: 0.35em;
+  color: #e8362d;
+}
+
+.author-byline--espressif .author-byline__brand-logo {
+  height: 1em;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.author-byline--partner {
+  color: #1290d8;
+}
+
+.author-byline--community {
+  color: #757575;
+}
+
+/* Keep author name visually closer to the position line */
+.author-extra .author-byline + a {
+  display: block;
+  line-height: 1.2rem;
+  margin-top: 0.3rem;
+  margin-bottom: -0.05rem;
+}
+
+/* Align first social icon with text left edge */
+.author-extra .flex.flex-wrap > a:first-child {
+  padding-left: 0;
+}
