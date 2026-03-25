@@ -27,8 +27,19 @@ Register
 
 ## Resources and Materials
 
-Stay tuned for more details, demo highlights, and downloadable materials.
-
 {{< button href="/pages/resources/" target="_self" >}}
 Resources
 {{< /button >}}
+
+### Downloads
+
+- [Espressif SoC Portfolio 2026](https://dl.espressif.com/public/Espressif-SoC-Portfolio-2026.pdf)
+- [Espressif Brochure Embedded World 2026](https://www.espressif.com/en/about_espressif_2026)
+
+### Flyers
+
+- [Download ESP-IDF](https://dl.espressif.com/public/Espressif-EW26-ESP-IDF-Flyer.pdf)
+- [Download Arduino](https://dl.espressif.com/public/Espressif-EW26-Arduino-Flyer.pdf)
+- [Download NuttX](https://dl.espressif.com/public/Espressif-EW26-NuttX-Flyer.pdf)
+- [Download Rust](https://dl.espressif.com/public/Espressif-EW26-Rust-Flyer.pdf)
+- [Download Zephyr](https://dl.espressif.com/public/Espressif-EW26-Zephyr-Flyer.pdf)

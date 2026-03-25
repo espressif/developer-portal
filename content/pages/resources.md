@@ -18,6 +18,7 @@ showLikes : false
 showViews : false
 showZenMode : true
 disableComments : true
+tags: ["ESP-IDF"]
 aliases:
   - /resources/
 ---
@@ -188,6 +189,52 @@ Whether you're looking for community support, technical documentation, or explor
   summary="The Zephyr Project is a scalable real-time operating system (RTOS) supporting multiple hardware architectures, optimized for resource-constrained devices, and built with security in mind."
   showSummary=true
   compactSummary=true
+>}}
+
+{{< /timelineItem >}}
+
+{{< timelineItem icon="download" header="Downloads" >}}
+
+{{< external-page
+  link="https://dl.espressif.com/public/Espressif-SoC-Portfolio-2026.pdf"
+  title="Espressif SoC Portfolio 2026"
+  source="Espressif"
+>}}
+
+{{< external-page
+  link="https://www.espressif.com/en/about_espressif_2026"
+  title="Espressif Brochure Embedded World 2026"
+  source="Espressif"
+>}}
+
+{{< external-page
+  link="https://dl.espressif.com/public/Espressif-EW26-ESP-IDF-Flyer.pdf"
+  title="Espressif EW26 ESP IDF Flyer"
+  source="Espressif"
+>}}
+
+{{< external-page
+  link="https://dl.espressif.com/public/Espressif-EW26-Arduino-Flyer.pdf"
+  title="Espressif EW26 Arduino Flyer"
+  source="Espressif"
+>}}
+
+{{< external-page
+  link="https://dl.espressif.com/public/Espressif-EW26-NuttX-Flyer.pdf"
+  title="Espressif EW26 NuttX Flyer"
+  source="Espressif"
+>}}
+
+{{< external-page
+  link="https://dl.espressif.com/public/Espressif-EW26-Rust-Flyer.pdf"
+  title="Espressif EW26 Rust Flyer"
+  source="Espressif"
+>}}
+
+{{< external-page
+  link="https://dl.espressif.com/public/Espressif-EW26-Zephyr-Flyer.pdf"
+  title="Espressif EW26 Zephyr Flyer"
+  source="Espressif"
 >}}
 
 {{< /timelineItem >}}
