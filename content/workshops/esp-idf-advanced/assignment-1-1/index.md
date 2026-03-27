@@ -1,10 +1,11 @@
 ---
 title: "ESP-IDF Adv. - Assign.  1.1"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 3
 showAuthor: false
-summary: "Create the `alarm` component and refactor the code to use it. (Guided)"
+summary: "Create the `alarm` component and refactor the code to use it (guided)"
 ---
 
 <!-- ## Alarm component -->

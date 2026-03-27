@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Assign.  2.2"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 8
 showAuthor: false
@@ -9,14 +10,14 @@ summary: "Event loop: add an external GPIO event"
 
 In this assignment you'll extend the functionality from Assignment 2.1 by introducing an additional event source: When __GPIO9__ is pressed, an "alarm" event is posted to the system.
 
-## Assignment goals
+## Assignment details
 
 * The code for detecting a GPIO press is provided below.
 * You need to integrate the logic into the existing event loop.
 * Use the same `ALARM_EVENT_BASE` as the alarm trigger used before.
 * Create a `ALARM_EVENT_BUTTON` to differentiate it from the `ALARM_EVENT_CHECK`.
 
-## Tips
+### Tips
 
 * There is an alternative version for `esp_event_post` called `esp_event_isr_post`.
 

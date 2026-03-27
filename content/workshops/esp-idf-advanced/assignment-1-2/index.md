@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Assign.  1.2"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 4
 showAuthor: false
@@ -30,7 +31,7 @@ Create a `cloud_manager` component with
   * The channel where the temperature is published (`sensor/temperature` by default)
   * The channel where the alarm is published (`sensor/alarm` by default)
 
-## Solution outline
+## Assignment steps outline
 
 1. Create a new component and fill `cloud_manager.h`
    * Add the suggested methods<br>
