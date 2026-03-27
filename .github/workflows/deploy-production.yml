@@ -54,6 +54,7 @@ jobs:
           HUGO_ENV: production
         run: |
           hugo \
+            --environment production \
             --gc \
             --minify
 
@@ -64,7 +65,10 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: hugo deploy --target=production
+        run: |
+          hugo deploy \
+            --environment production \
+            --target=production
 
   invalidate-cache:
     needs: build-and-deploy
