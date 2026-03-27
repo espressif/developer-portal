@@ -1,10 +1,5 @@
 {
     "name": "Aditya Patwardhan",
-    "bio": "Product Security @ Espressif Systems",
-    "image": "img/authors/aditya-patwardhan.webp",
-    "social": [
-        { "linkedin": "https://www.linkedin.com/in/aditya-patwardhan-a9a052136" },
-        { "github": "https://github.com/AdityaHPatwardhan" },
-        { "medium": "https://medium.com/@aditya.patwardhan"}
-    ]
+    "bio": "",
+    "image": ""
 }

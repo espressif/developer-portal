@@ -71,9 +71,6 @@
             </strong>
           {{ end }}
         </div>
-        <div class="max-w-prose w-full not-prose">
-          {{ partial "author-disclaimer.html" . }}
-        </div>
         {{ if (.Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false)) }}
           {{ template "SingleAuthor" . }}
         {{ end }}

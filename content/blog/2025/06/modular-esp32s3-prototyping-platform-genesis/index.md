@@ -3,7 +3,7 @@ title: "Genesis IoT Discovery Lab – A Plug-and-Play Classroom Built on ESP32-S
 summary: "Genesis turns the ESP32-S3 into a modular playground with snap-in AX22 modules for prototyping, teaching, and creative hardware experimentation."
 date: 2025-06-27
 showAuthor: false
-authors: ["povilas-dumcius"]
+author: ["Povilas Dumcius"]
 tags: ["genesis", "esp32-s3", "iot", "modular-hardware", "education", "announcement"]
 
 ---
@@ -93,7 +93,7 @@ It can be plugged into the matrix like this:
 #include <AX22-0028-LED.h>
 
 // The mic is on port 6, LED on port 8
-MatrixMic mic(6);
+MatrixMic mic(6); 
 MatrixLED led(8);
 
 void setup() {
@@ -109,7 +109,7 @@ void loop() {
 }
 ```
 
-And that's it, that's a working project.
+And that's it, that's a working project.  
 
 More examples can be viewed [here](https://axiometa.ai/genesis/).
 
@@ -139,7 +139,7 @@ GENESIS isnt a system its a board that carries 8x AX22 Ports. Which means you co
 
 ## Under the Hood
 
-Below are the specs of the first pilot GENESIS
+Below are the specs of the first pilot GENESIS  
 
 | Feature        | Description |
 |----------------|-------------|
@@ -158,7 +158,7 @@ Below are the specs of the first pilot GENESIS
 - ✅ **8 × AX22 ports** — each with full protocol support
 - ✅ **Snap-in modules** — sensors, switches, LEDs, displays, etc (Right now almost at 50).
 - ✅ **Adapters** — STEMMA QT, breadboard breakout, 90° port adapter
-- ✅ **Source files & code** — See below.
+- ✅ **Source files & code** — See below.  
 
 Open the box, plug in a module, and start building. It takes less than a minute to get your first project running.
 
@@ -197,10 +197,10 @@ Genesis is fully **open source**. No vendor lock-in. No license traps. Build you
 
 The launch is around the corner. Sign up to get:
 
-- 🐣 Early-bird pricing
-- 🎁 Giveaway updates
-- 🧪 Beta tester slots
-- 📦 Shipping notifications
+- 🐣 Early-bird pricing  
+- 🎁 Giveaway updates  
+- 🧪 Beta tester slots  
+- 📦 Shipping notifications  
 
 [→ Follow Genesis on Crowd Supply](https://www.crowdsupply.com/axiometa/genesis)
 

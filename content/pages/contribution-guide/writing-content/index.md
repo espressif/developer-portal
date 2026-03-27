@@ -85,12 +85,10 @@ If the article already exists and you want to edit the authors, here are the sam
     assets/img/authors/author-name.webp
     ```
   - Add your personal data at `data/authors/author-name.json`<br>
-    - `image` -- add your image or use the default `img/authors/espressif.webp`
-    - `type` -- set author type to `espressif`, `partner`, or `community`
+    (In  `image`, add your image or use the default one: `img/authors/espressif.webp`)
     ```json
     {
         "name": "Author Name",
-        "type": "espressif",
         "image" : "img/authors/author-name.webp",
         "bio": "(optional) Your role at Espressif",
         "social": [
