@@ -92,6 +92,7 @@ jobs:
           HUGO_ENV: preview
         run: |
           hugo \
+            --environment preview \
             --baseURL "$HUGO_BASEURL" \
             --gc \
             --minify
@@ -111,7 +112,10 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-        run: hugo deploy --target=preview
+        run: |
+          hugo deploy \
+            --environment preview \
+            --target=preview
 
       - name: Post Preview Link to PR
         uses: actions/github-script@v7
