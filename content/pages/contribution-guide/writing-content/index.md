@@ -20,7 +20,7 @@ There are the following prerequisites before you start writing content:
 
 ### Create and view an article
 
-To create a new article, determine the path and run
+To create a new article, go to your cloned developer portal git repo and run:
 
 ```sh
 # Blog article
@@ -34,11 +34,31 @@ hugo new content <path>/index.md
 
 See also the official Hugo [docs](https://gohugo.io/getting-started/quick-start/#add-content).
 
-The commands above assume that you want to organize the content as a leaf bundle (a single article). For multi-article entries (workshops, etc.), use the [branch bundle](https://gohugo.io/content-management/page-bundles/#comparison).
+The commands above assume that you want to write a single article (leaf bundle). The recommended article folder structure is as follows:
 
-To view the changes, in your project folder run
+```sh
+📂 <article-folder-name>/
+├── 📝 index.md
+├── 📊 featured.webp
+├── 📂 img/
+│   ├── 📊 image1.webp
+│   └── 📊 image2.webp
+└── 📂 asciinema/
+    ├── 💻 asciinema1.cast
+    └── 💻 asciinema2.cast
+```
+
+For multi-article entries, such as workshops, etc., use the [branch bundle](https://gohugo.io/content-management/page-bundles/#comparison).
+
+To preview the changes:
+
+- Run in your project folder:
   ```sh
   hugo server
+  ```
+- In the log, find the preview web address and open it:
+  ```sh
+  Web Server is available at http://localhost:1313/
   ```
 
 ### Fill out the blog article header
