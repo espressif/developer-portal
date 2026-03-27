@@ -1,15 +1,16 @@
 ---
 title: "ESP-IDF Adv. - Assign.  3.3"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 12
 showAuthor: false
-summary: "Explore core dump - DIY"
+summary: "Explore core dump (optional)"
 ---
 
 If you still have time, try to find the other bug in the code by using the info provided by the core dump again.
 
-## Solution steps outline
+## Assignment details
 
 Create the core dump file as you did in the previous assignment.
 * Wait for the crash to happen

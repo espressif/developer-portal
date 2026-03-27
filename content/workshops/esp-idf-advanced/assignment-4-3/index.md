@@ -1,9 +1,11 @@
 ---
 title: "ESP-IDF Adv. - Assign.  4.3"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 16
 showAuthor: false
+summary: Enabling flash encryption (guided)"
 ---
 
 In this assignment, we will enable flash encryption.

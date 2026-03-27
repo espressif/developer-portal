@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Assign.  4.1"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 15
 showAuthor: false
@@ -9,7 +10,7 @@ summary: "Change partition table to Factory app, two ota definitions (guided)"
 
 To perform OTA, we need a partition table with at least two partitions.
 
-## Assignment goals
+## Assignment steps
 
 1. Check the current partition table 
 2. Change it to a different default partition table

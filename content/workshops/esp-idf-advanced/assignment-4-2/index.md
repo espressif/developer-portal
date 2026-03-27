@@ -1,10 +1,11 @@
 ---
 title: "ESP-IDF Adv. - Assign.  4.2"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 9
 showAuthor: false
-summary: "Create a custom partition table"
+summary: "Create a custom partition table (guided)"
 ---
 
 In this assignment, you'll set a custom partition table using VS Code.
@@ -13,7 +14,7 @@ In this assignment, you'll set a custom partition table using VS Code.
 
 First, you need to enable the custom partition table in the `menuconfig`
 
-* Open menuconfig: `> ESP-IDF: SDK Configuration Editor (menuconfig)`<br>
+* Open `menuconfig`: `> ESP-IDF: SDK Configuration Editor (menuconfig)`<br>
    &rarr; `Partition Table` &rarr; `Custom Partition Table CSV`
 * Open editor: `> ESP-IDF: Open Partition Table Editor UI`
 * Copy the previous partition table

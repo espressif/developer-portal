@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Assign.  1.3"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 5
 showAuthor: false
@@ -10,7 +11,7 @@ summary: "Support multiple configurations via sdkconfigs (Guided)"
 In this assignment, you will create two versions of `sdkconfig`: one for production and the other debug.
 The only difference between the two is the logging: Debug will display all logs, while production has all the logs suppressed.
 
-## Assignment goal
+## Assignment details
 
 You project must have the following configuration files:
 

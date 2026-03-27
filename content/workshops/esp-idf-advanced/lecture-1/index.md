@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Lecture 1"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 2
 showAuthor: false
@@ -11,13 +12,6 @@ summary: "In this lecture, we explore the ESP-IDF build system, built on CMake a
 
 
 The ESP-IDF build system is built on top of __CMake__ and __Ninja__. CMake is responsible for setting up your project and generating the necessary build files, while Ninja handles the actual building process with minimal overhead.
-
-{{< figure
-default=true
-src="../assets/lecture_1_build_system.webp"
-height=500
-caption="Build system tool chain"
-    >}}
 
 To simplify development, ESP-IDF provides a command-line tool called `idf.py`. This tool acts as a front-end to CMake and Ninja, managing project setup, building, and flashing the firmware to your device using `esptool.py`. It also gives you access to a configuration menu where you can customize your project's settings, which are saved in a single `sdkconfig` file. IDEs like VSCode and Espressif IDE (Eclipse) usually offer wrappers around the `idf.py` tool.
 
@@ -42,7 +36,7 @@ A typical component includes:
 
 {{< figure
 default=true
-src="/workshop-esp-idf/workshops/esp-idf-basic/assets/esp_idf_components.webp"
+src="../assets/esp_idf_components.webp"
 height=200 
 caption="Fig.1 - Component structure"
 >}}

@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Assign.  2.1"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 7
 showAuthor: false

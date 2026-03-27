@@ -1,10 +1,11 @@
 ---
 title: "ESP-IDF Adv. - Assign.  3.2"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 11
 showAuthor: false
-summary: "Explore core dump -- guided"
+summary: "Explore core dump (guided)"
 ---
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}

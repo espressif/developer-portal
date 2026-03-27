@@ -1,10 +1,11 @@
 ---
 title: "ESP-IDF Adv. - Assign.  3.1"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 10
 showAuthor: false
-summary: "Reduce binary size by working on configuration."
+summary: "Reduce binary size by working on configuration(guided)"
 ---
 
 In this assignment, you will analyze the binary image size and optimize the memory footprint of your application.
