@@ -1,7 +1,7 @@
 ---
 title: "ESP-IDF Basics - Lecture 3"
 date: "2025-08-05"
-lastmod: "2026-02-19"
+lastmod: "2026-03-30"
 series: ["WS00A"]
 series_order: 8
 showAuthor: false
@@ -30,13 +30,7 @@ We will explore how to:
 2. See how and use the `button` component (registry)
 3. Create a new component
 
-During the assignments, the goal will be to control the LED and the I2C sensor (SHTC3) on the board (see Fig. 1).
-
-{{< figure
-default=true
-src="../assets/lec-3-led-gpio.webp"
-caption="Fig.1 - GPIO connected to the LED"
-    >}}
+During the assignments, the goal will be to control the LED and a temperature sensor.
 
 ## Included Libraries
 
@@ -131,7 +125,6 @@ The header file:
 gpio_set_level(GPIO_OUTPUT_LED, 1); // turns led on
 gpio_set_level(GPIO_OUTPUT_LED, 0); // turns led off
 ```
-
 
 ### I2C
 
