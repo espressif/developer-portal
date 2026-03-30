@@ -67,7 +67,11 @@ For now, you can ignore the folders `.vscode`, `.devcontainer`, and `build`. You
 To compile (_build_) your project, you first need to tell the compiler which core (called _target_) you are using. You can do it through the IDE as follows:
 
 * `> ESP-IDF: Set Espressif Device Target`
-* In the dropdown menu, choose `esp32c3` &rarr; `ESP32-C3 chip (via builtin USB-JTAG)`
+* In the dropdown menu, choose:
+    * The SoC on which your devKit is based on (`esp32c3`, `esp32s3` etc.)
+    * Builtint USB-JTAG<br>
+
+  _e.g. `esp32c3` &rarr; `ESP32-C3 chip (via builtin USB-JTAG)`_
 
 Now you're ready to compile your project:
 * `> ESP-IDF: Build Your Project`
