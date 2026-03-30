@@ -21,17 +21,17 @@ summary: "Create the `alarm` component and refactor the code to use it (guided)"
 
 There are two ways to download the code:
 
-1. **Download the ZIP file from the repository:**
-
-   * Go to the [GitHub repository](https://github.com/espressif/developer-portal-codebase)
-   * Click the green **“Code”** button
-   * In the dropdown menu that appears, click **“Download ZIP”**
-
-2. **Clone the repository using `git`:**
+1. **Clone the repository using `git`:**
 
    ```console
    git clone https://github.com/espressif/developer-portal-codebase
    ```
+
+2. **Download the ZIP file from the repository:**
+
+   * Go to the [GitHub repository](https://github.com/espressif/developer-portal-codebase)
+   * Click the green **“Code”** button
+   * In the dropdown menu that appears, click **“Download ZIP”**
 
 ## Run the example 
 
@@ -201,7 +201,7 @@ To create the alarm component, you need to
 
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
-You didn't need to add `REQUIRES esp_timer` in the main component, because it automatically "REQUIRES" all other components in the build 
+You didn't need to add `REQUIRES esp_timer` in the main component, because it automatically adds all required internal components in "REQUIRES" during the build.
 {{< /alert >}}
 
 4. Remove "alarm.c" from the `main/CMakeLists.txt`<br>

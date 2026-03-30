@@ -5,18 +5,17 @@ lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 10
 showAuthor: false
-summary: "Reduce binary size by working on configuration(guided)"
+summary: "Reduce binary size by working on configuration (guided)"
 ---
 
 In this assignment, you will analyze the binary image size and optimize the memory footprint of your application.
 
 ## Assignment steps
 
-1. Build the original project to spot any oversized or suspicious sections (e.g., .text, .data, .rodata) that may hide unoptimized code.
-2. Change configuration to reduce it.
-3. Rebuild the project to check the improvement.
+1. Build the original project to spot any oversized sections (e.g., .text, .data, .rodata) that may hide unoptimized code.
+2. Change configuration to reduce size.
 
-## Build the original project
+## Build the original project to spot any oversized sections
 
 * Reopen the last assignment code (it can be both 2.1 or 2.2)
 * `> ESP-IDF: Full Clean Project`
@@ -31,8 +30,9 @@ height=500
 caption="Fig.1 - Size calculation"
     >}}
 
+## Change the configuration to reduce size
 
-#### Removing the logs
+### Removing the logs
 
 * Remove the logging output in the `menuconfig`<br>
    _if you don't remember how to do that, check [assignment 1.3](../assignment-1-3/#changing-the-configuration-in-menuconfig)_
@@ -46,9 +46,9 @@ height=500
 caption="Fig.2 - Size calculation after removing logging"
     >}}
 
-The binary size is 77kb less than before.
+After building the firmware, we see that the binary size is 77kb less than before.
 
-#### Certificate Bundle
+### Certificate Bundle
 
 * Open menuconfig: `> ESP-IDF: SDK Configuration Editor (menuconfig)`
 * Uncheck `Certificate Bundle` &rarr; `Enable trusted root certificate bundle`
@@ -63,7 +63,7 @@ height=500
 caption="Fig.3 - Size calculation after removing certificate bundle"
     >}}
 
-#### MQTT unused options
+### MQTT unused options
 
 * Open menuconfig: `> ESP-IDF: SDK Configuration Editor (menuconfig)`
 * Uncheck `ESP-MQTT Configurations` &rarr; `Enable MQTT over SSL`
