@@ -16,7 +16,7 @@ In this assignment, we will refactor the connection to Wi-Fi and MQTT code to fi
 
 Create a `cloud_manager` component with
 
-* The following public interface:<br>
+* Public interface:
    ```c
     cloud_manager_t *cloud_manager_create(void);
     esp_err_t cloud_manager_connect(cloud_manager_t *manager);
@@ -26,7 +26,7 @@ Create a `cloud_manager` component with
     void cloud_manager_delete(cloud_manager_t *manager);
     ```
 
-* The following parameters - settable through `menuconfig`:
+* Parameters to set in `menuconfig`:
   * Broker URL (move it from the main to the `cloud_manager` component)
   * The channel where the temperature is published (`sensor/temperature` by default)
   * The channel where the alarm is published (`sensor/alarm` by default)
@@ -36,10 +36,8 @@ Create a `cloud_manager` component with
 1. Create a new component and fill `cloud_manager.h`
    * Add the suggested methods<br>
    * Add an opaque declaration `typedef struct cloud_manager_t cloud_manager_t;`
-  
-{{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
-In `cloud_manager.h` you need to import just `esp_err.h`
-{{< /alert >}}
+   * Import only `esp_err.h`
+
 2. Fill `cloud_manager.c`<br>
    * Implement `cloud_manager_t` as: <br>
       ```c
@@ -243,7 +241,7 @@ endmenu
 </details>
 
 
-You can find the complete solution project on the [assignment_1_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_2) folder on the github repo.
+You can find the complete solution project in the GitHub repo in the [assignment_1_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_2) folder.
 
 
 > Next step: [Assignment 1.3](../assignment-1-3/)

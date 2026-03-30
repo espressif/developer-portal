@@ -97,7 +97,7 @@ idf.py -B build-debug -p <YOUR_PORT> flash monitor
 To simplify the process we will create a _profile_ file.
 
 * Create a `profile` folder
-* Create a `prod` file inside the `profile` folder
+* In the `profile` folder, create a `prod` file
 * Add the CLI parameters<br>
    ```bash
    -B build-production -DSDKCONFIG=build-production/sdkconfig -DSDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.prod"

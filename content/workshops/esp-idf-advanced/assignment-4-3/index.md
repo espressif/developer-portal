@@ -773,7 +773,7 @@ You need to do the last two steps.
 * Flash the project again: `> ESP-IDF: Flash (UART) Your Project`
 
 
-### Check the device encryption status
+### Check the the encryption status again
 
 * Open an ESP-IDF terminal : `> ESP-IDF: Open ESP-IDF Terminal`
 * Inside the terminal, run `idf.py efuse-summary`
