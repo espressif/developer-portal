@@ -2,7 +2,6 @@
 title: "Announcing ESP-IDF v6.0"
 date: 2026-03-20
 showAuthor: false
-featureAsset: "img/featured/featured-esp-idf.webp"
 authors:
   - marius-vikhammer
 tags:
