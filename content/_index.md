@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2026/03/esp-idf-installation-manager/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/03/idf-v6-0-release/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/02/esp-idf-tutorial-gpio-get-started-2/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/03/esp32-security-updates/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
