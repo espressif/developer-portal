@@ -29,17 +29,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Install Hugo CLI
-        env:
-          HUGO_VERSION: 0.152.2
-        run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
-
       - name: Check out repo
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: Install Hugo
+        run: bash tools/ci/install-hugo.sh
+
+      - name: Inject production S3 bucket into Hugo config
+        env:
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+        run: |
+          sed -i "s|__AWS_BUCKET_NAME__|${AWS_BUCKET_NAME}|g" config/production/hugo.toml
+          if grep -q '__AWS_BUCKET_NAME__' config/production/hugo.toml; then
+            echo 'Production bucket placeholder was not replaced (check AWS_BUCKET_NAME secret).'
+            exit 1
+          fi
 
       - name: Build website with Hugo
         env:
@@ -48,19 +54,21 @@ jobs:
           HUGO_ENV: production
         run: |
           hugo \
+            --environment production \
             --gc \
             --minify
 
-      - name: Copy files to AWS S3 with AWS CLI
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --follow-symlinks --delete --exclude "persist/*"
+      - name: Deploy prod with Hugo
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
-          SOURCE_DIR: './public'
-          AWS_REGION: ${{ secrets.AWS_REGION }}
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          hugo deploy \
+            --environment production \
+            --target=production
 
   invalidate-cache:
     needs: build-and-deploy
