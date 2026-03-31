@@ -12,6 +12,7 @@ permissions:
   id-token: write
   pull-requests: write
 
+# Allow only one concurrent deployment
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.workflow_run.head_branch }}
   cancel-in-progress: false
@@ -57,17 +58,19 @@ jobs:
           fetch-depth: 0
 
       - name: Install Hugo
-        env:
-          HUGO_VERSION: 0.152.2
-        run: |
-          wget --progress=dot:giga -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_withdeploy_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+        run: bash tools/ci/install-hugo.sh
 
       - name: Rewrite and verify Hugo deployment URL for PR
+        env:
+          PREVIEW_AWS_BUCKET_NAME: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
         run: |
-          # Rewrite the prefix in hugo.toml
+          sed -i "s|__PREVIEW_AWS_BUCKET_NAME__|${PREVIEW_AWS_BUCKET_NAME}|g" config/_default/hugo.toml
           sed -i "s|prefix=subdir/|prefix=pr$PR_NUMBER/|g" config/_default/hugo.toml
-          echo "The updated deployment URL for PR:"
+          if grep -q '__PREVIEW_AWS_BUCKET_NAME__' config/_default/hugo.toml; then
+            echo 'Preview bucket placeholder was not replaced (check PREVIEW_AWS_BUCKET_NAME secret).'
+            exit 1
+          fi
+          echo "The updated deployment prefix for PR:"
           grep '\&prefix=' config/_default/hugo.toml
 
       - name: Add PR prefix to article links on main page
@@ -89,18 +92,29 @@ jobs:
           HUGO_ENV: preview
         run: |
           hugo \
+            --environment preview \
             --baseURL "$HUGO_BASEURL" \
             --gc \
             --minify
 
+      - name: Bootstrap PR preview directory from prod-copy when empty
+        env:
+          PREVIEW_AWS_BUCKET_NAME: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: bash tools/ci/bootstrap_pr_preview_dir.sh
+
       - name: Deploy preview with Hugo
         env:
-          # AWS_S3_BUCKET: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
+          HUGO_ENVIRONMENT: preview
+          HUGO_ENV: preview
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           hugo deploy \
+            --environment preview \
             --target=preview
 
       - name: Post Preview Link to PR

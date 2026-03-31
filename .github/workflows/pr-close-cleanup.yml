@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create PR number remove file
-        run: echo "${{ github.event.pull_request.number }}" > pr-num-rm.txt
+        env:
+          PR_NUM_RM: ${{ github.event.pull_request.number }}
+        run: printf '%s\n' "$PR_NUM_RM" > pr-num-rm.txt
 
       - name: Upload PR number remove artifact
         uses: actions/upload-artifact@v4
