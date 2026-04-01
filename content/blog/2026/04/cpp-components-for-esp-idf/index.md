@@ -216,7 +216,7 @@ The CMakeLists.txt file for the main component
 ```text
 idf_component_register(SRCS "main.cpp")
 ```
-This file defines how the "main" component can be made - the only source is "main.cpp".
+This file defines how the "main" component can be made - the only source is `main.cpp`.
 #### myproject/main/main.cpp
 The main C++ program:
 ```C++
