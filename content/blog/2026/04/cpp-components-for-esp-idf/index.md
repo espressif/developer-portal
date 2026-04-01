@@ -10,7 +10,7 @@ showAuthor: false
 featureAsset: "featured-cpp-components.webp"
 authors:
     - "christoph-oberle"
-summary: "This article presents two C++ ESP32 components: Wifi Manager for seamless network connection and Deep Sleep for power-saving operation both easily integrated using provided code examples. It also lists additional ESP-IDF components to streamline development."
+summary: "This article presents two C++ ESP32 components: Wifi Manager for seamless network connection and Deep Sleep for power-saving operation, both easily integrated using provided code examples. It also lists additional ESP-IDF components to streamline development."
 ---
 
 ## Introduction
