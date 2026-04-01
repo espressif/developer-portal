@@ -142,7 +142,7 @@ extern "C" void app_main(void)
 		&bootCount // Address of int bootCount in RTC_DATA
     );
 ```
-Because the variable `bootCount` is declared as an RTC_DATA_ATTR its value is remembered after Deep Sleep. 
+Because the variable `bootCount` is declared as an RTC_DATA_ATTR, its value is remembered after Deep Sleep. 
 #### Show the bootCount and find out the Wakeup Reason
 You can also find out, what the wakeup reason was by calling `GetWakeupReason()`.
 ```C++
