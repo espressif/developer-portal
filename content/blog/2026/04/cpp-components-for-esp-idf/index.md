@@ -14,7 +14,7 @@ summary: "This article presents two C++ ESP32 components: Wifi Manager for seaml
 ---
 
 ## Introduction
-For beginners it is not easy to establish a minimal working environment for the ESP32 SoCs with e.g. Wi-Fi, buttons, LEDs and waking up from Deep Sleep. Unfortunately such a minimal environment is necessary to get things done. In this article, we will use these C++ components:
+For beginners it is not easy to establish a minimal working environment for the ESP32 SoCs with e.g. Wi-Fi, buttons, LEDs and waking up from Deep Sleep. Unfortunately, such a minimal environment is necessary to get things done. In this article, we will use these C++ components:
 * one for Wi-Fi management to connect the ESP SoC with the local Wi-Fi network
 * one for Deep Sleep operation.
 
