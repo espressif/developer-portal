@@ -637,7 +637,7 @@ After 6.614 sec the system is going to Deep Sleep and the connection to the devi
 Unfortunately the beginning of the execution after Wakeup is not logged. Logging only restarts 1.544 sec after the restart.
 
 We will fix this issue in the next step, so that we can see the beginning of the log after restart.
-### Step 6: Delay execution after restart to enable reconnect of terminal
+### Step 6: Delay execution after restart to allow the terminal to reconnect
 To delay the restart of the ESP SoC we call command `vTaskDelay` from the FreeRTOS package at the very beginning of `app_main`.
 #### myproject/main/main.cpp
 `main.cpp` now is:
