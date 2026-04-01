@@ -638,7 +638,7 @@ Unfortunately the beginning of the execution after Wakeup is not logged. Logging
 
 We will fix this issue in the next step, so that we can see the beginning of the log after restart.
 ### Step 6: Delay execution after restart to allow the terminal to reconnect
-To delay the restart of the ESP SoC we call command `vTaskDelay` from the FreeRTOS package at the very beginning of `app_main`.
+To delay the restart of the ESP SoC, we call the command `vTaskDelay` from the FreeRTOS package at the very beginning of `app_main`.
 #### myproject/main/main.cpp
 `main.cpp` now is:
 ```C++
