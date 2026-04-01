@@ -736,11 +736,11 @@ I (904) WifiManager: Initializing...
 ### Summary: What did we achieve
 In a program with only 75 lines of code we have set up a run time environment in our ESP32 SoC which connects to a local Wi-Fi network and goes to Deep Sleep after it has done its work. The Wakeup reason can be configured(timer and/or button) and the bootCount and the Wakeup reason can be retrieved in the program. 
 
-Now we can start to add the actual functionality of our project at position
+Now in the file `myproject/main/main.cpp`, we can start adding the actual functionality of our project at the line:
+
 ```C+
     /* here the "real" work is done! */
 ```
-in program `myproject/main/main.cpp`.
 ## Available Components for a Minimal Working Environment
 Currently there are the following components ready to use with ESP IDF V5.5+ published on ESP Component Registry.
 ### wifi_manager
