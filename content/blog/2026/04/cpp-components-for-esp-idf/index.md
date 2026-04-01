@@ -492,7 +492,7 @@ As described on the ESP Component Registry for the component we add it to the pr
 idf.py add-dependency "elrebo-de/deep_sleep^1.2.1"
 ```
 #### myproject/main/idf_component.yml
-As a result of this command file `idf_component.yml` now looks like this:
+As a result of this command, the file `idf_component.yml` now looks like this:
 ```yaml
 ## IDF Component Manager Manifest File
 dependencies:
