@@ -10,7 +10,7 @@ showAuthor: false
 featureAsset: "featured-cpp-components.webp"
 authors:
     - "christoph-oberle"
-summary: "This article presents two C++ ESP32 components: Wifi Manager for seamless network connection and Deep Sleep for power-saving operation, both easily integrated using provided code examples. It also lists additional ESP-IDF components to streamline development."
+summary: "This article presents two C++ ESP32 components: `wifi_manager` for seamless network connection and Deep Sleep for power-saving operation, both easily integrated using provided code examples. It also lists additional ESP-IDF components to streamline development."
 ---
 
 ## Introduction
@@ -56,20 +56,22 @@ public:
 ```
 ### Functionality
 #### Create an Instance of Class Wifi
+
 To use this component you only have to create an instance of class Wifi in the beginning of your program, everything else is done inside the class.
 ```C++
-    /* Initialize WifiManager class */
-    ESP_LOGI(tag, "WifiManager");
+    /* Initialize Wifi class */
+    ESP_LOGI(tag, "Wi-Fi");
     Wifi wifi(
-		std::string("WifiManager"), // tag
+		std::string("wifi_manager"), // tag
 		std::string("ESP32"), // ssid_prefix
 		std::string("de-DE") // language
     );
 ```
 #### Call Method `IsConnected()`
+
 A call to the public method `isConnected()` will only return, when the Wi-Fi network is connected.
 ```C++
-    ESP_LOGI(tag, "Wifi is %s", wifi.IsConnected() ? "connected" : "not connected");
+    ESP_LOGI(tag, "Wi-Fi is %s", wifi.IsConnected() ? "connected" : "not connected");
 ```
 So, what happens "under the hood"?
 
@@ -90,6 +92,7 @@ After entering the credentials they are stored in the non volatile flash storage
 And when the method `IsConnected()` is called for the second time, then the credentials are already present in the non volatile flash storage, they are used for connecting to the Wi-Fi network and method `IsConnected()`returns `true` without any user interaction and the Wi-Fi network is connected. 
 
 #### Request Connection Information
+
 When the network is connected, you can request the technical information with the methods `GetSsid()`, `GetIpAddress()`, `GetRssi()`, `GetChannel()` and `GetMacAddress()`.
 ```C++
     ESP_LOGI(tag, "Ssid: %s", wifi.GetSsid().c_str());
@@ -128,6 +131,7 @@ public:
 ```
 ### Functionality
 #### Create an Instance of Class DeepSleep
+
 To use this component you have to create an instance of class DeepSleep and to define variable `bootCount` as an RTC_DATA_ATTR in the beginning of your program.
 ```C++
 #include "deep_sleep.hpp"
@@ -142,8 +146,10 @@ extern "C" void app_main(void)
 		&bootCount // Address of int bootCount in RTC_DATA
     );
 ```
-Because the variable `bootCount` is declared as an RTC_DATA_ATTR, its value is remembered after Deep Sleep. 
+Because the variable `bootCount` is declared as an RTC_DATA_ATTR, its value is remembered after Deep Sleep.
+
 #### Show the bootCount and find out the Wakeup Reason
+
 You can also find out, what the wakeup reason was by calling `GetWakeupReason()`.
 ```C++
     /* Deep Sleep: show bootCount */
@@ -163,6 +169,7 @@ You can also find out, what the wakeup reason was by calling `GetWakeupReason()`
     }
 ```
 #### Configure the Wakeup Sources
+
 Once your application has completed its tasks, configure the desired wake up source, either a timer or a GPIO button or both. This is done with methods `EnableTimerWakeup` and `EnableGpioWakeup`.
 ```C++
     ESP_LOGI(tag, "EnableTimerWakeup");
@@ -172,7 +179,9 @@ Once your application has completed its tasks, configure the desired wake up sou
         ESP_ERROR_CHECK(deepSleep.EnableGpioWakeup((gpio_num_t) 39, 0));  // enable wake up when GPIO 39 is pulled down
 ```
 Here the program will wake up from Deep Sleep after 30 seconds or when the button on GPIO 39 is pulled down.
+
 #### Go to Deep Sleep
+
 Finally you send the ESP chip to Deep Sleep with method `GoToDeepSleep()`.
 ```C++
     bool rc = false;
@@ -183,8 +192,8 @@ Finally you send the ESP chip to Deep Sleep with method `GoToDeepSleep()`.
     ESP_LOGI(tag, "GoToDeepSleep rc=%u", rc);
 }
 ```
-## Step by Step Guide
-Let us start with an empty ESP program, then we add the WiFi functionality and finally the Deep Sleep functionality.
+## Step by Step Guide how to use these C++ Components in your Project
+Let us start with an empty ESP program, then we add the Wi-Fi functionality and finally the Deep Sleep functionality.
 
 The source code for Step 1 to Step 6 can be found on GitHub at https://github.com/christoph-oberle/cpp_components_for_esp_idf.git.
 
@@ -198,7 +207,9 @@ myproject/
       main.cpp
 ```
 There are three files in two directories:
-#### myproject/CMakeLists.txt
+
+**myproject/CMakeLists.txt**
+
 The CMakeLists file for the project:
 ```text
 # The following five lines of boilerplate have to be in your project's
@@ -211,13 +222,17 @@ idf_build_set_property(MINIMAL_BUILD ON)
 project(myproject)
 ```
 This file is needed for the build.
-#### myproject/main/CMakeLists.txt
+
+**myproject/main/CMakeLists.txt**
+
 The CMakeLists.txt file for the main component
 ```text
 idf_component_register(SRCS "main.cpp")
 ```
 This file defines how the "main" component can be made - the only source is `main.cpp`.
-#### myproject/main/main.cpp
+
+**myproject/main/main.cpp**
+
 The main C++ program:
 ```C++
 #include "esp_log.h"
@@ -249,71 +264,8 @@ idf.py flash monitor
 
 This is the end of the terminal log:
 ```terminaloutput
-christophoberle@MacBookPro myproject % idf.py flash monitor                                   
-Executing action: flash
-Serial port /dev/cu.usbmodem101
-Connecting...
-Detecting chip type... ESP32-C3
-Running ninja in directory /Users/christophoberle/github/cpp_components_for_esp_idf/step1/myproject/build
-Executing "ninja flash"...
-[1/5] cd /Users/christophoberle/github/cpp_components_for_esp_idf/step1/myproject/...istophoberle/github/cpp_components_for_esp_idf/step1/myproject/build/myproject.bin
-myproject.bin binary size 0x24c70 bytes. Smallest app partition is 0x100000 bytes. 0xdb390 bytes (86%) free.
-[1/1] cd /Users/christophoberle/github/cpp_components_for_esp_idf/step1/myproject/.../github/cpp_components_for_esp_idf/step1/myproject/build/bootloader/bootloader.bin
-Bootloader binary size 0x5210 bytes. 0x2df0 bytes (36%) free.
-[4/5] cd /Users/christophoberle/esp-idf/esp-idf/components/esptool_py && /Users/ch.../Users/christophoberle/esp-idf/esp-idf/components/esptool_py/run_serial_tool.cmake
-esptool.py --chip esp32c3 -p /dev/cu.usbmodem101 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 2MB 0x0 bootloader/bootloader.bin 0x10000 myproject.bin 0x8000 partition_table/partition-table.bin
-esptool.py v4.11.dev1
-Serial port /dev/cu.usbmodem101
-Connecting...
-Chip is ESP32-C3 (QFN32) (revision v0.4)
-Features: WiFi, BLE, Embedded Flash 4MB (XMC)
-Crystal is 40MHz
-USB mode: USB-Serial/JTAG
-MAC: b0:a6:04:00:6a:50
-Uploading stub...
-Running stub...
-Stub running...
-Changing baud rate to 460800
-Changed.
-Configuring flash size...
-Flash will be erased from 0x00000000 to 0x00005fff...
-Flash will be erased from 0x00010000 to 0x00034fff...
-Flash will be erased from 0x00008000 to 0x00008fff...
-SHA digest in image updated
-Compressed 21008 bytes to 13178...
-Writing at 0x00000000... (100 %)
-Wrote 21008 bytes (13178 compressed) at 0x00000000 in 0.2 seconds (effective 804.0 kbit/s)...
-Hash of data verified.
-Compressed 150640 bytes to 81334...
-Writing at 0x0002da38... (100 %)
-Wrote 150640 bytes (81334 compressed) at 0x00010000 in 0.6 seconds (effective 1880.1 kbit/s)...
-Hash of data verified.
-Compressed 3072 bytes to 103...
-Writing at 0x00008000... (100 %)
-Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.0 seconds (effective 546.4 kbit/s)...
-Hash of data verified.
+...
 
-Leaving...
-Hard resetting via RTS pin...
-Executing action: monitor
-Running idf_monitor in directory /Users/christophoberle/github/cpp_components_for_esp_idf/step1/myproject
-Executing "/Users/christophoberle/.espressif/python_env/idf5.5_py3.13_env/bin/python /Users/christophoberle/esp-idf/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem101 -b 115200 --toolchain-prefix riscv32-esp-elf- --target esp32c3 --revision 3 --decode-panic backtrace /Users/christophoberle/github/cpp_components_for_esp_idf/step1/myproject/build/myproject.elf /Users/christophoberle/github/cpp_components_for_esp_idf/step1/myproject/build/bootloader/bootloader.elf -m '/Users/christophoberle/.espressif/python_env/idf5.5_py3.13_env/bin/python' '/Users/christophoberle/esp-idf/esp-idf/tools/idf.py'"...
---- esp-idf-monitor 1.8.0 on /dev/cu.usbmodem101 115200
---- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H
-ESP-ROM:esp32c3-api1-20210207
-Build:Feb  7 2021
-rst:0x15 (USB_UART_CHIP_RESET),boot:0xd (SPI_FAST_FLASH_BOOT)
-Saved PC:0x40381d24
---- 0x40381d24: rv_utils_wait_for_intr at /Users/christophoberle/esp-idf/esp-idf/components/riscv/include/riscv/rv_utils.h:79
---- (inlined by) esp_cpu_wait_for_intr at /Users/christophoberle/esp-idf/esp-idf/components/esp_hw_support/cpu.c:62
-SPIWP:0xee
-mode:DIO, clock div:1
-load:0x3fcd5820,len:0x15ac
-load:0x403cbf10,len:0xc34
---- 0x403cbf10: esp_bootloader_get_description at /Users/christophoberle/esp-idf/esp-idf/components/esp_bootloader_format/esp_bootloader_desc.c:39
-load:0x403ce710,len:0x2fd0
---- 0x403ce710: esp_flash_encryption_enabled at /Users/christophoberle/esp-idf/esp-idf/components/bootloader_support/src/flash_encrypt.c:89
-entry 0x403cbf1a
 --- 0x403cbf1a: call_start_cpu0 at /Users/christophoberle/esp-idf/esp-idf/components/bootloader/subproject/main/bootloader_start.c:25
 I (24) boot: ESP-IDF v5.5.1 2nd stage bootloader
 I (24) boot: compile time Mar 19 2026 23:21:17
@@ -365,21 +317,20 @@ I (245) myproject: Start
 I (245) myproject: End
 I (255) main_task: Returned from app_main()
 
-Done
-christophoberle@MacBookPro myproject % 
 ```
 After 245 msec the main program is started on CPU0, our routine `app_main` is called, the Start and End of execution is logged and 10 msec later `app_main` has returned.
 
 Our first ESP program - which does nothing - is working!
 
-### Step 2: Add component Wi-Fi Manager
+### Step 2: Add component `wifi_manager`
 Now we connect our ESP SoC with the world through a Wi-Fi network connection.
 
 As described on the ESP Component Registry for the component we add it to the project by executing 
 ```shell
 idf.py add-dependency "elrebo-de/wifi_manager^1.4.2"
 ```
-#### myproject/main/idf_component.yml
+**myproject/main/idf_component.yml**
+
 As a result of this command, an additional file `idf_component.yml` is added to our project:
 ```yaml
 ## IDF Component Manager Manifest File
@@ -400,7 +351,7 @@ dependencies:
   #   public: true
   elrebo-de/wifi_manager: ^1.4.2
 ```
-When `idf.py set-target esp32c3` is executed, a new directory `managed_components` is created, which contains the needed components for the Wi-Fi manager.
+When `idf.py set-target esp32c3` is executed, a new directory `managed_components` is created, which contains the needed components for the `wifi_manager`.
 
 When we run this program, nothing has changed:
 ```terminaloutput
@@ -412,7 +363,9 @@ I (255) main_task: Returned from app_main()
 ```
 ### Step 3: Integrate `wifi_manager` into your `main.cpp` program 
 Now we can use the `wifi_manager` component by including the component's header file into our `main.cpp` program and creating an instance of class `Wifi`. After the call to method `IsConnected()` our ESP SoC is connected to the Wi-Fi network and we can retrieve the connection information as described above.
-#### myproject/main/main.cpp
+
+**myproject/main/main.cpp**
+
 The new `main.cpp` now looks like this:
 ```C++
 #include "esp_log.h"
@@ -424,16 +377,16 @@ extern "C" void app_main(void)
 {
     ESP_LOGI(tag, "Start");
 
-    /* Initialize WifiManager class */
-    ESP_LOGI(tag, "WifiManager");
+    /* Initialize Wifi class */
+    ESP_LOGI(tag, "Wi-Fi");
     Wifi wifi(
-		std::string("WifiManager"), // tag
+		std::string("wifi_manager"), // tag
 		std::string("ESP32"), // ssid_prefix
 		std::string("de-DE") // language
     );
 
     /* Wait until Wi-Fi is connected */
-    ESP_LOGI(tag, "Wifi is %s", wifi.IsConnected() ? "connected" : "not connected");
+    ESP_LOGI(tag, "Wi-Fi is %s", wifi.IsConnected() ? "connected" : "not connected");
 
     /* Retrieve connection information */
     ESP_LOGI(tag, "Ssid: %s", wifi.GetSsid().c_str());
@@ -449,18 +402,18 @@ extern "C" void app_main(void)
 ```
 When we run this program the terminal log looks totally different. All the functionality described above is working now. We can enter the credentials on a web page , the credentials are stored in non volatile flash memory and they are retrieved from there in subsequent runs. The end of the terminal log now shows:
 ```terminaloutput
-I (58601) WifiManager: Starting station
+I (58601) wifi_manager: Starting station
 I (58601) wifi:mode : sta (b0:a6:04:00:6a:50)
 I (58601) wifi:enable tsf
-I (58601) WifiManager: wait until Wifi station is connected
-I (59601) WifiManager: wait until Wifi station is connected
-I (60601) WifiManager: wait until Wifi station is connected
+I (58601) wifi_manager: wait until Wifi station is connected
+I (59601) wifi_manager: wait until Wifi station is connected
+I (60601) wifi_manager: wait until Wifi station is connected
 I (61011) WifiStation: Found AP: 33, BSSID: 38:10:d5:53:7f:21, RSSI: -49, Channel: 9, Authmode: 7
 I (61011) WifiStation: Found AP: 33, BSSID: 74:42:7f:fe:b3:ee, RSSI: -79, Channel: 9, Authmode: 3
 W (61021) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2
 I (61031) wifi:new :<9,0>, old:<1,0>, ap:<255,255>, sta:<9,0>, prof:1, snd_ch_cfg:0x0
 I (61031) wifi:state: init -> auth (0xb0)
-I (61841) WifiManager: wait until Wifi station is connected
+I (61841) wifi_manager: wait until Wifi station is connected
 I (61851) wifi:state: auth -> assoc (0x0)
 I (61861) wifi:state: assoc -> run (0x10)
 I (61891) wifi:connected with 33, aid = 7, channel 9, BW20, bssid = 38:10:d5:53:7f:21
@@ -471,11 +424,11 @@ I (61891) wifi:dp: 1, bi: 102400, li: 10, scale listen interval from 1024000 us 
 I (61901) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000
 I (61911) wifi:AP's beacon interval = 102400 us, DTIM period = 1
 I (61921) wifi:<ba-add>idx:0 (ifx:0, 38:10:d5:53:7f:21), tid:0, ssn:0, winSize:64
-I (62841) WifiManager: wait until Wifi station is connected
+I (62841) wifi_manager: wait until Wifi station is connected
 I (62931) esp_netif_handlers: sta ip: 192.168.178.146, mask: 255.255.255.0, gw: 192.168.178.1
 I (62931) WifiStation: Got IP: 192.168.178.146
-I (63841) WifiManager: Wifi station is connected
-I (63841) myproject: Wifi is connected
+I (63841) wifi_manager: Wifi station is connected
+I (63841) myproject: Wi-Fi is connected
 I (63841) myproject: Ssid: 33
 I (63841) myproject: IpAddress: 192.168.178.146
 I (63841) myproject: Rssi: -49
@@ -491,7 +444,8 @@ As described on the ESP Component Registry for the component we add it to the pr
 ```shell
 idf.py add-dependency "elrebo-de/deep_sleep^1.2.1"
 ```
-#### myproject/main/idf_component.yml
+**myproject/main/idf_component.yml**
+
 As a result of this command, the file `idf_component.yml` now looks like this:
 ```yaml
 ## IDF Component Manager Manifest File
@@ -519,7 +473,9 @@ When `idf.py set-target esp32c3` is executed, an additional component for Deep S
 ### Step 5: Integrate `deep_sleep` into your `main.cpp` program
 Now we can use the `deep_sleep` component by including the component's header file into our `main.cpp` program  defining an RTC_DATA_ATTR `bootCount` and creating an instance of class `DeepSleep`. 
 Then we can retrieve the Wakeup Reason, configure the Wakeup sources and finally go to Deep Sleep.
-#### myproject/main/main.cpp
+
+**myproject/main/main.cpp**
+
 The new `main.cpp` now looks like this:
 ```C++
 #include "esp_log.h"
@@ -557,16 +513,16 @@ extern "C" void app_main(void)
         default : ESP_LOGI(tag, "Wakeup was not caused by deep sleep: %d",wakeupReason); break;
     }
 
-    /* Wi-Fi: Initialize WifiManager class */
-    ESP_LOGI(tag, "WifiManager");
+    /* Wi-Fi: Initialize Wifi class */
+    ESP_LOGI(tag, "Wi-Fi");
     Wifi wifi(
-		std::string("WifiManager"), // tag
+		std::string("wifi_manager"), // tag
 		std::string("ESP32"), // ssid_prefix
 		std::string("de-DE") // language
     );
 
     /* Wi-Fi: Wait until Wi-Fi is connected */
-    ESP_LOGI(tag, "Wifi is %s", wifi.IsConnected() ? "connected" : "not connected");
+    ESP_LOGI(tag, "Wi-Fi is %s", wifi.IsConnected() ? "connected" : "not connected");
 
     /* Wi-Fi: Retrieve connection information */
     ESP_LOGI(tag, "Ssid: %s", wifi.GetSsid().c_str());
@@ -602,8 +558,8 @@ I (374) myproject: Start
 I (374) myproject: DeepSleep
 I (384) myproject: GetWakeupReason
 I (384) myproject: Wakeup was not caused by deep sleep: 0
-I (384) myproject: WifiManager
-I (394) WifiManager: Startup
+I (384) myproject: Wi-Fi
+I (394) wifi_manager: Startup
 ```
 Then after the work is done, the Wakeup sources are configured and the system is entering Deep Sleep mode. After 30 seconds the system wakes up again:
 ```terminaloutput
@@ -628,8 +584,8 @@ I (6614) myproject: GoToDeepSleep
 I (6624) DeepSleep: Going to sleep now
 --- Error: read failed: [Errno 6] Device not configured
 --- Waiting for the device to reconnect...........................................................
-I (1544) WifiManager: wait (max. 30 seconds) until Wifi station is connected
-I (2544) WifiManager: wait (max. 30 seconds) until Wifi station is connected
+I (1544) wifi_manager: wait (max. 30 seconds) until Wifi station is connected
+I (2544) wifi_manager: wait (max. 30 seconds) until Wifi station is connected
 
 ```
 After 6.614 sec the system is going to Deep Sleep and the connection to the device is lost. 
@@ -639,7 +595,9 @@ Unfortunately the beginning of the execution after Wakeup is not logged. Logging
 We will fix this issue in the next step, so that we can see the beginning of the log after restart.
 ### Step 6: Delay execution after restart to allow the terminal to reconnect
 To delay the restart of the ESP SoC, we call the command `vTaskDelay` from the FreeRTOS package at the very beginning of `app_main`.
-#### myproject/main/main.cpp
+
+**myproject/main/main.cpp**
+
 `main.cpp` now is:
 ```C++
 #include "esp_log.h"
@@ -681,16 +639,16 @@ extern "C" void app_main(void)
         default : ESP_LOGI(tag, "Wakeup was not caused by deep sleep: %d",wakeupReason); break;
     }
 
-    /* Wi-Fi: Initialize WifiManager class */
-    ESP_LOGI(tag, "WifiManager");
+    /* Wi-Fi: Initialize Wifi class */
+    ESP_LOGI(tag, "Wi-Fi");
     Wifi wifi(
-		std::string("WifiManager"), // tag
+		std::string("wifi_manager"), // tag
 		std::string("ESP32"), // ssid_prefix
 		std::string("de-DE") // language
     );
 
     /* Wi-Fi: Wait until Wi-Fi is connected */
-    ESP_LOGI(tag, "Wifi is %s", wifi.IsConnected() ? "connected" : "not connected");
+    ESP_LOGI(tag, "Wi-Fi is %s", wifi.IsConnected() ? "connected" : "not connected");
 
     /* Wi-Fi: Retrieve connection information */
     ESP_LOGI(tag, "Ssid: %s", wifi.GetSsid().c_str());
@@ -729,9 +687,9 @@ I (894) myproject: Start
 I (894) myproject: DeepSleep
 I (894) myproject: GetWakeupReason
 I (894) myproject: Wakeup caused by timer
-I (894) myproject: WifiManager
-I (894) WifiManager: Startup
-I (904) WifiManager: Initializing...
+I (894) myproject: Wi-Fi
+I (894) wifi_manager: Startup
+I (904) wifi_manager: Initializing...
 ```
 ### Summary: What did we achieve
 In a program with only 75 lines of code we have set up a run time environment in our ESP32 SoC which connects to a local Wi-Fi network and goes to Deep Sleep after it has done its work. The Wakeup reason can be configured(timer and/or button) and the bootCount and the Wakeup reason can be retrieved in the program. 
@@ -743,23 +701,13 @@ Now in the file `myproject/main/main.cpp`, we can start adding the actual functi
 ```
 ## Available Components for a Minimal Working Environment
 Currently there are the following components ready to use with ESP IDF V5.5+ published on ESP Component Registry.
-### wifi_manager
-[elrebo-de/wifi_manager      ](https://components.espressif.com/components/elrebo-de/wifi_manager) – to set up a Wifi connection
-### deep_sleep
-[elrebo-de/deep_sleep        ](https://components.espressif.com/components/elrebo-de/deep_sleep) – to go to deep sleep
-### generic_button
-[elrebo-de/generic_button    ](https://components.espressif.com/components/elrebo-de/generic_button) – to use push buttons
-### onboard_led
-[elrebo-de/onboard_led       ](https://components.espressif.com/components/elrebo-de/onboard_led) – to use the onboard LED
-### time_sync
-[elrebo-de/time_sync         ](https://components.espressif.com/components/elrebo-de/time_sync) – to synchronize time with an SNTP source
-### i2c_master
-[elrebo-de/i2c_master        ](https://components.espressif.com/components/elrebo-de/i2c_master) – to use an I2C bus
-### generic_nvsflash
-[elrebo-de/generic_nvsflash  ](https://components.espressif.com/components/elrebo-de/generic_nvsflash) – to store/retrieve values in non volatile flash storage
-### hcsr04_sensor
-[elrebo-de/hcsr04_sensor     ](https://components.espressif.com/components/elrebo-de/hcsr04_sensor) – to measure distances with an HCSR04 sensor
-### shelly_plug
-[elrebo-de/shelly_plug       ](https://components.espressif.com/components/elrebo-de/shelly_plug) – to use a shelly plug as a power switch
-### http_config_server
-[elrebo-de/http_config_server](https://components.espressif.com/components/elrebo-de/http_config_server) – to use a web page to enter configuration parameters
+* [elrebo-de/wifi_manager      ](https://components.espressif.com/components/elrebo-de/wifi_manager) – to set up a Wi-Fi connection
+* [elrebo-de/deep_sleep        ](https://components.espressif.com/components/elrebo-de/deep_sleep) – to go to deep sleep
+* [elrebo-de/generic_button    ](https://components.espressif.com/components/elrebo-de/generic_button) – to use push buttons
+* [elrebo-de/onboard_led       ](https://components.espressif.com/components/elrebo-de/onboard_led) – to use the onboard LED
+* [elrebo-de/time_sync         ](https://components.espressif.com/components/elrebo-de/time_sync) – to synchronize time with an SNTP source
+* [elrebo-de/i2c_master        ](https://components.espressif.com/components/elrebo-de/i2c_master) – to use an I2C bus
+* [elrebo-de/generic_nvsflash  ](https://components.espressif.com/components/elrebo-de/generic_nvsflash) – to store/retrieve values in non volatile flash storage
+* [elrebo-de/hcsr04_sensor     ](https://components.espressif.com/components/elrebo-de/hcsr04_sensor) – to measure distances with an HCSR04 sensor
+* [elrebo-de/shelly_plug       ](https://components.espressif.com/components/elrebo-de/shelly_plug) – to use a shelly plug as a power switch
+* [elrebo-de/http_config_server](https://components.espressif.com/components/elrebo-de/http_config_server) – to use a web page to enter configuration parameters
