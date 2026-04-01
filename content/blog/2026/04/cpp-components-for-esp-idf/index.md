@@ -235,7 +235,7 @@ extern "C" void app_main(void)
 ```
 This is the main program! It does nothing except to log the Start and the End of the execution.
 
-To build and execute this project on a ESP32C3 board I use these commands in the project's directory:
+To build and execute this project on a ESP32-C3 board, I use these commands in the project's directory:
 ```shell
 source /Users/christophoberle/esp-idf/esp-idf/export.sh
 idf.py set-target esp32c3  
