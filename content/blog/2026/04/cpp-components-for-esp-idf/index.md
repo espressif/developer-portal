@@ -380,7 +380,7 @@ As described on the ESP Component Registry for the component we add it to the pr
 idf.py add-dependency "elrebo-de/wifi_manager^1.4.2"
 ```
 #### myproject/main/idf_component.yml
-As a result of this command an additional file `idf_component.yml` is added to our project:
+As a result of this command, an additional file `idf_component.yml` is added to our project:
 ```yaml
 ## IDF Component Manager Manifest File
 dependencies:
