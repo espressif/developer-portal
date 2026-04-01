@@ -718,7 +718,7 @@ extern "C" void app_main(void)
     ESP_LOGI(tag, "GoToDeepSleep rc=%u", rc);
 }
 ```
-As you see in the terminal log, the first ESP_LOGI call is seen at 894 msec and the Wakeup reason is shown too.
+As you see in the terminal log, the first `ESP_LOGI` call is seen at 894 msec and the Wakeup reason is shown too.
 ```terminaloutput
 I (7294) myproject: End
 I (7294) myproject: GoToDeepSleep
