@@ -79,7 +79,7 @@ When the method `IsConnected()` is called for the first time, there are no crede
 
 That's in german, which depends on your computer's language settings. Here you can see the Wi-Fi access point of the ESP system named "ESP32-6A51". The prefix "ESP32" depends on the parameter `ssid_prefix` in the constructor of class `Wifi` (see above).
 
-When you connect to this Wi-Fi access point you see a web page where you can enter the Wi-Fi credentials (SSID and password).
+When you connect to this Wi-Fi access point, you see a web page where you can enter the Wi-Fi credentials (SSID and password).
 
 ![Wi-Fi credentials](./img/enter-credentials.webp)
 
