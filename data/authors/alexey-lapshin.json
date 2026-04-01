@@ -1,0 +1,9 @@
+{
+    "name": "Alexey Lapshin",
+    "bio": "Software Engineer at Espressif Systems",
+    "image": "img/authors/alexey-lapshin.webp",
+    "social": [
+        { "github": "https://github.com/Lapshin" },
+        { "linkedin": "https://www.linkedin.com/in/lapshin-embedded" }
+    ]
+}
