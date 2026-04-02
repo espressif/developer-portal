@@ -8,14 +8,7 @@ tags: ["ESP-IDF", "idf.py", "CLI", "Extensions", "Development Tools"]
 summary: "Learn how to extend idf.py with custom commands for your development workflow. This guide covers both component-based extensions for project-specific tools and Python package extensions for reusable commands, with practical examples and best practices for seamless integration."
 ---
 
-<!-- TODO[Remove after ESP-IDF v6.0 release]
-Note: This article mentions ESP-IDF v6.0. Once it is released, remove the note below about development status.
-Context: Developer Portal's GitLab MR `88#note_2327272`
-ReviewDate: 2026-01-15
-Tags: ESP-IDF v6.0, obsolete
--->
-
-What if you could extend `idf.py` with your own custom commands tailored to your specific workflow? With the ESP-IDF v6.0 and newer (to be released soon), you can do exactly that through a powerful extension system that lets you add project-specific tools or distribute reusable commands across your projects.
+What if you could extend `idf.py` with your own custom commands tailored to your specific workflow? With the ESP-IDF v6.0 and newer, you can do exactly that through a powerful extension system that lets you add project-specific tools or distribute reusable commands across your projects.
 
 Before we dive into extensions, let’s recall what `idf.py` gives you out of the box. It’s the central command-line tool for ESP-IDF that allows you to:
 
