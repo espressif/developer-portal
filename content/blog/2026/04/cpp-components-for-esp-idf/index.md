@@ -192,7 +192,7 @@ Finally you send the ESP chip to Deep Sleep with method `GoToDeepSleep()`.
     ESP_LOGI(tag, "GoToDeepSleep rc=%u", rc);
 }
 ```
-## Step by Step Guide how to use these C++ Components in your Project
+## How to use these C++ Components in your Project
 Let us start with an empty ESP program, then we add the Wi-Fi functionality and finally the Deep Sleep functionality.
 
 The source code for Step 1 to Step 6 can be found on GitHub at https://github.com/christoph-oberle/cpp_components_for_esp_idf.git.
