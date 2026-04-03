@@ -1,6 +1,6 @@
 ---
 title: "Hybrid Secure Boot with Post-Quantum Verification on ESP32-Class Targets"
-date: 2026-03-31
+date: 2026-04-04
 summary: "A measured research prototype of hybrid secure boot for ESP32-class devices combining ML-DSA verification with ECDSA V2 under realistic bootloader constraints."
 tags:
   - ESP32
@@ -25,7 +25,7 @@ ESP32-class deployments often remain in the field for 10-15 years, which interse
 
 Traditional secure boot relies on classical public-key signatures (commonly RSA or ECDSA): ROM code verifies the bootloader, the bootloader is loaded, then the bootloader verifies the app image before execution.
 
-In this model, signature trust is anchored in classical algorithms. If large-scale quantum capability becomes practical, Shor's algorithm threatens those classical assumptions, especially for long-lived firmware ecosystems where signed artifacts can be collected and re-analyzed later.
+In this model, signature trust is anchored in classical algorithms. The bootloader’s check is where the device commits to **app-image authenticity** before execution, and that decision rests on the same hardness assumptions **Shor’s algorithm** would break on a large enough quantum computer—so long-lived deployments face a **harvest now, break later** risk for signed firmware that is distinct from, but related to, the confidentiality story.
 
 For that reason, this prototype uses a **hybrid implementation** rather than replacing the classical path outright:
 
@@ -33,13 +33,17 @@ For that reason, this prototype uses a **hybrid implementation** rather than rep
 - Add PQC verification in the app verification path.
 - Require both checks to pass before boot continues.
 
-To do this without breaking the existing flow, the design extends the image-signature area by appending a dedicated PQC signature sector after the standard secure boot signature block. This keeps compatibility with current boot stages while adding post-quantum verification material.
+To do this without breaking the existing flow, the design appends a dedicated PQC signature sector after the standard secure boot signature block. Current boot stages keep working while post-quantum verification material is carried in flash.
+
+The approach keeps **Secure Boot V2** semantics and a practical layout: bounded extra flash and RAM, deterministic boot, an **8 KB** PQC sector after the **4 KB** classical sector, and a single digest **SHA-256(image + ECDSA sector)** that PQC binds to. At runtime the bootloader verifies **PQC first**, then **ECDSA V2**, and continues only if **both** succeed. The **ROM** root of trust stays classical; the new layer targets app-image authenticity over a longer horizon.
 
 ---
 
 ## 3. Prototype Scope and Targeting
 
 This implementation is intentionally positioned as a **research/prototype with measured results**, not a production readiness claim.
+
+Relative to typical production secure boot, this work combines **ML-DSA-65** with **ECDSA V2** on the same app image under **Secure Boot and Flash Encryption**; uses a fixed **8 KB** PQC sector aligned to **4 KB** for **bootloader mmap**; ties classical and post-quantum signatures through one digest over the image and classical sector; runs PQC verification in the bootloader with explicit temporary memory (for example **TLSF**); and reports timings on **ESP32-C5**-class hardware.
 
 ### Current targeting
 
@@ -61,59 +65,82 @@ The working model is: if the constrained targets are stable, broader adoption on
 
 ## 4. Hybrid Secure Boot Architecture
 
-The prototype keeps classical trust intact and adds PQC verification in the app image path. The **PQC signature block is a wrapper over the application image plus the ECDSA Secure Boot V2 sector**: the digest that ML-DSA verifies is computed across that combined region, so the PQC signature binds both the firmware image and the classical signature block.
+**Host pipeline:** Pad the app binary, sign with **ECDSA V2 Secure Boot** (add the **4 KB** signature sector), hash **image plus that sector**, sign the digest with **ML-DSA-65**, and append the **8 KB** PQC block.
 
-### Signing order (build / host pipeline)
+**Device pipeline:** **ROM** authenticates the bootloader. The bootloader recomputes the same digest, **verifies the PQC block first** (stop on failure), then **verifies ECDSA V2**, then runs the application.
 
-On the signing side, the image is produced in **two steps**: classical signing first, then post-quantum signing over the already-classically-signed layout.
+The **PQC signature block wraps the application image plus the ECDSA Secure Boot V2 sector**: ML-DSA verifies a digest over that combined region, so one post-quantum signature binds both the firmware image and the classical signature block. The ROM-to-bootloader classical trust path is unchanged.
+
+### Boot flow and signature layout (combined)
+
+The figure has two parts:
+
+1. **Flash layout** — sectors **F1 → F2 → F3** in address order.
+2. **Boot chain** — top-to-bottom steps **S1 … S9**.
+
+Links: **F1** and **F2** feed the SHA-256 step; **F3** feeds PQC verification; **F2** feeds ECDSA verification. **PQC runs before ECDSA**; both must pass.
 
 ```mermaid
+%%{init: {"flowchart": {"curve": "linear", "nodeSpacing": 28, "rankSpacing": 32}}}%%
+flowchart TB
+    subgraph flash["Flash layout (low to high address)"]
+        direction LR
+        F1["App + pad"] --> F2["4 KB ECDSA V2"] --> F3["8 KB PQC"]
+    end
+    subgraph boot["Boot chain"]
+        direction TB
+        S1["ROM boot"] --> S2["ROM verifies bootloader"]
+        S2 --> S3["Bootloader loads app"]
+        S3 --> S4["SHA-256: app + ECDSA sector"]
+        S4 --> S5["Verify PQC (ML-DSA-65)"]
+        S5 --> S6{"PQC OK?"}
+        S6 -->|No| HALT["Halt"]
+        S6 -->|Yes| S7["Verify ECDSA (V2)"]
+        S7 --> S8{"ECDSA OK?"}
+        S8 -->|No| HALT
+        S8 -->|Yes| S9["Execute app"]
+    end
+    F1 --> S4
+    F2 --> S4
+    F3 --> S5
+    F2 --> S7
+```
+
+### Signing order (host)
+
+The image is built in **two steps**: classical signing first, then PQC over the already signed layout.
+
+```mermaid
+%%{init: {"flowchart": {"curve": "linear"}}}%%
 flowchart LR
-    S0["App + pad"] --> S1["ECDSA sign (+4KB)"]
-    S1 --> S2["SHA-256 over image + ECDSA"]
-    S2 --> S3["PQC sign (+8KB)"]
+    S0["App + pad"] --> S1["ECDSA sign (+4 KB)"]
+    S1 --> S2["SHA-256 (image + ECDSA)"]
+    S2 --> S3["PQC sign (+8 KB)"]
 ```
 
-### Verification model
+### Verification model (device)
 
-- ROM boot flow remains unchanged (classical ROM verification of bootloader).
-- Bootloader verifies the application image in **strict order**:
-  1. **ML-DSA-65 (PQC block)** — if this fails, boot **stops**; ECDSA is not attempted.
-  2. **ECDSA V2 Secure Boot** — run **only after** PQC verification succeeds.
-- Boot proceeds only if **both** checks pass.
+- ROM flow is unchanged (classical verification of the bootloader).
+- Bootloader checks the app image in **strict order**:
+  1. **ML-DSA-65 (PQC block)** — on failure, boot **stops** (ECDSA is not run).
+  2. **ECDSA V2 Secure Boot** — only **after** PQC succeeds.
+- Boot continues only if **both** checks pass.
 
-```mermaid
-flowchart TD
-    A["1) ROM Boot"] --> B["2) ROM verifies bootloader (classical root of trust)"]
-    B --> C["3) Bootloader loads app image metadata"]
-    C --> D["4) Hash: app image + ECDSA sector (region wrapped by PQC)"]
-    D --> E["5) Verify PQC block (ML-DSA-65)"]
-    E --> PQC{"PQC OK?"}
-    PQC -->|No| I["Boot fails / halt"]
-    PQC -->|Yes| F["6) Verify Secure Boot V2 block (ECDSA)"]
-    F --> ECDSA{"ECDSA OK?"}
-    ECDSA -->|No| I
-    ECDSA -->|Yes| H["7) Continue boot and execute app"]
-```
-
-This preserves backward trust assumptions while introducing forward-looking cryptographic resilience.
+This keeps classical trust assumptions while adding post-quantum resilience. The combined diagram matches this order against the **flash sectors**.
 
 ---
 
 ## 5. Flash Signature Layout: Extending Without Breaking Existing Flow
 
-The prototype appends a dedicated PQC sector after the standard secure boot sector.
+The prototype appends a dedicated PQC sector after the standard secure boot sector:
 
-- Existing secure boot V2 signature sector: **4 KB**
-- Added PQC signature sector: **8 KB**
-- Combined signature footprint: **12 KB**
+| Region | Size |
+| --- | --- |
+| Secure Boot V2 signature sector | **4 KB** |
+| PQC signature sector | **8 KB** |
+| **Total signature footprint** | **12 KB** |
 
-```mermaid
-flowchart LR
-    I[App image + digest path] --> P[4KB alignment pad]
-    P --> E[4KB ECDSA V2 signature sector]
-    E --> Q[8KB PQC signature sector]
-```
+The **App + pad → 4 KB ECDSA → 8 KB PQC** order matches the **Flash layout** subgraph in the combined Mermaid diagram in Section 4.
 
 ### PQC signature block (8 KB) details
 
@@ -202,9 +229,9 @@ The **`signature_basic`** project under `post_quantum_cryptography` benchmarks M
 | **WolfSSL** (ML-DSA-65) | ~40.5 ms | ~18.3 ms |
 | **esp-mldsa-native** (ML-DSA-65) | ~198 ms | ~21.8 ms |
 
-These numbers illustrate how **implementation choice** (reference liboqs, WolfSSL, or native) shifts cost; the hybrid bootloader prototype sits in a different integration context but uses the same algorithm family.
+These numbers show how **implementation choice** (liboqs, WolfSSL, or native) shifts cost. The hybrid bootloader path is a different integration context but uses the same algorithm family.
 
-This is the core engineering message: hybrid PQC verification is practical on-device, but timing and memory budgets must be planned explicitly.
+**Takeaway:** Hybrid PQC verification is practical on-device, but timing and memory need explicit budgeting.
 
 ---
 
@@ -216,33 +243,36 @@ For long-lived devices, **harvest now, decrypt later** also applies to **authent
 
 ---
 
-## 10. How to Build and Test pqc_boot_verify
+## 10. How to Build and Test `pqc_boot_verify`
 
-To execute this prototype flow, clone the repository and run from the `pqc_boot_verify` project directory:
+1. **Clone and enter the project**
 
-```bash
-cd pqc_boot_verify
-idf.py set-target esp32c5
-```
+   ```bash
+   cd pqc_boot_verify
+   idf.py set-target esp32c5
+   ```
 
-Enable **Secure Boot** and **Flash Encryption** in menuconfig, and generate the classical secure boot signing keys (ECDSA/RSA) through the usual ESP-IDF flow. For PQC, run the signing script: **generated key material is stored under the project `keys/` directory** by default (override with `python scripts/pqc_sign.py keygen --keys-dir <dir>`). **Generate the C header that embeds the PQC public key** so the bootloader can verify against a compiled-in trusted key:
+2. **Configure security** — In menuconfig, enable **Secure Boot** and **Flash Encryption**. Generate classical secure boot keys (ECDSA/RSA) using the usual ESP-IDF flow.
 
-```bash
-python scripts/pqc_sign.py keygen
-python scripts/pqc_sign.py header --pk keys/pqc_ml_dsa_65_public.bin --output path/to/pqc_public_key.h
-```
+3. **PQC keys and header** — Run the signing script. Keys are stored under **`keys/`** by default (use `python scripts/pqc_sign.py keygen --keys-dir <dir>` to override). Generate the C header that embeds the PQC public key for compile-time trust:
 
-Then build, flash, and monitor:
+   ```bash
+   python scripts/pqc_sign.py keygen
+   python scripts/pqc_sign.py header --pk keys/pqc_ml_dsa_65_public.bin --output path/to/pqc_public_key.h
+   ```
 
-```bash
-idf.py build
-idf.py encrypted-flash monitor
-```
+4. **Build, flash, monitor**
 
-For project-specific scripts and implementation details, refer to the `post_quantum_cryptography` workspace (including `pqc_boot_verify/scripts/pqc_sign.py`).
+   ```bash
+   idf.py build
+   idf.py encrypted-flash monitor
+   ```
+
+For more detail, see the `post_quantum_cryptography` workspace (including `pqc_boot_verify/scripts/pqc_sign.py`).
 
 ---
 
 ## References
+
 - [Espressif blog structure reference (GitHub source)](https://github.com/espressif/developer-portal/blob/main/content/blog/2026/03/red_da_assessment_tool_overview/index.md)
 - [Published RED DA article format reference](https://raw.githubusercontent.com/espressif/developer-portal/main/content/blog/2026/03/red_da_assessment_tool_overview/index.md)
