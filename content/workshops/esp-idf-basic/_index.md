@@ -1,7 +1,7 @@
 ---
 title: "ESP-IDF Workshop: Basic"
 date: "2025-11-12"
-lastmod: "2026-01-20"
+lastmod: "2026-03-30"
 summary: "This workshop explores the basics of the ESP-IDF. You will build and flash basic programs, create your own components and build a REST API HTTP server."
 ---
 
@@ -27,15 +27,15 @@ Estimated duration: 3 hours.
 
 The workshop is divided into three parts, each lasting for about one hour.
 
-* **Part 1**: Welcome and introduction
+* Part 1: __Welcome and introduction__
 
-  * [Lesson 1](lecture-1/) – Introduction to ESP-IDF and the ESP-IDF extension for VS Code.
+  * [Lecture 1](lecture-1/) – Introduction to ESP-IDF and the ESP-IDF extension for VS Code.
   * [Assignment 1.1](assignment-1-1/) – Verify your ESP-IDF and VS Code installation by compiling and flashing the *hello_world* example. Modify the example’s output text.
   * [Assignment 1.2](assignment-1-2/) – Create a new project starting from the *blink* example
 
-* **Part 2**: HTTP Connectivity
+* Part 2: __HTTP Connectivity__
 
-  * [Lesson 2](lecture-2/) – Connectivity: HTTP protocol, HTML, and REST APIs
+  * [Lecture 2](lecture-2/) – Connectivity: HTTP protocol, HTML, and REST APIs
   * [Assignment 2.1](assignment-2-1/) – Create an HTTP server that handles the GET request `/index.html/` and returns `<h1>Hello LED Control</h1>`
   * [Assignment 2.2](assignment-2-2/) – Add the following routes to the HTTP server:
 
@@ -46,9 +46,9 @@ The workshop is divided into three parts, each lasting for about one hour.
 
     * POST /led/flash → accepts the JSON `{"periods": [int], "duty_cycles": [int]}` and, for each element, calculates on/off durations to drive the LED accordingly
 
-* **Part 3**: Peripherals and Integration
+* Part 3: __Peripherals and Integration__
 
-  * [Lesson 3](lecture-3/) – GPIO, I2C, and the component registry
+  * [Lecture 3](lecture-3/) – GPIO, I2C, and the component registry
   * [Assignment 3.1](assignment-3-1/) – Create a new component to control the LED
   * [Assignment 3.2](assignment-3-2/) – Add a component to read the onboard environmental sensor
   * [Assignment 3.3](assignment-3-3/) – *(Optional)* Add the route:
@@ -68,14 +68,13 @@ To follow this workshop, make sure you meet the prerequisites listed below.
 
 ### Required Hardware
 
-* [ESP-C3-DevKit-RUST-1](https://github.com/esp-rs/esp-rust-board) or [ESP-C3-DevKit-RUST-2](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkit-rust-2/user_guide.html) board<br>
-  (if the activity is in person, the board will be provided during the workshop)<br>
-  *It’s also possible to use an ESP32-C3-DevKit-M/C board, but you’ll need to adapt the GPIO configuration accordingly.*
+* Any Espressif DevKit (e.g. ESP32-C3-DevKit-M, ESP32-S3-DevKit-C etc.). <br>
+  *If the activity is in person, the board will be provided during the workshop.*
 
 {{< alert iconColor="#df8e1d" cardColor="#edcea3">}}
 If the event is held in person, please complete the following __before__ the workshop:
-* Install **VS Code** 
-* Install **ESP-IDF externsion for VS COde**
+* Install **VS Code**
+* Install **ESP-IDF externsion for VS Code**
 
 If any issues arise, there will be a short window during the first exercise to complete the installation.
 {{< /alert >}}
@@ -99,7 +98,7 @@ If any issues arise, there will be a short window during the first exercise to c
 
 ## Next Step
 
-> The next step is **[Lesson 1](lecture-1/)**.
+> The next step is **[Lecture 1](lecture-1/)**.
 
 ## Conclusion
 
