@@ -17,7 +17,9 @@ Post-quantum cryptography is required because large-scale quantum computers woul
 
 This is why PQC has moved from theory to standards. In 2024, NIST finalized the first PQC standards: **FIPS 203 (ML-KEM)**, **FIPS 204 (ML-DSA)**, and **FIPS 205 (SLH-DSA)**. For cloud systems, migration is mostly a software and operational challenge; for embedded systems, especially long-lived IoT devices, it is a lifecycle challenge.
 
-ESP32-class deployments often remain in the field for 10-15 years, which intersects with “**Harvest Now, Decrypt Later**” risk models where adversaries can collect signed firmware artifacts and revisit them later with stronger capability. In this context, authenticity and trust-chain durability matter as much as confidentiality. This post presents a **measured research prototype** of hybrid secure boot using post-quantum verification on ESP32-class targets, centered on `pqc_boot_verify`, with secure boot and flash encryption enabled under realistic bootloader constraints.
+**Standards today:** In 2024, NIST published the first wave of PQC standards: **FIPS 203 (ML-KEM)**, **FIPS 204 (ML-DSA)**, and **FIPS 205 (SLH-DSA)**. Moving to them is mainly an update-and-rollout job for big cloud systems. For small devices that stay deployed for years, it is also a **product-lifetime** problem: you have to plan upgrades, flash space, and boot paths, not just flip a library in a data center.
+
+**What “harvest now, decrypt later” means (in plain terms):** An attacker does not need to read your traffic today. They can **record** ciphertext (or other data) now, wait until computers are stronger—here, quantum—and **decrypt it later**. The same idea applies to **signed firmware**: someone can **save** your images and signatures today and try to **break or forge** them years later when classical signatures may no longer be safe. Devices like ESP32s that stay in the field for **10–15 years** sit in that window. **Authenticity** (trust in what you boot) then matters on the same kind of timeline as secrecy. This article describes a **measured research prototype** of hybrid secure boot with post-quantum checks on ESP32-class hardware (`pqc_boot_verify`), with secure boot and flash encryption on, to see what is realistic in a real bootloader.
 
 ---
 
@@ -25,7 +27,7 @@ ESP32-class deployments often remain in the field for 10-15 years, which interse
 
 Traditional secure boot relies on classical public-key signatures (commonly RSA or ECDSA): ROM code verifies the bootloader, the bootloader is loaded, then the bootloader verifies the app image before execution.
 
-In this model, signature trust is anchored in classical algorithms. The bootloader’s check is where the device commits to **app-image authenticity** before execution, and that decision rests on the same hardness assumptions **Shor’s algorithm** would break on a large enough quantum computer—so long-lived deployments face a **harvest now, break later** risk for signed firmware that is distinct from, but related to, the confidentiality story.
+Today’s secure boot is built around **normal** public-key math—usually **ECDSA** (or RSA). It is **strong against today’s attackers**, but that math is exactly what a large quantum computer could attack later. So the bootloader’s “this firmware is genuine” check is **not quantum-safe by itself**: it trusts **classical ECDSA** verification. For products that live in the field many years, that is a **future** risk as well as a **today** story.
 
 For that reason, this prototype uses a **hybrid implementation** rather than replacing the classical path outright:
 
@@ -221,7 +223,7 @@ Under bootloader conditions (~80 MHz CPU context), current measurements show:
 
 ### `signature_basic` example (ML-DSA-65 on ESP32-C5)
 
-The **`signature_basic`** project under `post_quantum_cryptography` benchmarks ML-DSA-65 signing and verification in the application (not the hybrid bootloader). Figures below come from captured serial logs in that tree (e.g. `signature_basic/test.txt` and `signature_basic/hehe.txt`), **20 iterations** each, chip reported as **ESP32-C5**.
+The **`signature_basic`** project under `post_quantum_cryptography` benchmarks ML-DSA-65 signing and verification in the application (not the hybrid bootloader). Figures below come from captured serial logs in that tree (e.g. `signature_basic/output_logs.txt` and `signature_basic/output_analysis.txt`), **20 iterations** each, chip reported as **ESP32-C5**.
 
 | Path | Sign (avg) | Verify (avg) |
 | --- | --- | --- |
@@ -231,15 +233,13 @@ The **`signature_basic`** project under `post_quantum_cryptography` benchmarks M
 
 These numbers show how **implementation choice** (liboqs, WolfSSL, or native) shifts cost. The hybrid bootloader path is a different integration context but uses the same algorithm family.
 
-**Takeaway:** Hybrid PQC verification is practical on-device, but timing and memory need explicit budgeting.
-
 ---
 
 ## 9. Why Hybrid Now Instead of Full Replacement
 
 The prototype keeps **ECDSA** in the trust chain because classical secure boot is mature, widely deployed, and well understood on ESP32-class hardware. **PQC** is standardized, but bootloader use is still relatively new: implementations are **not yet as field-tested** as long-running RSA/ECDSA stacks, and software verification paths remain **vulnerable to side-channel analysis (SCA)**—timing, power, and fault injection—without strong countermeasures. Keeping hybrid verification treats PQC as a forward-looking layer rather than the only gate until embedded PQC paths gain more scrutiny and hardening.
 
-For long-lived devices, **harvest now, decrypt later** also applies to **authenticity**: an adversary can store signed firmware and classical keys today and attack them when quantum-capable cryptanalysis is practical. A **PQC** signature over the image plus ECDSA block addresses that horizon; requiring **both** PQC and classical checks to pass hedges quantum-era breaks while retaining today’s proven secure boot path.
+The **harvest now, decrypt later** idea is not only about ciphertext. It applies to **trust in firmware**, too: someone can tuck away signed images and keys today, wait until quantum-scale attacks on classical schemes become realistic, and only then try to break or fake that trust. A **PQC** layer on top of the image and the classical block is one way to speak to that “what happens in ten or fifteen years?” worry. Running **both** PQC and ECDSA checks means you keep the secure boot path everyone relies on today, while still planting a flag for the future.
 
 ---
 
@@ -248,7 +248,7 @@ For long-lived devices, **harvest now, decrypt later** also applies to **authent
 1. **Clone and enter the project**
 
    ```bash
-   cd pqc_boot_verify
+   cd esp-liboqs/examples/pqc_boot_verify
    idf.py set-target esp32c5
    ```
 
@@ -268,7 +268,7 @@ For long-lived devices, **harvest now, decrypt later** also applies to **authent
    idf.py encrypted-flash monitor
    ```
 
-For more detail, see the `post_quantum_cryptography` workspace (including `pqc_boot_verify/scripts/pqc_sign.py`).
+For more detail, see the `esp-liboqs` component (including `examples/pqc_boot_verify/scripts/pqc_sign.py`).
 
 ---
 
