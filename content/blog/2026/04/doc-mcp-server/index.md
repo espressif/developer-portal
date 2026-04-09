@@ -1,6 +1,7 @@
 ---
 title: "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs"
 date: 2026-04-08
+lastmod: 2026-04-10
 showAuthor: false
 authors:
     - "wang-ning"
@@ -20,7 +21,7 @@ documentation. Once installed in Cursor, VS Code, Claude Code, or other AI appli
 - **Work faster and more accurately** — get implementation guidance, code examples, and bugfix suggestions grounded in official documentation, rather than relying on web search results or agent training data
 - **Reduce hallucinations** — agent outputs are based on real, current Espressif documentation rather than fabricated or obsolete content
 
-See [Espressif Documentation MCP server demo](https://pic2.zhimg.com/v2-12ca2503a172fd9f23418959619a81cf_r.gif).
+![Espressif Documentation MCP server demo](https://dl.espressif.com/public/v2-46db973e04ece22a98e35e1170bf9450_h.gif)
 
 ## MCP Server Capabilities
 
