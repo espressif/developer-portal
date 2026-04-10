@@ -31,7 +31,7 @@ Maker Faire Prague is a traditional event and a meeting point with the community
 
 {{< figure
     default=true
-    src="img/espressif_mf2025.webp"
+    src="img/espressif-mf2025.webp"
     >}}
 
 ## Resources and Materials
