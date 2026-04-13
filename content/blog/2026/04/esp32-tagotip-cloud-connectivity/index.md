@@ -1,13 +1,12 @@
 ---
 title: "Connecting an ESP32 to the Cloud"
-date: 2026-03-25
+date: 2026-04-14
 tags:
   - ESP32
   - IoT
   - UDP
   - Cloud
 showTableOfContents: true
-showAuthor: true
 authors:
   - fabio-tago
 summary: "Connecting an ESP32 to a cloud platform usually means HTTP libraries, JSON parsers, and TLS handshakes. This tutorial shows a different approach: a single UDP datagram, built with snprintf, carrying structured sensor data in about 130 bytes. The TagoTiP open specification makes it possible by defining the data structure so you don't have to."
