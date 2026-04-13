@@ -34,7 +34,7 @@ More Workshops
 
 ## Upcoming Events
 
-{{< article link="/events/embedded-world-2026/" showSummary=true compactSummary=true >}}
+{{< article link="/events/maker-faire-prague-2026/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="events/" target="_self" >}}
