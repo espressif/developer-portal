@@ -25,9 +25,9 @@ We are preparing a collection of demos, including our most recent SoCs.
 
 More details about demos and partners in the upcoming weeks.
 
-### What you missed in 2025
+### How it was in 2025
 
-Maker Faire Prague is a traditional event and a meeting point with the community over the past few years.
+Maker Faire Prague is a traditional event and a meeting point with the community over the past few years. Here are some pictures from the same event in 2025:
 
 {{< figure
     default=true
