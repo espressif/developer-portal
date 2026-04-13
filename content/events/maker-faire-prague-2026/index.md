@@ -12,8 +12,8 @@ showDate: false
 
 Espressif will be present at the [Maker Faire](https://makerfaire.cz/praha/) in Prague, Czechia. We are proud to announce that Espressif will be a partner of Maker Faire Prague for one more year.
 
-Save the date: **May 9th and 10th** from 10 am.
-Stop by our booth at **pavilion E** to see live demos and connect with the Espressif team.
+- :calendar: __Dates:__ 9–10 May 2026
+- :round_pushpin: __Location:__ Pavilion E ,Exhibition Center Prague, Výstaviště Praha
 
 ## What you will see
 
