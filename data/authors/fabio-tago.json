@@ -1,0 +1,10 @@
+{
+    "name": "Fabio Rosa",
+    "type": "partner",
+    "image": "img/authors/fabio-tago.webp",
+    "bio": "CEO at TagoIO",
+    "social": [
+        { "github": "https://github.com/fabioer" },
+        { "linkedin": "https://www.linkedin.com/in/fabio-rosa/" }
+    ]
+}
