@@ -1,0 +1,10 @@
+{
+    "name": "Fabio Rosa",
+    "type": "partner",
+    "image": "img/authors/fabio-rosa-thinkneo.webp",
+    "bio": "Founder & CEO at ThinkNEO AI — NVIDIA Inception Member",
+    "social": [
+        { "github": "https://github.com/thinkneo-ai" },
+        { "linkedin": "https://www.linkedin.com/in/fabiomrosa/" }
+    ]
+}
