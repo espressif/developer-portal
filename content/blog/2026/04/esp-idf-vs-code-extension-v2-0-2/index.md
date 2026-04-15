@@ -37,9 +37,18 @@ After installing the extension, open the Command Palette and run:
 ESP-IDF: Open ESP-IDF Installation Manager
 ```
 
-This launches EIM, or runs `eim wizard` in headless, SSH, WSL, and container environments. Once ESP-IDF is installed through EIM, the extension reads `eim_idf.json` automatically, with no path configuration needed.
+Depending on your environment, EIM will open in one of two ways:
+
+- **Graphical interface (GUI):** On a desktop machine, EIM opens as a standalone window that guides you step by step through selecting and installing an ESP-IDF version, with no command line required.
+- **Terminal wizard (WSL):** On WSL, the extension automatically runs EIM as an interactive terminal program that walks you through the same steps in your console.
+
+Once ESP-IDF is installed through EIM, the extension reads the `eim_idf.json` file it produces and discovers all installed versions automatically, with no manual path configuration needed.
+
+> **Note:** Full terminal wizard support for other remote environments such as SSH, Dev Containers, and Codespaces is not yet available in v2.0.2 and is planned for v2.1.0. If you need to force the terminal wizard mode in the meantime, you can set the `idf.eimExecutableArgs` extension setting to `["wizard"]`.
 
 > TODO: Add a screen recording showing `ESP-IDF: Open ESP-IDF Installation Manager` from the Command Palette, the EIM GUI launch, ESP-IDF version selection and installation, and a return to VS Code to select the installed version.
+
+For a detailed walkthrough of each step in the GUI installer, refer to the [Online Installation using EIM GUI](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#online-installation-using-eim-gui) guide.
 
 To switch between multiple installed ESP-IDF versions, use:
 
