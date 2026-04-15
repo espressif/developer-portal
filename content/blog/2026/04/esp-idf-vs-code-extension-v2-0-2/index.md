@@ -60,6 +60,14 @@ The selected version is stored in the workspace state as `idf.currentSetup`, and
 
 > **Backward compatibility:** Existing setups using environment variables in `idf.customExtraVars` continue to work. The extension will use those over any EIM-managed setup when present. See the updated [installation documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/installation.html) for full details.
 
+### Installed ESP-IDF to a Custom Path via EIM CLI? (Advanced)
+
+> **Most users can skip this section.** This only applies if you used the EIM command line interface with custom path flags such as `eim install -p D:\YourCustomPath`. The EIM GUI always installs to the default location and is detected automatically.
+
+If you installed ESP-IDF to a non-default location using the EIM CLI, the extension may not detect your installation automatically. Set the `idf.eimIdfJsonPath` extension setting through `Preferences: Open Settings (UI)` to the full path of your `eim_idf.json` file.
+
+See the [EIM FAQ on custom installation paths](https://docs.espressif.com/projects/idf-im-ui/en/latest/faq.html#can-i-install-esp-idf-to-a-custom-location-or-a-different-hard-drive) for the full list of EIM CLI path options.
+
 ### What Was Removed
 
 This release cleans up a significant amount of legacy surface area:
