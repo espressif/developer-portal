@@ -2,7 +2,7 @@
 title: "How to Create an UI Application for the ESP32-P4"
 date: 2025-04-14
 showAuthor: false
-tags: [ESP-IDF", "GUI", "Embedded Wizard", "ESP32-P4"]
+tags: [ESP-IDF, GUI, Embedded Wizard, ESP32-P4]
 authors:
     - "embedded-wizard-team"
 ---
