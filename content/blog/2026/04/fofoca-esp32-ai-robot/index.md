@@ -1,6 +1,6 @@
 ---
 title: "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP8266, and Edge AI"
-date: 2026-04-15
+date: 2026-04-18
 tags:
   - ESP32
   - ESP8266
@@ -11,7 +11,7 @@ tags:
   - PWM
 showTableOfContents: true
 authors:
-  - fabio-rosa-thinkneo
+  - fabio-bastos-thinkneo
 summary: "FOFOCA is a fully autonomous household robot built around a Raspberry Pi 5 brain, an ESP32 for real-time motor control and sensor polling, and an ESP8266 driving an OLED status display over MQTT. This article walks through the hardware architecture, the firmware running on each Espressif chip, and how all of it connects to a local edge AI server running NVIDIA Nemotron Nano 8B for inference — no cloud dependency required."
 ---
 
