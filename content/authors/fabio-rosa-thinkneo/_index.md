@@ -1,3 +1,0 @@
----
-title: "Fabio Rosa"
----
