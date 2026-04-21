@@ -1,12 +1,12 @@
 ---
 title: "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs"
 date: 2026-04-08
-lastmod: 2026-04-10
+lastmod: 2026-04-28
 showAuthor: false
 authors:
     - "wang-ning"
 tags: [MCP, AI, LLM, Doc]
-summary: "This article introduces how to connect your AI agent to official, up-to-date Espressif documentation directly inside your editor — with installation steps, example prompts, and best practices."
+summary: "This article introduces how to connect your AI agent to official, up-to-date Espressif documentation directly inside your AI applications — with installation steps, example prompts, and best practices."
 featureAsset: "featured.webp"
 ---
 
@@ -17,7 +17,7 @@ featureAsset: "featured.webp"
 The Espressif Documentation MCP server implements this standard for Espressif's
 documentation. Once installed in Cursor, VS Code, Claude Code, or other AI applications, the MCP server gives your AI agent direct access to official Espressif documentation. In practice, this means you can:
 
-- **Stay in your editor** — query the full Espressif documentation corpus through your AI agent without switching to a browser or a PDF viewer
+- **Stay in your AI applications** — query the full Espressif documentation corpus through your AI agents without switching to a browser or a PDF viewer
 - **Work faster and more accurately** — get implementation guidance, code examples, and bugfix suggestions grounded in official documentation, rather than relying on web search results or agent training data
 - **Reduce hallucinations** — agent outputs are based on real, current Espressif documentation rather than fabricated or obsolete content
 
@@ -76,7 +76,7 @@ In short:
 
    {{< details summary="If clicking \"Add to Cursor\" does nothing:" >}}
 
-Add the following to your `.cursor/mcp.json` file:
+Add the following to your `~/.cursor/mcp.json` file:
 
 ```json
 {
@@ -90,7 +90,7 @@ Add the following to your `.cursor/mcp.json` file:
 
 Save the file, restart Cursor, and open the Cursor Settings page. Continue from Step 4.
 
-On Linux, clicking **Add to Cursor** or editing the `.cursor/mcp.json` file may have no effect if the system has not registered the `cursor://` URL protocol handler.
+On Linux, clicking **Add to Cursor** or editing the `~/.cursor/mcp.json` file may have no effect if the system has not registered the `cursor://` URL protocol handler.
 
 To verify, run the following command in a terminal:
 ```bash
@@ -106,7 +106,7 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    ![Cursor install screen](img/cursor-install.webp)
 
 4. After the MCP server is installed, click **"Connect"** to authenticate. Allow Cursor to open the external website and follow the on-screen prompt.
-> **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
 
    ![Cursor connect screen](img/cursor-connect.webp)
    ![Authentication page](img/authenticate.webp)
@@ -118,7 +118,7 @@ If nothing happens or an error is shown, the URL handler is not registered. This
 2. In the Espressif Documentation chatbot widget, under **"MCP Server"**, click **"Add to VS Code"**. You may need to allow the website to open VS Code.
 {{< details summary="If clicking \"Add to VS Code\" does nothing:" >}}
 
-Add the following to your `.vscode/mcp.json` file:
+Add the following to your `~/.vscode/mcp.json` file:
 
 ```json
 {
@@ -133,7 +133,7 @@ Add the following to your `.vscode/mcp.json` file:
 Save the file, click "Start" above the code you just added to start the MCP server, and continue from Step 4.
 ![VS Code MCP Configuration (JSON)](img/vscode-mcp-config-json.webp)
 
-On Linux, clicking **Add to VS Code** or editing the `.vscode/mcp.json` file may have no effect if the system has not registered the `vscode://` URL protocol handler.
+On Linux, clicking **Add to VS Code** or editing the `~/.vscode/mcp.json` file may have no effect if the system has not registered the `vscode://` URL protocol handler.
 
 To verify, run the following command in a terminal:
 ```bash
@@ -161,12 +161,12 @@ If nothing happens or an error is shown, the URL handler is not registered. This
 2. Paste and execute the command in your terminal.
 3. Upon success, you will see the following message printed in the terminal:
 
-```
-Added HTTP MCP server espressif-docs with URL: https://mcp.espressif.com/docs to local config
-File modified: /Users/user/.claude.json [project: /Users/user]
-```
+   ```
+   Added HTTP MCP server espressif-docs with URL: https://mcp.espressif.com/docs to local config
+   File modified: /Users/user/.claude.json [project: /Users/user]
+   ```
 4. Authenticate with the MCP server:
-> **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
    - Start Claude Code in your terminal by running ``claude``
    - Type ``/mcp`` to open the MCP management panel
    - Select the MCP server, and then select ``Authenticate``
@@ -193,12 +193,66 @@ File modified: /Users/user/.claude.json [project: /Users/user]
 
 2. Save the file and restart Claude Desktop. An external browser window will open automatically. Follow the on-screen prompt to authenticate with the MCP server.
 ![Authentication page](img/authenticate.webp)
-> **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
 3. After successful authentication, you will see the MCP servers appear in **"Settings > Developer > Local MCP servers"**.
 
    ![Claude Desktop MCP Server Settings](img/claude.webp)
 
       {{% /tab %}}
+      {{% tab name="Antigravity" %}}
+1. Add the following snippet to `~/.gemini/antigravity/mcp_config.json` to install the Docs MCP server:
+   ```json
+   {
+      "mcpServers": {
+         "espressif-docs": {
+               "serverUrl": "https://mcp.espressif.com/docs"
+         }
+      }
+   }
+   ```
+
+2. Save the file and restart Antigravity. The **"Manage MCP servers"** page should appear automatically.
+
+   If it doesn't, at the top of the Antigravity's agent panel, click **"... MCP Servers > Manage MCP Servers"**.
+   ![Manage MCP servers](img/antigravity-manage-mcp.webp)
+3. On the **"Manage MCP Servers"** page, click **"Authenticate"**. The **"Settings – Customizations"** dialog will open.
+   ![Authenticate in Manage MCP servers](img/antigravity-authenticate.webp)
+4. Click **"Authenticate"** in **"Settings - Customizations"**. An external browser window will open automatically. Click **"Allow Access"**.
+   ![Authentication in Settings - Customizations](img/antigravity-authenticate-in-settings.webp)
+   ![Authentication page](img/authenticate.webp)
+   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+5. After granting access, copy the code shown on the **"Google Antigravity Authentication"** page, paste it into **"Settings – Customizations"**, and click **"Submit"**.
+   ![Copy Code and Submit](img/antigravity-copy-code.webp)
+6. After successful authentication, the **"INSTALLED MCP SERVERS"** list in **"Settings - Customizations"** will refresh automatically, showing the server status and enabled tools.
+      {{% /tab %}}
+      {{% tab name="Gemini CLI" %}}
+
+1. Add the MCP server by executing the command in your terminal:
+   ```
+   gemini mcp add --transport http espressif-docs https://mcp.espressif.com/docs
+   ```
+2. Authenticate with the MCP server:
+   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+   - Start Gemini CLI in your terminal by running ``gemini``
+   - Type ``/mcp auth espressif-docs``, and press `Enter`
+   - A browser window will open for you to log in. Follow the on-screen prompt to authenticate with the MCP server.
+   ![Authentication page](img/authenticate.webp)
+
+      {{% /tab %}}
+      {{% tab name="Codex" %}}
+1. Add the MCP server by executing the command in your terminal:
+   ```
+   codex mcp add espressif-docs --url "https://mcp.espressif.com/docs"
+   ```
+2. An external browser window will open automatically. Follow the on-screen prompt to authenticate with the MCP server.
+   ![Authentication page](img/authenticate.webp)
+      {{% /tab %}}
+      {{% tab name="Other" %}}
+MCP is an open protocol supported by many AI applications. If yours is not listed in this section, such as [Windsurf](https://docs.windsurf.com/windsurf/cascade/mcp) or [Zed](https://zed.dev/docs/ai/mcp), you can also install the MCP server.
+
+1. Follow your application's documentation to install the MCP server via a configuration file or the command line using the server URL `https://mcp.espressif.com/docs`.
+2. Authenticate with the MCP server as directed by your application.
+   {{% /tab %}}
 {{< /tabs >}}
 
 ## Example Prompts
@@ -235,7 +289,7 @@ You can start experimenting with the Documentation MCP server for the following 
 
 ## Best Practices
 
-- **Check the tool call indicator** in your editor to confirm the MCP server is being queried. If you don't see it, the agent may be answering from training data or searching the web.
+- **Check the tool call indicator** to confirm the MCP server is being queried. If you don't see it, the agent may be answering from training data or searching the web.
 
   ![Tool call indicator](img/tool-call-indicator.webp)
 
@@ -271,6 +325,22 @@ Yes. You need either a GitHub account or a WeChat account to authenticate with t
 
 > **Note:** WeChat authentication is not yet implemented and will be enabled in a future release.
 
+### How many documentation MCP servers does Espressif have? Do I need to add them separately for each entry point?
+
+Espressif has only one documentation MCP server at `https://mcp.espressif.com/docs`. The entry points below are simply different ways to add it.
+- The AI chatbot widget on [chat.espressif.com](https://chat.espressif.com)
+- The AI chatbot widget on the [Espressif official website](https://www.espressif.com)
+- The AI chatbot widget in the [ESP-IDF Programming Guide](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html)
+- The [Espressif MCP Servers page](https://mcp.espressif.com)
+
+The default MCP server name may differ slightly depending on which entry point you use, but they all connect to the same underlying service.
+
+### When should I use the MCP server?
+
+AI agents call the MCP server automatically when they need context they don't already have. If the answer can be found in your open project files, the agents will use those instead.
+
+For example, if you have [ESP-IDF](https://github.com/espressif/esp-idf) open in your application, asking about the ESP-IDF programming guide will lead the agent to consult the local source code and `docs/` folder, not the MCP server.
+
 ### Do I need to manually start the MCP server after installation?
 
 No. The MCP server is a remote service, so there is no local process to start.
@@ -279,19 +349,21 @@ No. The MCP server is a remote service, so there is no local process to start.
 
 ### Why didn't the agent consult the Espressif Documentation MCP server, even though I asked it to?
 
-**Step 1: Check the MCP server status in your editor.**
+**Step 1: Check the MCP server status in your application.**
 
 - **Cursor**: Go to **Settings > Tools & MCP**.
-- **VS Code**: Open the Extensions panel and go to **MCP SERVERS –
-  INSTALLED**.
-- **Claude Code**: Run `claude mcp list` in your terminal.
+- **VS Code**: Open the Extensions panel and go to **MCP SERVERS – INSTALLED**.
+- **Claude Code**: Run `claude mcp list` command.
 - **Claude Desktop**: Go to **Settings > Desktop > Developer > Local MCP servers**.
+- **Antigravity**: Go to **Antigravity Settings > Customizations > INSTALLED MCP SERVERS**.
+- **Gemini CLI**: Run `gemini mcp list` command.
+- **Codex**: Run `codex mcp list` command.
 
 If the MCP server is disabled, enable it.
 
 If authentication has expired, re-authenticate or re-add the MCP server.
 
-If an error persists, submit a [feedback](https://www.espressif.com/en/company/documents/documentation_feedback) with the error message shown in your editor.
+If an error persists, submit a [feedback](https://www.espressif.com/en/company/documents/documentation_feedback) with the error message shown in your AI application.
 
 ![MCP server status in Cursor](img/mcp-server-status.webp)
 
@@ -304,12 +376,15 @@ If an error persists, submit a [feedback](https://www.espressif.com/en/company/d
    claude --allowedTools mcp__espressif-docs__search_espressif_sources
    ```
 - **Claude Desktop**: Go to **Settings > Customize > Connectors > Desktop > Tool permissions**. By default, this is set to `Needs approval`, meaning you will be prompted each time the agent calls a tool.
+- **Antigravity**: Enabled by default. Go to **Antigravity Settings > Customizations > INSTALLED MCP SERVERS**, and check **"tool enabled"**.
+- **Gemini CLI**: Enabled by default.
+- **Codex**: Enabled by default.
 
-**Step 3. Try a different editor.**
+**Step 3. Try a different AI application.**
 
-MCP support varies across editors. If the MCP server is enabled and allowed but the agent still does not call it, try a different editor. For example, if you are using Cursor, try VS Code or Claude Code instead.
+MCP support varies across AI application. If the MCP server is enabled and allowed but the agent still does not call it, try a different application. For example, if you are using Cursor, try VS Code or Claude Code instead.
 
-If the issue persists across editors, the problem likely lies with the MCP server itself. Check the [status page](https://status.espressif.tools/status/mcp) to see if there are any known outages.
+If the issue persists across application, the problem likely lies with the MCP server itself. Check the [status page](https://status.espressif.tools/status/mcp) to see if there are any known outages.
 
 ### Can the MCP server answer questions about end-of-life software, e.g., ESP-IDF v4.4?
 
