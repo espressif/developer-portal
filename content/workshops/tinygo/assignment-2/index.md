@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop - Assignment 2: Blinky"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 showTableOfContents: false
 series: ["WS002EN"]
 series_order: 3
@@ -501,14 +502,14 @@ tinygo build -target xiao-esp32c3 -o firmware.bin .
 ## Summary
 
 In this assignment, you learned:
-- ✅ What GPIO pins are and how to use them
-- ✅ How to configure pins as inputs or outputs
-- ✅ Digital output (HIGH/LOW, 3.3V/0V)
-- ✅ Active LOW vs active HIGH
-- ✅ Time delays and loops
-- ✅ Building and flashing TinyGo programs
-- ✅ Serial monitoring for debugging
-- ✅ Simulating projects with Wokwi
+- What GPIO pins are and how to use them
+- How to configure pins as inputs or outputs
+- Digital output (HIGH/LOW, 3.3V/0V)
+- Active LOW vs active HIGH
+- Time delays and loops
+- Building and flashing TinyGo programs
+- Serial monitoring for debugging
+- Simulating projects with Wokwi
 
 You now have the foundation to control any digital output!
 

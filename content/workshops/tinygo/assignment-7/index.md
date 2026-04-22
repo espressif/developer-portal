@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop - Assignment 7: AI Edge Models"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 showTableOfContents: false
 series: ["WS002EN"]
 series_order: 8
@@ -415,13 +416,13 @@ func displayActivity(activity string) {
 ## Summary
 
 In this final assignment, you explored:
-- ✅ Edge AI concepts and applications
-- ✅ Pure Go implementations of simple ML
-- ✅ Threshold-based classification
-- ✅ Pattern recognition and statistical analysis
-- ✅ Overview of advanced AI frameworks (ESP-DL, TFLite)
-- ✅ Portal articles with production AI implementations
-- ✅ Understanding when to use Go vs C/C++ for AI
+- Edge AI concepts and applications
+- Pure Go implementations of simple ML
+- Threshold-based classification
+- Pattern recognition and statistical analysis
+- Overview of advanced AI frameworks (ESP-DL, TFLite)
+- Portal articles with production AI implementations
+- Understanding when to use Go vs C/C++ for AI
 
 You now have a foundation in embedded development with TinyGo, from basic GPIO to advanced AI concepts!
 

@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop - Assignment 5: WiFi Client"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 showTableOfContents: false
 series: ["WS002EN"]
 series_order: 6
@@ -468,13 +469,13 @@ if err != nil {
 ## Summary
 
 In this assignment, you learned:
-- ✅ How to scan for WiFi networks
-- ✅ Connect to WPA/WPA2 networks
-- ✅ Configure WiFi with credentials
-- ✅ Use HTTP client to fetch web pages
-- ✅ Send HTTP POST requests
-- ✅ Manage WiFi connection status
-- ✅ Troubleshoot WiFi connectivity
+- How to scan for WiFi networks
+- Connect to WPA/WPA2 networks
+- Configure WiFi with credentials
+- Use HTTP client to fetch web pages
+- Send HTTP POST requests
+- Manage WiFi connection status
+- Troubleshoot WiFi connectivity
 
 You can now connect your ESP32 to the internet!
 

@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop - Assignment 3: Display"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 showTableOfContents: false
 series: ["WS002EN"]
 series_order: 4
@@ -443,13 +444,13 @@ func main() {
 ## Summary
 
 In this assignment, you learned:
-- ✅ How to initialize an LCD display via SPI
-- ✅ Power management with AXP192
-- ✅ Drawing shapes: lines, rectangles, circles
-- ✅ Displaying text with fonts
-- ✅ Showing images from embedded data
-- ✅ Understanding RGB565 color format
-- ✅ Creating simple animations
+- How to initialize an LCD display via SPI
+- Power management with AXP192
+- Drawing shapes: lines, rectangles, circles
+- Displaying text with fonts
+- Showing images from embedded data
+- Understanding RGB565 color format
+- Creating simple animations
 
 You can now create visual interfaces for your projects!
 

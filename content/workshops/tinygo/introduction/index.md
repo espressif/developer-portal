@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop - Introduction"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 showTableOfContents: false
 series: ["WS002EN"]
 series_order: 1

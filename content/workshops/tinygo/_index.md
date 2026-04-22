@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 tags: ["Workshop", "TinyGo", "ESP32", "Embedded", "Go"]
 ---
 

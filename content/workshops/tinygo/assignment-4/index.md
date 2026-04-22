@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop - Assignment 4: Sensors"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 showTableOfContents: false
 series: ["WS002EN"]
 series_order: 5
@@ -480,14 +481,14 @@ Wokwi provides simulated sensor data:
 ## Summary
 
 In this assignment, you learned:
-- ✅ How I2C communication works
-- ✅ Reading data from I2C sensors
-- ✅ Using built-in accelerometer
-- ✅ Formatting and displaying sensor data
-- ✅ Simple motion detection
-- ✅ Orientation detection
-- ✅ Combining sensors with display
-- ✅ Simulating sensor projects with Wokwi
+- How I2C communication works
+- Reading data from I2C sensors
+- Using built-in accelerometer
+- Formatting and displaying sensor data
+- Simple motion detection
+- Orientation detection
+- Combining sensors with display
+- Simulating sensor projects with Wokwi
 
 You can now gather data from the physical world!
 

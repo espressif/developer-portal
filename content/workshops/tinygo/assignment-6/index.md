@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop - Assignment 6: WiFi Server"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 showTableOfContents: false
 series: ["WS002EN"]
 series_order: 7
@@ -452,13 +453,13 @@ func data(w http.ResponseWriter, r *http.Request) {
 ## Summary
 
 In this assignment, you learned:
-- ✅ How to create an HTTP server on ESP32
-- ✅ Serve static HTML pages
-- ✅ Handle multiple routes and endpoints
-- ✅ Control GPIO pins via web interface
-- ✅ Display sensor data on web page
-- ✅ Handle concurrent client requests
-- ✅ Debug network issues
+- How to create an HTTP server on ESP32
+- Serve static HTML pages
+- Handle multiple routes and endpoints
+- Control GPIO pins via web interface
+- Display sensor data on web page
+- Handle concurrent client requests
+- Debug network issues
 
 You can now create IoT devices with web interfaces!
 

@@ -1,6 +1,7 @@
 ---
 title: "TinyGo Embedded Workshop - Assignment 1: Install TinyGo"
 date: 2026-04-22T00:00:00+01:00
+lastmod: 2026-04-22
 showTableOfContents: false
 series: ["WS002EN"]
 series_order: 2
@@ -351,11 +352,11 @@ sudo chmod 666 /dev/cu.usbserial-*
 ## Summary
 
 You should now have:
-- ✅ Go 1.22+ installed
-- ✅ TinyGo 0.41 installed
-- ✅ VS Code with TinyGo extension (optional)
-- ✅ USB drivers installed (Windows)
-- ✅ Board detected and ready
+- Go 1.22+ installed
+- TinyGo 0.41 installed
+- VS Code with TinyGo extension (optional)
+- USB drivers installed (Windows)
+- Board detected and ready
 
 Let's verify everything is working with our first embedded program!
 
