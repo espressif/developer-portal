@@ -34,6 +34,22 @@ cd wifi-server
 go mod init wifi-server
 ```
 
+### Step 1.5: Install Dependencies
+
+Install required packages for Wi-Fi and HTTP server support:
+
+```bash
+go get tinygo.org/x/espradio
+go get tinygo.org/x/drivers
+```
+
+For the advanced sensor server example (optional):
+
+```bash
+go get tinygo.org/x/drivers/bmi260
+go get tinygo.org/x/drivers/i2csoft
+```
+
 ### Step 2: Create HTTP Server
 
 Create `main.go`:
@@ -48,6 +64,7 @@ import (
     "time"
 
     "tinygo.org/x/drivers/netdev"
+    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
     "tinygo.org/x/espradio"
 )
@@ -89,7 +106,7 @@ func main() {
     netdev.UseNetdev(&radioLink)
 
     serial.Write([]byte("Connecting to Wi-Fi...\r\n"))
-    err = radioLink.NetConnect(&link.ConnectParams{
+    err = radioLink.NetConnect(&nl.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
@@ -243,6 +260,7 @@ import (
     "tinygo.org/x/drivers/bmi260"
     "tinygo.org/x/drivers/i2csoft"
     "tinygo.org/x/drivers/netdev"
+    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
     "tinygo.org/x/espradio"
 )
@@ -290,7 +308,7 @@ func main() {
     netdev.UseNetdev(&radioLink)
 
     serial.Write([]byte("Connecting to Wi-Fi...\r\n"))
-    err = radioLink.NetConnect(&link.ConnectParams{
+    err = radioLink.NetConnect(&nl.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
