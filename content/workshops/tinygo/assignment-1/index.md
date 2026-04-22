@@ -134,6 +134,13 @@ brew tap tinygo-org/tools
 brew install tinygo
 ```
 
+**Upgrading TinyGo:**
+When upgrading TinyGo, first update Homebrew's cache:
+```bash
+brew update
+brew upgrade tinygo
+```
+
 3. Verify installation:
 ```bash
 tinygo version

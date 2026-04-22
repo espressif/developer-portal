@@ -52,6 +52,9 @@ TinyGo 0.41 brings significant improvements for ESP32 development:
 
 The ESP32 series are low-cost, low-power system on a chip microcontrollers with integrated Wi-Fi and dual-mode Bluetooth. They are widely used in IoT projects, wearables, and smart home devices.
 
+**Choosing the Right MCU:**
+Espressif offers a [Product Selector](https://products.espressif.com/) to help you choose the proper MCU for your project based on requirements like Wi-Fi, Bluetooth, memory, peripherals, and packaging.
+
 ### ESP32 Family Overview
 
 **ESP32 (Original)**
@@ -110,23 +113,9 @@ The M5Stack Core2 is a powerful development board based on the ESP32, featuring 
 - **Audio**: Built-in speaker and microphone
 - **Buttons**: 3 face buttons, 1 side power button
 
-### Pin Layout
+### Pin Layout and Simulation
 
-{{< figure
-    default=true
-    src="assets/m5stack-core2-pinout.webp"
-    caption="M5Stack Core2 Pin Layout"
-    height=300
-    >}}
-
-### Block Diagram
-
-{{< figure
-    default=true
-    src="assets/m5stack-core2-block-diagram.webp"
-    caption="M5Stack Core2 Block Diagram"
-    height=300
-    >}}
+For interactive pin layout visualization and simulation, visit [Wokwi ESP32 Simulator](https://wokwi.com/esp32). Wokwi provides an online simulator where you can visualize ESP32 pin connections and test code without hardware.
 
 ## M5Stack StampC3 Development Board
 
@@ -152,10 +141,20 @@ The M5Stack StampC3 is a compact development board based on the ESP32-C3, design
 
 ## TinyGo Development Workflow
 
-### 1. Write Code
+### 1. Initialize Project
+
+```bash
+mkdir gopher-blink
+cd gopher-blink
+go mod init gopher-blink
+```
+
+### 2. Write Code
 
 Create a `main.go` file:
 
+{{< tabs groupId="board" >}}
+  {{% tab name="ESP32" %}}
 ```go
 package main
 
@@ -165,35 +164,159 @@ import (
 )
 
 func main() {
-    led := machine.GPIO25
+    // Initialize serial for output
+    serial := machine.Serial
+    serial.Configure(machine.UARTConfig{BaudRate: 115200})
+
+    // Initialize LED
+    led := machine.GPIO2
     led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
+    serial.Write([]byte("LED Blink Example\r\n"))
+
     for {
+        serial.Write([]byte("LED ON\r\n"))
         led.High()
         time.Sleep(time.Millisecond * 500)
+
+        serial.Write([]byte("LED OFF\r\n"))
         led.Low()
         time.Sleep(time.Millisecond * 500)
     }
 }
 ```
+  {{% /tab %}}
 
-### 2. Build
+  {{% tab name="ESP32-S3" %}}
+```go
+package main
 
+import (
+    "machine"
+    "time"
+)
+
+func main() {
+    // Initialize serial for output
+    serial := machine.Serial
+    serial.Configure(machine.UARTConfig{BaudRate: 115200})
+
+    // Initialize LED
+    led := machine.GPIO2
+    led.Configure(machine.PinConfig{Mode: machine.PinOutput})
+
+    serial.Write([]byte("LED Blink Example\r\n"))
+
+    for {
+        serial.Write([]byte("LED ON\r\n"))
+        led.High()
+        time.Sleep(time.Millisecond * 500)
+
+        serial.Write([]byte("LED OFF\r\n"))
+        led.Low()
+        time.Sleep(time.Millisecond * 500)
+    }
+}
+```
+  {{% /tab %}}
+
+  {{% tab name="ESP32-C3" %}}
+```go
+package main
+
+import (
+    "machine"
+    "time"
+)
+
+func main() {
+    // Initialize serial for output
+    serial := machine.Serial
+    serial.Configure(machine.UARTConfig{BaudRate: 115200})
+
+    // Initialize LED
+    led := machine.GPIO8
+    led.Configure(machine.PinConfig{Mode: machine.PinOutput})
+
+    serial.Write([]byte("LED Blink Example\r\n"))
+
+    for {
+        serial.Write([]byte("LED ON\r\n"))
+        led.High()
+        time.Sleep(time.Millisecond * 500)
+
+        serial.Write([]byte("LED OFF\r\n"))
+        led.Low()
+        time.Sleep(time.Millisecond * 500)
+    }
+}
+```
+  {{% /tab %}}
+{{< /tabs >}}
+
+### 3. Build
+
+{{< tabs groupId="board" >}}
+  {{% tab name="ESP32" %}}
 ```bash
 tinygo build -target m5stack-core2 -o firmware.bin .
 ```
+  {{% /tab %}}
 
-### 3. Flash
+  {{% tab name="ESP32-S3" %}}
+```bash
+tinygo build -target esp32s3-generic -o firmware.bin .
+```
+  {{% /tab %}}
+
+  {{% tab name="ESP32-C3" %}}
+```bash
+tinygo build -target m5stack-stampc3 -o firmware.bin .
+```
+  {{% /tab %}}
+{{< /tabs >}}
+
+### 4. Flash
+
+{{< tabs groupId="board" >}}
+  {{% tab name="ESP32" %}}
+```bash
+tinygo flash -target m5stack-core2 .
+```
+  {{% /tab %}}
+
+  {{% tab name="ESP32-S3" %}}
+```bash
+tinygo flash -target esp32s3-generic .
+```
+  {{% /tab %}}
+
+  {{% tab name="ESP32-C3" %}}
+```bash
+tinygo flash -target m5stack-stampc3 .
+```
+  {{% /tab %}}
+{{< /tabs >}}
+
+**Tip:** TinyGo can auto-detect the port and baudrate, so you don't need to specify them manually.
+
+### 5. Monitor
 
 ```bash
-tinygo flash -target m5stack-core2 -port /dev/ttyUSB0 .
+tinygo monitor
 ```
 
-### 4. Monitor
-
-```bash
-tinygo monitor -port /dev/ttyUSB0 -baudrate 115200
+You should see:
 ```
+LED Blink Example
+LED ON
+LED OFF
+LED ON
+LED OFF
+...
+```
+
+**Tip:** Press `Ctrl+C` to stop the monitor.
 
 ## ESP32 Pin Modes
 

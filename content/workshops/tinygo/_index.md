@@ -43,8 +43,8 @@ Required software:
 
 - [Go 1.22+](https://go.dev/dl/)
 - [TinyGo 0.41](https://tinygo.org/getting-started/install/)
-- [JetBrains GoLand](https://www.jetbrains.com/go/) (recommended)
-- [Visual Studio Code](https://code.visualstudio.com/download) (alternative)
+- [Visual Studio Code](https://code.visualstudio.com/download)
+- [JetBrains GoLand](https://www.jetbrains.com/go/)
 - [TinyGo extension for VS Code](https://marketplace.visualstudio.com/items?itemName=tinygo.vscode-tinygo) (VS Code only)
 
 Recommended software:
