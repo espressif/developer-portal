@@ -48,8 +48,8 @@ import (
     "time"
 
     "tinygo.org/x/drivers/netdev"
-    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
+    "tinygo.org/x/espradio"
 )
 
 var ssid string
@@ -63,35 +63,52 @@ func main() {
     // Initialize serial
     serial := machine.Serial
     serial.Configure(machine.UARTConfig{BaudRate: 115200})
-    serial.WriteString("HTTP Server\r\n")
+    serial.Write([]byte("HTTP Server\r\n"))
 
     time.Sleep(2 * time.Second)
+
+    // Initialize espradio radio
+    err := espradio.Enable(espradio.Config{})
+    if err != nil {
+        serial.Write([]byte("Radio enable failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
+
+    err = espradio.Start()
+    if err != nil {
+        serial.Write([]byte("Radio start failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
 
     // Connect to Wi-Fi
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
-    serial.WriteString("Connecting to Wi-Fi...\r\n")
-    err := radioLink.NetConnect(&nl.ConnectParams{
+    serial.Write([]byte("Connecting to Wi-Fi...\r\n"))
+    err = radioLink.NetConnect(&link.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
 
     if err != nil {
-        serial.WriteString("Connection failed\r\n")
+        serial.Write([]byte("Connection failed\r\n"))
         return
     }
 
-    serial.WriteString("Connected!\r\n")
+    serial.Write([]byte("Connected!\r\n"))
 
     // Wait for DHCP
     time.Sleep(5 * time.Second)
 
     // Get IP address
     addr, _ := radioLink.Addr()
-    serial.WriteString("Server: http://")
-    serial.WriteString(addr.String())
-    serial.WriteString(":8080\r\n")
+    serial.Write([]byte("Server: http://"))
+    serial.Write([]byte(addr.String()))
+    serial.Write([]byte(":8080\r\n"))
 
     // Setup HTTP routes
     http.Handle("/", logRequest(root))
@@ -100,12 +117,12 @@ func main() {
     http.Handle("/status", logRequest(status))
 
     // Start server
-    serial.WriteString("Starting server...\r\n")
+    serial.Write([]byte("Starting server...\r\n"))
     err = http.ListenAndServe(":8080", nil)
     if err != nil {
-        serial.WriteString("Server error: ")
-        serial.WriteString(err.Error())
-        serial.WriteString("\r\n")
+        serial.Write([]byte("Server error: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
     }
 
     for {
@@ -116,10 +133,10 @@ func main() {
 func logRequest(h http.HandlerFunc) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         serial := machine.Serial
-        serial.WriteString(r.Method)
-        serial.WriteString(" ")
-        serial.WriteString(r.URL.Path)
-        serial.WriteString("\r\n")
+        serial.Write([]byte(r.Method))
+        serial.Write([]byte(" "))
+        serial.Write([]byte(r.URL.Path))
+        serial.Write([]byte("\r\n"))
         h(w, r)
     })
 }
@@ -188,27 +205,17 @@ func getUptime() string {
 ### Step 3: Build and Flash
 
 {{< tabs groupId="board" >}}
-  {{% tab name="M5Stack StampC3" %}}
+  {{% tab name="ESP32-C3" %}}
 ```bash
 tinygo flash -target m5stack-stampc3 \
-  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" \
-  -port /dev/ttyUSB0 .
+  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
 ```
   {{% /tab %}}
 
-  {{% tab name="XIAO-ESP32C3" %}}
+  {{% tab name="ESP32-S3" %}}
 ```bash
-tinygo flash -target xiao-esp32c3 \
-  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" \
-  -port /dev/ttyACM0 .
-```
-  {{% /tab %}}
-
-  {{% tab name="XIAO-ESP32S3" %}}
-```bash
-tinygo flash -target xiao-esp32s3 \
-  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" \
-  -port /dev/ttyACM0 .
+tinygo flash -target esp32s3-generic \
+  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
 ```
   {{% /tab %}}
 {{< /tabs >}}
@@ -231,14 +238,13 @@ import (
     "io"
     "machine"
     "net/http"
-    "strconv"
     "time"
 
     "tinygo.org/x/drivers/bmi260"
     "tinygo.org/x/drivers/i2csoft"
     "tinygo.org/x/drivers/netdev"
-    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
+    "tinygo.org/x/espradio"
 )
 
 var ssid string
@@ -262,18 +268,35 @@ func main() {
 
     time.Sleep(2 * time.Second)
 
+    // Initialize espradio radio
+    err := espradio.Enable(espradio.Config{})
+    if err != nil {
+        serial.Write([]byte("Radio enable failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
+
+    err = espradio.Start()
+    if err != nil {
+        serial.Write([]byte("Radio start failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
+
     // Connect to Wi-Fi
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
-    serial.WriteString("Connecting to Wi-Fi...\r\n")
-    err := radioLink.NetConnect(&nl.ConnectParams{
+    serial.Write([]byte("Connecting to Wi-Fi...\r\n"))
+    err = radioLink.NetConnect(&link.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
 
     if err != nil {
-        serial.WriteString("Connection failed\r\n")
+        serial.Write([]byte("Connection failed\r\n"))
         return
     }
 
@@ -281,9 +304,9 @@ func main() {
 
     // Get IP address
     addr, _ := radioLink.Addr()
-    serial.WriteString("Server: http://")
-    serial.WriteString(addr.String())
-    serial.WriteString(":8080\r\n")
+    serial.Write([]byte("Server: http://"))
+    serial.Write([]byte(addr.String()))
+    serial.Write([]byte(":8080\r\n"))
 
     // Setup routes
     http.Handle("/", logRequest(root))
@@ -294,7 +317,7 @@ func main() {
     go readSensors(sensor)
 
     // Start server
-    serial.WriteString("Starting server...\r\n")
+    serial.Write([]byte("Starting server...\r\n"))
     http.ListenAndServe(":8080", nil)
 }
 
@@ -308,10 +331,10 @@ func readSensors(sensor *bmi260.Device) {
 func logRequest(h http.HandlerFunc) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         serial := machine.Serial
-        serial.WriteString(r.Method)
-        serial.WriteString(" ")
-        serial.WriteString(r.URL.Path)
-        serial.WriteString("\r\n")
+        serial.Write([]byte(r.Method))
+        serial.Write([]byte(" "))
+        serial.Write([]byte(r.URL.Path))
+        serial.Write([]byte("\r\n"))
         h(w, r)
     })
 }

@@ -30,7 +30,7 @@ go version
 
 Expected output:
 ```
-go version go1.22.5 windows/amd64
+go version go1.26.x windows/amd64
 ```
   {{% /tab %}}
 
@@ -38,7 +38,7 @@ go version go1.22.5 windows/amd64
 **Installing Go on macOS**
 
 1. Download the Go installer from [https://go.dev/dl/](https://go.dev/dl/)
-2. Open the PKG file (e.g., `go1.22.5.darwin-amd64.pkg`)
+2. Open the PKG file (e.g., `go1.26.x.darwin-amd64.pkg`)
 3. Follow the installation wizard
 4. Verify installation:
 ```bash
@@ -47,7 +47,7 @@ go version
 
 Expected output:
 ```
-go version go1.22.5 darwin/amd64
+go version go1.26.x darwin/amd64
 ```
 
 **Alternative: Homebrew**
@@ -62,7 +62,7 @@ brew install go
 1. Download the Go archive from [https://go.dev/dl/](https://go.dev/dl/)
 2. Extract the archive:
 ```bash
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.26.x.linux-amd64.tar.gz
 ```
 
 3. Add Go to PATH by adding this to your `~/.profile` or `~/.bashrc`:
@@ -82,7 +82,7 @@ go version
 
 Expected output:
 ```
-go version go1.22.5 linux/amd64
+go version go1.26.x linux/amd64
 ```
   {{% /tab %}}
 {{< /tabs >}}
@@ -148,7 +148,7 @@ tinygo version
 
 Expected output:
 ```
-tinygo version 0.41.0 darwin/amd64 (using go version go1.22.5)
+tinygo version 0.41.0 darwin/amd64 (using go version go1.26.x)
 ```
   {{% /tab %}}
 

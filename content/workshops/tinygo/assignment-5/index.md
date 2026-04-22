@@ -31,6 +31,30 @@ The `tinygo.org/x/espradio` package provides Wi-Fi functionality:
 - **netlink**: Network configuration
 - **Wi-Fi**: 802.11 wireless networking
 
+### Radio Initialization
+
+Before using Wi-Fi functionality, you must initialize the radio:
+
+```go
+import "tinygo.org/x/espradio"
+
+// Enable and start the radio
+err := espradio.Enable(espradio.Config{})
+if err != nil {
+    // Handle error
+}
+
+err = espradio.Start()
+if err != nil {
+    // Handle error
+}
+```
+
+This initialization is required before:
+- Scanning for networks
+- Connecting to Wi-Fi
+- Using HTTP client/server
+
 ## Wi-Fi Scanner
 
 ### Step 1: Create Project
@@ -53,79 +77,73 @@ import (
     "time"
 
     "tinygo.org/x/drivers/netdev"
-    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
+    "tinygo.org/x/espradio"
 )
 
 func main() {
     // Initialize serial for output
     serial := machine.Serial
     serial.Configure(machine.UARTConfig{BaudRate: 115200})
-    serial.WriteString("Wi-Fi Scanner\r\n")
+    serial.Write([]byte("Wi-Fi Scanner\r\n"))
 
     // Wait for serial to be ready
     time.Sleep(2 * time.Second)
 
-    // Initialize espradio link
+    // Initialize espradio radio
+    err := espradio.Enable(espradio.Config{})
+    if err != nil {
+        serial.Write([]byte("Radio enable failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
+
+    err = espradio.Start()
+    if err != nil {
+        serial.Write([]byte("Radio start failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
+
+    // Initialize espradio link for netdev
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
-    serial.WriteString("Scanning for networks...\r\n")
+    serial.Write([]byte("Scanning for networks...\r\n"))
 
     // Scan for networks
-    networks := radioLink.ScanNetworks()
+    networks, err := espradio.Scan()
+    if err != nil {
+        serial.Write([]byte("Scan failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
 
-    serial.WriteString("Found ")
-    printInt(serial, len(networks))
-    serial.WriteString(" networks:\r\n\r\n")
+    serial.Write([]byte("Found "))
+    writeInt(serial, len(networks))
+    serial.Write([]byte(" networks:\r\n\r\n"))
 
     // Display networks
     for i, net := range networks {
-        printInt(serial, i+1)
-        serial.WriteString(". SSID: ")
-        serial.WriteString(net.Ssid)
-        serial.WriteString("\r\n   BSSID: ")
-        for j := 0; j < len(net.Bssid); j++ {
-            printHex(serial, net.Bssid[j])
-            if j < len(net.Bssid)-1 {
-                serial.WriteString(":")
-            }
-        }
-        serial.WriteString("\r\n   Channel: ")
-        printInt(serial, int(net.Channel))
-        serial.WriteString("\r\n   RSSI: ")
-        printInt(serial, int(net.Rssi))
-        serial.WriteString(" dBm\r\n")
-        serial.WriteString("   Auth: ")
-        serial.WriteString(authModeToString(net.AuthMode))
-        serial.WriteString("\r\n\r\n")
+        writeInt(serial, i+1)
+        serial.Write([]byte(". SSID: "))
+        serial.Write([]byte(net.SSID))
+        serial.Write([]byte("\r\n   RSSI: "))
+        writeInt(serial, net.RSSI)
+        serial.Write([]byte(" dBm\r\n\r\n"))
     }
 
-    serial.WriteString("Scan complete!\r\n")
+    serial.Write([]byte("Scan complete!\r\n"))
 
     for {
         time.Sleep(time.Second)
     }
 }
 
-func authModeToString(auth nl.AuthMode) string {
-    switch auth {
-    case nl.AUTH_OPEN:
-        return "Open"
-    case nl.AUTH_WEP:
-        return "WEP"
-    case nl.AUTH_WPA_PSK:
-        return "WPA-PSK"
-    case nl.AUTH_WPA2_PSK:
-        return "WPA2-PSK"
-    case nl.AUTH_WPA_WPA2_PSK:
-        return "WPA/WPA2-PSK"
-    default:
-        return "Unknown"
-    }
-}
-
-func printInt(serial machine.UART, n int) {
+func writeInt(serial machine.Serialer, n int) {
     if n == 0 {
         serial.WriteByte('0')
         return
@@ -144,38 +162,26 @@ func printInt(serial machine.UART, n int) {
         i++
     }
 }
-
-func printHex(serial machine.UART, b byte) {
-    hex := "0123456789ABCDEF"
-    serial.WriteByte(hex[b>>4])
-    serial.WriteByte(hex[b&0x0F])
-}
 ```
 
 ### Step 3: Build and Flash
 
 {{< tabs groupId="board" >}}
-  {{% tab name="M5Stack StampC3" %}}
+  {{% tab name="ESP32-C3" %}}
 ```bash
-tinygo flash -target m5stack-stampc3 -port /dev/ttyUSB0 .
+tinygo flash -target m5stack-stampc3 .
 ```
   {{% /tab %}}
 
-  {{% tab name="XIAO-ESP32C3" %}}
+  {{% tab name="ESP32-S3" %}}
 ```bash
-tinygo flash -target xiao-esp32c3 -port /dev/ttyACM0 .
-```
-  {{% /tab %}}
-
-  {{% tab name="XIAO-ESP32S3" %}}
-```bash
-tinygo flash -target xiao-esp32s3 -port /dev/ttyACM0 .
+tinygo flash -target esp32s3-generic .
 ```
   {{% /tab %}}
 {{< /tabs >}}
 
 {{< alert icon="triangle-exclamation" cardColor="#f8d7da" iconColor="#721c24" >}}
-**Important:** Wi-Fi is not supported on M5Stack Core2 (ESP32 original). Use ESP32-C3 or ESP32-S3 boards.
+**Important:** Wi-Fi is not supported on ESP32 (original). Use ESP32-C3 or ESP32-S3 boards.
 {{< /alert >}}
 
 ## Connecting to Wi-Fi
@@ -190,54 +196,68 @@ import (
     "time"
 
     "tinygo.org/x/drivers/netdev"
-    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
+    "tinygo.org/x/espradio"
 )
 
-// Wi-Fi credentials (compile-time flags)
-var ssid string = "YourWi-FiSSID"
-var password string = "YourWi-FiPassword"
+var ssid string
+var password string
 
 func main() {
     serial := machine.Serial
     serial.Configure(machine.UARTConfig{BaudRate: 115200})
-    serial.WriteString("Wi-Fi Connection Test\r\n")
+    serial.Write([]byte("Wi-Fi Connection Test\r\n"))
 
     time.Sleep(2 * time.Second)
 
-    // Initialize radio
+    // Initialize espradio radio
+    err := espradio.Enable(espradio.Config{})
+    if err != nil {
+        serial.Write([]byte("Radio enable failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
+
+    err = espradio.Start()
+    if err != nil {
+        serial.Write([]byte("Radio start failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
+
+    // Initialize radio link for netdev
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
     // Connect to Wi-Fi
-    serial.WriteString("Connecting to ")
-    serial.WriteString(ssid)
-    serial.WriteString("...\r\n")
+    serial.Write([]byte("Connecting to "))
+    serial.Write([]byte(ssid))
+    serial.Write([]byte("...\r\n"))
 
-    err := radioLink.NetConnect(&nl.ConnectParams{
+    err = radioLink.NetConnect(&link.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
 
     if err != nil {
-        serial.WriteString("Connection failed: ")
-        serial.WriteString(err.Error())
-        serial.WriteString("\r\n")
+        serial.Write([]byte("Connection failed\r\n"))
         return
     }
 
-    serial.WriteString("Connected!\r\n")
+    serial.Write([]byte("Connected!\r\n"))
 
     // Get IP address
     addr, err := radioLink.Addr()
     if err != nil {
-        serial.WriteString("Error getting address\r\n")
+        serial.Write([]byte("Error getting address\r\n"))
         return
     }
 
-    serial.WriteString("IP Address: ")
-    serial.WriteString(addr.String())
-    serial.WriteString("\r\n")
+    serial.Write([]byte("IP Address: "))
+    serial.Write([]byte(addr.String()))
+    serial.Write([]byte("\r\n"))
 
     // Keep connection alive
     for {
@@ -257,9 +277,14 @@ var password string
 
 Build with credentials:
 ```bash
-tinygo flash -target xiao-esp32c3 \
-  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" \
-  -port /dev/ttyACM0 .
+tinygo flash -target m5stack-stampc3 \
+  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
+```
+
+Or for ESP32-S3:
+```bash
+tinygo flash -target esp32s3-generic \
+  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
 ```
 
 ## HTTP Client
@@ -276,8 +301,8 @@ import (
     "time"
 
     "tinygo.org/x/drivers/netdev"
-    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
+    "tinygo.org/x/espradio"
 )
 
 var ssid string
@@ -286,45 +311,62 @@ var password string
 func main() {
     serial := machine.Serial
     serial.Configure(machine.UARTConfig{BaudRate: 115200})
-    serial.WriteString("HTTP Client Test\r\n")
+    serial.Write([]byte("HTTP Client Test\r\n"))
 
     time.Sleep(2 * time.Second)
+
+    // Initialize espradio radio
+    err := espradio.Enable(espradio.Config{})
+    if err != nil {
+        serial.Write([]byte("Radio enable failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
+
+    err = espradio.Start()
+    if err != nil {
+        serial.Write([]byte("Radio start failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
+        return
+    }
 
     // Connect to Wi-Fi
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
-    serial.WriteString("Connecting to Wi-Fi...\r\n")
-    err := radioLink.NetConnect(&nl.ConnectParams{
+    serial.Write([]byte("Connecting to Wi-Fi...\r\n"))
+    err = radioLink.NetConnect(&link.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
 
     if err != nil {
-        serial.WriteString("Connection failed\r\n")
+        serial.Write([]byte("Connection failed\r\n"))
         return
     }
 
-    serial.WriteString("Connected!\r\n")
+    serial.Write([]byte("Connected!\r\n"))
 
     // Wait for DHCP
     time.Sleep(5 * time.Second)
 
     // Fetch webpage
-    serial.WriteString("Fetching http://example.com...\r\n")
+    serial.Write([]byte("Fetching http://example.com...\r\n"))
 
     resp, err := http.Get("http://example.com")
     if err != nil {
-        serial.WriteString("HTTP GET failed: ")
-        serial.WriteString(err.Error())
-        serial.WriteString("\r\n")
+        serial.Write([]byte("HTTP GET failed: "))
+        serial.Write([]byte(err.Error()))
+        serial.Write([]byte("\r\n"))
         return
     }
     defer resp.Body.Close()
 
-    serial.WriteString("Status: ")
-    printInt(serial, resp.StatusCode)
-    serial.WriteString("\r\n\r\n")
+    serial.Write([]byte("Status: "))
+    writeInt(serial, resp.StatusCode)
+    serial.Write([]byte("\r\n\r\n"))
 
     // Read response
     buf := make([]byte, 256)
@@ -338,14 +380,14 @@ func main() {
         }
     }
 
-    serial.WriteString("\r\n\r\nDone!\r\n")
+    serial.Write([]byte("\r\n\r\nDone!\r\n"))
 
     for {
         time.Sleep(time.Second)
     }
 }
 
-func printInt(serial machine.UART, n int) {
+func writeInt(serial machine.Serialer, n int) {
     if n == 0 {
         serial.WriteByte('0')
         return
@@ -371,7 +413,7 @@ func printInt(serial machine.UART, n int) {
 ### Send Data to Server
 
 ```go
-serial.WriteString("Sending POST request...\r\n")
+serial.Write([]byte("Sending POST request...\r\n"))
 
 resp, err := http.Post(
     "http://httpbin.org/post",
@@ -380,14 +422,14 @@ resp, err := http.Post(
 )
 
 if err != nil {
-    serial.WriteString("POST failed\r\n")
+    serial.Write([]byte("POST failed\r\n"))
     return
 }
 defer resp.Body.Close()
 
-serial.WriteString("Response: ")
-printInt(serial, resp.StatusCode)
-serial.WriteString("\r\n")
+serial.Write([]byte("Response: "))
+writeInt(serial, resp.StatusCode)
+serial.Write([]byte("\r\n"))
 ```
 
 ## Wi-Fi Connection Management
@@ -397,15 +439,15 @@ serial.WriteString("\r\n")
 ```go
 // Check if connected
 if radioLink.NetIsConnected() {
-    serial.WriteString("Connected\r\n")
+    serial.Write([]byte("Connected\r\n"))
 
     // Get signal strength
     rssi := radioLink.RSSI()
-    serial.WriteString("RSSI: ")
-    printInt(serial, int(rssi))
-    serial.WriteString(" dBm\r\n")
+    serial.Write([]byte("RSSI: "))
+    writeInt(serial, int(rssi))
+    serial.Write([]byte(" dBm\r\n"))
 } else {
-    serial.WriteString("Not connected\r\n")
+    serial.Write([]byte("Not connected\r\n"))
 }
 ```
 
@@ -414,7 +456,7 @@ if radioLink.NetIsConnected() {
 ```go
 err := radioLink.NetDisconnect()
 if err != nil {
-    serial.WriteString("Disconnect failed\r\n")
+    serial.Write([]byte("Disconnect failed\r\n"))
 }
 ```
 
@@ -424,7 +466,7 @@ if err != nil {
 
 - Check board target (ESP32-C3 or ESP32-S3 only)
 - Verify TinyGo 0.41+ installed
-- M5Stack Core2 (ESP32) doesn't support Wi-Fi in TinyGo
+- ESP32 (original) doesn't support Wi-Fi in TinyGo
 
 ### "Connection timeout"
 
@@ -551,8 +593,12 @@ Create `diagram.json`:
 
 ```bash
 # Build firmware
-tinygo build -target xiao-esp32c3 -o firmware.bin \
+tinygo build -target m5stack-stampc3 -o firmware.bin \
   -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
+
+# Or for ESP32-S3:
+# tinygo build -target esp32s3-generic -o firmware.bin \
+#   -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
 
 # Run simulation
 wokwi-cli .
