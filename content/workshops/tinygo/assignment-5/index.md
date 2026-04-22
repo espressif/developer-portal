@@ -1,5 +1,5 @@
 ---
-title: "TinyGo Embedded Workshop - Assignment 5: WiFi Client"
+title: "TinyGo Embedded Workshop - Assignment 5: Wi-Fi Client"
 date: 2026-04-22T00:00:00+01:00
 lastmod: 2026-04-22
 showTableOfContents: false
@@ -8,30 +8,30 @@ series_order: 6
 showAuthor: false
 ---
 
-## Assignment 5: WiFi Client
+## Assignment 5: Wi-Fi Client
 
-In this assignment, you'll learn to connect your ESP32 to WiFi networks using the new `espradio` package introduced in TinyGo 0.41.
+In this assignment, you'll learn to connect your ESP32 to Wi-Fi networks using the new `espradio` package introduced in TinyGo 0.41.
 
-## WiFi on ESP32 with TinyGo 0.41
+## Wi-Fi on ESP32 with TinyGo 0.41
 
-TinyGo 0.41 introduces native WiFi support for ESP32-C3 and ESP32-S3 through the `espradio` package.
+TinyGo 0.41 introduces native Wi-Fi support for ESP32-C3 and ESP32-S3 through the `espradio` package.
 
 ### Key Features
 
-- **WiFi scanning**: Discover available networks
-- **WiFi connection**: Connect to WPA/WPA2 networks
+- **Wi-Fi scanning**: Discover available networks
+- **Wi-Fi connection**: Connect to WPA/WPA2 networks
 - **HTTP client**: Fetch data from web servers
 - **TCP/UDP**: Network communication
 - **Direct flashing**: No external tools needed (espflasher)
 
 ### espradio Package
 
-The `tinygo.org/x/espradio` package provides WiFi functionality:
+The `tinygo.org/x/espradio` package provides Wi-Fi functionality:
 - **netdev**: Network device interface
 - **netlink**: Network configuration
-- **WiFi**: 802.11 wireless networking
+- **Wi-Fi**: 802.11 wireless networking
 
-## WiFi Scanner
+## Wi-Fi Scanner
 
 ### Step 1: Create Project
 
@@ -41,7 +41,7 @@ cd wifi-scan
 go mod init wifi-scan
 ```
 
-### Step 2: Scan WiFi Networks
+### Step 2: Scan Wi-Fi Networks
 
 Create `main.go`:
 
@@ -61,7 +61,7 @@ func main() {
     // Initialize serial for output
     serial := machine.Serial
     serial.Configure(machine.UARTConfig{BaudRate: 115200})
-    serial.WriteString("WiFi Scanner\r\n")
+    serial.WriteString("Wi-Fi Scanner\r\n")
 
     // Wait for serial to be ready
     time.Sleep(2 * time.Second)
@@ -175,12 +175,12 @@ tinygo flash -target xiao-esp32s3 -port /dev/ttyACM0 .
 {{< /tabs >}}
 
 {{< alert icon="triangle-exclamation" cardColor="#f8d7da" iconColor="#721c24" >}}
-**Important:** WiFi is not supported on M5Stack Core2 (ESP32 original). Use ESP32-C3 or ESP32-S3 boards.
+**Important:** Wi-Fi is not supported on M5Stack Core2 (ESP32 original). Use ESP32-C3 or ESP32-S3 boards.
 {{< /alert >}}
 
-## Connecting to WiFi
+## Connecting to Wi-Fi
 
-### WiFi Connection Example
+### Wi-Fi Connection Example
 
 ```go
 package main
@@ -194,14 +194,14 @@ import (
     link "tinygo.org/x/espradio/netlink"
 )
 
-// WiFi credentials (compile-time flags)
-var ssid string = "YourWiFiSSID"
-var password string = "YourWiFiPassword"
+// Wi-Fi credentials (compile-time flags)
+var ssid string = "YourWi-FiSSID"
+var password string = "YourWi-FiPassword"
 
 func main() {
     serial := machine.Serial
     serial.Configure(machine.UARTConfig{BaudRate: 115200})
-    serial.WriteString("WiFi Connection Test\r\n")
+    serial.WriteString("Wi-Fi Connection Test\r\n")
 
     time.Sleep(2 * time.Second)
 
@@ -209,7 +209,7 @@ func main() {
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
-    // Connect to WiFi
+    // Connect to Wi-Fi
     serial.WriteString("Connecting to ")
     serial.WriteString(ssid)
     serial.WriteString("...\r\n")
@@ -290,11 +290,11 @@ func main() {
 
     time.Sleep(2 * time.Second)
 
-    // Connect to WiFi
+    // Connect to Wi-Fi
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
-    serial.WriteString("Connecting to WiFi...\r\n")
+    serial.WriteString("Connecting to Wi-Fi...\r\n")
     err := radioLink.NetConnect(&nl.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
@@ -390,7 +390,7 @@ printInt(serial, resp.StatusCode)
 serial.WriteString("\r\n")
 ```
 
-## WiFi Connection Management
+## Wi-Fi Connection Management
 
 ### Check Connection Status
 
@@ -420,17 +420,17 @@ if err != nil {
 
 ## Troubleshooting
 
-### "WiFi not supported"
+### "Wi-Fi not supported"
 
 - Check board target (ESP32-C3 or ESP32-S3 only)
 - Verify TinyGo 0.41+ installed
-- M5Stack Core2 (ESP32) doesn't support WiFi in TinyGo
+- M5Stack Core2 (ESP32) doesn't support Wi-Fi in TinyGo
 
 ### "Connection timeout"
 
 - Verify SSID and password are correct
 - Check network is 2.4GHz (ESP32 doesn't support 5GHz)
-- Ensure WiFi router is within range
+- Ensure Wi-Fi router is within range
 - Try moving closer to router
 
 ### "DHCP timeout"
@@ -442,7 +442,7 @@ if err != nil {
 
 ### "HTTP request failed"
 
-- Ensure WiFi connection is established
+- Ensure Wi-Fi connection is established
 - Check DNS is working (try IP address instead of hostname)
 - Verify firewall allows outbound connections
 - Check URL is correct (http:// not https://)
@@ -454,7 +454,7 @@ if err != nil {
 - Verify correct port (`/dev/ttyUSB0`, `/dev/ttyACM0`)
 - Check board is powered (LED lit)
 
-## WiFi Security Notes
+## Wi-Fi Security Notes
 
 {{< alert icon="shield-halved" cardColor="#d1ecf1" iconColor="#0c5460" >}}
 **Security Best Practices:**
@@ -469,27 +469,27 @@ if err != nil {
 ## Summary
 
 In this assignment, you learned:
-- How to scan for WiFi networks
+- How to scan for Wi-Fi networks
 - Connect to WPA/WPA2 networks
-- Configure WiFi with credentials
+- Configure Wi-Fi with credentials
 - Use HTTP client to fetch web pages
 - Send HTTP POST requests
-- Manage WiFi connection status
-- Troubleshoot WiFi connectivity
+- Manage Wi-Fi connection status
+- Troubleshoot Wi-Fi connectivity
 
 You can now connect your ESP32 to the internet!
 
 ## Simulation with Wokwi
 
-You can simulate WiFi projects using Wokwi! Wokwi provides simulated WiFi connectivity for testing.
+You can simulate Wi-Fi projects using Wokwi! Wokwi provides simulated Wi-Fi connectivity for testing.
 
 ### Wokwi Web Simulator
 
 1. Visit [wokwi.com/esp32](https://wokwi.com/esp32)
-2. ESP32-C3 board is pre-configured with WiFi
-3. Copy your WiFi code to the editor
+2. ESP32-C3 board is pre-configured with Wi-Fi
+3. Copy your Wi-Fi code to the editor
 4. Click "Run" to start simulation
-5. View serial output to see WiFi connection status
+5. View serial output to see Wi-Fi connection status
 
 ### Wokwi CLI (Command Line Interface)
 
@@ -529,7 +529,7 @@ Create `diagram.json`:
 ```json
 {
   "version": 1,
-  "author": "TinyGo WiFi Workshop",
+  "author": "TinyGo Wi-Fi Workshop",
   "editor": "wokwi",
   "parts": [
     {
@@ -572,19 +572,19 @@ wokwi-cli .
 3. Press `F1` and select "Wokwi: Start Simulator"
 4. View simulation in browser
 
-### WiFi Simulation in Wokwi
+### Wi-Fi Simulation in Wokwi
 
 **Important Notes:**
-- Wokwi simulates WiFi connectivity (no actual network)
+- Wokwi simulates Wi-Fi connectivity (no actual network)
 - HTTP requests are simulated with mock responses
 - Perfect for testing code logic without hardware
 - Always test on real hardware before deployment
 
-**Testing WiFi Code:**
+**Testing Wi-Fi Code:**
 
 ```go
 // This code will work in Wokwi simulation
-// WiFi connection will be simulated
+// Wi-Fi connection will be simulated
 // HTTP requests return mock data
 ```
 
@@ -612,4 +612,4 @@ wokwi-cli lint
 **Tip:** Wokwi simulation is excellent for learning and testing, but always verify your code on real hardware. Network behavior may differ between simulation and reality.
 {{< /alert >}}
 
-[Assignment 6: WiFi Server](../assignment-6/)
+[Assignment 6: Wi-Fi Server](../assignment-6/)

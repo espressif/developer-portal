@@ -433,7 +433,7 @@ Congratulations! You've completed the TinyGo Embedded Workshop. You've learned:
 2. **GPIO Control**: LED blinky, digital I/O
 3. **Display**: Graphics, text, images
 4. **Sensors**: I2C communication, accelerometer
-5. **WiFi**: Client and server programming
+5. **Wi-Fi**: Client and server programming
 6. **AI**: Simple ML and overview of advanced techniques
 
 ### Next Steps

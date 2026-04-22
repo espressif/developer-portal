@@ -32,7 +32,7 @@ TinyGo is a compiler for Go designed for small places. It brings the Go programm
 
 TinyGo 0.41 brings significant improvements for ESP32 development:
 
-1. **WiFi Support**: Native WiFi on ESP32-C3 and ESP32-S3
+1. **Wi-Fi Support**: Native Wi-Fi on ESP32-C3 and ESP32-S3
 2. **espradio Package**: New package for wireless communication
 3. **espflasher Package**: Direct flashing without external tools
 4. **Improved Performance**: Better optimization and smaller binaries
@@ -43,7 +43,7 @@ TinyGo 0.41 brings significant improvements for ESP32 development:
 - **GPIO Control**: Read buttons, control LEDs, drive motors
 - **Sensors**: Temperature, humidity, accelerometer, GPS
 - **Displays**: OLED, LCD, TFT, e-paper
-- **Communication**: I2C, SPI, UART, WiFi, Bluetooth
+- **Communication**: I2C, SPI, UART, Wi-Fi, Bluetooth
 - **Networking**: HTTP servers, MQTT, WebSocket
 - **Storage**: Flash memory, SD cards
 - **USB**: Human Interface Devices (HID), serial communication
@@ -57,27 +57,27 @@ The ESP32 series are low-cost, low-power system on a chip microcontrollers with 
 **ESP32 (Original)**
 - Dual-core Xtensa LX7 processor @ 240MHz
 - 520KB SRAM, up to 4MB flash
-- WiFi + Bluetooth Classic + BLE
+- Wi-Fi + Bluetooth Classic + BLE
 - Rich peripheral set
 - Used in: M5Stack Core2
 
 **ESP32-C3**
 - Single-core RISC-V processor @ 160MHz
 - 400KB SRAM, up to 16MB flash
-- WiFi + BLE
+- Wi-Fi + BLE
 - Ultra-low power
 - Used in: M5Stack StampC3, XIAO-ESP32C3
 
 **ESP32-S3**
 - Dual-core Xtensa LX7 processor @ 240MHz
 - 512KB SRAM, up to 8MB flash
-- WiFi + Bluetooth 5 LE
+- Wi-Fi + Bluetooth 5 LE
 - AI acceleration instructions
 - Used in: XIAO-ESP32S3, ESP-SensairShuttle
 
 ### Key Features
 
-- **Wireless connectivity**: WiFi and Bluetooth
+- **Wireless connectivity**: Wi-Fi and Bluetooth
 - **Low power consumption**: Deep sleep, light sleep
 - **Rich peripherals**: GPIO, ADC, DAC, PWM, I2C, SPI, UART
 - **Development support**: Arduino, ESP-IDF, TinyGo, MicroPython
@@ -91,7 +91,7 @@ The ESP32 architecture consists of:
 - **CPUs**: One or more processor cores
 - **Memory**: SRAM for data, Flash for code/storage
 - **Peripherals**: GPIO, ADC, communication interfaces
-- **Radio**: WiFi and Bluetooth modules
+- **Radio**: Wi-Fi and Bluetooth modules
 - **Power Management**: Sleep modes, voltage regulation
 
 ## M5Stack Core2 Development Board
@@ -105,7 +105,7 @@ The M5Stack Core2 is a powerful development board based on the ESP32, featuring 
 - **Touchscreen**: Capacitive touch, I2C interface
 - **Battery**: 390mAh LiPo with USB-C charging
 - **Sensors**: Accelerometer (BMI260), gyroscope, microphone
-- **Connectivity**: WiFi, Bluetooth, GPIO port
+- **Connectivity**: Wi-Fi, Bluetooth, GPIO port
 - **Power Management**: AXP192 PMIC
 - **Audio**: Built-in speaker and microphone
 - **Buttons**: 3 face buttons, 1 side power button
@@ -130,12 +130,12 @@ The M5Stack Core2 is a powerful development board based on the ESP32, featuring 
 
 ## M5Stack StampC3 Development Board
 
-The M5Stack StampC3 is a compact development board based on the ESP32-C3, designed for IoT projects requiring WiFi in a small form factor.
+The M5Stack StampC3 is a compact development board based on the ESP32-C3, designed for IoT projects requiring Wi-Fi in a small form factor.
 
 ### Features
 
 - **ESP32-C3**: Single-core RISC-V @ 160MHz
-- **WiFi**: 802.11 b/g/n, 2.4GHz
+- **Wi-Fi**: 802.11 b/g/n, 2.4GHz
 - **Bluetooth**: BLE 5.0
 - **USB-C**: Power, programming, and serial
 - **LEDs**: RGB LED, status LED
@@ -146,7 +146,7 @@ The M5Stack StampC3 is a compact development board based on the ESP32-C3, design
 
 - **Smaller**: Compact design, no display
 - **Lower Cost**: Budget-friendly
-- **WiFi**: Built-in WiFi (unlike some ESP32 boards)
+- **Wi-Fi**: Built-in Wi-Fi (unlike some ESP32 boards)
 - **USB**: Native USB (no external USB-serial chip)
 - **Power**: Lower power consumption
 

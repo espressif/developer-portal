@@ -492,4 +492,4 @@ In this assignment, you learned:
 
 You can now gather data from the physical world!
 
-[Assignment 5: WiFi Client](../assignment-5/)
+[Assignment 5: Wi-Fi Client](../assignment-5/)

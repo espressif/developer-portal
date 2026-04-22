@@ -1,5 +1,5 @@
 ---
-title: "TinyGo Embedded Workshop - Assignment 6: WiFi Server"
+title: "TinyGo Embedded Workshop - Assignment 6: Wi-Fi Server"
 date: 2026-04-22T00:00:00+01:00
 lastmod: 2026-04-22
 showTableOfContents: false
@@ -8,13 +8,13 @@ series_order: 7
 showAuthor: false
 ---
 
-## Assignment 6: WiFi Server
+## Assignment 6: Wi-Fi Server
 
 In this assignment, you'll create an HTTP server running on your ESP32, serving web pages and controlling devices remotely.
 
 ## HTTP Server with TinyGo
 
-TinyGo supports the standard `net/http` package on WiFi-enabled boards, allowing you to create web servers easily.
+TinyGo supports the standard `net/http` package on Wi-Fi-enabled boards, allowing you to create web servers easily.
 
 ### What You'll Build
 
@@ -67,11 +67,11 @@ func main() {
 
     time.Sleep(2 * time.Second)
 
-    // Connect to WiFi
+    // Connect to Wi-Fi
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
-    serial.WriteString("Connecting to WiFi...\r\n")
+    serial.WriteString("Connecting to Wi-Fi...\r\n")
     err := radioLink.NetConnect(&nl.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
@@ -222,7 +222,7 @@ tinygo flash -target xiao-esp32s3 \
 
 ## Advanced Server with Sensor Data
 
-### Combine WiFi Server with Sensors
+### Combine Wi-Fi Server with Sensors
 
 ```go
 package main
@@ -262,11 +262,11 @@ func main() {
 
     time.Sleep(2 * time.Second)
 
-    // Connect to WiFi
+    // Connect to Wi-Fi
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
-    serial.WriteString("Connecting to WiFi...\r\n")
+    serial.WriteString("Connecting to Wi-Fi...\r\n")
     err := radioLink.NetConnect(&nl.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
@@ -404,7 +404,7 @@ func data(w http.ResponseWriter, r *http.Request) {
 
 ### "Server not accessible"
 
-- Verify WiFi connection is established
+- Verify Wi-Fi connection is established
 - Check firewall allows incoming connections
 - Ensure browser uses correct IP and port (http://YOUR_BOARD_IP:8080)
 - Try accessing from different device
@@ -427,7 +427,7 @@ func data(w http.ResponseWriter, r *http.Request) {
 
 - Reduce sensor update rate
 - Optimize HTML page size
-- Check WiFi signal strength
+- Check Wi-Fi signal strength
 - Reduce concurrent requests
 
 ## Security Considerations

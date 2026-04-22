@@ -9,7 +9,7 @@ Welcome to the TinyGo Embedded Workshop!
 
 ## About this workshop
 
-By participating in this workshop, you will gain hands-on experience with embedded development using TinyGo on ESP32 microcontrollers. Through practical assignments, you will learn to create IoT applications using the Go programming language, from simple LED control to WiFi connectivity and edge AI concepts.
+By participating in this workshop, you will gain hands-on experience with embedded development using TinyGo on ESP32 microcontrollers. Through practical assignments, you will learn to create IoT applications using the Go programming language, from simple LED control to Wi-Fi connectivity and edge AI concepts.
 
 TinyGo brings the simplicity and safety of Go to microcontrollers, making embedded development accessible to Go developers while maintaining the performance needed for resource-constrained devices.
 
@@ -22,8 +22,8 @@ If you have met the [prerequisites](#prerequisites), we can start with the indiv
 - [Assignment 2: Blinky](assignment-2/): Your first embedded program - LED control
 - [Assignment 3: Display](assignment-3/): Graphics, text, and images on LCD displays
 - [Assignment 4: Sensors](assignment-4/): Reading data from I2C sensors
-- [Assignment 5: WiFi Client](assignment-5/): Connecting to networks and fetching data
-- [Assignment 6: WiFi Server](assignment-6/): Running a web server on ESP32
+- [Assignment 5: Wi-Fi Client](assignment-5/): Connecting to networks and fetching data
+- [Assignment 6: Wi-Fi Server](assignment-6/): Running a web server on ESP32
 - [Assignment 7: AI Edge Models](assignment-7/): Introduction to edge AI and machine learning concepts
 
 ## Prerequisites
@@ -35,7 +35,7 @@ Required hardware:
 - Computer running Linux, Windows or macOS operating system
 - ESP32 development board:
   - **Recommended**: M5Stack Core2 (ESP32, 320x240 display, touchscreen, sensors)
-  - **Alternative**: M5Stack StampC3 (ESP32-C3, compact, WiFi)
+  - **Alternative**: M5Stack StampC3 (ESP32-C3, compact, Wi-Fi)
   - **Alternative**: XIAO-ESP32C3 or XIAO-ESP32S3
 - USB-C cable (supporting power + data) compatible with your board
 
@@ -55,7 +55,7 @@ Recommended software:
 ## Time Requirements
 
 {{< alert icon="mug-hot" >}}
-**Estimated time: 240 min (4 hours)**
+**Estimated time: 120 min (2 hours)**
 {{< /alert >}}
 
 ## What makes TinyGo special?
@@ -65,7 +65,7 @@ TinyGo is a compiler for Go designed for small devices. Here's why it's great fo
 1. **Go language benefits**: Memory safety, garbage collection, concise syntax
 2. **Small binaries**: Optimized for flash-constrained devices
 3. **Hardware support**: Drivers for common sensors, displays, and communication protocols
-4. **WiFi and networking**: Built-in support for WiFi, HTTP, MQTT on ESP32
+4. **Wi-Fi and networking**: Built-in support for Wi-Fi, HTTP, MQTT on ESP32
 5. **Simplicity**: No build systems or complex toolchains like C/C++
 6. **Modern tooling**: Excellent VS Code integration, fast compile times
 
@@ -76,7 +76,7 @@ By the end of this workshop, you will be able to:
 - Set up a TinyGo development environment
 - Write embedded programs using Go
 - Control GPIO pins, read sensors, and drive displays
-- Connect to WiFi networks and implement network communication
+- Connect to Wi-Fi networks and implement network communication
 - Understand edge AI concepts and explore machine learning on microcontrollers
 - Build your own IoT projects using TinyGo
 
