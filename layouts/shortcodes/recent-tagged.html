@@ -1,0 +1,18 @@
+{{ $tag := .Get "tag" }}
+{{ $limit := int (.Get "limit" | default 6) }}
+{{ $title := .Get "title" | default (printf "Latest %s articles" $tag) }}
+{{ $parent := .Page.RelPermalink }}
+{{ $matches := where .Site.RegularPages "Params.tags" "intersect" (slice $tag) }}
+{{ $pages := first $limit ($matches.ByDate.Reverse) }}
+
+{{ if gt (len $pages) 0 }}
+  <h3 class="mt-10 mb-6 text-xl font-bold">{{ $title }}</h3>
+  <section class="space-y-10 w-full">
+    {{ range $pages }}
+      {{ if ne .RelPermalink $parent }}
+        {{ $context := dict "target" . "showSummary" true "compactSummary" true }}
+        {{ partial "article-link/_shortcode.html" $context }}
+      {{ end }}
+    {{ end }}
+  </section>
+{{ end }}
