@@ -43,8 +43,9 @@ Required software:
 
 - [Go 1.22+](https://go.dev/dl/)
 - [TinyGo 0.41](https://tinygo.org/getting-started/install/)
-- [Visual Studio Code](https://code.visualstudio.com/download) (recommended)
-- [TinyGo extension for VS Code](https://marketplace.visualstudio.com/items?itemName=sebastiansthilaire.tinygo) (optional)
+- [JetBrains GoLand](https://www.jetbrains.com/go/) (recommended)
+- [Visual Studio Code](https://code.visualstudio.com/download) (alternative)
+- [TinyGo extension for VS Code](https://marketplace.visualstudio.com/items?itemName=tinygo.vscode-tinygo) (VS Code only)
 
 Recommended software:
 
@@ -89,7 +90,7 @@ If you have any feedback about the workshop, feel free to start a new [discussio
 - [TinyGo 0.41 Release Notes](https://tinygo.org/blog/2026/tinygo-0-41-the-big-release/)
 - [TinyGo Drivers Repository](https://github.com/tinygo-org/drivers)
 - [M5Stack Core2 Documentation](https://docs.m5stack.com/en/core/core2)
-- [Espressif Developer Portal](https://developers.espressif.com/)
+- [Espressif Developer Portal](https://developer.espressif.com/)
 
 ## Conclusion
 

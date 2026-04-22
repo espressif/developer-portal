@@ -409,9 +409,8 @@ func displayActivity(activity string) {
 ### Resources
 
 - [ESP-DL GitHub](https://github.com/espressif/esp-dl)
-- [TFLite Micro](https://www.tensorflow.org/lite/microcontrollers)
+- [TFLite Micro](https://ai.google.dev/edge/litert/)
 - [TinyGo ML Examples](https://github.com/tinygo-org/drivers)
-- [Edge AI Tutorial](https://www.tensorflow.org/lite/microcontrollers/build)
 
 ## Summary
 

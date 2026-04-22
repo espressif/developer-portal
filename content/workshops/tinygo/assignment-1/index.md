@@ -192,17 +192,32 @@ If you're on Windows, you may need USB drivers for your board.
 **M5Stack StampC3 / XIAO-ESP32C3:**
 - Uses native USB (no drivers needed)
 
-## Install VS Code (Optional)
+## Install IDE (Optional)
 
-Visual Studio Code with the TinyGo extension provides an excellent development experience.
+Choose your preferred development environment. JetBrains GoLand offers excellent TinyGo support, or you can use Visual Studio Code with the TinyGo extension.
+
+### JetBrains GoLand (Recommended)
+
+JetBrains GoLand provides comprehensive TinyGo support with intelligent code completion, debugging, and project management.
+
+1. Download and install [GoLand](https://www.jetbrains.com/go/)
+2. Install the TinyGo plugin:
+   - Open GoLand
+   - Go to `File` > `Settings` > `Plugins`
+   - Search for "TinyGo"
+   - Install the official TinyGo plugin
+3. Configure TinyGo SDK in GoLand settings
+
+### Visual Studio Code (Alternative)
+
+Visual Studio Code with the TinyGo extension provides a lightweight development experience.
 
 1. Download and install [VS Code](https://code.visualstudio.com/download)
-
 2. Install the TinyGo extension:
    - Open VS Code
    - Press `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (macOS)
    - Search for "TinyGo"
-   - Install the extension by Sebastian Thiel
+   - Install the extension
 
 ## Verify Board Detection
 

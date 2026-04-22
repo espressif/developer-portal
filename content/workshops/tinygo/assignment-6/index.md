@@ -216,7 +216,7 @@ tinygo flash -target xiao-esp32s3 \
 ### Step 4: Access Web Server
 
 1. Watch serial output for IP address
-2. Open browser: `http://<IP_ADDRESS>:8080`
+2. Open browser: `http://YOUR_BOARD_IP:8080` (replace YOUR_BOARD_IP with actual IP)
 3. Click buttons to control LED
 4. Check status
 
@@ -406,7 +406,7 @@ func data(w http.ResponseWriter, r *http.Request) {
 
 - Verify WiFi connection is established
 - Check firewall allows incoming connections
-- Ensure browser uses correct IP and port (http://IP:8080)
+- Ensure browser uses correct IP and port (http://YOUR_BOARD_IP:8080)
 - Try accessing from different device
 
 ### "Connection refused"
