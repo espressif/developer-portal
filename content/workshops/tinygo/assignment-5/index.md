@@ -12,6 +12,10 @@ showAuthor: false
 
 In this assignment, you'll learn to connect your ESP32 to Wi-Fi networks using the new `espradio` package introduced in TinyGo 0.41.
 
+{{< alert icon="lightbulb" cardColor="#d1ecf1" iconColor="#0c5460" >}}
+**Source Code Available:** All Wi-Fi examples are available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository. See `content/workshops/tinygo/assignment_5/` for scan, connect, and HTTP client examples.
+{{< /alert >}}
+
 ## Wi-Fi on ESP32 with TinyGo 0.41
 
 TinyGo 0.41 introduces native Wi-Fi support for ESP32-C3 and ESP32-S3 through the `espradio` package.
@@ -31,29 +35,68 @@ The `tinygo.org/x/espradio` package provides Wi-Fi functionality:
 - **netlink**: Network configuration
 - **Wi-Fi**: 802.11 wireless networking
 
-### Radio Initialization
+### espradio Package
 
-Before using Wi-Fi functionality, you must initialize the radio:
+The `tinygo.org/x/espradio` package provides Wi-Fi functionality:
+- **netdev**: Network device interface
+- **netlink**: Network configuration
+- **Wi-Fi**: 802.11 wireless networking
 
-```go
-import "tinygo.org/x/espradio"
+### Board Support
 
-// Enable and start the radio
-err := espradio.Enable(espradio.Config{})
-if err != nil {
-    // Handle error
-}
+**Wi-Fi is supported on:**
+- **ESP32-C3**: esp32c3-generic target
+- **ESP32-S3**: esp32s3-generic target
 
-err = espradio.Start()
-if err != nil {
-    // Handle error
-}
+**NOT supported:**
+- ESP32 (original) - use ESP32-C3 or ESP32-S3 for Wi-Fi
+
+### Prerequisites
+
+Before using Wi-Fi examples, download required dependencies:
+
+```bash
+go mod download tinygo.org/x/espradio
+go mod download tinygo.org/x/drivers
+go mod download tinygo.org/x/espradio/netlink
 ```
 
-This initialization is required before:
-- Scanning for networks
-- Connecting to Wi-Fi
-- Using HTTP client/server
+This ensures the Wi-Fi radio, network driver, and netlink packages are available for TinyGo.
+
+### Radio Initialization
+
+The `NetConnect()` method handles radio initialization automatically. No manual `espradio.Enable()` or `espradio.Start()` calls needed.
+
+## Get the Source Code
+
+The complete source code for this assignment is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository:
+
+```bash
+git clone https://github.com/espressif/developer-portal-codebase.git
+cd developer-portal-codebase/content/workshops/tinygo/assignment_5
+```
+
+Available examples:
+- `scan.go` - Wi-Fi network scanner (no credentials needed)
+- `connect.go` - Wi-Fi connection with IP display
+- `http_client.go` - HTTP client fetching webpage
+
+**Workshop credentials:**
+- SSID: `tinygo`
+- Password: `gophercamp`
+
+Build examples:
+```bash
+# Scan for networks (no credentials needed)
+tinygo flash -target esp32c3-generic scan.go
+
+# Connect to Wi-Fi
+tinygo flash -target esp32c3-generic \
+  -ldflags="-X main.ssid=tinygo -X main.password=gophercamp" \
+  connect.go
+```
+
+See the README.md in the assignment directory for detailed instructions.
 
 ## Wi-Fi Scanner
 
@@ -67,7 +110,7 @@ go mod init wifi-scan
 
 ### Step 2: Scan Wi-Fi Networks
 
-Create `main.go`:
+Create `scan.go`:
 
 ```go
 package main
@@ -90,22 +133,9 @@ func main() {
     // Wait for serial to be ready
     time.Sleep(2 * time.Second)
 
-    // Initialize espradio radio
-    err := espradio.Enable(espradio.Config{})
-    if err != nil {
-        serial.Write([]byte("Radio enable failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
-
-    err = espradio.Start()
-    if err != nil {
-        serial.Write([]byte("Radio start failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
+    // Initialize espradio link for netdev
+    radioLink := link.Esplink{}
+    netdev.UseNetdev(&radioLink)
 
     // Initialize espradio link for netdev
     radioLink := link.Esplink{}
@@ -169,24 +199,28 @@ func writeInt(serial machine.Serialer, n int) {
 {{< tabs groupId="board" >}}
   {{% tab name="ESP32-C3" %}}
 ```bash
-tinygo flash -target m5stack-stampc3 .
+tinygo flash -target esp32c3-generic scan.go
 ```
   {{% /tab %}}
 
   {{% tab name="ESP32-S3" %}}
 ```bash
-tinygo flash -target esp32s3-generic .
+tinygo flash -target esp32s3-generic scan.go
 ```
   {{% /tab %}}
 {{< /tabs >}}
 
-{{< alert icon="triangle-exclamation" cardColor="#f8d7da" iconColor="#721c24" >}}
-**Important:** Wi-Fi is not supported on ESP32 (original). Use ESP32-C3 or ESP32-S3 boards.
+Note: Wi-Fi scanning does not require credentials.
+
+{{< alert icon="triangle-exclamation" cardColor="#fff3cd" iconColor="#856404" >}}
+**Note:** Wi-Fi is not supported on ESP32 (original). Use ESP32-C3 or ESP32-S3 boards.
 {{< /alert >}}
 
 ## Connecting to Wi-Fi
 
 ### Wi-Fi Connection Example
+
+Create `connect.go`:
 
 ```go
 package main
@@ -196,8 +230,8 @@ import (
     "time"
 
     "tinygo.org/x/drivers/netdev"
+    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
-    "tinygo.org/x/espradio"
 )
 
 var ssid string
@@ -210,23 +244,6 @@ func main() {
 
     time.Sleep(2 * time.Second)
 
-    // Initialize espradio radio
-    err := espradio.Enable(espradio.Config{})
-    if err != nil {
-        serial.Write([]byte("Radio enable failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
-
-    err = espradio.Start()
-    if err != nil {
-        serial.Write([]byte("Radio start failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
-
     // Initialize radio link for netdev
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
@@ -236,7 +253,7 @@ func main() {
     serial.Write([]byte(ssid))
     serial.Write([]byte("...\r\n"))
 
-    err = radioLink.NetConnect(&link.ConnectParams{
+    err := radioLink.NetConnect(&nl.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
@@ -268,41 +285,40 @@ func main() {
 
 ### Passing Credentials at Compile Time
 
-Instead of hardcoding credentials, pass them at compile time:
-
-```go
-var ssid string
-var password string
-```
+Workshop credentials for this session:
+- **SSID**: `tinygo`
+- **Password**: `gophercamp`
 
 Build with credentials:
 ```bash
-tinygo flash -target m5stack-stampc3 \
-  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
-```
+# ESP32-C3
+tinygo flash -target esp32c3-generic \
+  -ldflags="-X main.ssid=tinygo -X main.password=gophercamp" \
+  connect.go
 
-Or for ESP32-S3:
-```bash
+# ESP32-S3
 tinygo flash -target esp32s3-generic \
-  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
+  -ldflags="-X main.ssid=tinygo -X main.password=gophercamp" \
+  connect.go
 ```
 
 ## HTTP Client
 
 ### Fetch Web Page
 
+Create `http_client.go`:
+
 ```go
 package main
 
 import (
-    "io"
     "machine"
     "net/http"
     "time"
 
     "tinygo.org/x/drivers/netdev"
+    nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
-    "tinygo.org/x/espradio"
 )
 
 var ssid string
@@ -315,29 +331,12 @@ func main() {
 
     time.Sleep(2 * time.Second)
 
-    // Initialize espradio radio
-    err := espradio.Enable(espradio.Config{})
-    if err != nil {
-        serial.Write([]byte("Radio enable failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
-
-    err = espradio.Start()
-    if err != nil {
-        serial.Write([]byte("Radio start failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
-
     // Connect to Wi-Fi
     radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
     serial.Write([]byte("Connecting to Wi-Fi...\r\n"))
-    err = radioLink.NetConnect(&link.ConnectParams{
+    err := radioLink.NetConnect(&nl.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
@@ -352,10 +351,10 @@ func main() {
     // Wait for DHCP
     time.Sleep(5 * time.Second)
 
-    // Fetch webpage
-    serial.Write([]byte("Fetching http://example.com...\r\n"))
+    // Fetch webpage from local gateway
+    serial.Write([]byte("Fetching http://192.168.4.1...\r\n"))
 
-    resp, err := http.Get("http://example.com")
+    resp, err := http.Get("http://192.168.4.1")
     if err != nil {
         serial.Write([]byte("HTTP GET failed: "))
         serial.Write([]byte(err.Error()))
@@ -408,28 +407,17 @@ func writeInt(serial machine.Serialer, n int) {
 }
 ```
 
-## HTTP POST Request
+**Build and flash:**
+```bash
+# ESP32-C3
+tinygo flash -target esp32c3-generic \
+  -ldflags="-X main.ssid=tinygo -X main.password=gophercamp" \
+  http_client.go
 
-### Send Data to Server
-
-```go
-serial.Write([]byte("Sending POST request...\r\n"))
-
-resp, err := http.Post(
-    "http://httpbin.org/post",
-    "application/json",
-    strings.NewReader(`{"sensor": "temperature", "value": 23.5}`),
-)
-
-if err != nil {
-    serial.Write([]byte("POST failed\r\n"))
-    return
-}
-defer resp.Body.Close()
-
-serial.Write([]byte("Response: "))
-writeInt(serial, resp.StatusCode)
-serial.Write([]byte("\r\n"))
+# ESP32-S3
+tinygo flash -target esp32s3-generic \
+  -ldflags="-X main.ssid=tinygo -X main.password=gophercamp" \
+  http_client.go
 ```
 
 ## Wi-Fi Connection Management

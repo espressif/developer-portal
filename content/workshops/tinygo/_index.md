@@ -26,6 +26,10 @@ If you have met the [prerequisites](#prerequisites), we can start with the indiv
 - [Assignment 6: Wi-Fi Server](assignment-6/): Running a web server on ESP32
 - [Assignment 7: AI Edge Models](assignment-7/): Introduction to edge AI and machine learning concepts
 
+{{< alert icon="lightbulb" cardColor="#d1ecf1" iconColor="#0c5460" >}}
+**Source Code Repository:** All workshop examples are available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository. Each assignment includes complete working source code with `go.mod` files and build instructions. Clone the repo to access ready-to-build examples for all assignments.
+{{< /alert >}}
+
 ## Prerequisites
 
 To follow this workshop, you will need both hardware and software equipment.
@@ -41,7 +45,7 @@ Required hardware:
 
 Required software:
 
-- [Go 1.22+](https://go.dev/dl/)
+- [Go 1.26+](https://go.dev/dl/)
 - [TinyGo 0.41](https://tinygo.org/getting-started/install/)
 - [Visual Studio Code](https://code.visualstudio.com/download)
 - [JetBrains GoLand](https://www.jetbrains.com/go/)

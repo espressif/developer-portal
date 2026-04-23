@@ -12,6 +12,10 @@ showAuthor: false
 
 Blinking an LED is the "Hello, World!" of embedded development. In this assignment, you'll write your first TinyGo program to blink an LED.
 
+{{< alert icon="lightbulb" cardColor="#d1ecf1" iconColor="#0c5460" >}}
+**Source Code Available:** All example code for this assignment is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository. See `content/workshops/tinygo/assignment_2/` for complete working examples including blinky, morse code, serial output, and RGB LED control.
+{{< /alert >}}
+
 ## Understanding GPIO
 
 GPIO (General Purpose Input/Output) pins are the interface between your microcontroller and the physical world. They can be:
@@ -22,9 +26,21 @@ GPIO (General Purpose Input/Output) pins are the interface between your microcon
 ### LED Basics
 
 An LED (Light Emitting Diode) is a simple output device:
-- **Anode (+)**: Connects to positive voltage through a resistor
-- **Cathode (-)**: Connects to ground (GND)
-- **Resistor**: Limits current (typically 220Ω-1kΩ)
+- **Anode (+)**: Longer leg, connects to positive voltage through a resistor
+- **Cathode (-)**: Shorter leg with flat side on casing, connects to ground (GND)
+- **Resistor**: Limits current to prevent LED damage
+
+**Resistor Values for ESP32 (3.3V):**
+
+| LED Color | Forward Voltage | Resistor Range | Common Value |
+|-----------|-----------------|----------------|--------------|
+| Red | 1.8-2.2V | 330Ω - 1kΩ | 470Ω |
+| Green | 2.0-3.0V | 220Ω - 680Ω | 330Ω |
+| Blue | 3.0-3.3V | 100Ω - 330Ω | 220Ω |
+| Orange/Yellow | 2.0-2.2V | 330Ω - 680Ω | 470Ω |
+
+**Wiring for External LED:**
+ESP32 GPIO → Resistor → LED Anode → LED Cathode → GND
 
 **Digital Logic:**
 - **HIGH (1)**: Pin outputs VCC (3.3V on ESP32)
@@ -41,7 +57,7 @@ Different boards have built-in LEDs on different pins:
 - Pin: GPIO2 (most common) or GPIO10 (some boards)
 - Type: Active LOW (LED on when pin is LOW)
 
-Some boards also have RGB LEDs (requires NeoPixel driver).
+For external RGB LEDs: WS2812/NeoPixel on GPIO8
   {{% /tab %}}
 
   {{% tab name="ESP32-S3" %}}
@@ -56,12 +72,37 @@ Many boards also include RGB LEDs.
   {{% tab name="ESP32-C3" %}}
 **ESP32-C3 Built-in LED:**
 
-- Pin: GPIO8 or GPIO10 (board-dependent)
-- Type: Active LOW (LED on when pin is LOW)
+- Pin: GPIO2 (most boards, active LOW)
+- Type: Built-in LED
 
-Most boards include RGB LED (requires NeoPixel driver).
+For external RGB LEDs: WS2812/NeoPixel on GPIO2
   {{% /tab %}}
 {{< /tabs >}}
+
+## Get the Source Code
+
+The complete source code for this assignment is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository:
+
+```bash
+git clone https://github.com/espressif/developer-portal-codebase.git
+cd developer-portal-codebase/content/workshops/tinygo/assignment_2
+```
+
+Available examples:
+- `blinky.go` - Basic LED blink
+- `morse.go` - Morse code SOS signal
+- `serial.go` - Serial output debugging
+- `rgb_led_esp32.go` - RGB LED for ESP32
+- `rgb_led_esp32c3.go` - RGB LED for ESP32-C3
+
+Each example is a complete working program. Build by specifying the source file:
+
+```bash
+# Example: Build blinky for ESP32-C3
+tinygo flash -target esp32c3-generic blinky.go
+```
+
+See the README.md in the assignment directory for detailed build instructions.
 
 ## Creating Your Blinky Program
 
@@ -213,7 +254,7 @@ tinygo build -target m5stack-core2 -o firmware.bin .
 
   {{% tab name="ESP32-C3" %}}
 ```bash
-tinygo build -target m5stack-stampc3 -o firmware.bin .
+tinygo build -target esp32c3-generic -o firmware.bin .
 ```
   {{% /tab %}}
 {{< /tabs >}}
@@ -228,13 +269,13 @@ tinygo flash -target esp32s3-generic .
 
   {{% tab name="ESP32" %}}
 ```bash
-tinygo flash -target m5stack-core2 .
+tinygo flash -target esp32-generic .
 ```
   {{% /tab %}}
 
   {{% tab name="ESP32-C3" %}}
 ```bash
-tinygo flash -target m5stack-stampc3 .
+tinygo flash -target esp32c3-generic .
 ```
   {{% /tab %}}
 {{< /tabs >}}
@@ -295,9 +336,7 @@ cd morse
 go mod init morse
 ```
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
-**main.go for ESP32:**
+Create `morse.go`:
 
 ```go
 package main
@@ -307,23 +346,27 @@ import (
     "time"
 )
 
+var led machine.Pin
+
 func shortBlink() {
-    led.Low()
-    time.Sleep(time.Millisecond * 200)
     led.High()
+    time.Sleep(time.Millisecond * 200)
+    led.Low()
     time.Sleep(time.Millisecond * 200)
 }
 
 func longBlink() {
-    led.Low()
-    time.Sleep(time.Millisecond * 600)
     led.High()
+    time.Sleep(time.Millisecond * 600)
+    led.Low()
     time.Sleep(time.Millisecond * 200)
 }
 
 func main() {
-    // ESP32: LED on GPIO2
-    led := machine.GPIO2
+    // Configure LED pin for your board:
+    // ESP32/ESP32-S3: GPIO2
+    // ESP32-C3: GPIO2
+    led = machine.GPIO2
     led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
     for {
@@ -339,110 +382,28 @@ func main() {
         longBlink()
         time.Sleep(time.Millisecond * 400)
 
-        time.Sleep(time.Second * 2) // Pause between SOS
-    }
-}
-```
-  {{% /tab %}}
-
-  {{% tab name="ESP32-S3" %}}
-**main.go for ESP32-S3:**
-
-```go
-package main
-
-import (
-    "machine"
-    "time"
-)
-
-func shortBlink() {
-    led.Low()
-    time.Sleep(time.Millisecond * 200)
-    led.High()
-    time.Sleep(time.Millisecond * 200)
-}
-
-func longBlink() {
-    led.Low()
-    time.Sleep(time.Millisecond * 600)
-    led.High()
-    time.Sleep(time.Millisecond * 200)
-}
-
-func main() {
-    // ESP32-S3: LED on GPIO2
-    led := machine.GPIO2
-    led.Configure(machine.PinConfig{Mode: machine.PinOutput})
-
-    for {
         // S: ***
         shortBlink()
         shortBlink()
         shortBlink()
-        time.Sleep(time.Millisecond * 400)
-
-        // O: ---
-        longBlink()
-        longBlink()
-        longBlink()
-        time.Sleep(time.Millisecond * 400)
 
         time.Sleep(time.Second * 2) // Pause between SOS
     }
 }
 ```
-  {{% /tab %}}
 
-  {{% tab name="ESP32-C3" %}}
-**main.go for ESP32-C3:**
+**Build and flash:**
 
-```go
-package main
+```bash
+# ESP32
+tinygo flash -target esp32-generic morse.go
 
-import (
-    "machine"
-    "time"
-)
+# ESP32-S3
+tinygo flash -target esp32s3-generic morse.go
 
-func shortBlink() {
-    led.Low()
-    time.Sleep(time.Millisecond * 200)
-    led.High()
-    time.Sleep(time.Millisecond * 200)
-}
-
-func longBlink() {
-    led.Low()
-    time.Sleep(time.Millisecond * 600)
-    led.High()
-    time.Sleep(time.Millisecond * 200)
-}
-
-func main() {
-    // ESP32-C3: LED on GPIO8
-    led := machine.GPIO8
-    led.Configure(machine.PinConfig{Mode: machine.PinOutput})
-
-    for {
-        // S: ***
-        shortBlink()
-        shortBlink()
-        shortBlink()
-        time.Sleep(time.Millisecond * 400)
-
-        // O: ---
-        longBlink()
-        longBlink()
-        longBlink()
-        time.Sleep(time.Millisecond * 400)
-
-        time.Sleep(time.Second * 2) // Pause between SOS
-    }
-}
+# ESP32-C3
+tinygo flash -target esp32c3-generic morse.go
 ```
-  {{% /tab %}}
-{{< /tabs >}}
 
 **Build and flash:**
 
@@ -589,13 +550,17 @@ Add the TinyGo drivers to your `go.mod` file:
 go get tinygo.org/x/drivers@v0.27.0
 ```
 
-{{< alert icon="triangle-exclamation" cardColor="#f8d7da" iconColor="#721c24" >}}
-**Important:** ESP32-S3 requires copying the ws2812 driver locally and modifying it for compatibility. See the ESP32-S3 tab below for instructions.
-{{< /alert >}}
+**Prerequisites:**
+
+```bash
+go mod download tinygo.org/x/drivers
+```
+
+This ensures the ws2812 driver package is available for TinyGo.
 
 {{< tabs groupId="board" >}}
   {{% tab name="ESP32" %}}
-**main.go for ESP32:**
+**rgb_led.go for ESP32:**
 
 ```go
 package main
@@ -615,17 +580,30 @@ func main() {
 
     // NeoPixel driver
     neo := ws2812.New(led)
-    // Brightness at 20% - RGB LEDs are extremely bright!
-    neo.SetBrightness(51) // 51/255 = 20%
 
-    colors := []color.RGBA{
-        {255, 0, 0, 255},    // Red
-        {0, 255, 0, 255},    // Green
-        {0, 0, 255, 255},    // Blue
-        {255, 255, 0, 255},  // Yellow
-        {0, 255, 255, 255},  // Cyan
-        {255, 0, 255, 255},  // Magenta
+    // Brightness: 0-255 scale. RGB LEDs are extremely bright, so using 20%
+    brightness := uint8(51)
+
+    // Base colors at full brightness
+    baseColors := []color.RGBA{
+        {255, 0, 0, 255},     // Red
+        {0, 255, 0, 255},     // Green
+        {0, 0, 255, 255},     // Blue
+        {255, 255, 0, 255},   // Yellow
+        {0, 255, 255, 255},   // Cyan
+        {255, 0, 255, 255},   // Magenta
         {255, 255, 255, 255}, // White
+    }
+
+    // Apply brightness scaling
+    colors := make([]color.RGBA, len(baseColors))
+    for i, c := range baseColors {
+        colors[i] = color.RGBA{
+            R: uint8(uint16(c.R) * uint16(brightness) / 255),
+            G: uint8(uint16(c.G) * uint16(brightness) / 255),
+            B: uint8(uint16(c.B) * uint16(brightness) / 255),
+            A: 255,
+        }
     }
 
     for {
@@ -731,7 +709,7 @@ func main() {
   {{% /tab %}}
 
   {{% tab name="ESP32-C3" %}}
-**main.go for ESP32-C3:**
+**rgb_led.go for ESP32-C3:**
 
 ```go
 package main
@@ -745,23 +723,36 @@ import (
 )
 
 func main() {
-    // ESP32-C3: RGB LED on GPIO7
-    led := machine.GPIO7
+    // ESP32-C3: RGB LED on GPIO2
+    led := machine.GPIO2
     led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
     // NeoPixel driver
     neo := ws2812.New(led)
-    // Brightness at 20% - RGB LEDs are extremely bright!
-    neo.SetBrightness(51) // 51/255 = 20%
 
-    colors := []color.RGBA{
-        {255, 0, 0, 255},    // Red
-        {0, 255, 0, 255},    // Green
-        {0, 0, 255, 255},    // Blue
-        {255, 255, 0, 255},  // Yellow
-        {0, 255, 255, 255},  // Cyan
-        {255, 0, 255, 255},  // Magenta
+    // Brightness: 0-255 scale. RGB LEDs are extremely bright, so using 20%
+    brightness := uint8(51)
+
+    // Base colors at full brightness
+    baseColors := []color.RGBA{
+        {255, 0, 0, 255},     // Red
+        {0, 255, 0, 255},     // Green
+        {0, 0, 255, 255},     // Blue
+        {255, 255, 0, 255},   // Yellow
+        {0, 255, 255, 255},   // Cyan
+        {255, 0, 255, 255},   // Magenta
         {255, 255, 255, 255}, // White
+    }
+
+    // Apply brightness scaling
+    colors := make([]color.RGBA, len(baseColors))
+    for i, c := range baseColors {
+        colors[i] = color.RGBA{
+            R: uint8(uint16(c.R) * uint16(brightness) / 255),
+            G: uint8(uint16(c.G) * uint16(brightness) / 255),
+            B: uint8(uint16(c.B) * uint16(brightness) / 255),
+            A: 255,
+        }
     }
 
     for {
@@ -886,7 +877,7 @@ sudo chmod 666 /dev/cu.usbserial-*
 
 ### Compilation errors
 
-- Ensure Go 1.22+ installed: `go version`
+- Ensure Go 1.26+ installed: `go version`
 - Ensure TinyGo 0.41 installed: `tinygo version`
 - Check imports are correct
 - Verify board is supported

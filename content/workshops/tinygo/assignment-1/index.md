@@ -12,6 +12,10 @@ showAuthor: false
 
 You will need Go and TinyGo installed on your computer for this workshop. This assignment will guide you through the installation process.
 
+{{< alert icon="lightbulb" cardColor="#d1ecf1" iconColor="#0c5460" >}}
+**Source Code Available:** All example code for this workshop is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository. Each assignment has working examples you can build and flash directly. See the "Get the Code" section below.
+{{< /alert >}}
+
 ## Install Go
 
 First, install the Go programming language if you don't have it already.
@@ -271,6 +275,17 @@ sudo usermod -a -G dialout $USER
   {{% /tab %}}
 {{< /tabs >}}
 
+## Get the Source Code
+
+The complete source code for this assignment is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository:
+
+```bash
+git clone https://github.com/espressif/developer-portal-codebase.git
+cd developer-portal-codebase/content/workshops/tinygo/assignment_1
+```
+
+The codebase contains a simple test program to verify your TinyGo installation.
+
 ## Test Installation
 
 Create a test file to verify your installation:
@@ -374,7 +389,7 @@ sudo chmod 666 /dev/cu.usbserial-*
 ## Summary
 
 You should now have:
-- Go 1.22+ installed
+- Go 1.26+ installed
 - TinyGo 0.41 installed
 - VS Code with TinyGo extension (optional)
 - USB drivers installed (Windows)

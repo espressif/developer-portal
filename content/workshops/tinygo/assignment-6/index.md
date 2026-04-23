@@ -12,6 +12,10 @@ showAuthor: false
 
 In this assignment, you'll create an HTTP server running on your ESP32, serving web pages and controlling devices remotely.
 
+{{< alert icon="lightbulb" cardColor="#d1ecf1" iconColor="#0c5460" >}}
+**Source Code Available:** The HTTP server example is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository. See `content/workshops/tinygo/assignment_6/main.go` for the complete working web server.
+{{< /alert >}}
+
 ## HTTP Server with TinyGo
 
 TinyGo supports the standard `net/http` package on Wi-Fi-enabled boards, allowing you to create web servers easily.
@@ -21,8 +25,55 @@ TinyGo supports the standard `net/http` package on Wi-Fi-enabled boards, allowin
 - HTTP server with multiple endpoints
 - Serve static HTML pages
 - Control LED via web interface
-- Display sensor data on web page
 - Handle multiple concurrent clients
+
+### Board Support
+
+**Wi-Fi is supported on:**
+- **ESP32-C3**: esp32c3-generic target
+- **ESP32-S3**: esp32s3-generic target
+
+**NOT supported:**
+- ESP32 (original) - use ESP32-C3 or ESP32-S3 for Wi-Fi
+
+### Prerequisites
+
+Before using Wi-Fi examples, download required dependencies:
+
+```bash
+go mod download tinygo.org/x/espradio
+go mod download tinygo.org/x/drivers
+go mod download tinygo.org/x/espradio/netlink
+```
+
+## Get the Source Code
+
+The complete source code for this assignment is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository:
+
+```bash
+git clone https://github.com/espressif/developer-portal-codebase.git
+cd developer-portal-codebase/content/workshops/tinygo/assignment_6
+```
+
+The HTTP server example (`main.go`) includes:
+- Web interface with LED control buttons
+- JSON status endpoint
+- Multiple route handlers
+- ArenaPoolSize configuration for HTTP
+
+**Workshop credentials:**
+- SSID: `tinygo`
+- Password: `gophercamp`
+
+Build and flash:
+```bash
+# ESP32-C3
+tinygo flash -target esp32c3-generic \
+  -ldflags="-X main.ssid=tinygo -X main.password=gophercamp" \
+  main.go
+```
+
+See the README.md in the assignment directory for detailed instructions.
 
 ## Basic HTTP Server
 
@@ -34,21 +85,9 @@ cd wifi-server
 go mod init wifi-server
 ```
 
-### Step 1.5: Install Dependencies
-
-Install required packages for Wi-Fi and HTTP server support:
-
-```bash
-go get tinygo.org/x/espradio
-go get tinygo.org/x/drivers
-```
-
-For the advanced sensor server example (optional):
-
-```bash
-go get tinygo.org/x/drivers/bmi260
-go get tinygo.org/x/drivers/i2csoft
-```
+**Workshop credentials for this session:**
+- **SSID**: `tinygo`
+- **Password**: `gophercamp`
 
 ### Step 2: Create HTTP Server
 
@@ -66,7 +105,6 @@ import (
     "tinygo.org/x/drivers/netdev"
     nl "tinygo.org/x/drivers/netlink"
     link "tinygo.org/x/espradio/netlink"
-    "tinygo.org/x/espradio"
 )
 
 var ssid string
@@ -84,29 +122,14 @@ func main() {
 
     time.Sleep(2 * time.Second)
 
-    // Initialize espradio radio
-    err := espradio.Enable(espradio.Config{})
-    if err != nil {
-        serial.Write([]byte("Radio enable failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
+    // Connect to Wi-Fi with larger arena pool for HTTP
+    radioLink := link.Esplink{
+        ArenaPoolSize: 48 * 1024, // Larger pool for HTTP connections
     }
-
-    err = espradio.Start()
-    if err != nil {
-        serial.Write([]byte("Radio start failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
-
-    // Connect to Wi-Fi
-    radioLink := link.Esplink{}
     netdev.UseNetdev(&radioLink)
 
     serial.Write([]byte("Connecting to Wi-Fi...\r\n"))
-    err = radioLink.NetConnect(&nl.ConnectParams{
+    err := radioLink.NetConnect(&nl.ConnectParams{
         Ssid:       ssid,
         Passphrase: password,
     })
@@ -123,8 +146,9 @@ func main() {
 
     // Get IP address
     addr, _ := radioLink.Addr()
+    host := addr.String()
     serial.Write([]byte("Server: http://"))
-    serial.Write([]byte(addr.String()))
+    serial.Write([]byte(host))
     serial.Write([]byte(":8080\r\n"))
 
     // Setup HTTP routes
@@ -133,9 +157,9 @@ func main() {
     http.Handle("/led/off", logRequest(ledOff))
     http.Handle("/status", logRequest(status))
 
-    // Start server
+    // Start server with explicit IP address
     serial.Write([]byte("Starting server...\r\n"))
-    err = http.ListenAndServe(":8080", nil)
+    err = http.ListenAndServe(host+":8080", nil)
     if err != nil {
         serial.Write([]byte("Server error: "))
         serial.Write([]byte(err.Error()))
@@ -224,15 +248,17 @@ func getUptime() string {
 {{< tabs groupId="board" >}}
   {{% tab name="ESP32-C3" %}}
 ```bash
-tinygo flash -target m5stack-stampc3 \
-  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
+tinygo flash -target esp32c3-generic \
+  -ldflags="-X main.ssid=tinygo -X main.password=gophercamp" \
+  main.go
 ```
   {{% /tab %}}
 
   {{% tab name="ESP32-S3" %}}
 ```bash
 tinygo flash -target esp32s3-generic \
-  -ldflags="-X main.ssid=YourSSID -X main.password=YourPassword" .
+  -ldflags="-X main.ssid=tinygo -X main.password=gophercamp" \
+  main.go
 ```
   {{% /tab %}}
 {{< /tabs >}}
@@ -244,188 +270,7 @@ tinygo flash -target esp32s3-generic \
 3. Click buttons to control LED
 4. Check status
 
-## Advanced Server with Sensor Data
-
-### Combine Wi-Fi Server with Sensors
-
-```go
-package main
-
-import (
-    "io"
-    "machine"
-    "net/http"
-    "time"
-
-    "tinygo.org/x/drivers/bmi260"
-    "tinygo.org/x/drivers/i2csoft"
-    "tinygo.org/x/drivers/netdev"
-    nl "tinygo.org/x/drivers/netlink"
-    link "tinygo.org/x/espradio/netlink"
-    "tinygo.org/x/espradio"
-)
-
-var ssid string
-var password string
-
-// Sensor data
-var accelX, accelY, accelZ float32
-var temperature float32
-
-func main() {
-    // Initialize I2C and sensors
-    i2c := i2csoft.New(machine.SCL0_PIN, machine.SDA0_PIN)
-    i2c.Configure(i2csoft.I2CConfig{Frequency: 100e3})
-
-    sensor := bmi260.New(i2c)
-    sensor.Configure()
-
-    // Initialize serial
-    serial := machine.Serial
-    serial.Configure(machine.UARTConfig{BaudRate: 115200})
-
-    time.Sleep(2 * time.Second)
-
-    // Initialize espradio radio
-    err := espradio.Enable(espradio.Config{})
-    if err != nil {
-        serial.Write([]byte("Radio enable failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
-
-    err = espradio.Start()
-    if err != nil {
-        serial.Write([]byte("Radio start failed: "))
-        serial.Write([]byte(err.Error()))
-        serial.Write([]byte("\r\n"))
-        return
-    }
-
-    // Connect to Wi-Fi
-    radioLink := link.Esplink{}
-    netdev.UseNetdev(&radioLink)
-
-    serial.Write([]byte("Connecting to Wi-Fi...\r\n"))
-    err = radioLink.NetConnect(&nl.ConnectParams{
-        Ssid:       ssid,
-        Passphrase: password,
-    })
-
-    if err != nil {
-        serial.Write([]byte("Connection failed\r\n"))
-        return
-    }
-
-    time.Sleep(5 * time.Second)
-
-    // Get IP address
-    addr, _ := radioLink.Addr()
-    serial.Write([]byte("Server: http://"))
-    serial.Write([]byte(addr.String()))
-    serial.Write([]byte(":8080\r\n"))
-
-    // Setup routes
-    http.Handle("/", logRequest(root))
-    http.Handle("/data", logRequest(data))
-    http.Handle("/json", logRequest(jsonData))
-
-    // Start background sensor reading
-    go readSensors(sensor)
-
-    // Start server
-    serial.Write([]byte("Starting server...\r\n"))
-    http.ListenAndServe(":8080", nil)
-}
-
-func readSensors(sensor *bmi260.Device) {
-    for {
-        accelX, accelY, accelZ = sensor.ReadAcceleration()
-        time.Sleep(time.Millisecond * 100)
-    }
-}
-
-func logRequest(h http.HandlerFunc) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        serial := machine.Serial
-        serial.Write([]byte(r.Method))
-        serial.Write([]byte(" "))
-        serial.Write([]byte(r.URL.Path))
-        serial.Write([]byte("\r\n"))
-        h(w, r)
-    })
-}
-
-func root(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "text/html; charset=utf-8")
-    io.WriteString(w, `<!DOCTYPE html>
-<html>
-<head>
-    <title>ESP32 Sensor Server</title>
-    <style>
-        body { font-family: Arial; margin: 20px; }
-        h1 { color: #333; }
-        .data { margin: 10px 0; padding: 10px; background: #f0f0f0; }
-        button { padding: 10px 20px; font-size: 16px; }
-    </style>
-    <script>
-        setInterval(function() {
-            fetch('/json')
-                .then(r=>r.json())
-                .then(d=> {
-                    document.getElementById('accel').innerText =
-                        'X: ' + d.accelX.toFixed(2) + ' ' +
-                        'Y: ' + d.accelY.toFixed(2) + ' ' +
-                        'Z: ' + d.accelZ.toFixed(2);
-                });
-        }, 200);
-    </script>
-</head>
-<body>
-    <h1>ESP32 Sensor Server</h1>
-    <div class="data">
-        <strong>Accelerometer:</strong>
-        <span id="accel">Loading...</span>
-    </div>
-    <button onclick="location.reload()">Refresh</button>
-</body>
-</html>`)
-}
-
-func data(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "text/plain")
-    io.WriteString(w, "Accelerometer:\n")
-    io.WriteString(w, "X: "+formatFloat(accelX)+"\n")
-    io.WriteString(w, "Y: "+formatFloat(accelY)+"\n")
-    io.WriteString(w, "Z: "+formatFloat(accelZ)+"\n")
-}
-
-func jsonData(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "application/json")
-    io.WriteString(w, `{"accelX":`+formatFloat(accelX)+`,"accelY":`+formatFloat(accelY)+`,"accelZ":`+formatFloat(accelZ)+`}`)
-}
-
-func formatFloat(f float32) string {
-    // Simple float formatting (same as Assignment 4)
-    return "0.00" // Simplified
-}
-```
-
-## WebSocket Support (Advanced)
-
-For real-time updates, consider using WebSockets:
-
-```go
-// Note: WebSocket support may require additional packages
-// This is a conceptual example
-
-func wsHandler(w http.ResponseWriter, r *http.Request) {
-    // Upgrade to WebSocket
-    // Send sensor data in real-time
-    // Handle client connections
-}
-```
+## Troubleshooting
 
 ## Multiple Clients
 
@@ -457,12 +302,13 @@ func data(w http.ResponseWriter, r *http.Request) {
 - Ensure IP address is correct
 - Try restarting the board
 
-### "Page not loading"
+### "Server not accessible"
 
-- Check HTTP handler is registered
-- Verify HTML syntax is correct
-- Ensure `Content-Type` header is set
-- Check serial output for errors
+- Verify Wi-Fi connection is established
+- Check firewall allows incoming connections
+- Ensure browser uses correct IP and port (http://YOUR_BOARD_IP:8080)
+- Try accessing from different device
+- Server binds to actual IP address, not wildcard
 
 ### "Slow response"
 
