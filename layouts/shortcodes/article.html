@@ -1,0 +1,34 @@
+{{/*
+  Resolves the linked page by RelPermalink. When baseURL includes a subpath
+  (e.g. preview at https://host/pr123/), Hugo emits RelPermalinks with that
+  prefix, so a shortcode link of /blog/foo/ must also match /pr123/blog/foo/.
+*/}}
+{{ $link := strings.TrimSpace (.Get "link") }}
+{{ if and $link (not (strings.HasPrefix $link "/")) }}
+  {{ $link = printf "/%s" $link }}
+{{ end }}
+{{ $showSummary := .Get "showSummary" }}
+{{ $compactSummary := .Get "compactSummary" | default false }}
+
+{{ $basePath := "" }}
+{{ with urls.Parse site.BaseURL }}
+  {{ $basePath = strings.TrimSuffix "/" .Path }}
+{{ end }}
+{{ $prefixedLink := "" }}
+{{ if and $link $basePath (ne $basePath "") (ne $basePath "/") (not (strings.HasPrefix $link $basePath)) }}
+  {{ $prefixedLink = printf "%s%s" $basePath $link }}
+{{ end }}
+
+{{ $target := .Page }}
+{{ if ne $link .Page.RelPermalink }}
+  {{ $target = index (first 1 (where .Site.AllPages "RelPermalink" $link)) 0 }}
+  {{ if and (not $target) $prefixedLink }}
+    {{ $target = index (first 1 (where .Site.AllPages "RelPermalink" $prefixedLink)) 0 }}
+  {{ end }}
+{{ end }}
+{{ if $target }}
+  <section class="space-y-10 w-full">
+    {{ $context := dict "target" $target "showSummary" $showSummary "compactSummary" $compactSummary }}
+    {{ partial "article-link/_shortcode.html" $context }}
+  </section>
+{{ end }}
