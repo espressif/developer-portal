@@ -76,7 +76,7 @@ Espressif offers a [Product Selector](https://products.espressif.com/) to help y
 - 512KB SRAM, up to 8MB flash
 - Wi-Fi + Bluetooth 5 LE
 - AI acceleration instructions
-- Used in: XIAO-ESP32S3, ESP-SensairShuttle
+- Used in: M5Stack CoreS3, XIAO-ESP32S3
 
 ### Key Features
 
