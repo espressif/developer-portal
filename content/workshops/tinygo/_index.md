@@ -2,7 +2,9 @@
 title: "TinyGo Embedded Workshop"
 date: 2026-04-22T00:00:00+01:00
 lastmod: 2026-04-22
-tags: ["Workshop", "TinyGo", "ESP32", "Embedded", "Go"]
+summary: "Hands-on embedded development with TinyGo and Go on ESP32 microcontrollers. Learn GPIO control, displays, sensors, Wi-Fi connectivity, and edge AI concepts through practical assignments."
+featuredAsset: "featured.webp"
+tags: ["Workshop", "TinyGo", "ESP32", "ESP32-C3", "ESP32-C6", "Embedded", "Go"]
 ---
 
 Welcome to the TinyGo Embedded Workshop!
