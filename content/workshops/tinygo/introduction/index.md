@@ -97,47 +97,9 @@ The ESP32 architecture consists of:
 - **Radio**: Wi-Fi and Bluetooth modules
 - **Power Management**: Sleep modes, voltage regulation
 
-## M5Stack Core2 Development Board
-
-The M5Stack Core2 is a powerful development board based on the ESP32, featuring a built-in display, touchscreen, battery, and sensors.
-
-### Features
-
-- **ESP32**: Dual-core Xtensa LX7 @ 240MHz
-- **Display**: 2.0" ILI9342C LCD, 320x240 pixels
-- **Touchscreen**: Capacitive touch, I2C interface
-- **Battery**: 390mAh LiPo with USB-C charging
-- **Sensors**: Accelerometer (BMI260), gyroscope, microphone
-- **Connectivity**: Wi-Fi, Bluetooth, GPIO port
-- **Power Management**: AXP192 PMIC
-- **Audio**: Built-in speaker and microphone
-- **Buttons**: 3 face buttons, 1 side power button
-
 ### Pin Layout and Simulation
 
 For interactive pin layout visualization and simulation, visit [Wokwi ESP32 Simulator](https://wokwi.com/esp32). Wokwi provides an online simulator where you can visualize ESP32 pin connections and test code without hardware.
-
-## M5Stack StampC3 Development Board
-
-The M5Stack StampC3 is a compact development board based on the ESP32-C3, designed for IoT projects requiring Wi-Fi in a small form factor.
-
-### Features
-
-- **ESP32-C3**: Single-core RISC-V @ 160MHz
-- **Wi-Fi**: 802.11 b/g/n, 2.4GHz
-- **Bluetooth**: BLE 5.0
-- **USB-C**: Power, programming, and serial
-- **LEDs**: RGB LED, status LED
-- **GPIO**: 8 accessible pins
-- **Form Factor**: Small, breadboard-compatible
-
-### Key Differences from Core2
-
-- **Smaller**: Compact design, no display
-- **Lower Cost**: Budget-friendly
-- **Wi-Fi**: Built-in Wi-Fi (unlike some ESP32 boards)
-- **USB**: Native USB (no external USB-serial chip)
-- **Power**: Lower power consumption
 
 ## TinyGo Development Workflow
 

@@ -338,14 +338,13 @@ Hello from TinyGo! 4
 TinyGo supports many boards. Check available targets:
 
 ```bash
-tinygo list-targets
+tinygo targets
 ```
 
 Common ESP32 targets:
-- `m5stack-core2` - M5Stack Core2 (ESP32)
-- `m5stack-coreink` - M5Stack CoreInk (ESP32)
-- `m5stack-stampc3` - M5Stack StampC3 (ESP32-C3)
-- `xiao-esp32c3` - Seeed Studio XIAO ESP32-C3
+- `esp32-generic` - ESP32
+- `esp32c3-generic` - ESP32-C3
+- `esp32s3-generic` - ESP32-S3
 - `xiao-esp32s3` - Seeed Studio XIAO ESP32-S3
 
 ## Troubleshooting
