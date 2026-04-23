@@ -10,70 +10,151 @@ showAuthor: false
 
 ## Assignment 4: Sensors
 
-In this assignment, you'll learn to read data from sensors using I2C and communicate with the built-in accelerometer on the M5Stack Core2.
+In this assignment, you'll learn to read data from sensors using I2C communication and ADC (Analog-to-Digital Converter). You'll work with IMU sensors, joystick input, and build an interactive game controlled by analog input.
 
-## Understanding I2C
+{{< alert icon="lightbulb" cardColor="#d1ecf1" iconColor="#0c5460" >}}
+**Source Code Available:** All example code for this assignment is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository. See `content/workshops/tinygo/assignment_4/` for complete working examples including sensor reading, joystick ADC input, and an interactive game.
+{{< /alert >}}
 
-I2C (Inter-Integrated Circuit) is a popular serial communication protocol for sensors:
+## Understanding I2C Communication
 
-- **Two wires**: SDA (data) and SCL (clock)
+I2C (Inter-Integrated Circuit) is a popular serial communication protocol for sensors and peripherals.
+
+### How I2C Works
+
+I2C uses two wires for communication:
+
+- **SDA (Serial Data)**: Transmits data bidirectionally
+- **SCL (Serial Clock)**: Provides clock signal for synchronization
+
+**Key Characteristics:**
+
 - **Multiple devices**: Up to 127 devices on same bus
 - **Addressing**: Each device has unique 7-bit address
-- **Speed**: Standard (100kHz), Fast (400kHz), High Speed (3.4MHz)
+- **Master-slave**: Master initiates all transactions
+- **Speed modes**: Standard (100kHz), Fast (400kHz), High Speed (3.4MHz)
 
-### I2C Connections on M5Stack Core2
+### I2C Communication Protocol
 
-- **SDA**: GPIO21
-- **SCL**: GPIO22
-- **Pull-up resistors**: Built-in (typically 4.7kΩ)
+1. **Start condition**: Master pulls SDA low while SCL is high
+2. **Address transmission**: Master sends 7-bit device address + R/W bit
+3. **Acknowledge**: Slave pulls SDA low to acknowledge
+4. **Data transfer**: 8 bits of data with acknowledge after each byte
+5. **Stop condition**: Master pulls SDA high while SCL is high
+
+### I2C Limitations
+
+{{< alert icon="triangle-exclamation" cardColor="#fff3cd" iconColor="#856404" >}}
+**I2C Constraints:**
+- **Pull-up resistors required**: Typically 2.2kΩ to 10kΩ on SDA and SCL
+- **Capacitance limits**: Bus capacitance < 400pF for standard mode
+- **Speed vs length**: Longer wires require slower speeds
+- **Address conflicts**: Ensure no two devices share same address
+{{< /alert >}}
 
 ### Common I2C Sensor Addresses
 
-- **0x44**: SHT30/SHT31 Temperature & Humidity
-- **0x76**: BMP280/BME280 Pressure
-- **0x68**: MPU6050 IMU (Accelerometer + Gyroscope)
-- **0x19**: BMI260 Accelerometer (M5Stack Core2 built-in)
+| Device Type | Part Number | I2C Address |
+|-------------|-------------|-------------|
+| IMU/Accelerometer | MPU6050 | 0x68 |
+| IMU/Accelerometer | BMI160/BMI260 | 0x68 |
+| IMU/Accelerometer | ICM-42670-P | 0x68 |
+| Temperature & Humidity | SHT30/SHT31 | 0x44 |
+| Pressure | BMP280/BME280 | 0x76 |
+| Temperature & Humidity | SHTC3 | 0x70 |
 
-## M5Stack Core2 Built-in Sensors
+### I2C Bus Connection (esp-rust-board standard)
 
-### BMI260 Accelerometer
+| Signal | GPIO  |
+|--------|-------|
+| SDA    | GPIO10 |
+| SCL    | GPIO8  |
 
-The M5Stack Core2 includes a BMI260 6-axis inertial measurement unit:
+## Understanding ADC (Analog-to-Digital Converter)
 
-- **Accelerometer**: ±16g range, 3-axis
-- **Gyroscope**: ±2000°/s range, 3-axis
-- **I2C Address**: 0x19
-- **Interrupts**: Motion detection, tap detection
+ADC converts analog voltage signals (continuous) into digital values (discrete) that microcontrollers can process.
 
-## Reading Temperature and Humidity
+### How ADC Works
 
-### Hardware Setup (Optional)
+1. **Sampling**: Measures voltage at specific point in time
+2. **Quantization**: Maps continuous voltage to discrete digital value
+3. **Encoding**: Represents value as binary number
 
-For this example, you can use:
-- **Built-in**: M5Stack Core2 internal temperature (if available)
-- **External**: SHT30/SHT31 sensor connected to I2C
+**Key Parameters:**
 
-### SHT30 Temperature & Humidity Sensor
+- **Resolution**: Number of bits (ESP32-S3: 12-bit = 0-4095)
+- **Range**: Voltage range (ESP32: 0-3.3V)
+- **Sampling rate**: How fast conversions occur
+- **Accuracy**: How close measurement is to true value
 
-**Connections:**
-```
-VCC  → 3.3V
-GND  → GND
-SCL  → GPIO22
-SDA  → GPIO21
-```
+### ADC Limitations
 
-### Step 1: Create Project
+{{< alert icon="triangle-exclamation" cardColor="#fff3cd" iconColor="#856404" >}}
+**ADC Constraints:**
+- **Pin restrictions**: Some GPIO pins have ADC, some don't
+- **Shared ADC channels**: Multiple pins may share same ADC channel
+- **Noise**: Electrical noise affects accuracy
+- **Non-linearity**: Response may not be perfectly linear
+- **Special pins**: Some pins used by internal peripherals (strapping pins, XTAL)
+{{< /alert >}}
+
+### ESP32-S3 ADC Specifics
+
+- **Scaled output**: Returns 0-65520 (not raw 12-bit 0-4095)
+- **ADC1 vs ADC2**: ADC1 channels more flexible, ADC2 shared with Wi-Fi
+- **XTAL constraints**: GPIO15/16 used by 32kHz crystal (avoid for ADC)
+- **Recommended ADC1 pins**: GPIO4 (ADC1_CH0), GPIO6 (ADC1_CH2)
+
+### ADC Applications
+
+**Common analog sensors:**
+- **Joysticks**: Two potentiometers (X and Y axes)
+- **Temperature sensors**: TMP36 (10mV/°C)
+- **Light sensors**: Photoresistors with voltage dividers
+- **Potentiometers**: User input controls
+- **Distance sensors**: Analog IR distance sensors
+
+## Get the Source Code
+
+The complete source code for this assignment is available in the [developer-portal-codebase](https://github.com/espressif/developer-portal-codebase) repository:
 
 ```bash
-mkdir sensor-demo
-cd sensor-demo
-go mod init sensor-demo
+git clone https://github.com/espressif/developer-portal-codebase.git
+cd developer-portal-codebase/content/workshops/tinygo/assignment_4
 ```
 
-### Step 2: Read Temperature
+Available examples:
+- `main.go` - Basic ICM-42670-P IMU sensor reading
+- `motion.go` - Motion detection with threshold triggering
+- `joystick.go` - Dual-axis joystick ADC reader with oversampling
+- `game.go` - Interactive ASCII art game controlled by joystick
+- `display.go` - Display accelerometer readings on LCD (M5Stack Core2)
 
-Create `main.go` for SHT30:
+Each example is a complete working program. Build by specifying the source file:
+
+```bash
+# Example: Build joystick reader for ESP32-S3
+tinygo flash -target esp32s3-generic joystick.go
+```
+
+## Example 1: Reading IMU Sensors
+
+This example demonstrates I2C sensor reading using raw I2C commands. Works with ICM-42670-P, BMI160, or compatible IMU sensors.
+
+### Hardware Setup
+
+**IMU Sensor Connection:**
+```
+Sensor Module          ESP32-S3
+┌─────────────┐         ┌──────────┐
+│ VCC         ├─────────┤ 3.3V     │
+│ GND         ├─────────┤ GND      │
+│ SCL         ├─────────┤ GPIO8    │
+│ SDA         ├─────────┤ GPIO10   │
+└─────────────┘         └──────────┘
+```
+
+### Code
 
 ```go
 package main
@@ -82,82 +163,111 @@ import (
     "machine"
     "time"
 
-    "tinygo.org/x/drivers/bmi260"
     "tinygo.org/x/drivers/i2csoft"
 )
 
+// GPIO Configuration for I2C bus
+const (
+    I2C_SDA = machine.GPIO10 // I2C SDA pin
+    I2C_SCL = machine.GPIO8  // I2C SCL pin
+)
+
+// I2C Sensor Address
+const (
+    IMU_I2C_ADDR = 0x68 // ICM-42670-P or BMI160
+)
+
 func main() {
-    // Initialize serial
     serial := machine.Serial
     serial.Configure(machine.UARTConfig{BaudRate: 115200})
-    serial.WriteString("Reading sensor data...\r\n")
 
-    // Initialize I2C
-    i2c := i2csoft.New(machine.SCL0_PIN, machine.SDA0_PIN)
-    i2c.Configure(i2csoft.I2CConfig{Frequency: 100e3})
+    i2c := i2csoft.New(I2C_SCL, I2C_SDA)
+    i2c.Configure(i2csoft.I2CConfig{Frequency: 1e3}) // 1kHz for safety
 
-    // Initialize BMI260 accelerometer
-    sensor := bmi260.New(i2c)
-    sensor.Configure()
+    // Wake up ICM-42670-P
+    i2c.WriteRegister(uint8(IMU_I2C_ADDR), 0x4D, 0x0F)
+    time.Sleep(time.Millisecond * 50)
+
+    serial.WriteString("IMU initialized\r\n")
 
     for {
-        // Read accelerometer data
-        accelX, accelY, accelZ := sensor.ReadAcceleration()
+        // Read accelerometer data via raw I2C
+        data := make([]byte, 6)
+        i2c.ReadRegister(uint8(IMU_I2C_ADDR), 0x1D, data)
+
+        accelXRaw := int16(uint16(data[0])<<8 | uint16(data[1]))
+        accelYRaw := int16(uint16(data[2])<<8 | uint16(data[3]))
+        accelZRaw := int16(uint16(data[4])<<8 | uint16(data[5]))
+
+        // Convert to g-force (ICM-42670-P: 2048 LSB/g)
+        accelX := float32(accelXRaw) / 2048.0
+        accelY := float32(accelYRaw) / 2048.0
+        accelZ := float32(accelZRaw) / 2048.0
 
         // Output to serial
-        serial.WriteString("Accelerometer: X=")
+        serial.WriteString("X: ")
         printFloat(serial, accelX)
-        serial.WriteString(" Y=")
+        serial.WriteString(" Y: ")
         printFloat(serial, accelY)
-        serial.WriteString(" Z=")
+        serial.WriteString(" Z: ")
         printFloat(serial, accelZ)
         serial.WriteString("\r\n")
 
-        time.Sleep(time.Millisecond * 500)
-    }
-}
-
-func printFloat(serial machine.UART, f float32) {
-    // Simple float to string conversion
-    buffer := make([]byte, 20)
-    neg := f < 0
-    if neg {
-        f = -f
-        serial.WriteByte('-')
-    }
-
-    intPart := int(f)
-    fracPart := int((f - float32(intPart)) * 100)
-
-    itoa(serial, intPart)
-    serial.WriteByte('.')
-    itoa(serial, fracPart)
-}
-
-func itoa(serial machine.UART, n int) {
-    if n == 0 {
-        serial.WriteByte('0')
-        return
-    }
-
-    var buf [10]byte
-    i := 10
-    for n > 0 && i > 0 {
-        i--
-        buf[i] = byte('0' + n%10)
-        n /= 10
-    }
-
-    for i < 10 {
-        serial.WriteByte(buf[i])
-        i++
+        time.Sleep(time.Millisecond * 100)
     }
 }
 ```
 
-## Reading Built-in Accelerometer
+**Build and flash:**
 
-### BMI260 Driver Example
+```bash
+# ESP32-S3 (Recommended)
+tinygo flash -target esp32s3-generic main.go
+
+# ESP32-C3
+tinygo flash -target esp32c3-generic main.go
+
+# ESP32
+tinygo flash -target esp32-generic main.go
+```
+
+## Example 2: Joystick ADC Reader
+
+This example demonstrates ADC input reading using a dual-axis joystick. Features oversampling for noise reduction, deadzone filtering, and value normalization.
+
+### Hardware Setup
+
+**Joystick Connection (ESP32-S3):**
+```
+Joystick Module          ESP32-S3
+┌─────────────┐         ┌──────────┐
+│ VCC         ├─────────┤ 3.3V     │
+│ GND         ├─────────┤ GND      │
+│ VRX (X-axis)├─────────┤ GPIO4    │
+│ VRY (Y-axis)├─────────┤ GPIO6    │
+└─────────────┘         └──────────┘
+```
+
+### How Joystick ADC Works
+
+Joysticks contain two potentiometers (variable resistors), one for each axis:
+
+1. Each potentiometer acts as a voltage divider
+2. Wiper output voltage varies from 0V to 3.3V based on position
+3. ESP32 ADC converts voltage to digital value (0-65520)
+
+**ADC Value Mapping:**
+```
+LEFT/UP position:    0 (0V)       → Direction -1.0
+Center position:     ~32760 (1.65V)  → Direction 0.0 (in deadzone)
+RIGHT/DOWN position: 65520 (3.3V)      → Direction 1.0
+```
+
+### Code
+
+{{< tabs groupId="board" >}}
+  {{% tab name="ESP32-S3" %}}
+**joystick.go for ESP32-S3:**
 
 ```go
 package main
@@ -165,331 +275,377 @@ package main
 import (
     "machine"
     "time"
+)
 
-    "tinygo.org/x/drivers/bmi260"
-    "tinygo.org/x/drivers/i2csoft"
-    "tinygo.org/x/drivers/ili9341"
-    "tinygo.org/x/drivers/axp192/m5stack-core2-axp192"
-    "tinygo.org/x/drivers/pixel"
-    "tinygo.org/x/tinygl-font"
-    "tinygo.org/x/tinygl-font/roboto"
-    "image/color"
+// GPIO Configuration for Joystick ADC pins
+const (
+    JOYSTICK_X_PIN = machine.ADC4 // X-axis - GPIO4 (ADC1_CH0)
+    JOYSTICK_Y_PIN = machine.ADC6 // Y-axis - GPIO6 (ADC1_CH2)
+)
+
+// ADC Configuration
+const (
+    ADC_RESOLUTION    = 65520 // ESP32-S3 ADC returns scaled 0-65520
+    JOYSTICK_CENTER   = 32760 // Center position (approximately 50%)
+    JOYSTICK_DEADZONE = 10000 // Deadzone around center
 )
 
 func main() {
-    // Initialize serial
+    machine.InitADC()
+
     serial := machine.Serial
     serial.Configure(machine.UARTConfig{BaudRate: 115200})
 
-    // Initialize I2C
-    i2c := i2csoft.New(machine.SCL0_PIN, machine.SDA0_PIN)
-    i2c.Configure(i2csoft.I2CConfig{Frequency: 100e3})
+    joystickX := machine.ADC{Pin: JOYSTICK_X_PIN}
+    joystickX.Configure(machine.ADCConfig{})
 
-    // Initialize BMI260
-    sensor := bmi260.New(i2c)
-    sensor.Configure()
+    joystickY := machine.ADC{Pin: JOYSTICK_Y_PIN}
+    joystickY.Configure(machine.ADCConfig{})
 
-    serial.WriteString("BMI260 initialized\r\n")
+    time.Sleep(time.Millisecond * 100)
 
-    // Initialize display (as shown in Assignment 3)
-    i2cDisp := i2csoft.New(machine.SCL0_PIN, machine.SDA0_PIN)
-    i2cDisp.Configure(i2csoft.I2CConfig{Frequency: 100e3})
-
-    axp := axp192.New(i2cDisp)
-    axp.Begin()
-    axp.SetLCDVoltage(3300)
-    axp.SetLDO2Voltage(3300)
-    axp.SetDCDC3(3300)
-    axp.EnableLCD(true)
-    axp.EnableBacklight(true)
-
-    machine.SPI2.Configure(machine.SPIConfig{
-        SCK:       machine.LCD_SCK_PIN,
-        SDO:       machine.LCD_SDO_PIN,
-        SDI:       machine.LCD_SDI_PIN,
-        Frequency: 40e6,
-    })
-
-    display := ili9341.NewSPI(
-        machine.SPI2,
-        machine.LCD_DC_PIN,
-        machine.LCD_SS_PIN,
-        machine.NoPin,
-    )
-
-    display.Configure(ili9341.Config{
-        Width:            320,
-        Height:           240,
-        DisplayInversion: true,
-    })
-    display.SetRotation(ili9341.Rotation0Mirror)
-
-    display.FillScreen(color.RGBA{20, 20, 60, 255})
-
-    // Text buffer
-    textDisplay := pixel.NewImage[pixel.RGB565BE](300, 40)
-    white := pixel.NewRGB565BE(color.RGBA{255, 255, 255, 255})
+    serial.WriteString("Joystick ADC Reader\r\n")
+    serial.WriteString("Format: X=[0-65520] Y=[0-65520] | Dir: [x,y]\r\n\r\n")
 
     for {
-        // Read accelerometer
-        accelX, accelY, accelZ := sensor.ReadAcceleration()
+        rawX := readADC(joystickX)
+        rawY := readADC(joystickY)
 
-        // Clear text buffer
-        textDisplay.FillSolidColor(pixel.NewRGB565BE(color.RGBA{20, 20, 60, 255}))
+        // Convert to direction (-1.0 to 1.0)
+        dirX := getDirection(rawX)
+        dirY := getDirection(rawY)
 
-        // Display readings
-        displayText := func(text string, y int16) {
-            textDisplay.FillSolidColor(pixel.NewRGB565BE(color.RGBA{20, 20, 60, 255}))
-            font.Draw(roboto.Regular16, text, 0, 16, white, textDisplay)
-            pixelData := textDisplay.RawBuffer()
-            w, h := textDisplay.Size()
-            display.DrawRGBBitmap8(10, y, pixelData, int16(w), int16(h))
-        }
+        serial.WriteString("X=")
+        printInt(serial, rawX)
+        serial.WriteString(" Y=")
+        printInt(serial, rawY)
+        serial.WriteString(" | Dir: [")
+        printFloat(serial, float32(dirX))
+        serial.WriteString(",")
+        printFloat(serial, float32(dirY))
+        serial.WriteString("]\r\n")
 
-        displayText("Accelerometer Readings:", 10)
-        displayText("X: "+formatFloat(accelX)+" g", 50)
-        displayText("Y: "+formatFloat(accelY)+" g", 90)
-        displayText("Z: "+formatFloat(accelZ)+" g", 130)
-
-        // Calculate total acceleration
-        total := calcMagnitude(accelX, accelY, accelZ)
-        displayText("Total: "+formatFloat(total)+" g", 170)
-
-        // Detect orientation
-        orientation := detectOrientation(accelX, accelY, accelZ)
-        displayText("Orientation: "+orientation, 210)
-
-        // Serial output
-        serial.WriteString("X: ")
-        serial.WriteString(formatFloat(accelX))
-        serial.WriteString(" Y: ")
-        serial.WriteString(formatFloat(accelY))
-        serial.WriteString(" Z: ")
-        serial.WriteString(formatFloat(accelZ))
-        serial.WriteString("\r\n")
-
-        time.Sleep(time.Millisecond * 200)
+        time.Sleep(time.Millisecond * 100)
     }
 }
 
-func formatFloat(f float32) string {
-    // Simple float formatting
-    neg := f < 0
-    if neg {
-        f = -f
+func readADC(adc machine.ADC) uint32 {
+    const samples = 10
+    var sum uint32
+
+    for i := 0; i < samples; i++ {
+        sum += uint32(adc.Get())
+        time.Sleep(time.Microsecond * 100)
     }
 
-    intPart := int(f)
-    fracPart := int((f - float32(intPart)) * 100)
-
-    var result [20]byte
-    i := 0
-
-    if neg {
-        result[i] = '-'
-        i++
-    }
-
-    // Integer part
-    if intPart == 0 {
-        result[i] = '0'
-        i++
-    } else {
-        var buf [10]byte
-        j := 10
-        for intPart > 0 && j > 0 {
-            j--
-            buf[j] = byte('0' + intPart%10)
-            intPart /= 10
-        }
-        for j < 10 {
-            result[i] = buf[j]
-            i++
-            j++
-        }
-    }
-
-    result[i] = '.'
-    i++
-
-    // Fraction part
-    result[i] = byte('0' + fracPart/10)
-    i++
-    result[i] = byte('0' + fracPart%10)
-    i++
-
-    return string(result[:i])
+    return sum / samples
 }
 
-func calcMagnitude(x, y, z float32) float32 {
-    return sqrt(x*x + y*y + z*z)
-}
-
-func sqrt(x float32) float32 {
-    // Newton-Raphson square root
-    if x == 0 {
-        return 0
+func getDirection(value uint32) int {
+    if value < JOYSTICK_CENTER-JOYSTICK_DEADZONE {
+        return -1
+    } else if value > JOYSTICK_CENTER+JOYSTICK_DEADZONE {
+        return 1
     }
-
-    z := float32(1.0)
-    for i := 0; i < 10; i++ {
-        z -= (z*z - x) / (2 * z)
-    }
-    return z
-}
-
-func detectOrientation(x, y, z float32) string {
-    const threshold = 0.7
-
-    if x > threshold {
-        return "Right"
-    } else if x < -threshold {
-        return "Left"
-    } else if y > threshold {
-        return "Down"
-    } else if y < -threshold {
-        return "Up"
-    } else if z > threshold {
-        return "Flat"
-    } else if z < -threshold {
-        return "Upside Down"
-    } else {
-        return "Tilted"
-    }
+    return 0
 }
 ```
 
-## Motion Detection
+**Build:**
+```bash
+tinygo flash -target esp32s3-generic joystick.go
+```
 
-### Simple Motion Detection
+  {{% /tab %}}
 
-Detect significant movement:
+  {{% tab name="ESP32-C3" %}}
+**joystick.go for ESP32-C3:**
+
+Change pin configuration:
+```go
+const (
+    JOYSTICK_X_PIN = machine.ADC0 // X-axis - GPIO0 (ADC1_CH0)
+    JOYSTICK_Y_PIN = machine.ADC3 // Y-axis - GPIO3 (ADC1_CH3)
+)
+```
+
+**Build:**
+```bash
+tinygo flash -target esp32c3-generic joystick.go
+```
+
+  {{% /tab %}}
+
+  {{% tab name="ESP32" %}}
+**joystick.go for ESP32:**
+
+Change pin configuration:
+```go
+const (
+    JOYSTICK_X_PIN = machine.ADC1_CH0 // X-axis - GPIO36
+    JOYSTICK_Y_PIN = machine.ADC1_CH3 // Y-axis - GPIO39
+)
+```
+
+**Build:**
+```bash
+tinygo flash -target esp32-generic joystick.go
+```
+
+  {{% /tab %}}
+{{< /tabs >}}
+
+## Example 3: Joystick-Controlled Game
+
+This example demonstrates building an interactive game controlled by joystick input. Features real-time input processing, state management, and ANSI terminal rendering.
+
+### Game Mechanics
+
+The game runs a continuous loop:
+
+1. **Read ADC values** from joystick (5-sample oversampling)
+2. **Convert to direction** using deadzone detection
+3. **Update player position** at fixed time intervals (150ms)
+4. **Check collision** with goal (spawn new goal on collect)
+5. **Render game board** using ANSI escape codes
+
+**Direction Detection:**
+```
+ADC Value < 22760 (center - 10000) → Direction -1 (UP/LEFT)
+ADC Value > 42760 (center + 10000) → Direction +1 (DOWN/RIGHT)
+ADC Value in range                  → Direction 0 (CENTER/NO MOVE)
+```
+
+### Code
 
 ```go
-var lastX, lastY, lastZ float32
-const motionThreshold = 0.5
+package main
 
-func detectMotion(x, y, z float32) bool {
-    deltaX := abs(x - lastX)
-    deltaY := abs(y - lastY)
-    deltaZ := abs(z - lastZ)
+import (
+    "machine"
+    "time"
+)
 
-    lastX = x
-    lastY = y
-    lastZ = z
+// Game Configuration
+const (
+    BOARD_WIDTH  = 20
+    BOARD_HEIGHT = 10
+    ADC_RESOLUTION    = 65520
+    JOYSTICK_CENTER   = 32760
+    JOYSTICK_DEADZONE = 10000
+)
 
-    return (deltaX > motionThreshold ||
-            deltaY > motionThreshold ||
-            deltaZ > motionThreshold)
+// Game State
+type GameState struct {
+    playerX   int
+    playerY   int
+    goalX     int
+    goalY     int
+    score     int
+    joystickX *machine.ADC
+    joystickY *machine.ADC
 }
 
-func abs(x float32) float32 {
-    if x < 0 {
-        return -x
+func main() {
+    machine.InitADC()
+
+    serial := machine.Serial
+    serial.Configure(machine.UARTConfig{BaudRate: 115200})
+
+    game := &GameState{
+        playerX:   BOARD_WIDTH / 2,
+        playerY:   BOARD_HEIGHT / 2,
+        goalX:     5,
+        goalY:     5,
+        score:     0,
+        joystickX: &machine.ADC{Pin: machine.ADC4},
+        joystickY: &machine.ADC{Pin: machine.ADC6},
     }
-    return x
+    game.joystickX.Configure(machine.ADCConfig{})
+    game.joystickY.Configure(machine.ADCConfig{})
+
+    time.Sleep(time.Millisecond * 100)
+
+    // Clear screen
+    serial.Write([]byte("\033[2J\033[H"))
+    serial.Write([]byte("=== Joystick Game ===\r\n"))
+    serial.Write([]byte("Collect stars (*) with @\r\n\r\n"))
+
+    lastMove := time.Now()
+    moveDelay := time.Millisecond * 150
+
+    for {
+        rawX := readADC(game.joystickX)
+        rawY := readADC(game.joystickY)
+
+        dirX := getDirection(rawX)
+        dirY := getDirection(rawY)
+
+        if time.Since(lastMove) > moveDelay {
+            if dirX != 0 || dirY != 0 {
+                game.movePlayer(dirX, dirY)
+            }
+            lastMove = time.Now()
+        }
+
+        game.render(serial, rawX, rawY, dirX, dirY)
+        time.Sleep(time.Millisecond * 50)
+    }
+}
+
+func (g *GameState) movePlayer(dirX, dirY int) {
+    g.playerX += dirX
+    g.playerY += dirY
+
+    // Keep player in bounds
+    if g.playerX < 0 {
+        g.playerX = 0
+    }
+    if g.playerX >= BOARD_WIDTH {
+        g.playerX = BOARD_WIDTH - 1
+    }
+    if g.playerY < 0 {
+        g.playerY = 0
+    }
+    if g.playerY >= BOARD_HEIGHT {
+        g.playerY = BOARD_HEIGHT - 1
+    }
+
+    // Check if player reached goal
+    if g.playerX == g.goalX && g.playerY == g.goalY {
+        g.score++
+        g.spawnGoal()
+    }
+}
+
+func (g *GameState) spawnGoal() {
+    ticks := time.Now().UnixNano()
+    g.goalX = int(ticks % BOARD_WIDTH)
+    g.goalY = int((ticks / BOARD_WIDTH) % BOARD_HEIGHT)
+}
+
+func (g *GameState) render(serial machine.Serialer, rawX, rawY uint32, dirX, dirY int) {
+    serial.Write([]byte("\033[6;0f")) // Move cursor
+
+    // Draw board
+    serial.Write([]byte("+"))
+    for i := 0; i < BOARD_WIDTH; i++ {
+        serial.Write([]byte("-"))
+    }
+    serial.Write([]byte("+\r\n"))
+
+    for y := 0; y < BOARD_HEIGHT; y++ {
+        serial.Write([]byte("|"))
+        for x := 0; x < BOARD_WIDTH; x++ {
+            if x == g.playerX && y == g.playerY {
+                serial.Write([]byte("@")) // Player
+            } else if x == g.goalX && y == g.goalY {
+                serial.Write([]byte("*")) // Goal
+            } else {
+                serial.Write([]byte("."))
+            }
+        }
+        serial.Write([]byte("|\r\n"))
+    }
+
+    serial.Write([]byte("+"))
+    for i := 0; i < BOARD_WIDTH; i++ {
+        serial.Write([]byte("-"))
+    }
+    serial.Write([]byte("+\r\n")
+
+    serial.Write([]byte("\r\nScore: "))
+    printInt(serial, uint32(g.score))
+}
+
+func readADC(adc *machine.ADC) uint32 {
+    const samples = 5
+    var sum uint32
+
+    for i := 0; i < samples; i++ {
+        sum += uint32(adc.Get())
+        time.Sleep(time.Microsecond * 50)
+    }
+
+    return sum / samples
+}
+
+func getDirection(value uint32) int {
+    if value < JOYSTICK_CENTER-JOYSTICK_DEADZONE {
+        return -1
+    } else if value > JOYSTICK_CENTER+JOYSTICK_DEADZONE {
+        return 1
+    }
+    return 0
 }
 ```
+
+**Build and run:**
+
+```bash
+tinygo flash -target esp32s3-generic game.go
+```
+
+**Monitoring the game:**
+
+Use `screen` or `picocom` for proper ANSI terminal support:
+```bash
+screen /dev/ttyUSB0 115200
+picocom -b 115200 /dev/ttyUSB0
+```
+
+{{< alert icon="triangle-exclamation" cardColor="#fff3cd" iconColor="#856404" >}}
+**Note:** ANSI escape codes may not display correctly in `tinygo monitor` or basic serial terminals. Use a VT100-compatible terminal like `screen` or `picocom`.
+{{< /alert >}}
 
 ## Troubleshooting
 
-### "Sensor not found"
+### I2C Sensor Issues
 
-- Check I2C address is correct
+**"Sensor not found"**
+- Check I2C address matches your sensor
 - Verify wiring (SDA, SCL, VCC, GND)
-- Ensure pull-up resistors are present
-- Try scanning I2C bus with `i2cscan` tool
+- Ensure pull-up resistors are present (2.2kΩ - 10kΩ)
+- Try slower I2C frequency (1kHz for testing)
 
-### "Readings are zero/incorrect"
+**"Readings are zero/incorrect"**
+- Check sensor is properly initialized (wake-up command)
+- Verify I2C frequency - some sensors need slower speed
+- Check sensor datasheet for correct register addresses
+- Ensure proper data type conversion (little-endian vs big-endian)
 
-- Check sensor is properly initialized
-- Verify I2C frequency (some sensors need slower speed)
-- Check sensor datasheet for register addresses
-- Ensure correct data type conversion
+### ADC Issues
 
-### "Compilation errors"
+**"ADC values stuck at ~30400"**
+- Pin may be used by internal peripheral (XTAL, strapping pin)
+- Try different ADC pin (avoid GPIO15/16 on ESP32-S3)
+- Use ADC1 channels instead of ADC2
 
-- Ensure driver packages are imported
-- Check `go.mod` has dependencies
-- Verify TinyGo version (0.41+ recommended)
-- Check board supports the sensor
+**"ADC readings noisy"**
+- Use oversampling (average 5-10 samples)
+- Add hardware filtering capacitor (10nF to 100nF)
+- Keep wires short away from noise sources
+- Use proper voltage divider for high-impedance sensors
 
-## Simulation with Wokwi
+### Game Display Issues
 
-You can simulate sensor projects using Wokwi with BMI260 support!
-
-### Wokwi Diagram for Accelerometer
-
-Create `diagram.json` for accelerometer simulation:
-
-```json
-{
-  "version": 1,
-  "author": "TinyGo Workshop",
-  "editor": "wokwi",
-  "parts": [
-    {
-      "type": "board-esp32-c3-devkitm-1",
-      "id": "esp",
-      "top": 0,
-      "left": 0,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-bmi160",
-      "id": "bmi1",
-      "top": -80,
-      "left": 150,
-      "attrs": {}
-    }
-  ],
-  "connections": [
-    [ "bmi1:SDO", "esp:21", "green", [ "v0" ] ],
-    [ "bmi1:SDA", "esp:22", "green", [ "v0" ] ],
-    [ "bmi1:GND", "esp:GND.1", "black", [ "v0" ] ],
-    [ "bmi1:VCC", "esp:3V3", "red", [ "v0" ] ],
-    [ "esp:TX", "$serialMonitor:RX", "", [] ],
-    [ "esp:RX", "$serialMonitor:TX", "", [] ]
-  ]
-}
-```
-
-{{< alert icon="triangle-exclamation" cardColor="#f8d7da" iconColor="#721c24" >}}
-**Note:** Wokwi supports BMI160 which is compatible with BMI260 for basic accelerometer readings. Some advanced features may differ.
-{{< /alert >}}
-
-### Running in Wokwi
-
-1. Create `wokwi.toml` configuration
-2. Build firmware:
-```bash
-tinygo build -target xiao-esp32c3 -o firmware.bin .
-```
-
-3. Open project folder in VS Code
-4. Press F1, select "Wokwi: Start Simulator"
-5. See accelerometer data in serial monitor
-
-### Testing Without Hardware
-
-Wokwi provides simulated sensor data:
-- Accelerometer values change automatically
-- Test your code logic without physical hardware
-- Verify I2C communication works
-- Debug display and formatting
+**"Screen not refreshing properly"**
+- Use VT100-compatible terminal (`screen` or `picocom`)
+- Check baud rate matches (115200)
+- Verify ANSI escape codes supported by terminal
 
 ## Summary
 
 In this assignment, you learned:
-- How I2C communication works
-- Reading data from I2C sensors
-- Using built-in accelerometer
-- Formatting and displaying sensor data
-- Simple motion detection
-- Orientation detection
-- Combining sensors with display
-- Simulating sensor projects with Wokwi
+- How I2C communication works and its limitations
+- Reading data from I2C sensors using raw commands
+- ADC principles and ESP32-S3 ADC characteristics
+- Building joystick input systems with deadzone filtering
+- Creating interactive games with real-time input processing
+- Oversampling techniques for noise reduction
+- State management in game loops
+- ANSI terminal rendering for console games
 
-You can now gather data from the physical world!
+You can now gather data from both digital (I2C) and analog (ADC) sensors, and build interactive applications!
 
 [Assignment 5: Wi-Fi Client](../assignment-5/)
