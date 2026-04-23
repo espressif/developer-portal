@@ -43,8 +43,8 @@ An LED (Light Emitting Diode) is a simple output device:
 ESP32 GPIO → Resistor → LED Anode → LED Cathode → GND
 
 **Digital Logic:**
-- **HIGH (1)**: Pin outputs VCC (3.3V on ESP32)
-- **LOW (0)**: Pin outputs GND (0V)
+- **HIGH (1)**: Pin outputs VCC (3.3V on ESP32) - LED ON
+- **LOW (0)**: Pin outputs GND (0V) - LED OFF
 
 ## Finding the LED Pin
 
@@ -55,7 +55,7 @@ Different boards have built-in LEDs on different pins:
 **ESP32 Built-in LED:**
 
 - Pin: GPIO2 (most common) or GPIO10 (some boards)
-- Type: Active LOW (LED on when pin is LOW)
+- Type: Active HIGH (LED on when pin is HIGH)
 
 For external RGB LEDs: WS2812/NeoPixel on GPIO8
   {{% /tab %}}
@@ -64,7 +64,7 @@ For external RGB LEDs: WS2812/NeoPixel on GPIO8
 **ESP32-S3 Built-in LED:**
 
 - Pin: GPIO2 (most common)
-- Type: Active LOW (LED on when pin is LOW)
+- Type: Active HIGH (LED on when pin is HIGH)
 
 Many boards also include RGB LEDs.
   {{% /tab %}}
@@ -72,7 +72,7 @@ Many boards also include RGB LEDs.
   {{% tab name="ESP32-C3" %}}
 **ESP32-C3 Built-in LED:**
 
-- Pin: GPIO2 (most boards, active LOW)
+- Pin: GPIO2 (most boards, active HIGH)
 - Type: Built-in LED
 
 For external RGB LEDs: WS2812/NeoPixel on GPIO2
@@ -131,15 +131,15 @@ import (
 )
 
 func main() {
-    // ESP32: LED on GPIO2 (active LOW)
+    // ESP32: LED on GPIO2 (active HIGH)
     led := machine.GPIO2
     led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
     for {
-        led.Low()  // LED ON (active LOW)
+        led.High()  // LED ON
         time.Sleep(time.Millisecond * 500)
 
-        led.High() // LED OFF
+        led.Low() // LED OFF
         time.Sleep(time.Millisecond * 500)
     }
 }
@@ -158,15 +158,15 @@ import (
 )
 
 func main() {
-    // ESP32-S3: LED on GPIO2 (active LOW)
+    // ESP32-S3: LED on GPIO2 (active HIGH)
     led := machine.GPIO2
     led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
     for {
-        led.Low()  // LED ON (active LOW)
+        led.High()  // LED ON
         time.Sleep(time.Millisecond * 500)
 
-        led.High() // LED OFF
+        led.Low() // LED OFF
         time.Sleep(time.Millisecond * 500)
     }
 }
@@ -185,15 +185,15 @@ import (
 )
 
 func main() {
-    // ESP32-C3: LED on GPIO8 (active LOW)
-    led := machine.GPIO8
+    // ESP32-C3: LED on GPIO2 (active HIGH)
+    led := machine.GPIO2
     led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
     for {
-        led.Low()  // LED ON (active LOW)
+        led.High()  // LED ON
         time.Sleep(time.Millisecond * 500)
 
-        led.High() // LED OFF
+        led.Low() // LED OFF
         time.Sleep(time.Millisecond * 500)
     }
 }
@@ -222,16 +222,16 @@ led.Configure(machine.PinConfig{         // Configure pin
 **Note:** Different boards use different GPIO pins for the built-in LED:
 - ESP32: GPIO2
 - ESP32-S3: GPIO2
-- ESP32-C3: GPIO8
+- ESP32-C3: GPIO2
 ```
 
 **Blinking loop:**
 ```go
 for {                                   // Infinite loop
-    led.Low()                           // Set pin LOW (LED ON)
+    led.High()                          // Set pin HIGH (LED ON)
     time.Sleep(time.Millisecond * 500)  // Wait 500ms
 
-    led.High()                          // Set pin HIGH (LED OFF)
+    led.Low()                           // Set pin LOW (LED OFF)
     time.Sleep(time.Millisecond * 500)  // Wait 500ms
 }
 ```
@@ -290,18 +290,15 @@ The built-in LED should blink at 1Hz (500ms on, 500ms off).
 **Note:** LED position varies by board. Some boards have LEDs on the back, others on the front. Check your board documentation.
 {{< /alert >}}
 
-## Understanding Active LOW
+## Understanding Active HIGH
 
-Most built-in LEDs on ESP32 boards are "active LOW":
-- **LED ON**: Pin output LOW (0V, GND)
-- **LED OFF**: Pin output HIGH (3.3V, VCC)
+Built-in LEDs on ESP32 boards are "active HIGH":
+- **LED ON**: Pin output HIGH (3.3V, VCC)
+- **LED OFF**: Pin output LOW (0V, GND)
 
-This seems backward but is common in electronics:
-- Sinks current to ground instead of sourcing from VCC
-- Compatible with more logic families
-- Easier PCB routing
+This is straightforward: applying voltage turns the LED on.
 
-To use an external LED (active HIGH):
+To use an external LED with current-limiting resistor:
 ```go
 led.Low()  // LED OFF
 led.High() // LED ON
@@ -433,18 +430,18 @@ func main() {
     })
 
     // Use appropriate GPIO for your board
-    led := machine.GPIO2  // ESP32/ESP32-S3: GPIO2, ESP32-C3: GPIO8
+    led := machine.GPIO2  // Most boards use GPIO2 for active HIGH
     led.Configure(machine.PinConfig{Mode: machine.PinOutput})
 
     serial.Write([]byte("Blinky starting!\r\n"))
 
     for {
         serial.Write([]byte("LED ON\r\n"))
-        led.Low()
+        led.High()
         time.Sleep(time.Millisecond * 500)
 
         serial.Write([]byte("LED OFF\r\n"))
-        led.High()
+        led.Low()
         time.Sleep(time.Millisecond * 500)
     }
 }
@@ -528,7 +525,7 @@ Many ESP32 boards include RGB LEDs (WS2812B/SK68XX NeoPixels) that can display m
 
   {{% tab name="ESP32-C3" %}}
 **ESP32-C3 RGB LED:**
-- Pin: GPIO7 or GPIO2 (board-dependent)
+- Pin: GPIO2 (common on many boards)
 - Type: WS2812B NeoPixel
 - Check your board documentation for exact pin
   {{% /tab %}}
@@ -804,6 +801,8 @@ tinygo flash -target m5stack-stampc3 .
 - Scale: 0-255 (0 = off, 255 = maximum)
 - 20% brightness: `51` (recommended for RGB LEDs)
 - RGB LEDs are **extremely bright** - even 20% is plenty!
+
+**Important:** The SetBrightness() method is not available in the ws2812 driver. Use manual brightness scaling instead (see RGB LED examples below).
 
 **Color Mixing:**
 ```go
