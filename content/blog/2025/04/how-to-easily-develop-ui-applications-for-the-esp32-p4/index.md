@@ -1,7 +1,9 @@
 ---
 title: "How to Create an UI Application for the ESP32-P4"
 date: 2025-04-14
+lastmod: 2026-04-27
 showAuthor: false
+summary: "Complete tutorial for building Embedded Wizard UI applications on ESP32-P4-Function-EV-Board with ESP-IDF V5.5.1, featuring Master Demo and example projects."
 tags: [ESP-IDF, GUI, Embedded Wizard, ESP32-P4]
 authors:
     - "embedded-wizard-team"
@@ -10,6 +12,8 @@ authors:
 The following article explains all necessary steps to create an Embedded Wizard UI application suitable for the [ESP32-P4-Function-EV-Board](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32p4/esp32-p4-function-ev-board/index.html) from Espressif.
 
 Please follow these instructions carefully and step by step in order to ensure that you will get everything up and running on your target. In case you are not familiar with Embedded Wizard, please first read the chapter [basic concepts](https://doc.embedded-wizard.de/basic-concepts) and the [Quick Tour](https://doc.embedded-wizard.de/quick-tour) tutorial to understand the principles of Embedded Wizard and the GUI development workflow.
+
+This guide is compatible with [Embedded Wizard 15](https://www.embedded-wizard.de/resources/news/embedded-wizard-15/). While the core workflow remains unchanged, the AI Console can optionally be used within Embedded Wizard Studio to assist with tasks such as code inspection or resolving warnings during development.
 
 ## Prerequisites
 
@@ -36,15 +40,14 @@ To evaluate Embedded Wizard on the mentioned target, you can find and download t
 
 As a customer, please visit the Embedded Wizard Download Center (login/password required) and download the latest version of the Build Environment and your licensed Platform Package libraries or source codes.
 
-- [ESP-IDF V5.3.1 (stable) for ESP32-P4 from Espressif](https://docs.espressif.com/projects/esp-idf/en/v5.3.1/esp32p4/get-started/index.html)
+- [ESP-IDF V5.5.1 (stable) for ESP32-P4 from Espressif](https://docs.espressif.com/projects/esp-idf/en/v5.5.1/esp32p4/get-started/index.html)
 
 ### Installing Tools and Software
 
 The following description assumes that you are familiar with ESP32-P4 software development and that you have installed the ESP32 toolchain for Windows.
 
-** IMPORTANT! **
-
-Before starting the GUI development with Embedded Wizard, please make sure to have the ESP32 software development environment (ESP-IDF) installed and first applications running on your ESP32-S3-BOX. Please follow the [ESP32-P4 Get Started documentation from Espressif](https://docs.espressif.com/projects/esp-idf/en/stable/esp32p4/get-started/index.html). Please also make sure that the ESP-IDF installation path (IDF_PATH) does not contain any space characters - otherwise building examples will fail.
+> **IMPORTANT:**
+> Before starting the GUI development with Embedded Wizard, please make sure to have the ESP32 software development environment (ESP-IDF) installed and first applications running on your ESP32-S3-BOX. Please follow the [ESP32-P4 Get Started documentation from Espressif](https://docs.espressif.com/projects/esp-idf/en/stable/esp32p4/get-started/index.html). Please also make sure that the ESP-IDF installation path (IDF_PATH) does not contain any space characters - otherwise building examples will fail.
 
 - Step 1: Install the latest version of Embedded Wizard Studio.
 - Step 2: Unpack the provided Embedded Wizard Build Environment for ESP32-P4-Function-EV-Board to your `\esp` development directory (e.g. `C:\ESP32\esp\ESP32-P4-Function-EV-Board`).
@@ -192,7 +195,7 @@ As a result you get a new Embedded Wizard project, that contains the necessary [
     caption="Picture: Embedded Wizard Configuration."
     >}}
 
-The following profile settings are important for your target: ★The attribute [PlatformPackage](https://doc.embedded-wizard.de/platformpackage-attr) should refer to the ESP32 Platform Package. The supported color formats are RGB565, Index8 and LumA44.
+The following profile settings are important for your target:
 
 - The attribute [PlatformPackage](https://doc.embedded-wizard.de/platformpackage-attr) should refer to the ESP32 Platform Package. The supported color format is RGB565.
 
