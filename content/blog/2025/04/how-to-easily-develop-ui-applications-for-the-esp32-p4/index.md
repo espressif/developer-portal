@@ -30,9 +30,9 @@ First, make sure you have all of the following items:
 
 - Embedded Wizard Studio Free or Embedded Wizard Studio Pro
 
-If you want to use the Free edition of Embedded Wizard Studio please [register on our website](https://www.embedded-wizard.de/download) and download the software.
+You can find and download the latest version of Embedded Wizard Studio under the category "software components" from the following link: https://doc.embedded-wizard.de/getting-started-esp32-p4-function-ev-board
 
-As a customer, please visit the Embedded Wizard Download Center (login/password required) and download Embedded Wizard Studio Pro.
+Customers can also find all their licensed software packages in the Embedded Wizard Download Center (login required).
 
 - [Embedded Wizard Build Environment for ESP32-P4-Function-EV-Board](https://doc.embedded-wizard.de/getting-started-esp32-p4-function-ev-board)
 

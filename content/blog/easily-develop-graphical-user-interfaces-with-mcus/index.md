@@ -47,7 +47,7 @@ Let’s walk through a simple step-by-step guide of building a GUI with Embedded
 
 ### 1. Design the GUI Application
 
-Start by [downloading Embedded Wizard](https://www.embedded-wizard.de/download) and using the Embedded Wizard Studio to design the look and behavior of your GUI application. This Integrated Development Environment (IDE) allows you to easily create interfaces by clicking, dragging, and connecting visual and logical components. Application logic is written in Chora, a platform-independent language similar to C++ and JavaScript. The design process leverages the Mosaic framework, which includes essential components like ready-to-use widgets and event handlers.
+Start by [selecting your preferred hardware platform](https://www.embedded-wizard.de/get-started?search=Espressif) and using the Embedded Wizard Studio to design the look and behavior of your GUI application. This Integrated Development Environment (IDE) allows you to easily create interfaces by clicking, dragging, and connecting visual and logical components. Application logic is written in Chora, a platform-independent language similar to C++ and JavaScript. The design process leverages the Mosaic framework, which includes essential components like ready-to-use widgets and event handlers. You can also import UI layouts directly from Figma using Embedded Wizard Connect. This allows designers to create interfaces in Figma without restrictive templates and transfer them seamlessly into Embedded Wizard Studio. Updated designs can be reimported at any time, enabling fast iteration without rebuilding layouts manually.
 
 ### 2. Prototype, Test, and Debug
 
@@ -69,11 +69,9 @@ Deploy the compiled binary to your ESP32-S3-BOX by writing it to the device's fl
 
 Embedded Wizard and Espressif’s ESP32 family are a powerful combination for creating high-quality, responsive GUIs in embedded systems. By leveraging Embedded Wizard’s advanced features and seamless integration with Espressif hardware, you can accelerate your development process and bring your IoT products to market faster.
 
-If you're ready to take your GUI development to the next level, download the free version of Embedded Wizard today and see how it can transform your projects on Espressif platforms.
-
 ## Resources
 
-- [Download Embedded Wizard](https://www.embedded-wizard.de/download/)
+- [Get Started with Embedded Wizard](https://www.embedded-wizard.de/get-started?search=Espressif)
 - [Embedded Wizard Website](https://www.embedded-wizard.de/)
 - [Embedded Wizard YouTube Channel](https://www.youtube.com/@EmbeddedWizard)
 - [Getting Started with ESP32](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/)
