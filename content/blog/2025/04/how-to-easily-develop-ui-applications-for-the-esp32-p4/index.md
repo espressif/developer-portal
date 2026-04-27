@@ -40,14 +40,14 @@ To evaluate Embedded Wizard on the mentioned target, you can find and download t
 
 As a customer, please visit the Embedded Wizard Download Center (login/password required) and download the latest version of the Build Environment and your licensed Platform Package libraries or source codes.
 
-- [ESP-IDF V5.5.1 (stable) for ESP32-P4 from Espressif](https://docs.espressif.com/projects/esp-idf/en/v5.5.1/esp32p4/get-started/index.html)
+- [ESP-IDF V5.5.1 (stable) for ESP32-P4 from Espressif](https://docs.espressif.com/projects/esp-idf/en/release-v5.5/esp32p4/get-started/index.html)
 
 ### Installing Tools and Software
 
 The following description assumes that you are familiar with ESP32-P4 software development and that you have installed the ESP32 toolchain for Windows.
 
 > **IMPORTANT:**
-> Before starting the GUI development with Embedded Wizard, please make sure to have the ESP32 software development environment (ESP-IDF) installed and first applications running on your ESP32-S3-BOX. Please follow the [ESP32-P4 Get Started documentation from Espressif](https://docs.espressif.com/projects/esp-idf/en/stable/esp32p4/get-started/index.html). Please also make sure that the ESP-IDF installation path (IDF_PATH) does not contain any space characters - otherwise building examples will fail.
+> Before starting the GUI development with Embedded Wizard, please make sure to have the ESP32 software development environment (ESP-IDF) installed and first applications running on your ESP32-S3-BOX. Please follow the [ESP32-P4 Get Started documentation from Espressif](https://docs.espressif.com/projects/esp-idf/en/release-v5.5/esp32p4/get-started/index.html). Please also make sure that the ESP-IDF installation path (IDF_PATH) does not contain any space characters - otherwise building examples will fail.
 
 - Step 1: Install the latest version of Embedded Wizard Studio.
 - Step 2: Unpack the provided Embedded Wizard Build Environment for ESP32-P4-Function-EV-Board to your `\esp` development directory (e.g. `C:\ESP32\esp\ESP32-P4-Function-EV-Board`).
