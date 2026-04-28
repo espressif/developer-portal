@@ -1,19 +1,20 @@
 ---
 title: "ESP-IDF Adv. - Assign.  4.2"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 9
 showAuthor: false
-summary: "Create a custom partition table"
+summary: "Create a custom partition table (guided)"
 ---
 
-In this assignment, you'll set a custom partiton table using VSCode.
+In this assignment, you'll set a custom partition table using VS Code.
 
 ## Assignment steps
 
 First, you need to enable the custom partition table in the `menuconfig`
 
-* Open menuconfig: `> ESP-IDF: SDK Configuration Editor (menuconfig)`<br>
+* Open `menuconfig`: `> ESP-IDF: SDK Configuration Editor (menuconfig)`<br>
    &rarr; `Partition Table` &rarr; `Custom Partition Table CSV`
 * Open editor: `> ESP-IDF: Open Partition Table Editor UI`
 * Copy the previous partition table
@@ -29,8 +30,10 @@ caption="Custom partition table"
 
 * Build the partition table: `> ESP-IDF: Build Partition Table`
 * Flash the partition table: `> ESP-IDF: Flash (UART) Your Project`
+* Read the partition table again. 
 
 
+<summary>Partition table output</summary>
 
 ```bash
 Parsing binary partition input...
@@ -46,5 +49,8 @@ ota_1,app,ota_1,0x210000,1M,
 fs,data,spiffs,0x310000,64K,
 ```
 
+</details>
 
-> Next step: [assignment 4.3](../assignment-4-3)
+> Next step: [Assignment 4.3](../assignment-4-3)
+
+> Or [go back to navigation menu](../#agenda)

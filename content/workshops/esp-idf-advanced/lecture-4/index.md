@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Lecture 4"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 13
 showAuthor: false
@@ -15,11 +16,11 @@ In response to these risks, new regulations like the EU’s __Radio Equipment Di
 
 To meet these evolving demands, three core technologies have become staples of modern IoT security: __over-the-air (OTA) updates__, __flash encryption__, and __secure bootloaders__.
 
-* __OTA Updates__ allow devices to receive firmware updates remotely, enabling timely security patches and feature enhancements without requiring physical access. This is crucial for maintaining device integrity over its lifecycle, especially once deployed in the field.
+* __OTA updates__ allow devices to receive firmware updates remotely, enabling timely security patches and feature enhancements without requiring physical access. This is crucial for maintaining device integrity over its lifecycle, especially once deployed in the field.
 
-* __Flash Encryption__ protects data stored in the device’s flash memory by encrypting it at the hardware level. This ensures that sensitive information (such as cryptographic keys or user data) remains inaccessible even if an attacker gains physical access to the device.
+* __Flash encryption__ protects data stored in the device’s flash memory by encrypting it at the hardware level. This ensures that sensitive information (such as cryptographic keys or user data) remains inaccessible even if an attacker gains physical access to the device.
 
-* __Secure Bootloaders__ verify the integrity and authenticity of firmware before execution. By checking digital signatures during the boot process, they prevent unauthorized or malicious code from running on the device
+* __Secure bootloaders__ verify the integrity and authenticity of firmware before execution. By checking digital signatures during the boot process, they prevent unauthorized or malicious code from running on the device
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 In the following assignments, you will enable these features on the hardware. If you don't feel comfortable, you can follow the developer portal article to [emulate security features using QEMU](https://developer.espressif.com/blog/trying-out-esp32-c3s-security-features-using-qemu/).
@@ -29,7 +30,7 @@ Together, these features form a foundational security layer, helping developers 
 
 In this article we'll see what each of these features. To use the OTA we need to first change the partition table. For this reason, before we start, we need to spend a few words about partition tables.
 
-## Partition Tables
+## Partition tables
 
 The partition table defines how the flash memory is organized, specifying where applications, data, filesystems, and other resources are stored. This logical separation allows developers to manage firmware, persistent data, and update mechanisms efficiently.
 
@@ -155,7 +156,7 @@ This code downloads a new firmware image and, if successful, restarts the device
 OTA requires a specific partition table layout. At minimum, you need:
 
 - __NVS partition:__ For non-volatile storage.
-- __OTA Data partition:__ To track which firmware partition is active.
+- __`otadata` partition:__ To track which firmware partition is active.
 - __Two OTA app partitions:__ For active/passive firmware images.
 
 An example of valid partition table is the following.
@@ -175,7 +176,7 @@ Besides the already mentioned (`data`,`nvs`), this partition table contains a (`
 
 #### otadata partition
 
-The __otadata partition__ (also referred to as the __OTA Data partition__) is a special partition in the ESP-IDF partition table, required for projects that use Over-The-Air (OTA) firmware updates. Its main purpose is to store information about which OTA app slot (such as `ota_0` or `ota_1`) should be booted by the device. It's typical size is `0x2000` bytes (two flash sectors)
+The __otadata partition__ is a special partition in the ESP-IDF partition table, required for projects that use Over-The-Air (OTA) firmware updates. Its main purpose is to store information about which OTA app slot (such as `ota_0` or `ota_1`) should be booted by the device. It's typical size is `0x2000` bytes (two flash sectors)
 
 The otadata partition is used as follows:
 - On first boot (or after erasing), the otadata partition is empty (all bytes set to 0xFF). In this state, the bootloader will boot the factory app if present, or the first OTA slot if not.
@@ -188,13 +189,13 @@ Flash encryption is a critical security feature, designed to protect the content
 
 ### How Flash Encryption Works
 
-On first boot, firmware is flashed as plaintext and then encrypted in place. The encryption process uses hardware-accelerated algorithms such as XTS-AES-128, XTS-AES-256, or AES-256, depending on the chip series. The encryption key is securely stored in eFuse blocks within the chip and is not accessible by software, ensuring robust key protection. For example, ESP32 uses AES-256, while ESP32-C3, ESP32-C6, and ESP32-H2 use XTS-AES-128 with a 256-bit key stored in eFuse blocks. Some newer chips, like ESP32-S3 and ESP32-P4, also support XTS-AES-256 with a 512-bit key option, using two eFuse blocks for key storage.
+On first boot, firmware is flashed as plaintext and then encrypted in place. The encryption process uses hardware-accelerated algorithms such as XTS-AES-128, XTS-AES-256, or AES-256, depending on the chip series. The encryption key is securely stored in eFuse blocks within the chip and is not accessible by software, ensuring robust key protection. 
 
 Flash access is transparent: any memory-mapped region is automatically decrypted when read, and encrypted when written, without requiring changes to application code.
 
 By default, critical partitions such as the bootloader, partition table, NVS key partition, otadata, and all application partitions are encrypted. Other partitions can be selectively encrypted by marking them with the `encrypted` flag in the partition table.
 
-### Modes and Security Considerations
+### Development mode and release mode
 
 Flash encryption can be enabled in "Development" or "Release" mode.
 
@@ -203,11 +204,10 @@ Flash encryption can be enabled in "Development" or "Release" mode.
 
 It is strongly recommended to use release mode for production devices to prevent unauthorized firmware extraction or modification.
 
-### Important Usage Notes
+### Important usage notes
 
 - Do not interrupt power during the initial encryption pass on first boot, as this can corrupt flash contents and require re-flashing.
 - Enabling flash encryption increases the bootloader size, which may require updating the partition table offset. We'll see it in detail in [assignment 4.3](../assignment-4-3)
-- If secure boot is also enabled, re-flashing the bootloader requires a special "Re-flashable" secure boot digest.
 
 
 ## Secure Bootloader
@@ -261,4 +261,6 @@ Once secure boot is enabled, the bootloader cannot be reflashed (unless using a 
 In this article, we explored three foundational pillars of modern IoT security: OTA updates, flash encryption, and secure bootloaders. Together, these features ensure that devices can be updated securely, protect sensitive data at rest, and verify firmware integrity from the moment they power on. As IoT security requirements continue to evolve, mastering these tools is essential for building resilient and regulation-compliant embedded systems.
 In the next assignments, you will test these features first-hand.
 
-> Next step: [assignment 4.1](../assignment-4-1/)
+> Next step: [Assignment 4.1](../assignment-4-1/)
+
+> Or [go back to navigation menu](../#agenda)

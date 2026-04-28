@@ -1,9 +1,11 @@
 ---
 title: "ESP-IDF Adv. - Assign.  4.3"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 16
 showAuthor: false
+summary: Enabling flash encryption (guided)"
 ---
 
 In this assignment, we will enable flash encryption.
@@ -22,7 +24,7 @@ In this assignment, we will:
 3. Set partition table
 3. Check the encryption status again
 
-### Check device encryption status
+### Check your device encryption status
 
 * Open an ESP-IDF terminal : `> ESP-IDF: Open ESP-IDF Terminal`
 * Inside the terminal, run `idf.py efuse-summary`
@@ -32,9 +34,9 @@ Now check the relevant eFuses listed in the table below. They must all be at the
 | **eFuse**                    | **Description**                                                                                                                                             |
 |-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `BLOCK_KEYN`                | AES key storage. N is between 0 and 5.                                                                                                                       |
-| `KEY_PURPOSE_N`             | Control the purpose of eFuse block `BLOCK_KEYN`, where N is between 0 and 5. For flash encryption, the only valid value is 4 for `XTS_AES_128_KEY`.          |
-| `DIS_DOWNLOAD_MANUAL_ENCRYPT` | If set, disables flash encryption when in download boot modes.                                                                                             |
-| `SPI_BOOT_CRYPT_CNT`        | Enables encryption and decryption when an SPI boot mode is set. Feature is enabled if 1 or 3 bits are set in the eFuse; disabled otherwise.                  |
+| `KEY_PURPOSE_N`             | Control the purpose of eFuse block `BLOCK_KEYN`, where N is between 0 and 5.         |
+| `DIS_DOWNLOAD_MANUAL_ENCRYPT` | Disables flash encryption when in download boot modes.                                                                                             |
+| `SPI_BOOT_CRYPT_CNT`        | Enables encryption and decryption when an SPI boot mode is set. Feature is enabled if 1 or 3 bits are set in the eFuse.                  |
 
 
 <details>
@@ -258,7 +260,9 @@ The flash encryption process requires two steps:
 3. Then flash again to enable encryption
 ```
 
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 The flashing logs will be different than usual this time, informing us about the flashing encryption process.
+{{< /alert >}}
 <details>
 <summary>Show flashing logs</summary>
 
@@ -769,7 +773,7 @@ You need to do the last two steps.
 * Flash the project again: `> ESP-IDF: Flash (UART) Your Project`
 
 
-### Check the device encryption status
+### Check the the encryption status again
 
 * Open an ESP-IDF terminal : `> ESP-IDF: Open ESP-IDF Terminal`
 * Inside the terminal, run `idf.py efuse-summary`
@@ -967,11 +971,12 @@ We can see that:
 * The flash encryption is set (`SPI_BOOT_CRYPT_CNT`).
 * One of the eFuse blocks has been reserved to store the encryption key.
 
-Now your device has flash encryption. Since we selected the development, you can still reflash it using the serial port.
+Now your device has flash encryption enabled. Since we selected the development, you can still flash it again using the serial port.
 
 ## Conclusion
 
-In this assignment, we added flash encryption to the project by enabling the appropriate options in the menuconfig and by accommodating the partition table offset as required.
-
+In this assignment, we added flash encryption to the project by enabling the appropriate options in the `menuconfig` and by accommodating the partition table offset as required.
 
 > Next step: [Conclusion](../#conclusion)
+
+> Or [go back to navigation menu](../#agenda)
