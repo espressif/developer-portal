@@ -1,7 +1,9 @@
 ---
 title: "How to Create an UI Application for the ESP32-S3"
 date: 2024-10-02
+lastmod: 2026-04-27
 showAuthor: false
+summary: "Step-by-step guide to creating Embedded Wizard GUI applications for ESP32-S3-BOX with ESP-IDF V5.3.1, including examples and build instructions."
 tags: ["ESP32", "ESP-IDF", "GUI", "Embedded Wizard", "ESP32-S3", "ESP32-S2"]
 authors:
     - "embedded-wizard-team"
@@ -11,11 +13,13 @@ The following article explains all necessary steps to create an Embedded Wizard 
 
 Please follow these instructions carefully and step by step in order to ensure that you will get everything up and running on your target. In case you are not familiar with Embedded Wizard, please first read the chapter [basic concepts](https://doc.embedded-wizard.de/basic-concepts) and the [Quick Tour](https://doc.embedded-wizard.de/quick-tour) tutorial to understand the principles of Embedded Wizard and the GUI development workflow.
 
+This guide is compatible with [Embedded Wizard 15](https://www.embedded-wizard.de/resources/news/embedded-wizard-15/). While the core workflow remains unchanged, the AI Console can optionally be used within Embedded Wizard Studio to assist with tasks such as code inspection or resolving warnings during development.
+
 ## Introduction: External display controller and partial display updates
 
 The ESP32-S3-BOX combines the ESP32-S3 micro-controller (MCU) with a 320x240 display, connected via SPI. The display is driven by an external display controller, which contains its own display memory. As a result, the entire framebuffer can be located inside the display controller and only a small [scratch-pad buffer](https://doc.embedded-wizard.de/framebuffer-concepts#7) is needed inside the micro-controller (MCU). For this purpose, Embedded Wizard supports a partial display update, that makes it possible to update the display in sequential small areas. This makes it possible to operate with a scratch-pad buffer of a few kilobytes instead of a full-screen framebuffer within the memory space of the MCU.
 
-Please note: The partial display update is intended to be used for extremely memory-constrained systems. Due to the fact that the display update is done in subsequent updates of small areas, moving graphical objects can cause some tearing effects. The UI design should consider this aspect.
+> **Please note:** The partial display update is intended to be used for extremely memory-constrained systems. Due to the fact that the display update is done in subsequent updates of small areas, moving graphical objects can cause some tearing effects. The UI design should consider this aspect.
 
 ## Prerequisites
 
@@ -32,9 +36,9 @@ First, make sure you have all of the following items:
 
 - Embedded Wizard Studio Free or Embedded Wizard Studio Pro
 
-If you want to use the Free edition of Embedded Wizard Studio please [register on our website](https://www.embedded-wizard.de/download) and download the software.
+You can find and download the latest version of Embedded Wizard Studio under the category "software components" from the following link: https://doc.embedded-wizard.de/getting-started-esp32-s3-box
 
-As a customer, please visit the Embedded Wizard Download Center (login/password required) and download Embedded Wizard Studio Pro.
+Customers can also find all their licensed software packages in the Embedded Wizard Download Center (login required).
 
 - Embedded Wizard Build Environment for ESP32-S3-BOX
 
@@ -42,11 +46,14 @@ To evaluate Embedded Wizard on the mentioned target, you can find and download t
 
 As a customer, please visit the Embedded Wizard Download Center (login/password required) and download the latest version of the Build Environment and your licensed Platform Package libraries or source codes.
 
+- [ESP-IDF V5.3.1 (stable) for ESP32-S3 from Espressif](https://docs.espressif.com/projects/esp-idf/en/v5.3.1/esp32s3/get-started/index.html)
+
 ### Installing Tools and Software
 
 The following description assumes that you are familiar with ESP32-S3 software development and that you have installed the ESP32 toolchain for Windows.
 
-IMPORTANT! Before starting the GUI development with Embedded Wizard, please make sure to have the ESP32 software development environment (ESP-IDF) installed and first applications running on your ESP32-S3-BOX. Please follow the [ESP32-S3 Get Started documentation from Espressif](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/get-started/index.html). Please also make sure that the ESP-IDF installation path (IDF_PATH) does not contain any space characters - otherwise building examples will fail.
+> **IMPORTANT:**
+> Before starting the GUI development with Embedded Wizard, please make sure to have the ESP32 software development environment (ESP-IDF) installed and first applications running on your ESP32-S3-BOX. Please follow the [ESP32-S3 Get Started documentation from Espressif](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/get-started/index.html). Please also make sure that the ESP-IDF installation path (IDF_PATH) does not contain any space characters - otherwise building examples will fail.
 
 - Step 1: Install the latest version of Embedded Wizard Studio.
 - Step 2: Unpack the provided Embedded Wizard Build Environment for ESP32-S3-BOX to your `\\esp` development directory (e.g. `C:\\ESP32\\esp\\ESP32-S3-BOX`).
