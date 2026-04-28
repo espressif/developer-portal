@@ -19,10 +19,9 @@ summary: "Start a soft-AP and an HTTP server (guided)"
 In the previous exercises, we created a project based on an example. This time, we will create a project from an empty template instead.
 
 * Open VS Code
-* Run `> ESP-IDF: Create Project from Extension Template`
-* In the appeared dropdown menu, `Choose a container directory`
+* Run `> ESP-IDF: Create New Empty Project`
+* In the appeared dropdown menu, add the project name `template-app`
 * Select the location where the project folder will be created
-* In the appeared dropdown menu. choose `template-app`
 
 
 In the folder you selected, the following project files are now present:
@@ -328,7 +327,7 @@ void wifi_init_softap(){
     esp_event_loop_create_default();
     esp_netif_create_default_wifi_ap();
 
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT(); 
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
 
     esp_wifi_init(&cfg);
 
