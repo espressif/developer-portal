@@ -1,6 +1,6 @@
 ---
 title: "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP8266, and Edge AI"
-date: 2026-04-18
+date: 2026-04-28
 tags:
   - ESP32
   - ESP8266
@@ -12,12 +12,12 @@ tags:
 showTableOfContents: true
 authors:
   - fabio-bastos-thinkneo
-summary: "FOFOCA is a fully autonomous household robot built around a Raspberry Pi 5 brain, an ESP32 for real-time motor control and sensor polling, and an ESP8266 driving an OLED status display over MQTT. This article walks through the hardware architecture, the firmware running on each Espressif chip, and how all of it connects to a local edge AI server running NVIDIA Nemotron Nano 8B for inference — no cloud dependency required."
+summary: "FOFOCA is an open-source reference design for an AI-governed household robot, built around a Raspberry Pi 5 brain, an ESP32 for real-time motor control and sensor polling, and an ESP8266 driving an OLED status display over MQTT. This article walks through the hardware architecture, the firmware running on each Espressif chip, and how all of it connects to a local edge AI server running NVIDIA Nemotron Nano 8B for inference — no cloud dependency required."
 ---
 
 ## The Robot That Runs on Espressif
 
-FOFOCA — *Fully Operational Feline-free Omniscient Companion Assistant* — is an autonomous household robot I have been building as the first public study case for [ThinkNEO](https://thinkneo.ai), an AI governance platform. The robot operates 24/7 in a real residential environment: it patrols, receives deliveries, monitors pets, responds to voice commands, and can call emergency services autonomously.
+FOFOCA — *Fully Operational Feline-free Omniscient Companion Assistant* — is an open-source reference design for a household robot I have been developing as the first public study case for [ThinkNEO](https://thinkneo.ai), an AI governance platform. The reference design targets 24/7 operation in a residential environment: the architecture supports patrol routines, delivery reception, pet monitoring, voice command handling, and autonomous emergency calling — implemented end-to-end across the ESP32, Pi 5, and Dell R210 layers.
 
 The project uses two Espressif chips in distinct roles. An **ESP32** handles all real-time physical control — driving the tank treads via PWM, polling ultrasonic and temperature sensors, and maintaining a Bluetooth serial link to the Raspberry Pi 5 brain. An **ESP8266** drives a 0.96-inch OLED panel that displays the robot's current state, active task, battery level, and which AI model is handling decisions at any given moment, all received over MQTT.
 
@@ -27,7 +27,7 @@ This article focuses on the Espressif side of the build: the firmware, the wirin
 
 FOFOCA is a four-tier system. Each tier runs on dedicated hardware chosen for its strengths.
 
-```
+<pre style="line-height: 1.1;">
 ┌─────────────────────────────────────────────────────────────────┐
 │                    ThinkNEO Control Plane                       │
 │            AI governance, routing, audit, guardrails            │
@@ -35,8 +35,8 @@ FOFOCA is a four-tier system. Each tier runs on dedicated hardware chosen for it
                            │ HTTPS (API gateway)
 ┌──────────────────────────▼──────────────────────────────────────┐
 │                  Dell R210 — Edge Server                        │
-│  Nemotron Nano 8B (Ollama) · ChromaDB · PostgreSQL · MinIO     │
-│  FastAPI · Mosquitto (MQTT broker) · Grafana                   │
+│  Nemotron Nano 8B (Ollama) · ChromaDB · PostgreSQL · MinIO      │
+│  FastAPI · Mosquitto (MQTT broker) · Grafana                    │
 └────────┬────────────────────────────────────┬───────────────────┘
          │ REST API (FastAPI)                 │ MQTT (Mosquitto)
 ┌────────▼────────────┐            ┌──────────▼──────────────────┐
@@ -48,13 +48,13 @@ FOFOCA is a four-tier system. Each tier runs on dedicated hardware chosen for it
 └────────┬────────────┘            └─────────────────────────────┘
          │ Bluetooth Serial
 ┌────────▼────────────────────────────────────────────────────────┐
-│                  ESP32 — Physical Controller                     │
+│                  ESP32 — Physical Controller                    │
 │  Tank tread motors (PWM via HW130 driver)                       │
 │  Ultrasonic sensor (HC-SR04) · Temperature (DHT22)              │
 │  PIR motion sensor · Battery voltage (ADC)                      │
 │  Telemetry publisher (MQTT)                                     │
 └─────────────────────────────────────────────────────────────────┘
-```
+</pre>
 
 **Tier 1 — ESP32 (real-time control).** The ESP32 owns everything that needs microsecond-level timing: motor PWM signals, sensor interrupts, and the Bluetooth link to the brain. It does not make decisions — it executes commands and reports telemetry.
 
@@ -419,7 +419,7 @@ The Dell PowerEdge R210 sits on the same local network as the robot. It runs Ubu
 | MinIO | Object storage for Insta360 video clips | 9000 |
 | Grafana | Dashboards — telemetry, model usage, alerts | 3000 |
 
-Running inference locally means the robot's reaction time to voice commands or vision events is bounded by LAN latency (sub-millisecond) plus model inference time (~200 ms for Nemotron Nano 8B on CPU), not by an internet round trip. For a robot that needs to stop before hitting a wall, this matters.
+Running inference locally means the robot's reaction time to voice commands or vision events is bounded by LAN latency (sub-millisecond) plus model inference time (target latency: ~200 ms for Nemotron Nano 8B on CPU (R210, Ollama)), not by an internet round trip. For a robot that needs to stop before hitting a wall, this matters.
 
 ## How the Pieces Talk to Each Other
 
@@ -467,6 +467,12 @@ The robot is currently in Phase 3 (autonomous locomotion). The immediate next st
 - **ESP-NOW** — evaluating ESP-NOW as a lower-latency alternative to Bluetooth for the Pi 5 to ESP32 link, using a second ESP32 as a USB-connected bridge on the Pi.
 - **Deep sleep telemetry** — when the robot is docked and charging, switching the ESP32 to deep sleep with periodic wake-ups for battery monitoring.
 - **GSM module** — adding a SIM800L for emergency calls (SAMU, fire department, police) when WiFi is unavailable.
+
+## Build Status & Roadmap
+
+This article documents the FOFOCA v1 reference architecture — the open hardware design and software stack the project is built around. Physical assembly is being coordinated through a manufacturing partner; the article serves as the design reference, not a finished-build photo essay.
+
+A v2 build is already in motion, pivoting the chassis to a Yahboom ROSMASTER M3 Pro with Jetson Orin onboard, and refreshing the supporting microcontrollers toward the ESP32-C3 family for new builds (per Espressif's NRND guidance on ESP8266). v2 will be written up as a follow-up post when running.
 
 ## Project Links
 
