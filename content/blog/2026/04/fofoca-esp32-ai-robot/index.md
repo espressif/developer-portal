@@ -1,6 +1,6 @@
 ---
 title: "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP8266, and Edge AI"
-date: 2026-04-28
+date: 2026-04-30
 tags:
   - ESP32
   - ESP8266
