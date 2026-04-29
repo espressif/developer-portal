@@ -1,5 +1,5 @@
 ---
-title: "ESP-IDF VS Code Extension: What's New in v2.0.2"
+title: "ESP-IDF Extension for VS Code: What's New in v2.1.0"
 date: 2026-04-15
 authors:
   - radu-rentea
@@ -8,14 +8,42 @@ tags:
   - "VS Code Extension"
   - Release
   - Tooling
-summary: "ESP-IDF VS Code Extension v2.0.2 introduces a new setup flow powered by Espressif Installation Manager and rounds up the major improvements delivered across the v1.10.x and v1.11.x releases, from AI-assisted workflows to richer debugging and project setup tools."
+summary: "ESP-IDF Extension for VS Code v2.1.0 refines the new Espressif Installation Manager setup flow introduced in v2.0.2 and rounds up the major improvements delivered across the v1.10.x, v1.11.x, v2.0.2, and v2.1.0 releases."
 ---
 
-This article covers releases v1.10.0, v1.10.1, v1.11.0, v1.11.1, and v2.0.2 of the [ESP-IDF VS Code Extension](https://github.com/espressif/vscode-esp-idf-extension).
+This article covers releases v1.10.0, v1.10.1, v1.11.0, v1.11.1, v2.0.2, and v2.1.0 of the [ESP-IDF Extension for VS Code](https://github.com/espressif/vscode-esp-idf-extension).
 
-We are excited to share a roundup of everything that has landed in the ESP-IDF VS Code Extension across the past several releases, culminating in v2.0.2, the most significant update to the extension's setup experience since its initial release.
+We are excited to share a roundup of everything that has landed in the ESP-IDF Extension for VS Code across the past several releases, from deeper debugging and AI-assisted workflows to a major setup overhaul powered by Espressif Installation Manager (EIM), and the v2.1.0 refinements that make that new flow work more smoothly across more development environments.
 
-From deeper debugging tools and AI-assisted development to an entirely new way of installing ESP-IDF, these releases represent a major step forward for Espressif's VS Code developer experience.
+## v2.1.0 - EIM Refinements and Developer Experience
+
+v2.1.0 builds directly on the EIM foundation introduced in v2.0.2. Rather than changing the setup story again, this release makes it more consistent across local and remote environments, reduces friction in the Settings UI, and smooths out a few day-to-day development workflows.
+
+### Unified EIM Launch Across More Environments
+
+In v2.0.2, the extension introduced EIM as the new way to install and manage ESP-IDF. In v2.1.0, that experience becomes more seamless. The extension now relies on a single `ESP-IDF: Open ESP-IDF Installation Manager` command and refines how it decides whether to launch the graphical interface or the terminal wizard.
+
+On desktop environments, the command opens the EIM GUI as before. In SSH sessions, Dev Containers, Codespaces, WSL, and other non-GUI contexts, the extension now more reliably falls back to the terminal wizard flow. This fulfills the v2.0.2 goal of making the new setup experience work consistently beyond a local desktop machine, without requiring separate GUI and CLI entry points.
+
+> TODO: Add a screen recording showing `ESP-IDF: Open ESP-IDF Installation Manager` being run in both a desktop environment and a remote terminal-based environment such as SSH, Dev Containers, or Codespaces.
+
+### Categorized Extension Settings
+
+The extension settings have also been reorganized into clearer categories in the VS Code Settings UI. Instead of presenting ESP-IDF-related options as one long flat list, settings are now grouped more logically, making it easier to discover the right option when configuring build, flash, debug, tooling, or installation behavior.
+
+This is a small change on paper, but a meaningful quality-of-life improvement for users who regularly tweak workspace or user settings.
+
+> TODO: Add a screenshot of the categorized `Espressif IDF` settings view in the VS Code Settings UI.
+
+### Automatic Clang Server Restart After Build Changes
+
+The extension now restarts the Clang language server when `compile_commands.json` changes. Before this update, IntelliSense and code navigation could become stale after a build or reconfiguration step unless the language server was restarted manually.
+
+With v2.1.0, the extension keeps Clang-based project analysis in sync automatically, reducing those moments where diagnostics or code completion lag behind the actual project configuration.
+
+### Other Notable Improvements and Fixes
+
+For ESP32-P4 users, debug sessions now expose PIE registers, making low-level inspection more complete on that target. v2.1.0 also includes several practical fixes that improve reliability in real projects, including better activation support for VS Code Snap installs, correct activation for manual non-EIM setups, improved `sdkconfig` path resolution, proper use of environment variables defined in `idf.customExtraVars`, and better shell compatibility by using `sh` for activation scripts and the IDF Terminal on Linux environments.
 
 ## v2.0.2 - EIM Integration and Setup Overhaul
 
@@ -43,8 +71,6 @@ Depending on your environment, EIM will open in one of two ways:
 - **Terminal wizard (WSL):** On WSL, the extension automatically runs EIM as an interactive terminal program that walks you through the same steps in your console.
 
 Once ESP-IDF is installed through EIM, the extension reads the `eim_idf.json` file it produces and discovers all installed versions automatically, with no manual path configuration needed.
-
-> **Note:** Full terminal wizard support for other remote environments such as SSH, Dev Containers, and Codespaces is not yet available in v2.0.2 and is planned for v2.1.0. If you need to force the terminal wizard mode in the meantime, you can set the `idf.eimExecutableArgs` extension setting to `["wizard"]`.
 
 > TODO: Add a screen recording showing `ESP-IDF: Open ESP-IDF Installation Manager` from the Command Palette, the EIM GUI launch, ESP-IDF version selection and installation, and a return to VS Code to select the installed version.
 
@@ -176,7 +202,7 @@ This is a significant workflow improvement for iterative development, especially
 
 Clang-based toolchain support for static analysis and IntelliSense now has a **dedicated configuration UI** in the extension settings, making it easier to configure the Clang path and related options on a per-project basis.
 
-### ESP-IDF VS Code Profile Templates
+### ESP-IDF Extension for VS Code Profile Templates
 
 v1.10.1 introduces **VS Code Profile templates** tailored for ESP-IDF development. VS Code Profiles let you save and share specific extension configurations, settings, and keybindings, and these templates give you a curated starting point optimized for Espressif development.
 
@@ -192,12 +218,6 @@ v1.10.0 extends QEMU support by using `idf qemu` for both debug and monitor work
 
 A dedicated `idf.monitorPort` setting lets you specify a different serial port for the IDF Monitor separately from the flash port, useful when working with setups where flash and monitor use different physical connections.
 
-## Looking Ahead
-
-With v2.0.2, the ESP-IDF VS Code Extension has shed a significant amount of legacy code and is now anchored to a consistent, cross-platform toolchain management story through EIM. The old setup wizard path has been retired, and the extension is now leaner and more focused on the editing, building, flashing, and debugging experience.
-
-Future improvements will continue to build on this foundation, including better AI-assisted development and richer debugging tools.
-
 ## Resources
 
 - **Extension on VS Code Marketplace**: [espressif.esp-idf-extension](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension)
@@ -207,4 +227,4 @@ Future improvements will continue to build on this foundation, including better 
 - **Extension GitHub Repository**: [github.com/espressif/vscode-esp-idf-extension](https://github.com/espressif/vscode-esp-idf-extension)
 - **Report an Issue**: [GitHub Issues](https://github.com/espressif/vscode-esp-idf-extension/issues)
 
-*Thank you to all community contributors across these releases, including [@SinglWolf](https://github.com/SinglWolf), [@jonsambro](https://github.com/jonsambro), and [@wormyrocks](https://github.com/wormyrocks) for their pull requests, and everyone who filed issues and provided feedback.*
+*Thank you to all community contributors across these releases, including [@SinglWolf](https://github.com/SinglWolf), [@jonsambro](https://github.com/jonsambro), [@wormyrocks](https://github.com/wormyrocks), [@gubertoli](https://github.com/gubertoli), and [@sobuch](https://github.com/sobuch) for their pull requests, and everyone who filed issues and provided feedback.*
