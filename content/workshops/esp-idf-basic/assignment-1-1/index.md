@@ -37,17 +37,27 @@ Please note that most commands in VS Code are executed through the __Command Pal
 ### Create a new project from an example
 
 1. Open VS Code
-2. `> ESP-IDF: Show Example Project`
+2. `> ESP-IDF: New Project`
 3. (If asked) Choose the ESP-IDF version
-4. Click on `get_started` &rarr; `hello_world`
-5. Click on the button `Select Location for Creating hello_world Example` in the new tab.
+4. Open the dropdown menu  `ESP-IDF Examples`
+
+{{< figure
+default=true
+src="../assets/ass-1-1-new-project-examples.webp"
+height=500
+caption="Fig.1 - Create new project from example `hello_world`"
+    >}}
+
+
+5. Click on `get-started` &rarr; `hello_world`
+6. In the new tab, click on the button `Create project using template hello_world` in the new tab.
 
 <!-- ![Create new project tab](../assets/ass1_1_new_project.webp) -->
 {{< figure
 default=true
-src="../assets/ass1-1-new-project.webp"
+src="../assets/ass-1-1-new-project.webp"
 height=500
-caption="Fig.1 - Create new project tab"
+caption="Fig.2 - Create new project tab"
     >}}
 
 A new window will open with the following file structure:
@@ -57,7 +67,7 @@ A new window will open with the following file structure:
 default=true
 src="../assets/ass1-1-hello-world-files.webp"
 height=500
-caption="Fig.2 - `hello_world` example files"
+caption="Fig.3 - `hello_world` example files"
     >}}
 
 For now, you can ignore the folders `.vscode`, `.devcontainer`, and `build`. You will work on the `main/hello_world_main.c` file.
@@ -84,7 +94,7 @@ A terminal tab will open at the bottom of your IDE and show the successful compi
 default=true
 src="../assets/ass1-1-compilation-result.webp"
 height=500
-caption="Fig.3 - Compilation result"
+caption="Fig.4 - Compilation result"
     >}}
 
 {{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
@@ -104,11 +114,16 @@ To see the firmware running, you need to store it on the device (_flash_) and th
 * Inform the IDE about the port the board is connected at<br>
    `> ESP-IDF: Select Port to Use (COM, tty, usbserial)`
 
-{{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
-If you're having trouble, check the [Establish Serial Connection with ESP32 Guide](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html#establish-serial-connection-with-esp32).
+{{< alert iconColor="#df8e1d" cardColor="#edcea3">}}
+On Windows, it may be necessary to install the drivers for the USB-UART Bridge (CP2101N). You can download the driver here. After downloading, unzip the file and follow the installation steps using the Device Manager procedure.
 {{< /alert >}}
 
+
 Now you can flash and monitor your device.
+
+{{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
+If you're still having trouble, check the [Establish Serial Connection with ESP32 Guide](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html#establish-serial-connection-with-esp32).
+{{< /alert >}}
 
 * `> ESP-IDF: Build, Flash and Start a Monitor on Your Device`
 * If a dropdown menu appears, choose `UART`

@@ -63,7 +63,7 @@ To follow this workshop, make sure you meet the prerequisites listed below.
 
 * **VS Code** installed on your computer (v1.108+)
 * **[ESP-IDF extension for VS Code](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/)** added to VS Code (v1.11+)
-* **ESP-IDF** installed on your machine (v5.5+)
+* **ESP-IDF** installed on your machine (__>v5.5,<6__)
   *It can be installed via VS Code or by using the [ESP-IDF Installation Manager](https://docs.espressif.com/projects/idf-im-cli/en/latest/index.html)*
 
 ### Required Hardware

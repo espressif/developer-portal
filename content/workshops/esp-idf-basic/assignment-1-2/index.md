@@ -21,7 +21,7 @@ In the `blink` example, you need to specify the GPIO on which the LED is connect
 
 * Create the project from example as done in the previous assignment.
 * Change the example GPIO number in `menuconfig`:
-   * Find the GPIO on which the LED is connected on your board
+   * Find the GPIO on which the LED is connected on your board (check the board schematics)
    * `> ESP-IDF: SDK Configuration Editor (menuconfig)` &rarr; `Example Configuration` &rarr; `Blink GPIO number`
 * Build, flash, and monitor the example.
 * Check that the LED is flashing. Is the output port correct? See the board schematic.

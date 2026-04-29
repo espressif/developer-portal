@@ -16,6 +16,10 @@ The goal of the second assignment is to add the following routes to the HTTP ser
 - `POST /led/blink` &rarr; accepts JSON `{ "times": int, "interval_ms": int }` to blink the LED the specified number of times at the given interval, and returns JSON `{"blink": "done"}`
 
 
+{{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
+Here we're using GET routes for the LED control endpoints so you can easily test them directly in your browser by navigating to addresses like `http://192.168.4.1/led/on`.
+{{< /alert >}}
+
 ## Solution outline
 
 To control the LED, you can use the code from the [blink example](https://github.com/espressif/esp-idf/blob/master/examples/get-started/blink/main/blink_example_main.c). Here the relevant snippets are displayed just for your convenience.
