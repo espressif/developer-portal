@@ -1,24 +1,25 @@
 ---
 title: "ESP-IDF Adv. - Assign.  2.2"
 date: "2025-08-05"
+lastmod: 2026-03-27
 series: ["WS00B"]
 series_order: 8
 showAuthor: false
 summary: "Event loop: add an external GPIO event"
 ---
 
-In this assignment you'll extend the functionality from Assignment 2.1 by introducing an additional event source: When __GPIO9__ is pressed, an __alarm event__ is posted to the system.
+In this assignment you'll extend the functionality from Assignment 2.1 by introducing an additional event source: When __GPIO9__ is pressed, an "alarm" event is posted to the system.
 
-### Assignment detail
+## Assignment details
 
 * The code for detecting a GPIO press is provided below.
 * You need to integrate the logic into the existing event loop.
 * Use the same `ALARM_EVENT_BASE` as the alarm trigger used before.
-* Create a `ALARM_EVENT_BUTTON` to differenciate it from the `ALARM_EVENT_CHECK`.
+* Create a `ALARM_EVENT_BUTTON` to differentiate it from the `ALARM_EVENT_CHECK`.
 
-{{< alert icon="lightbulb" iconColor="#179299"  cardColor="#9cccce">}}
-There is an alternative version for `esp_event_post` called `esp_event_isr_post`.
-{{< /alert >}}
+### Tips
+
+* There is an alternative version for `esp_event_post` called `esp_event_isr_post`.
 
 ### Reading GPIO code
 ```c
@@ -216,7 +217,11 @@ void app_main(void)
 </details>
 
 
-You can find the whole solution project on the [assignment_2_2](https://github.com/FBEZ-docs-and-templates/devrel-advanced-workshop-code/tree/main/assignment_2_2) folder on the github repo.
+You can find the complete solution project on the [assignment_2_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_2_2) folder on the github repo.
 
+
+### Next step
 
 > Next step: [Lecture 3](../lecture-3/)
+
+> Or [go back to navigation menu](../#agenda)
