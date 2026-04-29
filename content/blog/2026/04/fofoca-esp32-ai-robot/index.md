@@ -472,7 +472,7 @@ The robot is currently in Phase 3 (autonomous locomotion). The immediate next st
 
 This article documents the FOFOCA v1 reference architecture — the open hardware design and software stack the project is built around. Physical assembly is being coordinated through a manufacturing partner; the article serves as the design reference, not a finished-build photo essay.
 
-A v2 build is already in motion, pivoting the chassis to a Yahboom ROSMASTER M3 Pro with Jetson Orin onboard, and refreshing the supporting microcontrollers toward the ESP32-C3 family for new builds (per Espressif's NRND guidance on ESP8266). v2 will be written up as a follow-up post when running.
+A v2 build is already in motion, pivoting the chassis to a Yahboom ROSMASTER M3 Pro with Jetson Orin onboard, and refreshing the supporting microcontrollers toward the ESP32-C3 family for new builds (per Espressif's [NRND guidance on ESP8266](https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP8266%22]})). v2 will be written up as a follow-up post when running.
 
 ## Project Links
 
