@@ -1,23 +1,24 @@
 ---
 title: "Using Lua as ESP-IDF Component with ESP32"
 date: 2024-10-22
+lastmod: 2026-04-29
 showAuthor: false
 tags: ["ESP32", "ESP-IDF", "Lua", "Scripting", "Component"]
 authors:
     - "juraj-michalek"
 ---
 
-Lua is a lightweight and powerful scripting language, making it ideal for use in embedded systems like the ESP32. By integrating Lua into your ESP-IDF project, you can execute scripts directly on the ESP32, offering a flexible way to manage application behavior without recompiling the entire firmware. This guide walks through how to set up Lua 5.4 as a component in an ESP-IDF project, with a focus on running Lua scripts from the filesystem.
+Lua is a lightweight and powerful scripting language, making it ideal for use in embedded systems like the ESP32. By integrating Lua into your ESP-IDF project, you can execute scripts directly on the ESP32, offering a flexible way to manage application behavior without recompiling the entire firmware. This guide walks through how to set up Lua as an ESP-IDF component, with a focus on running Lua scripts from the filesystem.
 
 ## Repository Link
 
-You can find the complete example project at [ESP32 Lua Example Repository](https://github.com/georgik/esp32-lua-example)
+You can find the complete example project at [ESP32 Lua Example Repository](https://github.com/espressif/idf-extra-components/tree/master/lua/examples/lua_example)
 
 ## Project Overview
 
 The example project demonstrates:
 
-- Integrating [Lua 5.4 as an ESP-IDF component](https://components.espressif.com/components/georgik/lua/).
+- Integrating [Lua as an ESP-IDF component](https://components.espressif.com/components/espressif/lua/).
 - Running Lua scripts from files stored in the filesystem (SPIFFS).
 - Monitoring memory usage when Wi-Fi is enabled.
 - Examples of Lua scripts to illustrate how to execute code on the ESP32.
@@ -25,9 +26,17 @@ The example project demonstrates:
 
 ### Key Components
 
-#### Lua 5.4 ESP-IDF Component
+#### Lua ESP-IDF Component
 
-Lua 5.4 is wrapped as an [ESP-IDF component](https://components.espressif.com/components/georgik/lua/), allowing easy integration with ESP32 applications.Lua’s extensibility makes it suitable for both rapid development and runtime script adjustments.
+Lua is wrapped as an [ESP-IDF component](https://components.espressif.com/components/espressif/lua/), allowing easy integration with ESP32 applications. The component is part of the idf-extra-components repository and provides a way to embed Lua scripts in ESP-IDF applications. Lua’s extensibility makes it suitable for both rapid development and runtime script adjustments.
+
+Key features of this component include:
+
+- **Configurable stack size limit**: Adjust Lua’s stack size via menuconfig to match your application’s requirements
+- **MIT license**: Permissive licensing suitable for both commercial and open-source projects
+- **UTF-8 support**: Full UTF-8 string manipulation capabilities for internationalization
+- **Cross-architecture support**: Works on both ESP32 (Xtensa) and ESP32-C3/RISC-V architectures
+- **Clean architecture**: Header injection separates ESP-IDF specific configurations from upstream Lua, making future updates straightforward
 
 ### Filesystem Support (SPIFFS)
 
@@ -119,11 +128,11 @@ To get started with this example, follow these steps
 
 ### Clone the Repository
 
-First, clone the example project from GitHub:
+First, clone the idf-extra-components repository from GitHub:
 
 ```shell
-git clone https://github.com/georgik/esp32-lua-example.git
-cd esp32-lua-example
+git clone https://github.com/espressif/idf-extra-components.git
+cd idf-extra-components/lua/examples/lua_example
 ```
 
 ### Configure the Project
@@ -156,19 +165,19 @@ In your project's main directory, create or edit the `main/idf_component.yml` fi
 
 ```yaml
 dependencies:
-  georgik/lua: "==5.4.7"
+  espressif/lua: "==5.5.0"
   joltwallet/littlefs: "==1.14.8"
 
 idf:
   version: ">=5.0.0"
 ```
-This configuration ensures the ESP-IDF build system fetches and includes the Lua 5.4.7 component and the LittleFS component for filesystem support.
+This configuration ensures the ESP-IDF build system fetches and includes the Lua 5.5.0 component and the LittleFS component for filesystem support.
 
 ### Utilizing the ESP-IDF Component Registry
 
-By specifying Lua in your `main/idf_component.yml`, the ESP-IDF build system will automatically download and integrate the Lua component during the build process. There’s no need to manually manage Lua's source code, making dependency management easier.
+By specifying Lua in your `main/idf_component.yml`, the ESP-IDF build system will automatically download and integrate the Lua component during the build process. There’s no need to manually manage Lua’s source code, making dependency management easier.
 
-You can find more information about the Lua component in the [ESP-IDF Component Registry](https://components.espressif.com/components/georgik/lua/) and the [Lua ESP-IDF Component repository](https://github.com/georgik/esp-idf-component-lua/).
+You can find more information about the Lua component in the [ESP-IDF Component Registry](https://components.espressif.com/components/espressif/lua/) and the [official idf-extra-components repository](https://github.com/espressif/idf-extra-components/tree/master/lua).
 
 ### Conclusion
 
@@ -176,5 +185,5 @@ Lua provides a powerful yet lightweight way to script and manage ESP32 applicati
 
 ## References
 
-- ESP-IDF Component Registry: [Lua Component](https://components.espressif.com/components/georgik/lua/)
-- Lua ESP-IDF Component Repository: [esp-idf-component-lua](https://github.com/georgik/esp-idf-component-lua/)
+- ESP-IDF Component Registry: [Lua Component](https://components.espressif.com/components/espressif/lua/)
+- idf-extra-components Repository: [lua component](https://github.com/espressif/idf-extra-components/tree/master/lua)
