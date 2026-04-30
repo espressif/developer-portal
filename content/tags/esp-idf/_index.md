@@ -19,6 +19,8 @@ aliases:
   - /espidf/
 ---
 
+*Also available in [中文]({{< relref "zh-cn.md" >}}).*
+
 ## Welcome to ESP-IDF
 
 [ESP-IDF](https://github.com/espressif/esp-idf) — the **Espressif IoT Development Framework** — is our official, production-grade SDK for every Espressif SoC. Whether you are prototyping a sensor node, shipping a Matter-certified product, or building an edge device with AI, ESP-IDF gives you drivers, networking stacks, security features, and build tooling in one place so you can focus on your application.
@@ -231,7 +233,7 @@ Connect ESP-IDF to assistants and automation through **Model Context Protocol (M
 
 {{< figure
     default=true
-    src="img/registry.webp"
+    src="img/logos/registry.webp"
     nozoom=true
     class="esp-idf-landing-hero"
 >}}
