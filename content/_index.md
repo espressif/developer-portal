@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2026/03/idf-v6-0-release/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/04/doc-mcp-server/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/03/esp32-security-updates/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/04/gesture-recognition-based-on-tflite/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
