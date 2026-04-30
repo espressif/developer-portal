@@ -233,7 +233,7 @@ EIM 完成后，您即拥有基于 CMake 的工程、Xtensa 与 RISC-V 工具链
 
 {{< figure
     default=true
-    src="img/registry.webp"
+    src="img/logos/registry.webp"
     nozoom=true
     class="esp-idf-landing-hero"
 >}}
