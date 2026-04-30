@@ -8,58 +8,20 @@ tags:
   - "VS Code Extension"
   - Release
   - Tooling
-summary: "ESP-IDF Extension for VS Code v2.1.0 refines the new Espressif Installation Manager setup flow introduced in v2.0.2 and rounds up the major improvements delivered across the v1.10.x, v1.11.x, v2.0.2, and v2.1.0 releases."
+summary: "A look at the Espressif Installation Manager (EIM) integration in the ESP-IDF Extension for VS Code, and a roundup of all major improvements across v1.10.x, v1.11.x, v2.0.2, and v2.1.0."
 ---
 
 This article covers releases v1.10.0, v1.10.1, v1.11.0, v1.11.1, v2.0.2, and v2.1.0 of the [ESP-IDF Extension for VS Code](https://github.com/espressif/vscode-esp-idf-extension).
 
-We are excited to share a roundup of everything that has landed in the ESP-IDF Extension for VS Code across the past several releases, from deeper debugging and AI-assisted workflows to a major setup overhaul powered by Espressif Installation Manager (EIM), and the v2.1.0 refinements that make that new flow work more smoothly across more development environments.
+The biggest story across these releases is the integration of the [Espressif Installation Manager (EIM)](https://docs.espressif.com/projects/idf-im-ui/en/latest/) — a standalone tool that replaces the extension's built-in setup wizard and unifies how ESP-IDF is installed across all tools and environments. Alongside that, the extension has gained deeper debugging capabilities, AI-assisted workflows, a native UI refresh, and a host of other developer experience improvements.
 
-## v2.1.0 - EIM Refinements and Developer Experience
-
-v2.1.0 builds directly on the EIM foundation introduced in v2.0.2. Rather than changing the setup story again, this release makes it more consistent across local and remote environments, reduces friction in the Settings UI, and smooths out a few day-to-day development workflows.
-
-### Unified EIM Launch Across More Environments
-
-In v2.0.2, the extension introduced EIM as the new way to install and manage ESP-IDF. In v2.1.0, that experience becomes more seamless. The extension now relies on a single `ESP-IDF: Open ESP-IDF Installation Manager` command and refines how it decides whether to launch the graphical interface or the terminal wizard.
-
-On desktop environments, the command opens the EIM GUI as before. In SSH sessions, Dev Containers, Codespaces, WSL, and other non-GUI contexts, the extension now more reliably falls back to the terminal wizard flow. This fulfills the v2.0.2 goal of making the new setup experience work consistently beyond a local desktop machine, without requiring separate GUI and CLI entry points.
-
-> TODO: Add a screen recording showing `ESP-IDF: Open ESP-IDF Installation Manager` being run in both a desktop environment and a remote terminal-based environment such as SSH, Dev Containers, or Codespaces.
-
-### Categorized Extension Settings
-
-The extension settings have also been reorganized into clearer categories in the VS Code Settings UI. Instead of presenting ESP-IDF-related options as one long flat list, settings are now grouped more logically, making it easier to discover the right option when configuring build, flash, debug, tooling, or installation behavior.
-
-This is a small change on paper, but a meaningful quality-of-life improvement for users who regularly tweak workspace or user settings.
-
-> TODO: Add a screenshot of the categorized `Espressif IDF` settings view in the VS Code Settings UI.
-
-### Automatic Clang Server Restart After Build Changes
-
-The extension now restarts the Clang language server when `compile_commands.json` changes. Before this update, IntelliSense and code navigation could become stale after a build or reconfiguration step unless the language server was restarted manually.
-
-With v2.1.0, the extension keeps Clang-based project analysis in sync automatically, reducing those moments where diagnostics or code completion lag behind the actual project configuration.
-
-### Other Notable Improvements and Fixes
-
-For ESP32-P4 users, debug sessions now expose PIE registers, making low-level inspection more complete on that target. v2.1.0 also includes several practical fixes that improve reliability in real projects, including better activation support for VS Code Snap installs, correct activation for manual non-EIM setups, improved `sdkconfig` path resolution, proper use of environment variables defined in `idf.customExtraVars`, and better shell compatibility by using `sh` for activation scripts and the IDF Terminal on Linux environments.
-
-## v2.0.2 - EIM Integration and Setup Overhaul
-
-The headline change in v2.0.2 is the full integration of the [Espressif Installation Manager (EIM)](https://docs.espressif.com/projects/idf-im-ui/en/latest/) into the extension's setup flow. This replaces the old `ESP-IDF: Configure ESP-IDF extension` wizard and the manual `idf.espIdfPath` / `idf.toolsPath` extension settings.
+## EIM Integration
 
 > If you haven't read our dedicated EIM release article, we recommend starting there: [ESP-IDF Installation Manager v0.8](https://developer.espressif.com/blog/2026/03/esp-idf-installation-manager/).
 
-### Why We Made This Change
+EIM is a standalone, cross-platform tool available via `winget`, `brew`, `apt`, `dnf`, or a direct binary download that manages ESP-IDF installations uniformly, regardless of which tool triggered the install. Once EIM has installed ESP-IDF, any tool that understands EIM's `eim_idf.json` manifest — including the VS Code extension — can discover and use those installations automatically, with no manual path configuration needed.
 
-Previously, installing ESP-IDF via the extension required users to navigate a custom setup wizard embedded directly in VS Code. It worked, but it was hard to maintain, inconsistent across platforms, and disconnected from ESP-IDF installations done outside of VS Code, for example on the command line, in CI, or by another IDE.
-
-EIM solves all of this. It is a standalone, cross-platform tool available via `winget`, `brew`, `apt`, `dnf`, or a direct binary download that manages ESP-IDF installations uniformly regardless of which tool triggered the install. Once EIM has installed ESP-IDF, any tool that understands EIM's `eim_idf.json` manifest can discover and use those installations.
-
-### How It Works Now
-
-After installing the extension, open the Command Palette and run:
+To install ESP-IDF, open the Command Palette and run:
 
 ```text
 ESP-IDF: Open ESP-IDF Installation Manager
@@ -68,11 +30,11 @@ ESP-IDF: Open ESP-IDF Installation Manager
 Depending on your environment, EIM will open in one of two ways:
 
 - **Graphical interface (GUI):** On a desktop machine, EIM opens as a standalone window that guides you step by step through selecting and installing an ESP-IDF version, with no command line required.
-- **Terminal wizard (WSL):** On WSL, the extension automatically runs EIM as an interactive terminal program that walks you through the same steps in your console.
+- **Terminal wizard:** In SSH sessions, Dev Containers, Codespaces, WSL, and other non-GUI contexts, the extension automatically falls back to an interactive terminal program that walks you through the same steps in your console.
 
-Once ESP-IDF is installed through EIM, the extension reads the `eim_idf.json` file it produces and discovers all installed versions automatically, with no manual path configuration needed.
+Once ESP-IDF is installed, the extension reads the `eim_idf.json` file EIM produces and discovers all installed versions automatically.
 
-> TODO: Add a screen recording showing `ESP-IDF: Open ESP-IDF Installation Manager` from the Command Palette, the EIM GUI launch, ESP-IDF version selection and installation, and a return to VS Code to select the installed version.
+> TODO: Add a screen recording showing `ESP-IDF: Open ESP-IDF Installation Manager` from the Command Palette, the EIM GUI launch on desktop and the terminal wizard in a remote environment such as SSH or Codespaces, ESP-IDF version selection and installation, and a return to VS Code to select the installed version.
 
 For a detailed walkthrough of each step in the GUI installer, refer to the [Online Installation using EIM GUI](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#online-installation-using-eim-gui) guide.
 
@@ -94,9 +56,17 @@ If you installed ESP-IDF to a non-default location using the EIM CLI, the extens
 
 See the [EIM FAQ on custom installation paths](https://docs.espressif.com/projects/idf-im-ui/en/latest/faq.html#can-i-install-esp-idf-to-a-custom-location-or-a-different-hard-drive) for the full list of EIM CLI path options.
 
-### What Was Removed
+## v2.0.2 / v2.1.0 - EIM Integration and Developer Experience
 
-This release cleans up a significant amount of legacy surface area:
+### Why We Made This Change
+
+Previously, installing ESP-IDF via the extension required users to navigate a custom setup wizard embedded directly in VS Code. It worked, but it was hard to maintain, inconsistent across platforms, and disconnected from ESP-IDF installations done outside of VS Code, for example on the command line, in CI, or by another IDE.
+
+EIM solves all of this. Because it is a standalone tool, an ESP-IDF installation performed via EIM — whether through the GUI, the CLI, or another IDE — is automatically visible to any tool that reads `eim_idf.json`, including this extension.
+
+### What Was Removed in v2.0.2
+
+This release cleaned up a significant amount of legacy surface area:
 
 - **Old Setup Wizard** (`ESP-IDF: Configure ESP-IDF extension`) - replaced by EIM
 - **`idf.espIdfPath` and `idf.toolsPath` settings** - replaced by environment variables derived from the selected EIM setup
@@ -104,17 +74,37 @@ This release cleans up a significant amount of legacy surface area:
 - **ESP-MDF, ESP-Matter, ESP-HomeKit framework integrations** - these frameworks are now available in the [ESP Component Registry](https://components.espressif.com/), which is accessible directly from the extension. Note that **ESP-ADF support is retained**.
 - The `ESP-IDF: Show Examples` command has been removed in favor of `ESP-IDF: New Project`, which now provides a superset of its functionality with better customization options.
 
-### New Project Wizard: Templates First
+### EIM in Remote Environments (v2.1.0)
+
+v2.1.0 extended EIM support to SSH sessions, Dev Containers, Codespaces, WSL, and other non-GUI contexts. The extension now consistently falls back to the terminal wizard in these environments rather than attempting to launch a GUI. See the [EIM Integration](#eim-integration) section above for the full setup flow.
+
+### Categorized Extension Settings (v2.1.0)
+
+The extension settings have been reorganized into clearer categories in the VS Code Settings UI. Instead of presenting ESP-IDF-related options as one long flat list, settings are now grouped more logically, making it easier to discover the right option when configuring build, flash, debug, tooling, or installation behavior.
+
+> TODO: Add a screenshot of the categorized `Espressif IDF` settings view in the VS Code Settings UI.
+
+### Automatic Clang Server Restart After Build Changes (v2.1.0)
+
+The extension now restarts the Clang language server when `compile_commands.json` changes. Before this update, IntelliSense and code navigation could become stale after a build or reconfiguration step unless the language server was restarted manually.
+
+With v2.1.0, the extension keeps Clang-based project analysis in sync automatically, reducing those moments where diagnostics or code completion lag behind the actual project configuration.
+
+### New Project Wizard: Templates First (v2.0.2)
 
 The New Project Wizard now shows available project templates before asking for configuration details. This makes it much easier to browse and choose a starting point before committing to a configuration.
 
-### Debug Image Viewer
+### Debug Image Viewer (v2.0.2)
 
-v2.0.2 also ships a new **Debug Image Viewer** that lets you visualize C image arrays directly from your debugging session or from files on disk.
+v2.0.2 ships a new **Debug Image Viewer** that lets you visualize C image arrays directly from your debugging session or from files on disk.
 
 Out of the box, the viewer supports **OpenCV** and **LVGL** image formats. You can also configure custom image data types as long as you can provide a `UInt8Array` and a size or length, making it adaptable to any frame buffer layout your firmware uses.
 
 > TODO: Add a screen recording showing a paused debug session, a right-click on a `UInt8Array` image variable, the `View Image` action, and the rendered output. Optionally include loading a `.c` image file directly.
+
+### Other Notable Improvements and Fixes (v2.1.0)
+
+For ESP32-P4 users, debug sessions now expose PIE registers, making low-level inspection more complete on that target. v2.1.0 also includes several practical fixes that improve reliability in real projects, including better activation support for VS Code Snap installs, correct activation for manual non-EIM setups, improved `sdkconfig` path resolution, proper use of environment variables defined in `idf.customExtraVars`, and better shell compatibility by using `sh` for activation scripts and the IDF Terminal on Linux environments.
 
 ## v1.11.0 / v1.11.1 - AI, DevKits, and a Richer Developer Experience
 
