@@ -1,8 +1,8 @@
 ---
 title: "ESP32's family Memory Map 101"
 date: 2024-08-20
-lastmod: 2026-04-30
-tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6", "ESP32-C5", "ESP32-H2", "ESP32-P4", "Zephyr", "Memory"]
+lastmod: 2026-05-04
+tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C2", "ESP8684", "ESP32-C3", "ESP32-C6", "ESP32-C5", "ESP32-H2", "ESP32-P4", "Zephyr", "Memory"]
 showAuthor: false
 authors:
   - "marek-matej"
@@ -281,6 +281,65 @@ For further information and all the details about the ESP32-C3 SoC please refer 
 
 ---
 
+## ESP32-C2
+
+The ESP32-C2 is a low-cost 32-bit RISC-V single-core SoC with Wi-Fi 4 (802.11b/g/n) and Bluetooth LE. The same silicon is also referred to as **ESP8684** — Espressif uses that name on modules, dev kits, and in much of the documentation (including the TRM filename), so you will often see **ESP32-C2** and **ESP8684** used interchangeably.
+
+Zephyr-RTOS support for the ESP8684 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp8684_devkitm/doc/index.html).
+
+**ROM**
+
+ROM memories hold the primary bootloader code and other library functions available to the end users. The content of the ROM memories is baked during the manufacturing process and cannot be changed.
+
+**SRAM**
+
+The ESP32-C2 / ESP8684 integrates on-chip SRAM for code and data, with part of the SRAM budget typically reserved for cache when executing from external flash (XIP). Exact sizes and split between retention-capable regions are defined in the datasheet and TRM for your chip revision.
+
+**RTC-SRAM**
+
+RTC-Fast memory is r/w memory that can be accessed by the CPU via the instruction and data bus, subject to the address map described in the TRM.
+
+**Instruction & data cache**
+
+The SoC accesses external flash through SPI (including multi-line modes supported on the part). Cached XIP and the MMU-backed address windows follow the same general model as the other ESP32 RISC-V devices in this article; refer to the TRM for the exact bus layout and region attributes.
+
+### Internal memories and cache address space
+
+{{< figure
+    default=true
+    src="img/esp32c2-mmap.webp"
+    alt=""
+    caption="The ESP32-C2 (ESP8684) memory map."
+    >}}
+
+
+### Peripheral registers
+
+The CPU accesses peripherals through the memory-mapped address space. Each peripheral occupies a region defined by base address and block size in the TRM (typically 4 kB aligned blocks).
+
+{{< figure
+    default=true
+    src="img/esp32c2-periph.webp"
+    alt=""
+    caption="The ESP32-C2 (ESP8684) peripherals."
+    >}}
+
+### eFuse blocks
+
+The eFuse memory is an OTP (one-time-programmable) region used for security configuration, calibration, and other permanent device parameters. Once programmed, bits cannot be reverted.
+
+{{< figure
+    default=true
+    src="img/esp32c2-efuse.webp"
+    alt=""
+    caption="The ESP32-C2 (ESP8684) e-fuse map."
+    >}}
+
+
+For further information and all the details about the ESP32-C2 / ESP8684 SoC please refer to the latest [ESP8684 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp8684_technical_reference_manual_en.pdf).
+
+---
+
 ## ESP32-C6
 
 The ESP32-C6 is a 32-bit RISC-V microcontroller with the “IMAC” extensions. The address space of ESP32-C6 is also significantly simpler compared to its Xtensa counterparts. It supports JTAG debugging via the on-chip USB interface.
@@ -506,6 +565,7 @@ Printable versions of the images in PDF format can be downloaded here:
 - [ESP32-S2](pdf/esp32s2-mmap-101.export.pdf)
 - [ESP32-S3](pdf/esp32s3-mmap-101.export.pdf)
 - [ESP32-C3](pdf/esp32c3-mmap-101.export.pdf)
+- [ESP32-C2 / ESP8684](pdf/esp32c2-mmap-101.export.pdf)
 - [ESP32-C6](pdf/esp32c6-mmap-101.export.pdf)
 - [ESP32-C5](pdf/esp32c5-mmap-101.export.pdf)
 - [ESP32-H2](pdf/esp32h2-mmap-101.export.pdf)
