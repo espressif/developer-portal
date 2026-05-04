@@ -1,8 +1,8 @@
 ---
 title: "ESP32's family Memory Map 101"
 date: 2024-08-20
-lastmod: 2025-09-25
-tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C3", "ESP32-C6", "Zephyr", "Memory"]
+lastmod: 2026-05-04
+tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C2", "ESP8684", "ESP32-C3", "ESP32-C6", "ESP32-C5", "ESP32-H2", "ESP32-P4", "Zephyr", "Memory"]
 showAuthor: false
 authors:
   - "marek-matej"
@@ -281,6 +281,65 @@ For further information and all the details about the ESP32-C3 SoC please refer 
 
 ---
 
+## ESP32-C2
+
+The ESP32-C2 is a low-cost 32-bit RISC-V single-core SoC with Wi-Fi 4 (802.11b/g/n) and Bluetooth LE. The same silicon is also referred to as **ESP8684** — Espressif uses that name on modules, dev kits, and in much of the documentation (including the TRM filename), so you will often see **ESP32-C2** and **ESP8684** used interchangeably.
+
+Zephyr-RTOS support for the ESP8684 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp8684_devkitm/doc/index.html).
+
+**ROM**
+
+ROM memories hold the primary bootloader code and other library functions available to the end users. The content of the ROM memories is baked during the manufacturing process and cannot be changed.
+
+**SRAM**
+
+The ESP32-C2 / ESP8684 integrates on-chip SRAM for code and data, with part of the SRAM budget typically reserved for cache when executing from external flash (XIP). Exact sizes and split between retention-capable regions are defined in the datasheet and TRM for your chip revision.
+
+**RTC-SRAM**
+
+RTC-Fast memory is r/w memory that can be accessed by the CPU via the instruction and data bus, subject to the address map described in the TRM.
+
+**Instruction & data cache**
+
+The SoC accesses external flash through SPI (including multi-line modes supported on the part). Cached XIP and the MMU-backed address windows follow the same general model as the other ESP32 RISC-V devices in this article; refer to the TRM for the exact bus layout and region attributes.
+
+### Internal memories and cache address space
+
+{{< figure
+    default=true
+    src="img/esp32c2-mmap.webp"
+    alt=""
+    caption="The ESP32-C2 (ESP8684) memory map."
+    >}}
+
+
+### Peripheral registers
+
+The CPU accesses peripherals through the memory-mapped address space. Each peripheral occupies a region defined by base address and block size in the TRM (typically 4 kB aligned blocks).
+
+{{< figure
+    default=true
+    src="img/esp32c2-periph.webp"
+    alt=""
+    caption="The ESP32-C2 (ESP8684) peripherals."
+    >}}
+
+### eFuse blocks
+
+The eFuse memory is an OTP (one-time-programmable) region used for security configuration, calibration, and other permanent device parameters. Once programmed, bits cannot be reverted.
+
+{{< figure
+    default=true
+    src="img/esp32c2-efuse.webp"
+    alt=""
+    caption="The ESP32-C2 (ESP8684) e-fuse map."
+    >}}
+
+
+For further information and all the details about the ESP32-C2 / ESP8684 SoC please refer to the latest [ESP8684 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp8684_technical_reference_manual_en.pdf).
+
+---
+
 ## ESP32-C6
 
 The ESP32-C6 is a 32-bit RISC-V microcontroller with the “IMAC” extensions. The address space of ESP32-C6 is also significantly simpler compared to its Xtensa counterparts. It supports JTAG debugging via the on-chip USB interface.
@@ -340,6 +399,165 @@ For further information and all the details about the ESP32-C6 SoC please refer 
 
 ---
 
+## ESP32-C5
+
+The ESP32-C5 is a 32-bit RISC-V SoC which brings dual-band Wi-Fi 6 (2.4 GHz and 5 GHz) to the ESP32-C family. Besides Wi-Fi 6 (802.11ax, with 802.11a/b/g/n/ac compatibility), it also integrates Bluetooth LE and IEEE 802.15.4 (Thread/Zigbee), with time-division coexistence between the radios. The main CPU (HP core) can run up to 240 MHz and the SoC also includes an LP RISC-V core intended for low-power tasks.
+
+Zephyr-RTOS support for the ESP32-C5 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32c5_devkitc/doc/index.html).
+
+**ROM**
+
+ROM memories hold the primary bootloader code and other library functions available to the end users. The content of the ROM memories is baked during the manufacturing process and cannot be changed.
+
+**SRAM**
+
+ESP32-C5 contains internal SRAM used for both code and data (384 KB HP SRAM plus 16 KB LP SRAM), and 320 KB of ROM. External flash is accessed via SPI (XIP), and designs can also add external PSRAM which becomes visible through cache/MMU-backed windows.
+
+**Instruction & data cache**
+
+Just like the other ESP32 families, the ESP32-C5 uses an MMU-backed cached address space to execute from external flash (XIP) and to access external RAM (PSRAM) if present. From a system/driver-development point of view, the key concept remains the same: the CPU sees a virtual address space, while the external flash/PSRAM is accessed through cache-backed windows.
+
+### Internal memories and cache address space
+
+{{< figure
+    default=true
+    src="img/esp32c5-mmap.webp"
+    alt=""
+    caption="The ESP32-C5 memory map."
+    >}}
+
+### Peripheral registers
+
+Peripherals are accessed using the memory-mapped peripheral address space. As in the other ESP32 SoCs, peripherals typically occupy fixed-size regions (often 4 kB blocks) defined by a base address plus an offset map in the TRM.
+
+{{< figure
+    default=true
+    src="img/esp32c5-periph.webp"
+    alt=""
+    caption="The ESP32-C5 peripherals block."
+    >}}
+
+### eFuse blocks
+
+The eFuse memory is an OTP (one-time-programmable) region used to store device configuration, calibration data, and security settings. Once programmed, bits cannot be reverted.
+
+{{< figure
+    default=true
+    src="img/esp32c5-efuse.webp"
+    alt=""
+    caption="The ESP32-C5 e-fuse map."
+    >}}
+
+For further information and all the details about the ESP32-C5 SoC please refer to the latest [ESP32-C5 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp32-c5_technical_reference_manual_en.pdf).
+
+---
+
+## ESP32-H2
+
+The ESP32-H2 is a low-power 32-bit RISC-V SoC focused on IEEE 802.15.4 and Bluetooth LE connectivity. It supports Thread and Zigbee over 802.15.4, plus Bluetooth LE (including mesh and long-range coded PHY options), which makes it a good fit for Thread/Zigbee end-devices and for Matter-over-Thread commissioning via Bluetooth LE. Unlike most other ESP32 SoCs, it does not include Wi-Fi. The CPU can run up to 96 MHz.
+
+Zephyr-RTOS support for the ESP32-H2 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32h2_devkitm/doc/index.html).
+
+**ROM**
+
+ROM memories hold the primary bootloader code and other library functions available to the end users. The content of the ROM memories is baked during the manufacturing process and cannot be changed.
+
+**SRAM**
+
+ESP32-H2 contains 320 KB of SRAM (plus cache), 128 KB ROM, and small low-power memory regions intended for low-power operation modes. Common variants integrate 2 MB or 4 MB of in-package flash, which simplifies the external memory setup compared to designs that route flash pins out to the board.
+
+**Instruction & data cache**
+
+Compared to the Wi-Fi capable families, ESP32-H2 is simpler: typical designs use the in-package flash variants, but the same general concept applies — code is executed from flash using cached/XIP regions, while SRAM is used for runtime data and time-critical code/data placement when needed.
+
+### Internal memories and cache address space
+
+{{< figure
+    default=true
+    src="img/esp32h2-mmap.webp"
+    alt=""
+    caption="The ESP32-H2 memory map."
+    >}}
+
+### Peripheral registers
+
+Peripherals are accessed via memory-mapped registers. Each peripheral module has its own base address and register layout described in the TRM.
+
+{{< figure
+    default=true
+    src="img/esp32h2-periph.webp"
+    alt=""
+    caption="The ESP32-H2 peripherals block."
+    >}}
+
+### eFuse blocks
+
+The eFuse memory is an OTP region used to store security configuration (e.g. secure boot / flash encryption related settings), calibration values, and other permanent device parameters.
+
+{{< figure
+    default=true
+    src="img/esp32h2-efuse.webp"
+    alt=""
+    caption="The ESP32-H2 e-fuse map."
+    >}}
+
+For further information and all the details about the ESP32-H2 SoC please refer to the latest [ESP32-H2 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp32-h2_technical_reference_manual_en.pdf).
+
+---
+
+## ESP32-P4
+
+The ESP32-P4 is a high-performance RISC-V SoC designed for compute-heavy applications (HMI, audio/voice, image processing), with a dual-core HP system (up to 400 MHz) and an LP core (up to 40 MHz) for low-power tasks. It also integrates high-speed peripherals such as USB 2.0 OTG (including high-speed), Ethernet MAC, SDIO Host, and MIPI CSI/DSI. Unlike the chips above, ESP32-P4 does not include integrated Wi-Fi/Bluetooth/802.15.4 — it is typically paired with a wireless companion chip (for example an ESP32-C or ESP32-S series device) when connectivity is required.
+
+At the time of writing, ESP32-P4 is not yet available as a Zephyr board target in upstream documentation. If you are tracking Zephyr enablement, Espressif maintains a public status page [here](https://developer.espressif.com/software/zephyr-support-status/).
+
+**ROM**
+
+ROM memories hold the primary bootloader code and other library functions available to the end users. The content of the ROM memories is baked during the manufacturing process and cannot be changed.
+
+**SRAM**
+
+ESP32-P4 has a relatively large on-chip SRAM pool in the HP system (768 KB), plus smaller low-power SRAM for the LP system (32 KB), and a small TCM RAM region (8 KB). This is important when bringing up drivers and multimedia workloads where internal bandwidth and deterministic access matter.
+
+**Instruction & data cache**
+
+ESP32-P4 can use external memory (flash and/or PSRAM, depending on the variant/board design) and maps it into the CPU address space through cache-backed regions. For performance-sensitive code and data, you typically want to understand which regions are cached, which are internal SRAM, and which are intended for DMA-capable buffers.
+
+### Internal memories and cache address space
+
+{{< figure
+    default=true
+    src="img/esp32p4-mmap.webp"
+    alt=""
+    caption="The ESP32-P4 memory map."
+    >}}
+
+### Peripheral registers
+
+ESP32-P4 includes high-speed peripherals (e.g., USB 2.0 OTG and Ethernet MAC) in addition to the common ESP peripherals. As always, low-level driver work starts with a good understanding of the peripheral base addresses, register blocks, and the interrupt routing described in the TRM.
+
+{{< figure
+    default=true
+    src="img/esp32p4-periph.webp"
+    alt=""
+    caption="The ESP32-P4 peripherals block."
+    >}}
+
+### eFuse blocks
+
+The eFuse memory is an OTP region used for security configuration, device identity, and calibration. For security-related work (secure boot, flash encryption, key provisioning), the eFuse map is often the first place to start.
+
+{{< figure
+    default=true
+    src="img/esp32p4-efuse.webp"
+    alt=""
+    caption="The ESP32-P4 e-fuse map."
+    >}}
+
+For further information and all the details about the ESP32-P4 SoC please refer to the latest [ESP32-P4 Technical Reference Manual](https://www.espressif.com/sites/default/files/documentation/esp32-p4_technical_reference_manual_en.pdf).
+
+---
+
 # Downloads
 Printable versions of the images in PDF format can be downloaded here:
 
@@ -347,7 +565,11 @@ Printable versions of the images in PDF format can be downloaded here:
 - [ESP32-S2](pdf/esp32s2-mmap-101.export.pdf)
 - [ESP32-S3](pdf/esp32s3-mmap-101.export.pdf)
 - [ESP32-C3](pdf/esp32c3-mmap-101.export.pdf)
+- [ESP32-C2 / ESP8684](pdf/esp32c2-mmap-101.export.pdf)
 - [ESP32-C6](pdf/esp32c6-mmap-101.export.pdf)
+- [ESP32-C5](pdf/esp32c5-mmap-101.export.pdf)
+- [ESP32-H2](pdf/esp32h2-mmap-101.export.pdf)
+- [ESP32-P4](pdf/esp32p4-mmap-101.export.pdf)
 
 
 
