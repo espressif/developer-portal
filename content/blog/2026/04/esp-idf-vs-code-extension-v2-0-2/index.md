@@ -158,9 +158,14 @@ caption="Set Espressif Device Target with DevKit options"
 
 ### Classic Menuconfig in the Editor Panel
 
-The SDK Configuration Editor now includes a **classic Menuconfig view** embedded directly inside VS Code, alongside the existing graphical editor. This gives developers who prefer the terminal-style navigation of `idf.py menuconfig` a familiar experience without leaving the IDE.
+The SDK Configuration Editor now includes a **classic Menuconfig view** embedded directly inside VS Code, alongside the existing graphical editor. This gives developers who prefer the terminal-style navigation of `idf.py menuconfig` a familiar experience without leaving the IDE, accessible via the `ESP-IDF: Open Classic Menuconfig Terminal` command.
 
-> TODO: Add a GIF showing the `Open Classic Menuconfig Terminal` command in use.
+{{< figure
+default=true
+src="./img/menuconfig-classic.webp"
+height=420
+caption="Classic Menuconfig view in VS Code"
+    >}}
 
 ### Modernized UI: VS Code Native Styling
 
