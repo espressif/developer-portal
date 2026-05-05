@@ -215,7 +215,12 @@ v1.10.1 brings three improvements to the debugging experience:
 - **View variables as Hex**: Toggle the display of integer variables between decimal and hexadecimal directly in the Variables panel, essential when working with register values, addresses, or bitmasks.
 - **Data breakpoints**: Set breakpoints that trigger when a specific memory location is read or written, enabling powerful watchpoint-style debugging without leaving VS Code.
 
-> TODO: Add a screen recording showing hover evaluation, hex display toggling, and creation of a data breakpoint.
+{{< figure
+default=true
+src="./img/variable-hover.webp"
+height=420
+caption="Variable context menu – View as Hex"
+    >}}
 
 ### Partition-Specific Flashing
 
