@@ -3,9 +3,10 @@ title: "ESP-IDF VS Code Extension v1.8.0 release"
 date: 2024-07-12T16:07:09+08:00
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
-tags: ["News", "ESP-IDF extension", "VSCode", "Visual Studio Code"]
+tags: ["News", "ESP-IDF extension", "VSCode", "Visual Studio Code", "ESP-IDF Extension for VS Code"]
 authors:
   - "brian-ignacio"
+lastmod: 2026-05-05
 ---
 
 ## Introduction
