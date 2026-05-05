@@ -6,6 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 tags: ["News", "ESP-IDF extension", "VSCode", "Visual Studio Code", "ESP-IDF Extension for VS Code"]
 authors:
   - "brian-ignacio"
+lastmod: 2026-05-05
 ---
 
 ## Introduction
