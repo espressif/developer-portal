@@ -119,9 +119,14 @@ The New Project Wizard now shows available project templates before asking for c
 
 v2.0.2 ships a new **Debug Image Viewer** that lets you visualize C image arrays directly from your debugging session or from files on disk.
 
-Out of the box, the viewer supports **OpenCV** and **LVGL** image formats. You can also configure custom image data types as long as you can provide a `UInt8Array` and a size or length, making it adaptable to any frame buffer layout your firmware uses.
+Out of the box, the viewer supports **OpenCV** and **LVGL** image formats. You can also configure custom image data types as long as you can provide a `UInt8Array` and a size or length, making it adaptable to any frame buffer layout your firmware uses. See the [ESP-IDF Image Viewer documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/debugproject.html#esp-idf-image-viewer) for full details.
 
-> TODO: Add a screen recording showing a paused debug session, a right-click on a `UInt8Array` image variable, the `View Image` action, and the rendered output. Optionally include loading a `.c` image file directly.
+{{< figure
+default=true
+src="./img/debugger.webp"
+height=420
+caption="Debug Image Viewer rendering a C image array"
+    >}}
 
 ### Other Notable Improvements and Fixes (v2.1.0)
 
