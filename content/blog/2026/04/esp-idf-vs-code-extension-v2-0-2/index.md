@@ -136,9 +136,14 @@ For ESP32-P4 users, debug sessions now expose PIE registers, making low-level in
 
 ### AI Integration with GitHub Copilot Chat
 
-v1.11.0 introduces a **Language Tool API integration** for GitHub Copilot Chat. When you use Copilot Chat in a project with the ESP-IDF extension active, it gains ESP-IDF-specific context such as your IDF version, target chip, and project configuration, enabling more accurate and relevant suggestions for embedded development tasks.
+v1.11.0 introduces a **Language Tool API integration** for GitHub Copilot Chat. When you use Copilot Chat in a project with the ESP-IDF extension active, it gains ESP-IDF-specific context such as your IDF version, target chip, and project configuration, enabling more accurate and relevant suggestions for embedded development tasks. Beyond answering questions, Copilot Chat can also invoke ESP-IDF extension commands directly — for example, asking it to clean the build folder and trigger a rebuild without leaving the chat. See the [ESP-IDF Chat Commands documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html) for the full list of supported commands.
 
-> TODO: Add a screen recording showing Copilot Chat answering an ESP-IDF-specific question with extension-provided context.
+{{< figure
+default=true
+src="./img/ai-chat.gif"
+height=420
+caption="Copilot Chat cleaning the build folder and triggering a rebuild via ESP-IDF extension commands"
+    >}}
 
 ### DevKit Support
 
