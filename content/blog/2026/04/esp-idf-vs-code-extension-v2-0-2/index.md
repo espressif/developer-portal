@@ -98,7 +98,12 @@ v2.1.0 extended EIM support to SSH sessions, Dev Containers, Codespaces, WSL, an
 
 The extension settings have been reorganized into clearer categories in the VS Code Settings UI. Instead of presenting ESP-IDF-related options as one long flat list, settings are now grouped more logically, making it easier to discover the right option when configuring build, flash, debug, tooling, or installation behavior.
 
-> TODO: Add a screenshot of the categorized `Espressif IDF` settings view in the VS Code Settings UI.
+{{< figure
+default=true
+src="./img/settings-ui.webp"
+height=420
+caption="New Settings UI Categories"
+    >}}
 
 ### Automatic Clang Server Restart After Build Changes (v2.1.0)
 
