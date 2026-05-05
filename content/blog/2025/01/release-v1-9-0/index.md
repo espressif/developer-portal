@@ -4,7 +4,7 @@ date: 2025-01-17
 showAuthor: false
 disableComments: false
 featureAsset: "img/featured/featured-vscode-extension-release.webp"
-tags: ["News", "ESP-IDF extension", "VSCode", "Visual Studio Code", "IDE"]
+tags: ["News", "ESP-IDF extension", "VSCode", "Visual Studio Code", "IDE", "ESP-IDF Extension for VS Code"]
 authors:
 - "radu-rentea"
 ---

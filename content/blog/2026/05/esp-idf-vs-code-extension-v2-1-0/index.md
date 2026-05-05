@@ -2,12 +2,13 @@
 title: "ESP-IDF Extension for VS Code: What's New in v2.1.0"
 date: 2026-05-05
 authors:
-  - radu-rentea
+- "radu-rentea"
+featureAsset: "img/featured/featured-vscode-extension-release.webp"
 tags:
-  - ESP-IDF
-  - "VS Code Extension"
+  - VS Code Extension
   - Release
   - Tooling
+  - "ESP-IDF Extension for VS Code"
 summary: "A look at the Espressif Installation Manager (EIM) integration in the ESP-IDF Extension for VS Code, and a roundup of all major improvements across v1.10.x, v1.11.x, v2.0.2, and v2.1.0."
 ---
 
