@@ -149,7 +149,12 @@ caption="Copilot Chat cleaning the build folder and triggering a rebuild via ESP
 
 A long-requested feature: the extension now has explicit **DevKit support**. When you select your target chip and board, the extension can recognize official Espressif development kits and apply board-specific defaults, reducing the manual configuration needed when starting a project on a known board.
 
-> TODO: Add a screenshot of the `Set Espressif Device Target` flow with DevKit options visible in the board selection list.
+{{< figure
+default=true
+src="./img/devkit.webp"
+height=420
+caption="Set Espressif Device Target with DevKit options"
+    >}}
 
 ### Classic Menuconfig in the Editor Panel
 
