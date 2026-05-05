@@ -34,7 +34,23 @@ Depending on your environment, EIM will open in one of two ways:
 
 Once ESP-IDF is installed, the extension reads the `eim_idf.json` file EIM produces and discovers all installed versions automatically.
 
-> TODO: Add a screen recording showing `ESP-IDF: Open ESP-IDF Installation Manager` from the Command Palette, the EIM GUI launch on desktop and the terminal wizard in a remote environment such as SSH or Codespaces, ESP-IDF version selection and installation, and a return to VS Code to select the installed version.
+**GUI:**
+
+{{< figure
+default=true
+src="./img/eim-installation.gif"
+height=420
+caption="EIM GUI installation"
+    >}}
+
+**Terminal wizard:**
+
+{{< figure
+default=true
+src="./img/cli-wizard.webp"
+height=420
+caption="EIM terminal wizard"
+    >}}
 
 For a detailed walkthrough of each step in the GUI installer, refer to the [Online Installation using EIM GUI](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html#online-installation-using-eim-gui) guide.
 
