@@ -232,7 +232,23 @@ v1.10.0 introduces granular control over the flash process:
 
 This is a significant workflow improvement for iterative development, especially when the bootloader is stable and you only need to update the application.
 
-> TODO: Add a screen recording showing partition-specific flashing from the ESP-IDF sidebar or command flow.
+These operations are also available as Command Palette commands:
+
+```text
+ESP-IDF: Build App
+ESP-IDF: Flash App only
+ESP-IDF: Build Bootloader
+ESP-IDF: Flash Bootloader Only
+ESP-IDF: Build Partition Table
+ESP-IDF: Flash Partition Table Only
+```
+
+{{< figure
+default=true
+src="./img/flash-partition.webp"
+height=420
+caption="Device Partition Explorer – partition action menu"
+    >}}
 
 ### Clang Project Settings Configuration
 
