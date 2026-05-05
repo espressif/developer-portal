@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Extension for VS Code: What's New in v2.1.0"
-date: 2026-04-15
+date: 2026-05-05
 authors:
   - radu-rentea
 tags:
