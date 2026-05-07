@@ -10,6 +10,7 @@ tags:
   - Edge AI
   - PWM
 showTableOfContents: true
+featureAsset: "featured.webp"
 authors:
   - fabio-bastos-thinkneo
 summary: "FOFOCA is an open-source reference design for an AI-governed household robot, built around a Raspberry Pi 5 brain, an ESP32 for real-time motor control and sensor polling, and an ESP8266 driving an OLED status display over MQTT. This article walks through the hardware architecture, the firmware running on each Espressif chip, and how all of it connects to a local edge AI server running NVIDIA Nemotron Nano 8B for inference — no cloud dependency required."
