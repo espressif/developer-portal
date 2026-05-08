@@ -1,6 +1,7 @@
 ---
 title: "Inside the New ESP-Brookesia v0.7 Architecture"
 date: 2026-05-04
+lastmod: 2026-05-08
 showAuthor: false
 featureAsset: "feature-esp-brookesia.webp"
 authors:
@@ -17,6 +18,21 @@ summary: "This article introduces the redesigned ESP-Brookesia v0.7 architecture
 ESP-Brookesia targets AIoT devices with rich human-machine interaction requirements. In practice, this means the framework must handle hardware differences, provide system-level capabilities such as Wi-Fi, audio, video, and storage, and connect those capabilities to AI agents in a consistent way.
 
 As the project grew, it became increasingly important to define clearer boundaries between these responsibilities. The v0.7 redesign reorganizes the framework into a layered architecture with well-defined extension points. The result is a structure that is easier to port, easier to scale, and easier to reuse across different AI interaction products.
+
+## Why This Matters for Product Development
+
+With the v0.7 redesign, ESP-Brookesia becomes more than a collection of reusable components. It becomes a structured engineering framework for building AIoT interaction products.
+
+For platform developers, the HAL module isolates board differences. For application developers, the General Service module exposes device capabilities through a consistent interface. For AI application developers, Function Calling and MCP create a direct connection between LLMs and device-side functionality.
+
+Together, these modules form an end-to-end development path from hardware abstraction to services, AI orchestration, and expressive user interaction.
+
+If you want to explore the framework further, the following resources are a good starting point:
+
+- [ESP-Brookesia GitHub repository](https://github.com/espressif/esp-brookesia)
+- [ESP-Brookesia Programming Guide](https://docs.espressif.com/projects/esp-brookesia/en)
+
+We hope this new architecture makes it easier to extend ESP-Brookesia with new services, agents, and application patterns, and we look forward to feedback from developers building on it.
 
 ## Architecture Overview
 
@@ -209,18 +225,3 @@ The example demonstrates several representative features:
 The last point is particularly important. In this example, the agent does not just talk to the user. It can also invoke device capabilities through MCP, such as changing screen brightness, adjusting volume, or muting audio. This is a good illustration of the architecture's core value: a clean path from LLM reasoning to agent orchestration, service invocation, and hardware control.
 
 - [Source: `examples/agent/chatbot`](https://github.com/espressif/esp-brookesia/tree/master/examples/agent/chatbot)
-
-## Why This Matters for Product Development
-
-With the v0.7 redesign, ESP-Brookesia becomes more than a collection of reusable components. It becomes a structured engineering framework for building AIoT interaction products.
-
-For platform developers, the HAL module isolates board differences. For application developers, the General Service module exposes device capabilities through a consistent interface. For AI application developers, Function Calling and MCP create a direct connection between LLMs and device-side functionality.
-
-Together, these modules form an end-to-end development path from hardware abstraction to services, AI orchestration, and expressive user interaction.
-
-If you want to explore the framework further, the following resources are a good starting point:
-
-- [ESP-Brookesia GitHub repository](https://github.com/espressif/esp-brookesia)
-- [ESP-Brookesia Programming Guide](https://docs.espressif.com/projects/esp-brookesia/en)
-
-We hope this new architecture makes it easier to extend ESP-Brookesia with new services, agents, and application patterns, and we look forward to feedback from developers building on it.
