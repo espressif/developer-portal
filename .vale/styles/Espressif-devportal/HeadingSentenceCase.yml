@@ -1,0 +1,168 @@
+---
+extends: capitalization
+level: suggestion
+link: https://redhat-documentation.github.io/vale-at-red-hat/docs/main/reference-guide/headings/
+match: $sentence
+message: "Use sentence-style capitalization. Found: '%s'. Suggested: '%s'. Ensure that proper nouns and noun phrases are capitalized correctly."
+scope: heading
+indicators:
+  - ":"
+exceptions:
+
+# Espressif
+  - Espressif
+  - Xtensa
+  - RISC-V
+  - Wokwi
+  - 'Developer Portal'
+  - DevKit
+  - SoCs?
+  - (?i)VSCode
+  - (?i)FreeRTOS
+  - eFuses?
+  - \bESP[-A-Za-z0-9_]*\b
+  - Rainmaker
+  - LowCode
+  - ZeroCode
+
+# Embedded
+  - ADC
+  - AIoT
+  - DAC
+  - IoT
+  - Matter
+  - PHY
+  - PSRAM
+  - RAM
+  - SRAM
+  - WLED
+
+# Rust
+  - 'Rust'
+  - 'std'
+  - 'no_std'
+
+# Measurement Units
+  - kbps|Mbps|Gbps
+  - KiB|MiB|GiB
+  - kHz|MHz|GHz
+  - dBm|dBu|dBV
+
+# General
+  - Ansible
+  - Antora
+  - API
+  - AppData
+  - AsciiDoc
+  - Asciidoctor
+  - AWS
+  - Azure
+  - BASIC
+  - Bitbucket
+  - BOM
+  - Bugzilla
+  - CDs
+  - CentOS
+  - Ceph
+  - CLI
+  - Clion
+  - CMake
+  - Copilot
+  - DdoS
+  - DevOps
+  - DevOps
+  - DNS
+  - DNSSec
+  - Docker
+  - Dockerfiles?
+  - Eclipse
+  - Flatpak
+  - Flatpak Builder
+  - GCC
+  - Git
+  - GitHub
+  - GitLab
+  - GitOps
+  - GraphQL
+  - GUI
+  - Homebrew
+  - HTTP
+  - HTTPS
+  - IaaS
+  - IBM
+  - ID
+  - IDEs?
+  - IDs
+  - IntelliJ
+  - IPSec
+  - JAR file
+  - Java
+  - JavaScript
+  - JetBrains
+  - Jira
+  - JSON
+  - Kubernetes
+  - LibreOffice
+  - Linux
+  - LLVM
+  - Lua
+  - MAC
+  - macOS
+  - Makefile
+  - Mattermost
+  - MicroPython
+  - Microsoft
+  - MinGW
+  - MongoDB
+  - MySQL
+  - NetworkManager
+  - Nginx
+  - Node.js
+  - NuttX
+  - NVMe
+  - OAuth
+  - OpenJDK
+  - OpenOCD
+  - OpenShift
+  - OpenSSH
+  - OpenSSL
+  - OpenStack
+  - OpenTelemetry
+  - OpenTracing
+  - PCIe
+  - PHP
+  - Podman
+  - POSIX
+  - PostgreSQL
+  - PostScript
+  - PowerShell
+  - Prometheus
+  - Python
+  - Pytorch
+  - Qt
+  - Qute
+  - Red Hat
+  - Redis
+  - RTOS
+  - SaaS
+  - SDK
+  - SELinux
+  - Studio
+  - SVG
+  - SysV
+  - Traefik
+  - TypeScript
+  - URI
+  - URIs?
+  - URLs?
+  - USB
+  - Vale
+  - Vmware
+  - VS
+  - VS Code
+  - WebSocket
+  - Windows
+  - WireGuard
+  - Wordpress
+  - xterm
+  - YouTube
