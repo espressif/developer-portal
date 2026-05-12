@@ -236,6 +236,10 @@ void loop() {
 
 ## ESP8266 — The Status Display
 
+{{< alert >}}
+**Note on ESP8266:** This v1 prototype uses ESP8266 for the status display module. The ESP8266 is marked NRND (Not Recommended for New Designs) by Espressif and lacks flash encryption, making it unsuitable for production deployments under modern certification requirements. **New builds should use ESP32-C3** (or newer C-series) as a drop-in replacement with full flash encryption, secure boot, and active long-term support. The ESP8266 is documented here only because it was used in the v1 build; the architecture and code translate directly to ESP32-C3. See Espressif's [NRND guidance on ESP8266](https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP8266%22]}).
+{{< /alert >}}
+
 The ESP8266 serves a single purpose: it subscribes to MQTT topics on the Mosquitto broker and renders the robot's state on a 0.96-inch SSD1306 OLED display. This gives anyone near the robot an instant read on what it is doing without needing to open a phone app or a dashboard.
 
 The display shows four lines:
@@ -468,12 +472,13 @@ The robot is currently in Phase 3 (autonomous locomotion). The immediate next st
 - **ESP-NOW** — evaluating ESP-NOW as a lower-latency alternative to Bluetooth for the Pi 5 to ESP32 link, using a second ESP32 as a USB-connected bridge on the Pi.
 - **Deep sleep telemetry** — when the robot is docked and charging, switching the ESP32 to deep sleep with periodic wake-ups for battery monitoring.
 - **GSM module** — adding a SIM800L for emergency calls (SAMU, fire department, police) when WiFi is unavailable.
+- **ESP8266 → ESP32-C3 migration** — migrate the status display module from ESP8266 to ESP32-C3 (NRND compliance + flash encryption + secure boot).
 
 ## Build Status & Roadmap
 
 This article documents the FOFOCA v1 reference architecture — the open hardware design and software stack the project is built around. Physical assembly is being coordinated through a manufacturing partner; the article serves as the design reference, not a finished-build photo essay.
 
-A v2 build is already in motion, pivoting the chassis to a Yahboom ROSMASTER M3 Pro with Jetson Orin onboard, and refreshing the supporting microcontrollers toward the ESP32-C3 family for new builds (per Espressif's [NRND guidance on ESP8266](https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP8266%22]})). v2 will be written up as a follow-up post when running.
+A v2 build is already in motion, pivoting the chassis to a **Hiwonder JetAuto Pro** — a ROS2 Humble platform with Jetson Orin, 5DOF robotic arm, depth camera, LiDAR, and integrated AI vision stack — and refreshing the supporting microcontrollers toward the ESP32-C3 family for new builds (per Espressif's [NRND guidance on ESP8266](https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP8266%22]})). v2 will be written up as a follow-up post when running.
 
 ## Project Links
 
