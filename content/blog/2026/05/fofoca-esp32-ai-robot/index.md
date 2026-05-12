@@ -1,26 +1,28 @@
 ---
-title: "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP8266, and Edge AI"
+title: "Building FOFOCA: An Open-Source AI Robot with ESP32, ESP32-C3, and Edge AI"
 date: 2026-05-15
 tags:
   - ESP32
-  - ESP8266
+  - ESP32-C3
+  - RISC-V
   - Robotics
   - MQTT
   - Bluetooth
+  - BLE
   - Edge AI
   - PWM
 showTableOfContents: true
 featureAsset: "featured.webp"
 authors:
   - fabio-bastos-thinkneo
-summary: "FOFOCA is an open-source reference design for an AI-governed household robot, built around a Raspberry Pi 5 brain, an ESP32 for real-time motor control and sensor polling, and an ESP8266 driving an OLED status display over MQTT. This article walks through the hardware architecture, the firmware running on each Espressif chip, and how all of it connects to a local edge AI server running NVIDIA Nemotron Nano 8B for inference — no cloud dependency required."
+summary: "FOFOCA is an open-source reference design for an AI-governed household robot, built around a Raspberry Pi 5 brain, an ESP32 for real-time motor control and sensor polling, and an ESP32-C3 driving an OLED status display over MQTT. This article walks through the hardware architecture, the firmware running on each Espressif chip, and how all of it connects to a local edge AI server running NVIDIA Nemotron Nano 8B for inference — no cloud dependency required."
 ---
 
 ## The Robot That Runs on Espressif
 
 FOFOCA — *Fully Operational Feline-free Omniscient Companion Assistant* — is an open-source reference design for a household robot I have been developing as the first public study case for [ThinkNEO](https://thinkneo.ai), an AI governance platform. The reference design targets 24/7 operation in a residential environment: the architecture supports patrol routines, delivery reception, pet monitoring, voice command handling, and autonomous emergency calling — implemented end-to-end across the ESP32, Pi 5, and Dell R210 layers.
 
-The project uses two Espressif chips in distinct roles. An **ESP32** handles all real-time physical control — driving the tank treads via PWM, polling ultrasonic and temperature sensors, and maintaining a Bluetooth serial link to the Raspberry Pi 5 brain. An **ESP8266** drives a 0.96-inch OLED panel that displays the robot's current state, active task, battery level, and which AI model is handling decisions at any given moment, all received over MQTT.
+The project uses two Espressif chips in distinct roles. An **ESP32** handles all real-time physical control — driving the tank treads via PWM, polling ultrasonic and temperature sensors, and maintaining a Bluetooth serial link to the Raspberry Pi 5 brain. An **ESP32-C3** drives a 0.96-inch OLED panel that displays the robot's current state, active task, battery level, and which AI model is handling decisions at any given moment, all received over MQTT. The ESP32-C3 was chosen for the display module because it ships with flash encryption and secure boot v2 out of the box — critical for any design that may move toward production certification.
 
 This article focuses on the Espressif side of the build: the firmware, the wiring, and the communication protocols that connect the microcontrollers to the rest of the system.
 
@@ -41,11 +43,12 @@ FOFOCA is a four-tier system. Each tier runs on dedicated hardware chosen for it
 └────────┬────────────────────────────────────┬───────────────────┘
          │ REST API (FastAPI)                 │ MQTT (Mosquitto)
 ┌────────▼────────────┐            ┌──────────▼──────────────────┐
-│  Raspberry Pi 5     │            │  ESP8266 — Status Display   │
+│  Raspberry Pi 5     │            │  ESP32-C3 — Status Display  │
 │  Brain: vision,     │            │  OLED 0.96" SSD1306         │
-│  speech, decisions, │ Bluetooth  │  Subscribes to robot/status │
-│  orchestration      ├────────────┤  Shows: state, task,        │
-│  8 GB RAM           │   Serial   │  battery, AI model          │
+│  speech, decisions, │ Bluetooth  │  RISC-V · BLE 5.0 · SecBoot│
+│  orchestration      ├────────────┤  Subscribes to robot/status │
+│  YOLOv8n + TTS      │   Serial   │  Shows: state, task,        │
+│  8 GB RAM           │            │  battery, AI model          │
 └────────┬────────────┘            └─────────────────────────────┘
          │ Bluetooth Serial
 ┌────────▼────────────────────────────────────────────────────────┐
@@ -234,13 +237,17 @@ void loop() {
 }
 ```
 
-## ESP8266 — The Status Display
+## ESP32-C3 — The Status Display
 
-{{< alert >}}
-**Note on ESP8266:** This v1 prototype uses ESP8266 for the status display module. The ESP8266 is marked NRND (Not Recommended for New Designs) by Espressif and lacks flash encryption, making it unsuitable for production deployments under modern certification requirements. **New builds should use ESP32-C3** (or newer C-series) as a drop-in replacement with full flash encryption, secure boot, and active long-term support. The ESP8266 is documented here only because it was used in the v1 build; the architecture and code translate directly to ESP32-C3. See Espressif's [NRND guidance on ESP8266](https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP8266%22]}).
-{{< /alert >}}
+The ESP32-C3 serves a single purpose in this build: it subscribes to MQTT topics on the Mosquitto broker and renders the robot's current state on a 0.96-inch SSD1306 OLED display. This gives anyone near the robot an instant read on what it is doing without needing to open a phone app or a dashboard.
 
-The ESP8266 serves a single purpose: it subscribes to MQTT topics on the Mosquitto broker and renders the robot's state on a 0.96-inch SSD1306 OLED display. This gives anyone near the robot an instant read on what it is doing without needing to open a phone app or a dashboard.
+The ESP32-C3 brings several advantages that matter for a device running 24/7 in a household:
+
+- **Flash encryption + secure boot v2** — production-ready security out of the box; firmware and credentials are protected at rest and verified at boot.
+- **BLE 5.0** — opens the option to replace the display module's WiFi-only MQTT path with a lower-power BLE link to the Pi 5 in future iterations.
+- **RISC-V single-core** — aligned with Espressif's long-term architecture direction and more than sufficient for an I2C display + MQTT subscriber workload.
+- **OTA with rollback** — built-in dual-partition OTA with automatic rollback on failed updates, significantly more robust than legacy chips.
+- **Near-identical footprint** — the ESP32-C3-DevKitM-1 is a drop-in replacement in the same breadboard form factor, keeping the physical build unchanged.
 
 The display shows four lines:
 1. **State** — `IDLE`, `PATROL`, `DELIVERY`, `EMERGENCY`
@@ -251,7 +258,7 @@ The display shows four lines:
 ### Firmware
 
 ```cpp
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <PubSubClient.h>
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
@@ -322,7 +329,7 @@ void setup() {
     Serial.begin(115200);
 
     // OLED
-    Wire.begin(D2, D1);  // SDA=D2, SCL=D1
+    Wire.begin(8, 9);  // SDA=GPIO8, SCL=GPIO9
     display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
     display.clearDisplay();
     display.setTextSize(2);
@@ -345,7 +352,7 @@ void setup() {
 
 void loop() {
     if (!mqtt.connected()) {
-        if (mqtt.connect("fofoca-display")) {
+        if (mqtt.connect("fofoca-c3-display")) {
             mqtt.subscribe("fofoca/state");
             mqtt.subscribe("fofoca/task");
             mqtt.subscribe("fofoca/battery");
@@ -360,15 +367,15 @@ void loop() {
 
 ### MQTT Topic Map
 
-The Raspberry Pi 5 publishes state updates to well-defined topics. The ESP8266 subscribes; the edge server also subscribes for logging and Grafana dashboards.
+The Raspberry Pi 5 publishes state updates to well-defined topics. The ESP32-C3 subscribes; the edge server also subscribes for logging and Grafana dashboards.
 
 | Topic | Publisher | Payload Example | Subscribers |
 | --- | --- | --- | --- |
 | `fofoca/telemetry` | ESP32 | `{"distance_cm":42.3,"battery_v":11.8}` | R210 (log + Grafana) |
-| `fofoca/state` | Pi 5 | `PATROL` | ESP8266, R210 |
-| `fofoca/task` | Pi 5 | `security_sweep` | ESP8266, R210 |
-| `fofoca/battery` | ESP32 | `11.8V 85%` | ESP8266, R210 |
-| `fofoca/ai_model` | Pi 5 | `nemotron-nano-8b` | ESP8266, R210 |
+| `fofoca/state` | Pi 5 | `PATROL` | ESP32-C3, R210 |
+| `fofoca/task` | Pi 5 | `security_sweep` | ESP32-C3, R210 |
+| `fofoca/battery` | ESP32 | `11.8V 85%` | ESP32-C3, R210 |
+| `fofoca/ai_model` | Pi 5 | `nemotron-nano-8b` | ESP32-C3, R210 |
 | `fofoca/command` | Pi 5 | `F` (forward) | ESP32 |
 | `fofoca/vision` | Pi 5 | `{"objects":["person","dog"]}` | R210 |
 
@@ -380,7 +387,7 @@ The Raspberry Pi 5 publishes state updates to well-defined topics. The ESP8266 s
 | --- | --- | --- | --- |
 | Raspberry Pi 5 (8 GB) | Brain — vision, speech, orchestration | 1 | 80 |
 | ESP32 DevKit v1 | Real-time motor control, sensors, BT | 1 | 5 |
-| ESP8266 NodeMCU | OLED status display, MQTT subscriber | 1 | 3 |
+| ESP32-C3-DevKitM-1 | OLED status display, MQTT subscriber | 1 | 4 |
 | RP2040 (Raspberry Pi Pico) | Robotic arm PWM (6 channels) | 1 | 4 |
 | Dell PowerEdge R210 (16 GB) | Edge AI server — Nemotron Nano 8B | 1 | 120 (used) |
 
@@ -392,7 +399,7 @@ The Raspberry Pi 5 publishes state updates to well-defined topics. The ESP8266 s
 | DHT22 | Temperature and humidity | 1 | 3 |
 | PIR (HC-SR501) | Motion detection | 1 | 2 |
 | Insta360 X3 | 360-degree vision, navigation, security | 1 | 300 |
-| SSD1306 OLED 0.96" | Status display (I2C, driven by ESP8266) | 1 | 3 |
+| SSD1306 OLED 0.96" | Status display (I2C, driven by ESP32-C3) | 1 | 3 |
 | ReSpeaker USB Mic Array | Audio input for voice commands | 1 | 30 |
 | Bluetooth speaker (portable) | Voice output via Piper TTS | 1 | 15 |
 
@@ -435,7 +442,7 @@ A typical interaction — the robot detects a person at the front door — flows
 3. **Pi 5** sends the image context to the **Dell R210** via FastAPI, which forwards it to Nemotron Nano 8B through the **ThinkNEO** gateway. The model decides: "Person at door. Likely delivery. Approach and greet."
 4. **Pi 5** sends `F` (forward) over Bluetooth to the **ESP32**, which drives the motors.
 5. **Pi 5** publishes `DELIVERY` to `fofoca/state` and `door_greeting` to `fofoca/task`.
-6. **ESP8266** picks up the MQTT messages and updates the OLED display.
+6. **ESP32-C3** picks up the MQTT messages and updates the OLED display.
 7. **Pi 5** speaks "Hello, I can receive the package" through Piper TTS over the Bluetooth speaker.
 8. The entire interaction is logged: telemetry in PostgreSQL, AI decision in the ThinkNEO audit trail, video clip in MinIO.
 
@@ -455,14 +462,14 @@ A typical interaction — the robot detects a person at the front door — flows
 | 15 | Digital input (PIR) | HC-SR501 OUT |
 | 36 | ADC (battery voltage) | Voltage divider (100 k / 27 k) |
 
-### ESP8266 Pin Assignments
+### ESP32-C3 Pin Assignments
 
-| Pin | Function | Connected To |
-| --- | --- | --- |
-| D1 (GPIO5) | I2C SCL | SSD1306 SCL |
-| D2 (GPIO4) | I2C SDA | SSD1306 SDA |
-| 3V3 | Power | SSD1306 VCC |
-| GND | Ground | SSD1306 GND |
+| GPIO | Function | Connected To | Notes |
+| --- | --- | --- | --- |
+| 9 | I2C SCL | SSD1306 SCL | Strapping pin (boot mode) — I2C pull-up keeps it high at boot (normal operation) |
+| 8 | I2C SDA | SSD1306 SDA | Strapping pin — I2C pull-up keeps it high at boot (normal operation) |
+| 3V3 | Power | SSD1306 VCC | |
+| GND | Ground | SSD1306 GND | |
 
 ## What Comes Next
 
@@ -472,19 +479,23 @@ The robot is currently in Phase 3 (autonomous locomotion). The immediate next st
 - **ESP-NOW** — evaluating ESP-NOW as a lower-latency alternative to Bluetooth for the Pi 5 to ESP32 link, using a second ESP32 as a USB-connected bridge on the Pi.
 - **Deep sleep telemetry** — when the robot is docked and charging, switching the ESP32 to deep sleep with periodic wake-ups for battery monitoring.
 - **GSM module** — adding a SIM800L for emergency calls (SAMU, fire department, police) when WiFi is unavailable.
-- **ESP8266 → ESP32-C3 migration** — migrate the status display module from ESP8266 to ESP32-C3 (NRND compliance + flash encryption + secure boot).
 
 ## Build Status & Roadmap
 
 This article documents the FOFOCA v1 reference architecture — the open hardware design and software stack the project is built around. Physical assembly is being coordinated through a manufacturing partner; the article serves as the design reference, not a finished-build photo essay.
 
-A v2 build is already in motion, pivoting the chassis to a **Hiwonder JetAuto Pro** — a ROS2 Humble platform with Jetson Orin, 5DOF robotic arm, depth camera, LiDAR, and integrated AI vision stack — and refreshing the supporting microcontrollers toward the ESP32-C3 family for new builds (per Espressif's [NRND guidance on ESP8266](https://products.espressif.com/#/product-selector?names=&filter={%22Series%22:[%22ESP8266%22]})). v2 will be written up as a follow-up post when running.
+A v2 build is already in motion, pivoting the chassis to a **Hiwonder JetAuto Pro** — a ROS2 Humble platform with Jetson Orin, 5DOF robotic arm, depth camera, LiDAR, and integrated AI vision stack. The ESP32 + ESP32-C3 microcontroller layer carries over unchanged. v2 will be written up as a follow-up post when running.
 
 ## Project Links
 
 - **ThinkNEO** — [thinkneo.ai](https://thinkneo.ai) — AI governance platform powering FOFOCA's model routing and audit trail
 - **NVIDIA Inception** — ThinkNEO is a member of the NVIDIA Inception program; FOFOCA uses Nemotron models for inference
-- **ESP32 Arduino Core** — [github.com/espressif/arduino-esp32](https://github.com/espressif/arduino-esp32) — the framework running on FOFOCA's ESP32
-- **ESP8266 Arduino Core** — [github.com/esp8266/Arduino](https://github.com/esp8266/Arduino) — the framework running on FOFOCA's display module
+- **ESP32 Arduino Core** — [github.com/espressif/arduino-esp32](https://github.com/espressif/arduino-esp32) — the framework running on both the ESP32 (motor controller) and ESP32-C3 (display module)
+
+## Acknowledgments
+
+Thanks to the Espressif developer-portal review team — in particular [@FBEZ](https://github.com/FBEZ), [@georgik](https://github.com/georgik), and [@f-hollow](https://github.com/f-hollow) — whose feedback on chip selection sharpened this article significantly and prompted the move to ESP32-C3 as the canonical platform for FOFOCA's microcontroller layer.
+
+---
 
 FOFOCA is an ongoing open-source project. If you are building something similar — a robot, a home automation system, or any physical system that needs local AI inference with governance — I would be happy to share more details. Reach out through the links above.
