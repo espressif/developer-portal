@@ -84,9 +84,13 @@ After you finish writing, revisit your summary to see if it needs any adjustment
 
 #### Add youself as an author
 
-To add yourself as an author, [create an article](#create-and-view-an-article) and follow the instructions in the article's `index.md` YAML header.
+To add yourself as an author, [create an article](#create-and-view-an-article) and run the script in the repo root:
 
-If the article already exists and you want to edit the authors, here are the same instructions:
+```sh
+python3 tools/create_author.py
+```
+
+This script partially automates the following instructions:
 
 - Create your author entry<br>
   {{< alert >}}
