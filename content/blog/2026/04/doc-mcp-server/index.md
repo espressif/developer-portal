@@ -1,7 +1,7 @@
 ---
 title: "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs"
 date: 2026-04-08
-lastmod: 2026-04-28
+lastmod: 2026-05-26
 showAuthor: false
 authors:
     - "wang-ning"
@@ -105,8 +105,7 @@ If nothing happens or an error is shown, the URL handler is not registered. This
 
    ![Cursor install screen](img/cursor-install.webp)
 
-4. After the MCP server is installed, click **"Connect"** to authenticate. Allow Cursor to open the external website and follow the on-screen prompt.
-   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+4. After the MCP server is installed, click **"Connect"** to authenticate. Allow Cursor to open the external website, and sign in with GitHub or WeChat to authenticate with the MCP server.
 
    ![Cursor connect screen](img/cursor-connect.webp)
    ![Authentication page](img/authenticate.webp)
@@ -147,9 +146,9 @@ If nothing happens or an error is shown, the URL handler is not registered. This
 
    ![VS Code install screen](img/vscode-install.webp)
 
-4. Allow VS Code to open the external website and follow the on-screen prompt to authenticate with the MCP server.
+4. Allow VS Code to open the external website, and sign in with GitHub or WeChat to authenticate with the MCP server.
    ![Authentication page](img/authenticate.webp)
-   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+
 5. When authentication finishes, the MCP server appears under **Extension > MCP SERVERS – INSTALLED**.
 
    ![VS Code MCP installed](img/vscode-mcp-config.webp)
@@ -166,11 +165,10 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    File modified: /Users/user/.claude.json [project: /Users/user]
    ```
 4. Authenticate with the MCP server:
-   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
    - Start Claude Code in your terminal by running ``claude``
    - Type ``/mcp`` to open the MCP management panel
    - Select the MCP server, and then select ``Authenticate``
-   - A browser window will open for you to log in. Follow the on-screen prompt to authenticate with the MCP server.
+   - A browser window will open. Sign in with GitHub or WeChat to authenticate with the MCP server.
    ![Authentication page](img/authenticate.webp)
 
       {{% /tab %}}
@@ -178,6 +176,7 @@ If nothing happens or an error is shown, the URL handler is not registered. This
       {{% tab name="Claude Desktop" %}}
 1. Add the following snippet to your Claude Desktop config file to install the Docs MCP server:
    - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - Linux: `~/.config/Claude/claude_desktop_config.json`
    - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
    ```json
@@ -191,9 +190,9 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    }
    ```
 
-2. Save the file and restart Claude Desktop. An external browser window will open automatically. Follow the on-screen prompt to authenticate with the MCP server.
+2. Save the file and restart Claude Desktop. An external browser window will open automatically. Sign in with GitHub or WeChat to authenticate with the MCP server.
 ![Authentication page](img/authenticate.webp)
-   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+
 3. After successful authentication, you will see the MCP servers appear in **"Settings > Developer > Local MCP servers"**.
 
    ![Claude Desktop MCP Server Settings](img/claude.webp)
@@ -217,13 +216,36 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    ![Manage MCP servers](img/antigravity-manage-mcp.webp)
 3. On the **"Manage MCP Servers"** page, click **"Authenticate"**. The **"Settings – Customizations"** dialog will open.
    ![Authenticate in Manage MCP servers](img/antigravity-authenticate.webp)
-4. Click **"Authenticate"** in **"Settings - Customizations"**. An external browser window will open automatically. Click **"Allow Access"**.
+4. Click **"Authenticate"** in **"Settings - Customizations"**. An external browser window will open automatically. Sign in with GitHub or WeChat to authenticate with the MCP server.
    ![Authentication in Settings - Customizations](img/antigravity-authenticate-in-settings.webp)
    ![Authentication page](img/authenticate.webp)
-   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+
 5. After granting access, copy the code shown on the **"Google Antigravity Authentication"** page, paste it into **"Settings – Customizations"**, and click **"Submit"**.
    ![Copy Code and Submit](img/antigravity-copy-code.webp)
 6. After successful authentication, the **"INSTALLED MCP SERVERS"** list in **"Settings - Customizations"** will refresh automatically, showing the server status and enabled tools.
+      {{% /tab %}}
+      {{% tab name="Antigravity CLI" %}}
+
+1. Add the following snippet to `~/.gemini/antigravity-cli/mcp_config.json` to install the Docs MCP server:
+   ```json
+   {
+      "mcpServers": {
+         "espressif-docs": {
+               "serverUrl": "https://mcp.espressif.com/docs"
+         }
+      }
+   }
+   ```
+
+2. Authenticate with the MCP server:
+
+   - Start Antigravity CLI in your terminal by running ``agy``
+   - Navigate to ``/mcp`` → ``espressif-docs`` → ``Authenticate``, and press ``Enter`` at each prompt.
+   - A browser window will open for you to log in. Sign in with GitHub or WeChat to authenticate with the MCP server.
+   ![Authentication page](img/authenticate.webp)
+   - Copy the authorization code and paste it into Antigravity CLI in your terminal.
+     > If you see `Authentication failed: no pending auth state for server espressif-docs`, re-launch ``agy``, type ``/mcp``, and verify if ``espressif-docs`` already shows ``[Authed]``.
+
       {{% /tab %}}
       {{% tab name="Gemini CLI" %}}
 
@@ -232,20 +254,51 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    gemini mcp add --transport http espressif-docs https://mcp.espressif.com/docs
    ```
 2. Authenticate with the MCP server:
-   > **Note:** Wechat authentication is not yet implemented. This step will be enabled in a future release.
+
    - Start Gemini CLI in your terminal by running ``gemini``
    - Type ``/mcp auth espressif-docs``, and press `Enter`
-   - A browser window will open for you to log in. Follow the on-screen prompt to authenticate with the MCP server.
+   - A browser window will open for you to log in. Sign in with GitHub or WeChat to authenticate with the MCP server.
    ![Authentication page](img/authenticate.webp)
-
       {{% /tab %}}
       {{% tab name="Codex" %}}
 1. Add the MCP server by executing the command in your terminal:
    ```
    codex mcp add espressif-docs --url "https://mcp.espressif.com/docs"
    ```
-2. An external browser window will open automatically. Follow the on-screen prompt to authenticate with the MCP server.
+2. An external browser window will open automatically. Sign in with GitHub or WeChat to authenticate with the MCP server.
    ![Authentication page](img/authenticate.webp)
+      {{% /tab %}}
+      {{% tab name="OpenCode" %}}
+1. Add the following snippet to your OpenCode config file to install the Docs MCP server:
+   - macOS/Linux: `~/.config/opencode/opencode.jsonc` or `~/.config/opencode/opencode.json`
+   - Windows: `%USERPROFILE%\.config\opencode\opencode.jsonc`
+
+   ```json
+   {
+   "$schema": "https://opencode.ai/config.json",
+   "mcp": {
+      "espressif-docs": {
+         "type": "remote",
+         "url": "https://mcp.espressif.com/docs",
+         "oauth": {}
+         }
+      }
+   }
+   ```
+2. Save the file, and then run the following command in your terminal:
+   ```
+   opencode mcp auth espressif-docs
+   ```
+3. An external browser window will open automatically. Sign in with GitHub or WeChat to authenticate with the MCP server.
+   ![Authentication page](img/authenticate.webp)
+4. Once finished, you will see the following message printed in terminal.
+   ```
+   ┌  MCP OAuth Authentication
+   │
+   ◇  Authentication successful!
+   │
+   └  Done
+   ```
       {{% /tab %}}
       {{% tab name="Other" %}}
 MCP is an open protocol supported by many AI applications. If yours is not listed in this section, such as [Windsurf](https://docs.windsurf.com/windsurf/cascade/mcp) or [Zed](https://zed.dev/docs/ai/mcp), you can also install the MCP server.
@@ -323,8 +376,6 @@ Yes. You need access to the public internet to connect to the MCP server.
 
 Yes. You need either a GitHub account or a WeChat account to authenticate with the MCP server. Only your anonymized account ID is stored — this is used solely to enforce per-user rate limits and ensure fair usage.
 
-> **Note:** WeChat authentication is not yet implemented and will be enabled in a future release.
-
 ### How many documentation MCP servers does Espressif have? Do I need to add them separately for each entry point?
 
 Espressif has only one documentation MCP server at `https://mcp.espressif.com/docs`. The entry points below are simply different ways to add it.
@@ -356,8 +407,10 @@ No. The MCP server is a remote service, so there is no local process to start.
 - **Claude Code**: Run `claude mcp list` command.
 - **Claude Desktop**: Go to **Settings > Desktop > Developer > Local MCP servers**.
 - **Antigravity**: Go to **Antigravity Settings > Customizations > INSTALLED MCP SERVERS**.
+- **Antigravity CLI**: Run `agy` to launch Antigravity CLI, and type `/mcp`.
 - **Gemini CLI**: Run `gemini mcp list` command.
 - **Codex**: Run `codex mcp list` command.
+- **OpenCode**: Run `opencode mcp list` command.
 
 If the MCP server is disabled, enable it.
 
@@ -377,8 +430,10 @@ If an error persists, submit a [feedback](https://www.espressif.com/en/company/d
    ```
 - **Claude Desktop**: Go to **Settings > Customize > Connectors > Desktop > Tool permissions**. By default, this is set to `Needs approval`, meaning you will be prompted each time the agent calls a tool.
 - **Antigravity**: Enabled by default. Go to **Antigravity Settings > Customizations > INSTALLED MCP SERVERS**, and check **"tool enabled"**.
+- **Antigravity CLI**: The first time the agent calls an MCP tool, it will prompt you to allow or deny it.
 - **Gemini CLI**: Enabled by default.
 - **Codex**: Enabled by default.
+- **OpenCode**: Enabled by default.
 
 **Step 3. Try a different AI application.**
 
