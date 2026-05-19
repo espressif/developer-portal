@@ -179,7 +179,7 @@ So I went back to the wires.
 
 This part took longer than I expected.
 
-The ESP32-C5 board doesn't label pins in a beginner-friendly way. There were numbers, but they didn't clearly map to the GPIO values used in code.
+The ESP32-C5 board doesn't label pins in a beginner-friendly way. There were numbers, but they didn't clearly map to the GPIO values used in code. Here was a challange and a very usefull lesson to learn more about the C5 devkits, as they are very popular and suitable for my future experiments. The information regarding all devkits is easily availabe on Espressif Systems website. https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/
 
 I connected SDA and SCL to the wrong pins.  
 Then I swapped them.  
