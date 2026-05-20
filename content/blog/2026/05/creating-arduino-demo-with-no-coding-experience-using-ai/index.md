@@ -1,6 +1,6 @@
 ---
 title: "Creating an Arduino Demo With No Coding Experience Using AI"
-date: 2026-05-19
+date: 2026-05-21
 authors:
   - parsa-abbasi
 tags:
