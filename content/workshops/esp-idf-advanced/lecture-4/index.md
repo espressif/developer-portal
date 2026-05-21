@@ -1,7 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Lecture 4"
 date: "2025-08-05"
-lastmod: 2026-03-27
+lastmod: 2026-05-21
 series: ["WS00B"]
 series_order: 13
 showAuthor: false
@@ -83,7 +83,7 @@ In the OTA process, the Espressif device downloads the firmware from a given loc
 
 {{< figure
 default=true
-src="../assets/lecture_4_ota_diagram.webp"
+src="../assets/lecture-4-ota-diagram.webp"
 width=350
 caption="Fig.1 -- OTA basic diagram"
     >}}
@@ -107,7 +107,7 @@ In Fig.2 you can find a simplified diagram of the OTA key components.
 
 {{< figure
 default=true
-src="../assets/lecture_4_ota.webp"
+src="../assets/lecture-4-ota.webp"
 height=500
 caption="Fig.2 -- OTA key components (simplified diagram)"
     >}}

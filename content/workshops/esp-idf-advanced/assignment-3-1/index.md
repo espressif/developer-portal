@@ -1,7 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Assign.  3.1"
 date: "2025-08-05"
-lastmod: 2026-03-27
+lastmod: 2026-05-21
 series: ["WS00B"]
 series_order: 10
 showAuthor: false
@@ -22,10 +22,10 @@ In this assignment, you will analyze the binary image size and optimize the memo
 * `> ESP-IDF: Build Your Project`
 
 You will get the summary table of Fig.1 for the binary image.
-<!-- ![](../assets/assignment_3_1_size_before.webp) -->
+<!-- ![](../assets/assignment-3-1-size-before.webp) -->
 {{< figure
 default=true
-src="../assets/assignment_3_1_size_before.webp"
+src="../assets/assignment-3-1-size-before.webp"
 height=500
 caption="Fig.1 - Size calculation"
     >}}
@@ -38,10 +38,10 @@ caption="Fig.1 - Size calculation"
    _if you don't remember how to do that, check [assignment 1.3](../assignment-1-3/#changing-the-configuration-in-menuconfig)_
 * `> ESP-IDF: Build Your Project`
 
-<!-- ![](../assets/assignment_3_1_size_before.webp) -->
+<!-- ![](../assets/assignment-3-1-size-before.webp) -->
 {{< figure
 default=true
-src="../assets/assignment_3_1_size_after_log.webp"
+src="../assets/assignment-3-1-size-after-log.webp"
 height=500
 caption="Fig.2 - Size calculation after removing logging"
     >}}
@@ -55,10 +55,10 @@ After building the firmware, we see that the binary size is 77kb less than befor
 * `> ESP-IDF: Build Your Project`
 
 
-<!-- ![](../assets/assignment_3_1_size_before.webp) -->
+<!-- ![](../assets/assignment-3-1-size-before.webp) -->
 {{< figure
 default=true
-src="../assets/assignment_3_1_size_after_bundle.webp"
+src="../assets/assignment-3-1-size-after-bundle.webp"
 height=500
 caption="Fig.3 - Size calculation after removing certificate bundle"
     >}}
@@ -71,10 +71,10 @@ caption="Fig.3 - Size calculation after removing certificate bundle"
 * `> ESP-IDF: Build Your Project`
 
 
-<!-- ![](../assets/assignment_3_1_size_before.webp) -->
+<!-- ![](../assets/assignment-3-1-size-before.webp) -->
 {{< figure
 default=true
-src="../assets/assignment_3_1_size_after_ssl.webp"
+src="../assets/assignment-3-1-size-after-ssl.webp"
 height=500
 caption="Fig.4 - Size calculation after removing mqtt ssl and websocket support"
     >}}

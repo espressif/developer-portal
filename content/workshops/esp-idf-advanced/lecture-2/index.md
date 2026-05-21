@@ -1,7 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Lecture 2"
 date: "2025-08-05"
-lastmod: 2026-03-27
+lastmod: 2026-05-21
 series: ["WS00B"]
 series_order: 6
 showAuthor: false
@@ -32,7 +32,7 @@ To make this work, you must register both the event and its associated callback 
 
 {{< figure
 default=true
-src="../assets/lecture_2_event_loop.webp"
+src="../assets/lecture-2-event-loop.webp"
 height=300
 caption="Simplified event loop block diagram"
 >}}

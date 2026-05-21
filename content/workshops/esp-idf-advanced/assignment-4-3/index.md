@@ -1,7 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Assign.  4.3"
 date: "2025-08-05"
-lastmod: 2026-03-27
+lastmod: 2026-05-21
 series: ["WS00B"]
 series_order: 16
 showAuthor: false
@@ -208,7 +208,7 @@ Your configuration should ressemble this:
 
 {{< figure
 default=true
-src="../assets/assignment_4_2_flash_encryption.webp"
+src="../assets/assignment-4-2-flash-encryption.webp"
 height=500
 caption="Flash encryption options"
     >}}

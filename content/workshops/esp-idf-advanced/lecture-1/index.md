@@ -36,7 +36,7 @@ A typical component includes:
 
 {{< figure
 default=true
-src="../assets/esp_idf_components.webp"
+src="../assets/esp-idf-components.webp"
 height=200 
 caption="Fig.1 - Component structure"
 >}}

@@ -1,6 +1,7 @@
 ---
 title: "IoT Introduction with RainMaker"
 date: 2024-07-08
+lastmod: 2026-05-21
 showAuthor: false
 tags: ["Workshop", "RainMaker", "ESP-IDF"]
 authors:
@@ -668,7 +669,7 @@ Espressif’s SDK for Matter has been developed over the open-source Matter SDK 
 Making your devices Matter-compatible with ESP-ZeroCode Modules is as simple as just adding these modules to your devices.
 
 {{< gallery >}}
-  <img src="assets/zerocode_promo.webp" />
+  <img src="assets/zerocode-promo.webp" />
 {{< /gallery >}}
 
 ESP ZeroCode supports different kinds of products like lightbulbs, lighting fixtures, led strips, sockets, switches, roller blinds, refrigerator, laundry washer, thermostat and more.
