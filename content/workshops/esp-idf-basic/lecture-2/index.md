@@ -1,7 +1,7 @@
 ---
 title: "ESP-IDF Basics - Lecture 2"
 date: "2025-08-05"
-lastmod: "2026-01-20"
+lastmod: "2026-05-21"
 series: ["WS00A"]
 series_order: 4
 showAuthor: false
@@ -18,7 +18,7 @@ The __ISO/OSI model__ is typically visualized like on Fig.1.
 <!-- ![Encapsulation in Ethernet](../assets/lec_2_encapsulation.webp) -->
 {{< figure
 default=true
-src="../assets/lec_2_isoosi.webp"
+src="../assets/lec-2-isoosi.webp"
 height=500
 caption="Fig.1 - ISO OSI Stack"
     >}}
@@ -59,7 +59,7 @@ A picture is worth more than a thousand words:
 <!-- ![Encapsulation in Ethernet](../assets/lec_2_encapsulation.webp) -->
 {{< figure
 default=true
-src="../assets/lec_2_encapsulation.webp"
+src="../assets/lec-2-encapsulation.webp"
 height=500
 caption="Fig.2 - Encapsulation"
     >}}
@@ -97,7 +97,7 @@ This setup forms a __basic infrastructure mode__ network, which is the most comm
 <!-- ![Encapsulation in Ethernet](../assets/lec_2_encapsulation.webp) -->
 {{< figure
 default=true
-src="../assets/lec_2_sta_ap.webp"
+src="../assets/lec-2-sta-ap.webp"
 height=500
 caption="Fig.3 - STA vs AP"
     >}}
@@ -150,7 +150,7 @@ Modern applications and IoT systems often use __JSON (JavaScript Object Notation
 
 {{< figure
 default=true
-src="../assets/lec_2_http_request.webp"
+src="../assets/lec-2-http-request.webp"
 height=500
 caption="Fig.4 - Client-server interaction"
 >}}
@@ -186,7 +186,7 @@ In Fig.5 you can see the HTML code rendering.
 
 {{< figure
 default=true
-src="../assets/lec_2_html_rendering.webp"
+src="../assets/lec-2-html-rendering.webp"
 height=300
 caption="Fig.5 - HTML page rendering"
     >}}

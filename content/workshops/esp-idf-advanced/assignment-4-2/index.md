@@ -1,7 +1,7 @@
 ---
 title: "ESP-IDF Adv. - Assign.  4.2"
 date: "2025-08-05"
-lastmod: 2026-03-27
+lastmod: 2026-05-21
 series: ["WS00B"]
 series_order: 9
 showAuthor: false
@@ -22,7 +22,7 @@ First, you need to enable the custom partition table in the `menuconfig`
 
 {{< figure
 default=true
-src="../assets/assignment_4_2_partition_table.webp"
+src="../assets/assignment-4-2-partition-table.webp"
 height=500
 caption="Custom partition table"
     >}}
