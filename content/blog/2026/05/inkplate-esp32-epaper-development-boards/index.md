@@ -5,11 +5,11 @@ summary: "Inkplate is a family of all-in-one, open-source e-paper development bo
 authors:
   - "borna-zelenika"
 tags:
-  - ESP32
-  - e-paper
+  - development board
   - Arduino
+  - community contribution
+  - e-paper
   - MicroPython
-  - open source
   - low power
 ---
 
@@ -64,7 +64,7 @@ All Inkplate models are supported by the [Inkplate Arduino Library](https://gith
 
 ### 1. Install the board definition
 
-Add the following URL to *File → Preferences → Additional Boards Manager URLs* in Arduino IDE:
+In Arduino IDE, add the following URL to *File → Preferences → Additional Boards Manager URLs*:
 
 ```
 https://raw.githubusercontent.com/SolderedElectronics/Inkplate-Arduino-library/master/package_Inkplate_index.json
@@ -158,8 +158,8 @@ Soldered's documentation includes complete, ready-to-run examples for several of
 All Inkplate hardware designs (KiCad schematics and PCB layouts) and software are fully open source:
 
 - **Arduino library & hardware files:** [github.com/SolderedElectronics](https://github.com/SolderedElectronics)
-- **Full documentation:** [soldered.com/learn/inkplate](https://soldered.com/learn/inkplate)
-- **Store:** [soldered.com/inkplate](https://soldered.com/inkplate)
+- **Full documentation:** [docs.soldered.com/inkplate](https://docs.soldered.com/inkplate)
+- **Store:** [soldered.com/categories/inkplate](https://soldered.com/categories/inkplate/)
 
 ## Conclusion
 
