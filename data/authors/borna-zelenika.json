@@ -1,0 +1,12 @@
+{
+    "name": "Borna Zelenika",
+    "type": "community",
+    "image": "img/authors/borna-zelenika.webp",
+    "bio": "Hardware engineer at Soldered Electronics, working on open-source IoT and e-paper projects.",
+    "social": [
+        {
+            "name": "github",
+            "url": "https://github.com/GreenyHub"
+        } 
+    ]
+}
