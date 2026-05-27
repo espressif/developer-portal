@@ -1,7 +1,7 @@
 ---
-title: "ESP32's family Memory Map 101"
+title: "ESP32 family Memory Map 101"
 date: 2024-08-20
-lastmod: 2026-05-27
+lastmod: 2026-06-01
 tags:
   - Zephyr
   - Memory
@@ -17,13 +17,13 @@ summary: "This article addresses the complexity of Espressif SoCs by offering a 
 
 The performance and memory capabilities of the microcontrollers are increasing, and so is their complexity, especially when the users are responsible for mapping external memory chips such as flash or SPIRAM by configuring a memory management unit.
 
-When I started to use Espressif ESP32’s series SoC’s with the [Zephyr RTOS](https://docs.zephyrproject.org/latest/index.html), quickly I realized that these SoC’s are a very different world, compared to my previous MCU experiences, which were mostly ARM-related. ARM Cortex-M’s - in most cases - uses Von-Neumann memory architecture, while the ESP32’s series of microcontrollers uses the Harvard memory architecture, which adds complexity.
+When I started to use Espressif ESP32 series SoCs with the [Zephyr RTOS](https://docs.zephyrproject.org/latest/index.html), quickly I realized that these SoCs are a very different world, compared to my previous MCU experiences, which were mostly ARM-related. ARM Cortex-M’s - in most cases - uses Von-Neumann memory architecture, while the ESP32 series of microcontrollers uses the Harvard memory architecture, which adds complexity.
 
 The primary source of knowledge about any SoC was always the datasheet or Technical Reference Manual of the part. Indeed it still is, but I found the ESP32's TRM — although very useful — quite challenging to read. Especially because there is a significant portion of important information buried in the long textual descriptions.
 
-This sparked the motivation to compile a visually rich and informative depiction of crucial information from the current versions of a TRM. This is intended to be used together with the SoC’s datasheets and TRM to help better understand the internals of the ESP32's series of SoCs internals, which is crucial during the system and driver development - for example when porting to other platforms such as Zephyr RTOS.
+This sparked the motivation to compile a visually rich and informative depiction of crucial information from the current versions of a TRM. This is intended to be used together with the SoC’s datasheets and TRM to help better understand the internals of the ESP32 series of SoCs, which is crucial during the system and driver development - for example when porting to other platforms such as Zephyr RTOS.
 
-If you are tracking Zephyr development, Espressif maintains a public status page [here](https://developer.espressif.com/software/zephyr-support-status/).
+If you are tracking Zephyr development, Espressif maintains a public [status page](https://developer.espressif.com/software/zephyr-support-status/).
 
 ## ESP32
 
@@ -35,7 +35,7 @@ For a head start with Zephyr on this SoC, see the upstream [ESP32 DevKitC WROVER
 
 **ROM**
 
-ROM memories hold the primary bootloader code and other library functions available to the end users. The content of the ROM memories is baked during the manufacturing process and cannot be changed. Please refer to the chip versions of the ESP32 microcontroller for more detailed information. In short, please use the lastest chip revision (v3) when working with the ESP32 on Zephyr RTOS.
+ROM memories hold the primary bootloader code and other library functions available to the end users. The content of the ROM memories is baked during the manufacturing process and cannot be changed. Please refer to the chip versions of the ESP32 microcontroller for more detailed information. In short, please use the latest chip revision (v3) when working with the ESP32 on Zephyr RTOS.
 
 **SRAM**
 
@@ -99,7 +99,7 @@ For further information and all the details about the ESP32 SoC please refer to 
 
 The ESP32-S2 microcontroller is the successor of ESP32 and although very similar it has a single core and slightly different memory composition.
 
-One of the improvements from ESP32 is the ability to access external SPI-ram on data and instruction buses, which means it can run programs and access the data.
+One of the improvements from ESP32 is the ability to access external SPIRAM on data and instruction buses, which means it can run programs and access the data.
 
 For a head start with Zephyr on this SoC, see the upstream [ESP32-S2 DevKitC board](https://docs.zephyrproject.org/latest/boards/espressif/esp32s2_devkitc/doc/index.html) documentation.
 
@@ -134,7 +134,7 @@ The CPU accesses the external memories using the cache. Up to 7.5MB of address s
 
 ### Peripheral registers
 
-The peripherals on ESP32-S2 are accessed using two peripheral busses: PeriBus1 and PeriBus2. Each has its own address space at the data bus.
+The peripherals on ESP32-S2 are accessed using two peripheral buses: PeriBus1 and PeriBus2. Each has its own address space at the data bus.
 
 The PeriBus1 features speculative reads to improve performance. This also means that not every access is valid. Therefore we need to use the volatile statement, or access registers such as FIFOs using the PeriBus2, which is slower but safe.
 
@@ -163,8 +163,7 @@ For further information and all the details about the ESP32-S2 SoC please refer 
 
 ## ESP32-S3
 
-The ESP32-S3 is the latest Xtensa LX7 CPU with a dual-core design. Besides two main cores, it has two ultra-low-power coprocessors based on Risc-V architecture. The SoC has a built-in JTAG debugger accessible via a USB interface. It can access external SPIRAM on data and instruction buses, which means it can run programs and access the data.
-
+The ESP32-S3 is the latest Xtensa LX7 CPU with a dual-core design. Besides two main cores, it has two ultra-low-power coprocessors based on RISC-V architecture. The SoC has a built-in JTAG debugger accessible via a USB interface. It can access external SPIRAM on data and instruction buses, which means it can run programs and access the data.
 
 For a head start with Zephyr on this SoC, see the upstream [ESP32-S3 DevKitC board](https://docs.zephyrproject.org/latest/boards/espressif/esp32s3_devkitc/doc/index.html) documentation.
 
@@ -182,7 +181,7 @@ RTC-Slow is r/w memory that can be accessed via the instruction and data bus. RT
 
 **Instruction & data cache**
 
-The CPUs can access external memories via the cached MMU address space. Memories can be accessed using I-Cache or D-Dache via instruction or data bus respectively.
+The CPUs can access external memories via the cached MMU address space. Memories can be accessed using I-Cache or D-Cache via instruction or data bus respectively.
 
 
 ### Internal memories and cache address space
@@ -197,7 +196,7 @@ The CPUs can access external memories via the cached MMU address space. Memories
 
 ### Peripheral registers
 
-The peripherals (modules) can be accessed at their address range using the data and instruction bus. Each peripheral module has its own memory boundaries given by its base address and block size. Blocks size is usually 4kB long. For more details refer to device TRM.
+The peripherals (modules) can be accessed at their address range using the data and instruction bus. Each peripheral module has its own memory boundaries given by its base address and block size. Block size is usually 4kB. For more details refer to device TRM.
 
 {{< figure
     default=true
@@ -240,7 +239,6 @@ The ESP32-C3 has two SRAM modules. SRAM0 can be configured as the instruction ca
 **RTC-SRAM**
 
 RTC-Fast memory is r/w memory that can be accessed via CPU instruction and data bus.
-
 
 **Instruction & data cache**
 
@@ -360,7 +358,7 @@ The ESP32-C6 has two SRAM modules.
 
 HP-SRAM is static r/w memory that can be accessed by the HP CPU or LP CPU via the data bus or instruction bus in the same order.
 
-LP-SRAM is static r/w memory that can be accessed by the HP CPU or LP CPU via the data bus or instruction bus. It can be accessed using high-speed more or low-speed more.
+LP-SRAM is static r/w memory that can be accessed by the HP CPU or LP CPU via the data bus or instruction bus. It can be accessed using high-speed mode or low-speed mode.
 
 **Instruction & data cache**
 
@@ -512,6 +510,8 @@ For further information and all the details about the ESP32-H2 SoC please refer 
 ## ESP32-P4
 
 The ESP32-P4 is a high-performance RISC-V SoC designed for compute-heavy applications (HMI, audio/voice, image processing), with a dual-core HP system (up to 400 MHz) and an LP core (up to 40 MHz) for low-power tasks. It also integrates high-speed peripherals such as USB 2.0 OTG (including high-speed), Ethernet MAC, SDIO Host, and MIPI CSI/DSI. Unlike the chips above, ESP32-P4 does not include integrated Wi-Fi/Bluetooth/802.15.4 — it is typically paired with a wireless companion chip (for example an ESP32-C or ESP32-S series device) when connectivity is required.
+
+For a head start with Zephyr on this SoC, see the upstream [ESP32-P4-Function-EV-board](https://docs.zephyrproject.org/latest/boards/espressif/esp32p4_function_ev_board/doc/index.html) documentation.
 
 **ROM**
 
