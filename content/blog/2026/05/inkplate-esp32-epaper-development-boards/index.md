@@ -23,7 +23,7 @@ Most Inkplate displays use panels **recycled from decommissioned e-readers**. Th
 
 E-paper holds an image indefinitely without consuming any power. That only pays off if the microcontroller behind it can also sleep aggressively, and ESP32 can.
 
-With deep sleep currents down to 18–25 µA and Wi-Fi on demand, an Inkplate board can wake up, connect to the internet, pull fresh data, update the display, and go back to sleep. The whole cycle might take a few seconds, after which it draws essentially nothing until the next refresh. Depending on how often you update, a small Li-Ion battery can last weeks or months.
+With deep sleep currents down to 18-25 µA and Wi-Fi on demand, an Inkplate board can wake up, connect to the internet, pull fresh data, update the display, and go back to sleep. The whole cycle might take a few seconds, after which it draws essentially nothing until the next refresh. Depending on how often you update, a small Li-Ion battery can last weeks or months.
 
 Ecosystem is the other side of it. ESP32 has solid Arduino IDE and MicroPython support, the Inkplate library is Adafruit GFX-compatible, and there's no shortage of community examples to reference. I²C, SPI, UART, and the onboard Qwiic connector handle most peripheral needs without much extra wiring.
 
