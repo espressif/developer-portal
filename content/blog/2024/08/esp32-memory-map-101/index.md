@@ -2,7 +2,9 @@
 title: "ESP32's family Memory Map 101"
 date: 2024-08-20
 lastmod: 2026-05-27
-tags: ["ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C2", "ESP8684", "ESP32-C3", "ESP32-C6", "ESP32-C5", "ESP32-H2", "ESP32-P4", "Zephyr", "Memory"]
+tags:
+  - Zephyr
+  - Memory
 showAuthor: false
 authors:
   - "marek-matej"
@@ -21,13 +23,15 @@ The primary source of knowledge about any SoC was always the datasheet or Techni
 
 This sparked the motivation to compile a visually rich and informative depiction of crucial information from the current versions of a TRM. This is intended to be used together with the SoC’s datasheets and TRM to help better understand the internals of the ESP32's series of SoCs internals, which is crucial during the system and driver development - for example when porting to other platforms such as Zephyr RTOS.
 
+If you are tracking Zephyr development, Espressif maintains a public status page [here](https://developer.espressif.com/software/zephyr-support-status/).
+
 ## ESP32
 
 The ESP32 is the Xtensa LX6 dual-core microcontroller, and it is the oldest SoC from the ESP32’s series of SoCs.
 
 The SoC has access to external flash memory using the SPI interface. It can also access the external SPIRAM, but only on the data bus.
 
-Zephyr-RTOS support for the ESP32 devkit board can be found [here](https://docs.zephyrproject.org/4.1.0/boards/espressif/esp32_devkitc_wrover/doc/index.html).
+For a head start with Zephyr on this SoC, see the upstream [ESP32 DevKitC WROVER board](https://docs.zephyrproject.org/4.1.0/boards/espressif/esp32_devkitc_wrover/doc/index.html) documentation.
 
 **ROM**
 
@@ -97,7 +101,7 @@ The ESP32-S2 microcontroller is the successor of ESP32 and although very similar
 
 One of the improvements from ESP32 is the ability to access external SPI-ram on data and instruction buses, which means it can run programs and access the data.
 
-Zephyr-RTOS support for the ESP32-S2 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32s2_devkitc/doc/index.html).
+For a head start with Zephyr on this SoC, see the upstream [ESP32-S2 DevKitC board](https://docs.zephyrproject.org/latest/boards/espressif/esp32s2_devkitc/doc/index.html) documentation.
 
 **ROM**
 
@@ -162,7 +166,7 @@ For further information and all the details about the ESP32-S2 SoC please refer 
 The ESP32-S3 is the latest Xtensa LX7 CPU with a dual-core design. Besides two main cores, it has two ultra-low-power coprocessors based on Risc-V architecture. The SoC has a built-in JTAG debugger accessible via a USB interface. It can access external SPIRAM on data and instruction buses, which means it can run programs and access the data.
 
 
-Zephyr-RTOS support for the ESP32-S3 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32s3_devkitc/doc/index.html).
+For a head start with Zephyr on this SoC, see the upstream [ESP32-S3 DevKitC board](https://docs.zephyrproject.org/latest/boards/espressif/esp32s3_devkitc/doc/index.html) documentation.
 
 **ROM**
 
@@ -223,7 +227,7 @@ For further information and all the details about the ESP32-S3 SoC please refer 
 
 The ESP32-C3 is a 32-bit RISC-V microcontroller. The address space of ESP32-C3 is significantly simpler compared to its Xtensa counterparts. It supports JTAG debugging via the on-chip USB interface.
 
-Zephyr-RTOS support for the ESP32-C3 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32c3_devkitc/doc/index.html).
+For a head start with Zephyr on this SoC, see the upstream [ESP32-C3 DevKitC board](https://docs.zephyrproject.org/latest/boards/espressif/esp32c3_devkitc/doc/index.html) documentation.
 
 **ROM**
 
@@ -285,7 +289,7 @@ For further information and all the details about the ESP32-C3 SoC please refer 
 
 The ESP32-C2 is a low-cost 32-bit RISC-V single-core SoC with Wi-Fi 4 (802.11b/g/n) and Bluetooth LE. The same silicon is also referred to as **ESP8684** — Espressif uses that name on modules, dev kits, and in much of the documentation (including the TRM filename), so you will often see **ESP32-C2** and **ESP8684** used interchangeably.
 
-Zephyr-RTOS support for the ESP8684 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp8684_devkitm/doc/index.html).
+For a head start with Zephyr on this SoC, see the upstream [ESP8684-DevKitM board](https://docs.zephyrproject.org/latest/boards/espressif/esp8684_devkitm/doc/index.html) documentation.
 
 **ROM**
 
@@ -344,7 +348,7 @@ For further information and all the details about the ESP32-C2 / ESP8684 SoC ple
 
 The ESP32-C6 is a 32-bit RISC-V microcontroller with the “IMAC” extensions. The address space of ESP32-C6 is also significantly simpler compared to its Xtensa counterparts. It supports JTAG debugging via the on-chip USB interface.
 
-Zephyr-RTOS support for the ESP32-C6 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32c6_devkitc/doc/index.html).
+For a head start with Zephyr on this SoC, see the upstream [ESP32-C6 DevKitC board](https://docs.zephyrproject.org/latest/boards/espressif/esp32c6_devkitc/doc/index.html) documentation.
 
 **ROM**
 
@@ -403,7 +407,7 @@ For further information and all the details about the ESP32-C6 SoC please refer 
 
 The ESP32-C5 is a 32-bit RISC-V SoC which brings dual-band Wi-Fi 6 (2.4 GHz and 5 GHz) to the ESP32-C family. Besides Wi-Fi 6 (802.11ax, with 802.11a/b/g/n/ac compatibility), it also integrates Bluetooth LE and IEEE 802.15.4 (Thread/Zigbee), with time-division coexistence between the radios. The main CPU (HP core) can run up to 240 MHz and the SoC also includes an LP RISC-V core intended for low-power tasks.
 
-Zephyr-RTOS support for the ESP32-C5 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32c5_devkitc/doc/index.html).
+For a head start with Zephyr on this SoC, see the upstream [ESP32-C5 DevKitC board](https://docs.zephyrproject.org/latest/boards/espressif/esp32c5_devkitc/doc/index.html) documentation.
 
 **ROM**
 
@@ -456,7 +460,7 @@ For further information and all the details about the ESP32-C5 SoC please refer 
 
 The ESP32-H2 is a low-power 32-bit RISC-V SoC focused on IEEE 802.15.4 and Bluetooth LE connectivity. It supports Thread and Zigbee over 802.15.4, plus Bluetooth LE (including mesh and long-range coded PHY options), which makes it a good fit for Thread/Zigbee end-devices and for Matter-over-Thread commissioning via Bluetooth LE. Unlike most other ESP32 SoCs, it does not include Wi-Fi. The CPU can run up to 96 MHz.
 
-Zephyr-RTOS support for the ESP32-H2 devkit board can be found [here](https://docs.zephyrproject.org/latest/boards/espressif/esp32h2_devkitm/doc/index.html).
+For a head start with Zephyr on this SoC, see the upstream [ESP32-H2-DevKitM board](https://docs.zephyrproject.org/latest/boards/espressif/esp32h2_devkitm/doc/index.html) documentation.
 
 **ROM**
 
@@ -508,8 +512,6 @@ For further information and all the details about the ESP32-H2 SoC please refer 
 ## ESP32-P4
 
 The ESP32-P4 is a high-performance RISC-V SoC designed for compute-heavy applications (HMI, audio/voice, image processing), with a dual-core HP system (up to 400 MHz) and an LP core (up to 40 MHz) for low-power tasks. It also integrates high-speed peripherals such as USB 2.0 OTG (including high-speed), Ethernet MAC, SDIO Host, and MIPI CSI/DSI. Unlike the chips above, ESP32-P4 does not include integrated Wi-Fi/Bluetooth/802.15.4 — it is typically paired with a wireless companion chip (for example an ESP32-C or ESP32-S series device) when connectivity is required.
-
-At the time of writing, ESP32-P4 is not yet available as a Zephyr board target in upstream documentation. If you are tracking Zephyr enablement, Espressif maintains a public status page [here](https://developer.espressif.com/software/zephyr-support-status/).
 
 **ROM**
 
@@ -570,7 +572,6 @@ Printable versions of the images in PDF format can be downloaded here:
 - [ESP32-C5](pdf/esp32c5-mmap-101.export.pdf)
 - [ESP32-H2](pdf/esp32h2-mmap-101.export.pdf)
 - [ESP32-P4](pdf/esp32p4-mmap-101.export.pdf)
-
 
 
 ### Conclusion
