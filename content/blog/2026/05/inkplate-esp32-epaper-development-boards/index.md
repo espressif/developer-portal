@@ -1,7 +1,7 @@
 ---
 title: "Inkplate: Open-Source ESP32 E-Paper Development Boards"
 date: "2026-05-25"
-summary: "Inkplate is a family of all-in-one, open-source e-paper development boards built around the ESP32. This article introduces the Inkplate lineup, covers the hardware, the Arduino and MicroPython libraries, and the kinds of projects you can build — and explains why ESP32 makes e-paper development accessible for everyone."
+summary: "Inkplate is a family of all-in-one, open-source e-paper development boards built around the ESP32. This article introduces the Inkplate lineup, covers the hardware, the Arduino and MicroPython libraries, and the kinds of projects you can build, explaining why ESP32 makes e-paper development accessible for everyone."
 authors:
   - "borna-zelenika"
 tags:
@@ -15,7 +15,7 @@ tags:
 
 ## What is Inkplate?
 
-[Inkplate](https://soldered.com/inkplate/) is a line of e-paper development boards from [Soldered Electronics](https://soldered.com/), a hardware company from the EU. The idea is simple: take a genuine e-paper display, pair it with an ESP32, add a battery charger, RTC, microSD slot, and a Qwiic connector, and ship it as a single ready-to-use board. No soldering a display breakout to a dev board, no hunting down drivers — just plug in USB-C and start writing code.
+[Inkplate](https://soldered.com/inkplate/) is a line of e-paper development boards from [Soldered Electronics](https://soldered.com/), a hardware company from the EU. The idea is simple: take a genuine e-paper display, pair it with an ESP32, add a battery charger, RTC, microSD slot, and a Qwiic connector, and ship it as a single ready-to-use board. No soldering a display breakout to a dev board, no hunting down drivers. Just plug in USB-C and start writing code.
 
 One thing worth calling out: most Inkplate displays are **recycled from decommissioned e-readers**. It keeps the cost reasonable, cuts down on e-waste, and you end up with a panel that's already been through real-world use testing.
 
@@ -23,7 +23,7 @@ One thing worth calling out: most Inkplate displays are **recycled from decommis
 
 E-paper and ESP32 are a natural match, mostly because of what e-paper is good at: holding an image indefinitely without consuming any power. That property is only useful if the microcontroller running the show can also sleep aggressively.
 
-With deep sleep currents down to 18–25 µA and Wi-Fi on demand, an Inkplate board can wake up, connect to the internet, pull fresh data, update the display, and go back to sleep — the whole cycle might take a few seconds, after which it draws essentially nothing until the next refresh. Depending on how often you update, a small Li-Ion battery can last weeks or months.
+With deep sleep currents down to 18–25 µA and Wi-Fi on demand, an Inkplate board can wake up, connect to the internet, pull fresh data, update the display, and go back to sleep. The whole cycle might take a few seconds, after which it draws essentially nothing until the next refresh. Depending on how often you update, a small Li-Ion battery can last weeks or months.
 
 The other practical reason is ecosystem. ESP32 has solid Arduino IDE and MicroPython support, the Inkplate Arduino library is Adafruit GFX-compatible, and there's a large community of examples to draw from. I²C, SPI, UART, and the onboard Qwiic connector cover most peripheral needs without much extra wiring.
 
@@ -44,11 +44,11 @@ Soldered currently offers eight models:
 
 All of them share the same base: open-source hardware and software, USB-C, Li-Ion charging, RTC (PCF85063A), Qwiic connector, designed and made in the EU.
 
-### Inkplate 6MOTION — A Special Case
+### Inkplate 6MOTION: A Special Case
 
 ![Inkplate 6MOTION](./img/Inkplate-6-MOTION-scaled.webp)
 
-The 6MOTION is a different beast. Instead of running everything on a single ESP32, it uses a **dual-processor architecture** — an STM32H743 handles the display and peripherals at full speed, with an **ESP32-C3 as the Wi-Fi and Bluetooth co-processor**. The result is a **91 ms partial refresh**, which works out to roughly 11 FPS. That's fast enough for animations and interactive interfaces, which isn't something you typically associate with e-paper.
+The 6MOTION is a different beast. Instead of running everything on a single ESP32, it uses a **dual-processor architecture**: an STM32H743 handles the display and peripherals at full speed, with an **ESP32-C3 as the Wi-Fi and Bluetooth co-processor**. The result is a **91 ms partial refresh**, which works out to roughly 11 FPS. That's fast enough for animations and interactive interfaces, which isn't something you typically associate with e-paper.
 
 It also packs more hardware than the rest of the lineup: LSM6DSO32 accelerometer and gyroscope, APDS-9960 gesture and proximity sensor, SHTC3 temperature and humidity sensor, a rotary encoder with backlit indicator, two WS2812B RGB LEDs, three side push buttons, and 30+ GPIO pins.
 
@@ -136,14 +136,14 @@ display.display()
 
 ## What People Build With It
 
-The most common use case is probably some kind of dashboard or information display — something that shows data from the internet and sits on a desk or wall, running off a battery for months without needing attention. Calendar displays, weather stations, Home Assistant panels, that sort of thing.
+The most common use case is probably some kind of dashboard or information display, something that shows data from the internet and sits on a desk or wall, running off a battery for months without needing attention. Calendar displays, weather stations, Home Assistant panels, that sort of thing.
 
 Beyond that, the hardware lends itself well to:
 
-- **E-readers** — load text from microSD or a web server and flip through pages
-- **AI image frames** — generate a new image via the OpenAI API each morning and display it
-- **IoT sensor nodes** — attach sensors via Qwiic and push readings to an MQTT broker or similar
-- **Anything battery-powered** — the combination of e-paper and deep sleep makes surprisingly long runtimes practical
+- **E-readers**: load text from microSD or a web server and flip through pages
+- **AI image frames**: generate a new image via the OpenAI API each morning and display it
+- **IoT sensor nodes**: attach sensors via Qwiic and push readings to an MQTT broker or similar
+- **Anything battery-powered**: the combination of e-paper and deep sleep makes surprisingly long runtimes practical
 
 Ready-to-run examples for these and other projects are in the [Inkplate Arduino library examples](https://github.com/SolderedElectronics/Inkplate-Arduino-library/tree/master/examples).
 
@@ -157,4 +157,4 @@ All Inkplate hardware (KiCad schematics and PCB layouts) and software are fully 
 
 ## Wrapping Up
 
-If you've been curious about e-paper but put off by the complexity of wiring up a raw display panel, Inkplate is worth a look. Everything is already on the board, the library handles the low-level driver work, and the ESP32 takes care of connectivity. Getting something running usually takes an afternoon. For more demanding projects — animations, touch input, sensor fusion — the 6MOTION pushes things further than most people expect e-paper to go.
+If you've been curious about e-paper but put off by the complexity of wiring up a raw display panel, Inkplate is worth a look. Everything is already on the board, the library handles the low-level driver work, and the ESP32 takes care of connectivity. Getting something running usually takes an afternoon. For more demanding projects like animations, touch input, or sensor fusion, the 6MOTION pushes things further than most people expect e-paper to go.
