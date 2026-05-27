@@ -15,7 +15,7 @@ tags:
 
 ## What is Inkplate?
 
-[Inkplate](https://soldered.com/inkplate/) is a family of ready-to-use e-paper development boards made by [Soldered Electronics](https://soldered.com/), a hardware company based in the EU. Each board ships with a genuine e-paper display, an ESP32 microcontroller, an onboard battery charger, a real-time clock (RTC), a microSD slot, and an EasyC/Qwiic expansion connector — everything integrated and ready to program out of the box.
+[Inkplate](https://soldered.com/inkplate/) is a family of ready-to-use e-paper development boards made by [Soldered Electronics](https://soldered.com/), a hardware company based in the EU. Each board ships with a genuine e-paper display, an ESP32 microcontroller, an onboard battery charger, a real-time clock (RTC), a microSD slot, and a Qwiic expansion connector — everything integrated and ready to program out of the box.
 
 What makes Inkplate unique is its sustainability angle: most displays are **recycled from decommissioned e-readers**. This keeps costs down, reduces e-waste, and means you get a real-world-tested screen with no soldering or driver board fiddling required. Just plug in USB-C and start writing code.
 
@@ -26,7 +26,7 @@ The ESP32 is the microcontroller at the heart of nearly every Inkplate model, an
 - **Wi-Fi + Bluetooth** — Inkplate boards can fetch live data (weather, calendar events, news, stock prices) over Wi-Fi and display it on a screen that consumes zero power to hold the image.
 - **Deep sleep as low as 18–25 µA** — Combined with e-paper's zero-power image retention, a battery-powered Inkplate can run for **weeks or months** on a single charge.
 - **Arduino IDE and MicroPython support** — The official Inkplate Arduino library is Adafruit GFX compatible, so any developer familiar with the Arduino ecosystem can get started in minutes.
-- **Rich peripheral support** — I²C, SPI, UART, and the EasyC (Qwiic-compatible) connector make it easy to attach sensors, actuators, and other modules.
+- **Rich peripheral support** — I²C, SPI, UART, and the Qwiic connector make it easy to attach sensors, actuators, and other modules.
 
 ## The Inkplate Lineup
 
@@ -43,7 +43,7 @@ Soldered offers a range of models to match different project needs:
 | **Inkplate 10** | 9.7″ | 1200×825 | Largest display, great for dashboards |
 | **Inkplate 6MOTION** | 6.0″ | 1024×758 | 16 grayscale levels, 91 ms partial refresh (up to 11 FPS) |
 
-All models share these traits: open-source hardware and software, USB-C, Li-Ion battery support with onboard charger, RTC (PCF85063A), EasyC/Qwiic connector, and are designed and manufactured in the EU.
+All models share these traits: open-source hardware and software, USB-C, Li-Ion battery support with onboard charger, RTC (PCF85063A), Qwiic connector, and are designed and manufactured in the EU.
 
 ### Inkplate 6MOTION — A Special Case
 
@@ -67,10 +67,10 @@ All Inkplate models are supported by the [Inkplate Arduino Library](https://gith
 In Arduino IDE, add the following URL to *File → Preferences → Additional Boards Manager URLs*:
 
 ```
-https://raw.githubusercontent.com/SolderedElectronics/Inkplate-Arduino-library/master/package_Inkplate_index.json
+https://github.com/SolderedElectronics/Dasduino-Board-Definitions-for-Arduino-IDE/raw/master/package_Dasduino_Boards_index.json
 ```
 
-Then open *Tools → Board → Boards Manager*, search for **Inkplate**, and install.
+Then open *Tools → Board → Boards Manager*, search for **Inkplate Boards**, and install.
 
 ### 2. Hello World
 
@@ -149,9 +149,9 @@ The combination of ESP32, Wi-Fi, ultra-low power consumption, and a sunlight-rea
 - **Weather station** — fetch data from Open-Meteo or OpenWeatherMap and render a multi-day forecast
 - **Google Calendar display** — show upcoming events on your desk, powered by a small battery for months
 - **AI image frame** — use the OpenAI API to generate a new image daily and display it as a "digital painting"
-- **IoT sensor node** — attach I²C sensors via EasyC and report readings to an MQTT broker or cloud dashboard
+- **IoT sensor node** — attach I²C sensors via Qwiic and report readings to an MQTT broker or cloud dashboard
 
-Soldered's documentation includes complete, ready-to-run examples for several of these use cases, including [Google Calendar](https://soldered.com/learn/inkplate/projects/Google_Calendar/), [Open-Meteo weather](https://soldered.com/learn/inkplate/projects/Open_Meteo/), and [OpenAI image slideshow](https://soldered.com/learn/inkplate/projects/OpenAI_image_slideshow/).
+Soldered's documentation includes complete, ready-to-run examples for several of these use cases — browse them in the [Inkplate Arduino library examples](https://github.com/SolderedElectronics/Inkplate-Arduino-library/tree/master/examples).
 
 ## Open Source
 
