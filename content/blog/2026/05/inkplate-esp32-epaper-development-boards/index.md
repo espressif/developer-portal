@@ -46,6 +46,8 @@ All of them share the same base: open-source hardware and software, USB-C, Li-Io
 
 ### Inkplate 6MOTION — A Special Case
 
+![Inkplate 6MOTION](./img/Inkplate-6-MOTION-scaled.webp)
+
 The 6MOTION is a different beast. Instead of running everything on a single ESP32, it uses a **dual-processor architecture** — an STM32H743 handles the display and peripherals at full speed, with an **ESP32-C3 as the Wi-Fi and Bluetooth co-processor**. The result is a **91 ms partial refresh**, which works out to roughly 11 FPS. That's fast enough for animations and interactive interfaces, which isn't something you typically associate with e-paper.
 
 It also packs more hardware than the rest of the lineup: LSM6DSO32 accelerometer and gyroscope, APDS-9960 gesture and proximity sensor, SHTC3 temperature and humidity sensor, a rotary encoder with backlit indicator, two WS2812B RGB LEDs, three side push buttons, and 30+ GPIO pins.
