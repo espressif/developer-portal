@@ -15,7 +15,7 @@ tags:
 
 ## What is Inkplate?
 
-[Inkplate](https://soldered.com/inkplate/) is a line of e-paper development boards from [Soldered Electronics](https://soldered.com/), a hardware company from the EU. The idea is simple: take a genuine e-paper display, pair it with an ESP32, add a battery charger, RTC, microSD slot, and a Qwiic connector, and ship it as a single ready-to-use board. No soldering a display breakout to a dev board, no hunting down drivers. Just plug in USB-C and start writing code.
+[Inkplate](https://soldered.com/inkplate/) is a line of e-paper development boards from [Soldered Electronics](https://soldered.com/), a hardware company from the EU. The idea is simple: take a genuine e-paper display, pair it with an ESP32, add a battery charger, RTC, microSD slot, and a Qwiic (formerly easyC) connector, and ship it as a single ready-to-use board. No soldering a display breakout to a dev board, no hunting down drivers. Just plug in USB-C and start writing code.
 
 Most Inkplate displays use panels **recycled from decommissioned e-readers**. This keeps the price reasonable, reduces waste, and means the screen has already survived years of actual use before it ends up on your desk.
 
@@ -25,7 +25,7 @@ E-paper holds an image indefinitely without consuming any power. That only pays 
 
 With deep sleep currents down to 18-25 µA and Wi-Fi on demand, an Inkplate board can wake up, connect to the internet, pull fresh data, update the display, and go back to sleep. The whole cycle might take a few seconds, after which it draws essentially nothing until the next refresh. Depending on how often you update, a small Li-Ion battery can last weeks or months.
 
-Ecosystem is the other side of it. ESP32 has solid Arduino IDE and MicroPython support, the Inkplate library is Adafruit GFX-compatible, and there's no shortage of community examples to reference. I²C, SPI, UART, and the onboard Qwiic connector handle most peripheral needs without much extra wiring.
+Ecosystem is the other side of it. ESP32 has solid Arduino IDE and MicroPython support, the Inkplate library is Adafruit GFX-compatible, and there's no shortage of community examples to reference. I²C, SPI, UART, and the onboard Qwiic (formerly easyC) connector handle most peripheral needs without much extra wiring.
 
 ## The Inkplate Lineup
 
@@ -42,7 +42,7 @@ Soldered currently offers eight models:
 | **Inkplate 10** | 9.7″ | 1200×825 | Largest display, great for dashboards |
 | **Inkplate 6MOTION** | 6.0″ | 1024×758 | 16 grayscale levels, 91 ms partial refresh (up to 11 FPS) |
 
-All of them share the same base: open-source hardware and software, USB-C, Li-Ion charging, RTC (PCF85063A), Qwiic connector, designed and made in the EU.
+All of them share the same base: open-source hardware and software, USB-C, Li-Ion charging, RTC (PCF85063A), Qwiic (formerly easyC) connector, designed and made in the EU.
 
 ### Inkplate 6MOTION: A Special Case
 
@@ -142,7 +142,7 @@ Other things people build:
 
 - **E-readers**: load text from microSD or a web server and flip through pages
 - **AI image frames**: generate a new image via the OpenAI API each morning and display it
-- **IoT sensor nodes**: attach sensors via Qwiic and push readings to an MQTT broker or similar
+- **IoT sensor nodes**: attach sensors via Qwiic (formerly easyC) and push readings to an MQTT broker or similar
 - **Anything battery-powered**: the combination of e-paper and deep sleep makes surprisingly long runtimes practical
 
 The [Inkplate Arduino library examples](https://github.com/SolderedElectronics/Inkplate-Arduino-library/tree/master/examples) include working code for most of these.
