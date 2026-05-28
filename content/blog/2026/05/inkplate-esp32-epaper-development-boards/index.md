@@ -1,6 +1,6 @@
 ---
 title: "Inkplate: Open-Source ESP32 E-Paper Development Boards"
-date: "2026-05-25"
+date: "2026-05-30"
 summary: "Inkplate is a family of all-in-one, open-source e-paper development boards built around the ESP32. This article introduces the Inkplate lineup, covers the hardware, the Arduino and MicroPython libraries, and the kinds of projects you can build, explaining why ESP32 makes e-paper development accessible for everyone."
 authors:
   - "borna-zelenika"
