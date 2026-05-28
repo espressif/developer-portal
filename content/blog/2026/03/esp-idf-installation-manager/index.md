@@ -9,7 +9,6 @@ tags:
   - EIM
   - ESP-IDF tool
 showAuthor: false
-featureAsset: "featured.webp"
 authors:
     - "petr-gadorek"
 summary: "The ESP-IDF Installation Manager (EIM) v0.8 introduces simplified installation across Windows, macOS, and Linux through native package managers. This article covers the new release features, installation methods, offline capabilities, and headless usage for CI/CD pipelines."
