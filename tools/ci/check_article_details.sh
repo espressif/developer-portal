@@ -469,6 +469,37 @@ validate_added_articles() {
 
 
 ###############################################################################
+# FEATURE ASSET VALIDATION
+###############################################################################
+
+validate_feature_assets() {
+  echo
+  echo "Validating featureAsset presence..."
+
+  local job_error=0
+  local INDEX_LIST="${TEMP_DIR}/index-added.txt"
+  local index_file path
+
+  while IFS= read -r index_file; do
+    [[ -z "$index_file" ]] && continue
+    path=$(awk '/^featureAsset:/ { gsub(/["'\'' ]/, "", $2); print $2; exit }' "$index_file")
+    [[ "$path" == img/* ]] && continue
+    echo
+    echo "Article: $index_file"
+    echo "❌ Incorrect use of featureAsset in front matter."
+    echo "   Use it only to include a shared image from \"assets/img/featured/\"."
+    echo "   Otherwise, place your article image alongside index.md and ensure its name includes \"feature\"."
+    job_error=1
+  done < "$INDEX_LIST"
+
+  if [[ $job_error -eq 0 ]]; then
+    echo "No issues found."
+  fi
+  return $job_error
+}
+
+
+###############################################################################
 # AUTHOR VALIDATION (HUGO BUILD)
 ###############################################################################
 
@@ -685,6 +716,7 @@ if [[ -s "$TEMP_DIR/index-added.txt" ]]; then
   extract_added_metadata || overall_error=1
   validate_added_articles || overall_error=1
   validate_author_presence || overall_error=1
+  validate_feature_assets || overall_error=1
 else
   echo "No added index files."
 fi
