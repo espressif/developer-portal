@@ -1,5 +1,9 @@
 # Developer Portal
 
+[![Hugo](https://img.shields.io/static/v1?label=Hugo&message=0.152.2&color=blue&logo=hugo)](https://github.com/gohugoio/hugo/releases/tag/v0.152.2)
+[![Theme Blowfish](https://img.shields.io/badge/Hugo--Themes-@Blowfish-blue)](https://themes.gohugo.io/themes/blowfish/)
+[![Blowfish](https://img.shields.io/static/v1?label=Blowfish&message=2.92.0&color=blue)](https://github.com/nunocoracao/blowfish/releases/tag/v2.92.0)
+
 [![Minimum Hugo Version](https://img.shields.io/static/v1?label=min-Hugo-version&message=0.141.0&color=blue&logo=hugo)](https://github.com/gohugoio/hugo/releases/tag/v0.141.0)
 [![Maximum Hugo Version](https://img.shields.io/static/v1?label=max-Hugo-version&message=0.152.2&color=blue&logo=hugo)](https://github.com/gohugoio/hugo/releases/tag/v0.152.2)
 
