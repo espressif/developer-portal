@@ -1,6 +1,7 @@
 ---
 title: "macOS prerequisites 🍎"
 date: "2025-11-12"
+lastmod: "2026-05-29"
 summary: "This guide outlines the preliminary steps to set up your work environment and follow the workshops."
 ---
 
@@ -14,11 +15,14 @@ summary: "This guide outlines the preliminary steps to set up your work environm
 This guide uses macOS Sequoia.
 {{< /alert >}}
 
-* Once the file is downloaded, install VS Code
-* Press `CTRL+SPACE` and search for `Code`. Click on the VS Code icon
-* You should now see the VS Code interface
+* Once the file is downloaded, install VS Code.
+* Press `CTRL+SPACE` and search for `Code`. Click the VS Code icon.
+* You should now see the VS Code interface.
 
 ![](../assets/setup/2-vscode-screen.webp)
+
+* The first time you open VS Code, you'll be asked to sign in. Click on _Continue without signing in_
+  ![](../assets/setup/1-4-1-no-signing.webp)
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 VS Code may ask whether you trust the author of the folder. This is important when using `git` repositories, but for now it doesn’t matter. Click “Yes.”
@@ -90,9 +94,10 @@ To __use__ the ESP-IDF toolchain, you need to install the remaining tools.
 
 During the installation process, you may encounter some issues. Refer to the [Troubleshooting](#troubleshooting) section to see if your error is listed there.
 
+
 ## Next Steps
 
-> Continue with the [next step](../#installing-the-esp-idf-extension-for-vs-code).
+> Continue with the [next step](../#2-installing-the-esp-idf-extension-for-vs-code).
 
 ---
 

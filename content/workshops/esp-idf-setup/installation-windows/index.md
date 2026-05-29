@@ -1,6 +1,7 @@
 ---
 title: "Windows prerequisites 🪟"
 date: "2026-03-20"
+lastmod: "2026-05-29"
 summary: "This guide outlines the preliminary steps to set up your work environment and follow the workshops."
 ---
 
@@ -15,9 +16,11 @@ This guide uses Windows 11.
 {{< /alert >}}
 
 * Once the `.exe` file is downloaded, double-click it and follow the installation steps.
+* When asked about the additional tasks, tick the following boxes:
+![](../assets/setup/1-4-installation-options.webp)
 
 After installation, there are two ways to open VS Code:
-
+0
 1. Open VS Code from the Start menu
 2. Open VS Code from a folder
 
@@ -25,11 +28,14 @@ Since it's often useful to open the editor directly from a folder, we'll use the
 
 #### Open VS Code from a Folder
 
-* Create a new folder called `tmp`
-* Right-click inside the folder in File Explorer
-* From the menu, select `Show more options`
-* Click on `Open with Code`
+* Create a new folder named `tmp`.
+* Right-click inside the folder in File Explorer.
+* From the menu, select `Show more options`.
+* Click on `Open with Code`.
   ![](../assets/setup/1-5-windows-open-with-code.webp)
+
+* The first time you open VS Code, you'll be asked to sign in. Click on _Continue without signing in_
+  ![](../assets/setup/1-4-1-no-signing.webp)
 * You should now see the VS Code interface
   ![](../assets/setup/2-vscode-screen.webp)
 
@@ -43,4 +49,4 @@ No additional prerequisites need to be installed. These will be handled automati
 
 ## Next Steps
 
-> Continue with the [next step](../#installing-the-esp-idf-extension-for-vs-code).
+> Continue with the [next step](../#2-installing-the-esp-idf-extension-for-vs-code).

@@ -1,6 +1,7 @@
 ---
 title: "Linux prerequisites 🐧"
 date: "2026-03-20"
+lastmod: "2026-05-29"
 summary: "This guide outlines the preliminary steps to set up your work environment and follow the workshops."
 ---
 
@@ -11,7 +12,7 @@ summary: "This guide outlines the preliminary steps to set up your work environm
   ![](../assets/setup/1-ubuntu-vscode-download.webp)
 
 {{< alert iconColor="#df8e1d" cardColor="#edcea3">}}
-This guide uses the latest LTS version of Ubuntu, 24.04.
+This guide uses the latest LTS version of Ubuntu, 26.04.
 {{< /alert >}}
 
 * Once the file is downloaded, check the file name (referred to as `<file>.deb` below)
@@ -31,8 +32,10 @@ This guide uses the latest LTS version of Ubuntu, 24.04.
   ```
 
 * You should now see the VS Code interface
-
 ![](../assets/setup/2-vscode-screen.webp)
+
+* The first time you open VS Code, you'll be asked to sign in. Click on _Continue without signing in_
+  ![](../assets/setup/1-4-1-no-signing.webp)
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 VS Code may ask whether you trust the author of the folder. This is important when working with `git` repositories, but for now it doesn’t matter. Click “Yes.”
@@ -44,7 +47,7 @@ To **install** and configure the ESP-IDF toolchain, you need to have Python and 
 
 ### Python
 
-To install the ESP-IDF toolchain, Python version `3.12` or higher is required.
+To install the ESP-IDF toolchain, Python version `3.14.4` or higher is required.
 
 To check your Python version:
 
@@ -54,7 +57,7 @@ To check your Python version:
 
   ```console
   espressif@Ubuntu24:~$ python3 --version
-  Python 3.12.3
+  Python 3.14.4
   ```
 
 This satisfies the prerequisite.
@@ -103,7 +106,7 @@ To install git:
 
   ```console
   > git --version
-  > git version 2.43.0
+  > git version 2.53.0
   ```
 
 ### ESP-IDF Prerequisites
@@ -116,6 +119,8 @@ To **use** the ESP-IDF toolchain, you need to install some additional tools.
   sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
   ```
 
+
+
 ## Next Steps
 
-> Continue with the [next step](../#installing-the-esp-idf-extension-for-vs-code).
+> Continue with the [next step](../#2-installing-the-esp-idf-extension-for-vs-code).
