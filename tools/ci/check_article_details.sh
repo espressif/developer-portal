@@ -582,6 +582,9 @@ validate_updated_articles() {
     LASTMOD_DATE=$(awk '/^lastmod:/ { gsub(/["'\'']/, "", $2); print $2 }' "$index_file")
     ARTICLE_DATE_ONLY="${ARTICLE_DATE:0:10}"
 
+    local FILE_MOD_DATE
+    FILE_MOD_DATE=$(stat -c '%y' "$index_file" 2>/dev/null | cut -d' ' -f1 || stat -f '%Sm' -t '%Y-%m-%d' "$index_file")
+
     echo
     echo "Article: $index_file"
 
@@ -608,6 +611,18 @@ validate_updated_articles() {
       if [ "$LASTMOD_DATE" \< "$ARTICLE_DATE_ONLY" ]; then
         echo "❌ lastmod is earlier than date: $LASTMOD_DATE < $ARTICLE_DATE_ONLY."
         echo "   Update lastmod to the same day or later than date."
+        article_error=1
+      fi
+    fi
+
+    if [ "$article_error" -eq 0 ] && [ -n "$FILE_MOD_DATE" ]; then
+      # Calculate days difference (allowing up to 3 days lag)
+      local days_diff
+      days_diff=$(( ( $(date -d "$FILE_MOD_DATE" +%s 2>/dev/null || date -j -f "%Y-%m-%d" "$FILE_MOD_DATE" +%s) - $(date -d "$LASTMOD_DATE" +%s 2>/dev/null || date -j -f "%Y-%m-%d" "$LASTMOD_DATE" +%s) ) / 86400 ))
+
+      if [ "$days_diff" -gt 3 ]; then
+        echo "❌ lastmod is outdated: $LASTMOD_DATE (file modified: $FILE_MOD_DATE)."
+        echo "   Update lastmod to reflect the recent changes (within 3 days of modification)."
         article_error=1
       fi
     fi
