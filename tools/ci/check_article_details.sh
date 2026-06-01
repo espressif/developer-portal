@@ -565,7 +565,59 @@ validate_author_presence() {
 # UPDATED ARTICLES VALIDATION
 ###############################################################################
 
-validate_updated_articles() {
+collect_updated_articles_body_only() {
+  local base_ref="$1"
+  local output_file="${3:-$TEMP_DIR/index-updated-body.txt}"
+
+  > "$output_file"  # Clear output file
+
+  while IFS= read -r file; do
+    # Skip empty lines
+    [[ -z "$file" ]] && continue
+
+    # Get the diff for this specific file
+    local diff_output
+    diff_output=$(git diff -U0 "$base_ref"...HEAD -- "$file")
+
+    # Flag to track if we found changes in frontmatter
+    local has_frontmatter_changes=false
+
+    # Parse the diff output looking for change hunks
+    while IFS= read -r line; do
+      # Look for hunk headers like @@ -1,5 +1,5 @@
+      if [[ "$line" =~ ^@@\ -([0-9]+) ]]; then
+        local start_line="${BASH_REMATCH[1]}"
+
+        # Get the frontmatter end line from the original file
+        local frontmatter_end
+        frontmatter_end=$(git show "$base_ref:$file" | awk '
+          BEGIN { count=0 }
+          /^---$/ { count++; if(count==2) { print NR; exit } }
+        ')
+
+        # If we couldn't find frontmatter end, assume no frontmatter
+        [[ -z "$frontmatter_end" ]] && frontmatter_end=0
+
+        # If this hunk starts within the frontmatter section (line 1 to frontmatter_end)
+        if [[ $start_line -le $frontmatter_end ]]; then
+          has_frontmatter_changes=true
+          break
+        fi
+      fi
+    done <<< "$diff_output"
+
+    # If no frontmatter changes detected, add to output
+    if [[ "$has_frontmatter_changes" == false ]]; then
+      echo "$file" >> "$output_file"
+    fi
+  done < "$TEMP_DIR/index-updated.txt"
+
+  echo
+  echo "List of updated articles with body-only changes:"
+  cat "$output_file"
+}
+
+validate_updated_articles_lastmod() {
   echo
   echo "Validating updated articles..."
 
@@ -632,7 +684,7 @@ validate_updated_articles() {
     else
       job_error=1
     fi
-  done < "$TEMP_DIR/index-updated.txt"
+  done < "$TEMP_DIR/index-updated-body.txt"
 
   if [ "$job_error" -eq 0 ]; then
     return 0
@@ -739,7 +791,8 @@ fi
 banner "🔎 Checking updated files..."
 
 if [[ -s "$TEMP_DIR/index-updated.txt" ]]; then
-  validate_updated_articles || overall_error=1
+  collect_updated_articles_body_only "$BASE_REF"
+  validate_updated_articles_lastmod || overall_error=1
 fi
 
 if [[ -s "$TEMP_DIR/folders-renamed.txt" ]]; then
