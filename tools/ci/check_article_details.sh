@@ -467,6 +467,42 @@ validate_added_articles() {
   return 1
 }
 
+find_trailing_spaces() {
+  echo
+  echo "Looking for trailing whitespaces..."
+
+  local job_error=0
+
+  while IFS= read -r file; do
+    # Skip empty lines
+    [[ -z "$file" ]] && continue
+
+    # Check if file exists
+    if [[ ! -f "$file" ]]; then
+      echo "Warning: File not found: $file"
+      continue
+    fi
+
+    # Count lines with trailing spaces
+    count=$(grep -c '[[:blank:]]$' "$file")
+
+    # Report only if there are trailing spaces
+    if [[ "$count" -gt 0 ]] 2>/dev/null; then
+      job_error=1
+      echo
+      echo "❌ Lines end with extra spaces or tabs."
+      echo "   Remove trailing whitespaces from (use <br> where needed):"
+      echo "   $file -- $count line(s) in total."
+    fi
+  done < "$TEMP_DIR/index-added.txt"
+
+  if [ "$job_error" -eq 0 ]; then
+    return 0
+  fi
+
+  return 1
+}
+
 
 ###############################################################################
 # FEATURE ASSET VALIDATION
@@ -782,6 +818,7 @@ banner "🔎 Checking added files..."
 if [[ -s "$TEMP_DIR/index-added.txt" ]]; then
   extract_added_metadata || overall_error=1
   validate_added_articles || overall_error=1
+  find_trailing_spaces || overall_error=1
   validate_author_presence || overall_error=1
   validate_feature_assets || overall_error=1
 else
