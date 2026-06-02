@@ -51,7 +51,7 @@ jobs:
           echo "PR_SHA=$PR_SHA" >> "$GITHUB_ENV"
 
       - name: Check out PR commit with submodules
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ env.PR_SHA }}
           submodules: recursive

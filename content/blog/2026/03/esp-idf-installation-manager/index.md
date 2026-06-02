@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Installation Manager v0.8: Streamlined Setup for ESP-IDF Development"
 date: 2026-03-02
+lastmod: 2026-06-02
 tags:
   - ESP-IDF
   - installation
@@ -171,7 +172,7 @@ For GitHub workflows, use the official [install-esp-idf-action](https://github.c
 
 ```yaml
 steps:
-  - uses: actions/checkout@v4
+  - uses: actions/checkout@v5
   - name: Install ESP-IDF
     uses: espressif/install-esp-idf-action@v1
     with:
