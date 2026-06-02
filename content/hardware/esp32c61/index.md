@@ -26,9 +26,7 @@ This page will be periodically updated to reflect the current support status for
 
 ## ESP-IDF
 
-The **initial mass production support** for ESP32-C61 has been rescheduled from ESP-IDF v5.4 to ESP-IDF v5.5.1, in line with the updated chip production plan. ESP-IDF v5.5.1 is planned for release on August 31, 2025.
-
-In the meantime, the ESP-IDF `master` branch contains the latest **preview support** for ESP32-C61 v1.0. To start developing with v1.0 chips now, please pull the latest commits to your ESP-IDF master branch.
+The **initial mass production support** for ESP32-C61 (v1.0) has been released in ESP-IDF v5.5.2.
 
 The **support for earlier engineering samples** -- ESP32-C61 v0.2 -- has been removed starting from commit [884e54a8](https://github.com/espressif/esp-idf/commit/884e54a8dd97ce9ad2c2b5d6a6c0a744c641157e). If you need to continue developing with v0.2 chips, please check out the earlier commit [b1b99b30](https://github.com/espressif/esp-idf/commit/b1b99b30ef96011e2e72a6532e31ede05f73e55f) from the master branch by running `git checkout b1b99b30`.
 

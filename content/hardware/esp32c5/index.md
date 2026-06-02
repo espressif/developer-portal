@@ -28,7 +28,7 @@ This page will be periodically updated to reflect the current support status for
 
 ## ESP-IDF
 
-Now the master branch contains the latest preview support for ESP32-C5 v1.0. Until a full support version is released, please update to the HEAD of master branch to develop with v1.0 chips.
+The **initial mass production support** for ESP32-C5 (v1.0) has been released in ESP-IDF v5.5.2.
 
 If you would like to try features with the early samples of the ESP32-C5 v0.1, please refer to the [ESP32-C5 v0.1 support status page](https://github.com/espressif/esp-idf/issues/14021).
 
