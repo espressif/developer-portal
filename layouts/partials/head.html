@@ -62,17 +62,23 @@
       {{ $featureImage = $pageImages.GetMatch . }}
     {{ end }}
   {{ end }}
+  {{/* Check frontmatter for FeatureAsset */}}
   {{ if not $featureImage }}
-    {{ with .Site.Params.defaultSocialImage }}
-      {{ $socialImage := "" }}
-      {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
-        {{ $socialImage = resources.GetRemote . }}
-      {{ else }}
-        {{ $socialImage = resources.Get . }}
-      {{ end }}
-      {{ with $socialImage }}
-        <meta name="twitter:image" content="{{ .RelPermalink | absURL }}">
-        <meta property="og:image" content="{{ .RelPermalink | absURL }}">
+    {{ with .Params.FeatureAsset }}
+      {{ $featureImage = resources.GetMatch . }}
+    {{ end }}
+  {{ end }}
+  {{ if not $featureImage }}
+      {{ with .Site.Params.defaultSocialImage }}
+        {{ $socialImage := "" }}
+        {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+          {{ $socialImage = resources.GetRemote . }}
+        {{ else }}
+          {{ $socialImage = resources.Get . }}
+        {{ end }}
+        {{ with $socialImage }}
+          <meta name="twitter:image" content="{{ .RelPermalink | absURL }}">
+          <meta property="og:image" content="{{ .RelPermalink | absURL }}">
       {{ end }}
     {{ end }}
   {{ end }}

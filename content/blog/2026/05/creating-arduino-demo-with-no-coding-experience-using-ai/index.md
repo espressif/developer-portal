@@ -9,7 +9,6 @@ tags:
   - AI
   - Hardware
 showTableOfContents: true
-featureAsset: "featured.webp"
 summary: "A first-person account of building an ESP32-C5 Arduino temperature indicator with AI assistance, from generated code and confusing errors to serial debugging, wiring issues, and the moment the LED finally changed color."
 ---
 

@@ -3,7 +3,6 @@ title: "Inside the New ESP-Brookesia v0.7 Architecture"
 date: 2026-05-04
 lastmod: 2026-05-08
 showAuthor: false
-featureAsset: "feature-esp-brookesia.webp"
 authors:
   - "liu-zhong-wei"
 tags:

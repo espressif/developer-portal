@@ -9,7 +9,6 @@ tags:
 showAuthor: false
 authors:
     - alexey-lapshin
-featureAsset: "featured-propagating-compiler-flags-to-externalproject.webp"
 summary: "When an ESP-IDF project uses ExternalProject_Add(), compiler options driven by Kconfig and components do not flow into the nested build on their own. This post walks through why that happens and how to keep the outer and inner CMake worlds aligned."
 ---
 

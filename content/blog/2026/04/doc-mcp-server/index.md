@@ -7,7 +7,6 @@ authors:
     - "wang-ning"
 tags: [MCP, AI, LLM, Doc]
 summary: "This article introduces how to connect your AI agent to official, up-to-date Espressif documentation directly inside your AI applications — with installation steps, example prompts, and best practices."
-featureAsset: "featured.webp"
 ---
 
 ## Why MCP?
