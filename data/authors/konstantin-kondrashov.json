@@ -1,0 +1,10 @@
+{
+    "name": "Konstantin Kondrashov",
+    "type": "espressif",
+    "image": "img/authors/konstantin-kondrashov.webp",
+    "bio": "Embedded Software Engineer at Espressif Systems",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/konstantin-kondrashov-053a0518b" },
+        { "github": "https://github.com/KonstantinKondrashov" }
+    ]
+}
