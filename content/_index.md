@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2026/04/doc-mcp-server/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/05/esp-brookesia-new-architecture-0-7/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/04/gesture-recognition-based-on-tflite/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/05/esp-who-get-started/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
@@ -34,7 +34,9 @@ More Workshops
 
 ## Upcoming Events
 
-{{< article link="/events/rustweek-2026/" showSummary=true compactSummary=true >}}
+No upcoming event.
+
+<!-- {{< article link="/events/rustweek-2026/" showSummary=true compactSummary=true >}} -->
 
 <br>
 {{< button href="events/" target="_self" >}}
