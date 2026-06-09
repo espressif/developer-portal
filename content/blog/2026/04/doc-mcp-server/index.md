@@ -1,7 +1,7 @@
 ---
 title: "Espressif Documentation MCP Server: Power Your AI Agents with Espressif Docs"
 date: 2026-04-08
-lastmod: 2026-05-26
+lastmod: 2026-06-10
 showAuthor: false
 authors:
     - "wang-ning"
@@ -198,7 +198,7 @@ If nothing happens or an error is shown, the URL handler is not registered. This
 
       {{% /tab %}}
       {{% tab name="Antigravity" %}}
-1. Add the following snippet to `~/.gemini/antigravity/mcp_config.json` to install the Docs MCP server:
+1. Add the following snippet to `~/.gemini/antigravity/mcp_config.json` to install the Docs MCP server in Antigravity:
    ```json
    {
       "mcpServers": {
@@ -225,7 +225,7 @@ If nothing happens or an error is shown, the URL handler is not registered. This
       {{% /tab %}}
       {{% tab name="Antigravity CLI" %}}
 
-1. Add the following snippet to `~/.gemini/antigravity-cli/mcp_config.json` to install the Docs MCP server:
+1. Add the following snippet to `~/.gemini/antigravity-cli/mcp_config.json` to install the Docs MCP server in Antigravity CLI:
    ```json
    {
       "mcpServers": {
@@ -248,7 +248,7 @@ If nothing happens or an error is shown, the URL handler is not registered. This
       {{% /tab %}}
       {{% tab name="Gemini CLI" %}}
 
-1. Add the MCP server by executing the command in your terminal:
+1. Add the MCP server to Gemini CLI by executing the command in your terminal:
    ```
    gemini mcp add --transport http espressif-docs https://mcp.espressif.com/docs
    ```
@@ -260,7 +260,7 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    ![Authentication page](img/authenticate.webp)
       {{% /tab %}}
       {{% tab name="Codex" %}}
-1. Add the MCP server by executing the command in your terminal:
+1. Add the MCP server to Codex by executing the command in your terminal:
    ```
    codex mcp add espressif-docs --url "https://mcp.espressif.com/docs"
    ```
@@ -449,3 +449,7 @@ No. The knowledge sources cover the latest ESP-IDF version. Documentation for en
 The MCP server searches either the English or Chinese documentation depending on the language of your query. If your AI agents do not specify the query language, English documentation is returned by default.
 
 Each response includes links to the source documentation pages, so you can refer to the full context of the returned content.
+
+## Related Resources
+
+- [📺 Video: Espressif Documentation MCP Server Getting Started](https://www.youtube.com/watch?v=-gtrmG5-pTU) — A complete walkthrough covering installation, GitHub authentication, and migrating a project from ESP-IDF 5.1 to 6.0 using MCP-retrieved documentation.
