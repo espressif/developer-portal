@@ -1,6 +1,6 @@
 ---
 title: "Rust smoltcp as an alternative TCP/IP stack for ESP-IDF"
-date: "2026-06-11"
+date: "2026-06-19"
 summary: "A set of ESP-IDF components that run the Rust smoltcp stack as the IPv4/IPv6 data plane, while keeping esp_http_server, esp-tls and esp-mqtt working without source changes. This article explains the linker --wrap shim that makes it compatible, the single-task poll architecture, the throughput I measured on an ESP32-P4 (91.15 Mbit/s on a 100 Mbit link), and the limitations to be aware of."
 featureAsset: "img/featured/featured-rust.webp"
 authors:
@@ -193,39 +193,51 @@ enough, enabling the EMAC hardware flow control, and moving the hot path
 into IRAM so it isn't stalled on flash access. A throughput figure without
 its conditions isn't worth much, so those are the conditions.
 
-The cost on the build is roughly +80 KiB of code and ~120 KiB of BSS (the
-slab pool plus the Rust scratch). On a P4 that is negligible; on a smaller
-part it is a real consideration.
+### Footprint vs lwIP
 
-## The `select()` problem, and how the RFC fixed it
+Throughput is only half the story; the other half is what it costs. The
+numbers below are from `idf.py size-components` on an ESP32-C3 build with
+default config (measured by David Cermak while reviewing this article —
+thanks for that):
 
-The first release (v0.1.0) had one mandatory and unattractive constraint:
-you had to set `CONFIG_VFS_SUPPORT_SELECT=n`.
+| Archive | Flash code | Static RAM (`.data` + `.bss`) |
+|---|---|---|
+| `libsmoltcp_glue.a` (Rust stack + FFI) | 82.2 KiB | 24.6 KiB |
+| `libesp_smoltcp.a` (poll task, frame pool) | 3.4 KiB | 49.9 KiB |
+| **smoltcp total** | **~85.6 KiB** | **~74.5 KiB** |
+| `liblwip.a` | 47.4 KiB | ~1 KiB |
 
-The reason is that `select()` in the IDF doesn't only go through the BSD
-symbol that `--wrap` can intercept. The VFS layer keeps its own per-FD-range
-table of function pointers, and for sockets it points directly at lwIP's
-select implementation. A linker `--wrap` rewrites *call sites*; it can't
-reach a runtime function-pointer table that lwIP populates during init. So
-`select()` would dispatch to lwIP, query lwIP's empty socket table, and the
-smoltcp sockets were simply invisible to it. Disabling VFS select avoided
-the table entirely — but "set this unrelated-looking Kconfig option or
-nothing works" is not a constraint I wanted to ship long-term.
+So smoltcp costs about 38 KiB more flash, and on paper ~73 KiB more RAM.
+The RAM comparison needs one caveat to be fair in both directions: the
+smoltcp figure is the *whole* budget, allocated statically up front — the
+24.6 KiB `.data` is the TX scratch pool and the 49.9 KiB `.bss` is the RX
+slab and socket buffers, and it never grows past that. lwIP's ~1 KiB static
+figure excludes everything it allocates from the heap at runtime (pbufs,
+PCBs, socket buffers), so its real RAM use under load is well above 1 KiB
+and varies with traffic. A proper apples-to-apples comparison needs runtime
+heap watermarks under identical load, which I haven't measured yet — until
+then, read the table as "smoltcp pre-pays a fixed, bounded RAM budget;
+lwIP pays a smaller but variable one as it goes."
 
-I posted the design as an
-[RFC on the esp-idf tracker](https://github.com/espressif/esp-idf/issues/18549)
-and asked whether there was a cleaner option. David Cermak from Espressif
-pointed to `esp_vfs_register_fd_range()`.
+On an ESP32-P4 the totals are negligible either way; on smaller parts the
+~75 KiB of static RAM is a real line item and the main reason to think
+twice.
 
-The fix that came out of that: after lwIP registers its VFS, the component
-claims the BSD-socket FD range `[LWIP_SOCKET_OFFSET, MAX_FDS)` for its own
-VFS and supplies its own `esp_vfs_select_ops_t`. The IDF's `select()` then
-dispatches through the proper VFS mechanism into the component — the
-`__wrap_lwip_*` functions remain the implementation underneath, but FD
-ownership and the select hook are now handled the way the IDF intends. On
-the v0.2 development branch the `CONFIG_VFS_SUPPORT_SELECT=n` requirement
-is gone and the IDF default just works. A considerably better answer than
-the one I originally shipped.
+## One version-specific caveat: `select()` and the VFS
+
+The released v0.1.x requires `CONFIG_VFS_SUPPORT_SELECT=n` in your
+sdkconfig. The short reason: IDF's `select()` doesn't go through a symbol
+that `--wrap` can intercept — the VFS layer dispatches it through a
+per-FD-range function-pointer table that lwIP populates at init, so smoltcp
+sockets were invisible to it. Disabling VFS select sidesteps the table.
+
+v0.2 (currently `0.2.0-rc.1` on the registry) removes the constraint
+properly: the component claims the BSD-socket FD range with
+`esp_vfs_register_fd_range()` and provides its own `esp_vfs_select_ops_t`,
+so `select()` dispatches through the VFS the way IDF intends and the
+default `CONFIG_VFS_SUPPORT_SELECT=y` just works. The design history —
+including how this fix came out of the review discussion — is in the
+[RFC on the esp-idf tracker](https://github.com/espressif/esp-idf/issues/18549).
 
 ## Current status and limitations
 
@@ -277,14 +289,49 @@ argue that everyone should switch.
 
 ## Getting started
 
-The three components are published on the
-[ESP Component Registry](https://components.espressif.com/), so adding them
-is a one-liner:
+One prerequisite beyond a working ESP-IDF setup: the Rust toolchain,
+because the glue component runs `cargo` during the build. If you don't have
+it yet, [rustup](https://rustup.rs/) is the standard installer:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+That's all the Rust setup there is — the component pins its exact toolchain
+in a `rust-toolchain.toml`, so on the first build `rustup` fetches the
+right nightly and the RISC-V target on its own.
+
+The components themselves are on the
+[ESP Component Registry](https://components.espressif.com/):
+
+{{< figure
+    default=true
+    src="img/esp-smoltcp-registry.webp"
+    alt="The esp_smoltcp component on the ESP Component Registry"
+    caption="esp_smoltcp on the ESP Component Registry"
+    >}}
+
+Adding them to a project is two lines:
 
 ```bash
 idf.py add-dependency "datanoisetv/esp_smoltcp^0.1.0"
 idf.py add-dependency "datanoisetv/esp_smoltcp_lwip_compat^0.1.0"
 ```
+
+(Use at least `esp_smoltcp_lwip_compat` 0.1.1 — 0.1.0 had two packaging
+bugs that broke standalone installs, found during the review of this very
+article. The `^0.1.0` range above resolves to 0.1.1 automatically.)
+
+Then set the required options in your project's `sdkconfig.defaults`:
+
+```
+CONFIG_LWIP_COMPAT_ENABLE=y     # turn the BSD-sockets shim on
+CONFIG_LWIP_NETIF_LOOPBACK=y    # esp_http_server compile-time check
+CONFIG_VFS_SUPPORT_SELECT=n     # v0.1.x only — see the select() section
+```
+
+The last line is the v0.1.x constraint explained above; the v0.2 release
+candidate doesn't need it.
 
 - Source, the complete `eth_basic` example, and architecture notes:
   [github.com/DatanoiseTV/esp-smoltcp](https://github.com/DatanoiseTV/esp-smoltcp)
