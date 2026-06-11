@@ -8,10 +8,10 @@ authors:
 tags: ["Rust", "smoltcp", "Networking", "TCP/IP", "ESP-IDF", "ESP32-P4", "lwIP"]
 ---
 
-## Why a second TCP/IP stack
+## Introduction
 
 ESP-IDF ships with lwIP, and for most projects that's the right choice. It's
-mature, well documented, and every networking component in IDF is built and
+mature, well documented, and every networking component in ESP-IDF is built and
 tested against it. Nothing below is an argument to replace it by default.
 
 Still, there are two reasons you might want an alternative. The first is the
@@ -21,16 +21,18 @@ in C. The second is the concurrency model — lwIP runs several tasks and
 takes a fair number of mutexes, which is harder to reason about when you
 need confidence that a device will stay up for months without intervention.
 
-[smoltcp](https://github.com/smoltcp-rs/smoltcp) addresses both. It's a
-`#![no_std]` TCP/IP stack written in Rust, with no heap requirement and a
-single, explicit poll model: you give it the current time and a device to
-read and write frames, it does one pass of work, and you call it again. The
-packet parsing is safe Rust, and there's no background thread operating on
-the stack behind your code.
+## Why a second TCP/IP stack
+
+[smoltcp](https://github.com/smoltcp-rs/smoltcp) is a `#![no_std]` TCP/IP
+stack written in Rust, with no heap requirement and a single, explicit poll
+model: you give it the current time and a device to read and write frames,
+it does one pass of work, and you call it again. The packet parsing is safe
+Rust, and there's no background thread operating on the stack behind your
+code — which addresses both concerns above.
 
 Now, getting smoltcp to run on an ESP32 is not the hard part. The hard part
-is running it *under ESP-IDF without giving up the IDF networking stack you
-already depend on* — `esp_http_server`, `esp-tls`, `esp_http_client`,
+is running it *under ESP-IDF without giving up the native networking stack
+you already depend on* — `esp_http_server`, `esp-tls`, `esp_http_client`,
 `esp-mqtt`, mbedTLS. If switching stacks means forking all of that, it's a
 toy. So the goal was source compatibility: keep those components, and the
 application code that uses them, completely unchanged.
@@ -41,9 +43,9 @@ are.
 
 ## How compatibility works: a linker `--wrap` shim
 
-Every IDF networking component eventually calls BSD sockets — `socket()`,
+Every ESP-IDF networking component eventually calls BSD sockets — `socket()`,
 `bind()`, `listen()`, `accept()`, `send()`, `recv()`, `select()`,
-`getaddrinfo()`. In the IDF, these come from `<lwip/sockets.h>`, and the
+`getaddrinfo()`. In ESP-IDF, these come from `<lwip/sockets.h>`, and the
 key detail is that they are defined as `static inline` wrappers:
 
 ```c
@@ -75,10 +77,10 @@ The component adds one of these for each BSD-socket entry point:
 /* ... and so on for the full BSD-socket surface */
 ```
 
-With that in place, every BSD-socket call site across the IDF — none of
+With that in place, every BSD-socket call site across ESP-IDF — none of
 which is modified — lands in a thin C shim that talks to smoltcp instead.
 lwIP is still compiled into the image, because its headers define types the
-IDF networking source needs, but its socket layer is never reached at
+ESP-IDF networking source needs, but its socket layer is never reached at
 runtime. The application source change required to switch stacks is zero.
 
 ## Using it
@@ -103,7 +105,7 @@ void app_main(void)
     esp_smoltcp_attach_eth(eth);
     esp_smoltcp_wait_for_ip(ESP_SMOLTCP_IFACE_ETH, 15000);  /* DHCP by default */
 
-    /* BSD sockets work from here, so unmodified IDF code works too: */
+    /* BSD sockets work from here, so unmodified ESP-IDF code works too: */
     httpd_handle_t server;
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     httpd_start(&server, &config);
@@ -111,7 +113,7 @@ void app_main(void)
 }
 ```
 
-`httpd_start()` and everything beneath it are stock IDF. They just happen
+`httpd_start()` and everything beneath it are stock ESP-IDF. They just happen
 to be running on smoltcp now.
 
 ## Architecture
@@ -119,7 +121,7 @@ to be running on smoltcp now.
 The implementation is three components stacked on top of each other:
 
 ```
-  esp_http_server | esp-tls | esp-mqtt | mdns   (unchanged IDF source)
+  esp_http_server | esp-tls | esp-mqtt | mdns   (unchanged ESP-IDF source)
                          |
               BSD sockets: socket/bind/recv/select/getaddrinfo
                          |
@@ -167,8 +169,9 @@ so `rustup` selects it automatically.
 
 ## Performance
 
-The hardware is a Waveshare ESP32-P4-Nano with the built-in 100 Mbit/s
-EMAC, ESP-IDF v6.0, MTU 1500. The example application serves a synthetic
+The hardware is a
+[Waveshare ESP32-P4-Nano](https://www.waveshare.com/esp32-p4-nano.htm) with
+the built-in 100 Mbit/s EMAC, ESP-IDF v6.0, MTU 1500. The example application serves a synthetic
 download endpoint; the measurement is a 200 MB transfer pulled with `curl`
 (curl reports it as 190M because it counts in MiB):
 
@@ -226,7 +229,7 @@ twice.
 ## One version-specific caveat: `select()` and the VFS
 
 The released v0.1.x requires `CONFIG_VFS_SUPPORT_SELECT=n` in your
-sdkconfig. The short reason: IDF's `select()` doesn't go through a symbol
+sdkconfig. The short reason: ESP-IDF's `select()` doesn't go through a symbol
 that `--wrap` can intercept — the VFS layer dispatches it through a
 per-FD-range function-pointer table that lwIP populates at init, so smoltcp
 sockets were invisible to it. Disabling VFS select sidesteps the table.
@@ -234,7 +237,7 @@ sockets were invisible to it. Disabling VFS select sidesteps the table.
 v0.2 (currently `0.2.0-rc.1` on the registry) removes the constraint
 properly: the component claims the BSD-socket FD range with
 `esp_vfs_register_fd_range()` and provides its own `esp_vfs_select_ops_t`,
-so `select()` dispatches through the VFS the way IDF intends and the
+so `select()` dispatches through the VFS the way ESP-IDF intends and the
 default `CONFIG_VFS_SUPPORT_SELECT=y` just works. The design history —
 including how this fix came out of the review discussion — is in the
 [RFC on the esp-idf tracker](https://github.com/espressif/esp-idf/issues/18549).
