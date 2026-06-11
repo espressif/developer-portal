@@ -67,7 +67,10 @@ jobs:
         run: git switch -- "$HEAD_REF"
 
       - name: Append links-baseline.txt to .lycheeignore
-        run: cat links-baseline.txt >> .lycheeignore
+        # .lycheeignore lines are parsed as regexes; escape metacharacters so
+        # baseline URLs are treated literally (e.g. `?data={...}` in a URL is
+        # an invalid regex quantifier and aborts lychee with a parse error).
+        run: sed 's/[][\.^$*+?(){}|]/\\&/g' links-baseline.txt >> .lycheeignore
 
       - name: Dump names of files altered in PR and append hash sign to find links with anchors
         run: |
