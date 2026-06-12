@@ -519,7 +519,7 @@ validate_feature_assets() {
   while IFS= read -r index_file; do
     [[ -z "$index_file" ]] && continue
     path=$(awk '/^featureAsset:/ { gsub(/["'\'' ]/, "", $2); print $2; exit }' "$index_file")
-    [[ "$path" == img/* ]] && continue
+    [[ -z "$path" || "$path" == img/* ]] && continue
     echo
     echo "Article: $index_file"
     echo "❌ Incorrect use of featureAsset in front matter."
