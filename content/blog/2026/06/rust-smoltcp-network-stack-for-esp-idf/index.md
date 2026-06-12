@@ -28,7 +28,7 @@ stack written in Rust, with no heap requirement and a single, explicit poll
 model: you give it the current time and a device to read and write frames,
 it does one pass of work, and you call it again. The packet parsing is safe
 Rust, and there's no background thread operating on the stack behind your
-code — which addresses both concerns above.
+code.
 
 Now, getting smoltcp to run on an ESP32 is not the hard part. The hard part
 is running it *under ESP-IDF without giving up the native networking stack
@@ -222,7 +222,7 @@ heap watermarks under identical load, which I haven't measured yet — until
 then, read the table as "smoltcp pre-pays a fixed, bounded RAM budget;
 lwIP pays a smaller but variable one as it goes."
 
-On an ESP32-P4 the totals are negligible either way; on smaller parts the
+On an ESP32-P4 the totals are negligible either way; on smaller chips the
 ~75 KiB of static RAM is a real line item and the main reason to think
 twice.
 
@@ -250,8 +250,9 @@ What is verified and in use:
   including chunked encoding and WebSockets
 - `esp_https_server` with mbedTLS, plus `esp-tls`, `esp_http_client` and
   `esp-mqtt`, all over BSD sockets and all unchanged
-- An in-RAM `127.0.0.0/8` loopback (the httpd internal control socket needs
-  one; it never reaches the wire)
+- An in-RAM `127.0.0.0/8` loopback — `esp_http_server`'s internal control
+  socket needs one, and loopback traffic is forwarded entirely in RAM
+  instead of going out through the Ethernet driver
 - IGMPv2 multicast, ICMP echo, and IPv6 link-local with ping6 and
   NDP/ICMPv6
 - A raw L2 frame tap for PTP, LLDP and custom EtherTypes, with the P4
@@ -260,7 +261,7 @@ What is verified and in use:
 
 And what I'm not claiming:
 
-- **Only the ESP32-P4 is hardware-verified.** Other RISC-V parts should
+- **Only the ESP32-P4 is hardware-verified.** Other RISC-V SoCs should
   work; the classic Xtensa ESP32 needs a different Rust target and hasn't
   been done.
 - **The ESP-Hosted Wi-Fi path is scaffolded but not yet flashed.** The code
@@ -333,8 +334,8 @@ CONFIG_LWIP_NETIF_LOOPBACK=y    # esp_http_server compile-time check
 CONFIG_VFS_SUPPORT_SELECT=n     # v0.1.x only — see the select() section
 ```
 
-The last line is the v0.1.x constraint explained above; the v0.2 release
-candidate doesn't need it.
+The option `CONFIG_VFS_SUPPORT_SELECT` is the v0.1.x constraint explained
+above; the v0.2 release candidate doesn't need it.
 
 - Source, the complete `eth_basic` example, and architecture notes:
   [github.com/DatanoiseTV/esp-smoltcp](https://github.com/DatanoiseTV/esp-smoltcp)
@@ -345,6 +346,6 @@ candidate doesn't need it.
 - Design RFC and discussion:
   [esp-idf#18549](https://github.com/espressif/esp-idf/issues/18549)
 
-If you run it on hardware I haven't tested — another RISC-V part, or the
+If you run it on hardware I haven't tested — another RISC-V SoC, or the
 ESP-Hosted Wi-Fi path — I'd genuinely like to hear how it went, working or
 not. At this stage the failure reports are the more valuable ones.
