@@ -1,6 +1,7 @@
 ---
 title: "Developing a Rust-based IoT device with AI"
 date: 2026-04-20
+lastmod: 2026-06-10
 tags:
   - how-to
   - Rust
@@ -21,7 +22,7 @@ summary: "AI assistants are most effective on ESP32 Rust firmware when you suppl
 
 Large language models (LLMs) and coding agents can speed up firmware development on Espressif SoCs. That applies to **Rust on bare metal**. The crates `esp-hal` and `esp-radio`, the [Embassy project](https://embassy.dev/), and many small protocol crates; they are all there. Yet, we see little adoption of Rust. That includes me. I've recently been learning it, and if pressured to deliver results, I would fall back on the _C_ that I already know; or, depending on the pressure and time available, the Arduino Core for ESP32 framework as well. The same tools I already use, if enhanced by AI, would make me even more productive. But... What about that junior feeling of starting something new? Well... I challenged myself.
 
-This article describes the proto-workflow I used while building a **WiFi + BLE + provisioning** device on top of the ESP-DualKey ESP32-S3–based kit from M5Stack. I call it _proto_ because the workflow is still rough.
+This article describes the proto-workflow I used while building a **WiFi + BLE + provisioning** device on top of the ESP DualKey, an ESP32-S3 based kit from M5Stack. I call it _proto_ because the workflow is still rough.
 
 ### 1.2 About Rust in this Challenge
 
@@ -42,11 +43,11 @@ We get hands-on. But wait, not directly. As with any project, we need to start r
 
 I also used Cursor, but other tools and agents would yield a very similar experience. The rest of this note walks through workflow (how we worked with an AI agent), what can go wrong (including Git as undo and entropy as clutter), what we built, and the documents that kept humans and the model aligned.
 
-I'm going to use the M5Stack ESP DualKey development kit. It provides enough ready-to-go peripherals. No breadboard this time.
+I'm going to use the ESP DualKey development kit, from M5Stack. It provides enough ready-to-go peripherals. No breadboard this time.
 
 <figure>
-  <img src="./img/img1.webp" alt="Fig.1 - The ESP-DualKey kit." width="50%">
-  <figcaption>Fig.1 - The ESP-DualKey kit.</figcaption>
+  <img src="./img/img1.webp" alt="Fig.1 - The ESP DualKey kit." width="50%">
+  <figcaption>Fig.1 - The ESP DualKey kit.</figcaption>
 </figure>
 
 ---
@@ -57,7 +58,7 @@ I'm going to use the M5Stack ESP DualKey development kit. It provides enough rea
 
 A written **product specification** is the main contract among all the interested parties: the human developer, the firmware, and the assistant. Behaviors, timeouts, SSID and BLE names, LED meanings, reboot rules, gesture timing—everything relevant—should be there. When the specification and the code disagree, you decide whether to fix the code or update the specification—never leave both drifting.
 
-In this task, we collaborated to reach [this specification](https://github.com/rftafas/rust-dualkey-ble-provisioning/blob/main/references/spec/product_spec.md). The assistant can be pointed at it explicitly so refactors stay consistent with intended UX.
+In this task, we collaborated to reach [this specification](https://github.com/rftafas/dualkey-provisioning/blob/main/docs/spec/product_spec.md). The assistant can be pointed at it explicitly so refactors stay consistent with intended UX.
 
 ### 2.2 Prior working code, independent of language, is a great specification
 
@@ -168,7 +169,7 @@ Now, briefly, this whole idea was to prove to myself that Rust is viable to be u
 </div>
 
 
-The goal of this section is orientation only; authoritative detail stays in the [root README](https://github.com/rftafas/rust-dualkey-ble-provisioning) and [references/spec/product_spec.md](https://github.com/rftafas/rust-dualkey-ble-provisioning/blob/main/references/spec/product_spec.md).
+The goal of this section is orientation only; authoritative detail stays in the [dualkey-provisioning README](https://github.com/rftafas/dualkey-provisioning) and [docs/spec/product_spec.md](https://github.com/rftafas/dualkey-provisioning/blob/main/docs/spec/product_spec.md).
 
 ---
 
@@ -176,9 +177,9 @@ The goal of this section is orientation only; authoritative detail stays in the 
 
 Along the way we accumulated **documentation the assistant could read** and **references it could diff against**:
 
-- **`references/spec/`** — Product behavior, provisioning notes, environment setup (`env_setup.md`), and related design markdown.
+- **`docs/spec/`** — Product behavior, provisioning notes, environment setup (`env_setup.md`), and related design markdown.
 - **Root `README.md`** — Operator-facing gestures, LEDs, links, and build hints.
-- **[`rust-espressif-ai-starter-prompt.md`](https://github.com/rftafas/rust-dualkey-ble-provisioning/blob/main/rust-espressif-ai-starter-prompt.md)** — High-level project expectations and layout for AI-assisted work.
+- **[`docs/rust/rust-espressif-ai-starter-prompt.md`](https://github.com/rftafas/dualkey-provisioning/blob/main/docs/rust/rust-espressif-ai-starter-prompt.md)** — High-level project expectations and layout for AI-assisted work.
 
 **Session notes:** During long debug threads, the coding agent often produced structured troubleshooting notes—hypotheses tried, log snippets, “next steps”—much like a human engineer’s lab notebook. That was a surprise: even an AI benefits from a notebook instead of relying on context (i.e. memory) length alone.
 
