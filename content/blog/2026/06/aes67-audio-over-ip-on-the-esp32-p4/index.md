@@ -30,9 +30,10 @@ So I built an AES67/RAVENNA endpoint as an ESP-IDF component for the P4. It
 synchronizes to an external PTP grandmaster (or becomes one), sends and
 receives multichannel RTP audio, discovers and is discovered over SAP/SDP,
 and plays out through I2S to a DAC. It interoperates on real hardware with
-Merging Technologies SIENNA and with the
+Merging Technologies SIENNA, with the
 [aes67-linux-daemon](https://github.com/bondagit/aes67-linux-daemon) running
-on a Raspberry Pi. End-to-end latency, best case, is about **0.7 ms**.
+on a Raspberry Pi, and with a standalone AES67 hardware speaker/amplifier.
+End-to-end latency, best case, is about **0.7 ms**.
 
 This article walks through the three parts that actually matter — the clock,
 getting packets off the wire fast, and playing them out without jitter — and
@@ -180,17 +181,20 @@ This is the part that separates an AES67 implementation from a thing that
 sends RTP packets. The standard exists so that gear from different vendors
 locks together, so the only test that counts is against other vendors' gear.
 
-I ran it against two reference points. The first is the
+I ran it against three reference points. The first is the
 [aes67-linux-daemon](https://github.com/bondagit/aes67-linux-daemon) on a
 Raspberry Pi — an open-source AES67 implementation — as both a source and a
 sink, with the P4 discovering it over SAP and locking to its PTP. The second
 is **Merging Technologies SIENNA**, a commercial RAVENNA implementation; the
 P4 discovered its announced streams, parsed its SDP, synchronized to the
-same grandmaster, and played its audio. Cross-checking the framing against
-the Linux daemon's source also turned up a handful of real bugs in my SDP
-and SAP handling (wrong multicast address, wrong SAP message-ID hashing, a
-TTL that didn't match the RFC) that no amount of testing against my own
-code would have found.
+same grandmaster, and played its audio. The third is a standalone **AES67
+hardware speaker/amplifier** — a dedicated network audio endpoint, not a
+PC — which received and played the P4's source stream, confirming the TX
+side against real-world playback gear rather than only software sinks.
+Cross-checking the framing against the Linux daemon's source also turned up
+a handful of real bugs in my SDP and SAP handling (wrong multicast address,
+wrong SAP message-ID hashing, a TTL that didn't match the RFC) that no
+amount of testing against my own code would have found.
 
 ## What it costs, and what isn't done
 
