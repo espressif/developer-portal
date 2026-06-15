@@ -1,6 +1,7 @@
 ---
 title: "Tagging content"
 date: 2026-01-13
+featureAsset: "img/featured/featured-contrib-guide.webp"
 tags: ["Contribute"]
 showTableOfContents: true
 showAuthor: false
