@@ -1,7 +1,6 @@
 ---
 title: "Assignment 1: GPIO"
 date: 2026-05-18T00:00:00+01:00
-lastmod: 2026-06-17
 showTableOfContents: true
 series: ["WS-RUST-ESP"]
 series_order: 3

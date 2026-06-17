@@ -1,7 +1,6 @@
 ---
 title: "Empowered by the Ecosystem: Learning Embedded Rust with uFerris"
 date: 2026-05-18T00:00:00+01:00
-lastmod: 2026-06-17
 tags: ["Workshop", "ESP32-C3", "Rust", "esp-hal", "Embedded", "GPIO", "I2C", "uFerris"]
 summary: "A hands-on embedded Rust workshop using the uFerris learning platform and ESP32-C3."
 ---
