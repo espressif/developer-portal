@@ -20,13 +20,12 @@ Possible ways to contribute are:
 
 ### Contribute original content
 
-You can [contribute][contribution-guide] the content directly or indirectly related to Espressif products and solutions. For example, you can contribute articles or tutorials that facilitate learning or articles about your projects based on Espressif products.
+You can contribute the content directly or indirectly related to Espressif products and solutions. For example, you can contribute articles or tutorials that facilitate learning or articles about your projects based on Espressif products.
 
 After a review from Espressif technical editors, this content will be published in the author's name. The review is mainly needed to make sure that the content fits the purpose of the Espressif Developer Portal and follows the [Espressif Manual of Style][].
 
 As a result, the author will become an _Espressif Developer Portal contributor_!
 
-[contribution-guide]: ../../pages/contribution-guide/
 [Espressif Manual of Style]: http://mos.espressif.com/
 
 
@@ -55,3 +54,8 @@ The Espressif Developer Portal is a static website created with [Hugo][] and hos
 
 [Developer Portal README]: https://github.com/espressif/developer-portal
 [Hugo]: https://gohugo.io/
+
+
+## Next step
+
+> Back to the [Contribution guide](../)
