@@ -646,4 +646,4 @@ wokwi-cli lint
 **Tip:** Wokwi simulation is excellent for learning and testing, but always verify your code on real hardware. Network behavior may differ between simulation and reality.
 {{< /alert >}}
 
-[Assignment 6: Wi-Fi Server](../assignment-6/)
+[Assignment 6: Wi-Fi Server](..//)

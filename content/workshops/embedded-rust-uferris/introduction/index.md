@@ -1,25 +1,19 @@
 ---
-title: "Introduction: Setup and Overview"
+title: "Setup"
 date: 2026-05-18T00:00:00+01:00
-lastmod: 2026-06-15
 showTableOfContents: true
 series: ["WS-RUST-ESP"]
 series_order: 1
 showAuthor: false
 ---
 
-## Workshop Overview
-
-This workshop teaches embedded Rust development using the ESP32-C3 microcontroller and the `esp-hal` crate. Rather than following step-by-step tutorials, you'll learn to navigate the ecosystem, read documentation, and adapt examples independently.
-
-### What You'll Learn
-
-- **Navigate the embedded Rust ecosystem** — find the right abstractions and know where to look
-- **Read embedded Rust documentation** — in crate docs, source code, and examples
-- **Apply the Instantiate → Configure → Control pattern** — a mental model that works across all peripherals
-- **Adapt existing examples** to new use cases using the documentation
-
 ### The Hardware
+
+This is the hardware that will be used in the workshop and will be handed to the attendees.
+
+#### The uFerris (microFerris) Megalops Baseboard
+
+This hardware can also be purchased from [https://shop.theembeddedrustacean.com](https://shop.theembeddedrustacean.com/products/uferris-megalops-baseboard).
 
 {{< figure
     default=true
@@ -28,7 +22,10 @@ This workshop teaches embedded Rust development using the ESP32-C3 microcontroll
     caption="The uFerris learning platform"
     >}}
 
-The workshop uses the **Seeed Studio XIAO ESP32-C3**:
+
+#### The Seeed Studio XIAO ESP32-C3:
+
+This hardware can also be purchased from [SeeedStudio](https://www.seeedstudio.com/Seeed-Studio-XIAO-ESP32C3-Pre-Soldered-p-6331.html).
 
 {{< figure
     default=true

@@ -1,7 +1,6 @@
 ---
 title: "Overview: The Embedded Rust Ecosystem"
 date: 2026-05-18T00:00:00+01:00
-lastmod: 2026-06-15
 showTableOfContents: true
 series: ["WS-RUST-ESP"]
 series_order: 2
@@ -48,7 +47,7 @@ The Rust no-std stack comprises several layers. Let's walk through each one.
     caption="The full embedded Rust no-std ecosystem stack"
     >}}
 
-### Micro Architecture Crate
+### Microarchitecture Crate
 
 Provides low-level access to CPU-specific features: interrupt handling, system timer, core registers. For RISC-V (ESP32-C3), this is the `riscv` crate.
 
@@ -98,7 +97,7 @@ fn blink(
 }
 ```
 
-### Driver Crates
+### Component Drivers (Driver Crates)
 
 Built on top of `embedded-hal` traits. A driver crate provides a high-level API for a specific sensor or device, making it hardware-agnostic.
 

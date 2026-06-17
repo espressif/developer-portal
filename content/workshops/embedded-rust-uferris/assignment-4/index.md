@@ -1,164 +1,110 @@
 ---
-title: "Assignment 3: Interrupts"
+title: "Assignment 4: Board Support Package"
 date: 2026-05-18T00:00:00+01:00
-lastmod: 2026-06-15
 showTableOfContents: true
 series: ["WS-RUST-ESP"]
-series_order: 5
+series_order: 6
 showAuthor: false
 ---
 
-So far, all your code has been **polling** — checking the button state in a loop, reading sensors repeatedly. This works, but it's wasteful. The CPU spins constantly even when nothing is happening.
+You've now worked at the **HAL level** (GPIO, I2C with esp-hal) and used **driver crates** (I/O expander). There's one more layer in the stack: the **Board Support Package** (BSP).
 
-**Interrupts** let the hardware notify your code when something happens. The CPU can do other work (or sleep) until an event occurs.
+A BSP allows us to skip the **Configure** step. The pattern becomes simply **Instantiate → Control**.
 
-## Polling vs. Interrupts
+## What Is a BSP?
 
-### Polling
+A BSP encapsulates board-specific knowledge — pin assignments, peripheral configuration, and hardware defaults.
 
-The CPU constantly checks the state of a peripheral in a loop. Simple to implement but wastes CPU cycles:
-
-```rust
-loop {
-    if button.is_low() {
-        // react to button press
-    }
-    // CPU is busy-waiting here, doing nothing useful
-}
-```
-
-### Interrupts
-
-The hardware notifies the CPU when an event occurs. The CPU can sleep or do other work, only waking when needed:
+### Without BSP (raw HAL)
 
 ```rust
-loop {
-    // CPU can sleep or do other work
-}
+// Instantiate
+let peripherals = esp_hal::init(Config::default());
 
-// Hardware triggers this handler automatically
-#[handler]
-fn gpio_handler() {
-    // react to the event
-}
+// Configure
+let led = Output::new(
+    peripherals.GPIO5,
+    Level::Low,
+    OutputConfig::default(),
+);
+
+// Control
+led.set_high();
 ```
 
-## Components of Interrupt Code
-
-Interrupt code has three components:
-
-### 1. Global Shared Data
-
-Any data shared between the main thread and the interrupt handler:
+### With BSP
 
 ```rust
-static SHARED: Mutex<RefCell<Option<Input>>> =
-    Mutex::new(RefCell::new(None));
+// Instantiate (BSP takes HAL peripherals as input)
+let peripherals = esp_hal::init(Config::default());
+let mut uferris = uferris_init(peripherals).unwrap();
+
+// Control — no configure step needed
+uferris.led1_on();
 ```
 
-### 2. Interrupt Setup
+The BSP still requires instantiation — you pass the HAL peripherals into the init function. But the board-specific configuration (which pin, what drive strength, which pull resistor) is all handled internally.
 
-Configuring the interrupt per peripheral — what event to listen for, enabling it, moving data to shared state:
+## It's Not Magic
 
-```rust
-button.listen(Event::FallingEdge);
-critical_section::with(|cs| {
-    SHARED.borrow_ref_mut(cs).replace(button);
-});
-```
+The BSP is just Rust code that does exactly what you've been doing — but packages it up with meaningful names. Open the source and you'll see `Output::new()`, `I2c::new()`, and all the same patterns.
 
-### 3. Interrupt Service Routine (ISR)
+The value is:
+- **No pin lookup errors** — the board knows its own pin assignments
+- **Sensible defaults** — configurations chosen for the specific hardware
+- **Convenience** — less boilerplate for common setups
 
-The code that reacts to the interrupt event:
+## When to Use a BSP vs. Raw HAL
 
-```rust
-#[handler]
-fn gpio_handler() {
-    critical_section::with(|cs| {
-        // handle event, clear interrupt
-    });
-}
-```
-
-## Setup Happens in the Configure Stage
-
-Setup involves three steps:
-
-1. **Configuring the interrupt** — What do we want to listen to? Edge events (rising, falling, any) or level events (high, low)
-2. **Enabling the interrupt** — Peripheral-level enable and interrupt controller enable
-3. **Configuring global shared data** — `Mutex<RefCell<Option<T>>>` pattern, moving peripherals into global statics via `critical_section`
+| Use BSP When | Use Raw HAL When |
+|-------------|-----------------|
+| Quick prototyping | You need non-default configurations |
+| Your board has a BSP | You're using custom hardware |
+| You don't need fine control | You want to learn the lower layers |
 
 ---
 
-## Exercise A: Interrupt-Driven Button
+## Exercise: Explore the BSP
 
-**Goal:** Convert the GPIO button example from Part 2 to use interrupts instead of polling.
+**Goal:** Redo your earlier exercises using a BSP. See how the BSP simplifies the pattern to **Instantiate → Control**.
 
-### 1. Create a New Project
-
-```bash
-esp-generate --chip esp32c3 -o unstable-hal -o vscode -o esp-backtrace -o log --headless gpio_interrupt
-cd gpio_interrupt
-```
-
-### 2. Find Interrupt Examples
-
-Search the GPIO Input documentation or the [esp-hal examples directory](https://github.com/esp-rs/esp-hal/tree/main/examples) for interrupt examples.
-
-Look for how interrupts are set up — recall the three components:
-1. Interrupt Setup
-2. Interrupt Service Routine
-3. Global Shared Data
-
-### 3. Apply the Pattern
-
-Convert your polling code to use interrupts:
-- **Configure** the interrupt (what event to listen to?)
-- **Enable** the interrupt (allow events to go through)
-- **Set up global shared data** (how will the handler communicate with the main loop?)
-
-### 4. Build and Flash
+### Step 1: Create a New Project
 
 ```bash
-cargo build --release
-espflash flash target/riscv32imc-unknown-none-elf/release/gpio_interrupt --monitor
+esp-generate --chip esp32c3 -o unstable-hal -o vscode -o esp-backtrace -o log --headless bsp_blinky
+cd bsp_blinky
 ```
 
-Press the button. The LED should toggle.
+### Step 2: Read the BSP Source
 
-### 5. Explore Trigger Configurations
+Open your BSP crate source code. Don't use it yet — just *read* it.
 
-Look up the `Event` enum in esp-hal's GPIO module. What variants are available?
+Answer these questions:
+1. How does the BSP map pin numbers to named functions?
+2. What configuration choices has the BSP author made? (Drive strength? Pull resistors? I2C speed?)
+3. Can you find the Instantiate → Configure → Control pattern inside the BSP code?
+
+### Step 3: Redo Blinky with BSP
+
+Refactor your blinky exercise to use the BSP. You still need to instantiate the board, then get the LED from it. Notice how the pin number and configuration are no longer your concern.
+
+### Step 4: Redo Button Input with BSP
+
+Refactor the button exercise. How does the BSP handle:
+- Pin assignment?
+- Pull-up configuration?
+
+### Step 5: Redo I2C with BSP
+
+Refactor the I2C exercise. The BSP should provide a pre-configured I2C bus — no need to specify pins or clock speed.
+
+### Step 6: Examine the Adapter Layer
+
+Look at the BSP source code for the ESP32-C3 adapter:
+- How are HAL types mapped to board-level names?
+- What abstractions does the adapter provide?
+- Could you write an adapter for a different module?
 
 {{< alert icon="circle-info" >}}
-You must always call `clear_interrupt()` in the handler. Compare: what can the main loop do now that it couldn't when polling?
-{{< /alert >}}
-
----
-
-## Exercise B: I/O Expander Interrupt
-
-**Goal:** Use the TCA6424's INT output to detect input changes without polling over I2C.
-
-The TCA6424 I/O expander has an **INT** output pin connected to a GPIO pin. Instead of polling the I/O expander over I2C, use this interrupt line to get notified when an input changes.
-
-### Steps
-
-1. **Create a new project**
-
-```bash
-esp-generate --chip esp32c3 -o unstable-hal -o vscode -o esp-backtrace -o log --headless expander_interrupt
-cd expander_interrupt
-```
-
-2. **Find the INT pin** — check your board's pinout to see which GPIO pin the I/O expander's INT output is connected to.
-
-3. **Configure a GPIO interrupt** on that pin — the INT line is typically active-low, so configure for a falling edge trigger.
-
-4. **In the interrupt handler**, set a flag indicating that the I/O expander state has changed.
-
-5. **In the main loop**, when the flag is set, read the I/O expander's input register over I2C to determine which button was pressed, then react accordingly.
-
-{{< alert icon="circle-info" >}}
-This combines two peripherals: GPIO interrupts and I2C communication. The interrupt tells you *something* changed, but you still need I2C to find out *what* changed.
+Every layer builds on the one below it. The BSP calls into the HAL, which calls into the PAC, which writes to hardware registers.
 {{< /alert >}}

@@ -1,224 +1,163 @@
 ---
-title: "Assignment 2: I2C"
+title: "Assignment 3: Interrupts"
 date: 2026-05-18T00:00:00+01:00
-lastmod: 2026-06-15
 showTableOfContents: true
 series: ["WS-RUST-ESP"]
-series_order: 4
+series_order: 5
 showAuthor: false
 ---
 
-In this module, you'll move beyond GPIO to a **communication protocol** — I2C. You'll set up an I2C bus, scan for devices, and control GPIO pins through an I/O expander.
+So far, all your code has been **polling** — checking the button state in a loop, reading sensors repeatedly. This works, but it's wasteful. The CPU spins constantly even when nothing is happening.
 
-## I2C Foundations
+**Interrupts** let the hardware notify your code when something happens. The CPU can do other work (or sleep) until an event occurs.
 
-### What is I2C?
+## Polling vs. Interrupts
 
-**I2C** (Inter-Integrated Circuit) is a two-wire bus protocol for communicating with sensors, displays, and other devices.
+### Polling
 
-The two wires are:
-- **SDA** — Serial Data (bidirectional). Used to propagate data bits.
-- **SCL** — Serial Clock (driven by the controller). Used to synchronize data exchanges on the bus.
+The CPU constantly checks the state of a peripheral in a loop. Simple to implement but wastes CPU cycles:
 
-Since it's a bus, multiple devices can share the same two wires. Each device has a unique **address** (7-bit) that the controller uses to address any device on the bus.
+```rust
+loop {
+    if button.is_low() {
+        // react to button press
+    }
+    // CPU is busy-waiting here, doing nothing useful
+}
+```
 
-{{< figure
-    default=true
-    src="assets/i2c-architecture.webp"
-    alt="I2C Architecture"
-    caption="I2C bus architecture with master and slave devices"
-    >}}
+### Interrupts
 
-### Theory of Operation
+The hardware notifies the CPU when an event occurs. The CPU can sleep or do other work, only waking when needed:
 
-- Each bus has at least one **master** and one or more **slaves**
-- The master orchestrates operations on the bus and addresses slaves using the 7-bit address
-- Data exchange speed is governed by the **clock speed** (propagated on SCL)
-- A master can perform two operations: **read** or **write**
-- I2C exchanges data in **one-byte chunks**
+```rust
+loop {
+    // CPU can sleep or do other work
+}
 
-### Write Operations
+// Hardware triggers this handler automatically
+#[handler]
+fn gpio_handler() {
+    // react to the event
+}
+```
 
-A master writes data to a slave. You need:
-- The **address** of the slave
-- An **array of bytes** to write
+## Components of Interrupt Code
 
-### Read Operations
+Interrupt code has three components:
 
-A master reads data from a slave. You need:
-- The **address** of the slave
-- A **byte array buffer** for the received data
+### 1. Global Shared Data
 
-### Configurations
+Any data shared between the main thread and the interrupt handler:
 
-| Setting | Description |
-|---------|-------------|
-| **Clock frequency** | 100 kHz (standard), 400 kHz (fast), or custom |
-| **SDA/SCL pins** | Any GPIO with I2C capability |
+```rust
+static SHARED: Mutex<RefCell<Option<Input>>> =
+    Mutex::new(RefCell::new(None));
+```
+
+### 2. Interrupt Setup
+
+Configuring the interrupt per peripheral — what event to listen for, enabling it, moving data to shared state:
+
+```rust
+button.listen(Event::FallingEdge);
+critical_section::with(|cs| {
+    SHARED.borrow_ref_mut(cs).replace(button);
+});
+```
+
+### 3. Interrupt Service Routine (ISR)
+
+The code that reacts to the interrupt event:
+
+```rust
+#[handler]
+fn gpio_handler() {
+    critical_section::with(|cs| {
+        // handle event, clear interrupt
+    });
+}
+```
+
+## Setup Happens in the Configure Stage
+
+Setup involves three steps:
+
+1. **Configuring the interrupt** — What do we want to listen to? Edge events (rising, falling, any) or level events (high, low)
+2. **Enabling the interrupt** — Peripheral-level enable and interrupt controller enable
+3. **Configuring global shared data** — `Mutex<RefCell<Option<T>>>` pattern, moving peripherals into global statics via `critical_section`
 
 ---
 
-## Exercise A: Bus Scan
+## Exercise A: Interrupt-Driven Button
 
-**Goal:** Set up an I2C bus and scan for connected devices.
+**Goal:** Convert the GPIO button example from [Assignment 1: GPIO Exercises](assignment-1/) to use interrupts instead of polling.
 
 ### 1. Create a New Project
 
 ```bash
-esp-generate --chip esp32c3 -o unstable-hal -o vscode -o esp-backtrace -o log --headless i2c_scan
-cd i2c_scan
+esp-generate --chip esp32c3 -o unstable-hal -o vscode -o esp-backtrace -o log --headless gpio_interrupt
+cd gpio_interrupt
 ```
 
-### 2. Find an I2C Example
+### 2. Find Interrupt Examples
 
-Navigate to the [esp-hal I2C documentation](https://docs.espressif.com/projects/rust/esp-hal/latest/esp32c3/esp_hal/i2c/master/struct.I2c.html).
+Search the GPIO Input documentation or the [esp-hal examples directory](https://github.com/esp-rs/esp-hal/tree/main/examples) for interrupt examples.
 
-Look for an I2C example in:
-- The module-level documentation (`esp_hal::i2c`)
-- The `I2c` struct page
-- The [esp-hal examples directory on GitHub](https://github.com/esp-rs/esp-hal/tree/main/examples)
+Look for how interrupts are set up — recall the three components:
+1. Interrupt Setup
+2. Interrupt Service Routine
+3. Global Shared Data
 
-### 3. Apply the Mental Model
+### 3. Apply the Pattern
 
-Read the example and identify:
-- **Instantiate** — How is the `I2c` created? What peripheral and pins does it need?
-- **Configure** — What configuration is applied? (Clock speed, pins)
-- **Control** — What methods are available for reading/writing?
+Convert your polling code to use interrupts:
+- **Configure** the interrupt (what event to listen to?)
+- **Enable** the interrupt (allow events to go through)
+- **Set up global shared data** (how will the handler communicate with the main loop?)
 
-### 4. Adapt to Your Hardware
-
-- Check your board's pinout for the I2C SDA and SCL pins
-- Update the pins in the example to match
-
-### 5. Scan the Bus
-
-Write a loop that attempts to communicate with every address from `0x01` to `0x7F`:
-- For each address, try a zero-length write
-- If the write succeeds, a device is present at that address
-- Print the address of each device found
-
-### 6. Build and Flash
+### 4. Build and Flash
 
 ```bash
 cargo build --release
-espflash flash target/riscv32imc-unknown-none-elf/release/i2c_scan --monitor
+espflash flash target/riscv32imc-unknown-none-elf/release/gpio_interrupt --monitor
 ```
 
+Press the button. The LED should toggle.
+
+### 5. Explore Trigger Configurations
+
+Look up the `Event` enum in esp-hal's GPIO module. What variants are available?
+
 {{< alert icon="circle-info" >}}
-Write down which addresses respond — you'll need them in the next exercise. One of those addresses is the **TCA6424** I/O expander.
+You must always call `clear_interrupt()` in the handler. Compare: what can the main loop do now that it couldn't when polling?
 {{< /alert >}}
 
 ---
 
-## Exercise B: GPIO over I2C
+## Exercise B: I/O Expander Interrupt
 
-**Goal:** Use the **TCA6424A** I/O expander to control GPIO pins over I2C, replicating what you did with direct GPIO.
+**Goal:** Use the TCA6424's INT output to detect input changes without polling over I2C.
 
-### Background
-
-The TCA6424A is a 24-bit I/O expander connected via I2C. It provides three banks (ports) of 8 GPIO pins each (P0, P1, P2), giving you 24 additional GPIO pins over just two I2C wires.
-
-### How I2C Communication Works with the TCA6424A
-
-Communication happens in two cycles:
-
-1. **First cycle (write):** Send the **register address** — tells the device which internal register to access
-2. **Second cycle (read or write):** Write a value to that register or read back the current value
-
-For a **write operation**, send the register address followed by the data byte in the same I2C write transaction.
-
-For a **read operation**, first write the register address, then perform a separate I2C read.
-
-### TCA6424A Register Map
-
-| Register | Port 0 | Port 1 | Port 2 | Purpose |
-|----------|--------|--------|--------|---------|
-| **Input** | `0x00` | `0x01` | `0x02` | Read pin levels |
-| **Output** | `0x04` | `0x05` | `0x06` | Set output pin levels |
-| **Configuration** | `0x0C` | `0x0D` | `0x0E` | Pin dir: `0`=out, `1`=in |
+The TCA6424 I/O expander has an **INT** output pin connected to a GPIO pin. Instead of polling the I/O expander over I2C, use this interrupt line to get notified when an input changes.
 
 ### Steps
 
-#### 1. Create a New Project
+1. **Create a new project**
 
 ```bash
-esp-generate --chip esp32c3 -o unstable-hal -o vscode -o esp-backtrace -o log --headless i2c_expander
-cd i2c_expander
+esp-generate --chip esp32c3 -o unstable-hal -o vscode -o esp-backtrace -o log --headless expander_interrupt
+cd expander_interrupt
 ```
 
-#### 2. Configure Pin Direction
+2. **Find the INT pin** — check your board's pinout to see which GPIO pin the I/O expander's INT output is connected to.
 
-Write to the **Configuration register** for the appropriate port. Set the corresponding bit to `0` for output.
+3. **Configure a GPIO interrupt** on that pin — the INT line is typically active-low, so configure for a falling edge trigger.
 
-#### 3. Set a Pin High
+4. **In the interrupt handler**, set a flag indicating that the I/O expander state has changed.
 
-Write to the **Output register** for the appropriate port. Set the corresponding bit to `1` for high.
-
-#### 4. Blink an LED
-
-Combine the above in a loop:
-1. Configure the port direction as output (once at startup)
-2. In a loop: set the pin high, delay, set the pin low, delay
-
-#### 5. Build and Flash
-
-```bash
-cargo build --release
-espflash flash target/riscv32imc-unknown-none-elf/release/i2c_expander --monitor
-```
-
----
-
-## Exercise C: Adaptation Challenge
-
-**Goal:** Read a button input through the I/O expander, controlling an LED entirely over I2C.
-
-### Steps
-
-#### 1. Create a New Project
-
-```bash
-esp-generate --chip esp32c3 -o unstable-hal -o vscode -o esp-backtrace -o log --headless i2c_challenge
-cd i2c_challenge
-```
-
-#### 2. Configure an Input Pin
-
-Using the TCA6424 registers:
-- Set a pin's configuration bit to `1` (input)
-- This pin should be connected to a button on your board
-
-#### 3. Read the Button State
-
-- Read the input register for the relevant bank
-- Check the bit corresponding to your input pin
-- Detect when the button is pressed
-
-#### 4. Control the LED
-
-Combine input reading with output control:
-- Read the button state from the I/O expander
-- When pressed, turn on the LED (on the I/O expander)
-- When released, turn off the LED
-
-#### 5. Build and Flash
-
-```bash
-cargo build --release
-espflash flash target/riscv32imc-unknown-none-elf/release/i2c_challenge --monitor
-```
+5. **In the main loop**, when the flag is set, read the I/O expander's input register over I2C to determine which button was pressed, then react accordingly.
 
 {{< alert icon="circle-info" >}}
-The logic is identical to the direct GPIO exercise — only the hardware interface changed. Think about latency: how does I2C polling compare to direct GPIO polling?
+This combines two peripherals: GPIO interrupts and I2C communication. The interrupt tells you *something* changed, but you still need I2C to find out *what* changed.
 {{< /alert >}}
-
----
-
-## Cross-HAL Comparison
-
-How do other HALs handle I2C? Navigate the documentation for these two libraries:
-
-- [rp2040-hal](https://docs.rs/rp2040-hal/latest/rp2040_hal/)
-- [stm32f4xx-hal](https://docs.rs/stm32f4xx-hal/latest/stm32f4xx_hal/)
-
-Compare how each HAL handles **Instantiate**, **Configure**, and **Control** for I2C.
