@@ -26,7 +26,7 @@ Every hands-on module follows the same workflow:
 1. **Read** — Start with a working example
 2. **Understand** — Study the code and map it to the documentation
 3. **Adapt** — Modify the example to do something *different* by discovering new options in the docs
-4. **Extend** — Stretch goals push you to navigate unfamiliar documentation independently
+4. **Extend** — Stretch goals to push yourself to navigate unfamiliar documentation independently
 
 ## Agenda
 
