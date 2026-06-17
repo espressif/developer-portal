@@ -404,7 +404,7 @@ func displayActivity(activity string) {
 
 **Advanced Topics:**
 - [Hand Gesture Recognition with ESP-DL](../../../blog/hand-gesture-recognition-on-esp32-s3-with-esp-deep-learning/)
-- [ESP32-S3 SparkBot AI Applications](../../../blog/2025/04/esp32-s3-sparkBot/)
+- [ESP32-S3 SparkBot AI Applications](../../../blog/2025/04/esp32-s3-sparkbot/)
 
 ### Resources
 

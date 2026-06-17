@@ -47,7 +47,7 @@ ESP-WHO follows a layered architecture with ESP-IDF at its foundation. It uses B
 The examples currently support these evaluation boards:
 
 - [ESP32-P4 Function EV Board](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32p4/esp32-p4-function-ev-board/user_guide.html)
-- [ESP32-S3-EYE](docs/en/get-started/ESP32-S3-EYE_Getting_Started_Guide.md)
+- [ESP32-S3-EYE](https://documentation.espressif.com/esp-who/master/docs/en/get-started/ESP32-S3-EYE_Getting_Started_Guide.md)
 - [ESP32-S3-Korvo-2](https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/dev-boards/user-guide-esp32-s3-korvo-2.html)
 
 In this tutorial, we use the ESP32-S3-EYE board. We start by compiling and running the face recognition example, then extend it to turn on an LED whenever a face is detected.

@@ -5,8 +5,7 @@
     "bio": "Hardware engineer at Soldered Electronics, working on open-source IoT and e-paper projects.",
     "social": [
         {
-            "name": "github",
-            "url": "https://github.com/GreenyHub"
-        } 
+            "github": "https://github.com/GreenyHub"
+        }
     ]
 }
