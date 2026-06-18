@@ -1,5 +1,5 @@
 ---
-title: "NuttX Web Panel: A Self-Hosted Web Interface for NuttX"
+title: "NuttX Web Panel: A self-hosted web interface for NuttX"
 date: 2026-06-29
 tags: ["NuttX", "Apache", "Python", "ESP32-P4", "POSIX", "Web"]
 series: ["Python on NuttX"]
@@ -16,7 +16,7 @@ That experiment raised a question: what if we could make this workflow even more
 
 That's the motivation behind **NuttX Web Panel**.
 
-## NuttX as a Computing Platform
+## NuttX as a computing platform
 
 NuttX's POSIX compliance makes it unique among RTOSes. Applications originally targeting Linux or other Unix-based systems can often be ported to NuttX with minimal changes. This applies not only to C programs but also to interpreted languages like Python.
 
@@ -24,7 +24,7 @@ This creates an interesting possibility: NuttX can act as a **computing platform
 
 NuttX Web Panel is part of this effort. It provides a browser-based interface to interact with a NuttX device, combining system monitoring, a terminal, and file management into a single self-hosted web page. Think of it as a first step toward making NuttX devices as easy to manage as consumer routers or IoT hubs that offer web-based configuration panels.
 
-## What Does NuttX Web Panel Offer?
+## What does NuttX Web Panel offer?
 
 NuttX Web Panel is a self-hosted web application that runs entirely on the device. Once the board boots and connects to the network, users can access it from any browser on the same network. The interface provides four main sections:
 
@@ -42,15 +42,15 @@ The following screenshot shows NuttX Web Panel running on an ESP32-P4, accessibl
     caption="NuttX Web Panel home page on ESP32-P4"
     >}}
 
-## How It Works
+## How it works
 
 NuttX Web Panel does not rely on external services or cloud infrastructure. The entire application runs on the device, leveraging modules that are already available in NuttX's application repository (`nuttx-apps`). Here is a brief overview of the key components:
 
-### THTTPD Web Server
+### THTTPD web server
 
 The web interface is served by [THTTPD](https://github.com/apache/nuttx-apps/tree/master/netutils/thttpd), a lightweight HTTP server that has been part of `nuttx-apps` for a long time. THTTPD serves the static HTML/CSS/JavaScript files from a ROMFS partition (embedded in the firmware) and dispatches dynamic requests to CGI handlers.
 
-### CGI Handlers
+### CGI handlers
 
 The dynamic functionality (system info, file listing, file upload, and DHCP renew) is implemented as CGI programs. NuttX's BINFS filesystem exposes built-in applications as files in a virtual directory, and THTTPD invokes them as CGI scripts. This is possible thanks to NuttX's UNIONFS, which merges the ROMFS (static content) and BINFS (CGI programs) into a single filesystem tree served by THTTPD.
 
@@ -58,11 +58,11 @@ The dynamic functionality (system info, file listing, file upload, and DHCP rene
 
 The browser-based terminal uses [libwebsockets](https://libwebsockets.org/), a lightweight WebSocket library that was recently enabled for server-side operation in `nuttx-apps`. When a user clicks "Connect" in the Terminal tab, the browser opens a WebSocket connection to a daemon running on the device. This daemon spawns an NSH session attached to a POSIX pseudo-terminal (PTY) and relays data between the WebSocket and the PTY master file descriptor. The result is a fully interactive NuttX shell in the browser, powered by [xterm.js](https://xtermjs.org/).
 
-### mDNS for Service Discovery
+### mDNS for service discovery
 
 The device advertises itself on the local network using mDNS, so users can access the web panel at `http://webpanel.local` instead of needing to know the IP address. An event-based mDNS starter was developed to automatically launch the mDNS daemon when the device gets an IP address via DHCP.
 
-### SmartFS for Writable Storage
+### SmartFS for writable storage
 
 User files (including uploaded Python scripts) are stored on a SmartFS partition backed by SPI flash. This partition is mounted at `/mnt` and persists across reboots.
 
@@ -70,7 +70,7 @@ User files (including uploaded Python scripts) are stored on a SmartFS partition
 
 One of the most powerful features of NuttX Web Panel is its integration with Python. The `webpanel` defconfig for ESP32-P4 includes the Python interpreter, enabling users to upload and run Python scripts directly from the browser.
 
-### Example: Task Monitor Script
+### Example: Task monitor script
 
 Working with Python on NuttX also makes it easier to test hardware with tools many developers already use, including AI coding agents that can draft scripts against NuttX's POSIX-compatible interfaces. As an example of a Python script that can be uploaded and run on NuttX Web Panel, consider the following task monitor script. It reads the PROCFS filesystem to collect information about running tasks, memory usage, and system uptime, then prints an organized summary table:
 
@@ -371,7 +371,7 @@ The following video shows uploading and running `taskmon.py` through NuttX Web P
 {{< youtube UJo0rS__jpk >}}
 {{< bilibili-note BV1A2jA64EMv >}}
 
-### NuttX Periphery: A Direct Path to Hardware
+### NuttX Periphery: A direct path to hardware
 
 For scripts that need to interact with peripherals directly, [nuttx-periphery](https://github.com/apache/nuttx-apps/pull/3537) provides a higher-level Python API on top of NuttX character drivers. The package was recently contributed by [Filipe Cavalcanti](/authors/filipe-cavalcanti/). With `nuttx-periphery`, controlling GPIO, I2C, SPI, and other peripherals from Python becomes as simple as:
 
@@ -387,15 +387,15 @@ NuttX Web Panel is a natural place to try this workflow: upload a script, run it
 
 ## Building NuttX Web Panel for ESP32-P4
 
-### Hardware Requirements
+### Hardware requirements
 
 NuttX Web Panel was developed and tested on the [ESP32-P4-Function-EV-Board](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32p4/esp32-p4-function-ev-board/index.html). ESP32-P4 is a high-performance SoC with a dual-core RISC-V processor, plenty of RAM, and Ethernet support, making it well-suited for running a web server alongside the Python interpreter.
 
-### Software Requirements
+### Software requirements
 
 For those new to NuttX, we recommend reviewing the guide [Getting Started with NuttX and ESP32](/blog/2020/11/nuttx-getting-started) to configure your development environment for building NuttX applications.
 
-### Compiling and Flashing
+### Compiling and flashing
 
 Clean any previous configuration and set the `defconfig` to enable the NuttX Web Panel on ESP32-P4:
 
@@ -425,7 +425,7 @@ http://webpanel.local
 
 If mDNS is not available on your network, check the device's serial console for the assigned IP address and use it directly.
 
-## What's Next?
+## What's next?
 
 NuttX Web Panel is the **very first effort** toward a web-based interface for NuttX. A formal roadmap is yet to be defined, but the foundation is in place. Some potential directions include:
 
@@ -444,7 +444,7 @@ Combined with [nuttx-periphery](https://github.com/fdcavalcanti/nuttx-periphery)
 
 *Stay tuned for more updates about Python on NuttX and the Web Panel!*
 
-## Useful Links
+## Useful links
 
 - [NuttX Documentation](https://nuttx.apache.org/docs/)
 - [NuttX GitHub](https://github.com/apache/nuttx)
