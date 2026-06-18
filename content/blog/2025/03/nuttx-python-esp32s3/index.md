@@ -2,7 +2,7 @@
 title: "Running Python on ESP32-S3 with NuttX"
 date: 2025-03-07T08:00:00-03:00
 tags: ["NuttX", "Apache", "Python", "ESP32-S3", "POSIX"]
-series: ["nuttx-apps"]
+series: ["Python on NuttX"]
 series_order: 1
 showAuthor: false
 authors:
