@@ -21,7 +21,7 @@ and Dante (AES67 mode) ecosystems.
 The hardware that speaks it is usually a dedicated Dante chip, an FPGA, or a
 Linux machine with a good NIC. None of those are a microcontroller. The
 ESP32-P4 is interesting here because it has two things that make AES67
-plausible on a part this size: a RISC-V core fast enough to convert and move
+plausible on a device of this size: a RISC-V core fast enough to convert and move
 audio samples in software, and an Ethernet MAC with **IEEE-1588 hardware
 timestamping** — which is the one feature you cannot fake if you want real
 PTP sync.
@@ -41,7 +41,7 @@ is honest about what's solid and what isn't.
 
 ## The clock is the whole problem
 
-In most network audio the headline number people quote is latency, but the
+When discussing network audio, latency is the key metric people quote. But the
 thing that's genuinely hard is *agreement on time*. Every AES67 device has
 to run its media clock from the same PTP grandmaster, to within
 sub-microsecond accuracy, or audio from two sources drifts apart and you get
@@ -77,7 +77,7 @@ the clock right and the rest of the timing is arithmetic.
 The receive path is where the latency budget is won or lost. A normal
 sockets path — EMAC interrupt, into lwIP, IP/UDP demux, copy into a socket
 buffer, wake the reader task — adds buffering and scheduling delay at every
-hop, and on a part this size that's a meaningful fraction of a millisecond
+hop, and on a device of this size that's a meaningful fraction of a millisecond
 plus jitter you can't predict.
 
 AES67 RTP is multicast UDP on a known port, which means you can recognize it
@@ -121,7 +121,7 @@ copy and adapt, not a component API.
 
 ## Playing it out without jitter
 
-On the playback side the enemy is the same one in a different costume:
+On the playback side the enemy is the same one but wearing different clothes:
 anything that introduces scheduling jitter between "audio is ready" and
 "sample reaches the DAC" turns into audible artifacts.
 
