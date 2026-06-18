@@ -1,6 +1,6 @@
 ---
 title: "AES67 audio-over-IP on the ESP32-P4"
-date: "2026-06-15"
+date: "2026-06-22"
 summary: "AES67/RAVENNA is the audio transport behind a lot of broadcast and live-sound infrastructure, and it normally runs on dedicated silicon or Linux boxes. This article is about getting a working, PTP-synchronized AES67 endpoint onto an ESP32-P4 — how the clock sync, the low-latency receive path, and the I2S playout fit together, what the measured latency is, and where the edges are."
 featureAsset: "img/featured/featured-espressif-waves.webp"
 authors:
