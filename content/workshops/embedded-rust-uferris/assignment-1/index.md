@@ -27,7 +27,7 @@ Time to get hands-on. In this module, you'll apply the **Instantiate → Configu
 
 **Drive Strength:** How much current the pin can source or sink. Higher drive strength = brighter LED, but more power consumption.
 
-[This]( https://developer.espressif.com/blog/2026/02/esp-idf-tutorial-gpio-get-started/#output-configuration) is also a good reference for more detail about output modes.
+[This article]( https://developer.espressif.com/blog/2026/02/esp-idf-tutorial-gpio-get-started/#output-configuration) is also a good reference for more detail about output modes.
 
 ### Input Pull Resistors
 
