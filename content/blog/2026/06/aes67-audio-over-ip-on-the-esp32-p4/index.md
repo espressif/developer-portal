@@ -1,11 +1,11 @@
 ---
-title: "AES67 audio-over-IP on the @@EESP32-P4@@"
+title: "AES67 audio-over-IP on the ESP32-P4"
 date: "2026-06-24"
-summary: "AES67/RAVENNA is the audio transport behind a lot of broadcast and live-sound infrastructure, and it normally runs on dedicated silicon or Linux boxes. This article is about getting a working, PTP-synchronized AES67 endpoint onto an @@EESP32-P4@@ — how the clock sync, the low-latency receive path, and the I2S playout fit together, what the measured latency is, and where the edges are."
+summary: "AES67/RAVENNA is the audio transport behind a lot of broadcast and live-sound infrastructure, and it normally runs on dedicated silicon or Linux boxes. This article is about getting a working, PTP-synchronized AES67 endpoint onto an ESP32-P4 — how the clock sync, the low-latency receive path, and the I2S playout fit together, what the measured latency is, and where the edges are."
 featureAsset: "img/featured/featured-espressif-waves.webp"
 authors:
     - sylwester-sosnowski
-tags: ["AES67", "RAVENNA", "audio", "PTP", "RTP", "ESP-IDF", "@@EESP32-P4@@", "networking"]
+tags: ["AES67", "RAVENNA", "audio", "PTP", "RTP", "ESP-IDF", "ESP32-P4", "networking"]
 ---
 
 ## What AES67 is, and why this is an odd place to run it
@@ -20,7 +20,7 @@ and Dante (AES67 mode) ecosystems.
 
 The hardware that speaks it is usually a dedicated Dante chip, an FPGA, or a
 Linux machine with a good NIC. None of those are a microcontroller. The
-@@EESP32-P4@@ is interesting here because it has two things that make AES67
+ESP32-P4 is interesting here because it has two things that make AES67
 plausible on a device of this size: a RISC-V core fast enough to convert and move
 audio samples in software, and an Ethernet MAC with **IEEE-1588 hardware
 timestamping** — which is the one feature you cannot fake if you want real
@@ -49,7 +49,7 @@ clicks at the seams.
 
 PTP gets that accuracy by timestamping sync packets in hardware, at the MAC,
 the instant they cross the wire — software timestamps carry too much jitter
-from interrupt latency and scheduling. The @@EESP32-P4@@ EMAC has this unit, and
+from interrupt latency and scheduling. The ESP32-P4 EMAC has this unit, and
 ESP-IDF exposes it through a clock abstraction (`esp_eth_clock_gettime`,
 `esp_eth_clock_settime`). On top of that I run a small IEEE-1588 daemon
 (a port of the NuttX `ptpd`) that does the protocol — best-master-clock
@@ -168,7 +168,7 @@ how small a DMA descriptor you can service reliably at the worst-case
 interrupt rate, not by how small a number you can get to flash once.
 
 The other thing that didn't work until it did was multicast under load. The
-@@EESP32-P4@@ EMAC would drop multicast frames once the packet rate got high
+ESP32-P4 EMAC would drop multicast frames once the packet rate got high
 enough — about 8% loss — which on an audio stream is constant clicking.
 Enabling **IEEE 802.3x flow control** so the MAC can pause the sender when
 its buffers fill fixed it: zero loss across a 645,000-packet test, no
@@ -205,7 +205,7 @@ application and audio buffers. It's a component, not a whole-chip takeover.
 
 What I'm not claiming:
 
-- **@@EESP32-P4@@ only.** This leans on the ESP32-P4's EMAC hardware timestamping and
+- **ESP32-P4 only.** This leans on the ESP32-P4's EMAC hardware timestamping and
   its I2S/APLL clocking. It does not port to the other ESP32s as-is.
 - **44.1 and 48 kHz only.** 96 kHz is not done.
 - **The lowest-latency receive hook is example wiring**, not a component
@@ -223,7 +223,7 @@ The component is on the ESP Component Registry:
 idf.py add-dependency "datanoisetv/aes67^2.6.0"
 ```
 
-Source, the full @@EESP32-P4@@-Nano example (Ethernet + ES8311 codec bring-up,
+Source, the full ESP32-P4-Nano example (Ethernet + ES8311 codec bring-up,
 the Rx hook, and the web UI), and the architecture notes are in the
 [repository](https://github.com/DatanoiseTV/aes67-esp32p4). If you put it on
 a network with other AES67 gear, I'd like to hear what it locked to and what
