@@ -125,7 +125,8 @@ jobs:
               });
 
               // Define the comment body
-              const commentBody = `🎉 A preview for this PR is available at: ${process.env.HUGO_BASEURL}`;
+              const commentBody = `🎉 A preview for this PR is available at: ${process.env.HUGO_BASEURL}
+              \n\n> [!WARNING]\n>This link is **for review only** and will expire after merge. Don't share it publicly.`;
 
               // Look for an existing comment containing the specific text
               const existingComment = comments.find(comment =>
