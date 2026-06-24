@@ -203,7 +203,9 @@ if button.is_high() {
 
 ### Step 1: Navigate to the Peripheral Module
 
-Each peripheral typically gets its own module in a HAL crate. Find the module list at the bottom of the crate's documentation page.
+Each peripheral typically gets its own module in a HAL crate. You can find the module list at the bottom of a HAL crate's documentation page.
+
+Click [here](https://docs.espressif.com/projects/rust/esp-hal/1.1.0/esp32c3/esp_hal/index.html#modules) to view the esp-hal ESP32-C3 crate modules.
 
 {{< figure
     default=true
@@ -212,9 +214,16 @@ Each peripheral typically gets its own module in a HAL crate. Find the module li
     caption="Finding peripheral modules in crate documentation"
     >}}
 
+
+
 ### Step 2: Find an Example
 
 Simple examples are often shown in the module documentation. Most HAL repos also have a dedicated **examples** directory on GitHub.
+
+Click [here](https://docs.espressif.com/projects/rust/esp-hal/1.1.0/esp32c3/esp_hal/index.html#blinky) to view the blinky code example in the esp-hal.
+
+Click [here](https://github.com/esp-rs/esp-hal/tree/main/examples) to view the examples folder in the esp-hal repository.
+
 
 {{< figure
     default=true
@@ -237,6 +246,8 @@ Use the example to apply the mental model. Identify the driver struct and how it
 ### Step 4: Access the Driver Struct
 
 Navigate to the driver struct's documentation page to find all **configuration** and **control** methods available.
+
+Click [here](https://docs.espressif.com/projects/rust/esp-hal/1.1.0/esp32c3/esp_hal/gpio/index.html#structs) to view the GPIO driver structs list in the esp-hal documentation.
 
 {{< figure
     default=true

@@ -15,6 +15,8 @@ A BSP allows us to skip the **Configure** step. The pattern becomes simply **Ins
 
 A BSP encapsulates board-specific knowledge — pin assignments, peripheral configuration, and hardware defaults.
 
+A BSP increases the level of abstraction such that we can reference board components rather than controller peripherals.
+
 ### Without BSP (raw HAL)
 
 ```rust
@@ -102,6 +104,7 @@ Refactor the I2C exercise. The BSP should provide a pre-configured I2C bus — n
 
 Look at the BSP source code for the ESP32-C3 adapter:
 - How are HAL types mapped to board-level names?
+- Note how the HAL for the different boards is intialized for uFerris.
 - What abstractions does the adapter provide?
 - Could you write an adapter for a different module?
 

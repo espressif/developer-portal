@@ -77,6 +77,14 @@ cargo build --release
 espflash flash target/riscv32imc-unknown-none-elf/release/gpio_blinky --monitor
 ```
 
+Alternatively, you can build and flash using either one of the following commands:
+
+```bash
+cargo run --release
+# or
+cargo r -r
+```
+
 {{< alert icon="circle-info" >}}
 The `Output::new()` call combines **Instantiate** and **Configure** in one statement. Look at what other methods `Output` provides besides the one used in the example.
 {{< /alert >}}
