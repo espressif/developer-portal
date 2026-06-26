@@ -6,6 +6,9 @@
 {{ $page := .Page }}
 {{ $featured := "" }}
 {{ $featuredURL := "" }}
+{{ $thumbnailAspectRatio := site.Params.thumbnailAspectRatio | default "1.5" }}
+{{ $thumbnailAspectRatio = replaceRE "[^0-9.]" "" $thumbnailAspectRatio }}
+{{ if eq $thumbnailAspectRatio "" }}{{ $thumbnailAspectRatio = "1.5" }}{{ end }}
 {{/* frontmatter */}}
 {{ with $page }}
   {{ with .Params.featureimage }}
@@ -57,12 +60,12 @@
 
 
 <article
-  class="relative min-h-full min-w-full overflow-hidden rounded border border-2 border-neutral-200 shadow-2xl dark:border-neutral-700">
+  class="article-link--related relative min-h-full min-w-full overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-600">
   {{ with $featuredURL }}
-    <div class="flex-none relative overflow-hidden thumbnail_card_related">
+    <div class="flex-none relative overflow-hidden thumbnail_card_related" style="--thumbnail-aspect-ratio: {{ $thumbnailAspectRatio }}">
       <img
         src="{{ . }}"
-        alt="{{ $page.Title }}"
+        role="presentation"
         loading="lazy"
         decoding="async"
         fetchpriority="low"
@@ -74,7 +77,7 @@
       {{ partial "badge.html" (i18n "article.draft" | emojify) }}
     </span>
   {{ end }}
-  <div class="px-6 py-4">
+  <div class="p-4">
     <header>
       <a
         {{ with $page.Params.externalUrl }}
@@ -98,7 +101,9 @@
       {{ partial "article-meta/basic.html" . }}
     </div>
     {{ if .Params.showSummary | default (.Site.Params.list.showSummary | default false) }}
-      <div class="prose dark:prose-invert py-1">{{ .Summary | plainify }}</div>
+      <div class="article-link__summary prose dark:prose-invert mt-1 line-clamp-5">
+        {{ .Summary | plainify }}
+      </div>
     {{ end }}
   </div>
   <div class="px-6 pt-4 pb-2"></div>

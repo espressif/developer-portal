@@ -22,36 +22,20 @@
     <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       {{ partial "article-meta/list.html" (dict "context" . "scope" "single") }}
     </div>
-    {{ $translations := .AllTranslations }}
-    {{ with .File }}
-      {{ $path := .Path }}
-      {{ range $translations }}
-        {{ $lang := print "."  .Lang  ".md" }}
-        {{ $path = replace $path $lang ".md" }}
-      {{ end }}
-      {{ $jsPage := resources.Get "js/page.js" }}
-      {{ $jsPage = $jsPage | resources.Minify | resources.Fingerprint (site.Params.fingerprintAlgorithm | default "sha512") }}
-      <script
-        type="text/javascript"
-        src="{{ $jsPage.RelPermalink }}"
-        integrity="{{ $jsPage.Data.Integrity }}"
-        data-oid="views_{{ $path }}"
-        data-oid-likes="likes_{{ $path }}"></script>
-    {{ end }}
   </header>
 
   {{/* Description (markdown content) */}}
   {{ $tocMargin := cond $showToc "mt-12" "mt-0" }}
   {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
-  <section class="{{ $tocMargin }} prose flex max-w-full flex-col dark:prose-invert lg:flex-row">
+  <section class="{{ $tocMargin }} prose flex max-w-full flex-col dark:prose-invert lg:flex-row mb-10">
     {{ if $showToc }}
-      <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
-        <div class="toc ps-5 lg:sticky {{ $topClass }}">
+      <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+        <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
           {{ partial "toc.html" . }}
         </div>
       </div>
     {{ end }}
-    <div class="min-w-0 min-h-0 max-w-prose">
+    <div class="min-w-0 min-h-0 max-w-prose w-full">
       {{ .Content | emojify }}
     </div>
   </section>
