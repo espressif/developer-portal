@@ -226,35 +226,35 @@ Hugo also provides the [highlight shortcode](https://gohugo.io/shortcodes/highli
 
 Tabbed code blocks look neat:
 
-{{< tabs groupId="config" >}}
-  {{% tab name="Linux" %}}
+{{< tabs group="config" >}}
+  {{< tab label="Linux" >}}
 ```md
 Linux code block
 ```
-  {{% /tab %}}
-  {{% tab name="macOS" %}}
+  {{< /tab >}}
+  {{< tab label="macOS" >}}
 Update homebrew, then run:
 ```md
 macOS code block
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 At the same time, the markup is very simple:
 
 ````md
-{{</* tabs groupId="config" */>}}
-  {{%/* tab name="Linux" */%}}
+{{</* tabs group="config" */>}}
+  {{</* tab label="Linux" */>}}
 ```md
 Linux code block
 ```
-  {{%/* /tab */%}}
-  {{%/* tab name="macOS" */%}}
+  {{</* /tab */>}}
+  {{</* tab label="macOS" */>}}
 Update homebrew, then run:
 ```md
 macOS code block
 ```
-  {{%/* /tab */%}}
+  {{</* /tab */>}}
 {{</* /tabs */>}}
 ````
 
@@ -266,7 +266,7 @@ Some explanations:
 
 For a real example, see this [page](../../../blog/2025/10/porting-external-library-as-component/#create-a-new-project).
 
-As you can see, the `tabs` shortcode has **the parameter** `groupId`. It creates association between all tabbed code blocks bearing the same `groupId` on a webpage. Once you choose a certain tab, all associated code blocks will switch to the same tab. It can be useful in tutorials covering multiple operating systems, programming languages, etc.
+As you can see, the `tabs` shortcode has **the parameter** `group`. It creates association between all tabbed code blocks bearing the same `group` on a webpage. Once you choose a certain tab, all associated code blocks will switch to the same tab. It can be useful in tutorials covering multiple operating systems, programming languages, etc.
 
 You can also easily **indent a tabbed code block**, by preceding the `tabs` and `tab` shortcodes with the required number of spaces. Here is the example of the [indented tabbed code block][indented-tabbed-code-block].
 

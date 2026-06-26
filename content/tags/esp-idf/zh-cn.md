@@ -131,8 +131,8 @@ build:
 
 从 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取图形安装包、便携压缩包与发行合集，或通过各平台包管理器安装 EIM：
 
-{{< tabs groupId="eim-download" >}}
-{{% tab name="Windows" %}}
+{{< tabs group="eim-download" >}}
+{{< tab label="Windows" >}}
 **包管理器（推荐）**
 
 ```powershell
@@ -143,8 +143,8 @@ winget install Espressif.EIM-CLI
 ```
 
 **手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 Windows 安装包或便携构建。
-{{% /tab %}}
-{{% tab name="macOS" %}}
+{{< /tab >}}
+{{< tab label="macOS" >}}
 **包管理器（推荐）**
 
 ```bash
@@ -157,8 +157,8 @@ brew install eim
 ```
 
 **手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 macOS 构建。
-{{% /tab %}}
-{{% tab name="Linux (deb)" %}}
+{{< /tab >}}
+{{< tab label="Linux (deb)" >}}
 **包管理器（推荐）**
 
 ```bash
@@ -174,8 +174,8 @@ sudo apt install eim
 ```
 
 **手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 `.deb` 包或 Linux 便携二进制。
-{{% /tab %}}
-{{% tab name="Linux (rpm)" %}}
+{{< /tab >}}
+{{< tab label="Linux (rpm)" >}}
 **包管理器（推荐）**
 
 ```bash
@@ -188,7 +188,7 @@ sudo dnf install eim
 ```
 
 **手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 RPM 包或 Linux 便携二进制。
-{{% /tab %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 EIM 完成后，您即拥有基于 CMake 的工程、Xtensa 与 RISC-V 工具链，以及在各支持操作系统上一致的 `idf.py` 工作流。

@@ -265,8 +265,8 @@ RIGHT/DOWN position: 65520 (3.3V)      → Direction 1.0
 
 ### Code
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32-S3" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32-S3" >}}
 **joystick.go for ESP32-S3:**
 
 ```go
@@ -356,9 +356,9 @@ func getDirection(value uint32) int {
 tinygo flash -target esp32s3-generic joystick.go
 ```
 
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 **joystick.go for ESP32-C3:**
 
 Change pin configuration:
@@ -374,9 +374,9 @@ const (
 tinygo flash -target esp32c3-generic joystick.go
 ```
 
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32" %}}
+  {{< tab label="ESP32" >}}
 **joystick.go for ESP32:**
 
 Change pin configuration:
@@ -392,7 +392,7 @@ const (
 tinygo flash -target esp32-generic joystick.go
 ```
 
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ## Example 3: Joystick-Controlled Game

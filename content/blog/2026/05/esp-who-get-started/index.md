@@ -114,8 +114,8 @@ You can find a detailed guide in this [developer portal article](https://develop
 To run `esp-who` you need to setup a couple of CMake flags. Here you can find the instructions for both VSCode and CLI.
 
 
-{{< tabs groupId="devtool" >}}
-{{% tab name="VS Code extension" %}}
+{{< tabs group="devtool" >}}
+{{< tab label="VS Code extension" >}}
 
 * Copy the following `settings.json` into your project's `.vscode` folder and update the paths so the ESP-IDF extension knows which board and toolchain to use:
 
@@ -138,8 +138,8 @@ To run `esp-who` you need to setup a couple of CMake flags. Here you can find th
 * Run `> ESP-IDF: Select Port to Use (COM, tty, usbserial)`.
 * Run `> ESP-IDF: Build, Flash and Start a Monitor`.
 
-{{% /tab %}}
-{{% tab name="CLI" %}}
+{{< /tab >}}
+{{< tab label="CLI" >}}
 
 * Open a terminal and find the activation script:
 
@@ -188,7 +188,7 @@ To run `esp-who` you need to setup a couple of CMake flags. Here you can find th
   ```bash
   idf.py -p <your-port> monitor
   ```
-{{% /tab %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 

@@ -115,8 +115,8 @@ go mod init gopher-blink
 
 Create a `main.go` file:
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32" >}}
 ```go
 package main
 
@@ -147,9 +147,9 @@ func main() {
     }
 }
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 ```go
 package main
 
@@ -180,9 +180,9 @@ func main() {
     }
 }
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 ```go
 package main
 
@@ -213,51 +213,51 @@ func main() {
     }
 }
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ### 3. Build
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32" >}}
 ```bash
 tinygo build -target m5stack-core2 -o firmware.bin .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 ```bash
 tinygo build -target esp32s3-generic -o firmware.bin .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 ```bash
 tinygo build -target m5stack-stampc3 -o firmware.bin .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ### 4. Flash
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32" >}}
 ```bash
 tinygo flash -target m5stack-core2 .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 ```bash
 tinygo flash -target esp32s3-generic .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 ```bash
 tinygo flash -target m5stack-stampc3 .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 **Tip:** TinyGo can auto-detect the port and baudrate, so you don't need to specify them manually.

@@ -122,8 +122,8 @@ caption="Fig.3 - SoC, module, and devKit"
     >}}
 
 
-{{< tabs groupId="Espressif SoC based boards" >}}
-      {{% tab name="ESP32-C3" %}}
+{{< tabs group="Espressif SoC based boards" >}}
+      {{< tab label="ESP32-C3" >}}
 
 
   ### ESP32-C3 SoC
@@ -180,8 +180,8 @@ caption="Fig.3 - SoC, module, and devKit"
 
 
 
-      {{% /tab %}}
-      {{% tab name="ESP32-S3" %}}
+      {{< /tab >}}
+      {{< tab label="ESP32-S3" >}}
 
 
   ### ESP32-S3 SoC
@@ -237,8 +237,8 @@ caption="Fig.3 - SoC, module, and devKit"
   #### Schematics
   You can find the board schematic on the [ESP32-S3-DevKitC-1 Documentation](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.0.html) page.
 
-      {{% /tab %}}
-      {{% tab name="ESP32-C61" %}}
+      {{< /tab >}}
+      {{< tab label="ESP32-C61" >}}
 
 
   ### ESP32-C61 SoC
@@ -291,7 +291,7 @@ caption="Fig.3 - SoC, module, and devKit"
   <!-- #### Schematics -- Still not available
   You can find the board schematic on the [ESP32-C61-DevKitC-1 Documentation](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c61/esp32-c61-devkitc-1/user_guide.html) page. -->
 
-      {{% /tab %}}
+      {{< /tab >}}
 {{< /tabs >}}
 
 If you're curious about how to interpret the module part number, you can check the article [Espressif part numbers explained: A complete guide - Modules](https://developer.espressif.com/blog/2025/03/espressif-part-numbers-explained/) on the Espressif Developer Portal .

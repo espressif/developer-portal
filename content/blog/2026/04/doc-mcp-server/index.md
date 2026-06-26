@@ -67,8 +67,8 @@ In short:
 
    ![MCP Server button](img/mcp-server-button.webp)
 
-{{< tabs groupId="mcp-config" >}}
-      {{% tab name="Cursor" %}}
+{{< tabs group="mcp-config" >}}
+      {{< tab label="Cursor" >}}
 
 1. Open **Cursor** on your PC.
 2. In the Espressif Documentation chatbot widget under **"MCP Server"**, click **"Add to Cursor"**. You may need to allow the website to open Cursor.
@@ -109,9 +109,9 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    ![Cursor connect screen](img/cursor-connect.webp)
    ![Authentication page](img/authenticate.webp)
 
-      {{% /tab %}}
+      {{< /tab >}}
 
-      {{% tab name="VS Code" %}}
+      {{< tab label="VS Code" >}}
 1. Open **VS Code** on your PC.
 2. In the Espressif Documentation chatbot widget, under **"MCP Server"**, click **"Add to VS Code"**. You may need to allow the website to open VS Code.
 {{< details summary="If clicking \"Add to VS Code\" does nothing:" >}}
@@ -152,9 +152,9 @@ If nothing happens or an error is shown, the URL handler is not registered. This
 
    ![VS Code MCP installed](img/vscode-mcp-config.webp)
 
-      {{% /tab %}}
+      {{< /tab >}}
 
-      {{% tab name="Claude Code" %}}
+      {{< tab label="Claude Code" >}}
 1. Under **"MCP Server"**, click **"Add to Claude Code"** to copy the CLI command.
 2. Paste and execute the command in your terminal.
 3. Upon success, you will see the following message printed in the terminal:
@@ -170,9 +170,9 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    - A browser window will open. Sign in with GitHub or WeChat to authenticate with the MCP server.
    ![Authentication page](img/authenticate.webp)
 
-      {{% /tab %}}
+      {{< /tab >}}
 
-      {{% tab name="Claude Desktop" %}}
+      {{< tab label="Claude Desktop" >}}
 1. Add the following snippet to your Claude Desktop config file to install the Docs MCP server:
    - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
    - Linux: `~/.config/Claude/claude_desktop_config.json`
@@ -196,8 +196,8 @@ If nothing happens or an error is shown, the URL handler is not registered. This
 
    ![Claude Desktop MCP Server Settings](img/claude.webp)
 
-      {{% /tab %}}
-      {{% tab name="Antigravity" %}}
+      {{< /tab >}}
+      {{< tab label="Antigravity" >}}
 1. Add the following snippet to `~/.gemini/antigravity/mcp_config.json` to install the Docs MCP server in Antigravity:
    ```json
    {
@@ -222,8 +222,8 @@ If nothing happens or an error is shown, the URL handler is not registered. This
 5. After granting access, copy the code shown on the **"Google Antigravity Authentication"** page, paste it into **"Settings – Customizations"**, and click **"Submit"**.
    ![Copy Code and Submit](img/antigravity-copy-code.webp)
 6. After successful authentication, the **"INSTALLED MCP SERVERS"** list in **"Settings - Customizations"** will refresh automatically, showing the server status and enabled tools.
-      {{% /tab %}}
-      {{% tab name="Antigravity CLI" %}}
+      {{< /tab >}}
+      {{< tab label="Antigravity CLI" >}}
 
 1. Add the following snippet to `~/.gemini/antigravity-cli/mcp_config.json` to install the Docs MCP server in Antigravity CLI:
    ```json
@@ -245,8 +245,8 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    - Copy the authorization code and paste it into Antigravity CLI in your terminal.
      > If you see `Authentication failed: no pending auth state for server espressif-docs`, re-launch ``agy``, type ``/mcp``, and verify if ``espressif-docs`` already shows ``[Authed]``.
 
-      {{% /tab %}}
-      {{% tab name="Gemini CLI" %}}
+      {{< /tab >}}
+      {{< tab label="Gemini CLI" >}}
 
 1. Add the MCP server to Gemini CLI by executing the command in your terminal:
    ```
@@ -258,16 +258,16 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    - Type ``/mcp auth espressif-docs``, and press `Enter`
    - A browser window will open for you to log in. Sign in with GitHub or WeChat to authenticate with the MCP server.
    ![Authentication page](img/authenticate.webp)
-      {{% /tab %}}
-      {{% tab name="Codex" %}}
+      {{< /tab >}}
+      {{< tab label="Codex" >}}
 1. Add the MCP server to Codex by executing the command in your terminal:
    ```
    codex mcp add espressif-docs --url "https://mcp.espressif.com/docs"
    ```
 2. An external browser window will open automatically. Sign in with GitHub or WeChat to authenticate with the MCP server.
    ![Authentication page](img/authenticate.webp)
-      {{% /tab %}}
-      {{% tab name="OpenCode" %}}
+      {{< /tab >}}
+      {{< tab label="OpenCode" >}}
 1. Add the following snippet to your OpenCode config file to install the Docs MCP server:
    - macOS/Linux: `~/.config/opencode/opencode.jsonc` or `~/.config/opencode/opencode.json`
    - Windows: `%USERPROFILE%\.config\opencode\opencode.jsonc`
@@ -298,13 +298,13 @@ If nothing happens or an error is shown, the URL handler is not registered. This
    │
    └  Done
    ```
-      {{% /tab %}}
-      {{% tab name="Other" %}}
+      {{< /tab >}}
+      {{< tab label="Other" >}}
 MCP is an open protocol supported by many AI applications. If yours is not listed in this section, such as [Windsurf](https://docs.windsurf.com/windsurf/cascade/mcp) or [Zed](https://zed.dev/docs/ai/mcp), you can also install the MCP server.
 
 1. Follow your application's documentation to install the MCP server via a configuration file or the command line using the server URL `https://mcp.espressif.com/docs`.
 2. Authenticate with the MCP server as directed by your application.
-   {{% /tab %}}
+   {{< /tab >}}
 {{< /tabs >}}
 
 ## Example Prompts

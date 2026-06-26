@@ -16,8 +16,8 @@ You will need [Visual Studio Code](https://code.visualstudio.com/) and the insta
 
 In both cases, we will follow the instructions on the [GitHub pages of the ESP-IDF plugin for VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use).
 
-{{< tabs groupId="config" >}}
-  {{% tab name="Windows" %}}
+{{< tabs group="config" >}}
+  {{< tab label="Windows" >}}
 **Installation for Windows**
 
 1. Install [Visual Studio Code](https://code.visualstudio.com/download)
@@ -28,8 +28,8 @@ In both cases, we will follow the instructions on the [GitHub pages of the ESP-I
 6. Select the **Express** option and then select Github as download server and release/v5.5 as ESP-IDF version
 7. Click "Install"
 
-  {{% /tab %}}
-  {{% tab name="Linux and Mac" %}}
+  {{< /tab >}}
+  {{< tab label="Linux and Mac" >}}
 **Installation for Linux and Mac**
 
 1. Install [Visual Studio Code](https://code.visualstudio.com/download)
@@ -39,7 +39,7 @@ In both cases, we will follow the instructions on the [GitHub pages of the ESP-I
 5. Open *View -> Command Palette* (Ctrl + Shift + P or ⇧ + ⌘ + P) and type *Configure ESP-IDF Extension* in the newly opened line
 6. Select the **Express** option and then select Github as download server and release/v5.5 as *ESP-IDF version*
 7. Click "Install"
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ### Installing ESP BLE Prov

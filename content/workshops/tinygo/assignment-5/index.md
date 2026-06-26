@@ -196,18 +196,18 @@ func writeInt(serial machine.Serialer, n int) {
 
 ### Step 3: Build and Flash
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32-C3" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32-C3" >}}
 ```bash
 tinygo flash -target esp32c3-generic scan.go
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 ```bash
 tinygo flash -target esp32s3-generic scan.go
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 Note: Wi-Fi scanning does not require credentials.

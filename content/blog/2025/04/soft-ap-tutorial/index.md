@@ -79,9 +79,9 @@ To start a new project and prepare for the following steps, we will perform thes
 To start, create a new project from `hello_world`. 
 Below you can find a refresher for VS Code and using the CLI. 
 
-{{< tabs groupId="devtool" >}}
+{{< tabs group="devtool" >}}
 
-{{% tab name="VS Code extension" %}}
+{{< tab label="VS Code extension" >}}
 
 Most commands in VSCode are executed through the Command Palette, which you can open by pressing `CTRL+SHIFT+P` (or `CMD+SHIFT+P` if you’re on mac-os). In the following, commands to enter in the Command Palette are marked with the symbol `>`.
 
@@ -96,13 +96,13 @@ Most commands in VSCode are executed through the Command Palette, which you can 
 * `> ESP-IDF: Build, Flash and start a Monitor on your device`
 
 
-{{% /tab %}}
+{{< /tab >}}
 
-{{% tab name="CLI" %}}
+{{< tab label="CLI" >}}
 
 If you're using a simple text editor and the CLI commands, you can follow the instruction on the get-started guide ([linux/mac-os](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/linux-macos-setup.html#get-started-linux-macos-first-steps) | [windows](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/windows-setup.html#get-started-windows-first-steps) ).
 
-{{% /tab %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 If everything runs smoothly, we should see the compilation finish successfully, followed by the firmware flashing and the `hello_world` example running, displaying `Hello world!` and restarting after 10 seconds. 
@@ -153,8 +153,8 @@ To keep things as simple as possible, in this tutorial we will not use Non-Volat
 By default, some configuration variables have NVS enabled, which may cause warnings or errors. To avoid this, we need to disable them in `menuconfig`. 
 
 
-{{< tabs groupId="devtool" >}}
-{{% tab name="VS Code extension" %}}
+{{< tabs group="devtool" >}}
+{{< tab label="VS Code extension" >}}
 To access `menuconfig`, type `ESP-IDF: SDK Configuration Editor` in the command palette and hit <kbd>Enter</kbd>. 
 
 In the `menuconfig` search bar type `NVS` then uncheck the following options
@@ -164,11 +164,11 @@ src="img/disable_nvs.webp"
 height=500
 caption="NVS options to be disabled"
     >}}
-{{% /tab %}}
+{{< /tab >}}
 
-{{% tab name="CLI" %}}
+{{< tab label="CLI" >}}
 To access `menuconfig`, call `idf.py menuconfig`
-{{% /tab %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Now your project should resemble the [bare-minimum example](https://github.com/FBEZ-docs-and-templates/devrel-tutorials-code/tree/main/tutorial-basic-project) in the repository below. 

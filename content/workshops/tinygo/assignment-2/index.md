@@ -50,33 +50,33 @@ ESP32 GPIO → Resistor → LED Anode → LED Cathode → GND
 
 Different boards have built-in LEDs on different pins:
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32" >}}
 **ESP32 Built-in LED:**
 
 - Pin: GPIO2 (most common) or GPIO10 (some boards)
 - Type: Active HIGH (LED on when pin is HIGH)
 
 For external RGB LEDs: WS2812/NeoPixel on GPIO8
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 **ESP32-S3 Built-in LED:**
 
 - Pin: GPIO2 (most common)
 - Type: Active HIGH (LED on when pin is HIGH)
 
 Many boards also include RGB LEDs.
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 **ESP32-C3 Built-in LED:**
 
 - Pin: GPIO2 (most boards, active HIGH)
 - Type: Built-in LED
 
 For external RGB LEDs: WS2812/NeoPixel on GPIO2
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ## Get the Source Code
@@ -118,8 +118,8 @@ go mod init blinky
 
 Create `main.go`:
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32" >}}
 **main.go for ESP32:**
 
 ```go
@@ -144,9 +144,9 @@ func main() {
     }
 }
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 **main.go for ESP32-S3:**
 
 ```go
@@ -171,9 +171,9 @@ func main() {
     }
 }
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 **main.go for ESP32-C3:**
 
 ```go
@@ -198,7 +198,7 @@ func main() {
     }
 }
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ### Code Explanation
@@ -239,45 +239,45 @@ for {                                   // Infinite loop
 ### Step 3: Build and Flash
 
 **Build the firmware:**
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32-S3" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32-S3" >}}
 ```bash
 tinygo build -target esp32s3-generic -o firmware.bin .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32" %}}
+  {{< tab label="ESP32" >}}
 ```bash
 tinygo build -target m5stack-core2 -o firmware.bin .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 ```bash
 tinygo build -target esp32c3-generic -o firmware.bin .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 **Flash to board:**
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32-S3" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32-S3" >}}
 ```bash
 tinygo flash -target esp32s3-generic .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32" %}}
+  {{< tab label="ESP32" >}}
 ```bash
 tinygo flash -target esp32-generic .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 ```bash
 tinygo flash -target esp32c3-generic .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 **Tip:** TinyGo can auto-detect the port and baudrate, so you don't need to specify them manually.
@@ -449,24 +449,24 @@ func main() {
 
 **Monitor serial output:**
 
-{{< tabs groupId="monitor" >}}
-  {{% tab name="tinygo monitor" %}}
+{{< tabs group="monitor" >}}
+  {{< tab label="tinygo monitor" >}}
 ```bash
 tinygo monitor
 ```
 
 Press `Ctrl+C` to stop monitoring.
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="screen" %}}
+  {{< tab label="screen" >}}
 ```bash
 screen /dev/ttyUSB0 115200
 ```
 
 **To quit:** Press `Ctrl+A` then `K` (kill), then confirm with `Y`
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="picocom" %}}
+  {{< tab label="picocom" >}}
 ```bash
 picocom -b 115200 /dev/ttyUSB0
 ```
@@ -484,7 +484,7 @@ brew install picocom
 # Fedora
 sudo dnf install picocom
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ## RGB LED (NeoPixel)
@@ -497,15 +497,15 @@ Many ESP32 boards include RGB LEDs (WS2812B/SK68XX NeoPixels) that can display m
 
 ### Finding the RGB LED Pin
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32" >}}
 **ESP32 RGB LED:**
 - Pin: GPIO8 (common on many boards)
 - Type: WS2812B NeoPixel
 - Check your board documentation for exact pin
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 **ESP32-S3 RGB LED:**
 
 **ESP32-S3-DevKitC-1:**
@@ -521,14 +521,14 @@ Many ESP32 boards include RGB LEDs (WS2812B/SK68XX NeoPixels) that can display m
 {{< alert icon="triangle-exclamation" cardColor="#fff3cd" iconColor="#856404" >}}
 **Note:** ESP32-S3 requires a compatibility wrapper. See the code example below for `machine_esp32s3.go`.
 {{< /alert >}}
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 **ESP32-C3 RGB LED:**
 - Pin: GPIO2 (common on many boards)
 - Type: WS2812B NeoPixel
 - Check your board documentation for exact pin
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ### RGB LED Example
@@ -555,8 +555,8 @@ go mod download tinygo.org/x/drivers
 
 This ensures the ws2812 driver package is available for TinyGo.
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32" >}}
 **rgb_led.go for ESP32:**
 
 ```go
@@ -611,9 +611,9 @@ func main() {
     }
 }
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 **ESP32-S3 requires local driver modification:**
 
 Due to API differences, ESP32-S3 needs a locally modified ws2812 driver. Follow these steps:
@@ -703,9 +703,9 @@ func main() {
 {{< alert icon="lightbulb" cardColor="#d1ecf1" iconColor="#0c5460" >}}
 **Working Example:** A complete working ESP32-S3 RGB example is available at `/Users/georgik/projects/workshop/rgb-blinky` with the modified driver.
 {{< /alert >}}
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 **rgb_led.go for ESP32-C3:**
 
 ```go
@@ -760,33 +760,33 @@ func main() {
     }
 }
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ### Build and Flash
 
 Build commands (same as before, just in the new `rgb-blinky` directory):
 
-{{< tabs groupId="board" >}}
-  {{% tab name="ESP32" %}}
+{{< tabs group="board" >}}
+  {{< tab label="ESP32" >}}
 ```bash
 tinygo flash -target m5stack-core2 .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-S3" %}}
+  {{< tab label="ESP32-S3" >}}
 ```bash
 tinygo flash -target esp32s3-generic .
 ```
 
 Note: Make sure `machine_esp32s3.go` wrapper file is included in your project.
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="ESP32-C3" %}}
+  {{< tab label="ESP32-C3" >}}
 ```bash
 tinygo flash -target m5stack-stampc3 .
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ### Understanding RGB LEDs
