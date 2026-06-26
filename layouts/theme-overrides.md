@@ -46,9 +46,6 @@ Reconcile upstream theme changes first, then re-apply site-specific deltas.
 |------|----------------|
 | `shortcodes/article.html` | Keeps PR preview subpath link resolution while adopting upstream multilingual lookup (`site.LanguagePrefix`, `hugo.Sites`). |
 | `shortcodes/github.html` | Keeps portal GitHub card styling on upstream shortcode logic (`hugo.Data.repoColors`, fetch script). |
-| `shortcodes/tab.html` | **Legacy shim.** Site content uses `name=` tabs; Blowfish now ships a different tab API (`label=`). |
-| `shortcodes/tabs.html` | **Legacy shim.** Site content uses `groupId=`; Blowfish uses `group=` and different HTML/JS/CSS. |
-| `shortcodes/video.html` | **Compatibility shim.** Wraps upstream Blowfish video shortcode but resolves extensionless bundle paths via `GetMatch (printf "%s*" $srcPath)` because content uses `src="video/foo"`. |
 | `shortcodes/recent-tagged.html` | Portal-only shortcode. |
 | `shortcodes/external-page.html` | Portal-only shortcode. |
 | `shortcodes/dynamic-block.html` | Portal-only shortcode. |
@@ -65,7 +62,6 @@ Reconcile upstream theme changes first, then re-apply site-specific deltas.
 | `partials/features/mermaid-init.html` | Mermaid initialization for articles. |
 | `partials/features/kapa-widget.html` | Kapa AI widget injection. |
 | `partials/features/vendor_custom.html` | Loads portal vendor assets (e.g. Asciinema). |
-| `partials/features/learn_custom.html` | Loads legacy learn.js/learn.css used by legacy tab shims. |
 | `partials/features/dynamic_md_block.html` | Dynamic markdown block support. |
 
 ### Markup render hooks
@@ -88,7 +84,6 @@ Blowfish bump easier to replay.
 | Hugo modernization | `author-disclaimer.html`, `authors/terms.html`, removal of `js/page.js` references | Deprecation/cleanup work unrelated to Blowfish UI redesign. |
 | Portal styling choices | `shadow-2xl` on article cards | Intentional visual policy; easy to revert without touching merge work. |
 | Documentation | `layouts/theme-overrides.md` | Checklist for the next bump; documents override intent. |
-| Compatibility shims (last) | `shortcodes/tab.html`, `shortcodes/tabs.html`, `shortcodes/video.html` | Temporary content-contract adapters; revisit when content syntax is migrated. |
 
 ### Files usually unchanged during a bump
 
@@ -96,10 +91,10 @@ Portal-only overrides (`partials/features/*`, portal shortcodes, `authors/terms.
 logic, `author-disclaimer.html`) rarely need changes unless Hugo API deprecations
 affect them.
 
-### Shim retirement checklist
+### Content conventions
 
-- **Tabs:** migrate content from `groupId` / `name` to Blowfish `group` / `label`, then delete `shortcodes/tab.html` and `shortcodes/tabs.html` (and possibly `features/learn_custom.html` if unused).
-- **Video:** migrate content to extensioned paths (e.g. `src="video/foo.mp4"`) or keep wildcard shim if extensionless paths remain a site convention.
+- **Tabs:** use upstream Blowfish syntax with `tabs` / `tab` shortcodes and `group` / `label` parameters.
+- **Video:** use extensioned bundle paths in content (e.g. `src="video/foo.mp4"`) with the upstream Blowfish `video` shortcode.
 
 ---
 
@@ -158,7 +153,7 @@ Task:
    - Hugo modernization / deprecations
    - portal styling choices (if any)
    - update layouts/theme-overrides.md (including "Last synced Blowfish commit")
-   - compatibility shims last (tab/tabs/video), if still needed
+   - compatibility shims last, if any remain
 5. Do not commit unrelated files.
 
 If anything is ambiguous, ask before making large structural changes (especially header/menu overrides).
@@ -194,7 +189,7 @@ Task:
    - Hugo modernization / deprecations
    - portal styling choices (if any)
    - update layouts/theme-overrides.md (including "Last synced Blowfish commit")
-   - compatibility shims last (tab/tabs/video), if still needed
+   - compatibility shims last, if any remain
 5. Do not commit unrelated files.
 
 If anything is ambiguous, ask before making large structural changes (especially header/menu overrides).
