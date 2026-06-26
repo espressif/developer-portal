@@ -194,7 +194,7 @@ You can do this, but please don't use the GIF format for its bad compression rat
 After that, include your `.mp4` video using this shortcode:
 
 ```sh
-{{</* video src="video/my-video" */>}}
+{{</* video src="video/my-video.mp4" */>}}
 ```
 
 You might also find useful [Asciinema casts](#asciinema-casts) and [Video](#video).

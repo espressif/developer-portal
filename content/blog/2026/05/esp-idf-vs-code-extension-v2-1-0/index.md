@@ -40,7 +40,7 @@ Once ESP-IDF is installed, the extension reads the `eim_idf.json` file EIM produ
 
 **GUI:**
 
-{{< video src="video/eim-installation" >}}
+{{< video src="video/eim-installation.mp4" >}}
 
 **Terminal wizard:**
 
@@ -137,7 +137,7 @@ For ESP32-P4 users, debug sessions now expose PIE registers, making low-level in
 
 v1.11.0 introduces a **Language Tool API integration** for GitHub Copilot Chat. When you use Copilot Chat in a project with the ESP-IDF extension active, it gains ESP-IDF-specific context such as your IDF version, target chip, and project configuration, enabling more accurate and relevant suggestions for embedded development tasks. Beyond answering questions, Copilot Chat can also invoke ESP-IDF extension commands directly — for example, asking it to clean the build folder and trigger a rebuild without leaving the chat. See the [ESP-IDF Chat Commands documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html) for the full list of supported commands.
 
-{{< video src="video/ai-chat" >}}
+{{< video src="video/ai-chat.mp4" >}}
 
 ### DevKit Support
 
