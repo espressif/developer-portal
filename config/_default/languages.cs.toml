@@ -1,5 +1,6 @@
-languageCode = "cs"
-languageName = "Czech"
+disabled = false
+locale = "cs"
+label = "Czech"
 weight = 1
 title = "Developer Portal"
 

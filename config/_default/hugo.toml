@@ -3,7 +3,6 @@
 # https://blowfish.page/docs/getting-started/
 
 baseURL = "https://preview-developer.espressif.com/"
-languageCode = "en"
 defaultContentLanguage = "en"
 title = "Espressif Developer Portal Preview"
 theme = "blowfish"

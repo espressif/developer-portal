@@ -2,7 +2,7 @@
 {{ $hasNonEspressifAuthor := false }}
 {{ range $author := .Page.Params.authors }}
   {{ $authorType := "espressif" }}
-  {{ with index site.Data.authors $author }}
+  {{ with index hugo.Data.authors $author }}
     {{ with .type }}
       {{ $authorType = lower . }}
     {{ end }}
