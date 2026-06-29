@@ -21,7 +21,7 @@ Reconcile upstream theme changes first, then re-apply site-specific deltas.
 | File | Why it exists |
 |------|----------------|
 | `_default/baseof.html` | Keeps site-specific page shell behavior: extra main-content bottom padding for the Kapa widget, disables the Buy Me a Coffee widget, and adopts upstream Blowfish body/scrollbar updates. |
-| `partials/head.html` | Adds portal asset loading (`features/*` partials), supports `FeatureAsset` for social/OG images, and stays aligned with upstream head changes (SEO metadata order, Fuse search bundle, email/print JS, hreflang links). |
+| `partials/head.html` | Adds portal asset loading (`features/*` partials). Extends Blowfish's social-image fallback: resolve `featureimage`, then `featureAsset`, then page-bundle images (same order as `hero/basic.html`), call Hugo's Open Graph/Twitter internals, then emit `og:image` / `twitter:image` when a resolved image or `defaultSocialImage` is available. Stays aligned with upstream head changes (SEO metadata order, Fuse search bundle, email/print JS, hreflang links). |
 | `partials/header/basic.html` | Uses Blowfish's component-based header (desktop/mobile menu components) while keeping portal logo scaling, site title emojify, subnavigation emojify, and `assets/css/styles.css`. |
 | `partials/footer.html` | Keeps Espressif copyright text/emojify and removes deprecated upstream scripts no longer used by the portal. |
 | `partials/home/custom.html` | Portal homepage customization (not in Blowfish). |

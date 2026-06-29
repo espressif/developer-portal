@@ -70,35 +70,56 @@
   {{ end }}
 
   {{/* Social */}}
-  {{ template "_internal/opengraph.html" . }}
-  {{ template "_internal/twitter_cards.html" . }}
-  {{/* Use defaultSocialImage if feature image does not exist */}}
   {{ $featureImage := "" }}
-  {{ $pageImages := .Resources.ByType "image" }}
-  {{ range slice "*featured*" "*cover*" "*thumbnail*" }}
-    {{ if not $featureImage }}
-      {{ $featureImage = $pageImages.GetMatch . }}
+  {{ $featureImageURL := "" }}
+  {{ with .Params.featureimage }}
+    {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+      {{ if site.Params.hotlinkFeatureImage }}
+        {{ $featureImageURL = . | absURL }}
+      {{ else }}
+        {{ $featureImage = resources.GetRemote . }}
+      {{ end }}
+    {{ else }}
+      {{ $featureImage = resources.Get . }}
     {{ end }}
   {{ end }}
-  {{/* Check frontmatter for FeatureAsset */}}
-  {{ if not $featureImage }}
-    {{ with .Params.FeatureAsset }}
-      {{ $featureImage = resources.GetMatch . }}
+  {{ if not (or $featureImage $featureImageURL) }}
+    {{ with .Params.featureAsset }}
+      {{ $featureImage = resources.Get . }}
     {{ end }}
   {{ end }}
-  {{ if not $featureImage }}
-      {{ with .Site.Params.defaultSocialImage }}
-        {{ $socialImage := "" }}
-        {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
-          {{ $socialImage = resources.GetRemote . }}
-        {{ else }}
-          {{ $socialImage = resources.Get . }}
-        {{ end }}
-        {{ with $socialImage }}
-          <meta name="twitter:image" content="{{ .RelPermalink | absURL }}">
-          <meta property="og:image" content="{{ .RelPermalink | absURL }}">
+  {{ if not (or $featureImage $featureImageURL) }}
+    {{ $pageImages := .Resources.ByType "image" }}
+    {{ range slice "*featured*" "*cover*" "*thumbnail*" }}
+      {{ if not $featureImage }}
+        {{ $featureImage = $pageImages.GetMatch . }}
       {{ end }}
     {{ end }}
+  {{ end }}
+  {{ template "_internal/opengraph.html" . }}
+  {{ template "_internal/twitter_cards.html" . }}
+  {{/* Override social images when Hugo cannot infer the feature image (e.g. featureAsset). */}}
+  {{ if not $featureImageURL }}
+    {{ with $featureImage }}
+      {{ $featureImageURL = .RelPermalink | absURL }}
+    {{ end }}
+  {{ end }}
+  {{ if not $featureImageURL }}
+    {{ with .Site.Params.defaultSocialImage }}
+      {{ $socialImage := "" }}
+      {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+        {{ $socialImage = resources.GetRemote . }}
+      {{ else }}
+        {{ $socialImage = resources.Get . }}
+      {{ end }}
+      {{ with $socialImage }}
+        {{ $featureImageURL = .RelPermalink | absURL }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ with $featureImageURL }}
+    <meta name="twitter:image" content="{{ . }}">
+    <meta property="og:image" content="{{ . }}">
   {{ end }}
 
   {{/* Site Verification */}}
