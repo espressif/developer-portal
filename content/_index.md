@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2026/05/esp-brookesia-new-architecture-0-7/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/06/introducing-esp-trace-component/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/05/esp-who-get-started/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/06/zephyr-coding-with-ai/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
@@ -25,7 +25,7 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/esp-idf-advanced/" showSummary=true compactSummary=true >}}
+{{< article link="/workshops/tinygo/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="workshops/" target="_self" >}}
