@@ -38,7 +38,6 @@ The steps for the simplest possible Wi-Fi provisioning are at least:
 <!-- ![Overview of simple provisioning flow](./img/simple_provisioning.webp) -->
 
 {{< figure
-default=true
 src="./img/simple-provisioning.webp"
 height=500
 caption="Fig.1 - Wi-Fi provisioning overview"
@@ -93,7 +92,6 @@ To find the command, we nee to search the `network-provisioning` component in th
 The component page shows the required command.
 
 {{< figure
-default=true
 src="./img/get-dependency.webp"
 height=500
 caption="Fig.2 - Find the command to add dependency to your project"
@@ -549,7 +547,6 @@ To test provisioning, we flash the firmware to our device, install the provision
 <!-- ![QR code for provisioning](img/qrcode.webp) -->
 
 {{< figure
-default=true
 src="./img/qrcode.webp"
 height=500
 caption="Fig.3 - Generated QR-Code"
@@ -566,7 +563,6 @@ caption="Fig.3 - Generated QR-Code"
 <!--
    ![ESP SoftAP Prov home screen](./img/provisioning-1.webp) -->
    {{< figure
-default=true
 src="./img/provisioning-1.webp"
 height=500
 caption="Fig.4 - ESP SoftAP Prov home screen"
@@ -578,7 +574,6 @@ caption="Fig.4 - ESP SoftAP Prov home screen"
 
    <!-- ![Scanning the QR code](./img/provisioning-2.webp) -->
    {{< figure
-default=true
 src="./img/provisioning-2.webp"
 height=500
 caption="Fig.5 - Generated QR-Code"
@@ -588,7 +583,6 @@ caption="Fig.5 - Generated QR-Code"
 
    <!-- ![Selecting the SSID](./img/provisioning-3.webp) -->
    {{< figure
-default=true
 src="./img/provisioning-3.webp"
 height=500
 caption="Fig.6 - Selecting the SSID"
@@ -600,7 +594,6 @@ caption="Fig.6 - Selecting the SSID"
 
    <!-- ![Provisioning success](./img/provisioning-4.webp) -->
    {{< figure
-default=true
 src="./img/provisioning-4.webp"
 height=500
 caption="Fig.7 - Provisioning success"

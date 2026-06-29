@@ -177,7 +177,7 @@ Please avoid using a standard markdown syntax for adding an image:
 ![Alt text](path/to/image.webp "Optional tooltip")
 ```
 
-Instead, use the [figure](https://blowfish.page/docs/shortcodes/#figure) shortcode provided by the Blowfish theme that is used on this website. It offers more control over image display and render. An example of a shortcode is given below, but more parameters are available:
+Instead, use the [figure](https://blowfish.page/docs/shortcodes/#figure) shortcode provided by the Blowfish theme that is used on this website. It offers more control over image display and render. The images are optimized for different device resolutions which reduces website load time. An example of a shortcode is given below, but more parameters are available:
 
 ```md
 {{</* figure
@@ -186,8 +186,6 @@ Instead, use the [figure](https://blowfish.page/docs/shortcodes/#figure) shortco
     caption=""
     */>}}
 ```
-
-By default, the Blowfish theme optimizes the images for different device resolutions. For some images, the processing **adds grey background**. To fix it, disable the processing of such images by adding the parameter `default="true"` to the figure shortcode.
 
 
 #### Use WebP for raster images

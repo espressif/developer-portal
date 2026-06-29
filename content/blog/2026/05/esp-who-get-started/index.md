@@ -213,7 +213,6 @@ I (2065) main_task: Returned from app_main()
 If everything works, you should now see the camera output on the LCD screen. Point the camera at your face and you should see dots marking your facial features.
 
 {{< figure
-default=true
 src="./img/30-facial-features.webp"
 height=500
 caption="Fig. 3 - Face detection"
@@ -397,7 +396,6 @@ extern "C" void app_main(void)
 If you now build and flash this firmware, the green LED turns on whenever a face is detected and turns off when no face is present.
 
 {{< figure
-default=true
 src="./img/40-detected.webp"
 height=500
 caption="Fig. 4 - Face detection LED"

@@ -44,7 +44,6 @@ All modern microcontrollers offer several ways to configure an output GPIO. We w
 The push pull configuration is shown in Fig.1. 
 
 {{< figure
-default=true
 src="img/push_pull.webp"
 height=500
 caption="Fig.1 - Push pull configuration"
@@ -75,7 +74,6 @@ When you drive a pin HIGH or LOW, and the pin is connected to a load, you must s
 Consider a simple 330 Ω resistor connected to your GPIO:
 
 {{< figure
-default=true
 src="img/simple_output.webp"
 height=500
 caption="Fig. 3 - GPIO output load"
@@ -424,7 +422,6 @@ Most modern Espressif DevKits do not have a simple onboard LED (also called a GP
 
 The connection is shown in Fig.4. 
 {{< figure
-default=true
 src="img/connections.webp"
 height=500
 caption="Fig.4 - Connections"
