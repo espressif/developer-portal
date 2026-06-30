@@ -7,7 +7,7 @@ lastmod: "2026-02-13"
 # Add a summary
 summary: "This article explains how to configure and control GPIO pins on Espressif SoCs, covering push-pull and open-drain output modes, drive capability, and library usage. It then provides a hands-on example of blinking an LED using `gpio_set_direction` and `gpio_set_level` on a ESP32-C61-DevKitC." 
 
-# Create your author entry (for details, see https://developer.espressif.com/pages/contribution-guide/writing-content/#add-youself-as-an-author)
+# Create your author entry
 #  - Create your page at `content/authors/<author-name>/_index.md`
 #  - Add your personal data at `data/authors/<author-name>.json`
 #  - Add author name(s) below

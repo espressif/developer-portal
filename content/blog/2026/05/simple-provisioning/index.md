@@ -5,7 +5,7 @@ date: "2026-05-29"
 # showAuthor: true
 # Add a summary
 summary: "This article explains what Wi-Fi provisioning is, introduces the network_provisioning component, and walks through a complete SoftAP-based provisioning example using the ESP SoftAP Prov app."
-# Create your author entry (for details, see https://developer.espressif.com/pages/contribution-guide/writing-content/#add-youself-as-an-author)
+# Create your author entry
 #  - Create your page at `content/authors/<author-name>/_index.md`
 #  - Add your personal data at `data/authors/<author-name>.json`
 #  - Add author name(s) below
