@@ -309,7 +309,6 @@ The components themselves are on the
 [ESP Component Registry](https://components.espressif.com/):
 
 {{< figure
-    default=true
     src="img/esp-smoltcp-registry.webp"
     alt="The esp_smoltcp component on the ESP Component Registry"
     caption="esp_smoltcp on the ESP Component Registry"

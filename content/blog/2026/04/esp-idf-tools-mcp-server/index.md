@@ -92,8 +92,8 @@ idf.py -C /path/to/your/project mcp-server
 
 Configuring the Tools MCP server follows the same pattern as any other MCP integration: register the server in your AI client, open your ESP-IDF project, and start using the assistant. The examples below cover Cursor IDE and Claude Code, but the same approach applies to any MCP-capable AI client -- consult your client's documentation on how to register a local stdio MCP server.
 
-{{< tabs groupId="mcp-config" >}}
-      {{% tab name="Cursor" %}}
+{{< tabs group="mcp-config" >}}
+      {{< tab label="Cursor" >}}
 
 1. Open Cursor on your PC and open your ESP-IDF project.
 
@@ -154,9 +154,9 @@ Configuring the Tools MCP server follows the same pattern as any other MCP integ
     say what you need next.
     ```
 
-      {{% /tab %}}
+      {{< /tab >}}
 
-      {{% tab name="Claude Code" %}}
+      {{< tab label="Claude Code" >}}
 
 1. Register the server using the Claude CLI:
 
@@ -208,9 +208,9 @@ Configuring the Tools MCP server follows the same pattern as any other MCP integ
     you'll need to connect an ESP32-S3 device via USB.
     ```
 
-      {{% /tab %}}
+      {{< /tab >}}
 
-      {{% tab name="VS Code" %}}
+      {{< tab label="VS Code" >}}
 
 > **Note:** VS Code supports both global (user-level) and local (project-level) MCP server configuration. For this setup, use the **local** option — VS Code cannot reliably resolve `${workspaceFolder}` in global MCP configuration. This means the `.vscode/mcp.json` file must be created in **each ESP-IDF project** you want to use with the MCP server, unlike Cursor or Claude Code where a single global registration covers all projects.
 
@@ -269,7 +269,7 @@ Configuring the Tools MCP server follows the same pattern as any other MCP integ
     Target was set to esp32s3 via MCP, and the project build completed successfully via MCP as well.
     ```
 
-      {{% /tab %}}
+      {{< /tab >}}
 
 {{< /tabs >}}
 

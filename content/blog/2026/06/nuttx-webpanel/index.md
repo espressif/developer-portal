@@ -36,7 +36,6 @@ NuttX Web Panel is a self-hosted web application that runs entirely on the devic
 The following screenshot shows NuttX Web Panel running on an ESP32-P4, accessible at `http://webpanel.local` using mDNS local service discovery:
 
 {{< figure
-    default=true
     src="img/nuttx-webpanel-home.webp"
     alt="NuttX Web Panel home page with system, network, storage, and quick actions"
     caption="NuttX Web Panel home page on ESP32-P4"

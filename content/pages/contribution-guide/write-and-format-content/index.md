@@ -99,9 +99,39 @@ In addition to that, you can also use the standard Hugo [embedded shortcodes](ht
 If you need other content types or shortcodes implemented, either create a discussion on GitHub or offer a PR with the required functionality. It will be very much appreciated!
 
 
-### Alerts
+### Admonitions
 
-To add alerts, such as notes, caution or warning admonitions, use the following shortcode:
+Admonitions are callout boxes for notes, tips, warnings, and similar messages. The Developer Portal supports two ways to add them:
+
+- **[GitHub-style admonitions](#github-style-admonitions)** — standard GFM markdown blockquotes that many editors and platforms (including GitHub) render without extra tooling.
+- **[Alerts](#alerts)** — the Blowfish `alert` shortcode, which requires Hugo to build the si
+
+#### GitHub-style admonitions
+
+The Blowfish theme renders [GitHub-style admonitions](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts) from plain markdown. Write a blockquote whose first line starts with an alert type: `NOTE`, `TIP`, `IMPORTANT`, `WARNING`, and `CAUTION` in square brackets:.
+
+```md
+> [!NOTE]
+> Use admonitions to highlight important information.
+```
+
+> [!NOTE]
+> Use admonitions to highlight important information.
+
+Blowfish supports [additional features](https://blowfish.page/docs/shortcodes/#admonition), such as the alert sign (`+` or `-`) to control whether the admonition is folded or not:
+
+```sh
+> [!TIP]- Custom Title
+> A collapsible admonition with custom title.
+```
+
+> [!TIP]- Custom Title
+> A collapsible admonition with custom title.
+
+
+#### Alerts
+
+To add an alert, use the following shortcode:
 
 ```sh
 {{</* alert >}}
@@ -128,11 +158,13 @@ You can also change its parameters:
 
 ### Diagrams as code
 
-A number of [Diagrams as code](https://gohugo.io/content-management/diagrams/) formats are supported, including [Mermaid](https://mermaid.js.org/).
+Hugo supports a number of [Diagrams as code](https://gohugo.io/content-management/diagrams/) tools, including [Mermaid](https://mermaid.js.org/). The Blowfish theme adds [Chart.js](https://blowfish.page/docs/shortcodes/#chart) to the list.
 
-For example, a Mermaid diagram is used on [this page](../contrib-workflow "Contribution workflow") (see also the [raw version][contrib-workflow-raw]).
+As an example of how diagrams as code work, see a [rendered Mermaid diagram](../contrib-workflow "Contribution workflow") and its [raw code][contrib-workflow-raw].
 
-[contrib-workflow-raw]: https://github.com/espressif/developer-portal/blob/main/content/pages/contribution-guide/contrib-workflow/index.md?plain=1#L16-L41
+
+
+[contrib-workflow-raw]: https://github.com/espressif/developer-portal/blob/main/content/pages/contribution-guide/contrib-workflow/index.md?plain=1#L167-L412
 
 
 ### Images
@@ -145,7 +177,7 @@ Please avoid using a standard markdown syntax for adding an image:
 ![Alt text](path/to/image.webp "Optional tooltip")
 ```
 
-Instead, use the [figure](https://blowfish.page/docs/shortcodes/#figure) shortcode provided by the Blowfish theme that is used on this website. It offers more control over image display and render. An example of a shortcode is given below, but more parameters are available:
+Instead, use the [figure](https://blowfish.page/docs/shortcodes/#figure) shortcode provided by the Blowfish theme that is used on this website. It offers more control over image display and render. The images are optimized for different device resolutions which reduces website load time. An example of a shortcode is given below, but more parameters are available:
 
 ```md
 {{</* figure
@@ -154,8 +186,6 @@ Instead, use the [figure](https://blowfish.page/docs/shortcodes/#figure) shortco
     caption=""
     */>}}
 ```
-
-By default, the Blowfish theme optimizes the images for different device resolutions. For some images, the processing **adds grey background**. To fix it, disable the processing of such images by adding the parameter `default="true"` to the figure shortcode.
 
 
 #### Use WebP for raster images
@@ -194,7 +224,7 @@ You can do this, but please don't use the GIF format for its bad compression rat
 After that, include your `.mp4` video using this shortcode:
 
 ```sh
-{{</* video src="video/my-video" */>}}
+{{</* video src="video/my-video.mp4" */>}}
 ```
 
 You might also find useful [Asciinema casts](#asciinema-casts) and [Video](#video).
@@ -222,55 +252,83 @@ Hugo also provides the [highlight shortcode](https://gohugo.io/shortcodes/highli
 {{< /highlight >}}
 
 
-### Code blocks with tabs
+### Tabs
 
-Tabbed code blocks look neat:
+Tabs look neat:
 
-{{< tabs groupId="config" >}}
-  {{% tab name="Linux" %}}
+{{< tabs group="config" >}}
+  {{< tab label="Linux" >}}
 ```md
 Linux code block
 ```
-  {{% /tab %}}
-  {{% tab name="macOS" %}}
+  {{< /tab >}}
+  {{< tab label="macOS" >}}
 Update homebrew, then run:
 ```md
 macOS code block
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 At the same time, the markup is very simple:
 
 ````md
-{{</* tabs groupId="config" */>}}
-  {{%/* tab name="Linux" */%}}
+{{</* tabs group="config" */>}}
+  {{</* tab label="Linux" */>}}
 ```md
 Linux code block
 ```
-  {{%/* /tab */%}}
-  {{%/* tab name="macOS" */%}}
+  {{</* /tab */>}}
+  {{</* tab label="macOS" */>}}
 Update homebrew, then run:
 ```md
 macOS code block
 ```
-  {{%/* /tab */%}}
+  {{</* /tab */>}}
 {{</* /tabs */>}}
 ````
 
 Some explanations:
 
-- Use the `tabs` shortcode to create a tabbed code block
-- Use the nested `tab` shortcode to create as many tabs as you need
+- Use the [tabs](https://blowfish.page/docs/shortcodes/#tabs) shortcode to create a tab block
+- Use the nested [tab](https://blowfish.page/docs/shortcodes/#tabs) shortcode to create as many tabs as you need
 - Within a tab, place any markdown content you want, it will be rendered like any other markdown content
+  - Set `md=false` on a `tab` when its content includes other shortcodes (for example `alert` or `video`)
+- Use the same `group` value on multiple tab blocks when readers should switch all of them together (for example, OS tabs repeated in several steps of a tutorial).
+- On page load, the first tab is selected; use `default="<tab-name>"` to have that tab selected
 
-For a real example, see this [page](../../../blog/2025/10/porting-external-library-as-component/#create-a-new-project).
+Example with `default` and `icon`:
 
-As you can see, the `tabs` shortcode has **the parameter** `groupId`. It creates association between all tabbed code blocks bearing the same `groupId` on a webpage. Once you choose a certain tab, all associated code blocks will switch to the same tab. It can be useful in tutorials covering multiple operating systems, programming languages, etc.
+{{< tabs group="lang" default="Python" >}}
+  {{< tab label="JavaScript" icon="code" >}}
+```javascript
+console.log("Hello");
+```
+  {{< /tab >}}
+  {{< tab label="Python" icon="sun" >}}
+```python
+print("Hello")
+```
+  {{< /tab >}}
+{{< /tabs >}}
 
-You can also easily **indent a tabbed code block**, by preceding the `tabs` and `tab` shortcodes with the required number of spaces. Here is the example of the [indented tabbed code block][indented-tabbed-code-block].
+````md
+{{</* tabs group="lang" default="Python" */>}}
+  {{</* tab label="JavaScript" icon="code" */>}}
+```javascript
+console.log("Hello");
+```
+  {{</* /tab */>}}
+  {{</* tab label="Python" icon="sun" */>}}
+```python
+print("Hello")
+```
+  {{</* /tab */>}}
+{{</* /tabs */>}}
+````
 
-[indented-tabbed-code-block]: https://github.com/espressif/developer-portal/blob/main/content/blog/2025/10/arduino-get-started/index.md?plain=1#L82-L89
+You can **indent a tab block** by preceding the `tabs` and `tab` shortcodes with the required number of spaces. But don't indent the tab content.
+
 
 ### Asciinema casts
 

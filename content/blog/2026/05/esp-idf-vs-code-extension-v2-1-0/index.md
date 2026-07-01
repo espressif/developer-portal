@@ -40,12 +40,11 @@ Once ESP-IDF is installed, the extension reads the `eim_idf.json` file EIM produ
 
 **GUI:**
 
-{{< video src="video/eim-installation" >}}
+{{< video src="video/eim-installation.mp4" >}}
 
 **Terminal wizard:**
 
 {{< figure
-default=true
 src="./img/cli-wizard.webp"
 height=420
 caption="EIM terminal wizard"
@@ -98,7 +97,6 @@ v2.1.0 extended EIM support to SSH sessions, Dev Containers, Codespaces, WSL, an
 The extension settings have been reorganized into clearer categories in the VS Code Settings UI. Instead of presenting ESP-IDF-related options as one long flat list, settings are now grouped more logically, making it easier to discover the right option when configuring build, flash, debug, tooling, or installation behavior.
 
 {{< figure
-default=true
 src="./img/settings-ui.webp"
 height=420
 caption="New Settings UI Categories"
@@ -121,7 +119,6 @@ v2.0.2 ships a new **Debug Image Viewer** that lets you visualize C image arrays
 Out of the box, the viewer supports **OpenCV** and **LVGL** image formats. You can also configure custom image data types as long as you can provide a `UInt8Array` and a size or length, making it adaptable to any frame buffer layout your firmware uses. See the [ESP-IDF Image Viewer documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/debugproject.html#esp-idf-image-viewer) for full details.
 
 {{< figure
-default=true
 src="./img/debugger.webp"
 height=420
 caption="Debug Image Viewer rendering a C image array"
@@ -137,14 +134,13 @@ For ESP32-P4 users, debug sessions now expose PIE registers, making low-level in
 
 v1.11.0 introduces a **Language Tool API integration** for GitHub Copilot Chat. When you use Copilot Chat in a project with the ESP-IDF extension active, it gains ESP-IDF-specific context such as your IDF version, target chip, and project configuration, enabling more accurate and relevant suggestions for embedded development tasks. Beyond answering questions, Copilot Chat can also invoke ESP-IDF extension commands directly — for example, asking it to clean the build folder and trigger a rebuild without leaving the chat. See the [ESP-IDF Chat Commands documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html) for the full list of supported commands.
 
-{{< video src="video/ai-chat" >}}
+{{< video src="video/ai-chat.mp4" >}}
 
 ### DevKit Support
 
 A long-requested feature: the extension now has explicit **DevKit support**. When you select your target chip and board, the extension can recognize official Espressif development kits and apply board-specific defaults, reducing the manual configuration needed when starting a project on a known board.
 
 {{< figure
-default=true
 src="./img/devkit.webp"
 height=420
 caption="Set Espressif Device Target with DevKit options"
@@ -155,7 +151,6 @@ caption="Set Espressif Device Target with DevKit options"
 The SDK Configuration Editor now includes a **classic Menuconfig view** embedded directly inside VS Code, alongside the existing graphical editor. This gives developers who prefer the terminal-style navigation of `idf.py menuconfig` a familiar experience without leaving the IDE, accessible via the `ESP-IDF: Open Classic Menuconfig Terminal` command.
 
 {{< figure
-default=true
 src="./img/menuconfig-classic.webp"
 height=420
 caption="Classic Menuconfig view in VS Code"
@@ -210,7 +205,6 @@ v1.10.1 brings three improvements to the debugging experience:
 - **Data breakpoints**: Set breakpoints that trigger when a specific memory location is read or written, enabling powerful watchpoint-style debugging without leaving VS Code.
 
 {{< figure
-default=true
 src="./img/variable-hover.webp"
 height=420
 caption="Variable context menu – View as Hex"
@@ -238,7 +232,6 @@ ESP-IDF: Flash Partition Table Only
 ```
 
 {{< figure
-default=true
 src="./img/flash-partition.webp"
 height=420
 caption="Device Partition Explorer – partition action menu"

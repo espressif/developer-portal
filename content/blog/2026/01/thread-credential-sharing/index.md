@@ -62,7 +62,6 @@ Thread Credentials Sharing involves three key participants:
 The procedure follows these steps:
 
   {{< figure
-      default=true
       src="img/Thread-Credential-Sharing-Procedure.webp"
       >}}
 

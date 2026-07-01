@@ -40,7 +40,6 @@ If you need a quick refresher on Keras, see the [basic classification tutorial](
 [ESP-SensairShuttle](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c5/esp-sensairshuttle/index.html) is a development board jointly launched by Espressif and Bosch Sensortec for motion sensing applications and LLM human–machine interaction scenarios, aiming to accelerate the deep integration of multimodal perception and intelligent interaction technologies.
 
 {{< figure
-default=true
 src="./img/sensair_shuttle_introduction.webp"
 height=200
 caption="ESP SensairShuttle Introduction"
@@ -55,7 +54,6 @@ The [Factory Demo](https://github.com/espressif/esp-dev-kits/tree/master/example
 IMU data is collected using the [ESP-SensairShuttle Development Board](https://espressif.craft.me/JUsLZQOVMBoNdU), which features a BMI270 IMU sensor. When a specific gesture is performed, the three-axis angular velocity changes. Gesture recognition is achieved by detecting these changes in angular velocity. The workflow presented here can also serve as a reference for data collection and training with other IMU sensors.
 
 {{< figure
-default=true
 src="./img/sensair_shuttle.webp"
 height=100
 caption="ESP SensairShuttle Development Board"
@@ -72,21 +70,18 @@ To facilitate data organization and automatic inference, data recording should b
 In this article, three types of gestures are collected: counterclockwise circles, V-shapes, and unknown gestures. The unknown gestures consist of random movements in an idle state, primarily used to distinguish the first two categories. The time-series data is composed of `gyr_x1, gyr_y1, gyr_z1, ..., gyr_x200, gyr_y200, gyr_z200`, totaling 600 data points.
 
 {{< figure
-default=true
 src="./img/data_collection.webp"
 height=420
 caption="Data Collection"
     >}}
 
 {{< figure
-default=true
 src="./img/counterclockwise.gif"
 height=420
 caption="Counterclockwise Gesture"
     >}}
 
 {{< figure
-default=true
 src="./img/v.gif"
 height=420
 caption="V-shape Gesture"
@@ -97,7 +92,6 @@ caption="V-shape Gesture"
 The gesture data collected over the serial port is first stored in `.txt` files, and then organized into `.csv` files using a script. The dataset used in this article can be downloaded [here](https://dl.espressif.com/AE/esp-iot-solution/shuttle_dataset.zip).
 
 {{< figure
-default=true
 src="./img/class_distribution.webp"
 height=420
 caption="Data Distribution"
@@ -148,7 +142,6 @@ The above parameter configuration is not the only option. In practical applicati
 The prepared dataset is then used to train the model for 300 epochs with a batch size of 64. The complete script, including data extraction, model creation, training, curve plotting, and model export, is shown below.
 
 {{< figure
-default=true
 src="./img/training_curves.webp"
 height=420
 caption="Training Curves"

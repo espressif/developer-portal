@@ -50,16 +50,16 @@ Before getting started, make sure you have the following tools installed:
 
 Download and install [Swift 6.1 (nightly)](https://www.swift.org/install) from the official Swift website or use [Swiftly installation tool](https://swiftlang.github.io/swiftly/). Ensure that the `swiftc` compiler is available in your system's PATH.
 
-{{< tabs groupId="config" >}}
-    {{% tab name="macOS" %}}
+{{< tabs group="config" >}}
+    {{< tab label="macOS" >}}
 Configure `TOOLCHAINS` environment variable with the version of the installed Swift 6.
 
 ```shell
 export TOOLCHAINS=$(plutil -extract CFBundleIdentifier raw /Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2024-10-30-a.xctoolchain/Info.plist)
 ```
-    {{% /tab %}}
+    {{< /tab >}}
 
-    {{% tab name="Linux" %}}
+    {{< tab label="Linux" >}}
 ```shell
 # Make sure to have ninja installed
 sudo apt install ninja-build
@@ -69,7 +69,7 @@ curl -L https://swiftlang.github.io/swiftly/swiftly-install.sh | bash
 
 swiftly install main-snapshot
 ```
-    {{% /tab %}}
+    {{< /tab >}}
 {{< /tabs >}}
 
 ### Install ESP-IDF

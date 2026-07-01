@@ -20,8 +20,8 @@ You will need Go and TinyGo installed on your computer for this workshop. This a
 
 First, install the Go programming language if you don't have it already.
 
-{{< tabs groupId="os" >}}
-  {{% tab name="Windows" %}}
+{{< tabs group="os" >}}
+  {{< tab label="Windows" >}}
 **Installing Go on Windows**
 
 1. Download the Go installer from [https://go.dev/dl/](https://go.dev/dl/)
@@ -36,9 +36,9 @@ Expected output:
 ```
 go version go1.26.x windows/amd64
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="macOS" %}}
+  {{< tab label="macOS" >}}
 **Installing Go on macOS**
 
 1. Download the Go installer from [https://go.dev/dl/](https://go.dev/dl/)
@@ -58,9 +58,9 @@ go version go1.26.x darwin/amd64
 ```bash
 brew install go
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="Linux" %}}
+  {{< tab label="Linux" >}}
 **Installing Go on Linux**
 
 1. Download the Go archive from [https://go.dev/dl/](https://go.dev/dl/)
@@ -88,15 +88,15 @@ Expected output:
 ```
 go version go1.26.x linux/amd64
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ## Install TinyGo
 
 TinyGo requires additional setup depending on your operating system.
 
-{{< tabs groupId="os" >}}
-  {{% tab name="Windows" %}}
+{{< tabs group="os" >}}
+  {{< tab label="Windows" >}}
 **Installing TinyGo on Windows**
 
 1. Install LLVM:
@@ -122,9 +122,9 @@ Expected output:
 ```
 tinygo version 0.41.0 linux/amd64 (using go version go1.22.5)
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="macOS" %}}
+  {{< tab label="macOS" >}}
 **Installing TinyGo on macOS**
 
 1. Install LLVM via Homebrew:
@@ -154,9 +154,9 @@ Expected output:
 ```
 tinygo version 0.41.0 darwin/amd64 (using go version go1.26.x)
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="Linux" %}}
+  {{< tab label="Linux" >}}
 **Installing TinyGo on Linux**
 
 1. Install LLVM:
@@ -189,7 +189,7 @@ Expected output:
 ```
 tinygo version 0.41.0 linux/amd64 (using go version go1.22.5)
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ## Install USB Drivers (Windows Only)
@@ -234,17 +234,17 @@ Visual Studio Code with the TinyGo extension provides a lightweight development 
 
 Connect your board via USB-C cable and verify it's detected:
 
-{{< tabs groupId="os" >}}
-  {{% tab name="Windows" %}}
+{{< tabs group="os" >}}
+  {{< tab label="Windows" >}}
 **List COM ports:**
 ```powershell
 [System.IO.Ports.SerialPort]::GetPortNames()
 ```
 
 Or check Device Manager for "COM ports".
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="macOS" %}}
+  {{< tab label="macOS" >}}
 **List serial ports:**
 ```bash
 ls -la /dev/cu.usb*
@@ -254,9 +254,9 @@ Expected output:
 ```
 crw-rw-rw-  1 root  wheel   9,  3 Apr 22 10:00 /dev/cu.usbserial-1420
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 
-  {{% tab name="Linux" %}}
+  {{< tab label="Linux" >}}
 **List serial ports:**
 ```bash
 ls -la /dev/ttyUSB* /dev/ttyACM*
@@ -272,7 +272,7 @@ crw-rw----  1 uucp dialout 188,  0 Apr 22 10:00 /dev/ttyUSB0
 sudo usermod -a -G dialout $USER
 # Log out and log back in for changes to take effect
 ```
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 ## Get the Source Code

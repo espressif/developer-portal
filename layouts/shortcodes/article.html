@@ -3,10 +3,11 @@
   (e.g. preview at https://host/pr123/), Hugo emits RelPermalinks with that
   prefix, so a shortcode link of /blog/foo/ must also match /pr123/blog/foo/.
 */}}
-{{ $link := strings.TrimSpace (.Get "link") }}
-{{ if and $link (not (strings.HasPrefix $link "/")) }}
-  {{ $link = printf "/%s" $link }}
+{{ $linkInput := strings.TrimSpace (.Get "link") }}
+{{ if and $linkInput (not (strings.HasPrefix $linkInput "/")) }}
+  {{ $linkInput = printf "/%s" $linkInput }}
 {{ end }}
+{{ $link := printf "%s%s" site.LanguagePrefix $linkInput }}
 {{ $showSummary := .Get "showSummary" }}
 {{ $compactSummary := .Get "compactSummary" | default false }}
 
@@ -15,15 +16,19 @@
   {{ $basePath = strings.TrimSuffix "/" .Path }}
 {{ end }}
 {{ $prefixedLink := "" }}
-{{ if and $link $basePath (ne $basePath "") (ne $basePath "/") (not (strings.HasPrefix $link $basePath)) }}
-  {{ $prefixedLink = printf "%s%s" $basePath $link }}
+{{ if and $linkInput $basePath (ne $basePath "") (ne $basePath "/") (not (strings.HasPrefix $linkInput $basePath)) }}
+  {{ $prefixedLink = printf "%s%s" site.LanguagePrefix (printf "%s%s" $basePath $linkInput) }}
 {{ end }}
 
 {{ $target := .Page }}
 {{ if ne $link .Page.RelPermalink }}
-  {{ $target = index (first 1 (where .Site.AllPages "RelPermalink" $link)) 0 }}
+  {{ $pages := slice }}
+  {{ range hugo.Sites }}
+    {{ $pages = $pages | append .Pages }}
+  {{ end }}
+  {{ $target = index (first 1 (where $pages "RelPermalink" $link)) 0 }}
   {{ if and (not $target) $prefixedLink }}
-    {{ $target = index (first 1 (where .Site.AllPages "RelPermalink" $prefixedLink)) 0 }}
+    {{ $target = index (first 1 (where $pages "RelPermalink" $prefixedLink)) 0 }}
   {{ end }}
 {{ end }}
 {{ if $target }}

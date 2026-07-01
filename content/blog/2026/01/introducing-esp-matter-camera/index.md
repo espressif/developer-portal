@@ -39,7 +39,6 @@ Matter camera support delivers the following advantages:
 The following diagram showcases the high-level architecture of Matter cameras: 
 
 {{< figure
-    default=true
     src="img/matter-camera-architecture.webp"
     alt=""
     caption="Matter Camera Architecture"
@@ -81,7 +80,6 @@ The [Espressif Matter Camera](https://github.com/espressif/esp-matter/tree/main/
 
 
 {{< figure
-    default=true
     src="img/hardware-overview.webp"
     alt=""
     caption="Hardware Overview"

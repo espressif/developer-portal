@@ -131,8 +131,8 @@ The fastest path on Windows, macOS, and Linux is the **ESP-IDF Installer Manager
 
 Get GUI installers, portable binaries, and release bundles from the [EIM downloads page](https://dl.espressif.com/dl/eim/), or install EIM with your platform package manager:
 
-{{< tabs groupId="eim-download" >}}
-{{% tab name="Windows" %}}
+{{< tabs group="eim-download" >}}
+{{< tab label="Windows" >}}
 **Package manager (recommended)**
 
 ```powershell
@@ -143,8 +143,8 @@ winget install Espressif.EIM-CLI
 ```
 
 **Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for Windows installers or portable builds.
-{{% /tab %}}
-{{% tab name="macOS" %}}
+{{< /tab >}}
+{{< tab label="macOS" >}}
 **Package manager (recommended)**
 
 ```bash
@@ -157,8 +157,8 @@ brew install eim
 ```
 
 **Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for macOS builds.
-{{% /tab %}}
-{{% tab name="Linux (deb)" %}}
+{{< /tab >}}
+{{< tab label="Linux (deb)" >}}
 **Package manager (recommended)**
 
 ```bash
@@ -174,8 +174,8 @@ sudo apt install eim
 ```
 
 **Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for `.deb` packages or portable Linux binaries.
-{{% /tab %}}
-{{% tab name="Linux (rpm)" %}}
+{{< /tab >}}
+{{< tab label="Linux (rpm)" >}}
 **Package manager (recommended)**
 
 ```bash
@@ -188,7 +188,7 @@ sudo dnf install eim
 ```
 
 **Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for RPM packages or portable Linux binaries.
-{{% /tab %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 After EIM finishes, you have CMake-based projects, Xtensa and RISC-V toolchains, and the same `idf.py` workflow on every supported OS.

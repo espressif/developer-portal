@@ -72,20 +72,20 @@ This is the recommended method for most users as it's straightforward and handle
    ```md
    https://espressif.github.io/arduino-esp32/package_esp32_index.json
    ```
-   
+
    **Development Release (Latest features, pre-release versions)**:
    ```md
    https://espressif.github.io/arduino-esp32/package_esp32_dev_index.json
    ```
-   
+
    **For users in China (Mirror with better download speeds)**:
-   {{< tabs groupId="config" >}}
-      {{% tab name="Stable" %}}
-      https://jihulab.com/esp-mirror/espressif/arduino-esp32/-/raw/gh-pages/package_esp32_index_cn.json
-      {{% /tab %}}
-      {{% tab name="Development" %}}
-      https://jihulab.com/esp-mirror/espressif/arduino-esp32/-/raw/gh-pages/package_esp32_dev_index_cn.json
-      {{% /tab %}}
+   {{< tabs group="config" >}}
+      {{< tab label="Stable" >}}
+https://jihulab.com/esp-mirror/espressif/arduino-esp32/-/raw/gh-pages/package_esp32_index_cn.json
+      {{< /tab >}}
+      {{< tab label="Development" >}}
+https://jihulab.com/esp-mirror/espressif/arduino-esp32/-/raw/gh-pages/package_esp32_dev_index_cn.json
+      {{< /tab >}}
    {{< /tabs >}}
 
    ![Adding board manager url](arduino-url.webp)

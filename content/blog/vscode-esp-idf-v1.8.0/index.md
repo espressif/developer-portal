@@ -124,7 +124,7 @@ ESP-IDF will try to show hints to resolve errors as described in [idf.py documen
 
 In the source code editor, errors that match a line will be shown when the user mouse is hovering that line.
 
-{{< video src="video/hints-hover" >}}
+{{< video src="video/hints-hover.mp4" >}}
 
 The ESP-IDF bottom panel automatically updates to display ESP-IDF hints based on the errors in your currently opened file.
 
@@ -136,7 +136,7 @@ The ESP-IDF bottom panel automatically updates to display ESP-IDF hints based on
 
 You can manually search for any ESP-IDF hint with the `ESP-IDF: Search Error Hint`. It will search from available hints listed in `$IDF_PATH/tools/idf_py_actions/hints.yml`.
 
-{{< video src="video/hints-manual-search" >}}
+{{< video src="video/hints-manual-search.mp4" >}}
 
 ## Conclusion
 

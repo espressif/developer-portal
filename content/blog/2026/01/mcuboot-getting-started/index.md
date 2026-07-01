@@ -131,7 +131,6 @@ flowchart TB
 Notice that the bootloader verifies both slots in the process, but only boots the image from the Primary Slot:
 
 {{< figure
-    default=true
     src="./assets/mcuboot-process-overview2.webp"
     caption="MCUboot boot process overview"
 >}}

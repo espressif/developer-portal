@@ -1,5 +1,6 @@
-languageCode = "en"
-languageName = "English"
+disabled = false
+locale = "en"
+label = "English"
 weight = 1
 title = "Developer Portal"
 
