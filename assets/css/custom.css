@@ -3,6 +3,19 @@
   font-size: 0.85rem;
 }
 
+/* Restore grey code block backgrounds lost in the Blowfish chroma refactor. */
+html:not(.dark) .prose .chroma,
+html:not(.dark) .highlight-wrapper .chroma {
+  background-color: rgba(var(--color-neutral-50), 1);
+  color: rgba(var(--color-neutral-700), 1);
+}
+
+html.dark .prose .chroma,
+html.dark .highlight-wrapper .chroma {
+  background-color: rgba(var(--color-neutral-700), 1);
+  color: rgba(var(--color-neutral-200), 1);
+}
+
 /* This makes text in TOC smaller than body text */
 #TableOfContents li {
   font-size: 0.85rem;
