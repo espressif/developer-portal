@@ -5,7 +5,7 @@ date: "2026-05-28"
 # showAuthor: true
 # Add a summary
 summary: "In this article, we will set up ESP-WHO on the ESP32-S3-EYE board, running a face recognition example, and extending it with custom detection callbacks."
-# Create your author entry (for details, see https://developer.espressif.com/pages/contribution-guide/writing-content/#add-youself-as-an-author)
+# Create your author entry
 #  - Create your page at `content/authors/<author-name>/_index.md`
 #  - Add your personal data at `data/authors/<author-name>.json`
 #  - Add author name(s) below
