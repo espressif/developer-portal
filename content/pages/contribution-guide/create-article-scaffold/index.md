@@ -19,19 +19,7 @@ Please start by checking out file and folder naming conventions:
 - Place your blog article under `content/blog/YYYY/MM/` matching its publication date.<br>
   Example: `content/blog/2026/02/esp-idf-tutorial-gpio-get-started/index.md`
 
-Now to create a new article, run in the root of your cloned developer portal git repo:
-
-```sh
-# Blog article
-# (if specified folders don't exist, they will be created)
-hugo new content blog/YYYY/MM/<article-folder-name>/index.md
-# Blog article example
-hugo new content blog/2026/02/esp-idf-tutorial-gpio-get-started/index.md
-# Non-blog articles (workshops, events etc.)
-hugo new content <path>/index.md
-```
-
-The commands above assume that you want to write a single article (leaf bundle). The recommended article folder structure is as follows:
+The recommended article folder structure is given below. For multi-article entries, such as workshops, etc., use the [branch bundle](https://gohugo.io/content-management/page-bundles/#comparison).
 
 ```sh
 📂 content/blog/YYYY/MM/
@@ -46,7 +34,19 @@ The commands above assume that you want to write a single article (leaf bundle).
         └── 💻 asciinema2.cast
 ```
 
-For multi-article entries, such as workshops, etc., use the [branch bundle](https://gohugo.io/content-management/page-bundles/#comparison).
+Now with the naming conventions and folder structure covered, you can create a new article scaffold.
+
+- If you don't have Hugo installed, create the folders and files manually
+- (recommended) With Hugo installed (see [gohugo.io](https://gohugo.io/installation/) or [GitHub releases](https://github.com/gohugoio/hugo/releases)), create the article scaffold automatically, go to the root of your developer portal repo and run:
+  ```sh
+  # Blog article
+  # (if specified folders don't exist, they will be created)
+  hugo new content blog/YYYY/MM/<article-folder-name>/index.md
+  # Blog article example
+  hugo new content blog/2026/02/esp-idf-tutorial-gpio-get-started/index.md
+  # Non-blog articles (workshops, events etc.)
+  hugo new content <path>/index.md
+  ```
 
 
 ## Fill out the blog article front matter
@@ -116,14 +116,21 @@ showAuthor: true
 ```
 
 
-## Preview the article
+## Preview in HTML
 
-To preview the article:
+Make sure your local environment is ready:
+
+- Install a Hugo version listed in the [README](https://github.com/espressif/developer-portal#developer-portal) badges
+  - If your branch is well behind main, install a Hugo version listed in `themes/blowfish/config.toml`
+- In your local project's folder, update the submodules using `git submodule update --init --recursive`
+
+Preview the article:
 
 - Run in your project folder:
   ```sh
   hugo server
   ```
+  - If you have issues, make sure you use [up-to-date syntax](https://developer.espressif.com/pages/contribution-guide/write-and-format-content/#review-supported-media-and-content-types) in your content
 - In the log, find the preview web address and open it:
   ```sh
   Web Server is available at http://localhost:1313/
