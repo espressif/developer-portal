@@ -99,6 +99,45 @@ In addition to that, you can also use the standard Hugo [embedded shortcodes](ht
 If you need other content types or shortcodes implemented, either create a discussion on GitHub or offer a PR with the required functionality. It will be very much appreciated!
 
 
+### Links to pages
+
+When you link to other places on the Developer Portal, you can use:
+
+- Absolute paths starting with `/` that map from `content/_index.md`
+- Relative paths:
+  - To refer to a parent page, use `.`
+  - To refer to a sibling page, use the name of its folder directly
+- Append `#heading-id` to link to a section
+
+Note that while resolving links, Hugo uses [logical paths](https://gohugo.io/quick-reference/glossary/#logical-path).
+
+**Use absolute paths** when the destination is two or more levels above in the hierarchy or across major sections, for example:
+
+- From a workshop to a blog article:<br>
+  `[Soft AP tutorial](/blog/2025/04/soft-ap-tutorial/)`
+- From a workshop assignment or a blog article to another workshop:<br>
+  `[ESP-IDF Workshop: Basic](/workshops/esp-idf-basic/)`
+
+**Use relative paths** when referring to a sibling page or a page one level across in the hierarchy:
+
+- From a blog article to another article from the same year:<br>
+  `Go to [Part 2](../06/debugging-with-vscode-part-2/)`
+- From one workshop assignment to another one:<br>
+  In `/workshops/esp-idf-basic/assignment-1-1/`, link to the `Next assignment &rarr; [Assignment 1.2](assignment-1-2/)`
+- From a workshop assignment to its overview page:<br>
+  ```
+  [Back to overview page](.)
+  [Back to navigation menu](.#agenda)
+  ```
+
+**Use anchors** to refer to a specific heading on a page:
+
+- On the current page:<br>
+  `See [how to use links](#links-to-pages)`, results in "See [how to use links](#links-to-pages)"
+- On any other page:<br>
+  `[Soft AP tutorial](/blog/2025/04/soft-ap-tutorial/#introduction)`, results in "[Soft AP tutorial](/blog/2025/04/soft-ap-tutorial/#introduction)"
+
+
 ### Admonitions
 
 Admonitions are callout boxes for notes, tips, warnings, and similar messages. The Developer Portal supports two ways to add them:
