@@ -113,4 +113,4 @@ Change LED color based on how long the button is pressed:
 Click on the ESP Control Panel and `Disconnect device` the device from the Jupyter notebook.
 {{< /alert >}}
 
-> Next step: [Assignment 3](../assignment-3).
+> Next step: [Assignment 3](assignment-3).

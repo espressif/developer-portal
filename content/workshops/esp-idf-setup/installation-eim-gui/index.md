@@ -47,4 +47,4 @@ If the tab doesn't show up, open the _Command Palette_ (`F1`) and type
 * You can now close the Espressif Installation Manager GUI
 
 ### Next steps
-> Continue with the [next step](../#4-building-the-first-project).
+> Continue with the [next step](.#4-building-the-first-project).

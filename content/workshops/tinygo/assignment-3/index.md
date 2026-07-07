@@ -454,4 +454,4 @@ In this assignment, you learned:
 
 You can now create visual interfaces for your projects!
 
-[Assignment 4: Sensors](../assignment-4/)
+[Assignment 4: Sensors](assignment-4/)

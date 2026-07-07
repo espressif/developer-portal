@@ -65,7 +65,7 @@ Before starting this tutorial, ensure that you
 - Understand the difference between a Wi-Fi access point and a Wi-Fi station.
 - (Optional) Have a basic knowledge of the [logging system](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/log.html#use-logging-library) in Espressif. 
 
-If you're not quite comfortable with any of the above steps yet, consider checking out the [ESP-IDF with ESP32-C6 Workshop](../../../../workshops/esp-idf-with-esp32-c6/). These resources can help you get hands-on experience with setup, flashing, and basic debugging before diving into this tutorial.
+If you're not quite comfortable with any of the above steps yet, consider checking out the [ESP-IDF with ESP32-C6 Workshop](/workshops/esp-idf-with-esp32-c6/). These resources can help you get hands-on experience with setup, flashing, and basic debugging before diving into this tutorial.
 
 
 ## Starting a new project from `hello_world`

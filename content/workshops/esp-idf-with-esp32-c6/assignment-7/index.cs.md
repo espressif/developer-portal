@@ -34,7 +34,7 @@ Můžete se podívat na DevCon23 talk [Low-Power Features of ESP32-C6: Target Wa
 
 #### ULP pinout
 
-ULP jádro používá specifický set pinů. Pokud budete potřebovat vědět detaily, použijte [rozložení pinů](../introduction/#board-pin-layout), abyste věděli, které piny budou s LP jádrem spolupracovat.
+ULP jádro používá specifický set pinů. Pokud budete potřebovat vědět detaily, použijte [rozložení pinů](introduction/#pinout-desky), abyste věděli, které piny budou s LP jádrem spolupracovat.
 
 ### Praktická práce s LP jádrem
 

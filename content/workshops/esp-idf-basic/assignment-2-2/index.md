@@ -428,10 +428,10 @@ Now we have a clear picture of how to connect REST API requests to physical devi
 
 If you still have time, you can try this optional assignment.
 
-> Next (optional) assignment &rarr; [Assignment 2.3](../assignment-2-3/)
+> Next (optional) assignment &rarr; [Assignment 2.3](assignment-2-3/)
 
 Otherwise, you can move to the third lecture.
 
-> Next lecture &rarr; [Lecture 3](../lecture-3/)
+> Next lecture &rarr; [Lecture 3](lecture-3/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

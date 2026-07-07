@@ -977,6 +977,6 @@ Now your device has flash encryption enabled. Since we selected the development,
 
 In this assignment, we added flash encryption to the project by enabling the appropriate options in the `menuconfig` and by accommodating the partition table offset as required.
 
-> Next step: [Conclusion](../#conclusion)
+> Next step: [Conclusion](.#conclusion)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

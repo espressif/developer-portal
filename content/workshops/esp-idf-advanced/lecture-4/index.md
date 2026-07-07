@@ -49,7 +49,7 @@ The partition table is typically flashed at offset `0x8000` in the device’s SP
 ESP-IDF provides several predefined partition tables for common use cases, selectable via `menuconfig`:
 
 - __Single factory app, no OTA__: Contains a single application partition and basic data partitions (NVS, PHY init).
-- __Factory app, two OTA definitions__: Adds support for over-the-air (OTA) updates, with two OTA app partitions and an OTA data slot. We will use this predefined partition table in the [assignment 4.1](../assignment-4-1/)
+- __Factory app, two OTA definitions__: Adds support for over-the-air (OTA) updates, with two OTA app partitions and an OTA data slot. We will use this predefined partition table in the [assignment 4.1](assignment-4-1/)
 
 For example, the "Factory app, two OTA definitions" scheme typically looks like this:
 
@@ -73,7 +73,7 @@ For advanced use cases, developers can define custom partition tables in CSV for
 Use custom partition table to increase the size of OTA partitions to the maximum available space (after all other partition sizes are known): This way you have the most space available when doing OTA updates in the future!
 {{< /alert >}}
 
-We will test this option in [assignment 4.2](../assignment-4-2/).
+We will test this option in [assignment 4.2](assignment-4-2/).
 
 ## Over-the-Air (OTA) Updates on Espressif Devices
 
@@ -207,7 +207,7 @@ It is strongly recommended to use release mode for production devices to prevent
 ### Important usage notes
 
 - Do not interrupt power during the initial encryption pass on first boot, as this can corrupt flash contents and require re-flashing.
-- Enabling flash encryption increases the bootloader size, which may require updating the partition table offset. We'll see it in detail in [assignment 4.3](../assignment-4-3)
+- Enabling flash encryption increases the bootloader size, which may require updating the partition table offset. We'll see it in detail in [assignment 4.3](assignment-4-3)
 
 
 ## Secure Bootloader
@@ -261,6 +261,6 @@ Once secure boot is enabled, the bootloader cannot be reflashed (unless using a 
 In this article, we explored three foundational pillars of modern IoT security: OTA updates, flash encryption, and secure bootloaders. Together, these features ensure that devices can be updated securely, protect sensitive data at rest, and verify firmware integrity from the moment they power on. As IoT security requirements continue to evolve, mastering these tools is essential for building resilient and regulation-compliant embedded systems.
 In the next assignments, you will test these features first-hand.
 
-> Next step: [Assignment 4.1](../assignment-4-1/)
+> Next step: [Assignment 4.1](assignment-4-1/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

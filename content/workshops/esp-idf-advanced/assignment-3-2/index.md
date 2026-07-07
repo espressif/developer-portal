@@ -329,16 +329,16 @@ Rebuild and run the application
 * `> ESP-IDF: Build, Flash and Start a Monitor`
 
 
-Another crash! If you still have time, try to solve it by moving to [assignment 3.3](../assignment-3-3/). 
+Another crash! If you still have time, try to solve it by moving to [assignment 3.3](assignment-3-3/).
 
 ## Conclusion
 
 In this assignment, we learnt how to create a core dump and how to analyze it to understand the reason of a core crash.
 Core dump analysis is a very strong tool to debug your application.
 
-> If you still have time, try [assignment 3.3](../assignment-3-3/)
+> If you still have time, try [assignment 3.3](assignment-3-3/)
 
 Otherwise
-> Next step: [Lecture 4](../lecture-4/)
+> Next step: [Lecture 4](lecture-4/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

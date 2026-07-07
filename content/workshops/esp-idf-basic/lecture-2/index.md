@@ -236,6 +236,6 @@ Now you have all the technical background to start the assignments.
 
 ### Next step
 
-> Next assignment &rarr; __[Assignment 2.1](../assignment-2-1/)__
+> Next assignment &rarr; __[Assignment 2.1](assignment-2-1/)__
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

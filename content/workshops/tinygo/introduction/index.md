@@ -311,4 +311,4 @@ TinyGo optimizes for small size:
 
 Now that you understand the basics of TinyGo and ESP32, let's set up the development environment:
 
-[Assignment 1: Install TinyGo](../assignment-1/)
+[Assignment 1: Install TinyGo](assignment-1/)

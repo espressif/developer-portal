@@ -83,4 +83,4 @@ After the provisioning process is completed, the device will connect to the sele
 
 Now that we know how to easily connect to Wi-Fi, let's make it more secure!
 
-[Assignment 6: Protocols](../assignment-6)
+[Assignment 6: Protocols](assignment-6)

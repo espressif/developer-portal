@@ -350,4 +350,4 @@ In this assignment, you learned:
 
 You can now create IoT devices with web interfaces!
 
-[Assignment 7: AI Edge Models](../assignment-7/)
+[Assignment 7: AI Edge Models](assignment-7/)

@@ -222,6 +222,6 @@ You can find the complete solution project on the [assignment_2_2](https://githu
 
 ### Next step
 
-> Next step: [Lecture 3](../lecture-3/)
+> Next step: [Lecture 3](lecture-3/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

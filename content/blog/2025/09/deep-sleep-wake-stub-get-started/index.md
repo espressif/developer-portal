@@ -41,7 +41,7 @@ From the boot process after SoC reset, we can see that Espressif chips can skip 
 
 2. **Tasks with real-time requirements**: the wake stub can execute them before continuing the boot process, greatly speeding up wake-up response and improving overall application performance.
 
-    An example of such use case is covered in the article [Boot Secure, Restore Smart: Accelerating Device Startup on ESP32](../../07/faster-device-restoration/), where hardware peripherals in the ESP-IDF bootloader are manipulated to shorten device boot-up delays. This approach reduced the boot-up time of a smart lighting system from 405 ms to 85 ms. Even more impressively, using a wake stub can bring that down to just 6 ms—significantly accelerating system startup.
+    An example of such use case is covered in the article [Boot Secure, Restore Smart: Accelerating Device Startup on ESP32](../07/faster-device-restoration/), where hardware peripherals in the ESP-IDF bootloader are manipulated to shorten device boot-up delays. This approach reduced the boot-up time of a smart lighting system from 405 ms to 85 ms. Even more impressively, using a wake stub can bring that down to just 6 ms—significantly accelerating system startup.
 
 
 The current support status for Deep-sleep wake stub applications on Espressif chips is summarized in the table below.

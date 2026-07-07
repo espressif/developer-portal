@@ -52,7 +52,7 @@ To be on the safe side, you can test the internal links locally using [broken-li
     ```sh
     npm install broken-link-checker -g
     ```
-2. Run the [local Hugo server](../create-article-scaffold/#preview-the-article)
+2. Run the [local Hugo server](create-article-scaffold/#preview-in-html)
 3. Check internal links and filter only broken ones:<br>
     (the command below assumes the preview is available at `http://localhost:1313/`)
     ```sh
@@ -108,4 +108,4 @@ To publish your content on the Espressif Developer Portal, please create a pull 
 
 ## Next step
 
-> Back to the [Contribution guide](../)
+> Back to the [Contribution guide](.)

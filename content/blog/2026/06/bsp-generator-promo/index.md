@@ -20,7 +20,7 @@ That setup takes time, requires detailed knowledge of the schematic, and can be 
 
 A BSP packages this hardware knowledge into a reusable component. It contains the drivers, peripheral initialization and deinitialization, board configuration, target settings, and APIs needed to use the board features. Instead of repeating the same setup in every application, your projects call a common board layer.
 
-We introduced this idea in [Using ESP-BSP with DevKits](../../../using-esp-bsp-with-devkits/), where Espressif-maintained BSPs make supported development kits easier to use from the first build.
+We introduced this idea in [Using ESP-BSP with DevKits](/blog/using-esp-bsp-with-devkits/), where Espressif-maintained BSPs make supported development kits easier to use from the first build.
 
 The same approach is just as useful for custom hardware. Creating a BSP for your own board gives your team one place to describe the schematic, reuse initialization code, keep application code cleaner, and move more easily between prototype and production hardware. It also makes the board definition easier to version and share as the hardware evolves.
 

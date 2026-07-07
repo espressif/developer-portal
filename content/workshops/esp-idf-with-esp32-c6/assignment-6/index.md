@@ -325,4 +325,4 @@ void app_main(void)
 
 Have you exhausted all your energy? Let's save some!
 
-[Assignment 7: Low Power Core](../assignment-7)
+[Assignment 7: Low Power Core](assignment-7)

@@ -58,4 +58,4 @@ The Espressif Developer Portal is a static website created with [Hugo][] and hos
 
 ## Next step
 
-> Back to the [Contribution guide](../)
+> Back to the [Contribution guide](.)

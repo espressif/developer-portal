@@ -34,7 +34,7 @@ You can watch the DevCon23 talk [Low-Power Features of ESP32-C6: Target Wake Tim
 
 #### ULP pinout
 
-The ULP core uses a specific set of pins. If you need to know the details, use the [pin layout](../introduction/#board-layout) to know which pins will work with the LP core.
+The ULP core uses a specific set of pins. If you need to know the details, use the [pin layout](introduction/#board-pin-layout) to know which pins will work with the LP core.
 
 ### Practical work with LP core
 

@@ -51,6 +51,6 @@ fs,data,spiffs,0x310000,64K,
 
 </details>
 
-> Next step: [Assignment 4.3](../assignment-4-3)
+> Next step: [Assignment 4.3](assignment-4-3)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

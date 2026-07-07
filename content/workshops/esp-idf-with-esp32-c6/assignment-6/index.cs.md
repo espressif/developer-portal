@@ -324,4 +324,4 @@ void app_main(void)
 
 Už jste vyčerpali všechnu energii? Tak ji pojďme trošku uspořit!
 
-[Úkol 7: Low Power Core](../assignment-7)
+[Úkol 7: Low Power Core](assignment-7)

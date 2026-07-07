@@ -31,6 +31,6 @@ You have create a basic IoT application, putting together sensor reading and HTT
 
 ### Next step
 
-> Next step &rarr; [Conclusion](../#conclusion)
+> Next step &rarr; [Conclusion](.#conclusion)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

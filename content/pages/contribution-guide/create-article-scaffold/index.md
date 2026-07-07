@@ -53,7 +53,7 @@ For multi-article entries, such as workshops, etc., use the [branch bundle](http
 
 After creating a blog article using `hugo new content blog/...`, go to your article file `index.md` and fill out its YAML front matter according to the instructions in comments.
 
-One of the YAML parameters is _summary_ --- the article summary that appears just below the article title ([summary example](../../../blog/2025/04/soft-ap-tutorial/ "under-title summary example")) and also in the article card ([card example](../../../blog/ "card summary example")) where articles are listed. You can leave summary empty for now. We will discuss how to write the article summary in [Write and format content](../write-and-format-content/#write-an-article-summary "Write and format content").
+One of the YAML parameters is _summary_ --- the article summary that appears just below the article title ([summary example](/blog/2025/04/soft-ap-tutorial/ "under-title summary example")) and also in the article card ([card example](/blog/ "card summary example")) where articles are listed. You can leave summary empty for now. We will discuss how to write the article summary in [Write and format content](write-and-format-content/#write-an-article-summary "Write and format content").
 
 
 ### Add yourself as an author
@@ -133,6 +133,6 @@ To preview the article:
 
 ## Next step
 
-> Next article &rarr; [Write and format content](../write-and-format-content/)
+> Next article &rarr; [Write and format content](write-and-format-content/)
 
-> Back to the [Contribution guide](../)
+> Back to the [Contribution guide](.)

@@ -355,4 +355,4 @@ void app_main(void)
 
 Zdá se vám to komplikované? Tak si to pojďme zjednodušit!
 
-[Úkol 5: Wi-Fi provisioning](../assignment-5)
+[Úkol 5: Wi-Fi provisioning](assignment-5)

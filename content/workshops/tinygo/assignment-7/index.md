@@ -185,7 +185,7 @@ While TinyGo excels at simplicity, advanced AI requires C/C++ libraries:
 - ESP32-S3/P4 optimized
 
 **Portal Article Reference:**
-- [Touchpad Digit Recognition Based on ESP-DL](../../../blog/2025/06/touchpad-digit-recognition/)
+- [Touchpad Digit Recognition Based on ESP-DL](/blog/2025/06/touchpad-digit-recognition/)
 - Demonstrates CNN for digit recognition
 - Model quantization and deployment
 - Complete workflow from training to inference
@@ -199,7 +199,7 @@ While TinyGo excels at simplicity, advanced AI requires C/C++ libraries:
 - Low memory footprint
 
 **Portal Article Reference:**
-- [Gesture Recognition Based on TFLite](../../../blog/2026/04/gesture-recognition-based-on-tflite/)
+- [Gesture Recognition Based on TFLite](/blog/2026/04/gesture-recognition-based-on-tflite/)
 - IMU gesture classification
 - CNN models for time-series data
 - ESP32-S3 with ESP-NN acceleration
@@ -213,7 +213,7 @@ While TinyGo excels at simplicity, advanced AI requires C/C++ libraries:
 - Activation functions
 
 **Portal Article Reference:**
-- [ESP32-S3 Edge-AI: Human Activity Recognition](../../../blog/esp32-s3-edge-ai-human-activity-recognition-using-accelerometer-data-and-esp-dl/)
+- [ESP32-S3 Edge-AI: Human Activity Recognition](/blog/esp32-s3-edge-ai-human-activity-recognition-using-accelerometer-data-and-esp-dl/)
 - Accelerometer-based activity recognition
 - ESP-DL model deployment
 - Real-time inference
@@ -385,26 +385,26 @@ func displayActivity(activity string) {
 ### Portal Articles
 
 **Gesture Recognition:**
-- [Gesture Recognition Based on TFLite](../../../blog/2026/04/gesture-recognition-based-on-tflite/)
+- [Gesture Recognition Based on TFLite](/blog/2026/04/gesture-recognition-based-on-tflite/)
 - CNN-based gesture classification
 - IMU data processing
 - Model deployment workflow
 
 **Digit Recognition:**
-- [Touchpad Digit Recognition Based on ESP-DL](../../../blog/2025/06/touchpad-digit-recognition/)
+- [Touchpad Digit Recognition Based on ESP-DL](/blog/2025/06/touchpad-digit-recognition/)
 - CNN for image classification
 - Model quantization
 - ESP-DL framework usage
 
 **Activity Recognition:**
-- [ESP32-S3 Edge-AI: Human Activity Recognition](../../../blog/esp32-s3-edge-ai-human-activity-recognition-using-accelerometer-data-and-esp-dl/)
+- [ESP32-S3 Edge-AI: Human Activity Recognition](/blog/esp32-s3-edge-ai-human-activity-recognition-using-accelerometer-data-and-esp-dl/)
 - Accelerometer data analysis
 - Deep learning models
 - Real-time inference
 
 **Advanced Topics:**
-- [Hand Gesture Recognition with ESP-DL](../../../blog/hand-gesture-recognition-on-esp32-s3-with-esp-deep-learning/)
-- [ESP32-S3 SparkBot AI Applications](../../../blog/2025/04/esp32-s3-sparkbot/)
+- [Hand Gesture Recognition with ESP-DL](/blog/hand-gesture-recognition-on-esp32-s3-with-esp-deep-learning/)
+- [ESP32-S3 SparkBot AI Applications](/blog/2025/04/esp32-s3-sparkbot/)
 
 ### Resources
 
@@ -448,4 +448,4 @@ Thank you for participating, and happy coding!
 
 ---
 
-**Back to:** [TinyGo Embedded Workshop](../)
+**Back to:** [TinyGo Embedded Workshop](.)

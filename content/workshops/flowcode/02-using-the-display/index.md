@@ -141,4 +141,4 @@ Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title
 
 ## Next step
 
-[Assignment 3: Switch and I/O Pins](../03-switch-io-pins)
+[Assignment 3: Switch and I/O Pins](03-switch-io-pins)

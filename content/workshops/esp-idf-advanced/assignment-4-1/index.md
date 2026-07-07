@@ -97,9 +97,9 @@ ota_1,app,ota_1,0x210000,1M,
 
 In this assignment you changed the partition table from `Single factory app, no ota` to the default `Factory app, two ota definitions`.
 Both of these partition table scheme are provided as default values from ESP-IDF.
-In the [next assignment](../assignment-4-2) you will create a custom partition table.
+In the [next assignment](assignment-4-2) you will create a custom partition table.
 
 
-> Next step: [Assignment 4.2](../assignment-4-2/)
+> Next step: [Assignment 4.2](assignment-4-2/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

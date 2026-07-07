@@ -209,6 +209,6 @@ free(sensor);
 It deletes the sensor object and the temperature reading is using an invalid pointer.
 </details>
 
-> Next step: [Lecture 4](../lecture-4/)
+> Next step: [Lecture 4](lecture-4/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

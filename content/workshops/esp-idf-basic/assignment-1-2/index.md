@@ -54,6 +54,6 @@ In the next lesson, we will focus on what usually is the main topic for an Espre
 
 ### Next step
 
-> Next lecture &rarr; __[Lecture 2](../lecture-2/)__
+> Next lecture &rarr; __[Lecture 2](lecture-2/)__
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)
