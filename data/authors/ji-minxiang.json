@@ -1,0 +1,8 @@
+{
+    "name": "Ji Minxiang",
+    "image" : "img/authors/espressif.webp",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "github": "https://github.com/jiminxiang"}
+    ]
+}
