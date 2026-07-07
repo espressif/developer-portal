@@ -1,37 +1,38 @@
 ---
 title: "Part 2 — Implement the Driver Functions"
 date: "2026-06-18"
-lastmod: "2026-06-18"
 series: ["WSRMS"]
 series_order: 2
 showAuthor: false
+authors:
+  - "ivan-theng"
 summary: "Understand the generated app_devices.c scaffold and fill in the three driver sections: LED strip initialisation, BOOT button handling, and the FreeRTOS rainbow cycling task."
 ---
 
-The generated `app_devices.c` contains the full RainMaker device and parameter setup. The only parts marked `TODO` are:
+In this part, you will implement the hardware driver in `app_devices.c`: initialise the onboard WS2812 LED strip, handle BOOT button presses, and fill in the write callback so cloud and app controls drive the rainbow effect on the device.
 
-- `app_driver_init()` — hardware peripheral initialisation
-- The three `if/else` branches inside `app_device_bulk_write_cb()` — apply incoming cloud/app values to hardware
-- `app_device_set_mfg_data()` — set provisioning device type
+## Files You Need to Edit
 
-## Project Structure
-
-```
-main/app_devices.c     ← all driver work goes here
-main/idf_component.yml ← add hardware component dependencies here
-```
+| File | Purpose |
+|---|---|
+| `main/app_devices.c` | All driver work goes here |
+| `main/idf_component.yml` | Add hardware component dependencies here |
 
 No other files need changes.
 
-## Understanding the Generated Code
+---
 
-Studio generates these key definitions for you:
+## Understanding the Generated Code in *app_devices.c*
+
+Studio translates the Rainbow LED data model from [Part 1](../part-1/) into RainMaker C code. The file is already structured around your node, device, and parameters — most of the RainMaker setup is done before you write any driver logic.
+
+At the top, `#define` constants name the node, device, and each parameter with the matching RainMaker types from your Studio model:
 
 ```c
 #define NODE_NAME                           "Node"
 #define NODE_TYPE                           "rainbowled"
 
-#define RAINBOW_LED_DEVICE_NAME             "Rainbow LED"
+#define RAINBOW_LED_DEVICE_NAME             "RainBow LED"
 #define RAINBOW_LED_DEVICE_TYPE             "esp.device.rainbow"
 
 #define RAINBOW_LED_POWER_PARAM_NAME        "Power"
@@ -39,7 +40,27 @@ Studio generates these key definitions for you:
 #define RAINBOW_LED_CYCLE_SPEED_PARAM_NAME  "Cycle Speed"
 ```
 
-In `app_device_create()` the scaffold creates the device, registers the write callback, and adds all three parameters with correct types and bounds — ready to go.
+The generated functions fall into two groups:
+
+**Already implemented**
+
+| Function | What it does |
+|---|---|
+| `app_device_create_node()` | Initialises the RainMaker node with your model and type |
+| `app_device_create()` | Creates the Rainbow LED device, registers `app_device_bulk_write_cb()`, and adds Power, Brightness, and Cycle Speed with the correct param types, default values, and bounds from Studio (including the Cycle Speed slider, min 1, max 10, default 5) |
+| `app_device_bulk_write_cb()` | Receives parameter updates from the cloud or phone app, routes them by device and parameter name, and calls `esp_rmaker_param_update()` |
+
+**Left for you to implement**
+
+| Section | What to do |
+|---|---|
+| `app_driver_init()` | Initialise the WS2812 LED strip, BOOT button, and runtime state |
+| `app_device_bulk_write_cb()` (`if/else` branches) | Scaffolded but marked `TODO`; apply incoming Power, Brightness, and Cycle Speed values to hardware |
+| `app_device_set_mfg_data()` | Set manufacturing data for provisioning (optional for this workshop) |
+
+You should now have a clear picture of what Studio generated in `app_devices.c` and where your changes go. Let's get started — first, add the component dependencies your hardware driver needs.
+
+---
 
 ## Add Component Dependencies
 
@@ -63,6 +84,10 @@ dependencies:
 ```
 
 The Component Manager fetches these automatically on the first `idf.py build`.
+
+You now know which files to edit, what Studio already generated, and which components the driver needs. The rest of this part is hands-on: fill in the three `TODO` sections in `app_devices.c` — initialise the WS2812 LED and BOOT button, connect the write callback so Power, Brightness, and Cycle Speed from the app update the device, and add the FreeRTOS task that runs the rainbow effect.
+
+---
 
 ## Implement app_driver_init()
 
@@ -154,6 +179,8 @@ static void rainbow_task(void *arg)
 
 Any local hardware change is reported back to the cloud using `esp_rmaker_param_update_and_report()` so the phone app always stays in sync.
 
+---
+
 ## Fill in the Write Callback
 
 Replace the three `TODO` branches in `app_device_bulk_write_cb()` to apply incoming values to the runtime state variables:
@@ -174,6 +201,8 @@ if (strcmp(param_name, RAINBOW_LED_POWER_PARAM_NAME) == 0) {
 ```
 
 The `rainbow_task` reads `s_power`, `s_brightness`, and `s_speed` directly, so changes take effect within the next 50 ms tick — no additional signalling required.
+
+---
 
 ## Complete app_devices.c
 
@@ -384,6 +413,8 @@ esp_err_t app_device_set_mfg_data(void)
                                            MFG_DATA_DEVICE_SUBTYPE_LIGHT);
 }
 ```
+
+---
 
 ## Next Step
 

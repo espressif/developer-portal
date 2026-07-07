@@ -1,10 +1,11 @@
 ---
 title: "Part 3 — Build, Flash, and Test"
 date: "2026-06-18"
-lastmod: "2026-06-18"
 series: ["WSRMS"]
 series_order: 3
 showAuthor: false
+authors:
+  - "ivan-theng"
 summary: "Build the project with ESP-IDF, flash it to an ESP32-C3 DevKit, provision it through the ESP RainMaker Home app, and verify every control — from app sliders to physical button presses."
 ---
 
@@ -25,6 +26,8 @@ Replace `/dev/cu.usbserial-XXXX` with your actual serial port. On Linux it will 
 
 On the first build the Component Manager automatically downloads `espressif/led_strip` and `espressif/button`. Subsequent builds use the cached components.
 
+---
+
 ## Provision with the Phone App
 
 1. Open the [**ESP RainMaker Home App**](https://docs.rainmaker.espressif.com/docs/product_overview/technical_overview/components/#reference-phone-app).
@@ -40,6 +43,8 @@ Once provisioned, the **Rainbow LED** device appears in the app with three contr
 | Brightness | Slider | 0 – 100 |
 | Cycle Speed | Slider | 1 – 10 |
 
+---
+
 ## Test Hardware Interactions
 
 Verify that every path — app to device and device to app — works correctly:
@@ -52,38 +57,7 @@ Verify that every path — app to device and device to app — works correctly:
 | Press BOOT button once | LED toggles; app Power toggle updates |
 | Hold BOOT button 1 s | Speed and Brightness randomise; sliders update in app |
 
-## Data Model Reference
-
-| Item | Value |
-|---|---|
-| Node name | `Node` |
-| Node type | `rainbowled` |
-| Device name | `Rainbow LED` |
-| Device type | `esp.device.rainbow` |
-
-| Parameter | RainMaker type | Data type | Default | UI |
-|---|---|---|---|---|
-| Power | `esp.param.power` | bool | `false` | Toggle |
-| Brightness | `esp.param.brightness` | int | `30` | Slider 0–100 |
-| Cycle Speed | `esp.param.cycle_speed` | int | `5` | Slider 1–10, step 1 |
-
-## Why This Approach Scales
-
-### Rapid prototyping
-
-Studio eliminates the most time-consuming part of starting a new RainMaker firmware project — writing all the initialisation boilerplate. A developer goes from blank canvas to a compilable project with full cloud connectivity, provisioning, OTA, and scheduling in minutes, not hours.
-
-### Hardware-first teams
-
-Teams that are strong on hardware but new to RainMaker can define their product's data model visually without needing to understand every RainMaker API. The generated code is clean, readable, and an ideal learning reference as well as a working starting point.
-
-### Custom device types
-
-While standard types (Switch, Light Bulb, Fan, Sensor) are one drag-and-drop away, Studio's **Custom** device and **Custom** parameter types give you full flexibility to model novel products — a robot, an irrigation controller, a custom audio device — with any parameter types and UI widgets you need.
-
-### Prototype to product, same model
-
-The data model you define in Studio is the same model that runs in production on your private ESP RainMaker instance. There is no rework or translation step. You start with Studio, validate on public RainMaker, then carry the same `idf_component.yml`, partition tables, and data model definitions forward into your product firmware.
+---
 
 ## Conclusion
 
@@ -92,5 +66,15 @@ Congratulations — you have completed the ESP RainMaker Studio workshop!
 You designed a custom device data model visually, had a full ESP-IDF project generated for you, implemented only the hardware-specific driver code, and validated end-to-end cloud connectivity from phone app to physical LED.
 
 The same workflow applies to any product you build with ESP RainMaker: define the model in Studio, fill in the driver, ship.
+
+---
+
+## Reference
+
+- [ESP RainMaker Website](https://rainmaker.espressif.com/en)
+- [ESP RainMaker Documentation](https://docs.rainmaker.espressif.com/#product-overview)
+- [Evaluation Hub](https://evaluation.rainmaker.espressif.com/#tryout-center)
+
+Planning a private ESP RainMaker deployment? [Contact us](https://rainmaker.espressif.com/en#contact-us).
 
 > [Go back to the workshop overview](../)

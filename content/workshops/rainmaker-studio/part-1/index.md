@@ -1,10 +1,10 @@
 ---
 title: "Part 1 — Build Your Data Model in Studio"
 date: "2026-06-18"
-lastmod: "2026-06-18"
 series: ["WSRMS"]
 series_order: 1
-showAuthor: false
+authors:
+  - "ivan-theng"
 summary: "Open ESP RainMaker Studio, create a Rainbow LED project, add a custom device with Power, Brightness, and Cycle Speed parameters, and download the generated ESP-IDF project."
 ---
 
@@ -17,10 +17,11 @@ Go to [https://evaluation.rainmaker.espressif.com](https://evaluation.rainmaker.
 This opens the **Your Projects** page.
 
 {{< figure
-  default=true
   src="../assets/02-studio-projects-page.webp"
   caption="Studio Your Projects page"
 >}}
+
+---
 
 ## Step 2: Create a New Project
 
@@ -35,7 +36,6 @@ Click the **Create New Project** card and fill in the dialog:
 Click **Create Project**.
 
 {{< figure
-  default=true
   src="../assets/03-create-project-dialog.webp"
   caption="Create New Project dialog filled in"
 >}}
@@ -43,10 +43,11 @@ Click **Create Project**.
 The editor opens with a single Node block on the canvas and shows a **Welcome to ESP RainMaker Studio** guided tour on your first visit. Follow the tour to become familiar with the layout.
 
 {{< figure
-  default=true
   src="../assets/05-studio-welcome-tour.webp"
   caption="Studio canvas with welcome tour"
 >}}
+
+---
 
 ## Step 3: Add a Custom Device
 
@@ -69,10 +70,11 @@ For the Rainbow LED, use a **Custom** device because there is no standard "rainb
 Click **Done**. The block label updates to **Rainbow LED**.
 
 {{< figure
-  default=true
   src="../assets/08-custom-device-config.webp"
   caption="Custom device configuration panel"
 >}}
+
+---
 
 ## Step 4: Add Parameters
 
@@ -126,10 +128,11 @@ To view the full suite of standard RainMaker types, see [Standard Types](https:/
 {{< /alert >}}
 
 {{< figure
-  default=true
   src="../assets/11-data-model-complete.webp"
   caption="Complete data model on canvas"
 >}}
+
+---
 
 ## Step 5: Configure the Node
 
@@ -142,12 +145,13 @@ Click the **Node** block (it shows a red warning triangle — required fields ar
 
 Click **Done**. The warning triangle disappears and the issues counter drops to zero. The custom data model for the device is now complete.
 
+---
+
 ## Step 6: Review JSON and Generated Code
 
 Click the **JSON** tab in the top toolbar to inspect the full RainMaker node configuration that Studio has built from your model.
 
 {{< figure
-  default=true
   src="../assets/12-json-view.webp"
   caption="JSON view of the data model"
 >}}
@@ -167,29 +171,31 @@ services[0..4]:    OTA, timezone, schedule, scenes, system
 Click the **Code** tab to preview the generated `app_devices.c`. You can see all the `#define` constants, `esp_rmaker_device_create()`, `esp_rmaker_power_param_create()`, `esp_rmaker_brightness_param_create()`, and the Cycle Speed custom param with bounds — all pre-written from your visual model.
 
 {{< figure
-  default=true
   src="../assets/13-code-view.webp"
   caption="Generated code preview"
 >}}
+
+---
 
 ## Step 7: Choose Your Action Path
 
 Click **Actions** in the top-right corner. You have two paths:
 
 {{< figure
-  default=true
   src="../assets/14-1-actions-menu.webp"
   caption="Actions menu"
+  width=200
 >}}
 
-{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
-Other available options:
-- **Import** — import a Studio project into the current session
-- **Export** — export the current Studio project
-- **Organize Model** — automatically arrange the model layout
-- **Copy Model** — copy the `node_config.json` data model
-- **Update Existing** — update the data model on a previously flashed device
-{{< /alert >}}
+**Other available options**
+
+| Option | Description |
+|---|---|
+| **Import** | Import a Studio project into the current session |
+| **Export** | Export the current Studio project |
+| **Organize Model** | Automatically arrange the model layout |
+| **Copy Model** | Copy the `node_config.json` data model |
+| **Update Existing** | Update the data model on a previously flashed device |
 
 ### Path A — Flash the Pre-built Binary
 
@@ -225,6 +231,8 @@ rainbow_led/
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 **`app_main.c` is complete as-is.** It initialises RainMaker, NVS, network, OTA, timezone, scheduling, scenes, system service, and Insights in the correct order. You never need to touch it.
 {{< /alert >}}
+
+---
 
 ## Next Step
 
