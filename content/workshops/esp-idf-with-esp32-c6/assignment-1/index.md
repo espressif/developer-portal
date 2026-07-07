@@ -68,4 +68,4 @@ However, in this workshop we will be using exclusively the **VSCode plugin**.
 
 You should now have a working ESP-IDF plugin for VSCode and ESP-IDF set up. So we can start with the second part of the tutorial:
 
-[Assignment 2: Create a new project with Components](../assignment-2)
+[Assignment 2: Create a new project with Components](assignment-2)

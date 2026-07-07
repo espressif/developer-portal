@@ -29,8 +29,8 @@ In this article, we will:
 
 __Prerequisites__
 
-This article is the second part of a series. For the setup, please refer to the [first part](../../05/debugging-with-vscode/).
-<!-- 
+This article is the second part of a series. For the setup, please refer to the [first part](../05/debugging-with-vscode/).
+<!--
 Before you begin, make sure you have the following:
 
 - Visual Studio Code (VS Code) installed  

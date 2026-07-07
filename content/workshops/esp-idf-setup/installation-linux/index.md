@@ -123,4 +123,4 @@ To **use** the ESP-IDF toolchain, you need to install some additional tools.
 
 ## Next Steps
 
-> Continue with the [next step](../#2-installing-the-esp-idf-extension-for-vs-code).
+> Continue with the [next step](.#2-installing-the-esp-idf-extension-for-vs-code).

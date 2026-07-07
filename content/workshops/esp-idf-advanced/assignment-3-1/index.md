@@ -35,7 +35,7 @@ caption="Fig.1 - Size calculation"
 ### Removing the logs
 
 * Remove the logging output in the `menuconfig`<br>
-   _if you don't remember how to do that, check [assignment 1.3](../assignment-1-3/#changing-the-configuration-in-menuconfig)_
+   _if you don't remember how to do that, check [assignment 1.3](assignment-1-3/#changing-the-configuration-in-menuconfig)_
 * `> ESP-IDF: Build Your Project`
 
 <!-- ![](../assets/assignment-3-1-size-before.webp) -->
@@ -86,6 +86,6 @@ We gained another 6.7kb.
 
 In this assignment, we saw how to check the size of our binary and how to use the menuconfig to removed unused options to improve the memory footprint of our application.
 
-> Next step: [Assignment 3.2](../assignment-3-2/)
+> Next step: [Assignment 3.2](assignment-3-2/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

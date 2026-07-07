@@ -85,4 +85,4 @@ Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title
 
 ## Next step
 
-[Assignment 6: Menu System](../06-menu-system)
+[Assignment 6: Menu System](06-menu-system)

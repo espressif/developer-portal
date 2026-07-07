@@ -19,7 +19,7 @@ tags:
 
 ## Introduction
 
-General-purpose input/output (GPIO) pins are one of the core interfaces on Espressif SoCs, allowing the device to interact with external components and signals. In the [first part of this series](../esp-idf-tutorial-gpio-get-started/), we explored how a GPIO can be configured and used as an output
+General-purpose input/output (GPIO) pins are one of the core interfaces on Espressif SoCs, allowing the device to interact with external components and signals. In the [first part of this series](esp-idf-tutorial-gpio-get-started/), we explored how a GPIO can be configured and used as an output
 
 In this second part, we will see how to use a GPIO as an input, how to deal with its high impedance, and which strategies are available to read its value.
 
@@ -56,7 +56,7 @@ The simplest way to read a GPIO is to read its value directly using the function
 
 Suppose we want to write a firmware to print "Button pressed" using this function and the `boot` button on a DevKit. In the ESP32-C61-DevKitC, it is connected to GPIO9.
 
-After including the library (as shown in [Part 1](../esp-idf-tutorial-gpio-get-started/#include-the-peripheral-driver)), we need to configure it.
+After including the library (as shown in [Part 1](esp-idf-tutorial-gpio-get-started/#include-the-peripheral-driver)), we need to configure it.
 
 We need to:
 * Define the `boot` button GPIO

@@ -140,9 +140,9 @@ esp_event_post_to(user_loop, MY_EVENT_BASE, MY_EVENT_ID, &event_data, sizeof(eve
 The event loop mechanism in Espressif's ESP-IDF framework offers a powerful way to handle asynchronous events cleanly and efficiently. Used by default for system-level notifications like Wi-Fi connectivity, the event loop can also be extended for custom application needs through user-defined loops. By facilitating decoupled, ordered, and modular event processing, this architecture helps developers build more maintainable and scalable embedded systems—especially in complex IoT applications.
 
 
-> Next step: [Assignment 2.1](../assignment-2-1/)
+> Next step: [Assignment 2.1](assignment-2-1/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)
 
 ## Further reading
 

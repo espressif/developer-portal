@@ -648,4 +648,4 @@ In this assignment, you learned:
 
 You can now gather data from both digital (I2C) and analog (ADC) sensors, and build interactive applications!
 
-[Assignment 5: Wi-Fi Client](../assignment-5/)
+[Assignment 5: Wi-Fi Client](assignment-5/)

@@ -334,6 +334,6 @@ __`Kconfig`__
 
 You can find the complete solution project on the [assignment_1_1](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_1) folder on the github repo.
 
-> Next step: [Assignment 1.2](../assignment-1-2/)
+> Next step: [Assignment 1.2](assignment-1-2/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

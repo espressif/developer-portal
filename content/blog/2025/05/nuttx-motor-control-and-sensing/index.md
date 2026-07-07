@@ -514,7 +514,7 @@ In the second part of this series, we expand this foundation to create a complet
 - Wi-Fi connectivity for real-time data streaming
 - Data visualization and analysis on a host computer
 
-You can access the second article [here](../../07/nuttx-motor-control-and-sensing-data-trans).
+You can access the second article [here](../07/nuttx-motor-control-and-sensing-data-trans).
 
 ## Related Resources
 

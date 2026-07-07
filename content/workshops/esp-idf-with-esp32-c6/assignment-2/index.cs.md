@@ -451,4 +451,4 @@ void app_main(void)
 
 Budiž světlo! Když zvládáme základní práci s ESP a IDE, jsme připravení se připojit i k WiFi!
 
-[Úkol 3: Připojení k Wi-Fi](../assignment-3)
+[Úkol 3: Připojení k Wi-Fi](assignment-3)

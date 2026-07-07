@@ -49,4 +49,4 @@ No additional prerequisites need to be installed. These will be handled automati
 
 ## Next Steps
 
-> Continue with the [next step](../#2-installing-the-esp-idf-extension-for-vs-code).
+> Continue with the [next step](.#2-installing-the-esp-idf-extension-for-vs-code).

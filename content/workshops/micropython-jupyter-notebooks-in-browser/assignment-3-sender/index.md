@@ -11,7 +11,7 @@ Navigate to `workshops/2025-10-17` directory and open Assignment 3 - Sender in t
 
 If prompted with selecting kernel, select `Embedded Kernel`, click on the ESP Control Panel and connect your device.
 
-In this assignment, you will send Morse code to the receiver based on the length of the button presses. Ask your partner for their MAC address and replace `<MAC_ADDRESS>` with it in your code. They can get this information by initializing station interface and running `print(sta.config('mac'))` (see [here](../assignment-3-receiver#task-1-initialize-receiver))
+In this assignment, you will send Morse code to the receiver based on the length of the button presses. Ask your partner for their MAC address and replace `<MAC_ADDRESS>` with it in your code. They can get this information by initializing station interface and running `print(sta.config('mac'))` (see [here](assignment-3-receiver#task-1-initialize-receiver))
 
 ## Task 1: Initialize ESP-NOW
 
@@ -108,4 +108,4 @@ while True:
 Click on the ESP Control Panel and `Disconnect device` the device from the Jupyter notebook.
 {{< /alert >}}
 
-> Next step: [Assignment 4](../assignment-4/).
+> Next step: [Assignment 4](assignment-4/).

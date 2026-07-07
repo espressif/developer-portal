@@ -534,4 +534,4 @@ In this article, we went through a practical introduction to GPIO programming. W
 
 In the next article, we will explore how to use a GPIO as an input.
 
-> Go to [Part 2](../esp-idf-tutorial-gpio-get-started-2/)
+> Go to [Part 2](esp-idf-tutorial-gpio-get-started-2/)

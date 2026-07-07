@@ -162,7 +162,7 @@ To get started and perform all the workshop assignments, you will need to instal
 
 ### Install the Espressif-IDE
 
-This assignment will be done by the following tutorial: [Getting Started with IDEs Workshop](../espressif-ide/).
+This assignment will be done by the following tutorial: [Getting Started with IDEs Workshop](espressif-ide/).
 
 You will need to:
 

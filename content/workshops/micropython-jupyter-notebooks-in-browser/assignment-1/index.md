@@ -116,4 +116,4 @@ Click on the ESP Control Panel and `Disconnect device` the device from the Jupyt
 {{< /alert >}}
 
 
-> Next step: [Assignment 2](../assignment-2/).
+> Next step: [Assignment 2](assignment-2/).

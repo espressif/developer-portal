@@ -69,4 +69,4 @@ Nicméně, v tomto workshopu budeme používat výhradně **plugin do VSCode**.
 
 Nyní byste měli mít funkční ESP-IDF plugin pro VSCode a nastavené ESP-IDF. Můžeme se tedy pustit do druhé části tutoriálu:
 
-[Úkol 2: Vytváření projektu a Komponenty](../assignment-2)  
+[Úkol 2: Vytváření projektu a Komponenty](assignment-2)

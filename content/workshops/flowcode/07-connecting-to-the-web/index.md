@@ -190,4 +190,4 @@ Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title
 
 ## Next step
 
-[Assignment 8: Full Project](../08-full-project)
+[Assignment 8: Full Project](08-full-project)

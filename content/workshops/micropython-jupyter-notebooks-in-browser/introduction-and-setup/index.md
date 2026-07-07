@@ -57,4 +57,4 @@ Your device is now ready to run MicroPython code.
 
 #### Next step
 
-> Next step: [Assignment 1](../assignment-1)
+> Next step: [Assignment 1](assignment-1)

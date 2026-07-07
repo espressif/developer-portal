@@ -267,10 +267,10 @@ Using an event loop decouples the management of the alarm and temperature sensor
 
 ### Next step
 
-> If you still have time: [Assignment 2.2](../assignment-2-2).
+> If you still have time: [Assignment 2.2](assignment-2-2).
 
 In exercise 2.2, you’ll add another event source — this time triggered by a GPIO.
 
-> Otherwise: [Lecture 3](../lecture-3/)
+> Otherwise: [Lecture 3](lecture-3/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

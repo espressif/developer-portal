@@ -179,4 +179,4 @@ Níže jsou uvedené základní vlastnosti vývojého kitu:
 
 Pro teoretickém úvodu již nastal čas pustit se do programování. Nejprve si ale musíme naisntalovat potřebné nástroje.
 
-[Úkol 1: Instalace ESP-IDF](../assignment-1)
+[Úkol 1: Instalace ESP-IDF](assignment-1)

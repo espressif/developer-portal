@@ -986,4 +986,4 @@ In this assignment, you learned:
 
 You now have the foundation to control any digital output and create colorful LED effects!
 
-[Assignment 3: Display](../assignment-3/)
+[Assignment 3: Display](assignment-3/)

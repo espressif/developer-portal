@@ -238,16 +238,16 @@ To maintain separate configurations for development and production:
 
 This creates an isolated build directory (`build_prod1`) and applies the specified default configuration layers. As a result, you can maintain reproducible and isolated builds across different environments.
 
-We will explore this topic more in-depth in the [assignment 1.3](../assignment-1-3/).
+We will explore this topic more in-depth in the [assignment 1.3](assignment-1-3/).
 
 ## Conclusion
 
 The ESP-IDF build system provides a powerful foundation for developing embedded applications. With modular components, managed dependencies, and support for reusable Board Support Packages (BSPs), developers can build scalable and maintainable projects. Tools like `idf.py`, the Component Manager, and profile-based build configurations streamline both development and deployment workflows. By mastering these tools and practices, you'll be well-equipped to create robust firmware across a variety of hardware platforms and development scenarios.
 
 
-> Next Step: [Assignment 1.1](../assignment-1-1/)
+> Next Step: [Assignment 1.1](assignment-1-1/)
 
-> Or [go back to navigation menu](../#agenda).
+> Or [go back to navigation menu](.#agenda).
 ## Additional information
 
 * [What is the ESP Component Registry?](https://developer.espressif.com/blog/2024/10/what-is-the-esp-registry/)

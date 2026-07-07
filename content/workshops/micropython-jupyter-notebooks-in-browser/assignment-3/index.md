@@ -31,5 +31,5 @@ You'll build one of two devices: a sender that transmits Morse code or a receive
 
 Pick one of the following roles and proceed with your assignment:
 
-- **Sender**: [Assignment 3 - Sender](../assignment-3-sender/).
-- **Receiver**: [Assignment 3 - Receiver](../assignment-3-receiver/).
+- **Sender**: [Assignment 3 - Sender](assignment-3-sender/).
+- **Receiver**: [Assignment 3 - Receiver](assignment-3-receiver/).

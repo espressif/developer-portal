@@ -13,7 +13,7 @@ tags:
 summary: "ESP-IDF v6.0 introduces the Tools local MCP server, a feature that lets AI clients like Cursor and Claude Code control your projects -- setting targets, building, flashing, and checking status. This article explains how it works and walks you through setup step by step."
 ---
 
-Espressif recently introduced the [Documentation MCP server](../doc-mcp-server/), a remote service that gives AI agents access to official Espressif documentation directly inside your editor. It helps with code generation, reviews, troubleshooting, and migration -- all grounded in real, up-to-date docs.
+Espressif recently introduced the [Documentation MCP server](doc-mcp-server/), a remote service that gives AI agents access to official Espressif documentation directly inside your editor. It helps with code generation, reviews, troubleshooting, and migration -- all grounded in real, up-to-date docs.
 
 But documentation lookup is only half the story. Once the AI knows what to do, it still cannot do it: setting the target, building the firmware, flashing it to a device, or checking the project state all remain manual steps.
 
@@ -273,7 +273,7 @@ Configuring the Tools MCP server follows the same pattern as any other MCP integ
 
 {{< /tabs >}}
 
-If you also use the [Documentation MCP server](../doc-mcp-server/), you can register both servers in the same configuration. For example, in Cursor's `.cursor/mcp.json`:
+If you also use the [Documentation MCP server](doc-mcp-server/), you can register both servers in the same configuration. For example, in Cursor's `.cursor/mcp.json`:
 
 ```json
 {
@@ -346,7 +346,7 @@ update the pin configuration in my project, and build it.
 
 In this scenario, the assistant queries the Documentation MCP server for the hardware reference, updates the source code, then uses the Tools MCP server to build the project and verify the result.
 
-For setup instructions for the Documentation MCP server, see the [companion article](../doc-mcp-server/).
+For setup instructions for the Documentation MCP server, see the [companion article](doc-mcp-server/).
 
 ## Troubleshooting
 
@@ -366,6 +366,6 @@ Verify that `eim` is on your system `PATH` by running `eim --version` in a termi
 
 The ESP-IDF Tools local MCP server gives AI assistants a direct, structured way to interact with your ESP-IDF projects. The core benefit is straightforward: the assistant can execute real project actions -- set target, build, flash, clean, and query status -- not just describe them.
 
-Combined with the [Documentation MCP server](../doc-mcp-server/), it forms a complete AI-assisted development loop: look up the right API or configuration, apply changes to the code, build, and flash -- all from a single conversation.
+Combined with the [Documentation MCP server](doc-mcp-server/), it forms a complete AI-assisted development loop: look up the right API or configuration, apply changes to the code, build, and flash -- all from a single conversation.
 
 If you already use an MCP-capable AI client, this feature is an easy way to make AI assistance more practical in everyday ESP-IDF work. Start by adding the MCP server to your AI client configuration, connect it to your project, and use natural language to drive the familiar `set_target` -> `build` -> `flash` workflow.

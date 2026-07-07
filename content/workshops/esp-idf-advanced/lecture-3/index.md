@@ -82,9 +82,9 @@ Mastering __size analysis__ and __core dumps__ is extremely useful for embedded 
 By integrating these tools into your development workflow, you'll be better prepared to build robust, high-performance applications.
 
 
-> Next step: [Assignment 3.1](../assignment-3-1/)
+> Next step: [Assignment 3.1](assignment-3-1/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)
 
 ## Further Reading
 

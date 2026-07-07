@@ -97,7 +97,7 @@ During the installation process, you may encounter some issues. Refer to the [Tr
 
 ## Next Steps
 
-> Continue with the [next step](../#2-installing-the-esp-idf-extension-for-vs-code).
+> Continue with the [next step](.#2-installing-the-esp-idf-extension-for-vs-code).
 
 ---
 

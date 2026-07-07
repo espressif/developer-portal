@@ -396,4 +396,4 @@ You should now have:
 
 Let's verify everything is working with our first embedded program!
 
-[Assignment 2: Blinky](../assignment-2/)
+[Assignment 2: Blinky](assignment-2/)

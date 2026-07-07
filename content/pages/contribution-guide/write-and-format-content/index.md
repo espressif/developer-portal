@@ -45,7 +45,7 @@ After you finish writing, revisit your summary to see if it needs any adjustment
 
 ### Tag the content
 
-Assign tags to your content following the guidelines in [Tagging content](../tagging-content/).
+Assign tags to your content following the guidelines in [Tagging content](tagging-content/).
 
 
 ### Prepare a featured image
@@ -160,7 +160,7 @@ You can also change its parameters:
 
 Hugo supports a number of [Diagrams as code](https://gohugo.io/content-management/diagrams/) tools, including [Mermaid](https://mermaid.js.org/). The Blowfish theme adds [Chart.js](https://blowfish.page/docs/shortcodes/#chart) to the list.
 
-As an example of how diagrams as code work, see a [rendered Mermaid diagram](../contrib-workflow "Contribution workflow") and its [raw code][contrib-workflow-raw].
+As an example of how diagrams as code work, see a [rendered Mermaid diagram](contrib-workflow "Contribution workflow") and its [raw code][contrib-workflow-raw].
 
 
 
@@ -334,7 +334,7 @@ You can **indent a tab block** by preceding the `tabs` and `tab` shortcodes with
 
 [Asciinema](https://asciinema.org/) allows you to record terminal sessions using a lightweight text-based format.
 
-If you want to use an asciinema cast in your article, see [asciinema casts](../asciinema-casts "asciinema casts").
+If you want to use an asciinema cast in your article, see [asciinema casts](asciinema-casts "asciinema casts").
 
 
 ### Video
@@ -353,13 +353,13 @@ The [Github Card](https://blowfish.page/docs/shortcodes/#github-card) shortcode 
 
 ### Dynamic content
 
-If your page is going to be updated frequently, consider implementing injection of dynamic content. Usually, it is used for product status pages, such as [ESP32-C61 status](../../../hardware/esp32c61 "ESP32-C61 status").
+If your page is going to be updated frequently, consider implementing injection of dynamic content. Usually, it is used for product status pages, such as [ESP32-C61 status](/hardware/esp32c61 "ESP32-C61 status").
 
-For more information, see [Dynamic content](../dynamic-content "Dynamic content").
+For more information, see [Dynamic content](dynamic-content "Dynamic content").
 
 
 ## Next step
 
-> Next article &rarr; [Validate and publish content](../validate-and-publish-content/)
+> Next article &rarr; [Validate and publish content](validate-and-publish-content/)
 
-> Back to the [Contribution guide](../)
+> Back to the [Contribution guide](.)

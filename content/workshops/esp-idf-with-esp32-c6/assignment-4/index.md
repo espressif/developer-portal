@@ -358,4 +358,4 @@ void app_main(void)
 
 Does it seem complicated to you? Let's simplify it!
 
-[Assignment 5: Wi-Fi provisioning](../assignment-5)
+[Assignment 5: Wi-Fi provisioning](assignment-5)

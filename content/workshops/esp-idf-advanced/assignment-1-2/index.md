@@ -244,6 +244,6 @@ endmenu
 You can find the complete solution project in the GitHub repo in the [assignment_1_2](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/esp-idf-advanced/assignment_1_2) folder.
 
 
-> Next step: [Assignment 1.3](../assignment-1-3/)
+> Next step: [Assignment 1.3](assignment-1-3/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)
