@@ -7,13 +7,22 @@
 html:not(.dark) .prose .chroma,
 html:not(.dark) .highlight-wrapper .chroma {
   background-color: rgba(var(--color-neutral-50), 1);
-  color: rgba(var(--color-neutral-700), 1);
 }
 
 html.dark .prose .chroma,
 html.dark .highlight-wrapper .chroma {
   background-color: rgba(var(--color-neutral-700), 1);
-  color: rgba(var(--color-neutral-200), 1);
+}
+
+/* Restore grey inline code backgrounds; use normal weight to match code blocks. */
+html:not(.dark) .prose code:not(pre code) {
+  background-color: rgba(var(--color-neutral-50), 1);
+  font-weight: 400;
+}
+
+html.dark .prose code:not(pre code) {
+  background-color: rgba(var(--color-neutral-700), 1);
+  font-weight: 400;
 }
 
 /* This makes text in TOC smaller than body text */
