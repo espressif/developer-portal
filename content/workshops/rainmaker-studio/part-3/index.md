@@ -1,6 +1,6 @@
 ---
 title: "Part 3 — Build, Flash, and Test"
-date: "2026-06-18"
+date: "2026-07-08"
 series: ["WSRMS"]
 series_order: 3
 showAuthor: false
@@ -77,4 +77,4 @@ The same workflow applies to any product you build with ESP RainMaker: define th
 
 Planning a private ESP RainMaker deployment? [Contact us](https://rainmaker.espressif.com/en#contact-us).
 
-> [Go back to the workshop overview](../)
+> [Go back to the workshop overview](.#agenda)

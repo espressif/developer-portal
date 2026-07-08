@@ -1,6 +1,6 @@
 ---
 title: "Part 2 — Implement the Driver Functions"
-date: "2026-06-18"
+date: "2026-07-08"
 series: ["WSRMS"]
 series_order: 2
 showAuthor: false
@@ -24,7 +24,7 @@ No other files need changes.
 
 ## Understanding the Generated Code in *app_devices.c*
 
-Studio translates the Rainbow LED data model from [Part 1](../part-1/) into RainMaker C code. The file is already structured around your node, device, and parameters — most of the RainMaker setup is done before you write any driver logic.
+Studio translates the Rainbow LED data model from [Part 1](part-1/) into RainMaker C code. The file is already structured around your node, device, and parameters — most of the RainMaker setup is done before you write any driver logic.
 
 At the top, `#define` constants name the node, device, and each parameter with the matching RainMaker types from your Studio model:
 
@@ -418,6 +418,6 @@ esp_err_t app_device_set_mfg_data(void)
 
 ## Next Step
 
-> Next &rarr; **[Part 3 — Build, Flash, and Test](../part-3/)**
+> Next &rarr; **[Part 3 — Build, Flash, and Test](part-3/)**
 
-> Or [go back to the workshop overview](../)
+> Or [go back to the workshop overview](.#agenda)

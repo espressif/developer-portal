@@ -1,6 +1,6 @@
 ---
 title: "Part 1 — Build Your Data Model in Studio"
-date: "2026-06-18"
+date: "2026-07-08"
 series: ["WSRMS"]
 series_order: 1
 authors:
@@ -236,6 +236,6 @@ rainbow_led/
 
 ## Next Step
 
-> Next &rarr; **[Part 2 — Implement the Driver Functions](../part-2/)**
+> Next &rarr; **[Part 2 — Implement the Driver Functions](part-2/)**
 
-> Or [go back to the workshop overview](../)
+> Or [go back to the workshop overview](.#agenda)
