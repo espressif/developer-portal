@@ -1,6 +1,6 @@
 ---
-title: "Part 2 — Implement the Driver Functions"
-date: "2026-07-08"
+title: "Part 2: Implement the Driver Functions"
+date: "2026-07-09"
 series: ["WSRMS"]
 series_order: 2
 showAuthor: false
@@ -10,14 +10,35 @@ summary: "Understand the generated app_devices.c scaffold and fill in the three 
 featureAsset: "img/featured/rainmaker-workshop-background.webp"
 ---
 
-In this part, you will implement the hardware driver in `app_devices.c`: initialise the onboard WS2812 LED strip, handle BOOT button presses, and fill in the write callback so cloud and app controls drive the rainbow effect on the device.
+In this part, you will implement the hardware driver in `app_devices.c`. The driver will initialise the onboard WS2812 LED strip, handle BOOT button presses, and fill in the write callback so cloud and app controls drive the rainbow effect on the device.
 
-## Files You Need to Edit
+After downloading the project in [Part 1](part-1/#path-b-download-the-project-continue-to-part-2), your folder layout should look like this:
+
+```
+rainbow_led/
+├── CMakeLists.txt                ← ESP-IDF project build file
+├── partitions.csv                ← flash partition table
+├── partitions_4mb_optimised.csv  ← optimised partition table for 4 MB flash
+├── sdkconfig.defaults            ← default SDK configuration
+├── sdkconfig.defaults.esp32c3    ← ESP32-C3-specific defaults
+└── main/
+    ├── CMakeLists.txt            ← main component build file
+    ├── app_main.c                ← fully generated; do not modify
+    ├── app_devices.c             ← generated scaffold; add your driver here
+    ├── app_devices.h             ← device and driver declarations
+    └── idf_component.yml         ← component manager dependencies
+```
+
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
+**`app_main.c` is complete as-is.** It initialises RainMaker, NVS, network, OTA, timezone, scheduling, scenes, system service, and Insights in the correct order. You never need to touch it.
+{{< /alert >}}
+
+Only two files need changes in this part:
 
 | File | Purpose |
 |---|---|
 | `main/app_devices.c` | All driver work goes here |
-| `main/idf_component.yml` | Add hardware component dependencies here |
+| `main/idf_component.yml` | Add hardware component dependencies |
 
 No other files need changes.
 
@@ -25,7 +46,7 @@ No other files need changes.
 
 ## Understanding the Generated Code in *app_devices.c*
 
-Studio translates the Rainbow LED data model from [Part 1](part-1/) into RainMaker C code. The file is already structured around your node, device, and parameters — most of the RainMaker setup is done before you write any driver logic.
+Studio translates the Rainbow LED data model from [Part 1](part-1/) into RainMaker C code. The generated project is already structured around your node, device, parameters, and services.
 
 At the top, `#define` constants name the node, device, and each parameter with the matching RainMaker types from your Studio model:
 
@@ -59,34 +80,33 @@ The generated functions fall into two groups:
 | `app_device_bulk_write_cb()` (`if/else` branches) | Scaffolded but marked `TODO`; apply incoming Power, Brightness, and Cycle Speed values to hardware |
 | `app_device_set_mfg_data()` | Set manufacturing data for provisioning (optional for this workshop) |
 
-You should now have a clear picture of what Studio generated in `app_devices.c` and where your changes go. Let's get started — first, add the component dependencies your hardware driver needs.
+Now that you know what Studio has generated, which files need to be edited, and what remains to be implemented, let's proceed with the following steps:
+
+- Add the hardware component dependencies with `idf.py add-dependency`
+- Implement `app_driver_init()` to initialise the WS2812 LED strip, BOOT button, and rainbow task
+- Fill in `app_device_bulk_write_cb()` so Power, Brightness, and Cycle Speed updates from the app reach the hardware
 
 ---
 
 ## Add Component Dependencies
 
-The hardware driver needs two ESP-IDF components. Add them to `main/idf_component.yml`:
+The hardware driver needs two ESP-IDF components on top of what Studio already included in `main/idf_component.yml`. From your project root, run:
 
-```yaml
-## IDF Component Manager Manifest File
-dependencies:
-  idf:
-    version: ">=5.0.0"
-  espressif/esp_rainmaker:
-    version: ">=1.0"
-  espressif/rmaker_app_network:
-    version: "*"
-  espressif/rmaker_app_insights:
-    version: "*"
-  espressif/led_strip:        # WS2812 RGB LED driver
-    version: ">=2.0.0"
-  espressif/button:           # BOOT button handling
-    version: ">=3.0.0"
+```bash
+idf.py add-dependency "espressif/led_strip^2.0.0"
+idf.py add-dependency "espressif/button^3.0.0"
 ```
 
 The Component Manager fetches these automatically on the first `idf.py build`.
 
-You now know which files to edit, what Studio already generated, and which components the driver needs. The rest of this part is hands-on: fill in the three `TODO` sections in `app_devices.c` — initialise the WS2812 LED and BOOT button, connect the write callback so Power, Brightness, and Cycle Speed from the app update the device, and add the FreeRTOS task that runs the rainbow effect.
+Alternatively, you can also add these entries to `main/idf_component.yml` manually:
+
+```yaml
+  espressif/led_strip:
+    version: ">=2.0.0"
+  espressif/button:
+    version: ">=3.0.0"
+```
 
 ---
 
@@ -201,13 +221,16 @@ if (strcmp(param_name, RAINBOW_LED_POWER_PARAM_NAME) == 0) {
 }
 ```
 
-The `rainbow_task` reads `s_power`, `s_brightness`, and `s_speed` directly, so changes take effect within the next 50 ms tick — no additional signalling required.
+The `rainbow_task` reads `s_power`, `s_brightness`, and `s_speed` directly, so changes take effect within the next 50 ms tick, with no additional signalling required.
 
 ---
 
 ## Complete app_devices.c
 
-The fully implemented file is reproduced below for reference:
+The fully implemented file is available for reference below.
+
+<details>
+<summary>View full code</summary>
 
 ```c
 #include <math.h>
@@ -415,10 +438,12 @@ esp_err_t app_device_set_mfg_data(void)
 }
 ```
 
+</details>
+
 ---
 
 ## Next Step
 
-> Next &rarr; **[Part 3 — Build, Flash, and Test](part-3/)**
+> Next &rarr; **[Part 3: Build, Flash, and Test](part-3/)**
 
 > Or [go back to the workshop overview](.#agenda)

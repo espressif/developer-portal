@@ -25,9 +25,6 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/rainmaker-studio/" showSummary=true compactSummary=true >}}
-
-<br>
 {{< article link="/workshops/tinygo/" showSummary=true compactSummary=true >}}
 
 <br>

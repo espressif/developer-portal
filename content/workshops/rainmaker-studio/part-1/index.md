@@ -1,6 +1,6 @@
 ---
-title: "Part 1 — Build Your Data Model in Studio"
-date: "2026-07-08"
+title: "Part 1: Build Your Data Model in Studio"
+date: "2026-07-09"
 series: ["WSRMS"]
 series_order: 1
 authors:
@@ -9,7 +9,7 @@ summary: "Open ESP RainMaker Studio, create a Rainbow LED project, add a custom 
 featureAsset: "img/featured/rainmaker-workshop-background.webp"
 ---
 
-In this part you will use the browser-based Studio to design a complete RainMaker device data model for a Rainbow LED and download a ready-to-build ESP-IDF project — no code required.
+In this part you will use the browser-based Studio to design a complete RainMaker device data model for a Rainbow LED and download a ready-to-build ESP-IDF project.
 
 ## Step 1: Open Studio
 
@@ -54,8 +54,8 @@ The editor opens with a single Node block on the canvas and shows a **Welcome to
 
 The left sidebar is the **Component Library** with two sections:
 
-- **Devices** — pre-built device templates (Switch, Light Bulb, Fan, Temperature Sensor, Custom)
-- **Parameters** — pre-built parameter templates (Power, Brightness, Color Hue, etc., plus Custom)
+- **Devices**: pre-built device templates (Switch, Light Bulb, Fan, Temperature Sensor, Custom)
+- **Parameters**: pre-built parameter templates (Power, Brightness, Color Hue, etc., plus Custom)
 
 For the Rainbow LED, use a **Custom** device because there is no standard "rainbow LED" device type in RainMaker.
 
@@ -137,7 +137,7 @@ To view the full suite of standard RainMaker types, see [Standard Types](https:/
 
 ## Step 5: Configure the Node
 
-Click the **Node** block (it shows a red warning triangle — required fields are missing). Set:
+Click the **Node** block (marked with a red warning triangle because required fields are missing). Set:
 
 | Field | Value |
 |---|---|
@@ -169,7 +169,7 @@ devices[0]:        Rainbow LED (esp.device.rainbow)
 services[0..4]:    OTA, timezone, schedule, scenes, system
 ```
 
-Click the **Code** tab to preview the generated `app_devices.c`. You can see all the `#define` constants, `esp_rmaker_device_create()`, `esp_rmaker_power_param_create()`, `esp_rmaker_brightness_param_create()`, and the Cycle Speed custom param with bounds — all pre-written from your visual model.
+Click the **Code** tab to preview the generated `app_devices.c`. You can see all the `#define` constants, `esp_rmaker_device_create()`, `esp_rmaker_power_param_create()`, `esp_rmaker_brightness_param_create()`, and the Cycle Speed custom param with bounds, all pre-written from your visual model.
 
 {{< figure
   src="../assets/13-code-view.webp"
@@ -198,45 +198,25 @@ Click **Actions** in the top-right corner. You have two paths:
 | **Copy Model** | Copy the `node_config.json` data model |
 | **Update Existing** | Update the data model on a previously flashed device |
 
-### Path A — Flash the Pre-built Binary
+### Path A: Flash the Pre-built Binary
 
 Test how your custom device interacts with the ESP RainMaker Home app without writing any code:
 
 1. Select **Actions → Flash** under **Device Actions**.
 2. ESP Device Flasher opens in your browser.
-3. Follow the **Device Setup Instructions** to flash and monitor your ESP device.
+3. Follow the **Device Setup Instructions** to flash your ESP device and monitor its output in the console log on the browser.
 4. Download the ESP RainMaker Home app to provision and control the device.
 
-### Path B — Download the Project (continue to Part 2)
+### Path B: Download the Project (continue to Part 2)
 
 1. Click **Save** to persist the model in your browser.
-2. Click **Actions → Download Project**.
-
-A file named `rainbow_led.zip` downloads. Extract it — the project layout is:
-
-```
-rainbow_led/
-├── CMakeLists.txt
-├── partitions.csv
-├── partitions_4mb_optimised.csv
-├── sdkconfig.defaults
-├── sdkconfig.defaults.esp32c3
-└── main/
-    ├── CMakeLists.txt
-    ├── app_main.c          ← fully generated, do not modify
-    ├── app_devices.c       ← generated scaffold, add your driver here
-    ├── app_devices.h       ← declarations
-    └── idf_component.yml   ← component manager dependencies
-```
-
-{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
-**`app_main.c` is complete as-is.** It initialises RainMaker, NVS, network, OTA, timezone, scheduling, scenes, system service, and Insights in the correct order. You never need to touch it.
-{{< /alert >}}
+2. Click **Actions → Download Project**. This downloads a file named `rainbow_led.zip`. Extract it to a folder on your machine.
+3. Continue to **[Part 2](part-2/)** to explore the project layout and implement the hardware driver.
 
 ---
 
 ## Next Step
 
-> Next &rarr; **[Part 2 — Implement the Driver Functions](part-2/)**
+> Next &rarr; **[Part 2: Implement the Driver Functions](part-2/)**
 
 > Or [go back to the workshop overview](.#agenda)
