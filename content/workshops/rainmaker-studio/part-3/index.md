@@ -7,6 +7,7 @@ showAuthor: false
 authors:
   - "ivan-theng"
 summary: "Build the project with ESP-IDF, flash it to an ESP32-C3 DevKit, provision it through the ESP RainMaker Home app, and verify every control — from app sliders to physical button presses."
+featureAsset: "img/featured/rainmaker-workshop-background.webp"
 ---
 
 With the driver implemented, you are ready to build the project, flash it to the ESP32-C3 DevKit, and verify end-to-end cloud connectivity through the RainMaker phone app.

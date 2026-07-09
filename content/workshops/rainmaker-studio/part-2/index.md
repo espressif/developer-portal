@@ -7,6 +7,7 @@ showAuthor: false
 authors:
   - "ivan-theng"
 summary: "Understand the generated app_devices.c scaffold and fill in the three driver sections: LED strip initialisation, BOOT button handling, and the FreeRTOS rainbow cycling task."
+featureAsset: "img/featured/rainmaker-workshop-background.webp"
 ---
 
 In this part, you will implement the hardware driver in `app_devices.c`: initialise the onboard WS2812 LED strip, handle BOOT button presses, and fill in the write callback so cloud and app controls drive the rainbow effect on the device.

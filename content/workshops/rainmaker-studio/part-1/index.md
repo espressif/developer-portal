@@ -6,6 +6,7 @@ series_order: 1
 authors:
   - "ivan-theng"
 summary: "Open ESP RainMaker Studio, create a Rainbow LED project, add a custom device with Power, Brightness, and Cycle Speed parameters, and download the generated ESP-IDF project."
+featureAsset: "img/featured/rainmaker-workshop-background.webp"
 ---
 
 In this part you will use the browser-based Studio to design a complete RainMaker device data model for a Rainbow LED and download a ready-to-build ESP-IDF project — no code required.
