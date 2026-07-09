@@ -1,0 +1,9 @@
+{
+  "name": "Ivan Theng",
+  "image": "img/authors/ivan-theng.webp",
+  "bio": "Project Manager at Espressif",
+  "social": [
+    { "linkedin": "https://www.linkedin.com/in/ivanthengwr/" },
+    { "github": "https://github.com/ivanthengwr" }
+  ]
+}
