@@ -14,8 +14,10 @@ For its 5th anniversary, DevCon is going live in Milan, Italy — with a global 
 
 📅 **November 3–4, 2026**
 
-- **Day 1** is the Global Conference, streamed worldwide, covering product launches, AI, connectivity, security, developer tools, and technical sessions.
-- **Day 2** brings Technical Workshops in Milan, alongside China Ecosystem Day in Shanghai, where Espressif and ecosystem partners showcase real-world applications.
+## Agenda
+
+- **Day 1** -- the Global Conference, streamed worldwide, covering product launches, AI, connectivity, security, developer tools, and technical sessions.
+- **Day 2** -- Technical Workshops in Milan, alongside China Ecosystem Day in Shanghai, where Espressif and ecosystem partners showcase real-world applications.
 
 
 Tickets for Milan will be released soon, and seats are limited. Pre-register now for updates and early access.
