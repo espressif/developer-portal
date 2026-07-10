@@ -1,6 +1,6 @@
 check_article_details:
   stage: check_article
-  image: "hugomods/hugo:debian-base-0.152.2"
+  image: "hugomods/hugo:debian-base-0.161.1"
   tags:
     - build_docs
   rules:

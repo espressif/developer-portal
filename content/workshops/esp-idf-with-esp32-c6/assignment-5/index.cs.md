@@ -82,4 +82,4 @@ Poté, co se dokončí provisioning proces, se zařízení připojí ke zvolené
 
 Když už víme, jak se jednoduše připojovat na Wi-Fi, pojďme si to udělat bezpečnější!
 
-[Úkol 6: Protokoly](../assignment-6)
+[Úkol 6: Protokoly](assignment-6)

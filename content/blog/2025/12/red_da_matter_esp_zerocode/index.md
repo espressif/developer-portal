@@ -5,7 +5,7 @@ date: "2025-12-08"
 # showAuthor: true
 # Add a summary
 summary: "In this blog we will introduce how combining the Espressif RED-DA compliance framework along with the ESP ZeroCode platform can help accelerate your product development"
-# Create your author entry (for details, see https://developer.espressif.com/pages/contribution-guide/writing-content/#add-youself-as-an-author)
+# Create your author entry
 #  - Create your page at `content/authors/<author-name>/_index.md`
 #  - Add your personal data at `data/authors/<author-name>.json`
 #  - Add author name(s) below

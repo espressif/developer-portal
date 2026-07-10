@@ -1,0 +1,9 @@
+{
+    "name": "Sylwester Sosnowski",
+    "type": "community",
+    "bio": "Embedded systems developer",
+    "image": "img/authors/sylwester-sosnowski.webp",
+    "social": [
+        { "github": "https://github.com/DatanoiseTV" }
+    ]
+}

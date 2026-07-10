@@ -76,4 +76,4 @@ Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title
 
 ## Next step
 
-[Assignment 5: I2C Expansion](../05-i2c-expansion)
+[Assignment 5: I2C Expansion](05-i2c-expansion)

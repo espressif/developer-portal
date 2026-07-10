@@ -106,4 +106,4 @@ Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title
 
 ## Next step
 
-[Assignment 7: Connecting to the web](../07-connecting-to-the-web)
+[Assignment 7: Connecting to the web](07-connecting-to-the-web)

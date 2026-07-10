@@ -3,7 +3,6 @@ title: "Introduction to Zephyr OS Tracing and Profiling"
 date: 2024-11-15
 lastmod: 2025-09-25
 showAuthor: false
-featureAsset: "featured-gauge.webp"
 authors:
   - "raffael-rostagno"
 tags: ["ESP32", "Tracing",  "Profiling","Zephyr"]

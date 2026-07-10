@@ -101,6 +101,6 @@ if __name__ == "__main__":
 If you managed to reach this point, it means you have good understanding of a basic REST API implementation. You can now move to the third lecture, detailing the management of external libraries and the use of the components found on the component registry.
 
 ### Next step
-> Next lecture &rarr; [Lecture 3](../lecture-3/)
+> Next lecture &rarr; [Lecture 3](lecture-3/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

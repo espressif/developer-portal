@@ -7,3 +7,11 @@
 {{ $asciinemaJS := $asciinemaJS | resources.Fingerprint "sha512" }}
 <script src="{{ $asciinemaJS.RelPermalink }}" integrity="{{ $asciinemaJS.Data.Integrity }}"></script>
 {{ end }}
+
+{{/* Preserve viewport position when tab panels change height */}}
+{{ if .Page.HasShortcode "tabs" }}
+  {{ $tabScrollJS := resources.Get "js/tabs-scroll-preserve.js" }}
+  {{ with $tabScrollJS | minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
+    <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ end }}
+{{ end }}

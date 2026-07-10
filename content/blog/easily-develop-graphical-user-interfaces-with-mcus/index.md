@@ -1,7 +1,9 @@
 ---
 title: "Easily Develop Graphical User Interfaces (GUIs) with Espressif Microcontrollers (MCUs)"
 date: 2024-09-17
+lastmod: 2026-04-27
 showAuthor: false
+summary: "Learn how Embedded Wizard 15 with AI-assisted development and Figma integration helps you create stunning, responsive GUIs for ESP32-S2 and ESP32-S3 microcontrollers."
 tags: ["ESP32", "ESP-IDF", "GUI", "Embedded Wizard", "ESP32-S3", "ESP32-S2"]
 authors:
     - "embedded-wizard-team"
@@ -9,7 +11,7 @@ authors:
 
 ## Introduction
 
-In today’s fast-paced world of IoT and embedded systems, creating an intuitive and responsive Graphical User Interface (GUI) can make or break the user experience of your product. Espressif’s powerful microcontrollers, like the ESP32-S2 or the ESP32-S3, offer incredible capabilities for embedded applications. However, developing a professional-grade GUI that leverages these capabilities can be challenging. That’s where Embedded Wizard comes into play. Embedded Wizard is an award-winning GUI development solution by independent software company TARA Systems that enables engineers to create high-performance, visually appealing interfaces with ease. In this article, we'll explore how Embedded Wizard integrates seamlessly with Espressif's ecosystem, helping you to rapidly create and deploy stunning GUIs on your ESP32-based projects.
+In today’s fast-paced world of IoT and embedded systems, creating an intuitive and responsive Graphical User Interface (GUI) can make or break the user experience of your product. Espressif’s powerful microcontrollers, like the ESP32-S2 or the ESP32-S3, offer incredible capabilities for embedded applications. However, developing a professional-grade GUI that leverages these capabilities can be challenging. That’s where Embedded Wizard comes into play. Embedded Wizard is an award-winning GUI development solution by independent software company TARA Systems that enables engineers to create high-performance, visually appealing interfaces with ease. With the introduction of [Embedded Wizard 15](https://www.embedded-wizard.de/resources/news/embedded-wizard-15/), the GUI framework now goes even further by incorporating AI-assisted development. Additionally, with [Embedded Wizard Connect for Figma](https://www.embedded-wizard.de/resources/news/embedded-wizard-connect-for-figma/), developers and designers can now seamlessly transfer UI designs from Figma into the Integrated Development Environment (IDE), Embedded Wizard Studio, simplifying the transition from design to implementation. In this article, we’ll explore how Embedded Wizard integrates seamlessly with Espressif’s ecosystem, helping you to rapidly create and deploy stunning GUIs on your ESP32-based projects.
 
 {{< figure src="img/embedded-wizard.webp" alt="Alt text" caption="Easily Develop Graphical User Interfaces (GUIs) with Espressif Microcontrollers (MCUs) - Picture" >}}
 
@@ -27,7 +29,15 @@ One of the standout features of Embedded Wizard is its ability to generate platf
 
 Embedded Wizard offers a comprehensive set of ready-to-use widgets, effects, and animations which can be customized to create a unique user experience. Whether you need touch input, multi-language support, or scalable vector graphics, Embedded Wizard has you covered.
 
-### 4. Seamless Integration with Espressif’s Hardware
+### 4. AI-Assisted Development
+
+With [Embedded Wizard 15](https://www.embedded-wizard.de/resources/news/embedded-wizard-15/), Embedded Wizard Studio includes an AI Console that supports development tasks within the tool. It can be used to generate code, assist with refactoring, and provide suggestions for resolving errors or warnings. Interaction is based on natural language input, which can help reduce manual effort during prototyping and debugging.
+
+### 5. Design-to-Code Workflow with Figma
+
+[Embedded Wizard Connect for Figma](https://www.embedded-wizard.de/resources/news/embedded-wizard-connect-for-figma/) allows UI designs created in Figma to be imported into Embedded Wizard Studio. This makes it possible to reuse existing design assets instead of recreating layouts manually. Changes to the design can be applied by reimporting updated files, which helps keep the implementation aligned with the design throughout development.
+
+### 6. Seamless Integration with Espressif's Hardware
 
 Embedded Wizard has been optimized for Espressif microcontrollers, providing direct support for Espressif platforms. This seamless integration allows you to leverage the full potential of Espressif hardware, from touch inputs to display outputs, with minimal setup. In addition, Embedded Wizard comes with a comprehensive [Knowledge Base](https://doc.embedded-wizard.de/), with easy-to-follow tutorials for Espressif platforms like the [ESP-WROVER-KIT](https://doc.embedded-wizard.de/getting-started-esp-wrover-kit), [ESP32-S2-Kaluga](https://doc.embedded-wizard.de/getting-started-esp32-s2-kaluga), and [ESP32-S3-BOX](https://doc.embedded-wizard.de/getting-started-esp32-s3-box). This ensures that you can get started quickly without needing to worry about low-level implementation details.
 
@@ -37,7 +47,7 @@ Let’s walk through a simple step-by-step guide of building a GUI with Embedded
 
 ### 1. Design the GUI Application
 
-Start by [downloading Embedded Wizard](https://www.embedded-wizard.de/download) and using the Embedded Wizard Studio to design the look and behavior of your GUI application. This Integrated Development Environment (IDE) allows you to easily create interfaces by clicking, dragging, and connecting visual and logical components. Application logic is written in Chora, a platform-independent language similar to C++ and JavaScript. The design process leverages the Mosaic framework, which includes essential components like ready-to-use widgets and event handlers.
+Start by [selecting your preferred hardware platform](https://www.embedded-wizard.de/get-started?search=Espressif) and using the Embedded Wizard Studio to design the look and behavior of your GUI application. This Integrated Development Environment (IDE) allows you to easily create interfaces by clicking, dragging, and connecting visual and logical components. Application logic is written in Chora, a platform-independent language similar to C++ and JavaScript. The design process leverages the Mosaic framework, which includes essential components like ready-to-use widgets and event handlers. You can also import UI layouts directly from Figma using Embedded Wizard Connect. This allows designers to create interfaces in Figma without restrictive templates and transfer them seamlessly into Embedded Wizard Studio. Updated designs can be reimported at any time, enabling fast iteration without rebuilding layouts manually.
 
 ### 2. Prototype, Test, and Debug
 
@@ -59,11 +69,9 @@ Deploy the compiled binary to your ESP32-S3-BOX by writing it to the device's fl
 
 Embedded Wizard and Espressif’s ESP32 family are a powerful combination for creating high-quality, responsive GUIs in embedded systems. By leveraging Embedded Wizard’s advanced features and seamless integration with Espressif hardware, you can accelerate your development process and bring your IoT products to market faster.
 
-If you're ready to take your GUI development to the next level, download the free version of Embedded Wizard today and see how it can transform your projects on Espressif platforms.
-
 ## Resources
 
-- [Download Embedded Wizard](https://www.embedded-wizard.de/download/)
+- [Get Started with Embedded Wizard](https://www.embedded-wizard.de/get-started?search=Espressif)
 - [Embedded Wizard Website](https://www.embedded-wizard.de/)
 - [Embedded Wizard YouTube Channel](https://www.youtube.com/@EmbeddedWizard)
 - [Getting Started with ESP32](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/)

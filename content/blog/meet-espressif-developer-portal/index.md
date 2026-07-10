@@ -79,7 +79,7 @@ You, dear members of the community, are very welcome to collaborate on the porta
 - Leave comments about existing content
 - Improve infrastructure and functionality
 
-For details, see the [Contribution Guide](../../pages/contribution-guide/).
+For details, see the [Contribution Guide](/pages/contribution-guide/).
 
 
 ## Conclusion

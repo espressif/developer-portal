@@ -1,12 +1,13 @@
 ---
 title: "ESP-IDF workshop - Preliminary setup"
 date: "2026-03-19"
+lastmod: "2026-05-29"
 summary: "This guide outlines the preliminary steps to set up your work environment and follow the workshops."
 ---
 
 ## Introduction
 
-In this guide, we'll walk set up the development environment to work on projects based on the ESP-IDF toolchain.
+In this guide, we'll walk you through setting up the development environment for projects based on the ESP-IDF toolchain.
 
 We'll use the open-source IDE [VS Code](https://code.visualstudio.com/download) and the [ESP-IDF extension for VS Code](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension), which allows you to configure the toolchain, build projects, and flash the memory of Espressif modules.
 
@@ -16,7 +17,8 @@ If you don't have an Espressif development kit available, you can still complete
 The ESP-IDF framework can be demanding on system resources. The minimum recommended specifications are an Intel Core i7 (or equivalent) processor and 16 GB of RAM.
 {{< /alert >}} -->
 
-For the final step, you’ll need a physical board with an Espressif SoC, for example, the [ESP32-S3-DevKitC-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.0.html).
+For the final step, you’ll need a physical board with an Espressif SoC, for example, the [ESP32-S3-DevKitC-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.0.html) or the [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html#hardware-reference).
+<!-- the [ESP32-S3-DevKitC-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.0.html) -->
 <!-- During the workshop, you’ll receive a board based on the `ESP32-S3`, the [`ESP32-S3-DevKitC-1`](). -->
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
@@ -32,7 +34,7 @@ The guide is divided into 5 parts:
 4. Building the first project
 5. Flashing the module
 
-## Installing VS Code and Prerequisites
+## 1. Installing VS Code and Prerequisites
 
 This step depends on your operating system. Follow the appropriate guide below:
 
@@ -41,7 +43,7 @@ This step depends on your operating system. Follow the appropriate guide below:
 * 🍎 macOS: [Installing VS Code and prerequisites](./installation-macos/)
 
 
-## Installing the ESP-IDF Extension for VS Code
+## 2. Installing the ESP-IDF Extension for VS Code
 
 Once all prerequisites are installed, we can add the ESP-IDF extension to VS Code.
 Using the **ESP-IDF extension**, we'll then install and configure the **ESP-IDF toolchain**.
@@ -55,44 +57,24 @@ Using the **ESP-IDF extension**, we'll then install and configure the **ESP-IDF 
 
   * If prompted, click “Accept and Install”
 
-## Configuring the ESP-IDF Toolchain via EIM
+After the installation, you may get the prompt in the configuration tab.
+![](./assets/setup/3-5-install-eim-setup.webp)
 
-Once the ESP-IDF extension is installed, we need to install the toolchain. This is done through the Installation Manager.
+* If so, click it to jump to [Installation via EIM](./installation-eim-gui/#installation-via-eim)
 
-* Open the _Command Palette_ by pressing `F1` and type<br>
-  ```bash
-  > ESP-IDF: Open ESP-IDF Installation Manager
-  ```
-* Click on the drop down menu item<br>
-  ![](./assets/setup/5-installation-manager.webp)
+## 3. Configuring the ESP-IDF Toolchain via EIM
 
-* When asked about the mirror, choose `Github`<br>
-  ![](./assets/setup/6-choose-mirror.webp)
+Once the ESP-IDF extension is installed, we need to install the toolchain. This is done through the Espressif Installation Manager (`eim`).
 
-* After a few seconds, the installation manager GUI will appear.
+There are two ways to install it: terminal (CLI) or graphical interface (GUI).
 
-* Click on `Easy Installation`<br>
-   ![](./assets/setup/7-easy-installation.webp)
+* 💻 CLI: Installation via terminal
+  * 🐧 Linux: [eim installation guide](https://docs.espressif.com/projects/idf-im-ui/en/latest/#linux-installation-via-homebrew)
+  * 🪟 Windows: [eim installation guide](https://docs.espressif.com/projects/idf-im-ui/en/latest/#windows-installation)
+  * 🍎 macOS: [eim installation guide](https://docs.espressif.com/projects/idf-im-ui/en/latest/#macos-installation-via-homebrew)
+* 🖼️ GUI: [Installation via graphical interface](./installation-eim-gui/)
 
-* You'll be presented with a welcome screen. Click on `Start Installation`
-   ![](./assets/setup/8-installation-manager-screen.webp)
-
-* Choose the latest stable release (v5.5.3 as of today)
-  ![](./assets/setup/9-latest-stable-release.webp)
-
-* Wait for the installation to finish. This will take some time. You can monitor the progress using the progress bar.
-  ![](./assets/setup/10-installation-progress-bar.webp)
-
-* Once finished, click on `Go to Dashboard` to verify the installation
-  ![](./assets/setup/11-installation-complete.webp)
-
-* You should see `v5.5.3` among the installed versions
-  ![](./assets/setup/12-go-to-dashboard.webp)
-
-* You can now close the Espressif Installation Manager GUI
-
-
-## Building the First Project
+## 4. Building the First Project
 
 Now that the extension and toolchain are installed, it’s time to test building a project.
 We’ll create a new project based on one of the examples included with the ESP-IDF toolchain.
@@ -102,8 +84,7 @@ We’ll create a new project based on one of the examples included with the ESP-
 * Open the _Command Palette_ (`F1` or `CTRL+SHIFT+P`)
 * Type `ESP-IDF: New Project` and select it
 
-* In the dropdown menu, select `ESP-IDF v5.5.3`
-  ![](./assets/setup/13-new-project-name.webp)
+* In the dropdown menu, select the ESP-IDF version you installed
 
 * In the `New Project` tab, expand the `ESP-IDF Examples` menu
   ![](./assets/setup/14-choose-esp-idf-template.webp)
@@ -161,7 +142,7 @@ If you see the summary screen, both the toolchain and extension were installed c
 If you have an Espressif development board, proceed to the next section to verify USB connectivity.
 
 
-## Flashing the Module
+## 5. Flashing the Module
 
 Once the project is built, it’s time to flash the module.
 The ESP-IDF extension for VS Code provides the command:
@@ -193,10 +174,10 @@ Remember to log out and log back in for the changes to take effect.
 
 ### Development board ports
 
-Modern Espressif development board, usually have two USB ports, called `UART` and `USB` (see picture below)
+Modern Espressif development boards usually have two USB ports, called `UART` and `USB` (see picture below).
 
 1. The `UART` port is connected to the UART pins of the Espressif SoC via a USB&rarr;UART bridge chip.
-2. The `USB` port is connected directly to `D+` and `D-` pins of the Espressif SoC.
+2. The `USB` port is connected directly to the `D+` and `D-` pins of the Espressif SoC.
 
 To program the module, connect your computer to the `UART` port.
 

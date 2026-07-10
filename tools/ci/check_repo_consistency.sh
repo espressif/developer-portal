@@ -10,6 +10,7 @@ TARGET_REPO_URL="${TARGET_REPO_URL:-https://github.com/espressif/developer-porta
 TARGET_BRANCH="${TARGET_BRANCH:-main}"
 
 DYNAMIC_BLOCK_FILE="layouts/shortcodes/dynamic-block.html"
+MAX_CHANGED_FILES_SIZE_BYTES=$((500 * 1024))
 
 
 ###############################################################################
@@ -121,6 +122,50 @@ check_dynamic_block_localmode() {
   return 0
 }
 
+check_changed_files_total_size() {
+  local base_ref="$1"
+  local max_size_bytes="$2"
+
+  local changed_files
+  changed_files=$(git diff --name-only --diff-filter=AM "$base_ref"...HEAD)
+
+  if [ -z "$changed_files" ]; then
+    echo
+    echo "No added/modified files found for size check."
+    return 0
+  fi
+
+  local total_size=0
+  local file_size=0
+
+  while IFS= read -r file; do
+    [ -z "$file" ] && continue
+
+    if git cat-file -e "HEAD:$file" 2>/dev/null; then
+      file_size=$(git cat-file -s "HEAD:$file")
+      total_size=$((total_size + file_size))
+    fi
+  done <<< "$changed_files"
+
+  # Ceiling division for KB display (round up partial kilobytes)
+  local total_kb limit_kb
+  total_kb=$(( (total_size + 1023) / 1024 ))
+  limit_kb=$(( (max_size_bytes + 1023) / 1024 ))
+
+  echo
+  echo "Total size of added/modified files: ${total_kb} KB (limit: ${limit_kb} KB)"
+
+  if [ "$total_size" -gt "$max_size_bytes" ]; then
+    echo
+    echo "❌ Committed files exceed 500 KB limit."
+    echo "   Please compress or remove unnecessary ones to keep the site lightweight."
+    return 1
+  fi
+
+  echo "Committed files are within 500 KB limit."
+  return 0
+}
+
 
 ###############################################################################
 # MAIN
@@ -142,6 +187,11 @@ check_forbidden_filetypes "$BASE_REF" || overall_error=1
 banner "🔎 Checking dynamic block localmode..."
 
 check_dynamic_block_localmode || overall_error=1
+
+
+banner "🔎 Checking changed files total size..."
+
+check_changed_files_total_size "$BASE_REF" "$MAX_CHANGED_FILES_SIZE_BYTES" || overall_error=1
 
 
 echo

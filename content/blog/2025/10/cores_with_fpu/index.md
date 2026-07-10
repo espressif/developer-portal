@@ -5,7 +5,7 @@ date: "2025-10-13"
 # showAuthor: true
 # Add a summary
 summary: "In this article, you’ll learn what an FPU is, why it’s useful, which Espressif SoCs feature one, and how it impacts performance through a benchmark. "
-# Create your author entry (for details, see https://developer.espressif.com/pages/contribution-guide/writing-content/#add-youself-as-an-author)
+# Create your author entry
 #  - Create your page at `content/authors/<author-name>/_index.md`
 #  - Add your personal data at `data/authors/<author-name>.json`
 #  - Add author name(s) below

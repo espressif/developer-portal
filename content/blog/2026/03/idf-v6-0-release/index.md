@@ -111,8 +111,8 @@ This feature is particularly useful for IDE-based AI agents like VS Code Copilot
 
 To add the MCP server to your IDE, use the following configuration:
 
-{{< tabs groupId="mcp-ide" >}}
-{{% tab name="VS Code" %}}
+{{< tabs group="mcp-ide" >}}
+{{< tab label="VS Code" >}}
 Add the following to your `mcp.json`:
 ```json
 {
@@ -130,8 +130,8 @@ Add the following to your `mcp.json`:
   }
 }
 ```
-{{% /tab %}}
-{{% tab name="Cursor" %}}
+{{< /tab >}}
+{{< tab label="Cursor" >}}
 Add the following to your `mcp.json`:
 ```json
 {
@@ -149,7 +149,7 @@ Add the following to your `mcp.json`:
   }
 }
 ```
-{{% /tab %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 The `mcp` feature must be installed via EIM. A dedicated developer portal article with a full walkthrough is coming soon.

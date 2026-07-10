@@ -443,4 +443,4 @@ Thank you for participating in this workshop. We hope you found it informative a
 
 ### Next steps
 
-- [ESP-IDF Workshop](../esp-idf-with-esp32-c6)
+- [ESP-IDF Workshop](esp-idf-with-esp32-c6)

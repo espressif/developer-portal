@@ -1,0 +1,8 @@
+{
+    "name": "Wang Ning",
+    "image" : "img/authors/espressif.webp",
+    "bio": "Technical Writer at Espressif",
+    "social": [
+        { "github": "https://github.com/espwangning" }
+    ]
+}

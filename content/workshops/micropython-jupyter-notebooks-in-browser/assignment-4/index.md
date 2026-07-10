@@ -156,4 +156,4 @@ publish_orientation()
 
 #### Next step
 
-> Congratulations! Proceed to the [Conclusion](../#conclusion).
+> Congratulations! Proceed to the [Conclusion](.#conclusion).

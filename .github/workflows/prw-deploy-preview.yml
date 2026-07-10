@@ -51,7 +51,7 @@ jobs:
           echo "PR_SHA=$PR_SHA" >> "$GITHUB_ENV"
 
       - name: Check out PR commit with submodules
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ env.PR_SHA }}
           submodules: recursive
@@ -72,11 +72,6 @@ jobs:
           fi
           echo "The updated deployment prefix for PR:"
           grep '\&prefix=' config/_default/hugo.toml
-
-      - name: Add PR prefix to article links on main page
-        run: |
-          # Add pr$PR_NUMBER to all article links in index.md
-          sed -i "s|\({{< article link=\"\)/|\1/pr$PR_NUMBER/|g" content/_index.md
 
       - name: Add preview banner to website
         run: |
@@ -130,7 +125,8 @@ jobs:
               });
 
               // Define the comment body
-              const commentBody = `🎉 A preview for this PR is available at: ${process.env.HUGO_BASEURL}`;
+              const commentBody = `🎉 A preview for this PR is available at: ${process.env.HUGO_BASEURL}
+              \n\n> [!WARNING]\n>This link is **for review only** and will expire after merge. Don't share it publicly.`;
 
               // Look for an existing comment containing the specific text
               const existingComment = comments.find(comment =>

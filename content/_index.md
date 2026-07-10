@@ -12,9 +12,9 @@ cascade:
 
 ## Featured Articles
 
-{{< article link="/blog/2026/03/idf-v6-0-release/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/06/introducing-esp-trace-component/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/03/esp32-security-updates/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/06/zephyr-coding-with-ai/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
@@ -25,7 +25,7 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/esp-idf-advanced/" showSummary=true compactSummary=true >}}
+{{< article link="/workshops/tinygo/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="workshops/" target="_self" >}}
@@ -34,7 +34,9 @@ More Workshops
 
 ## Upcoming Events
 
-{{< article link="/events/embedded-world-2026/" showSummary=true compactSummary=true >}}
+No upcoming event.
+
+<!-- {{< article link="/events/rustweek-2026/" showSummary=true compactSummary=true >}} -->
 
 <br>
 {{< button href="events/" target="_self" >}}

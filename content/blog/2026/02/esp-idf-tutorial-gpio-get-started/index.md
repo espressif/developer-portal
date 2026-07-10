@@ -7,7 +7,7 @@ lastmod: "2026-02-13"
 # Add a summary
 summary: "This article explains how to configure and control GPIO pins on Espressif SoCs, covering push-pull and open-drain output modes, drive capability, and library usage. It then provides a hands-on example of blinking an LED using `gpio_set_direction` and `gpio_set_level` on a ESP32-C61-DevKitC." 
 
-# Create your author entry (for details, see https://developer.espressif.com/pages/contribution-guide/writing-content/#add-youself-as-an-author)
+# Create your author entry
 #  - Create your page at `content/authors/<author-name>/_index.md`
 #  - Add your personal data at `data/authors/<author-name>.json`
 #  - Add author name(s) below
@@ -44,7 +44,6 @@ All modern microcontrollers offer several ways to configure an output GPIO. We w
 The push pull configuration is shown in Fig.1. 
 
 {{< figure
-default=true
 src="img/push_pull.webp"
 height=500
 caption="Fig.1 - Push pull configuration"
@@ -75,7 +74,6 @@ When you drive a pin HIGH or LOW, and the pin is connected to a load, you must s
 Consider a simple 330 Ω resistor connected to your GPIO:
 
 {{< figure
-default=true
 src="img/simple_output.webp"
 height=500
 caption="Fig. 3 - GPIO output load"
@@ -424,7 +422,6 @@ Most modern Espressif DevKits do not have a simple onboard LED (also called a GP
 
 The connection is shown in Fig.4. 
 {{< figure
-default=true
 src="img/connections.webp"
 height=500
 caption="Fig.4 - Connections"
@@ -537,4 +534,4 @@ In this article, we went through a practical introduction to GPIO programming. W
 
 In the next article, we will explore how to use a GPIO as an input.
 
-> Go to [Part 2](../esp-idf-tutorial-gpio-get-started-2/)
+> Go to [Part 2](esp-idf-tutorial-gpio-get-started-2/)

@@ -1,6 +1,7 @@
 ---
 title: "ESP-IDF Installation Manager v0.8: Streamlined Setup for ESP-IDF Development"
 date: 2026-03-02
+lastmod: 2026-06-02
 tags:
   - ESP-IDF
   - installation
@@ -9,7 +10,6 @@ tags:
   - EIM
   - ESP-IDF tool
 showAuthor: false
-featureAsset: "featured.webp"
 authors:
     - "petr-gadorek"
 summary: "The ESP-IDF Installation Manager (EIM) v0.8 introduces simplified installation across Windows, macOS, and Linux through native package managers. This article covers the new release features, installation methods, offline capabilities, and headless usage for CI/CD pipelines."
@@ -35,16 +35,16 @@ EIM 0.8 offers multiple installation options to suit different workflows and pre
 
 The simplest way to install EIM is through your platform's native package manager.
 
-{{< tabs groupId="eim-install" >}}
-{{% tab name="Windows (winget)" %}}
+{{< tabs group="eim-install" >}}
+{{< tab label="Windows (winget)" >}}
 ```powershell
 # Install GUI version
 winget install Espressif.EIM
 # Install CLI version only
 winget install Espressif.EIM-CLI
 ```
-{{% /tab %}}
-{{% tab name="macOS (brew)" %}}
+{{< /tab >}}
+{{< tab label="macOS (brew)" >}}
 ```bash
 # First add the EIM tap
 brew tap espressif/eim
@@ -53,8 +53,8 @@ brew install --cask eim-gui
 # Or install CLI version only
 brew install eim
 ```
-{{% /tab %}}
-{{% tab name="Linux (deb)" %}}
+{{< /tab >}}
+{{< tab label="Linux (deb)" >}}
 ```bash
 # Add the EIM APT repository
 echo "deb [trusted=yes] https://dl.espressif.com/dl/eim/apt/ stable main" | \
@@ -66,8 +66,8 @@ sudo apt install eim-cli
 # Or install GUI version
 sudo apt install eim
 ```
-{{% /tab %}}
-{{% tab name="Linux (rpm)" %}}
+{{< /tab >}}
+{{< tab label="Linux (rpm)" >}}
 ```bash
 # Download and install the RPM repository configuration
 sudo dnf install https://dl.espressif.com/dl/eim/rpm/eim-repo-latest.noarch.rpm
@@ -76,7 +76,7 @@ sudo dnf install eim-cli
 # Or install GUI version
 sudo dnf install eim
 ```
-{{% /tab %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 ### Portable Binary Installation
@@ -171,7 +171,7 @@ For GitHub workflows, use the official [install-esp-idf-action](https://github.c
 
 ```yaml
 steps:
-  - uses: actions/checkout@v4
+  - uses: actions/checkout@v5
   - name: Install ESP-IDF
     uses: espressif/install-esp-idf-action@v1
     with:

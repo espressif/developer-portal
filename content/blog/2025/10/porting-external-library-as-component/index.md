@@ -60,8 +60,8 @@ To work on the porting, we need to
 
 To keep things simple and organized, we will start with a basic project using a template app. You can follow one of the two approaches below:
 
-{{< tabs groupId="devtool" >}}
-      {{% tab name="ESP-IDF Extension for VS Code New Project" %}}
+{{< tabs group="devtool" >}}
+      {{< tab label="ESP-IDF Extension for VS Code New Project" >}}
 
 * In VS Code command palette enter: `> ESP-IDF: New Project`
 
@@ -95,14 +95,14 @@ You should now have the following project structure:
 ```
 
 
-      {{% /tab %}}
-      {{% tab name="Clone basic example" %}}
+      {{< /tab >}}
+      {{< tab label="Clone basic example" >}}
 * Download the basic example code found on [this github repo](https://github.com/FBEZ-docs-and-templates/devrel-tutorials-code/tree/main/tutorial-basic-project).
 * Open the project with VSCode
 * `> ESP-IDF: Set Espressif Device target`
 * `> ESP-IDF: Select Port to Use`
 
-      {{% /tab %}}
+      {{< /tab >}}
 {{< /tabs >}}
 
 

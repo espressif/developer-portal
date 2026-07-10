@@ -53,4 +53,4 @@ Further reading: [Flowcode Wiki](https://www.flowcode.co.uk/wiki/index.php?title
 
 ## Next step
 
-[Assignment 4: The Bezel Encoder](../04-the-bezel-encoder)
+[Assignment 4: The Bezel Encoder](04-the-bezel-encoder)

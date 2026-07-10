@@ -370,4 +370,4 @@ void app_main(void)
 
 Když už jsme se úspěšně připojili na Wi-Fi, přesuneme se na práci s pamětí!
 
-[Úkol 4: NVS](../assignment-4)
+[Úkol 4: NVS](assignment-4)

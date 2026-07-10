@@ -1,0 +1,9 @@
+{
+    "name": "Liu Zhongwei",
+    "type": "espressif",
+    "image" : "img/authors/liu-zhong-wei.webp",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "github": "https://github.com/lzw655" }
+    ]
+}

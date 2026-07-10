@@ -369,4 +369,4 @@ void app_main(void)
 
 Now that we have successfully connected to Wi-Fi, let's move on to working with memory!
 
-[Assignment 4: NVS](../assignment-4)
+[Assignment 4: NVS](assignment-4)

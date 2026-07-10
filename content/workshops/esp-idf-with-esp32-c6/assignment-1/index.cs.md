@@ -16,8 +16,8 @@ Abyste byli schopní zvládnout všechny úkoly v tomto workshopu, budete potře
 
 V obou případech budeme postupovat podle návodu na [githubových stránkách ESP-IDF pluginu pro VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use).
 
-{{< tabs groupId="config" >}}
-  {{% tab name="Windows" %}}
+{{< tabs group="config" >}}
+  {{< tab label="Windows" >}}
 
 ### Instalace pro Windows
 
@@ -28,8 +28,8 @@ V obou případech budeme postupovat podle návodu na [githubových stránkách 
 5. Otevřete *View -> Command Pallete* (Ctrl + Shift + P nebo ⇧ + ⌘ + P) a do nově otevřené řádky napište *Configure ESP-IDF Extension*
 6. Vyberte možnost **Express** a následně vyberte Github jako download server a release/v5.5 jako ESP-IDF version
 7. Klikněte na "Install"
-  {{% /tab %}}
-  {{% tab name="Linux a Mac" %}}
+  {{< /tab >}}
+  {{< tab label="Linux a Mac" >}}
 
 ### Instalace pro Linux a Mac
 
@@ -40,7 +40,7 @@ V obou případech budeme postupovat podle návodu na [githubových stránkách 
 5. Otevřete *View -> Command Pallete* (Ctrl + Shift + P nebo ⇧ + ⌘ + P) a do nově otevřené řádky napište *Configure ESP-IDF Extension*
 6. Vyberte možnost **Express** a následně vyberte Github jako download server a release/v5.5 jako *ESP-IDF version*
 7. Klikněte na "Install"
-  {{% /tab %}}
+  {{< /tab >}}
 {{< /tabs >}}
 
 
@@ -69,4 +69,4 @@ Nicméně, v tomto workshopu budeme používat výhradně **plugin do VSCode**.
 
 Nyní byste měli mít funkční ESP-IDF plugin pro VSCode a nastavené ESP-IDF. Můžeme se tedy pustit do druhé části tutoriálu:
 
-[Úkol 2: Vytváření projektu a Komponenty](../assignment-2)  
+[Úkol 2: Vytváření projektu a Komponenty](assignment-2)

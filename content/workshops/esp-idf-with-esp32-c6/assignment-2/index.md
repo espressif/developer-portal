@@ -453,4 +453,4 @@ void app_main(void)
 
 Let there be light! When we can do basic tasks with ESP and IDE, we are ready to connect to WiFi too!
 
-[Assignment 3: Connect to Wi-Fi](../assignment-3)
+[Assignment 3: Connect to Wi-Fi](assignment-3)

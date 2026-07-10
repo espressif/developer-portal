@@ -120,4 +120,4 @@ Extend the receiver to decode complete Morse code letters and display them. You 
 Click on the ESP Control Panel and `Disconnect device` the device from the Jupyter notebook.
 {{< /alert >}}
 
-> Next step: [Assignment 4](../assignment-4/).
+> Next step: [Assignment 4](assignment-4/).

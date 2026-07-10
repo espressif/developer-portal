@@ -142,7 +142,7 @@ The clangd server runs your code through esp-clang as you type and displays erro
 
 The clangd server can suggest fixes for many common problems automatically and update the code for you.
 
-{{< video src="video/lsp-fixes" >}}
+{{< video src="video/lsp-fixes.mp4" >}}
 
 
 <!-- omit in toc -->
@@ -150,7 +150,7 @@ The clangd server can suggest fixes for many common problems automatically and u
 
 As you type, you will see suggestions based on the methods, variables, etc. available in this context.
 
-{{< video src="video/lsp-code-completion" >}}
+{{< video src="video/lsp-code-completion.mp4" >}}
 
 
 <!-- omit in toc -->
@@ -158,7 +158,7 @@ As you type, you will see suggestions based on the methods, variables, etc. avai
 
 To jump to the definition or declaration of a specific compilation unit, hold *Ctrl* and click the desired unit.
 
-{{< video src="video/lsp-find-def" >}}
+{{< video src="video/lsp-find-def.mp4" >}}
 
 
 <!-- omit in toc -->
@@ -166,7 +166,7 @@ To jump to the definition or declaration of a specific compilation unit, hold *C
 
 Hover over a compilation unit to see more information about it, such as its type, documentation, and definition.
 
-{{< video src="video/lsp-hover" >}}
+{{< video src="video/lsp-hover.mp4" >}}
 
 
 <!-- omit in toc -->
@@ -181,7 +181,7 @@ A file can be formatted using two ways:
   OR
 -  On file save if you enable [Save Actions](https://github.com/eclipse-cdt/cdt-lsp?tab=readme-ov-file#save-actions-using-clang-format) in the preferences.
 
-{{< video src="video/lsp-format" >}}
+{{< video src="video/lsp-format.mp4" >}}
 
 {{< alert >}}
   Note that you cannot use the CDT C/C++ formatting styles with the LSP C/C++ editor.
@@ -195,7 +195,7 @@ However, you can use a feature of [ClangFormat][clang-format] to generate the de
 clang-format -style=GNU -dump=config > .clang-format
 ```
 
-{{< video src="video/lsp-format-generate" >}}
+{{< video src="video/lsp-format-generate.mp4" >}}
 
 
 <!-- omit in toc -->

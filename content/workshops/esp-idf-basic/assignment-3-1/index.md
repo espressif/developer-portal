@@ -348,6 +348,6 @@ void app_main(void)
 You can now create your own components, which makes your code easier to maintain and to share. In the next assignment, you will face a typical development problem and use the skills you just learned.
 
 ### Next step
-> Next assignment &rarr; [Assignment 3.2](../assignment-3-2/)
+> Next assignment &rarr; [Assignment 3.2](assignment-3-2/)
 
-> Or [go back to navigation menu](../#agenda)
+> Or [go back to navigation menu](.#agenda)

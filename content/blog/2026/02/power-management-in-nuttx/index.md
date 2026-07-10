@@ -9,7 +9,6 @@ tags:
   - power management
   - POSIX
 showAuthor: false
-featureAsset: "featured.webp"
 authors:
     - "eren-terzioglu"
 summary: "This article walks through Espressif power modes and NuttX power states, then explains how they map to each other. Then it introduces NuttX’s power management system and the concept of governors. The how-to part shows how to control sleep modes from the shell and a custom application. Finally, you will see real power‑consumption measurements across multiple ESP chips to illustrate the practical impact using power states."

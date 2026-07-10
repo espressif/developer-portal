@@ -6,11 +6,12 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - brian-ignacio
 tags:
-  - Esp Idf
-  - Espressif
-  - Vscode
   - Theia
-  - Esp32
+  - ESP-IDF Extension for VS Code
+  - release
+  - ESP-IDF tool
+  - VS Code
+lastmod: 2026-05-08
 
 ---
 Co-authored with Kondal Kolipaka

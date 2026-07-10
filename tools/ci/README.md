@@ -1,3 +1,4 @@
+
 # README
 
 This folder contains reusable CI scripts. These scripts are referred to from CI jobs in `.github/workflows` and `.gitlab/ci`.
@@ -16,16 +17,18 @@ bash tools/ci/<script>.sh
 
 The following scripts are available:
 
-- [README](#readme)
-  - [Check repo consistency](#check-repo-consistency)
-  - [Check article details](#check-article-details)
+<!-- no toc -->
+- [Check repo consistency](#check-repo-consistency)
+- [Check article details](#check-article-details)
+
 
 ## Check repo consistency
 
-The script `tools/ci/check_repo_consistency.sh` validates the changes that affect the git repo integrity, hugo builds and more. As of now, the following checks are realized:
+The script `tools/ci/check_repo_consistency.sh` validates the changes that affect the git repo integrity, hugo builds and more. As of now, it checks the following:
 
-- Forbidden file types, such as PNG, JPEG, etc.
-- In layouts/shortcodes/dynamic-block.html, the setting `localMode` must be false
+- Forbidden file types: use WebP instead of PNG, JPEG, etc.
+- The total size of committed files should be less than 500 KB.
+- In layouts/shortcodes/dynamic-block.html, the setting `localMode` must be false.
 
 
 ## Check article details

@@ -1,6 +1,7 @@
 ---
 title: "Dynamic content"
 date: 2025-09-09
+featureAsset: "img/featured/featured-contrib-guide.webp"
 tags: ["Contribute"]
 showTableOfContents: true
 showAuthor: false
