@@ -8,8 +8,7 @@ tags:
   - OpenCode
   - ESP-VoCat
 authors:
-  - "zhou-xiao"
-  - "ji-minxiang"
+  - "esp-ble-lab"
 ---
 
 ## Introduction
