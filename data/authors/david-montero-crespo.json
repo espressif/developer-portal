@@ -1,0 +1,9 @@
+{
+    "name": "David Montero Crespo",
+    "type": "community",
+    "bio": "Creator of Velxio, an open-source browser-based simulator for embedded systems",
+    "social": [
+        { "github": "https://github.com/davidmonterocrespo24" },
+        { "link": "https://velxio.dev" }
+    ]
+}
