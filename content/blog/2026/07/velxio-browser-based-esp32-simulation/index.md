@@ -1,7 +1,7 @@
 ---
 title: "Velxio: Browser-Based ESP32 Simulation That Runs on Real Hardware, Powered by AI Agents"
 date: 2026-07-23
-summary: "Velxio is an open-source, browser-based embedded simulator that runs real ESP32 firmware on emulated silicon — same toolchain, same binaries, zero installs. This hands-on introduction blinks an LED, joins WiFi, round-trips MQTT through a public broker, and flashes the exact same sketch to a real DevKit."
+summary: "This article introduces Velxio, an open-source, browser-based embedded simulator that runs real ESP32 firmware on emulated hardware. It explains how the simulator works under the hood, demonstrates LED, WiFi, MQTT, and sensor based projects, and highlights support for multiple boards across the ESP32 family."
 tags:
   - ESP32
   - ESP32-S3
@@ -13,11 +13,8 @@ authors:
   - "david-montero-crespo"
 ---
 
-What if you could hand someone a link — no hardware, no toolchain, no account — and five seconds later they'd be watching an ESP32 circuit in action? This isn't a simulation: it's the same `arduino-esp32` toolchain you use locally, producing a genuine `.bin`, executing on an emulated Xtensa core, printing to a serial monitor at 115200 baud. And when they're convinced, they flash that exact binary to a real DevKit without changing a line.
+One day, I was looking online for a way to emulate a project that used two ESP32 boards communicating over SPI. To my surprise, I couldn't find any platform that could run it. There were a few alternatives capable of emulating a single ESP32, but my project went much further: it also included resistors, diodes, and analog components, making the challenge even greater. That made me wonder: would it be possible to build a platform capable of running an entire embedded project directly in the browser? I decided to build a prototype to find out. That prototype eventually became Velxio.
 
-That's [Velxio](https://velxio.dev), an open-source, browser-based simulator for embedded systems. I built it to lower the barrier to embedded development: experiment first, buy hardware second, and carry your firmware across that boundary untouched. In this article I'll walk through what Velxio is, run two ESP32 projects hands-on, look under the hood at how the emulation works, and show the path from simulation to silicon.
-
-**The ESP32 family is the most-used architecture on Velxio.** Of all the simulations users ran in the last 90 days, more than half focused on boards from the ESP32 family, ahead of the classic Arduino Uno. When developers have the option to freely choose virtual hardware, they usually opt for ESP32.
 
 ## What is Velxio?
 
@@ -28,7 +25,7 @@ Velxio is a multi-board embedded simulator that runs in a browser tab. The core 
 - **30+ boards across 6 CPU architectures** — ten of them ESP32-family, alongside Arduino AVR boards, Raspberry Pi Pico, STM32 (Blue Pill through F4 Discovery), and Raspberry Pi single-board computers booting Linux on emulated Cortex-A cores.
 - **150+ interactive components** — LEDs, sensors, OLED and TFT displays, NeoPixel strips, ePaper panels, MicroSD cards, motors — dragged onto a canvas and wired to your board.
 - **Hybrid digital + analog co-simulation.** ngspice compiled to WebAssembly solves the analog side: `analogRead()` returns the actual node voltage from Modified Nodal Analysis, so op-amps saturate and diodes drop volts like they should.
-- **Arduino C++ and MicroPython**, multi-file workspaces, a library manager backed by the Arduino library index, and 300+ one-click example projects — nearly 80 of them on ESP32-family boards.
+- **Arduino, ESP-IDF, and MicroPython development.** Multi-file workspaces, a library manager backed by the Arduino Library Index, ESP-IDF projects, and 300+ one-click example projects—nearly 80 of them targeting ESP32-family boards.
 - **Fully self-hostable.** The whole stack — frontend, backend, emulators, toolchains — ships as one Docker image.
 
 ## Hands-on: your first ESP32 project in the browser
@@ -85,11 +82,11 @@ Velxio's ESP32 support does not use simplified peripheral models. Each ESP32-fam
 | WiFi | Virtual access point (`Velxio-GUEST`) with SLIRP NAT out to the internet |
 | Camera | ESP32-CAM bridges a real webcam frame into the emulated camera module |
 
-The compile side is equally real. ESP32 sketches build against the arduino-esp32 3.3.10 core on ESP-IDF v5.5 inside the backend. A cold build compiles the full IDF (~1,500 objects, a few minutes), but ccache plus persistent per-target build directories mean warm compiles land in **under a minute** — typically well under. Build options mirror the Arduino IDE Tools menu: partition schemes, CPU frequency, flash mode/size, PSRAM, core pinning for the Arduino loop — all serialized per board and translated into `sdkconfig` at compile time. You can even upload files into a SPIFFS partition from the browser.
+The compile side is equally real. ESP32 sketches build against the arduino-esp32 3.3.10 core on ESP-IDF v5.5 inside the backend. A cold build compiles the full IDF (~1,500 objects, a few minutes), but ccache plus persistent per-target build directories mean warm compiles land in **under a minute**. Build options mirror the Arduino IDE Tools menu: partition schemes, CPU frequency, flash mode/size, PSRAM, core pinning for the Arduino loop, all serialized per board and translated into `sdkconfig` at compile time. You can even upload files into a SPIFFS partition from the browser.
 
-ESP32-C3 boards take the same path on QEMU's RISC-V system emulation (RV32IMC), so the C3's peripherals — GPIO, UART, and friends — are also emulated at the register level, not approximated.
+ESP32-C3 boards take the same path on QEMU's RISC-V system emulation (RV32IMC), so the C3's peripherals are also emulated at the register level.
 
-Here's that peripheral stack in action — an [ESP32 Weather Station](https://velxio.dev/dave/estacin-meteorolgica-esp32) reading a BMP280 (temperature + pressure) over I²C and a DHT22 (humidity) on a GPIO, and drawing a live dashboard on an ILI9341 TFT over SPI through the Adafruit GFX stack — both emulated buses working at once. And this project has a twist: it wasn't wired by hand. It was designed, wired, and programmed end-to-end by Velxio's AI agent (that's its chat panel on the right of the screenshot) — more on that below.
+Here's that peripheral stack in action. An [ESP32 Weather Station](https://velxio.dev/dave/estacin-meteorolgica-esp32) reading a BMP280 (temperature + pressure) over I²C and a DHT22 (humidity) on a GPIO, and drawing a live dashboard on an ILI9341 TFT over SPI through the Adafruit GFX stack, both emulated buses working at once. And this project has a twist: it wasn't wired by hand. It was designed, wired, and programmed end-to-end by Velxio's AI agent (that's its chat panel on the right of the screenshot).
 
 {{< figure
     default=true
@@ -100,7 +97,7 @@ Here's that peripheral stack in action — an [ESP32 Weather Station](https://ve
 
 ### WiFi that actually reaches the internet
 
-The emulated ESP32 joins a virtual open access point and gets NAT'd through the host. That means real `WiFi.begin()`, real DHCP, real DNS — and real TCP out to the world. The gallery's MQTT example connects to `broker.hivemq.com`, publishes to a unique topic, subscribes to the same topic, and toggles GPIO2 every time a message round-trips through the actual public broker:
+The emulated ESP32 joins a virtual open access point and gets NAT'd through the host. That means real `WiFi.begin()`, real DHCP, real DNS and TCP out to the world. The gallery's MQTT example connects to `broker.hivemq.com`, publishes to a unique topic, subscribes to the same topic, and toggles GPIO2 every time a message round-trips through the actual public broker:
 
 ```cpp
 #include <WiFi.h>
@@ -117,7 +114,7 @@ void connectWiFi() {
 }
 ```
 
-HTTP clients, web servers (proxied so you can open the ESP32's page in another tab), and MQTT all work inside the simulation. Try it: [velxio.dev/example/esp32-wifi-mqtt](https://velxio.dev/example/esp32-wifi-mqtt).
+HTTP clients, web servers (proxied so you can open the ESP32's page in another tab), and MQTT all work inside the simulation. Try this example: [velxio.dev/example/esp32-wifi-mqtt](https://velxio.dev/example/esp32-wifi-mqtt).
 
 ## An AI agent that builds circuits and firmware
 
@@ -126,11 +123,26 @@ The [weather station above](https://velxio.dev/dave/estacin-meteorolgica-esp32) 
 Concretely, the agent:
 
 - **Designs the circuit.** It picks a board and parts from the same 150+ component library you use, drops them on the canvas or seats them on a breadboard, and wires pin to pin. Agent-drawn wires are auto-routed around components, so the layout comes out looking hand-made.
-- **Writes the firmware** — Arduino C++ or MicroPython, multi-file if needed, installing Arduino libraries along the way (with your approval).
+- **Writes the firmware**  It codes in Arduino C++ or MicroPython, multi-file if needed, installing Arduino libraries along the way (with your approval).
 - **Compiles and runs it.** The sketch goes through the real arduino-esp32 toolchain and boots on the emulated silicon. If the build fails, the agent reads the compiler errors, fixes the code, and recompiles until it builds.
 - **Verifies its own work.** It reads the serial monitor, inspects the actually-rendered state of displays and LEDs, and can press buttons in the running simulation to confirm the firmware reacts.
 
 The technical part worth noting: the agent drives the exact same tool surface the UI does. Your browser sends the workspace state with each turn; the server-side agent mutates it through typed tools (add a component, run a wire, edit a file, compile, run) and streams every action back, so you watch parts appear and wires route in real time. Because the compilation and the emulation are real, the agent's feedback loop is real too — it iterates against genuine build output and register-level emulated hardware, not a mock. That's what lets it hand you a working project like the weather station from a one-sentence prompt.
+
+```mermaid
+flowchart TB
+    Browser["Your browser<br/>canvas + code editor"]
+    Agent["AI agent<br/>server-side"]
+    Tools["Typed tools<br/>add component · run wire · edit file · compile · run"]
+    Real["Real build + emulation<br/>arduino-esp32 toolchain · register-level ESP32"]
+
+    Browser -- "workspace state, each turn" --> Agent
+    Browser -- "UI actions" --> Tools
+    Agent -- "tool calls" --> Tools
+    Tools -- "every action streamed back live" --> Browser
+    Tools -- "compile · run" --> Real
+    Real -- "build errors · serial output · rendered displays" --> Agent
+```
 
 There is also a Tutor mode that flips the same machinery into read-only: instead of building, it walks you through an existing circuit and its code step by step — useful in classrooms.
 
@@ -209,6 +221,3 @@ No account, no install, no commitment. If you'd like a board or peripheral suppo
 - **Discord**: [discord.gg/3mARjJrh4E](https://discord.gg/3mARjJrh4E)
 - **Docs**: [velxio.dev/docs](https://velxio.dev/docs)
 
----
-
-*David Montero is the creator of Velxio. He builds tools that make embedded development accessible to everyone — no hardware required. Reach him on [GitHub](https://github.com/davidmonterocrespo24) or at [velxio.dev](https://velxio.dev).*
