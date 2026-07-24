@@ -38,7 +38,7 @@ graph LR
 The model was trained on gestures selected from the [HaGRID](https://github.com/hukenovs/hagrid) dataset and recognises 10 categories: "one", "two", "three", "four", "five", "like", "ok", "no_gesture", "call", and "dislike". The class `no_gesture` represents a natural hand state or any hand gesture that does not belong to the 9 predefined gestures.
 
 {{< figure
-    src="img/gestures.webp"
+    src="assets/gestures.webp"
     alt="The 9 supported hand gesture classes"
     caption="The 9 named gesture classes recognised by the model. A 10th class, `no_gesture`, covers natural hand positions or any unlisted gesture."
 >}}

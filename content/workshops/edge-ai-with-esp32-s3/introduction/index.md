@@ -286,7 +286,7 @@ For the ESP32-S3-EYE, `esp_video` operates over the DVP interface with the OV264
 The [ESP32-S3-EYE](https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP32-S3-EYE_Getting_Started_Guide.md) is a small-sized AI development board produced by Espressif. It is based on the ESP32-S3 SoC and ESP-WHO, featuring a 2-megapixel camera, a 1.3" LCD display, and a digital microphone for image recognition and audio processing.
 
 {{< figure
-    src="img/esp32-s3-eye-isometric.webp"
+    src="assets/esp32-s3-eye-isometric.webp"
     alt="ESP32-S3-EYE development board"
     caption="ESP32-S3-EYE development board"
     >}}
@@ -314,7 +314,7 @@ The [ESP32-S3-EYE](https://github.com/espressif/esp-who/blob/master/docs/en/get-
 The block diagram below shows the main components of the ESP32-S3-EYE-MB main board (left) and the ESP32-S3-EYE-SUB sub board (right).
 
 {{< figure
-    src="img/esp32-s3-eye-block-diagram.webp"
+    src="assets/esp32-s3-eye-block-diagram.webp"
     alt="ESP32-S3-EYE block diagram"
     caption="ESP32-S3-EYE block diagram"
     >}}
@@ -322,7 +322,7 @@ The block diagram below shows the main components of the ESP32-S3-EYE-MB main bo
 ##### Main board components (ESP32-S3-EYE-MB)
 
 {{< figure
-    src="img/esp32-s3-eye-mb-annotated.webp"
+    src="assets/esp32-s3-eye-mb-annotated.webp"
     alt="ESP32-S3-EYE-MB main board, front and back"
     caption="ESP32-S3-EYE-MB main board, front and back"
     >}}
@@ -349,7 +349,7 @@ The block diagram below shows the main components of the ESP32-S3-EYE-MB main bo
 ##### Sub board components (ESP32-S3-EYE-SUB)
 
 {{< figure
-    src="img/esp32-s3-eye-sub-annotated.webp"
+    src="assets/esp32-s3-eye-sub-annotated.webp"
     alt="ESP32-S3-EYE-SUB sub board, front and back"
     caption="ESP32-S3-EYE-SUB sub board, front and back"
     >}}

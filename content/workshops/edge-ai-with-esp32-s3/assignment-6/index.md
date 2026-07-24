@@ -79,7 +79,7 @@ cd yolo11_detect
 The example uses a photo of a bus (`main/bus.jpg`) embedded in flash as the test image. The expected detection results with the default settings (`iou=0.7`, `conf=0.25`) are shown below — one bus and three people detected:
 
 {{< figure
-    src="img/bus_int8.webp"
+    src="assets/bus_int8.webp"
     alt="YOLO11N int8 detection result on the bus test image"
     caption="YOLO11N detection result after 8-bit quantization on the bus test image. Category 5 is the bus, category 0 is person."
 >}}
