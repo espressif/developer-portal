@@ -17,9 +17,7 @@ One day, I was looking online for a way to emulate a project that used two ESP32
 
 ## Velxio's community today
 
-- **15,000+ registered developers**
-- **More than 1,000 simulations every day**, over half of them on ESP32-family boards
-- **2,500+ GitHub stars** and 240+ forks on the open-source core
+As of mid-2026, more than 15,000 developers have registered on Velxio, and they run over a thousand simulations every day. ESP32-family boards account for more than half of those simulations, making them by far the most popular hardware on the platform. The open-source core has gathered thousands of stars and hundreds of forks on GitHub.
 
 ## What is Velxio?
 
