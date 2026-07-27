@@ -2,12 +2,14 @@
 title: "Edge-AI with ESP32-S3 Workshop: Assignment 3"
 date: 2026-07-07
 showTableOfContents: true
-series: ["EAIVEN"]
+series: ["EDGEAI-VISION"]
 series_order: 4
 showAuthor: false
 ---
 
 ## Assignment 3: Face detection with ESP-WHO
+
+In the previous assignment you verified the camera hardware by running the BSP display example directly. In this assignment you will switch to **ESP-WHO**, which replaces that manual camera setup with a higher-level framework. ESP-WHO handles camera initialisation, frame capture, format conversion, and inference internally — the pipeline you explored in Assignment 2 is now running under the hood, managed by `WhoFetchNode` and `WhoDetect`. Your application only needs to define what to do with the results.
 
 In this assignment you will run the ESP-WHO face recognition example on the ESP32-S3-EYE, explore how the face detection model works, and then modify the application to light up the onboard LED whenever a face is detected in the camera frame.
 
@@ -22,7 +24,7 @@ ESP-WHO uses the `HumanFaceDetect` class from [ESP-DL](https://github.com/espres
 
 | Model | Type | Input size | Latency on S3 | mAP50-95 |
 |-------|------|------------|---------------|----------|
-| `MSRMNP_S8_V1` (default) | Two-stage | 120×160, then 48×48 per candidate | ~37 ms | 0.367 |
+| `MSR_S8_V1` + `MNP_S8_V1` (default) | Two-stage | 120×160, then 48×48 per candidate | ~37 ms | 0.367 |
 | `ESPDET_PICO_224_224_FACE` | One-stage | 224×224 | ~132 ms | 0.504 |
 | `ESPDET_PICO_416_416_FACE` | One-stage | 416×416 | ~437 ms | 0.598 |
 
@@ -139,6 +141,9 @@ The ESP32-S3-EYE has a green LED on GPIO3, already initialized by the example in
     ESP_ERROR_CHECK(bsp_led_set(BSP_LED_GREEN, false));
 #endif
 ```
+
+> [!NOTE]
+> `bsp_leds_init()` and `bsp_led_set(BSP_LED_GREEN, ...)` are the LED API used by the BSP version pinned in the ESP-WHO repository. The current standalone ESP-BSP uses a newer `led_indicator`-based API (`bsp_led_indicator_create()`). Since you are building inside the ESP-WHO project, which manages its own BSP dependency version, the code above will compile correctly without any changes.
 
 Your task is to turn this LED on when at least one face is detected, and off when no face is visible.
 

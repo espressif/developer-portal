@@ -41,9 +41,11 @@ Required hardware:
 
 Required software:
 
-- ESP-IDF v5.5.x (compatible with ESP-WHO)
-- [Visual Studio Code](https://code.visualstudio.com/download)
-- [ESP-IDF plugin for VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use)
+- ESP-IDF v5.5.x (compatible with ESP-WHO) — installed via EIM (see Assignment 1)
+
+Optional software:
+
+- [Visual Studio Code](https://code.visualstudio.com/download) with the [ESP-IDF extension](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use) — all workshop steps are CLI-based, but the extension can be used as an alternative
 
 ## Time Requirements
 

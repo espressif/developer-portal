@@ -2,7 +2,7 @@
 title: "Edge-AI with ESP32-S3 Workshop: Assignment 5"
 date: 2026-07-07
 showTableOfContents: true
-series: ["EAIVEN"]
+series: ["EDGEAI-VISION"]
 series_order: 6
 showAuthor: false
 ---
@@ -62,6 +62,9 @@ Unlike the previous assignments that used examples from the ESP-WHO repository, 
 ```bash
 idf.py create-project-from-example "espressif/esp-dl=3.3.8:hand_gesture_recognition"
 ```
+
+> [!TIP]
+> Version `3.3.8` is the version this workshop was validated against. You can omit the version pin (`"espressif/esp-dl:hand_gesture_recognition"`) to get the latest release, but API details may differ slightly from what is shown here.
 
 This downloads the example from the ESP Component Registry, creates a new directory named `hand_gesture_recognition`, and sets up the `idf_component.yml` with the correct dependencies automatically.
 
@@ -265,7 +268,7 @@ dependencies:
 ```
 
 > [!NOTE]
-> `esp32_s3_eye` replaces `esp32_s3_eye_noglib` here because the full BSP provides `bsp_camera_init()` and the V4L2 camera device path. If you prefer to keep the noglib variant, you can initialise `esp_video` directly using `esp_video_init()` with the DVP configuration.
+> `esp32_s3_eye` replaces `esp32_s3_eye_noglib` here because the full BSP provides `bsp_camera_start()`, which initializes the OV2640 sensor and registers the V4L2 device node at `/dev/video2` (the DVP device path on ESP32-S3). If you prefer to keep the noglib variant, you can initialise `esp_video` directly using `esp_video_init()` with the DVP configuration and open `/dev/video2` yourself.
 
 ### Modify app_main.cpp
 
@@ -287,12 +290,12 @@ static const char *TAG = "hand_gesture_recognition";
 
 extern "C" void app_main(void)
 {
-    // Initialise the OV2640 camera through the BSP
-    bsp_camera_config_t cam_config = BSP_CAMERA_DEFAULT_CONFIG;
-    ESP_ERROR_CHECK(bsp_camera_init(&cam_config));
+    // Initialise the OV2640 camera through the BSP (registers the V4L2 device)
+    bsp_camera_cfg_t cam_config = BSP_CAMERA_DEFAULT_CONFIG;
+    ESP_ERROR_CHECK(bsp_camera_start(&cam_config));
 
-    // Open the V4L2 camera device
-    int fd = open("/dev/video0", O_RDWR);
+    // Open the V4L2 DVP camera device (DVP is /dev/video2 on ESP32-S3)
+    int fd = open("/dev/video2", O_RDWR);
     assert(fd >= 0);
 
     // Request JPEG output at QVGA resolution

@@ -2,7 +2,7 @@
 title: "Edge-AI with ESP32-S3 Workshop: Assignment 2"
 date: 2026-07-07
 showTableOfContents: true
-series: ["EAIVEN"]
+series: ["EDGEAI-VISION"]
 series_order: 3
 showAuthor: false
 ---
@@ -46,13 +46,13 @@ The OV2640 can output frames in several pixel formats. The format you choose aff
 
 | Format | Description | Used for |
 |--------|-------------|----------|
-| JPEG | Compressed image | Camera capture (reduces bus bandwidth) |
-| RGB565 | 16-bit color, 2 bytes per pixel | Direct display |
-| RGB888 | 24-bit color, 3 bytes per pixel | Model inference input |
+| JPEG | Compressed image | Bandwidth-efficient capture (not the default in ESP-WHO on S3) |
+| RGB565 | 16-bit color, 2 bytes per pixel | Default capture format in ESP-WHO; direct display |
+| RGB888 | 24-bit color, 3 bytes per pixel | Model inference input (converted from RGB565 in the pipeline) |
 | YUV422 | Luminance + chrominance | Some detection models |
 | Grayscale | 8-bit luminance only | Simple detection tasks |
 
-In ESP-WHO, the camera always captures in **JPEG** format. The compressed frame is then decoded into **RGB888** by a separate pipeline node before being passed to the detection model. This approach keeps the DVP bus load low and allows higher frame rates.
+In ESP-WHO on the ESP32-S3-EYE, the camera captures frames in **RGB565** format directly via the V4L2 API. This avoids the overhead of JPEG compression and software decoding on the CPU. Before being passed to a detection model, the pipeline converts the RGB565 frame to **RGB888**, which is the format expected by ESP-DL inference models.
 
 ---
 
@@ -62,17 +62,17 @@ ESP-WHO uses an asynchronous, node-based pipeline to capture and prepare frames.
 
 ```mermaid
 graph LR
-    A[OV2640\nCamera] -->|DVP| B[WhoFetchNode\nCapture JPEG]
-    B -->|Queue| C[WhoDecodeNode\nDecode to RGB888]
+    A[OV2640\nCamera] -->|DVP| B[WhoFetchNode\nCapture RGB565]
+    B -->|Queue| C[WhoDetect\nConvert to RGB888\n+ Run inference]
     C -->|Queue| D[Detection /\nRecognition]
-    C -->|Queue| E[WhoFrameLcdDisp\nLCD Display]
+    B -->|Queue| E[WhoFrameLcdDisp\nLCD Display]
 ```
 
 ### Pipeline nodes
 
-**WhoFetchNode** is the entry point of the pipeline. It captures raw JPEG frames from the camera driver and places them in a ring buffer. It runs continuously on one core, independent of inference.
+**WhoFetchNode** is the entry point of the pipeline. It captures raw RGB565 frames from the camera driver via the V4L2 interface and places them in a queue. It runs continuously on one core, independent of inference.
 
-**WhoDecodeNode** receives a JPEG frame from `WhoFetchNode` and decodes it into the pixel format required by the model (typically RGB888). Decoding happens in software on the ESP32-S3.
+**WhoDetect** receives an RGB565 frame, converts it to RGB888 in memory (the format expected by ESP-DL models), and runs inference. The conversion happens before inference on the ESP32-S3.
 
 **WhoFrameLcdDisp** takes the decoded frame, draws any detection overlays (bounding boxes, labels), and renders the result on the ST7789 LCD display via LVGL.
 
@@ -83,6 +83,12 @@ The key benefit of this design is that the camera keeps capturing at full speed 
 ## Step 1: Run the camera display example
 
 Before adding AI, let's verify that the camera is working correctly by running the ESP-BSP camera display example. This example streams live video from the OV2640 directly to the LCD display, with no inference involved.
+
+Clone the ESP-BSP repository if you have not done so already:
+
+```bash
+git clone https://github.com/espressif/esp-bsp.git
+```
 
 Navigate to the example:
 

@@ -2,7 +2,7 @@
 title: "Edge-AI with ESP32-S3 Workshop: Assignment 1"
 date: 2026-07-07
 showTableOfContents: true
-series: ["EAIVEN"]
+series: ["EDGEAI-VISION"]
 series_order: 2
 showAuthor: false
 ---
@@ -15,16 +15,85 @@ In this assignment you will set up everything you need to build and flash ESP-WH
 
 ## Step 1: Install ESP-IDF
 
-If you have not installed ESP-IDF yet, follow the dedicated setup workshop first. It covers installing VS Code, the ESP-IDF extension, and the ESP-IDF toolchain using EIM step by step:
+The recommended way to install and manage ESP-IDF is through the **ESP-IDF Installation Manager (EIM)**, available in both a graphical and a command-line edition. Download either from the official page:
+
+**[dl.espressif.com/dl/eim/](https://dl.espressif.com/dl/eim/)**
+
+{{< tabs group="os" >}}
+  {{< tab label="macOS" >}}
+
+**CLI** — install with Homebrew:
+
+```bash
+brew tap espressif/eim
+brew install eim
+```
+
+**GUI** — install the desktop application with Homebrew:
+
+```bash
+brew tap espressif/eim
+brew install --cask eim-gui
+```
+
+  {{< /tab >}}
+  {{< tab label="Linux" >}}
+
+**CLI** — install via the Espressif APT repository:
+
+```bash
+echo "deb [trusted=yes] https://dl.espressif.com/dl/eim/apt/ stable main" | sudo tee /etc/apt/sources.list.d/espressif.list
+sudo apt update
+sudo apt install eim-cli
+```
+
+**GUI** — install the full package (includes the CLI):
+
+```bash
+echo "deb [trusted=yes] https://dl.espressif.com/dl/eim/apt/ stable main" | sudo tee /etc/apt/sources.list.d/espressif.list
+sudo apt update
+sudo apt install eim
+```
+
+  {{< /tab >}}
+  {{< tab label="Windows" >}}
+
+**CLI** — install with winget:
+
+```powershell
+winget install Espressif.EIM-CLI
+```
+
+**GUI** — download the Windows installer from the EIM download page and run the setup wizard:
+
+[Download EIM for Windows](https://dl.espressif.com/dl/eim/)
+
+  {{< /tab >}}
+{{< /tabs >}}
+
+Once EIM is installed, use it to install ESP-IDF. Run the following command to install the version required by ESP-WHO:
+
+```bash
+eim install v5.5.3
+```
+
+Alternatively, if you prefer a guided setup, use the interactive wizard:
+
+```bash
+eim wizard
+```
+
+> [!NOTE]
+> You can also install ESP-IDF directly from within **VS Code** using the ESP-IDF extension. Open the Command Palette (`F1` or `Ctrl+Shift+P`), type `Configure ESP-IDF Extension`, and follow the on-screen steps. The extension uses EIM under the hood.
+
+For a full step-by-step walkthrough of the installation process, refer to the dedicated setup workshop:
 
 [ESP-IDF Preliminary Setup Workshop](https://developer.espressif.com/workshops/esp-idf-setup/)
-
-You can install ESP-IDF either through the **EIM CLI** (as described in the setup workshop) or directly from within **VS Code** using the ESP-IDF extension. Both methods use EIM under the hood. To install from VS Code, open the Command Palette (`F1` or `Ctrl+Shift+P`), type `Configure ESP-IDF Extension`, and follow the on-screen steps.
 
 > [!IMPORTANT]
 > ESP-WHO requires **ESP-IDF v5.5.x**. When EIM asks you to select a version, choose `v5.5.3` or the latest available `v5.5.x` release.
 
-Once you are done, come back here and verify that ESP-IDF is active in your terminal:
+Once you are done, verify that ESP-IDF is active in your terminal:
 
 ```bash
 idf.py --version

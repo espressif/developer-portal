@@ -2,7 +2,7 @@
 title: "Edge-AI with ESP32-S3 Workshop: Assignment 4"
 date: 2026-07-07
 showTableOfContents: true
-series: ["EAIVEN"]
+series: ["EDGEAI-VISION"]
 series_order: 5
 showAuthor: false
 ---
@@ -129,6 +129,9 @@ In Assignment 3, the green LED turned on whenever **any** face was detected. In 
 This is a simple model for an access control scenario: the LED indicates "person is known", not just "person is present".
 
 ### Task: Extend FaceDetectLED with recognition awareness
+
+> [!NOTE]
+> You are still working inside the `esp-who/examples/human_face_recognition` project. The LED API used here (`bsp_leds_init()`, `bsp_led_set(BSP_LED_GREEN, ...)`) is compatible with the BSP version pinned by ESP-WHO. See the note in Assignment 3 for details.
 
 Open `main/app_face_detect_led.hpp` from Assignment 3 and update the class:
 

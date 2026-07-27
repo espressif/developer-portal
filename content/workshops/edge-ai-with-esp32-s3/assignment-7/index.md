@@ -2,7 +2,7 @@
 title: "Edge-AI with ESP32-S3 Workshop: Assignment 7"
 date: 2026-07-07
 showTableOfContents: true
-series: ["EAIVEN"]
+series: ["EDGEAI-VISION"]
 series_order: 8
 showAuthor: false
 ---

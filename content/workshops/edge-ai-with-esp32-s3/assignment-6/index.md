@@ -2,7 +2,7 @@
 title: "Edge-AI with ESP32-S3 Workshop: Assignment 6"
 date: 2026-07-07
 showTableOfContents: true
-series: ["EAIVEN"]
+series: ["EDGEAI-VISION"]
 series_order: 7
 showAuthor: false
 ---
@@ -69,6 +69,9 @@ Create a new project from the example using the IDF component manager:
 ```bash
 idf.py create-project-from-example "espressif/esp-dl=3.3.8:yolo11_detect"
 ```
+
+> [!TIP]
+> Version `3.3.8` is the version this workshop was validated against. You can omit the version pin (`"espressif/esp-dl:yolo11_detect"`) to get the latest release, but model names or menuconfig options may differ.
 
 Navigate into the project:
 

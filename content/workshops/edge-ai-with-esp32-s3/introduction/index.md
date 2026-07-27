@@ -2,7 +2,7 @@
 title: "Edge-AI with ESP32-S3 Workshop: Introduction"
 date: 2026-07-07
 showTableOfContents: true
-series: ["EAIVEN"]
+series: ["EDGEAI-VISION"]
 series_order: 1
 showAuthor: false
 ---
@@ -91,7 +91,7 @@ Notable properties:
 
 To help developers with vision applications such as face detection and recognition, pedestrian detection, and QR code recognition, Espressif has developed a framework for image processing that runs on ESP SoCs.
 
-An introduction article called [ESP-WHO: Get started]() was published recently and it is an excellent source for information about ESP-WHO.
+An introduction article called [ESP-WHO: Get started](https://developer.espressif.com/blog/2026/05/esp-who-get-started/) was published recently and it is an excellent source for information about ESP-WHO.
 
 In this workshop, we will go further than the article and deep-dive into vision for other applications.
 
