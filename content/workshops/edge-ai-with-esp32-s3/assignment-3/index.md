@@ -22,7 +22,7 @@ In this assignment you will run the ESP-WHO face recognition example on the ESP3
 
 ESP-WHO uses the `HumanFaceDetect` class from [ESP-DL](https://github.com/espressif/esp-dl/tree/master/models/human_face_detect) as its detection backend. Three model variants are available, selectable via `menuconfig`:
 
-| Model | Type | Input size | Latency on S3 | mAP50-95 |
+| Model | Type | Input size | Latency on ESP32-S3 | mAP50-95 |
 |-------|------|------------|---------------|----------|
 | `MSR_S8_V1` + `MNP_S8_V1` (default) | Two-stage | 120×160, then 48×48 per candidate | ~37 ms | 0.367 |
 | `ESPDET_PICO_224_224_FACE` | One-stage | 224×224 | ~132 ms | 0.504 |
@@ -38,7 +38,7 @@ The default `MSRMNP_S8_V1` runs two lightweight neural networks in sequence:
 
 2. **MNP (Multi-level Non-Maximum suppression and Pooling)** takes each candidate region, crops and resizes it to 48×48, and makes a more precise judgement on whether it actually contains a face. This stage refines the bounding box and filters out false positives.
 
-This cascade design keeps the overall latency low: MSR takes ~33 ms for the whole frame on S3, and MNP adds only ~6 ms per surviving candidate. In practice, when one face is in frame, the total detection time is around 37–40 ms per frame.
+This cascade design keeps the overall latency low: MSR takes ~33 ms for the whole frame on ESP32-S3, and MNP adds only ~6 ms per surviving candidate. In practice, when one face is in frame, the total detection time is around 37–40 ms per frame.
 
 ```mermaid
 graph LR

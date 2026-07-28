@@ -17,7 +17,9 @@ In this assignment you will set up everything you need to build and flash ESP-WH
 
 The recommended way to install and manage ESP-IDF is through the **ESP-IDF Installation Manager (EIM)**, available in both a graphical and a command-line edition. Download either from the official page:
 
-**[dl.espressif.com/dl/eim/](https://dl.espressif.com/dl/eim/)**
+**[Download EIM](https://dl.espressif.com/dl/eim/)**
+
+Alternatevely, you can download directly from the terminal using:
 
 {{< tabs group="os" >}}
   {{< tab label="macOS" >}}
@@ -93,7 +95,36 @@ For a full step-by-step walkthrough of the installation process, refer to the de
 > [!IMPORTANT]
 > ESP-WHO requires **ESP-IDF v5.5.x**. When EIM asks you to select a version, choose `v5.5.3` or the latest available `v5.5.x` release.
 
-Once you are done, verify that ESP-IDF is active in your terminal:
+Once you are done, activate the ESP-IDF environment in your terminal. EIM prints the activation command at the end of the installation — it is different for each OS:
+
+{{< tabs group="os" >}}
+  {{< tab label="macOS / Linux" >}}
+
+```bash
+source ~/.espressif/tools/activate_idf_v5.5.3.sh
+```
+
+  {{< /tab >}}
+  {{< tab label="Windows (PowerShell)" >}}
+
+```powershell
+. $HOME\.espressif\tools\activate_idf_v5.5.3.ps1
+```
+
+  {{< /tab >}}
+  {{< tab label="Windows (cmd)" >}}
+
+```cmd
+%USERPROFILE%\.espressif\tools\activate_idf_v5.5.3.bat
+```
+
+  {{< /tab >}}
+{{< /tabs >}}
+
+> [!TIP]
+> The exact path is shown by EIM at the end of the install. You can also run `eim select` to list all installed versions and their activation scripts.
+
+Once the environment is active, verify it in your terminal:
 
 ```bash
 idf.py --version
@@ -109,9 +140,11 @@ ESP-IDF v5.5.3
 
 ## Step 2: Clone ESP-WHO
 
-Clone the ESP-WHO repository from GitHub:
+Choose a suitable location for the ESP-WHO repository — for example, your home directory or a dedicated `~/esp/` workspace folder. **Do not clone it inside an existing project folder**, as ESP-WHO is a shared framework used across multiple projects in this workshop.
 
 ```bash
+# Example: clone into ~/esp/
+mkdir -p ~/esp && cd ~/esp
 git clone --recursive https://github.com/espressif/esp-who.git
 ```
 

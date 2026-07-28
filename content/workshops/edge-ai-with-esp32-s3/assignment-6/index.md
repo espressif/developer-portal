@@ -52,7 +52,7 @@ The model was trained on **COCO** (Common Objects in Context), a large-scale dat
 
 ESP-DL provides two YOLO11N variants for the ESP32-S3:
 
-| Model | Input | Flash | PSRAM | Latency on S3 | mAP50-95 |
+| Model | Input | Flash | PSRAM | Latency on ESP32-S3 | mAP50-95 |
 |-------|-------|-------|-------|---------------|----------|
 | `YOLO11N_S8_V1` (default) | 640×640 | 8 MB | 8 MB | ~26 s | 0.370 |
 | `YOLO11N_320_S8_V1` | 320×320 | 8 MB | 8 MB | ~6.2 s | 0.276 |
@@ -317,7 +317,7 @@ I (1124) yolo11n: [category: 5, score: 0.939913, x1: 2, y1: 115, x2: 399, y2: 36
 | Model update | Requires full reflash | Copy new file to card |
 | Boot time | Instant (model in flash) | Slightly slower (file read) |
 | PSRAM usage | Low (params stay in flash) | High (params copied to PSRAM) |
-| Suitable for S3-EYE | Yes | No (PSRAM too small) |
+| Suitable for ESP32-S3-EYE | Yes | No (PSRAM too small) |
 | Suitable for P4 | Yes | Yes |
 
 SD card loading is most useful during development (swap models without reflashing) and in production devices where model updates need to be delivered over-the-air or by replacing the card.

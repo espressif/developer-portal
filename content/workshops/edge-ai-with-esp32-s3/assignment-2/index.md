@@ -9,6 +9,8 @@ showAuthor: false
 
 ## Assignment 2: Camera sensor introduction
 
+Every vision AI application starts with a camera. The quality, resolution, and format of the captured frame directly affect what the model sees and how accurately it can reason about it. Before writing a single line of inference code, it is worth understanding what the camera on the ESP32-S3-EYE can do, how it communicates with the chip, and how ESP-WHO turns a raw sensor into a stream of frames ready for AI processing.
+
 Before running any AI model, it is important to understand how the camera works on the ESP32-S3-EYE. In this assignment you will learn about the OV2640 sensor, the key configuration parameters, and how ESP-WHO builds an asynchronous capture pipeline on top of the camera driver. You will then run a live camera preview to verify that everything is working before adding inference in later assignments.
 
 ---
@@ -46,7 +48,7 @@ The OV2640 can output frames in several pixel formats. The format you choose aff
 
 | Format | Description | Used for |
 |--------|-------------|----------|
-| JPEG | Compressed image | Bandwidth-efficient capture (not the default in ESP-WHO on S3) |
+| JPEG | Compressed image | Bandwidth-efficient capture (not the default in ESP-WHO on ESP32-S3) |
 | RGB565 | 16-bit color, 2 bytes per pixel | Default capture format in ESP-WHO; direct display |
 | RGB888 | 24-bit color, 3 bytes per pixel | Model inference input (converted from RGB565 in the pipeline) |
 | YUV422 | Luminance + chrominance | Some detection models |
@@ -84,33 +86,24 @@ The key benefit of this design is that the camera keeps capturing at full speed 
 
 Before adding AI, let's verify that the camera is working correctly by running the ESP-BSP camera display example. This example streams live video from the OV2640 directly to the LCD display, with no inference involved.
 
-Clone the ESP-BSP repository if you have not done so already:
+Create the project using the IDF component manager:
 
 ```bash
-git clone https://github.com/espressif/esp-bsp.git
+idf.py create-project-from-example "espressif/esp32_s3_eye=6.0.0:display_camera_video"
 ```
 
-Navigate to the example:
+This downloads the example from the ESP Component Registry and creates a new `display_camera_video` directory with all dependencies configured. Navigate into it:
 
 ```bash
-cd esp-bsp/examples/display_camera_video
+cd display_camera_video
 ```
 
-Configure and build for the ESP32-S3-EYE:
+Set the target, build, and flash:
 
 ```bash
-idf.py -DSDKCONFIG_DEFAULTS=sdkconfig.bsp.esp32_s3_eye set-target esp32s3
-idf.py build
+idf.py set-target esp32s3
+idf.py build flash monitor
 ```
-
-Flash and monitor:
-
-```bash
-idf.py -p <PORT> flash monitor
-```
-
-> [!NOTE]
-> Replace `<PORT>` with the serial port your ESP32-S3-EYE is connected to. On Linux it is typically `/dev/ttyUSB0` or `/dev/ttyACM0`, on macOS `/dev/cu.usbmodem*`, and on Windows `COM3` or similar.
 
 You should see a live camera feed on the 1.3" LCD display. Point the camera at different objects and check that the image is clear and well-exposed.
 
@@ -146,13 +139,125 @@ For ESP-WHO examples, `fb_count = 2` is the default to maximize throughput.
 
 ---
 
+## Step 3: Getting a camera frame
+
+Once the camera is running, frames are retrieved using the V4L2 **dequeue / requeue** cycle. The driver manages a ring of frame buffers and signals when a new frame is ready.
+
+### Where frames are stored
+
+All frame buffers are allocated in **PSRAM** (the 8 MB Octal PSRAM on the ESP32-S3-EYE). The internal SRAM (512 KB) is far too small — a single QVGA RGB565 frame already occupies 320 × 240 × 2 = **150 KB**. With two buffers at HVGA, that is approximately 600 KB in PSRAM. The DMA engine writes each captured frame directly into PSRAM, then the V4L2 driver marks it as ready for the application.
+
+### The dequeue / requeue cycle
+
+The complete flow to read a frame from the V4L2 camera driver looks like this:
+
+```c
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <sys/mmap.h>
+#include <linux/videodev2.h>
+#include "esp_log.h"
+
+static const char *TAG = "camera";
+
+// 1. Open the DVP camera device (registered by BSP on initialisation)
+int fd = open("/dev/video2", O_RDWR);
+assert(fd >= 0);
+
+// 2. Request two memory-mapped buffers from the driver
+struct v4l2_requestbuffers req = {
+    .count  = 2,
+    .type   = V4L2_BUF_TYPE_VIDEO_CAPTURE,
+    .memory = V4L2_MEMORY_MMAP,
+};
+ioctl(fd, VIDIOC_REQBUFS, &req);
+
+// 3. Map each buffer into the application address space and enqueue it
+void *buf_ptrs[2];
+for (int i = 0; i < 2; i++) {
+    struct v4l2_buffer buf = {
+        .index  = i,
+        .type   = V4L2_BUF_TYPE_VIDEO_CAPTURE,
+        .memory = V4L2_MEMORY_MMAP,
+    };
+    ioctl(fd, VIDIOC_QUERYBUF, &buf);
+
+    // mmap maps the driver-allocated PSRAM buffer into the application's
+    // virtual address space — no copy, zero overhead
+    buf_ptrs[i] = mmap(NULL, buf.length, PROT_READ | PROT_WRITE,
+                        MAP_SHARED, fd, buf.m.offset);
+
+    ioctl(fd, VIDIOC_QBUF, &buf);   // hand the buffer back to the driver
+}
+
+// 4. Start the capture stream
+int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+ioctl(fd, VIDIOC_STREAMON, &type);
+
+// 5. Capture loop: dequeue → read → requeue
+while (true) {
+    struct v4l2_buffer buf = {
+        .type   = V4L2_BUF_TYPE_VIDEO_CAPTURE,
+        .memory = V4L2_MEMORY_MMAP,
+    };
+
+    // Block until the driver has a completed frame ready
+    ioctl(fd, VIDIOC_DQBUF, &buf);
+
+    // buf.index     → which buffer slot (0 or 1)
+    // buf.bytesused → actual number of bytes written by the sensor
+    uint8_t *frame = (uint8_t *)buf_ptrs[buf.index];
+    size_t   size  = buf.bytesused;
+
+    // The frame is now in PSRAM at `frame`, RGB565, size bytes long.
+    // Example: read the first pixel (top-left corner)
+    uint16_t pixel_rgb565 = ((uint16_t)frame[0] << 8) | frame[1];
+    ESP_LOGI(TAG, "Top-left pixel (RGB565): 0x%04X  frame size: %u bytes",
+             pixel_rgb565, size);
+
+    // Return the buffer to the driver for the next capture
+    ioctl(fd, VIDIOC_QBUF, &buf);
+}
+```
+
+The key points:
+
+- **`VIDIOC_REQBUFS`** allocates the frame buffers in the driver. The driver places them in PSRAM automatically on the ESP32-S3-EYE.
+- **`mmap`** maps each PSRAM buffer directly into the application's address space. There is no copy — `frame` is a pointer straight into PSRAM.
+- **`VIDIOC_DQBUF`** blocks until a new frame is available, then returns its index and size.
+- **`VIDIOC_QBUF`** hands the buffer back so the driver can fill it with the next frame. If you forget to requeue, the driver stalls.
+
+> [!NOTE]
+> In the `display_camera_video` example, all of this setup is handled by the `app_video` helper functions inside `main/app_video.c`. You do not need to write this boilerplate yourself — it is shown here to explain what is happening underneath the helper API.
+
+The application must requeue every buffer promptly. If all buffers are held by the application, the driver stalls and no new frames are captured.
+
+### Is the frame format ready for ESP-WHO?
+
+Not directly. The frame captured here is in **RGB565** (16-bit, 2 bytes per pixel). ESP-DL inference models expect **RGB888** (24-bit, 3 bytes per pixel). When you move to ESP-WHO in Assignment 3, the framework handles this conversion internally — `WhoDetect` converts each RGB565 frame to RGB888 before passing it to the model. For the display-only example in this assignment, the RGB565 frame is sent straight to the ST7789 LCD, which natively accepts RGB565 and requires no conversion.
+
+| Destination | Accepts RGB565 directly? | Notes |
+|-------------|:------------------------:|-------|
+| ST7789 LCD | Yes | Native format, no conversion needed |
+| ESP-DL model | No | Requires RGB888; ESP-WHO converts internally |
+
+---
+
 ## Exercise: Match the camera resolution to the LCD
 
 The LCD on the ESP32-S3-EYE is **240x240 pixels**. The default camera output in the BSP example is typically larger (QVGA 320x240 or HVGA 480x320), so the example scales the image to fit using aspect-ratio fitting. In this exercise, you will explicitly set the capture resolution closer to the LCD size to reduce memory usage and DVP bus traffic.
 
 ### Background
 
-The example uses the V4L2 API to configure the camera. Resolution is set by calling `VIDIOC_S_FMT` with the desired width and height. Open `main/app_video.c` and look at the `app_video_open()` function:
+The example uses the V4L2 API to configure the camera. Resolution is set by calling `VIDIOC_S_FMT` with the desired width and height.
+
+`ioctl(fd, VIDIOC_S_FMT, &format)` is a standard POSIX system call used to control device drivers:
+
+- **`fd`** — the file descriptor returned by `open("/dev/video2", O_RDWR)`. It represents the open camera device.
+- **`VIDIOC_S_FMT`** — the request code. `S` stands for *set*; this tells the driver to apply the format described in the third argument. The complementary call `VIDIOC_G_FMT` (*get*) reads the current format without changing it.
+- **`&format`** — a pointer to a `struct v4l2_format` that specifies the desired capture type, pixel format, width, and height. The driver may round the values to the nearest supported size and writes the negotiated result back into the same struct.
+
+Open `main/app_video.c` and look at the `app_video_open()` function:
 
 ```c
 // Current: only changes pixel format, keeps sensor-default resolution
@@ -219,6 +324,8 @@ In this assignment you:
 
 - Learned about the OV2640 sensor capabilities and the resolution/format trade-offs for AI applications
 - Understood how ESP-WHO's node-based asynchronous pipeline separates capture, decoding, and inference
+- Learned how the V4L2 dequeue/requeue cycle works and that frame buffers are stored in PSRAM
+- Understood why RGB565 frames from the camera are not directly ready for inference and how ESP-WHO bridges that gap
 - Ran a live camera preview on the ESP32-S3-EYE to verify the hardware is working
 
 ## Next step

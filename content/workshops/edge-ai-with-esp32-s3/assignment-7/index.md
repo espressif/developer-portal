@@ -19,19 +19,19 @@ All models that Espressif provides for ESP devices are published as open-source 
 
 | Model | Task | Supported chips | Registry |
 |-------|------|-----------------|----------|
-| [COCO Detect](https://github.com/espressif/esp-dl/tree/master/models/coco_detect) | Object detection — 80 COCO classes (YOLO11n) | ESP32-S3, S31, P4 | `espressif/coco_detect` |
-| [COCO Pose](https://github.com/espressif/esp-dl/tree/master/models/coco_pose) | Human pose estimation — 17 keypoints (YOLO11n-Pose) | ESP32-S3, S31, P4 | `espressif/coco_pose` |
-| [COCO Seg](https://github.com/espressif/esp-dl/tree/master/models/coco_seg) | Instance segmentation — 80 COCO classes (YOLO11n-Seg) | ESP32-S3, S31, P4 | `espressif/coco_seg` |
-| [YOLO26](https://github.com/espressif/esp-dl/tree/master/models/yolo26) | Universal NMS-Free object detection — 80 COCO classes | ESP32-S3, S31, P4 | `espressif/yolo26` |
-| [Human Face Detect](https://github.com/espressif/esp-dl/tree/master/models/human_face_detect) | Face detection with landmarks (MSR/MNP/ESPDet) | ESP32-S3, S31, P4 | `espressif/human_face_detect` |
-| [Human Face Recognition](https://github.com/espressif/esp-dl/tree/master/models/human_face_recognition) | Face feature extraction and ID matching | ESP32-S3, S31, P4 | `espressif/human_face_recognition` |
-| [Hand Detect](https://github.com/espressif/esp-dl/tree/master/models/hand_detect) | Real-time hand detection | ESP32-S3, S31, P4 | `espressif/hand_detect` |
-| [Hand Gesture](https://github.com/espressif/esp-dl/tree/master/models/hand_gesture_recognition) | 10-class hand gesture classification | ESP32-S3, S31, P4 | `espressif/hand_gesture_recognition` |
-| [Cat Detect](https://github.com/espressif/esp-dl/tree/master/models/cat_detect) | Lightweight cat detection (ESPDet-Pico) | ESP32-S3, S31, P4 | `espressif/cat_detect` |
-| [Dog Detect](https://github.com/espressif/esp-dl/tree/master/models/dog_detect) | Lightweight dog detection (ESPDet-Pico) | ESP32-S3, S31, P4 | `espressif/dog_detect` |
-| [Pedestrian Detect](https://github.com/espressif/esp-dl/tree/master/models/pedestrian_detect) | Pedestrian detection for surveillance | ESP32-S3, S31, P4 | `espressif/pedestrian_detect` |
-| [Imagenet Cls](https://github.com/espressif/esp-dl/tree/master/models/imagenet_cls) | MobileNetV2 image classification — 1000 classes | ESP32-S3, S31, P4 | `espressif/imagenet_cls` |
-| [Speaker Verification](https://github.com/espressif/esp-dl/tree/master/models/speaker_verification) | Voiceprint recognition and verification | ESP32-S31, P4 | `espressif/speaker_verification` |
+| [COCO Detect](https://github.com/espressif/esp-dl/tree/master/models/coco_detect) | Object detection — 80 COCO classes (YOLO11n) | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/coco_detect` |
+| [COCO Pose](https://github.com/espressif/esp-dl/tree/master/models/coco_pose) | Human pose estimation — 17 keypoints (YOLO11n-Pose) | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/coco_pose` |
+| [COCO Seg](https://github.com/espressif/esp-dl/tree/master/models/coco_seg) | Instance segmentation — 80 COCO classes (YOLO11n-Seg) | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/coco_seg` |
+| [YOLO26](https://github.com/espressif/esp-dl/tree/master/models/yolo26) | Universal NMS-Free object detection — 80 COCO classes | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/yolo26` |
+| [Human Face Detect](https://github.com/espressif/esp-dl/tree/master/models/human_face_detect) | Face detection with landmarks (MSR/MNP/ESPDet) | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/human_face_detect` |
+| [Human Face Recognition](https://github.com/espressif/esp-dl/tree/master/models/human_face_recognition) | Face feature extraction and ID matching | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/human_face_recognition` |
+| [Hand Detect](https://github.com/espressif/esp-dl/tree/master/models/hand_detect) | Real-time hand detection | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/hand_detect` |
+| [Hand Gesture](https://github.com/espressif/esp-dl/tree/master/models/hand_gesture_recognition) | 10-class hand gesture classification | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/hand_gesture_recognition` |
+| [Cat Detect](https://github.com/espressif/esp-dl/tree/master/models/cat_detect) | Lightweight cat detection (ESPDet-Pico) | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/cat_detect` |
+| [Dog Detect](https://github.com/espressif/esp-dl/tree/master/models/dog_detect) | Lightweight dog detection (ESPDet-Pico) | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/dog_detect` |
+| [Pedestrian Detect](https://github.com/espressif/esp-dl/tree/master/models/pedestrian_detect) | Pedestrian detection for surveillance | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/pedestrian_detect` |
+| [Imagenet Cls](https://github.com/espressif/esp-dl/tree/master/models/imagenet_cls) | MobileNetV2 image classification — 1000 classes | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/imagenet_cls` |
+| [Speaker Verification](https://github.com/espressif/esp-dl/tree/master/models/speaker_verification) | Voiceprint recognition and verification | ESP32-S31, ESP32-P4 | `espressif/speaker_verification` |
 | [Motion Detect](https://github.com/espressif/esp-dl/tree/master/models/motion_detect) | Frame-to-frame motion change detection | All ESP32 | `espressif/motion_detect` |
 | [Color Detect](https://github.com/espressif/esp-dl/tree/master/models/color_detect) | Color-based object tracking | All ESP32 | `espressif/color_detect` |
 

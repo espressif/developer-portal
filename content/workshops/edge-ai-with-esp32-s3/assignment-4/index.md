@@ -38,7 +38,7 @@ graph LR
 
 ESP-WHO uses the `HumanFaceFeat` class from [ESP-DL](https://github.com/espressif/esp-dl/tree/master/models/human_face_recognition) for feature extraction. Two model variants are available:
 
-| Model | Params | GFLOPs | Latency on S3 | TAR@FAR=1E-4 on IJB-C |
+| Model | Params | GFLOPs | Latency on ESP32-S3 | TAR@FAR=1E-4 on IJB-C |
 |-------|--------|--------|---------------|------------------------|
 | `MFN_S8_V1` (default) | 1.2 M | 0.46 | ~255 ms | 90.03% |
 | `MBF_S8_V1` | 3.4 M | 0.90 | ~1073 ms | 93.94% |

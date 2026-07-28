@@ -47,7 +47,7 @@ The model was trained on gestures selected from the [HaGRID](https://github.com/
 
 The gesture classifier uses a **MobileNetV2-0.5** backbone — a lightweight convolutional neural network designed for mobile and embedded inference. The `0.5` refers to the width multiplier, which halves the number of channels throughout the network compared to the full MobileNetV2. This significantly reduces the model size and computation while retaining reasonable accuracy for a constrained set of gesture classes.
 
-| Model | Input | Latency on S3 | Latency on P4 |
+| Model | Input | Latency on ESP32-S3 | Latency on ESP32-P4 |
 |-------|-------|---------------|---------------|
 | `MOBILENETV2_0_5_S8_V1` | 128×128×3 | ~118 ms | ~28 ms |
 
@@ -392,7 +392,7 @@ I (4263) hand_gesture_recognition: gesture: five, score: 0.841
 > If no gesture is printed, the hand detector may not be finding the hand. Make sure your hand fills a good portion of the frame and is well-lit. Moving closer to the camera usually helps.
 
 > [!NOTE]
-> The `sw_decode_jpeg` function decodes the JPEG in software on the ESP32-S3 CPU. This takes around 30–50 ms per frame at QVGA resolution. Combined with ~120 ms for inference, the effective throughput is roughly 2–3 frames per second on the S3. This is enough to demonstrate real-time gesture detection without requiring any hardware accelerator.
+> The `sw_decode_jpeg` function decodes the JPEG in software on the ESP32-S3 CPU. This takes around 30–50 ms per frame at QVGA resolution. Combined with ~120 ms for inference, the effective throughput is roughly 2–3 frames per second on the ESP32-S3. This is enough to demonstrate real-time gesture detection without requiring any hardware accelerator.
 
 ---
 

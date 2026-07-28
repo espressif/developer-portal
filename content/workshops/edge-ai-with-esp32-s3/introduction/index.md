@@ -48,11 +48,10 @@ Espressif offers several SoCs purpose-built for edge AI workloads. The table bel
 | 802.15.4 | No | No | Thread + Zigbee |
 | Hardware JPEG | No | Yes | Yes |
 | 2D accelerator (PPA) | No | Yes | Yes |
-| Inference speedup vs ESP32-S3 | 1x (baseline) | ~2.7-3x | ~1.3x (estimated) |
 
 #### ESP32-S3
 
-The ESP32-S3 is the chip used in this workshop, via the ESP32-S3-EYE development board. It was designed with AI workloads in mind, adding **128-bit SIMD vector instructions** to the Xtensa LX7 core. These instructions accelerate operations common in neural network inference, such as multiply-accumulate (MAC), dot products, and convolution. They are the hardware foundation that makes frameworks like ESP-DL practical on a microcontroller.
+The ESP32-S3 is the chip used in this workshop, via the ESP32-S3-EYE development board. It was designed with AI workloads in mind, adding **128-bit SIMD vector instructions** to the Xtensa LX7 core (see PIE). These instructions accelerate operations common in neural network inference, such as multiply-accumulate (MAC), dot products, and convolution. They are the hardware foundation that makes frameworks like ESP-DL practical on a microcontroller.
 
 Key properties for vision AI:
 
@@ -150,13 +149,13 @@ graph TD
 | Component | Source | Role |
 |-----------|--------|------|
 | `esp-dl` | [espressif/esp-dl](https://github.com/espressif/esp-dl) | Neural network inference engine and model zoo |
-| `esp32_s3_eye` BSP | [espressif/esp-bsp](https://github.com/espressif/esp-bsp) | Board hardware abstraction |
+| `esp32_s3_eye BSP` | [espressif/esp-bsp](https://github.com/espressif/esp-bsp) | Board hardware abstraction |
 | `esp_video` | [espressif/esp-video-components](https://github.com/espressif/esp-video-components) | Camera driver (OV2640 via DVP) |
 | `esp_lvgl_port` | [espressif/esp_lvgl_port](https://components.espressif.com/components/espressif/esp_lvgl_port) | LVGL integration for the ST7789 LCD |
 | `button` | [espressif/button](https://components.espressif.com/components/espressif/button) | Function button driver |
 | `esp_codec_dev` | [espressif/esp_codec_dev](https://components.espressif.com/components/espressif/esp_codec_dev) | MEMS microphone driver |
 | `led_indicator` | [espressif/led_indicator](https://components.espressif.com/components/espressif/led_indicator) | LED status indicator |
-| ESP-IDF | [espressif/esp-idf](https://github.com/espressif/esp-idf) | Foundation: FreeRTOS, peripheral drivers, HAL |
+| `ESP-IDF` | [espressif/esp-idf](https://github.com/espressif/esp-idf) | Foundation: FreeRTOS, peripheral drivers, HAL |
 
 #### ESP-DL
 
@@ -179,12 +178,6 @@ The typical ESP-DL workflow is:
 
 ESP-DL ships with a **model zoo** of pre-trained and pre-quantized models ready to deploy, including face detection, face recognition, hand gesture recognition, and YOLO11-based object detection. All of these are used in this workshop.
 
-> [!TIP]
-> ESP-DL requires ESP-IDF `release/v5.3` or later. Add it to your project with:
-> ```bash
-> idf.py add-dependency "espressif/esp-dl"
-> ```
-
 {{< github repo="espressif/esp-dl" >}}
 
 #### ESP-BSP
@@ -199,7 +192,7 @@ To add the BSP to your project, run:
 idf.py add-dependency "espressif/esp32_s3_eye"
 ```
 
-##### Capabilities
+**Capabilities**
 
 The table below lists the hardware capabilities exposed by the ESP32-S3-EYE BSP and the underlying components used:
 
@@ -216,10 +209,7 @@ The table below lists the hardware capabilities exposed by the ESP32-S3-EYE BSP 
 | Battery | No | | |
 | IMU | No | | |
 
-> [!NOTE]
-> Use the capability macros (e.g. `BSP_CAPS_SDCARD`) to conditionally compile code for features that may not be present on all boards.
-
-##### Basic usage
+**Basic usage**
 
 The BSP handles peripheral initialization through a clean API. Below are some common patterns:
 
@@ -252,7 +242,7 @@ bsp_sdcard_mount();
 bsp_sdcard_unmount();
 ```
 
-##### Compatible examples
+**Compatible examples**
 
 | Example | Description |
 |---------|-------------|
@@ -283,16 +273,13 @@ For the ESP32-S3-EYE, `esp_video` operates over the DVP interface with the OV264
 
 #### ESP32-S3-EYE
 
-The [ESP32-S3-EYE](https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP32-S3-EYE_Getting_Started_Guide.md) is a small-sized AI development board produced by Espressif. It is based on the ESP32-S3 SoC and ESP-WHO, featuring a 2-megapixel camera, a 1.3" LCD display, and a digital microphone for image recognition and audio processing.
+The [ESP32-S3-EYE](https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP32-S3-EYE_Getting_Started_Guide.md) is a small-sized AI development board produced by Espressif. It is based on the ESP32-S3 SoC, featuring a 2-megapixel camera, a 1.3" LCD display, and a digital microphone for image recognition and audio processing.
 
 {{< figure
     src="assets/esp32-s3-eye-isometric.webp"
     alt="ESP32-S3-EYE development board"
     caption="ESP32-S3-EYE development board"
     >}}
-
-> [!NOTE]
-> ESP32-S3-EYE has reached End of Life (EOL). This guide uses it for reference. For new designs, consider other Espressif AI development boards.
 
 ##### Key features
 
@@ -309,9 +296,9 @@ The [ESP32-S3-EYE](https://github.com/espressif/esp-who/blob/master/docs/en/get-
 | USB | Micro-USB (power + USB Serial/JTAG) |
 | Battery | Optional Li-ion via soldering points (with charger IC) |
 
-##### Block diagram
+**Block diagram**
 
-The block diagram below shows the main components of the ESP32-S3-EYE-MB main board (left) and the ESP32-S3-EYE-SUB sub board (right).
+The block diagram below shows the main components of the ESP32-S3-EYE-MB main board v2.2 (left) and the ESP32-S3-EYE-SUB sub board (right).
 
 {{< figure
     src="assets/esp32-s3-eye-block-diagram.webp"
@@ -319,7 +306,7 @@ The block diagram below shows the main components of the ESP32-S3-EYE-MB main bo
     caption="ESP32-S3-EYE block diagram"
     >}}
 
-##### Main board components (ESP32-S3-EYE-MB)
+**Main board components (ESP32-S3-EYE-MB)**
 
 {{< figure
     src="assets/esp32-s3-eye-mb-annotated.webp"
@@ -346,7 +333,7 @@ The block diagram below shows the main components of the ESP32-S3-EYE-MB main bo
 | 15 | Battery Red LED | Charging status indicator |
 | 16 | Accelerometer | QMA7981, three-axis, for screen rotation |
 
-##### Sub board components (ESP32-S3-EYE-SUB)
+**Sub board components (ESP32-S3-EYE-SUB)**
 
 {{< figure
     src="assets/esp32-s3-eye-sub-annotated.webp"
