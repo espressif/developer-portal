@@ -86,7 +86,7 @@ jobs:
           echo "Deployment target for PR ${PR_NUMBER}:"
           grep 'url = ' config/_default/hugo.toml
 
-      - name: Check out bootstrap script from default branch
+      - name: Check out CI scripts from default branch
         uses: actions/checkout@v7.0.1
         with:
           ref: ${{ github.event.repository.default_branch }}
@@ -97,7 +97,7 @@ jobs:
       - name: Install Hugo
         run: bash upstream-ci/tools/ci/install-hugo.sh
 
-      - name: Bootstrap PR preview directory from prod-copy when empty
+      - name: Sync persist data for PR preview
         env:
           PREVIEW_AWS_BUCKET_NAME: ${{ secrets.PREVIEW_AWS_BUCKET_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

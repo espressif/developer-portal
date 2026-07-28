@@ -1,42 +1,33 @@
 #!/usr/bin/env bash
-# If s3://$PREVIEW_AWS_BUCKET_NAME/pr$PR_NUMBER/ is empty, copy from prod-copy/ so
-# hugo deploy can do an incremental update. Requires AWS CLI credentials in env.
+# Copy prod-copy/persist/ to pr$PR_NUMBER/persist/ for PR previews.
+# Hugo deploy excludes persist/**; dynamic JSON and assets live under this prefix.
+# Requires AWS CLI credentials in env.
 set -euo pipefail
 
 : "${PR_NUMBER:?PR_NUMBER must be set}"
 : "${PREVIEW_AWS_BUCKET_NAME:?PREVIEW_AWS_BUCKET_NAME must be set}"
 
-PR_PREFIX="pr${PR_NUMBER}/"
+PERSIST_SRC="prod-copy/persist/"
+PERSIST_DEST="pr${PR_NUMBER}/persist/"
 
-KEY_COUNT="$(aws s3api list-objects-v2 \
+SRC_COUNT="$(aws s3api list-objects-v2 \
   --bucket "$PREVIEW_AWS_BUCKET_NAME" \
-  --prefix "$PR_PREFIX" \
+  --prefix "$PERSIST_SRC" \
   --max-keys 1 \
   --query 'KeyCount' \
   --output text)"
 
-if [ "${KEY_COUNT:-0}" != "0" ] && [ -n "${KEY_COUNT}" ] && [ "${KEY_COUNT}" != "None" ]; then
-  echo "Prefix s3://${PREVIEW_AWS_BUCKET_NAME}/${PR_PREFIX} already has objects; skipping prod-copy bootstrap."
-  exit 0
-fi
-
-echo "Prefix s3://${PREVIEW_AWS_BUCKET_NAME}/${PR_PREFIX} is empty; bootstrapping from prod-copy/."
-
-PC_COUNT="$(aws s3api list-objects-v2 \
-  --bucket "$PREVIEW_AWS_BUCKET_NAME" \
-  --prefix "prod-copy/" \
-  --max-keys 1 \
-  --query 'KeyCount' \
-  --output text)"
-
-if [ "${PC_COUNT:-0}" = "0" ] || [ -z "${PC_COUNT}" ] || [ "${PC_COUNT}" = "None" ]; then
-  echo "prod-copy/ is empty or missing; cannot bootstrap PR preview. Run the cron production deploy to populate prod-copy/ first."
+if [ "${SRC_COUNT:-0}" = "0" ] || [ -z "${SRC_COUNT}" ] || [ "${SRC_COUNT}" = "None" ]; then
+  echo "prod-copy/persist/ is empty or missing; cannot sync persist data for PR preview."
+  echo "Run the cron production deploy to populate prod-copy/ first."
   exit 1
 fi
 
+echo "Syncing persist data: ${PERSIST_SRC} → ${PERSIST_DEST}"
+
 aws s3 sync \
-  "s3://${PREVIEW_AWS_BUCKET_NAME}/prod-copy/" \
-  "s3://${PREVIEW_AWS_BUCKET_NAME}/${PR_PREFIX}" \
+  "s3://${PREVIEW_AWS_BUCKET_NAME}/${PERSIST_SRC}" \
+  "s3://${PREVIEW_AWS_BUCKET_NAME}/${PERSIST_DEST}" \
   --only-show-errors
 
-echo "Bootstrap sync from prod-copy/ complete."
+echo "Persist sync complete."
