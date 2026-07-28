@@ -1,6 +1,7 @@
 ---
 title: "Matter"
 date: 2021-11-30
+lastmod: 2026-07-28
 showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
@@ -19,19 +20,32 @@ Matter is an initiative of the [Connectivity Standards Alliance](http://csa-iot.
 
 ## Articles
 
-The following articles talk about Matter
+### Espressif Matter Series
+
+Conceptual articles explaining how Matter works.
 
 - [Announcing Matter](/blog/announcing-matter-previously-chip-on-esp32)
-- Espressif Matter Series #1: [What does Matter mean to you?](/blog/what-does-matter-mean-to-you)
-- Espressif Matter Series #2: [Matter: Clusters, Attributes, Commands](/blog/matter-clusters-attributes-commands)
-- Espressif Matter Series #3: [Matter: Device-to-Device Automations](/blog/matter-device-to-device-automations)
-- Espressif Matter Series #4: [Matter: Bridge for non-Matter Devices](/blog/matter-bridge-for-non-matter-devices)
-- Espressif Matter Series #5: [Matter: Thread Border Router](/blog/matter-thread-border-router-in-matter)
-- Espressif Matter Series #6: [Matter: Multi-Admin, Identifiers, and Fabrics](/blog/matter-multi-admin-identifiers-and-fabrics)
-- Espressif Matter Series #7: [Matter Security Model](/blog/matter-security-model)
-- Espressif Matter Series #8: [Matter: Distributed Compliance Ledger](/blog/matter-distributed-compliance-ledger-dcl)
-- Espressif Matter Series #9: [Accelerating Matter Device Manufacturing](/blog/accelerating-matter-device-manufacturing)
-- Espressif Matter Series #10: [Matter and Certificate Revocation](/blog/matter-and-certificate-revocation)
+- [What does Matter mean to you?](/blog/what-does-matter-mean-to-you)
+- [Matter: Clusters, Attributes, Commands](/blog/matter-clusters-attributes-commands)
+- [Matter: Device-to-Device Automations](/blog/matter-device-to-device-automations)
+- [Matter: Bridge for non-Matter Devices](/blog/matter-bridge-for-non-matter-devices)
+- [Matter: Thread Border Router](/blog/matter-thread-border-router-in-matter)
+- [Matter: Multi-Admin, Identifiers, and Fabrics](/blog/matter-multi-admin-identifiers-and-fabrics)
+- [Matter Security Model](/blog/matter-security-model)
+- [Matter: Distributed Compliance Ledger](/blog/matter-distributed-compliance-ledger-dcl)
+- [Matter and Certificate Revocation](/blog/matter-and-certificate-revocation)
+- [Building Hardware-Enforced Trust into Matter Devices with ESP-TEE](/blog/2025/09/matter_w_esp_tee_c6)
+- [Introducing Matter Cameras](/blog/2026/01/introducing-esp-matter-camera)
+
+### Espressif Matter Services
+
+Espressif services and tooling for building and shipping Matter devices.
+
+- [Accelerating Matter Device Manufacturing](/blog/accelerating-matter-device-manufacturing)
+- [Matter: Improvements to Espressif DAC Provisioning Service](/blog/matter-improvements-to-espressif-dac-provisioning-service)
+- [Announcing ESP ZeroCode ExL Module](/blog/esp-zerocode-exl-module-powered-by-aws-iot-expresslink-simplifying-matter-compatible)
+- [Introducing ESP LowCode Matter: Simplified Device Development](/blog/2025/02/introducing-esp-lowcode-matter)
+- [RED-DA Compliant Matter devices with ESP-ZeroCode](/blog/2025/12/red_da_matter_esp_zerocode)
 
 ## Espressif’s Matter Demos
 
