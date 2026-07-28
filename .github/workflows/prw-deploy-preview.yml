@@ -36,31 +36,27 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Validate artifact metadata against workflow run
+      - name: Read PR metadata from artifact
         env:
           WR_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
-          WR_PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
         run: |
           set -euo pipefail
           PR_NUMBER="$(cat pr_num.txt)"
+          PR_URL="$(cat pr_url.txt)"
+          PR_REF="$(cat pr_head_ref.txt)"
           PR_SHA="$(cat pr_head_sha.txt)"
-          if [ -z "${WR_PR_NUMBER:-}" ]; then
-            echo "workflow_run.pull_requests[0].number is empty; refusing to deploy."
-            exit 1
-          fi
-          if [ "$PR_NUMBER" != "$WR_PR_NUMBER" ]; then
-            echo "PR number mismatch: artifact=$PR_NUMBER workflow_run=$WR_PR_NUMBER"
-            exit 1
-          fi
+
           if [ "$PR_SHA" != "$WR_HEAD_SHA" ]; then
             echo "Head SHA mismatch: artifact=$PR_SHA workflow_run=$WR_HEAD_SHA"
             exit 1
           fi
-          PR_URL="$(cat pr_url.txt)"
+
           echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_ENV"
           echo "HUGO_BASEURL=${PREVIEW_BASE}pr${PR_NUMBER}/" >> "$GITHUB_ENV"
           echo "PR_URL=$PR_URL" >> "$GITHUB_ENV"
           echo "PR_LINK_TEXT=${PR_URL#https://}" >> "$GITHUB_ENV"
+          echo "PR_REF=$PR_REF" >> "$GITHUB_ENV"
+          echo "PR_SHA=$PR_SHA" >> "$GITHUB_ENV"
 
       - name: Download built site
         uses: actions/download-artifact@v8.0.1
