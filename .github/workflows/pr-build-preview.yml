@@ -1,0 +1,84 @@
+name: Build preview for PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+env:
+  PREVIEW_BASE: https://preview-developer.espressif.com/
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out PR head with submodules
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Collect PR metadata
+        env:
+          PR_NUM: ${{ github.event.pull_request.number }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          printf '%s\n' "$PR_NUM" > pr_num.txt
+          printf '%s\n' "$PR_URL" > pr_url.txt
+          printf '%s\n' "$PR_HEAD_REF" > pr_head_ref.txt
+          printf '%s\n' "$PR_HEAD_SHA" > pr_head_sha.txt
+
+      - name: Add preview banner to website
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_LINK_TEXT: ${{ github.event.pull_request.html_url }}
+        run: |
+          set -euo pipefail
+          PR_LINK_TEXT="${PR_LINK_TEXT#https://}"
+          PREVIEW_HTML="<p style='color: rgba(var(--color-primary-600), 1); text-align: center;'>
+            This site is a preview for <a href='${PR_URL}' style='text-decoration: underline;'>${PR_LINK_TEXT}</a>
+          </p>"
+          echo "$PREVIEW_HTML" >> layouts/partials/header/basic.html
+
+      - name: Install Hugo
+        run: bash tools/ci/install-hugo.sh
+
+      - name: Build website with Hugo
+        env:
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: preview
+          HUGO_ENV: preview
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          hugo \
+            --environment preview \
+            --baseURL "${PREVIEW_BASE}pr${PR_NUMBER}/" \
+            --gc \
+            --minify
+
+      - name: Upload PR metadata
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: pr-metadata
+          path: |
+            pr_num.txt
+            pr_url.txt
+            pr_head_ref.txt
+            pr_head_sha.txt
+          retention-days: 3
+
+      - name: Upload built site
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: hugo-preview-public
+          path: public/
+          retention-days: 3
+          if-no-files-found: error
