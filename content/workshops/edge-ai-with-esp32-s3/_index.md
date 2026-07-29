@@ -22,9 +22,9 @@ If you have met the [prerequisites](#prerequisites), we can start with the indiv
 
 - [Introduction: Introduction to ESP-WHO](introduction)
 - [Assignment 1: Install ESP-IDF and ESP-WHO](assignment-1)
-- [Assignment 2: Camera sensor introduction](assignment-2)
-- [Assignment 3: ESP-WHO - Working with face detection](assignment-3)
-- [Assignment 4: ESP-WHO - Face recognition](assignment-4)
+- [Assignment 2: ESP-WHO - Working with face detection](assignment-2)
+- [Assignment 3: ESP-WHO - Face recognition](assignment-3)
+- [Assignment 4: Camera sensor introduction](assignment-4)
 - [Assignment 5: ESP-DL - Hand gesture recognition](assignment-5)
 - [Assignment 6: ESP-DL - Object detection](assignment-6)
 - [Assignment 7: Extra](assignment-7)
@@ -41,7 +41,7 @@ Required hardware:
 
 Required software:
 
-- ESP-IDF v5.5.x (compatible with ESP-WHO) — installed via EIM (see Assignment 1)
+- ESP-IDF v5.5.4 (compatible with ESP-WHO) — installed via EIM (see Assignment 1)
 
 Optional software:
 

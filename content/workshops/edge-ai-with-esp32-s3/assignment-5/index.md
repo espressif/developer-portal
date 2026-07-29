@@ -9,7 +9,7 @@ showAuthor: false
 
 ## Assignment 5: Hand gesture recognition with ESP-DL
 
-In the previous assignments you used **ESP-WHO**, which provides a high-level pipeline for camera capture, face detection, and recognition. In this assignment you will work with **ESP-DL directly**, without the ESP-WHO framework, to understand how to use a model as a standalone component in your own application.
+In the previous assignments you used **ESP-WHO** for face detection and recognition, and explored the camera pipeline hands-on in Assignment 4. In this assignment you will work with **ESP-DL directly**, without the ESP-WHO framework, to understand how to use a model as a standalone component in your own application.
 
 The model you will use is a hand gesture classifier that recognises 10 distinct hand gestures. Rather than reading from the live camera, this example embeds a test JPEG image directly in flash and runs inference on it once at startup. This keeps the setup simple and lets you focus entirely on the inference pipeline itself.
 
@@ -253,7 +253,14 @@ In this extra exercise you will replace the static embedded JPEG with live frame
 
 ### Update the dependencies
 
-Open `main/idf_component.yml` and add the ESP-Video component and the full BSP (which provides camera initialisation helpers):
+Add the full BSP and the ESP-Video component to your project:
+
+```bash
+idf.py add-dependency "espressif/esp32_s3_eye"
+idf.py add-dependency "espressif/esp_video"
+```
+
+This updates `main/idf_component.yml` automatically. The result should look like:
 
 ```yaml
 dependencies:

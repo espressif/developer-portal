@@ -7,294 +7,212 @@ series_order: 3
 showAuthor: false
 ---
 
-## Assignment 2: Camera sensor introduction
+## Assignment 2: Face detection with ESP-WHO
 
-Every vision AI application starts with a camera. The quality, resolution, and format of the captured frame directly affect what the model sees and how accurately it can reason about it. Before writing a single line of inference code, it is worth understanding what the camera on the ESP32-S3-EYE can do, how it communicates with the chip, and how ESP-WHO turns a raw sensor into a stream of frames ready for AI processing.
+In this assignment you will run the ESP-WHO face recognition example on the ESP32-S3-EYE, explore how the face detection model works, and then modify the application to light up the onboard LED whenever a face is detected in the camera frame.
 
-Before running any AI model, it is important to understand how the camera works on the ESP32-S3-EYE. In this assignment you will learn about the OV2640 sensor, the key configuration parameters, and how ESP-WHO builds an asynchronous capture pipeline on top of the camera driver. You will then run a live camera preview to verify that everything is working before adding inference in later assignments.
-
----
-
-## The OV2640 sensor
-
-The ESP32-S3-EYE uses the **OV2640** image sensor from OmniVision. It is a 2-megapixel sensor connected to the ESP32-S3 via the DVP (Digital Video Port) interface.
-
-| Parameter | Value |
-|-----------|-------|
-| Resolution | Up to 1600x1200 (UXGA) |
-| Field of view | 66.5° |
-| Interface | DVP (8-bit parallel) |
-| Output formats | JPEG, RGB565, YUV422, Grayscale |
-| Lens size | 1/4" |
-
-### Choosing a resolution
-
-The OV2640 supports a wide range of output resolutions. For AI applications, higher resolution means more detail but also more memory usage and slower inference. In practice, vision models on the ESP32-S3 are trained on small inputs, so capturing at a lower resolution is both faster and sufficient.
-
-| Frame size | Resolution | Typical use |
-|------------|------------|-------------|
-| QQVGA | 160x120 | Very constrained memory |
-| QVGA | 320x240 | Face detection, gesture recognition |
-| HVGA | 480x320 | Face recognition, object detection |
-| VGA | 640x480 | Higher accuracy, more memory required |
-| UXGA | 1600x1200 | Full sensor resolution, not suitable for real-time AI |
-
-> [!TIP]
-> ESP-WHO examples for the ESP32-S3-EYE use **HVGA (480x320)** by default. This gives a good balance between image quality and processing speed.
-
-### Choosing a pixel format
-
-The OV2640 can output frames in several pixel formats. The format you choose affects memory usage, bus bandwidth, and how frames need to be processed before being fed to a model.
-
-| Format | Description | Used for |
-|--------|-------------|----------|
-| JPEG | Compressed image | Bandwidth-efficient capture (not the default in ESP-WHO on ESP32-S3) |
-| RGB565 | 16-bit color, 2 bytes per pixel | Default capture format in ESP-WHO; direct display |
-| RGB888 | 24-bit color, 3 bytes per pixel | Model inference input (converted from RGB565 in the pipeline) |
-| YUV422 | Luminance + chrominance | Some detection models |
-| Grayscale | 8-bit luminance only | Simple detection tasks |
-
-In ESP-WHO on the ESP32-S3-EYE, the camera captures frames in **RGB565** format directly via the V4L2 API. This avoids the overhead of JPEG compression and software decoding on the CPU. Before being passed to a detection model, the pipeline converts the RGB565 frame to **RGB888**, which is the format expected by ESP-DL inference models.
+> [!NOTE]
+> ESP-WHO uses a two-step approach: **face detection** locates faces in a frame and returns bounding boxes, then **face recognition** identifies whose face it is. This assignment covers **step 1 — face detection only**. Recognition will be added in Assignment 3.
 
 ---
 
-## The ESP-WHO camera pipeline
+## The face detection model
 
-ESP-WHO uses an asynchronous, node-based pipeline to capture and prepare frames. Each node runs as a FreeRTOS task and passes frames to the next node via a queue.
+ESP-WHO uses the `HumanFaceDetect` class from [ESP-DL](https://github.com/espressif/esp-dl/tree/master/models/human_face_detect) as its detection backend. Three model variants are available, selectable via `menuconfig`:
+
+| Model | Type | Input size | Latency on ESP32-S3 | mAP50-95 |
+|-------|------|------------|---------------|----------|
+| `MSR_S8_V1` + `MNP_S8_V1` (default) | Two-stage | 120×160, then 48×48 per candidate | ~37 ms | 0.367 |
+| `ESPDET_PICO_224_224_FACE` | One-stage | 224×224 | ~132 ms | 0.504 |
+| `ESPDET_PICO_416_416_FACE` | One-stage | 416×416 | ~437 ms | 0.598 |
+
+All three models use **8-bit quantization** and run entirely on the ESP32-S3's CPU using the ESP-DL inference engine.
+
+### How the two-stage default model works
+
+The default `MSRMNP_S8_V1` runs two lightweight neural networks in sequence:
+
+1. **MSR (Multi-Scale Regression)** receives the full camera frame downscaled to 120×160 and quickly scans it to produce a list of candidate face regions. This stage is fast but intentionally imprecise — its job is to filter out most of the background.
+
+2. **MNP (Multi-level Non-Maximum suppression and Pooling)** takes each candidate region, crops and resizes it to 48×48, and makes a more precise judgement on whether it actually contains a face. This stage refines the bounding box and filters out false positives.
+
+This cascade design keeps the overall latency low: MSR takes ~33 ms for the whole frame on ESP32-S3, and MNP adds only ~6 ms per surviving candidate. In practice, when one face is in frame, the total detection time is around 37–40 ms per frame.
 
 ```mermaid
 graph LR
-    A[OV2640\nCamera] -->|DVP| B[WhoFetchNode\nCapture RGB565]
-    B -->|Queue| C[WhoDetect\nConvert to RGB888\n+ Run inference]
-    C -->|Queue| D[Detection /\nRecognition]
-    B -->|Queue| E[WhoFrameLcdDisp\nLCD Display]
+    A[Camera frame\n120×160] --> B[MSR model\nCandidate regions]
+    B -->|Crop each candidate\n48×48| C[MNP model\nRefine + filter]
+    C --> D[Detection results\nbounding boxes + landmarks]
 ```
 
-### Pipeline nodes
+### Detection result structure
 
-**WhoFetchNode** is the entry point of the pipeline. It captures raw RGB565 frames from the camera driver via the V4L2 interface and places them in a queue. It runs continuously on one core, independent of inference.
+Each detected face produces a `dl::detect::result_t` entry containing:
 
-**WhoDetect** receives an RGB565 frame, converts it to RGB888 in memory (the format expected by ESP-DL models), and runs inference. The conversion happens before inference on the ESP32-S3.
+- **Bounding box** (`box[4]`): `[x1, y1, x2, y2]` in pixel coordinates relative to the input frame.
+- **Confidence score** (`score`): A float between 0.0 and 1.0. Only results above the threshold (default 0.5) are returned.
+- **Keypoints** (`keypoint[10]`): Five facial landmarks — left eye, right eye, nose tip, left mouth corner, right mouth corner — each as an `(x, y)` pair. These are used later by the recognition model to align the face crop before extracting features.
 
-**WhoFrameLcdDisp** takes the decoded frame, draws any detection overlays (bounding boxes, labels), and renders the result on the ST7789 LCD display via LVGL.
-
-The key benefit of this design is that the camera keeps capturing at full speed regardless of how long inference takes on any given frame.
+```cpp
+// One result per detected face
+for (const auto &face : result.det_res) {
+    ESP_LOGI(TAG, "box: [%d, %d, %d, %d], score: %.2f",
+             face.box[0], face.box[1], face.box[2], face.box[3],
+             face.score);
+}
+```
 
 ---
 
-## Step 1: Run the camera display example
+## Step 1: Run the face recognition example
 
-Before adding AI, let's verify that the camera is working correctly by running the ESP-BSP camera display example. This example streams live video from the OV2640 directly to the LCD display, with no inference involved.
-
-Create the project using the IDF component manager:
+Navigate to the face recognition example:
 
 ```bash
-idf.py create-project-from-example "espressif/esp32_s3_eye=6.0.0:display_camera_video"
+cd esp-who/examples/human_face_recognition
 ```
 
-This downloads the example from the ESP Component Registry and creates a new `display_camera_video` directory with all dependencies configured. Navigate into it:
+Configure for the ESP32-S3-EYE:
 
 ```bash
-cd display_camera_video
+idf.py -DSDKCONFIG_DEFAULTS=sdkconfig.bsp.esp32_s3_eye set-target esp32s3
 ```
 
-Set the target, build, and flash:
+Build and flash:
 
 ```bash
-idf.py set-target esp32s3
 idf.py build flash monitor
 ```
 
-You should see a live camera feed on the 1.3" LCD display. Point the camera at different objects and check that the image is clear and well-exposed.
+> [!TIP]
+> If you get a build error such as `'led_indicator_handle_t' was not declared in this scope`, open `main/app_main.cpp` and add the missing BSP include at the top of the file:
+> ```cpp
+> #include "bsp/esp32_s3_eye.h"
+> ```
+> Then rebuild.
+
+You should see the live camera stream on the LCD. Point the camera at your face and a **red bounding box** will appear around it.
+
+### Button controls
+
+The ESP32-S3-EYE has physical buttons that control the recognition workflow:
+
+| Button | Action |
+|--------|--------|
+| UP+ | Enroll the currently detected face (assigns a new ID) |
+| PLAY | Run recognition (match current face against enrolled faces) |
+| DOWN- | Delete the last enrolled face |
+
+At this stage, just observe face **detection** — the red bounding box appearing and tracking your face. You do not need to enroll or recognize yet.
 
 ---
 
-## Step 2: Inspect the camera configuration
+## Step 2: Understand the detection callback
 
-Open the example's main source file and look at how the camera is initialized through the BSP:
+Open `components/who_app/who_recognition_app/who_recognition_app_lcd.hpp`. You will see that `WhoRecognitionAppLCD` exposes two virtual callbacks:
 
-```c
-#include "bsp/esp32_s3_eye.h"
-
-bsp_camera_config_t camera_config = {
-    .frame_size = FRAMESIZE_HVGA,    // 480x320
-    .pixel_format = PIXFORMAT_JPEG,
-    .jpeg_quality = 12,              // 0-63, lower = better quality
-    .fb_count = 2,
+```cpp
+class WhoRecognitionAppLCD : public WhoRecognitionAppBase {
+public:
+    ...
+protected:
+    virtual void detect_result_cb(const detect::WhoDetect::result_t &result);
+    virtual void recognition_result_cb(const std::string &result);
+    ...
 };
-
-bsp_camera_init(&camera_config);
 ```
 
-The BSP handles all pin assignments for the OV2640 automatically. You only need to choose the resolution, format, JPEG quality, and number of frame buffers.
+The `detect_result_cb()` is called after every inference cycle, regardless of whether a face was found. The `result` parameter contains:
 
-### Frame buffer count
+```cpp
+struct result_t {
+    std::list<dl::detect::result_t> det_res;  // one entry per detected face
+    dl::image::img_t img;                      // the frame that was analyzed
+    struct timeval timestamp;
+};
+```
 
-| fb_count | Behavior |
-|----------|----------|
-| 1 | Driver waits for VSYNC before each capture. Lower CPU load, lower frame rate. |
-| 2+ | Continuous DMA mode. Higher frame rate, more memory used. Recommended for JPEG. |
-
-For ESP-WHO examples, `fb_count = 2` is the default to maximize throughput.
+If `det_res` is empty, no face was detected. If it has one or more entries, that many faces are visible in the frame.
 
 ---
 
-## Step 3: Getting a camera frame
+## Exercise: Light up the LED on face detection
 
-Once the camera is running, frames are retrieved using the V4L2 **dequeue / requeue** cycle. The driver manages a ring of frame buffers and signals when a new frame is ready.
+The ESP32-S3-EYE has a green LED on GPIO3, already initialized by the example in `app_main.cpp`:
 
-### Where frames are stored
-
-All frame buffers are allocated in **PSRAM** (the 8 MB Octal PSRAM on the ESP32-S3-EYE). The internal SRAM (512 KB) is far too small — a single QVGA RGB565 frame already occupies 320 × 240 × 2 = **150 KB**. With two buffers at HVGA, that is approximately 600 KB in PSRAM. The DMA engine writes each captured frame directly into PSRAM, then the V4L2 driver marks it as ready for the application.
-
-### The dequeue / requeue cycle
-
-The complete flow to read a frame from the V4L2 camera driver looks like this:
-
-```c
-#include <fcntl.h>
-#include <sys/ioctl.h>
-#include <sys/mmap.h>
-#include <linux/videodev2.h>
-#include "esp_log.h"
-
-static const char *TAG = "camera";
-
-// 1. Open the DVP camera device (registered by BSP on initialisation)
-int fd = open("/dev/video2", O_RDWR);
-assert(fd >= 0);
-
-// 2. Request two memory-mapped buffers from the driver
-struct v4l2_requestbuffers req = {
-    .count  = 2,
-    .type   = V4L2_BUF_TYPE_VIDEO_CAPTURE,
-    .memory = V4L2_MEMORY_MMAP,
-};
-ioctl(fd, VIDIOC_REQBUFS, &req);
-
-// 3. Map each buffer into the application address space and enqueue it
-void *buf_ptrs[2];
-for (int i = 0; i < 2; i++) {
-    struct v4l2_buffer buf = {
-        .index  = i,
-        .type   = V4L2_BUF_TYPE_VIDEO_CAPTURE,
-        .memory = V4L2_MEMORY_MMAP,
-    };
-    ioctl(fd, VIDIOC_QUERYBUF, &buf);
-
-    // mmap maps the driver-allocated PSRAM buffer into the application's
-    // virtual address space — no copy, zero overhead
-    buf_ptrs[i] = mmap(NULL, buf.length, PROT_READ | PROT_WRITE,
-                        MAP_SHARED, fd, buf.m.offset);
-
-    ioctl(fd, VIDIOC_QBUF, &buf);   // hand the buffer back to the driver
-}
-
-// 4. Start the capture stream
-int type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-ioctl(fd, VIDIOC_STREAMON, &type);
-
-// 5. Capture loop: dequeue → read → requeue
-while (true) {
-    struct v4l2_buffer buf = {
-        .type   = V4L2_BUF_TYPE_VIDEO_CAPTURE,
-        .memory = V4L2_MEMORY_MMAP,
-    };
-
-    // Block until the driver has a completed frame ready
-    ioctl(fd, VIDIOC_DQBUF, &buf);
-
-    // buf.index     → which buffer slot (0 or 1)
-    // buf.bytesused → actual number of bytes written by the sensor
-    uint8_t *frame = (uint8_t *)buf_ptrs[buf.index];
-    size_t   size  = buf.bytesused;
-
-    // The frame is now in PSRAM at `frame`, RGB565, size bytes long.
-    // Example: read the first pixel (top-left corner)
-    uint16_t pixel_rgb565 = ((uint16_t)frame[0] << 8) | frame[1];
-    ESP_LOGI(TAG, "Top-left pixel (RGB565): 0x%04X  frame size: %u bytes",
-             pixel_rgb565, size);
-
-    // Return the buffer to the driver for the next capture
-    ioctl(fd, VIDIOC_QBUF, &buf);
-}
-```
-
-The key points:
-
-- **`VIDIOC_REQBUFS`** allocates the frame buffers in the driver. The driver places them in PSRAM automatically on the ESP32-S3-EYE.
-- **`mmap`** maps each PSRAM buffer directly into the application's address space. There is no copy — `frame` is a pointer straight into PSRAM.
-- **`VIDIOC_DQBUF`** blocks until a new frame is available, then returns its index and size.
-- **`VIDIOC_QBUF`** hands the buffer back so the driver can fill it with the next frame. If you forget to requeue, the driver stalls.
-
-> [!NOTE]
-> In the `display_camera_video` example, all of this setup is handled by the `app_video` helper functions inside `main/app_video.c`. You do not need to write this boilerplate yourself — it is shown here to explain what is happening underneath the helper API.
-
-The application must requeue every buffer promptly. If all buffers are held by the application, the driver stalls and no new frames are captured.
-
-### Is the frame format ready for ESP-WHO?
-
-Not directly. The frame captured here is in **RGB565** (16-bit, 2 bytes per pixel). ESP-DL inference models expect **RGB888** (24-bit, 3 bytes per pixel). When you move to ESP-WHO in Assignment 3, the framework handles this conversion internally — `WhoDetect` converts each RGB565 frame to RGB888 before passing it to the model. For the display-only example in this assignment, the RGB565 frame is sent straight to the ST7789 LCD, which natively accepts RGB565 and requires no conversion.
-
-| Destination | Accepts RGB565 directly? | Notes |
-|-------------|:------------------------:|-------|
-| ST7789 LCD | Yes | Native format, no conversion needed |
-| ESP-DL model | No | Requires RGB888; ESP-WHO converts internally |
-
----
-
-## Exercise: Match the camera resolution to the LCD
-
-The LCD on the ESP32-S3-EYE is **240x240 pixels**. The default camera output in the BSP example is typically larger (QVGA 320x240 or HVGA 480x320), so the example scales the image to fit using aspect-ratio fitting. In this exercise, you will explicitly set the capture resolution closer to the LCD size to reduce memory usage and DVP bus traffic.
-
-### Background
-
-The example uses the V4L2 API to configure the camera. Resolution is set by calling `VIDIOC_S_FMT` with the desired width and height.
-
-`ioctl(fd, VIDIOC_S_FMT, &format)` is a standard POSIX system call used to control device drivers:
-
-- **`fd`** — the file descriptor returned by `open("/dev/video2", O_RDWR)`. It represents the open camera device.
-- **`VIDIOC_S_FMT`** — the request code. `S` stands for *set*; this tells the driver to apply the format described in the third argument. The complementary call `VIDIOC_G_FMT` (*get*) reads the current format without changing it.
-- **`&format`** — a pointer to a `struct v4l2_format` that specifies the desired capture type, pixel format, width, and height. The driver may round the values to the nearest supported size and writes the negotiated result back into the same struct.
-
-Open `main/app_video.c` and look at the `app_video_open()` function:
-
-```c
-// Current: only changes pixel format, keeps sensor-default resolution
-if (init_fmt != APP_VIDEO_FMT_DRIVER_DEFAULT &&
-    default_format.fmt.pix.pixelformat != (uint32_t)init_fmt) {
-    struct v4l2_format format = {
-        .type = type,
-        .fmt.pix.width  = default_format.fmt.pix.width,   // keeps default
-        .fmt.pix.height = default_format.fmt.pix.height,  // keeps default
-        .fmt.pix.pixelformat = init_fmt,
-    };
-    ioctl(fd, VIDIOC_S_FMT, &format);
-}
-```
-
-### Task
-
-Modify `app_video_open()` to request a 320x240 (QVGA) resolution, which matches the height of the LCD and reduces the frame buffer size compared to HVGA:
-
-```c
-// After the existing VIDIOC_G_FMT call, add:
-struct v4l2_format format = {
-    .type = type,
-    .fmt.pix.width       = 320,
-    .fmt.pix.height      = 240,
-    .fmt.pix.pixelformat = default_format.fmt.pix.pixelformat,
-};
-
-if (ioctl(fd, VIDIOC_S_FMT, &format) != 0) {
-    ESP_LOGW(TAG, "Could not set resolution, keeping sensor default");
-}
+```cpp
+#ifdef BSP_BOARD_ESP32_S3_EYE
+    ESP_ERROR_CHECK(bsp_leds_init());
+    ESP_ERROR_CHECK(bsp_led_set(BSP_LED_GREEN, false));
+#endif
 ```
 
 > [!NOTE]
-> The OV2640 supports standard resolutions such as QQVGA (160x120), QVGA (320x240), HVGA (480x320), and VGA (640x480). Setting an arbitrary resolution may result in the driver rounding to the nearest supported size.
+> `bsp_leds_init()` and `bsp_led_set(BSP_LED_GREEN, ...)` are the LED API used by the BSP version pinned in the ESP-WHO repository. The current standalone ESP-BSP uses a newer `led_indicator`-based API (`bsp_led_indicator_create()`). Since you are building inside the ESP-WHO project, which manages its own BSP dependency version, the code above will compile correctly without any changes.
 
-### Build and observe
+Your task is to turn this LED on when at least one face is detected, and off when no face is visible.
+
+### Task: Subclass WhoRecognitionAppLCD
+
+Add the `FaceDetectLED` subclass directly inside `main/app_main.cpp`, above `app_main()`. There is no need to create a separate header file since this class is only used in one place:
+
+```cpp
+#include "frame_cap_pipeline.hpp"
+#include "who_recognition_app_lcd.hpp"
+#include "who_recognition_app_term.hpp"
+#include "who_spiflash_fatfs.hpp"
+#include "bsp/esp32_s3_eye.h"   // add this for LED API
+
+using namespace who::frame_cap;
+using namespace who::app;
+using namespace who::detect;
+
+// Subclass defined in the same file — no header needed for a single-use class
+class FaceDetectLED : public WhoRecognitionAppLCD {
+public:
+    FaceDetectLED(WhoFrameCap *frame_cap)
+        : WhoRecognitionAppLCD(frame_cap) {}
+
+protected:
+    void detect_result_cb(const WhoDetect::result_t &result) override
+    {
+        // Call the base class to keep bounding boxes on the display
+        WhoRecognitionAppLCD::detect_result_cb(result);
+
+        // Turn the LED on when at least one face is detected
+        bool face_found = !result.det_res.empty();
+        bsp_led_set(BSP_LED_GREEN, face_found);
+    }
+};
+
+extern "C" void app_main(void)
+{
+    vTaskPrioritySet(xTaskGetCurrentTaskHandle(), 5);
+#if CONFIG_DB_FATFS_FLASH
+    ESP_ERROR_CHECK(fatfs_flash_mount());
+#elif CONFIG_DB_SPIFFS
+    ESP_ERROR_CHECK(bsp_spiffs_mount());
+#endif
+#if CONFIG_DB_FATFS_SDCARD || CONFIG_HUMAN_FACE_DETECT_MODEL_IN_SDCARD || CONFIG_HUMAN_FACE_FEAT_MODEL_IN_SDCARD
+    ESP_ERROR_CHECK(bsp_sdcard_mount());
+#endif
+
+#ifdef BSP_BOARD_ESP32_S3_EYE
+    ESP_ERROR_CHECK(bsp_leds_init());
+    ESP_ERROR_CHECK(bsp_led_set(BSP_LED_GREEN, false));
+#endif
+
+#if CONFIG_IDF_TARGET_ESP32S3
+    auto frame_cap = get_dvp_frame_cap_pipeline();
+#elif CONFIG_IDF_TARGET_ESP32P4
+    auto frame_cap = get_mipi_csi_frame_cap_pipeline();
+#endif
+    auto recognition_app = new FaceDetectLED(frame_cap);  // only this line changes
+    recognition_app->run();
+}
+```
+
+### Build and test
 
 Rebuild and flash:
 
@@ -302,19 +220,13 @@ Rebuild and flash:
 idf.py build flash monitor
 ```
 
-In the serial monitor output you should see the negotiated resolution printed by `app_video_open`:
+> [!NOTE]
+> You may see `E dl::recognition::DataBase: Failed to open db` on the first boot. This is expected: the file `/spiflash/face.db` does not exist yet, so the recognizer creates a fresh empty database. Face detection works normally and the message disappears on subsequent boots.
 
-```
-width=320 height=240
-```
+Point the camera at your face. The green LED should turn on as soon as the bounding box appears, and turn off when you move out of frame.
 
-Observe the live preview on the LCD. With the smaller frame size, the image is centered on the 240x240 display with minimal letterboxing on the sides.
-
-### Questions to consider
-
-- How does lowering the resolution affect the frame rate? Watch the serial log for any timing information.
-- What trade-off are you making between image detail and processing speed?
-- Why is capturing at a resolution close to the LCD size useful when no AI inference is running, but the same reasoning may not apply once you add face detection?
+> [!TIP]
+> If the LED flickers, it is because the detection result alternates between empty and non-empty on borderline frames. This is normal behavior. In a real application you would add hysteresis (for example, only turn the LED off after N consecutive frames with no detection).
 
 ---
 
@@ -322,14 +234,12 @@ Observe the live preview on the LCD. With the smaller frame size, the image is c
 
 In this assignment you:
 
-- Learned about the OV2640 sensor capabilities and the resolution/format trade-offs for AI applications
-- Understood how ESP-WHO's node-based asynchronous pipeline separates capture, decoding, and inference
-- Learned how the V4L2 dequeue/requeue cycle works and that frame buffers are stored in PSRAM
-- Understood why RGB565 frames from the camera are not directly ready for inference and how ESP-WHO bridges that gap
-- Ran a live camera preview on the ESP32-S3-EYE to verify the hardware is working
+- Ran the ESP-WHO face recognition example and understood the two-stage pipeline (detect then recognize)
+- Explored how `detect_result_cb()` exposes per-frame detection results
+- Extended the application by subclassing `WhoRecognitionAppLCD` directly inside `app_main.cpp` to add LED feedback on face detection, without modifying the framework or creating extra files
 
 ## Next step
 
-Now that the camera is working, it is time to add the first AI model. In the next assignment you will run face detection in real time using ESP-WHO.
+Now that you can detect faces, the next assignment goes further and adds face enrollment and recognition.
 
-[Assignment 3: ESP-WHO - Working with face detection](../assignment-3)
+[Assignment 3: ESP-WHO - Face recognition](../assignment-3)

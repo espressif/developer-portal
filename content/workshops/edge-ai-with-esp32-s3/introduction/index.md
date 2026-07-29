@@ -186,12 +186,6 @@ ESP-DL ships with a **model zoo** of pre-trained and pre-quantized models ready 
 
 For this workshop, the BSP component for the ESP32-S3-EYE is [`espressif/esp32_s3_eye`](https://components.espressif.com/components/espressif/esp32_s3_eye).
 
-To add the BSP to your project, run:
-
-```bash
-idf.py add-dependency "espressif/esp32_s3_eye"
-```
-
 **Capabilities**
 
 The table below lists the hardware capabilities exposed by the ESP32-S3-EYE BSP and the underlying components used:

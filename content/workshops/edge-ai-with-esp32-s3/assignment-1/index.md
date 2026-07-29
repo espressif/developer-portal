@@ -76,7 +76,7 @@ winget install Espressif.EIM-CLI
 Once EIM is installed, use it to install ESP-IDF. Run the following command to install the version required by ESP-WHO:
 
 ```bash
-eim install v5.5.3
+eim install v5.5.4
 ```
 
 Alternatively, if you prefer a guided setup, use the interactive wizard:
@@ -93,36 +93,52 @@ For a full step-by-step walkthrough of the installation process, refer to the de
 [ESP-IDF Preliminary Setup Workshop](https://developer.espressif.com/workshops/esp-idf-setup/)
 
 > [!IMPORTANT]
-> ESP-WHO requires **ESP-IDF v5.5.x**. When EIM asks you to select a version, choose `v5.5.3` or the latest available `v5.5.x` release.
+> ESP-WHO officially supports ESP-IDF **v5.4.x and v5.5.x**. ESP-IDF v6.x is not yet supported and will cause build errors due to component API changes. For this workshop, use **ESP-IDF v5.5.4**. Select `v5.5.4` when running `eim install`.
 
-Once you are done, activate the ESP-IDF environment in your terminal. EIM prints the activation command at the end of the installation — it is different for each OS:
+After installation, check which versions are available on your machine:
+
+```bash
+eim list
+```
+
+You should see output similar to:
+
+```
+Installed ESP-IDF versions:
+  v5.5.4   ~/.espressif/frameworks/esp-idf-v5.5.4
+```
+
+If you have multiple versions installed, set the active one with:
+
+```bash
+eim select v5.5.4
+```
+
+This prints the activation command for your OS. Run it to make `idf.py` available in your terminal:
 
 {{< tabs group="os" >}}
   {{< tab label="macOS / Linux" >}}
 
 ```bash
-source ~/.espressif/tools/activate_idf_v5.5.3.sh
+source ~/.espressif/tools/activate_idf_v5.5.4.sh
 ```
 
   {{< /tab >}}
   {{< tab label="Windows (PowerShell)" >}}
 
 ```powershell
-. $HOME\.espressif\tools\activate_idf_v5.5.3.ps1
+. $HOME\.espressif\tools\activate_idf_v5.5.4.ps1
 ```
 
   {{< /tab >}}
   {{< tab label="Windows (cmd)" >}}
 
 ```cmd
-%USERPROFILE%\.espressif\tools\activate_idf_v5.5.3.bat
+%USERPROFILE%\.espressif\tools\activate_idf_v5.5.4.bat
 ```
 
   {{< /tab >}}
 {{< /tabs >}}
-
-> [!TIP]
-> The exact path is shown by EIM at the end of the install. You can also run `eim select` to list all installed versions and their activation scripts.
 
 Once the environment is active, verify it in your terminal:
 
@@ -133,7 +149,7 @@ idf.py --version
 You should see output similar to:
 
 ```
-ESP-IDF v5.5.3
+ESP-IDF v5.5.4
 ```
 
 ---
@@ -148,8 +164,16 @@ mkdir -p ~/esp && cd ~/esp
 git clone --recursive https://github.com/espressif/esp-who.git
 ```
 
-> [!NOTE]
-> The `--recursive` flag is required to also clone the ESP-WHO submodules. If you already cloned without it, run `git submodule update --init --recursive` inside the repository folder.
+After cloning, check out the specific commit validated for this workshop:
+
+```bash
+cd esp-who
+git checkout 1681a1ce7dd356dfa541138d4b25d2ae1395472f
+git submodule update --init --recursive
+```
+
+> [!IMPORTANT]
+> Always use this exact commit when following this workshop. Newer commits may introduce breaking changes that are not yet reflected in these instructions.
 
 ---
 
@@ -203,6 +227,8 @@ Configure the project for the ESP32-S3-EYE board:
 idf.py -DSDKCONFIG_DEFAULTS=sdkconfig.bsp.esp32_s3_eye set-target esp32s3
 ```
 
+The `-DSDKCONFIG_DEFAULTS` flag tells CMake which default configuration file to use when generating `sdkconfig`. ESP-WHO examples ship with one `sdkconfig.bsp.*` file per supported board, each containing the correct pin assignments, clock speeds, and peripheral settings for that specific hardware. By passing `sdkconfig.bsp.esp32_s3_eye`, you ensure the project is configured for the ESP32-S3-EYE without having to set each option manually through `menuconfig`. You will use this flag every time you configure a new ESP-WHO example.
+
 Build the project:
 
 ```bash
@@ -218,6 +244,6 @@ If the build completes without errors, your environment is ready.
 
 ## Next step
 
-You now have a working ESP-IDF and ESP-WHO setup. Time to learn about the camera sensor on the ESP32-S3-EYE before we run our first vision application.
+You now have a working ESP-IDF and ESP-WHO setup. Time to run your first vision AI application.
 
-[Assignment 2: Camera sensor introduction](../assignment-2)
+[Assignment 2: ESP-WHO - Working with face detection](../assignment-2)
