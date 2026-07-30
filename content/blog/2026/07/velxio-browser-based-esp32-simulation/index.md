@@ -1,5 +1,5 @@
 ---
-title: "Velxio: Browser-Based ESP32 Simulation That Runs on Real Hardware, Powered by AI Agents"
+title: "Velxio: Browser-based ESP32 simulation that runs on real hardware, powered by AI agents"
 date: 2026-07-31
 summary: "This article introduces Velxio, an open-source, browser-based embedded simulator that runs real ESP32 firmware on emulated hardware. It explains how the simulator works under the hood, demonstrates LED, Wi-Fi, MQTT, and sensor based projects, and highlights support for multiple boards across the ESP32 family."
 tags:
