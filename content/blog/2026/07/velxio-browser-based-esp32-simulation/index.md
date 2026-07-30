@@ -61,7 +61,7 @@ Let's run the embedded "Hello World." You can do it on [velxio.dev](https://velx
    }
    ```
 
-2. Click **Run**. The backend compiles the sketch with the arduino-esp32 core (you can watch the real build log scroll by) and then boots the binary on the emulated Xtensa LX6. Within seconds the LED is blinking on the canvas and the Serial Monitor streams `LED ON` / `LED OFF`:
+2. On the toolbar at the top, click &#9658; to run the project. The backend compiles the sketch with the arduino-esp32 core (you can watch the real build log scroll by) and then boots the binary on the emulated Xtensa LX6. Within seconds the LED is blinking on the canvas and the Serial Monitor streams `LED ON` / `LED OFF`:
 
 {{< figure
     default=true
