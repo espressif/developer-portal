@@ -52,13 +52,13 @@ The model was trained on **COCO** (Common Objects in Context), a large-scale dat
 
 ESP-DL provides two YOLO11N variants for the ESP32-S3:
 
-| Model | Input | Flash | PSRAM | Latency on ESP32-S3 | mAP50-95 |
-|-------|-------|-------|-------|---------------|----------|
-| `YOLO11N_S8_V1` (default) | 640×640 | 8 MB | 8 MB | ~26 s | 0.370 |
-| `YOLO11N_320_S8_V1` | 320×320 | 8 MB | 8 MB | ~6.2 s | 0.276 |
+| Model | Input | Flash | PSRAM | Measured time (ms) | mAP50-95 |
+|-------|-------|-------|-------|--------------------|----------|
+| `coco_detect_yolo11n_s8_v1` (default) | 640×640 | 8 MB | 8 MB | ~26,000 | 0.370 |
+| `coco_detect_yolo11n_320_s8_v1` | 320×320 | 8 MB | 8 MB | ~7,698 | 0.276 |
 
 > [!IMPORTANT]
-> Inference on the ESP32-S3 takes **6 to 26 seconds** per frame depending on the model variant. This is expected — YOLO11N was designed for inference on microcontrollers but the ESP32-S3 has no dedicated NPU. The ESP32-P4, with its hardware accelerator, reduces this to 0.55–2.5 seconds. For the workshop, use `YOLO11N_320_S8_V1` to keep iteration times manageable.
+> Inference on the ESP32-S3 takes **6 to 26 seconds** per frame depending on the model variant. This is expected — YOLO11N was designed for inference on microcontrollers but the ESP32-S3 has no dedicated NPU. The ESP32-P4, with its hardware accelerator, reduces this to 0.55–2.5 seconds. For the workshop, use `coco_detect_yolo11n_320_s8_v1` to keep iteration times manageable.
 
 ---
 
@@ -91,15 +91,15 @@ The example uses a photo of a bus (`main/bus.jpg`) embedded in flash as the test
 
 ## Step 2: Select the faster model
 
-Before building, switch the default model to `YOLO11N_320_S8_V1` to reduce inference time from ~26 s to ~6 s:
+Before building, switch the default model to `coco_detect_yolo11n_320_s8_v1` to reduce inference time from ~26 s to ~6 s:
 
 ```bash
 idf.py menuconfig
 ```
 
-Go to **Component config → ESP-DL → COCO Detect Model** and set:
-- **Default model**: `YOLO11N_320_S8_V1`
-- **Model to flash**: enable `YOLO11N_320_S8_V1`
+Go to **Component config → models: coco_detect** and set:
+- **Default model**: `coco_detect_yolo11n_320_s8_v1`
+- **Model to flash**: enable `coco_detect_yolo11n_320_s8_v1`
 
 Save and exit menuconfig.
 
@@ -115,11 +115,10 @@ idf.py build flash monitor
 After flashing, the board will decode the JPEG, run inference, and print the results. Expect to wait around **6 seconds** before output appears:
 
 ```
-I (4447) yolo11n: [category: 5, score: 0.939913, x1: 2, y1: 115, x2: 399, y2: 366]
-I (4447) yolo11n: [category: 0, score: 0.904651, x1: 25, y1: 200, x2: 119, y2: 451]
-I (4457) yolo11n: [category: 0, score: 0.817575, x1: 110, y1: 202, x2: 173, y2: 430]
-I (4457) yolo11n: [category: 0, score: 0.817575, x1: 334, y1: 198, x2: 404, y2: 439]
-I (4477) main_task: Returned from app_main()
+I (7698) yolo11n: [category: 5, score: 0.924142, x1: 4, y1: 117, x2: 400, y2: 370]
+I (7698) yolo11n: [category: 0, score: 0.904651, x1: 25, y1: 200, x2: 120, y2: 453]
+I (7698) yolo11n: [category: 0, score: 0.851953, x1: 111, y1: 203, x2: 172, y2: 430]
+I (7698) yolo11n: [category: 0, score: 0.851953, x1: 336, y1: 197, x2: 404, y2: 438]
 ```
 
 ---
@@ -176,6 +175,15 @@ for (const auto &res : detect_results) {
 }
 ```
 
+After rebuilding and flashing with this change, the serial output will show human-readable class names instead of category IDs:
+
+```
+I (7698) yolo11n: [person, score: 0.73, box: (108,200)-(172,428)]
+I (7698) yolo11n: [person, score: 0.73, box: (26,197)-(114,451)]
+I (7698) yolo11n: [bus, score: 0.73, box: (14,116)-(403,366)]
+I (7698) yolo11n: [person, score: 0.56, box: (335,215)-(404,435)]
+```
+
 ---
 
 ## Exercise: Test with a different image
@@ -218,7 +226,7 @@ Check the serial output for detected objects. Use the COCO class table above to 
 
 ### Questions to consider
 
-- The `YOLO11N_320_S8_V1` model takes ~6 s and achieves mAP 0.276, while `YOLO11N_S8_V1` takes ~26 s and achieves mAP 0.370. For a battery-powered product, how would you decide which to use?
+- The `coco_detect_yolo11n_320_s8_v1` model takes ~6 s and achieves mAP 0.276, while `coco_detect_yolo11n_s8_v1` takes ~26 s and achieves mAP 0.370. For a battery-powered product, how would you decide which to use?
 - The model outputs a bounding box in pixel coordinates relative to the input image. How would you map those coordinates back onto a 240×240 LCD display?
 - Given the inference time on the ESP32-S3, do you think running YOLO11 on live camera frames is practical? What architectural changes would make it more feasible?
 
@@ -271,7 +279,7 @@ Open menuconfig:
 idf.py menuconfig
 ```
 
-Navigate to **Component config → ESP-DL → COCO Detect Model** and change:
+Navigate to **Component config → models: coco_detect** and change:
 
 - **Model location**: set to `SDCARD`
 - Disable `FLASH` model options to save flash space (optional)
