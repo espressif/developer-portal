@@ -1,7 +1,7 @@
 ---
 title: "Velxio: Browser-Based ESP32 Simulation That Runs on Real Hardware, Powered by AI Agents"
 date: 2026-07-31
-summary: "This article introduces Velxio, an open-source, browser-based embedded simulator that runs real ESP32 firmware on emulated hardware. It explains how the simulator works under the hood, demonstrates LED, WiFi, MQTT, and sensor based projects, and highlights support for multiple boards across the ESP32 family."
+summary: "This article introduces Velxio, an open-source, browser-based embedded simulator that runs real ESP32 firmware on emulated hardware. It explains how the simulator works under the hood, demonstrates LED, Wi-Fi, MQTT, and sensor based projects, and highlights support for multiple boards across the ESP32 family."
 tags:
   - ESP32
   - ESP32-S3
@@ -84,7 +84,7 @@ Velxio's ESP32 support does not use simplified peripheral models. Each ESP32-fam
 | I²C / SPI | Protocol-level emulation driving OLED, TFT, sensor and SD components |
 | RMT | WS2812-timing-accurate NeoPixel strips render correctly |
 | LEDC / PWM | Hardware PWM channels |
-| WiFi | Virtual access point (`Velxio-GUEST`) with SLIRP NAT out to the internet |
+| Wi-Fi | Virtual access point (`Velxio-GUEST`) with SLIRP NAT out to the internet |
 | Camera | ESP32-CAM bridges a real webcam frame into the emulated camera module |
 
 The compile side is equally real. ESP32 sketches build against the arduino-esp32 3.3.10 core on ESP-IDF v5.5 inside the backend. A cold build compiles the full IDF (~1,500 objects, a few minutes), but ccache plus persistent per-target build directories mean warm compiles land in **under a minute**. Build options mirror the Arduino IDE Tools menu: partition schemes, CPU frequency, flash mode/size, PSRAM, core pinning for the Arduino loop, all serialized per board and translated into `sdkconfig` at compile time. You can even upload files into a SPIFFS partition from the browser.
@@ -106,7 +106,7 @@ Both emulated buses work at the same time. And this project has a twist: it wasn
     caption="ESP32 Weather Station: BMP280 over I²C, DHT22 on GPIO, ILI9341 over SPI. Designed, wired, and programmed by the AI agent"
 >}}
 
-### WiFi that actually reaches the internet
+## Wi-Fi that actually reaches the internet
 
 The emulated ESP32 joins a virtual open access point and gets NAT'd through the host. That means real `WiFi.begin()`, real DHCP, DNS, and TCP out to the world. The gallery's MQTT example connects to `broker.hivemq.com`, publishes to a unique topic, subscribes to the same topic, and toggles GPIO2 every time a message round-trips through the actual public broker:
 
@@ -163,7 +163,7 @@ Ten ESP32-family boards are supported today, spanning all three cores Espressif 
 
 | Board | Core | Notes |
 | --- | --- | --- |
-| ESP32 DevKit V1 | Xtensa LX6, dual-core | The workhorse; WiFi + full GPIO |
+| ESP32 DevKit V1 | Xtensa LX6, dual-core | The workhorse; Wi-Fi + full GPIO |
 | ESP32 DevKit C V4 | Xtensa LX6 | Official Espressif devkit layout |
 | ESP32-CAM | Xtensa LX6 | Camera module fed by a real webcam |
 | Wemos Lolin32 Lite | Xtensa LX6 | Popular battery-friendly board |
