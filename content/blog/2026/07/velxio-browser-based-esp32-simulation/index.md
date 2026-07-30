@@ -13,15 +13,11 @@ authors:
   - "david-montero-crespo"
 ---
 
-One day, I was looking online for a way to emulate a project that used two ESP32 boards communicating over SPI. To my surprise, I couldn't find any platform that could run it. There were a few alternatives capable of emulating a single ESP32, but my project went much further: it also included resistors, diodes, and analog components, making the challenge even greater. That made me wonder: would it be possible to build a platform capable of running an entire embedded project directly in the browser? I decided to build a prototype to find out. That prototype eventually became Velxio.
-
-## Velxio's community today
-
-As of mid-2026, more than 15,000 developers have registered on Velxio, and they run over a thousand simulations every day. ESP32-family boards account for more than half of those simulations, making them by far the most popular hardware on the platform. The open-source core has gathered thousands of stars and hundreds of forks on GitHub.
+One day, I was looking online for a way to emulate a project that used two ESP32 boards communicating over SPI. To my surprise, I couldn't find any platform that could do it. There were a few alternatives capable of emulating a single ESP32, but my project went much further: it also included resistors, diodes, and analog components, making the challenge even greater. That made me wonder: would it be possible to build a platform capable of running an entire embedded project directly in the browser? I decided to build a prototype to find out. That prototype eventually became Velxio.
 
 ## What is Velxio?
 
-Velxio is a multi-board embedded simulator that runs in a browser tab. The core pieces:
+Velxio is a multi-board embedded simulator delivered as a web app, and there are two ways to use it. The hosted instance at [velxio.dev](https://velxio.dev) runs public examples without an account; a free account lets you save and share your own projects, and paid plans add the AI agent covered later in this article (see [velxio.dev/pricing](https://velxio.dev/pricing) for the details). Alternatively, you can self-host the entire open-source stack on your own server, as shown at the end of this article. The core pieces:
 
 - **Real CPU emulation, not behavioral models.** ESP32 boards run on a QEMU fork with Xtensa LX6/LX7 and RISC-V system emulation; AVR and RP2040 boards run entirely in the browser via [avr8js](https://github.com/wokwi/avr8js) and rp2040js.
 - **A real compilation chain.** `arduino-cli` and ESP-IDF produce genuine `.hex`, `.uf2`, and `.bin` files server-side. What you run in the simulator is what you'd flash.
@@ -30,6 +26,10 @@ Velxio is a multi-board embedded simulator that runs in a browser tab. The core 
 - **Hybrid digital + analog co-simulation.** ngspice compiled to WebAssembly solves the analog side: `analogRead()` returns the actual node voltage from Modified Nodal Analysis, so op-amps saturate and diodes drop volts like they should.
 - **Arduino, ESP-IDF, and MicroPython development.** Multi-file workspaces, a library manager backed by the Arduino Library Index, ESP-IDF projects, and 300+ one-click example projects, nearly 80 of them targeting ESP32-family boards.
 - **Fully self-hostable.** The whole stack (frontend, backend, emulators, toolchains) ships as one Docker image.
+
+## Velxio's community today
+
+As of mid-2026, more than 15,000 developers have registered on Velxio, and they run over a thousand simulations every day. ESP32-family boards account for more than half of those simulations, making them by far the most popular hardware on the platform. The open-source core at [github.com/davidmonterocrespo24/velxio](https://github.com/davidmonterocrespo24/velxio) has gathered thousands of stars and hundreds of forks.
 
 ## Hands-on: your first ESP32 project in the browser
 
@@ -172,7 +172,7 @@ Ten ESP32-family boards are supported today, spanning all three cores Espressif 
 | Seeed XIAO ESP32-C3 | RISC-V RV32IMC | Ultra-compact |
 | ESP32-C3 SuperMini | RISC-V RV32IMC | Mini development board |
 
-ESP-IDF,Arduino C++, and MicroPython are all available on the ESP32 family: the language dropdown sits right in the toolbar.
+ESP-IDF, Arduino C++, and MicroPython are all available on the ESP32 family: the language dropdown sits right in the toolbar.
 
 {{< figure
     default=true
