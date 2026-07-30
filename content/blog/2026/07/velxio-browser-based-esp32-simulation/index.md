@@ -33,33 +33,35 @@ As of mid-2026, more than 15,000 developers have registered on Velxio, and they 
 
 ## Hands-on: your first ESP32 project in the browser
 
-Let's run the embedded "Hello World." Open [velxio.dev/example/esp32-blink-led](https://velxio.dev/example/esp32-blink-led), no sign-up needed. The example loads an **ESP32 DevKit V1** with an external LED already wired to GPIO4 through a resistor (the board's built-in blue LED sits on GPIO2):
+Let's run the embedded "Hello World." You can do it on [velxio.dev](https://velxio.dev/) right now, without any sign-up:
 
-```cpp
-#define LED_BUILTIN_PIN 2   // Built-in blue LED
-#define LED_EXT_PIN     4   // External red LED
+1. Open [velxio.dev/example/esp32-blink-led](https://velxio.dev/example/esp32-blink-led). The example loads an **ESP32 DevKit V1** with an external LED already wired to GPIO4 through a resistor (the board's built-in blue LED sits on GPIO2):
 
-void setup() {
-  Serial.begin(115200);
-  pinMode(LED_BUILTIN_PIN, OUTPUT);
-  pinMode(LED_EXT_PIN, OUTPUT);
-  Serial.println("ESP32 Blink ready!");
-}
+   ```cpp
+   #define LED_BUILTIN_PIN 2   // Built-in blue LED
+   #define LED_EXT_PIN     4   // External red LED
 
-void loop() {
-  digitalWrite(LED_BUILTIN_PIN, HIGH);
-  digitalWrite(LED_EXT_PIN, HIGH);
-  Serial.println("LED ON");
-  delay(500);
+   void setup() {
+     Serial.begin(115200);
+     pinMode(LED_BUILTIN_PIN, OUTPUT);
+     pinMode(LED_EXT_PIN, OUTPUT);
+     Serial.println("ESP32 Blink ready!");
+   }
 
-  digitalWrite(LED_BUILTIN_PIN, LOW);
-  digitalWrite(LED_EXT_PIN, LOW);
-  Serial.println("LED OFF");
-  delay(500);
-}
-```
+   void loop() {
+     digitalWrite(LED_BUILTIN_PIN, HIGH);
+     digitalWrite(LED_EXT_PIN, HIGH);
+     Serial.println("LED ON");
+     delay(500);
 
-Click **Run**. The backend compiles the sketch with the arduino-esp32 core (you can watch the real build log scroll by) and then boots the binary on the emulated Xtensa LX6. Within seconds the LED is blinking on the canvas and the Serial Monitor streams `LED ON` / `LED OFF`:
+     digitalWrite(LED_BUILTIN_PIN, LOW);
+     digitalWrite(LED_EXT_PIN, LOW);
+     Serial.println("LED OFF");
+     delay(500);
+   }
+   ```
+
+2. Click **Run**. The backend compiles the sketch with the arduino-esp32 core (you can watch the real build log scroll by) and then boots the binary on the emulated Xtensa LX6. Within seconds the LED is blinking on the canvas and the Serial Monitor streams `LED ON` / `LED OFF`:
 
 {{< figure
     default=true
