@@ -17,7 +17,7 @@ One day, I was looking online for a way to emulate a project that used two ESP32
 
 ## What is Velxio?
 
-Velxio is a multi-board embedded simulator delivered as a web app, and there are two ways to use it. The hosted instance at [velxio.dev](https://velxio.dev) runs public examples without an account; a free account lets you save and share your own projects, and paid plans add the AI agent covered later in this article (see [velxio.dev/pricing](https://velxio.dev/pricing) for the details). Alternatively, you can self-host the entire open-source stack on your own server, as shown at the end of this article. The core pieces:
+Velxio is a multi-board embedded simulator delivered as a web app, and there are two ways to use it. The hosted instance at [velxio.dev](https://velxio.dev) runs public examples without an account; a free account lets you save and share your own projects, and paid plans add extras such as the AI agent covered later in this article and the Raspberry Pi single-board computers (see [velxio.dev/pricing](https://velxio.dev/pricing) for the details). Alternatively, you can self-host the entire open-source stack on your own server, as shown at the end of this article. The core pieces:
 
 - **Real CPU emulation, not behavioral models.** ESP32 boards run on a QEMU fork with Xtensa LX6/LX7 and RISC-V system emulation; AVR and RP2040 boards run entirely in the browser via [avr8js](https://github.com/wokwi/avr8js) and rp2040js.
 - **A real compilation chain.** `arduino-cli` and ESP-IDF produce genuine `.hex`, `.uf2`, and `.bin` files server-side. What you run in the simulator is what you'd flash.
