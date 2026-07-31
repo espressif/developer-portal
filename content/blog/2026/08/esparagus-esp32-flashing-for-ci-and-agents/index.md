@@ -1,6 +1,6 @@
 ---
 title: "esparagus: ESP32 flashing with structured output for CI and coding agents"
-date: "2026-07-31"
+date: "2026-08-01"
 summary: "esparagus is an ESP32-family flasher written in Rust — a behavioral port of esptool's protocol, sync, reset, and stub-loader paths, wrapped in an observability layer built for programs rather than humans: NDJSON events, a machine-readable report file, stable exit codes, and an expect-style serial monitor with built-in crash detection. This article explains why that layer exists, how the flash-test-fix feedback loop works, and the three ways to integrate it — direct CLI, an Agent Skill, and an MCP server."
 featureAsset: "img/featured/featured-rust.webp"
 authors:
@@ -106,11 +106,11 @@ Exit codes are stable per failure class, so the cheapest integration —
 | 32   | Monitor detected an ESP crash (panic / WDT / abort / reboot loop / ...) |
 
 (There are a few more — usage errors, image-header validation, expect-script
-codes 40–43 — the full table is in the README.)
+codes 40–43 — the full table is in the [README](https://github.com/DatanoiseTV/esparagus#exit-codes).)
 
 ## The flash-test-fix loop
 
-The single command the whole design converges on is `flash-monitor`: write
+The single command on which the whole design converges is `flash-monitor`: write
 the image, reset into the app, and watch the boot log with a deadline and
 patterns:
 
@@ -180,7 +180,7 @@ reasonable to keep in a repository and gate in CI.
 
 ## Three integration surfaces
 
-The same underlying operations are exposed three ways, and the choice is
+The same underlying operations are exposed in three ways, and the choice is
 about what's driving the tool, not about capability — a flash done over
 any of them is byte-identical on the wire:
 
