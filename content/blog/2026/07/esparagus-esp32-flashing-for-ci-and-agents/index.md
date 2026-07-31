@@ -1,11 +1,11 @@
 ---
 title: "esparagus: ESP32 flashing with structured output for CI and coding agents"
-date: "2026-07-21"
+date: "2026-07-31"
 summary: "esparagus is an ESP32-family flasher written in Rust — a behavioral port of esptool's protocol, sync, reset, and stub-loader paths, wrapped in an observability layer built for programs rather than humans: NDJSON events, a machine-readable report file, stable exit codes, and an expect-style serial monitor with built-in crash detection. This article explains why that layer exists, how the flash-test-fix feedback loop works, and the three ways to integrate it — direct CLI, an Agent Skill, and an MCP server."
 featureAsset: "img/featured/featured-rust.webp"
 authors:
     - sylwester-sosnowski
-tags: ["Rust", "esptool", "Flashing", "CI/CD", "AI Agents", "MCP", "ESP32"]
+tags: ["Rust", "esptool", "Flashing", "CI/CD", "AI", "MCP", "ESP32"]
 ---
 
 ## Introduction
@@ -219,9 +219,12 @@ idf.py flash   # now runs esparagus under the hood
 The compat layer translates esptool's argv conventions
 (`write_flash` to `write-flash`, `default_reset` to `default-reset`,
 positional `read_flash` arguments to flags) and warns about the few
-overrides it doesn't support. This is how I validated protocol parity:
-the same build, the same board, flashed through the same `idf.py`
-invocation.
+overrides it doesn't support. An esptool subcommand that has no
+esparagus equivalent fails with an explicit "not implemented, use
+upstream esptool.py" error rather than misbehaving silently — the
+exact list is in the next section. This is how I validated protocol
+parity: the same build, the same board, flashed through the same
+`idf.py` invocation.
 
 ## The rest of the toolbox
 
@@ -269,12 +272,32 @@ mine currently looks like this:
   [docs/STATUS.md](https://github.com/DatanoiseTV/esparagus/blob/main/docs/STATUS.md)
   and gets updated as boards land on my bench.
 
-Intentionally not implemented (and not planned to be quietly
-half-implemented): eFuse burning, secure boot signing, flash encryption,
-Secure Download Mode, UF2 generation, and NAND commands. If your workflow
-needs those, you need esptool and its siblings — and for production
-provisioning involving one-way operations, you want the canonical tool
-anyway.
+Feature parity with esptool is deliberately not complete, and rather
+than leave you guessing, here is the current list of esptool
+subcommands that esparagus does not implement — the `esptool.py`
+compat symlink rejects them with an explicit error instead of
+misbehaving:
+
+- `image_info`, `verify_flash` (esparagus verifies via MD5 during
+  `write-flash`, but the standalone command doesn't exist)
+- `dump_mem`, `load_ram`, `read_mem`, `write_mem`, `make_image`
+- `get_security_info` (used internally during detection, not exposed
+  as a command) and `summary`
+
+Anything else without an esparagus equivalent (for example
+`read_flash_status` / `write_flash_status`) simply fails as an
+unknown command.
+
+Beyond individual subcommands, whole feature areas are intentionally
+out of scope: eFuse burning, secure boot signing (`espsecure.py`
+equivalents), flash encryption (`--encrypt`), Secure Download Mode,
+UF2 image generation, NAND flash commands, RFC2217/TCP-bridged ports,
+and NVS writing (reading, viewing, and exporting are implemented). A
+few `write_flash` flags (flash mode/frequency/size overrides) are
+accepted but stripped with a warning. If your workflow needs any of
+those, you need esptool and its siblings — and for production
+provisioning involving one-way operations, you want the canonical
+tool anyway.
 
 That's also the general recommendation: esptool remains the reference,
 and if you flash by hand and read the output with your own eyes, it
