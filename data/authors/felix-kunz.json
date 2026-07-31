@@ -1,0 +1,17 @@
+{
+    "name": "Felix Kunz",
+    "type": "community",
+    "image": "img/authors/felix-kunz.webp",
+    "bio": "Founder of Kunz Engineering in Solothurn, Switzerland.",
+    "social": [
+        {
+            "linkedin": "https://www.linkedin.com/in/fekunz/"
+        },
+        {
+            "github": "https://github.com/FelixKunzJr"
+        },
+        {
+            "link": "https://kunzengineering.ch"
+        }
+    ]
+}
