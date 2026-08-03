@@ -21,9 +21,9 @@ More Events
 
 ## Featured Articles
 
-{{< article link="/blog/2026/06/introducing-esp-trace-component/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/07/espressif-aliro-solution/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/06/zephyr-coding-with-ai/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/07/esp-idf-bootloader-recovery/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
@@ -34,7 +34,7 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/tinygo/" showSummary=true compactSummary=true >}}
+{{< article link="/workshops/rainmaker-studio/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="workshops/" target="_self" >}}
