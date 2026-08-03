@@ -10,24 +10,32 @@ Welcome to the Edge AI with ESP32-S3 workshop on computer vision!
 
 ## About this workshop
 
-In this workshop, you will take your first steps into edge AI for computer vision using ESP-WHO and ESP-IDF. By the end, you will be able to run vision AI on an edge device (ESP32-S3) for image detection and recognition using state-of-the-art models.
+In this workshop, you will build real edge AI vision applications on the ESP32-S3-EYE using ESP-WHO and ESP-DL — Espressif's frameworks for camera-based AI on embedded devices. All inference runs directly on the chip, with no cloud dependency.
 
-You will learn how to build an application to detect and recognize human faces, which can be used in many real-world applications such as doorbells, access control, and human interface devices.
+You will start with the complete ESP-WHO framework to run face detection and face recognition out of the box, then move to using ESP-DL directly for hand gesture recognition and YOLO11-based object detection. Along the way, you will also learn how to capture raw camera frames without ESP-WHO, giving you the flexibility to build fully custom inference pipelines.
 
-Additionally, you will learn how to run inference with ESP-DL for hand gesture recognition and object detection using models from the Espressif model zoo.
+By the end of the workshop, you will know how to:
+
+- Set up a complete edge AI development environment with ESP-IDF and ESP-WHO
+- Run face detection and face recognition using the ESP-WHO camera pipeline
+- Capture raw frames from the OV2640 sensor for use in custom applications
+- Load and run models from the ESP-DL model zoo directly, without ESP-WHO
+- Perform hand gesture recognition and YOLO11 object detection with ESP-DL
+- Understand how to quantize and deploy a custom model using ESP-PPQ
+- Explore the full ESP-DL model zoo and the ESP-Vision rapid prototyping platform
 
 ## Agenda
 
 If you have met the [prerequisites](#prerequisites), we can start with the individual chapters:
 
-- [Introduction: Introduction to ESP-WHO](introduction)
+- [Introduction to Edge-AI Vision](introduction)
 - [Assignment 1: Install ESP-IDF and ESP-WHO](assignment-1)
 - [Assignment 2: ESP-WHO - Working with face detection](assignment-2)
-- [Assignment 3: ESP-WHO - Face recognition](assignment-3)
-- [Assignment 4: Camera sensor introduction](assignment-4)
-- [Assignment 5: ESP-DL - Hand gesture recognition](assignment-5)
-- [Assignment 6: ESP-DL - Object detection](assignment-6)
-- [Assignment 7: Extra](assignment-7)
+- [Assignment 3: Face recognition with ESP-WHO](assignment-3)
+- [Assignment 4: Raw Camera Frames for Custom Applications](assignment-4)
+- [Assignment 5: Hand gesture recognition with ESP-DL](assignment-5)
+- [Assignment 6: Object detection with YOLO11](assignment-6)
+- [Assignment 7: Going further](assignment-7)
 
 ## Prerequisites
 
@@ -55,7 +63,7 @@ Optional software:
 
 ## Next step
 
-[Introduction: Introduction to ESP-WHO](introduction)
+[Introduction to Edge-AI Vision](introduction)
 
 ## Feedback
 
