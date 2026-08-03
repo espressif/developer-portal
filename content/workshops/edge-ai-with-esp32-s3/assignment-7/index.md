@@ -43,6 +43,12 @@ Every model in the table above is an ESP-IDF component. Adding one to your proje
 
 The models in the zoo cover many common tasks, but real products often need a model trained on a specific domain — your own objects, environments, or gesture vocabulary. ESP-DL supports deploying custom models through a quantization pipeline based on **ESP-PPQ**.
 
+[ESP-PPQ](https://github.com/espressif/esp-ppq) is Espressif's quantization toolkit, built as an extension of the open-source PPQ framework. It takes a full-precision ONNX model and converts it into the 8-bit `.espdl` format that ESP-DL can load and execute on chip. ESP-PPQ handles graph optimization, operator fusion, calibration, and weight quantization — all in a single Python API call. It can be installed with:
+
+```bash
+pip install esp-ppq
+```
+
 ### The workflow
 
 ```mermaid
@@ -68,31 +74,38 @@ torch.onnx.export(model, dummy_input, "model.onnx",
 
 **3. Quantize with ESP-PPQ**
 
-[ESP-PPQ](https://github.com/espressif/esp-ppq) is Espressif's quantization toolkit. It converts a full-precision ONNX model into the 8-bit `.espdl` format optimized for ESP hardware. The default method is **Post Training Quantization (PTQ)**, which requires only a small representative dataset — no retraining is needed.
+The default method is **Post Training Quantization (PTQ)**, which requires no retraining — only a small unlabeled calibration dataset (32–100 images) representative of the real input distribution.
 
 ```python
 from espdl import espdl_quantize_onnx
 
-# Quantize for ESP32-S3
 quant_graph = espdl_quantize_onnx(
     onnx_import_file="model.onnx",
     espdl_export_file="model_s3.espdl",
-    calib_dataloader=calib_loader,   # small representative dataset
-    calib_steps=32,
-    input_shape=[1, 3, 224, 224],
-    target="esp32s3",                # esp32 / esp32s3 / esp32p4
-    num_of_bits=8,
-    export_test_values=True,         # embed test vectors for on-chip verification
+    calib_dataloader=calib_loader,   # DataLoader wrapping your calibration images
+    calib_steps=32,                  # number of calibration batches
+    input_shape=[1, 3, 224, 224],    # must match the shape used during ONNX export
+    target="esp32s3",                # esp32 | esp32s3 | esp32p4 | esp32s31
+    num_of_bits=8,                   # INT8 quantization
+    export_test_values=True,         # embed test vectors for on-chip accuracy verification
 )
 ```
 
-Three files are produced:
+Key parameters to understand:
+
+| Parameter | Effect |
+|-----------|--------|
+| `target` | Selects the quantization strategy (per-tensor vs per-channel) and rounding mode for the target chip. Must match the chip you will deploy on |
+| `calib_steps` | Number of batches used for calibration. More steps give more stable scale estimates but increase quantization time |
+| `export_test_values` | Embeds reference input/output tensors in the `.espdl` file so you can verify on-chip output matches the expected values during development |
+
+Three files are produced after quantization:
 
 | File | Purpose |
 |------|---------|
-| `model.espdl` | Binary model — deploy this on the device |
-| `model.info` | Human-readable model structure and quantized weights for debugging |
-| `model.json` | Quantization parameters for reuse or fine-tuning |
+| `model.espdl` | Binary model file — this is the only file needed on the device |
+| `model.info` | Human-readable summary of the model graph, layer shapes, and quantized weight ranges — useful for debugging accuracy issues |
+| `model.json` | Full quantization parameters in JSON — can be reloaded to skip recalibration or used for fine-tuning the quantization config |
 
 **4. Load and run on device**
 

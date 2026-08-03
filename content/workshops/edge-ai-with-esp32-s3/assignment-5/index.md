@@ -257,4 +257,4 @@ In this assignment you:
 
 ## Next step
 
-[Assignment 6: ESP-DL - Object detection](../assignment-6)
+[Assignment 6: Object detection with YOLO11](../assignment-6)

@@ -7,11 +7,11 @@ series_order: 5
 showAuthor: false
 ---
 
-## Assignment 4: Camera sensor introduction
+## Assignment 4: Raw Camera Frames for Custom Applications
 
-Every vision AI application starts with a camera. The quality, resolution, and format of the captured frame directly affect what the model sees and how accurately it can reason about it. Before writing a single line of inference code, it is worth understanding what the camera on the ESP32-S3-EYE can do, how it communicates with the chip, and how ESP-WHO turns a raw sensor into a stream of frames ready for AI processing.
+ESP-WHO is a convenient framework, but not every application needs it. When building a custom inference pipeline, integrating a third-party model, or processing frames in a way that ESP-WHO does not support, you need direct access to the raw camera frames without the task scaffolding, display integration, or pipeline abstractions that ESP-WHO adds.
 
-Before running any AI model, it is important to understand how the camera works on the ESP32-S3-EYE. In this assignment you will learn about the OV2640 sensor, the key configuration parameters, and how ESP-WHO builds an asynchronous capture pipeline on top of the camera driver. You will then run a live camera preview to verify that everything is working before adding hand gesture recognition in the next assignment.
+In this assignment you will learn how to capture raw frames from the OV2640 sensor using ESP-IDF and the BSP directly, without involving ESP-WHO at all. You will understand the key camera parameters such as resolution, pixel format, and frame timing, and see how to access frame buffers in your own application code. This is the foundation for any custom vision application that needs full control over how frames are acquired and consumed.
 
 ---
 
@@ -48,11 +48,11 @@ The OV2640 can output frames in several pixel formats. The format you choose aff
 
 | Format | Description | Used for |
 |--------|-------------|----------|
-| JPEG | Compressed image | Bandwidth-efficient capture (not the default in ESP-WHO on ESP32-S3) |
-| RGB565 | 16-bit color, 2 bytes per pixel | Default capture format in ESP-WHO; direct display |
-| RGB888 | 24-bit color, 3 bytes per pixel | Model inference input (converted from RGB565 in the pipeline) |
-| YUV422 | Luminance + chrominance | Some detection models |
-| Grayscale | 8-bit luminance only | Simple detection tasks |
+| JPEG | Compressed image | Transmitting frames over a network or saving to SD card. Not used for real-time inference in ESP-WHO because software decoding adds CPU overhead |
+| RGB565 | 16-bit color, 2 bytes per pixel | Default capture format in ESP-WHO. Raw frames are captured in RGB565 and sent directly to the LCD display without conversion |
+| RGB888 | 24-bit color, 3 bytes per pixel | Input format expected by ESP-DL inference models. The pipeline converts each captured RGB565 frame to RGB888 before passing it to the detector |
+| YUV422 | Luminance + chrominance, 2 bytes per pixel | Detection models that operate on the luminance (Y) channel only, avoiding a full color conversion. Useful when model accuracy on grayscale-equivalent data is acceptable |
+| Grayscale | 8-bit luminance only, 1 byte per pixel | Single-channel detection tasks where color information is not needed. Halves the memory footprint compared to RGB565 and reduces inference input size |
 
 In ESP-WHO on the ESP32-S3-EYE, the camera captures frames in **RGB565** format directly via the V4L2 API. This avoids the overhead of JPEG compression and software decoding on the CPU. Before being passed to a detection model, the pipeline converts the RGB565 frame to **RGB888**, which is the format expected by ESP-DL inference models.
 
@@ -498,4 +498,4 @@ In this assignment you:
 
 Now that you understand the camera pipeline and have run face detection directly with ESP-DL, the next assignment extends this with hand gesture recognition from live camera frames.
 
-[Assignment 5: ESP-DL - Hand gesture recognition](../assignment-5)
+[Assignment 5: Hand gesture recognition with ESP-DL](../assignment-5)

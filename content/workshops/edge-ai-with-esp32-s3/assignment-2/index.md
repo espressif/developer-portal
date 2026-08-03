@@ -7,9 +7,9 @@ series_order: 3
 showAuthor: false
 ---
 
-## Assignment 2: Face detection with ESP-WHO
+## Assignment 2: ESP-WHO - Working with face detection
 
-In this assignment you will run the ESP-WHO face recognition example on the ESP32-S3-EYE, explore how the face detection model works, and then modify the application to light up the onboard LED whenever a face is detected in the camera frame.
+In this assignment you will run the ESP-WHO face detection and recognition example on the ESP32-S3-EYE, explore how the face detection model works, and then modify the application to light up the onboard LED whenever a face is detected in the camera frame.
 
 > [!NOTE]
 > ESP-WHO uses a two-step approach: **face detection** locates faces in a frame and returns bounding boxes, then **face recognition** identifies whose face it is. This assignment covers **step 1 — face detection only**. Recognition will be added in Assignment 3.
@@ -26,6 +26,8 @@ ESP-WHO uses the `HumanFaceDetect` class from [ESP-DL](https://github.com/espres
 | `ESPDET_PICO_224_224_FACE` | One-stage | 224×224 | ~132 ms | 0.504 |
 | `ESPDET_PICO_416_416_FACE` | One-stage | 416×416 | ~437 ms | 0.598 |
 
+**mAP50-95** (Mean Average Precision at IoU thresholds from 0.50 to 0.95) is the standard accuracy metric for object detection models. It measures how well a model localizes and classifies objects across a range of overlap thresholds between predicted and ground-truth bounding boxes. A higher value means more accurate detections — the one-stage models score higher because they process a larger input and apply a single, more precise network, while the two-stage default trades some accuracy for significantly lower latency.
+
 All three models use **8-bit quantization** and run entirely on the ESP32-S3's CPU using the ESP-DL inference engine.
 
 ### How the two-stage default model works
@@ -39,10 +41,10 @@ The default `MSRMNP_S8_V1` runs two lightweight neural networks in sequence:
 This cascade design keeps the overall latency low: MSR takes ~33 ms for the whole frame on ESP32-S3, and MNP adds only ~6 ms per surviving candidate. In practice, when one face is in frame, the total detection time is around 37–40 ms per frame.
 
 ```mermaid
-graph LR
+graph TD
     A[Camera frame\n120×160] --> B[MSR model\nCandidate regions]
     B -->|Crop each candidate\n48×48| C[MNP model\nRefine + filter]
-    C --> D[Detection results\nbounding boxes + landmarks]
+    C --> D[Detection results\nbounding boxes + \nlandmarks]
 ```
 
 ### Detection result structure
@@ -242,4 +244,4 @@ In this assignment you:
 
 Now that you can detect faces, the next assignment goes further and adds face enrollment and recognition.
 
-[Assignment 3: ESP-WHO - Face recognition](../assignment-3)
+[Assignment 3: Face recognition with ESP-WHO](../assignment-3)

@@ -222,4 +222,4 @@ In this assignment you:
 
 ## Next step
 
-[Assignment 4: Camera sensor introduction](../assignment-4)
+[Assignment 4: Raw Camera Frames for Custom Applications](../assignment-4)

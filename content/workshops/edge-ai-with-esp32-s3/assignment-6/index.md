@@ -52,10 +52,10 @@ The model was trained on **COCO** (Common Objects in Context), a large-scale dat
 
 ESP-DL provides two YOLO11N variants for the ESP32-S3:
 
-| Model | Input | Flash | PSRAM | Measured time (ms) | mAP50-95 |
-|-------|-------|-------|-------|--------------------|----------|
-| `coco_detect_yolo11n_s8_v1` (default) | 640×640 | 8 MB | 8 MB | ~26,000 | 0.370 |
-| `coco_detect_yolo11n_320_s8_v1` | 320×320 | 8 MB | 8 MB | ~7,698 | 0.276 |
+| Model | Input | Measured time (ms) | mAP50-95 |
+|-------|-------|--------------------|----------|
+| `coco_detect_yolo11n_s8_v1` (default) | 640×640 | ~26,000 | 0.370 |
+| `coco_detect_yolo11n_320_s8_v1` | 320×320 | ~7,698 | 0.276 |
 
 > [!IMPORTANT]
 > Inference on the ESP32-S3 takes **6 to 26 seconds** per frame depending on the model variant. This is expected — YOLO11N was designed for inference on microcontrollers but the ESP32-S3 has no dedicated NPU. The ESP32-P4, with its hardware accelerator, reduces this to 0.55–2.5 seconds. For the workshop, use `coco_detect_yolo11n_320_s8_v1` to keep iteration times manageable.
@@ -64,7 +64,7 @@ ESP-DL provides two YOLO11N variants for the ESP32-S3:
 
 ## Step 1: Create the project
 
-Create a new project from the example using the IDF component manager:
+Create a new project from the example using the ESP-IDF Component Manager:
 
 ```bash
 idf.py create-project-from-example "espressif/esp-dl=3.3.8:yolo11_detect"
@@ -227,7 +227,7 @@ Check the serial output for detected objects. Use the COCO class table above to 
 ### Questions to consider
 
 - The `coco_detect_yolo11n_320_s8_v1` model takes ~6 s and achieves mAP 0.276, while `coco_detect_yolo11n_s8_v1` takes ~26 s and achieves mAP 0.370. For a battery-powered product, how would you decide which to use?
-- The model outputs a bounding box in pixel coordinates relative to the input image. How would you map those coordinates back onto a 240×240 LCD display?
+- The model outputs bounding boxes in pixel coordinates relative to its input resolution (320×320 or 640×640). If you wanted to draw those boxes on a 240×240 LCD display, the coordinates would need to be scaled. For a box coordinate `x` from a 320×320 input, the scaled value would be `x * 240 / 320`. How would you apply this scaling for both axes, and what happens to the aspect ratio if the display is not square?
 - Given the inference time on the ESP32-S3, do you think running YOLO11 on live camera frames is practical? What architectural changes would make it more feasible?
 
 ---
@@ -344,4 +344,4 @@ In this assignment you:
 
 ## Next step
 
-[Assignment 7: Extra](../assignment-7)
+[Assignment 7: Going further](../assignment-7)

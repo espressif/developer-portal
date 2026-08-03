@@ -88,11 +88,21 @@ Notable properties:
 
 ## Introduction to ESP-WHO
 
-To help developers with vision applications such as face detection and recognition, pedestrian detection, and QR code recognition, Espressif has developed a framework for image processing that runs on ESP SoCs.
+To help developers with vision applications such as face detection and recognition, pedestrian detection, and QR code recognition, Espressif has developed a framework for image processing that runs on ESP SoCs. ESP-WHO is built on top of [ESP-DL](#esp-dl), Espressif's neural network inference engine, which handles all model loading and execution. ESP-WHO adds the camera pipeline, display integration, and FreeRTOS task scaffolding on top of it.
 
 An introduction article called [ESP-WHO: Get started](https://developer.espressif.com/blog/2026/05/esp-who-get-started/) was published recently and it is an excellent source for information about ESP-WHO.
 
 In this workshop, we will go further than the article and deep-dive into vision for other applications.
+
+### Supported hardware
+
+ESP-WHO targets ESP SoCs with hardware AI acceleration and uses the BSP abstraction layer so that the same application code runs across supported boards without modification. The table below lists the officially supported development boards:
+
+| Development board | SoC | Camera interface | Notes |
+|-------------------|-----|-----------------|-------|
+| [ESP32-S3-EYE](https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP32-S3-EYE_Getting_Started_Guide.md) | ESP32-S3 | DVP (OV2640) | Used in this workshop |
+| [ESP32-S3-Korvo-2](https://docs.espressif.com/projects/esp-adf/en/latest/get-started/user-guide-esp32-s3-korvo-2.html) | ESP32-S3 | DVP (OV2640) | Audio-focused board with camera support |
+| [ESP32-P4-Function-EV-Board](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32p4/esp32-p4-function-ev-board/index.html) | ESP32-P4 | MIPI-CSI (SC2336) | High-performance board with MIPI camera |
 
 ### Features
 
@@ -107,10 +117,11 @@ ESP-WHO ships with ready-to-run examples that cover the most common vision AI us
 
 Beyond the individual examples, ESP-WHO provides several framework-level capabilities:
 
+- **ESP-DL powered inference:** all model execution in ESP-WHO goes through ESP-DL. ESP-DL handles model loading, memory placement, and hardware-accelerated INT8 inference — ESP-WHO builds its detection and recognition pipelines directly on top of it. The same models can also be used directly via the ESP-DL C++ API without going through ESP-WHO
 - **Asynchronous pipeline:** the camera capture and model inference run on separate cores concurrently, maximizing frame throughput
 - **LVGL integration:** results are rendered directly on the LCD display using the LVGL graphics library, with no extra glue code needed
 - **BSP-based portability:** hardware differences between supported boards are fully abstracted. The same application code runs on the ESP32-S3-EYE, ESP32-P4-Function-EV-Board, and ESP32-S3-Korvo-2 by switching the BSP configuration
-- **ESP-DL model zoo:** face detection, face recognition, gesture recognition, and object detection models are pre-quantized and ready to load
+- **Pre-quantized model zoo:** face detection, face recognition, gesture recognition, and object detection models are provided by ESP-DL, pre-quantized and ready to load — either through ESP-WHO pipelines or directly via the ESP-DL API
 
 {{< github repo="espressif/esp-who" >}}
 
@@ -132,7 +143,21 @@ graph TD
     G --> E
 ```
 
+Each node in the diagram represents a distinct layer of the stack:
+
+| Layer | Description |
+|-------|-------------|
+| **Your Application** | The code you write. It uses ESP-WHO components to build a vision pipeline, combining capture, inference, and display stages |
+| **ESP-WHO** | A collection of composable C++ components that implement the vision pipeline stages — camera capture, model inference, face recognition, QR decoding, and display output |
+| **ESP-DL** | Espressif's neural network inference engine. ESP-WHO delegates all model loading and execution to ESP-DL, which optimizes and runs `.espdl` models using chip-specific SIMD instructions |
+| **ESP-BSP** | Board Support Package that abstracts the hardware peripherals (camera, display, buttons, microphone) behind a unified API, making the application portable across supported boards |
+| **esp_video** | Camera driver component from esp-video-components. Provides a V4L2-compatible API for the OV2640 sensor over DVP. The BSP initializes it and exposes camera access through BSP calls |
+| **esp_lvgl_port** | LVGL integration layer. Manages the display task, flush callbacks, and touch input routing so that LVGL can render directly to the ST7789 LCD |
+| **ESP-IDF** | The foundation of the entire stack. Provides FreeRTOS, peripheral drivers, the HAL, and the build system that all other components are built on |
+
 **ESP-WHO internal components:**
+
+ESP-WHO is structured as a set of composable C++ components, each responsible for a single stage of the vision pipeline. They are designed to run as FreeRTOS tasks and communicate through queues, so individual stages can be combined or replaced without rewriting the whole application.
 
 | Component | Role |
 |-----------|------|
@@ -145,6 +170,8 @@ graph TD
 | `who_app` | Top-level orchestration that wires capture, inference, and display together |
 
 **External dependencies:**
+
+ESP-WHO relies on a set of Espressif-maintained components that are declared in the project's `idf_component.yml` and fetched automatically from the [ESP Component Registry](https://components.espressif.com) at build time.
 
 | Component | Source | Role |
 |-----------|--------|------|
@@ -177,6 +204,9 @@ The typical ESP-DL workflow is:
 4. Load and run the `.espdl` model on-device using the ESP-DL C++ API
 
 ESP-DL ships with a **model zoo** of pre-trained and pre-quantized models ready to deploy, including face detection, face recognition, hand gesture recognition, and YOLO11-based object detection. All of these are used in this workshop.
+
+> [!NOTE]
+> ESP-WHO uses ESP-DL internally for all inference, but you are not required to use ESP-WHO to run models. The ESP-DL C++ API can be used directly in your application to load and run any `.espdl` model from the model zoo — or your own custom model — without the camera pipeline, display integration, or FreeRTOS task scaffolding that ESP-WHO adds. This is the approach used later in this workshop when building custom inference pipelines.
 
 {{< github repo="espressif/esp-dl" >}}
 
@@ -245,11 +275,11 @@ bsp_sdcard_unmount();
 | [LVGL Benchmark](https://github.com/espressif/esp-bsp/tree/master/examples/display_lvgl_benchmark) | Run LVGL benchmark tests |
 | [LVGL Demos](https://github.com/espressif/esp-bsp/tree/master/examples/display_lvgl_demos) | Run the full LVGL demo player |
 
-#### ESP-Video
+#### ESP Video Components
 
-[ESP-Video](https://github.com/espressif/esp-video-components) is Espressif's camera framework for ESP-IDF. It relies on **ESP-BSP** to abstract the hardware, and the ESP32-S3-EYE BSP pulls in [`espressif/esp_video`](https://components.espressif.com/components/espressif/esp_video) as its camera dependency.
+[esp-video-components](https://github.com/espressif/esp-video-components) is Espressif's collection of video-related components for ESP-IDF, covering camera capture, image signal processing, and video encoding. The most relevant component for this workshop is [`esp_video`](https://components.espressif.com/components/espressif/esp_video), which provides the camera driver used by the ESP32-S3-EYE BSP. Each component in the repository can be used independently — the BSP pulls in `esp_video` as its camera dependency, not the repository as a whole.
 
-The key feature of ESP-Video is its **Linux V4L2-compatible API**, using the same `open()`, `ioctl()`, and buffer queue model used in Linux camera stacks. This makes it consistent across all supported interfaces (DVP, MIPI-CSI, SPI, USB) and all supported chips.
+The key feature of esp-video-components is its **Linux V4L2-compatible API**, using the same `open()`, `ioctl()`, and buffer queue model used in Linux camera stacks. This makes it consistent across all supported interfaces (DVP, MIPI-CSI, SPI, USB) and all supported chips.
 
 ##### Key capabilities
 
