@@ -47,10 +47,10 @@ The models in the zoo cover many common tasks, but real products often need a mo
 
 ```mermaid
 graph LR
-    A[Train model\nPyTorch / TF / Paddle] --> B[Export to ONNX]
+    A[Train model\nPyTorch / TF / Paddle] --> B[Export\nto ONNX]
     B --> C[Quantize with ESP-PPQ\nespdl_quantize_onnx]
-    C --> D[.espdl model file]
-    D --> E[Deploy with ESP-DL\non chip]
+    C --> D[.espdl\nmodel file]
+    D --> E[Deploy with\nESP-DL\non chip]
 ```
 
 **1. Train your model**
@@ -189,7 +189,7 @@ The ESP32-S3-EYE you have been using throughout this workshop is fully supported
 ### Getting started
 
 1. Go to [vision.espressif.com](https://vision.espressif.com/).
-2. Click **Flash** to install the ESP-Vision firmware on your board directly from the browser using Web Serial — no installation needed.
+2. Click **Flash It Now** to install the ESP-Vision firmware on your board directly from the browser using Web Serial — no installation needed.
 3. Open the **Web IDE** to write and run Python scripts in your browser.
 4. Browse the model zoo on the site to download ready-to-use `.espdl` model files, copy them to an SD card, and load them with `espdl.ESPDet()` or `espdl.YOLO11()`.
 

@@ -71,7 +71,7 @@ idf.py create-project-from-example "espressif/esp-dl=3.3.8:yolo11_detect"
 ```
 
 > [!TIP]
-> Version `3.3.8` is the version this workshop was validated against. You can omit the version pin (`"espressif/esp-dl:yolo11_detect"`) to get the latest release, but model names or menuconfig options may differ.
+> ESP-DL `v3.3.8` is the version against which this workshop was validated. You can omit the version pin (`"espressif/esp-dl:yolo11_detect"`) to get the latest release, but model names or menuconfig options may differ.
 
 Navigate into the project:
 

@@ -51,7 +51,7 @@ Espressif offers several SoCs purpose-built for edge AI workloads. The table bel
 
 #### ESP32-S3
 
-The ESP32-S3 is the chip used in this workshop, via the ESP32-S3-EYE development board. It was designed with AI workloads in mind, adding **128-bit SIMD vector instructions** to the Xtensa LX7 core (see PIE). These instructions accelerate operations common in neural network inference, such as multiply-accumulate (MAC), dot products, and convolution. They are the hardware foundation that makes frameworks like ESP-DL practical on a microcontroller.
+The [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) is the chip used in this workshop, via the ESP32-S3-EYE development board. It was designed with AI workloads in mind, adding **128-bit SIMD vector instructions** to the Xtensa LX7 core (see PIE). These instructions accelerate operations common in neural network inference, such as multiply-accumulate (MAC), dot products, and convolution. They are the hardware foundation that makes frameworks like ESP-DL practical on a microcontroller.
 
 Key properties for vision AI:
 

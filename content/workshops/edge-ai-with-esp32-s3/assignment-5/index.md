@@ -30,7 +30,7 @@ graph LR
     A[Input image\nJPEG] --> B[sw_decode_jpeg\nRGB888]
     B --> C[HandDetect\nBounding box]
     C --> D[HandGestureCls\nMobileNetV2-0.5\n128×128]
-    D --> E[Result\ncategory + score]
+    D --> E[Result\ncategory +\nscore]
 ```
 
 ### Supported gestures
@@ -57,14 +57,14 @@ The model uses 8-bit quantization and is stored in flash. The total flash usage 
 
 ## Step 1: Create the project
 
-Unlike the previous assignments that used examples from the ESP-WHO repository, this example comes directly from ESP-DL. Use the IDF component manager to create a new project from the example in one command:
+Unlike the previous assignments that used examples from the ESP-WHO repository, this example comes directly from ESP-DL. Use the ESP-IDF Component manager to create a new project from the example in one command:
 
 ```bash
 idf.py create-project-from-example "espressif/esp-dl=3.3.8:hand_gesture_recognition"
 ```
 
 > [!TIP]
-> Version `3.3.8` is the version this workshop was validated against. You can omit the version pin (`"espressif/esp-dl:hand_gesture_recognition"`) to get the latest release, but API details may differ slightly from what is shown here.
+> ESP-DL `v3.3.8` is the version against which this workshop was validated. You can omit the version pin (`"espressif/esp-dl:hand_gesture_recognition"`) to get the latest release, but API details may differ slightly from what is shown here.
 
 This downloads the example from the ESP Component Registry, creates a new directory named `hand_gesture_recognition`, and sets up the `idf_component.yml` with the correct dependencies automatically.
 

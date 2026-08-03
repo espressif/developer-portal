@@ -25,7 +25,7 @@ Recognition builds directly on top of detection. Once the detection model finds 
 
 ```mermaid
 graph LR
-    A[Detection result\nbounding box + keypoints] --> B[Face alignment\n112×112 crop]
+    A[Detection result\nbounding box +\nkeypoints] --> B[Face alignment\n112×112 crop]
     B --> C[HumanFaceFeat\nfeature vector]
     C --> D[Database query\ncosine similarity]
     D -->|sim ≥ 0.5| E[Recognized\nid + similarity]
