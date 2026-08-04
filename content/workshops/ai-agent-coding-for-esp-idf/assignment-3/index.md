@@ -4,7 +4,7 @@ date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: false
 series: ["WS003EN"]
-series_order: 6
+series_order: 7
 showAuthor: false
 ---
 
@@ -62,7 +62,7 @@ Check each file:
 - [ ] `CMakeLists.txt` uses `idf_component_register` with `SRCS` and `INCLUDE_DIRS`.
 - [ ] `Kconfig` defines `LED_INDICATOR_GPIO_NUM` with a prompt, default, and help text.
 - [ ] `led_indicator.h` declares all four functions with `esp_err_t` return types.
-- [ ] `led_indicator.c` implements all four functions using `gpio_set_level` and `gpio_get_level`.
+- [ ] `led_indicator.c` implements all four functions using `gpio_set_level` and `gpio_get_level` for the toggle state.
 
 ### Step 3: Integrate the Component into the Application
 
@@ -83,11 +83,11 @@ idf.py -p <PORT> flash monitor
 You should see the LED toggle at 500 ms intervals. Adjust `CONFIG_LED_INDICATOR_GPIO_NUM` via `menuconfig` if needed to match your hardware.
 
 {{< alert icon="circle-info" >}}
-If your devkit has an addressable RGB LED (e.g. the ESP32-C6-DevKitC-1 uses GPIO8 for its RGB LED), use a component that supports WS2812 instead. You can ask the agent to adapt the component accordingly.
+If your devkit has an addressable RGB LED (e.g. the ESP32-C5-DevKitC-1 uses GPIO8 for its RGB LED), use a component that supports WS2812 instead. You can ask the agent to adapt the component accordingly.
 {{< /alert >}}
 
 ## Next step
 
-[Assignment 4: Debugging and Refactoring with AI](../assignment-4)
+[Lecture 4: Tools and Tricks for Agent Development with ESP-IDF](../lecture-4)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)

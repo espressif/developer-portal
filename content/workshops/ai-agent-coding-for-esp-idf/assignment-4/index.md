@@ -1,14 +1,18 @@
 ---
-title: "AI Agent Coding for ESP-IDF Workshop - Assignment 4: Debugging and Refactoring with AI"
+title: "AI Agent Coding for ESP-IDF Workshop - Bonus: Debugging and Refactoring with AI"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: false
 series: ["WS003EN"]
-series_order: 7
+series_order: 9
 showAuthor: false
 ---
 
-## Assignment 4: Debugging and Refactoring with AI
+## Bonus: Debugging and Refactoring with AI
+
+{{< alert icon="circle-info" >}}
+This is an optional assignment. If you've finished the main workshop content, this is a great way to practice two more high-value AI agent workflows: diagnosing bugs and improving code structure.
+{{< /alert >}}
 
 ---
 
@@ -52,7 +56,7 @@ Rebuild and flash to confirm the fix resolves the issue.
 
 #### Step 1: Identify Code to Refactor
 
-Open `main/app_main.c` from the previous assignment. It likely contains all logic directly in `app_main`, including the Wi-Fi connection and LED control loop.
+Open `main/ai-wifi-connect.c` from the previous assignment. It likely contains all logic directly in `app_main`, including the Wi-Fi connection and LED control loop.
 
 #### Step 2: Prompt for Refactoring
 

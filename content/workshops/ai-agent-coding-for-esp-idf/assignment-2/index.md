@@ -4,7 +4,7 @@ date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: false
 series: ["WS003EN"]
-series_order: 5
+series_order: 6
 showAuthor: false
 ---
 
@@ -36,7 +36,7 @@ Create a new ESP-IDF project using the ESP-IDF extension:
 Open the AI chat panel and enter the following prompt:
 
 ```
-Using ESP-IDF v6.0.2 for ESP32-C6, modify the hello_world project to:
+Using ESP-IDF v6.0.2 for ESP32-C5, modify the hello_world project to:
 1. Initialize NVS flash.
 2. Connect to Wi-Fi using SSID and password defined as CONFIG_WIFI_SSID and CONFIG_WIFI_PASSWORD in Kconfig.projbuild.
 3. Log the device IP address once connected.

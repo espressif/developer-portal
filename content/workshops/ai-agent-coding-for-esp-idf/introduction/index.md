@@ -99,10 +99,12 @@ flowchart LR
     E --> F[Agent fixes]
     F --> C
     D -- No --> G[Flash]
-    G --> E
+    G --> H[Verify on hardware]
 ```
 
 The agent takes care of the mechanical parts. You focus on describing the intent, reviewing the output, and verifying the result on hardware. The number of back-and-forth cycles drops a lot, especially for tasks with a clear structure.
+
+We'll look at this in more detail in Lecture 1.
 
 ### Spec-Driven Development
 
@@ -116,11 +118,19 @@ A vague prompt like this:
 
 A spec-driven prompt like this gives the agent a real contract to implement:
 
-> *"Create a component called `temperature_sensor` for ESP32-C6 using ESP-IDF v6.0.2. The public API should be: `esp_err_t temperature_sensor_init(void)`, `esp_err_t temperature_sensor_read(float *out_celsius)`, `esp_err_t temperature_sensor_deinit(void)`. Use `CONFIG_TEMPERATURE_SENSOR_SAMPLE_PERIOD_MS` (Kconfig, default 1000 ms) for the sampling interval. Use the ESP-IDF internal temperature sensor driver. Follow the project rules in AGENTS.md."*
+> *"Create a component called `temperature_sensor` for ESP32-C5 using ESP-IDF v6.0.2. The public API should be: `esp_err_t temperature_sensor_init(void)`, `esp_err_t temperature_sensor_read(float *out_celsius)`, `esp_err_t temperature_sensor_deinit(void)`. Use `CONFIG_TEMPERATURE_SENSOR_SAMPLE_PERIOD_MS` (Kconfig, default 1000 ms) for the sampling interval. Use the ESP-IDF internal temperature sensor driver. Follow the project rules in AGENTS.md."*
 
 The output will be predictable, easier to review, and much closer to what you actually wanted on the first try.
 
-Taking a few minutes to plan before prompting is not extra work. It's the fastest way to get a good result. We'll go deeper on this in Lecture 2.
+Taking this further, instead of writing the spec directly in the chat, you can write it as Markdown files committed to your project. Three files are particularly useful:
+
+- **`PLAN.md`** — what you want to build and why. High-level goals, constraints, and open questions.
+- **`ARCHITECTURE.md`** — how the system is structured. Components, their responsibilities, and how they interact.
+- **`STEP.md`** — the current task. A single, focused description of what the agent should do next.
+
+Once these files are in place, you can open the agent and say: *"Read PLAN.md, ARCHITECTURE.md, and STEP.md, then implement accordingly."* The agent has full context, and you can update `STEP.md` for each new task without repeating yourself.
+
+Taking a few minutes to plan before prompting is not extra work. It's the fastest way to get a good result. We'll go deeper on this in Lecture 3.
 
 ## Next step
 

@@ -1,55 +1,67 @@
 ---
-title: "AI Agent Coding for ESP-IDF Workshop - Lecture 3: Tips and Tricks"
+title: "AI Agent Coding for ESP-IDF Workshop - Lecture 3: Spec-Driven Development"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: false
 series: ["WS003EN"]
-series_order: 8
+series_order: 5
 showAuthor: false
 ---
 
-## Lecture 3: Tips and Tricks
+## Lecture 3: Spec-Driven Development
 
-Advanced tips for integrating AI agents into your long-term ESP-IDF development practice.
+Spec-driven development is a workflow where you write a clear specification first and let the AI agent generate the implementation from it. This approach produces more consistent, reviewable code and reduces the number of correction cycles.
 
-### Scaling Up with AI Agents
+### What is a Spec?
 
-Once you are comfortable with single-task prompts, you can use AI agents for larger-scale work:
+A spec is a structured description of what you want to build. For ESP-IDF components, a good spec covers:
 
-- **Porting projects** — describe the target difference (e.g. from ESP32-C6 to ESP32-H2) and ask the agent to identify and update all chip-specific code.
-- **Adding a protocol stack** — ask the agent to integrate Wi-Fi provisioning, MQTT, or HTTP client, referencing the ESP-IDF examples as a baseline.
-- **Generating test applications** — use the agent to scaffold Unity-based test apps for any component.
+- **Purpose** — what the component does and why.
+- **API surface** — the public functions, their signatures, and their return types.
+- **Configuration** — any `Kconfig` options, their names, defaults, and valid ranges.
+- **Dependencies** — which ESP-IDF components or external libraries are required.
+- **Constraints** — target chip, IDF version, coding conventions.
 
-### Keeping the Agent Grounded
+### Writing a Spec for an ESP-IDF Component
 
-As projects grow, agents can lose track of earlier decisions. Use these techniques to maintain coherence:
+A spec does not need to be a formal document. A well-structured prompt is sufficient. Example:
 
-**Summarise the project state.** At the start of a new session, paste a brief summary: *"This project is an ESP32-C6 firmware that reads a sensor over I2C and publishes data via MQTT. The component structure is: ..."*
+```
+Component: temperature_sensor
+Target: ESP32-C5, ESP-IDF v6.0.2
 
-**Reference specific files.** Instead of asking the agent to change "the main file", open the file and reference it directly. This reduces ambiguity.
+API:
+  esp_err_t temperature_sensor_init(void);
+  esp_err_t temperature_sensor_read(float *out_celsius);
+  esp_err_t temperature_sensor_deinit(void);
 
-**Use version control as a checkpoint system.** Tag or commit after each successful assignment. You can then ask the agent: *"Compare the current state to the tag v1.0 and explain what changed."*
+Kconfig:
+  TEMPERATURE_SENSOR_SAMPLE_PERIOD_MS — sampling period in ms, default 1000, range 100–60000
 
-### When Not to Use an Agent
+Dependencies: driver/temperature_sensor.h (ESP-IDF internal temperature sensor)
 
-AI agents work best for well-defined, structured tasks. Be cautious when:
+Constraints:
+  - Use ESP_LOGI with tag "temp_sensor" for all log output.
+  - Return ESP_ERR_INVALID_ARG if out_celsius is NULL.
+  - Follow the component structure in AGENTS.md.
+```
 
-- **Timing-critical code** — always review ISR handlers and DMA configurations manually.
-- **Security-sensitive code** — cryptographic implementations and provisioning flows require human expert review.
-- **Novel hardware bringup** — if the datasheet is not publicly available, the agent has no reliable knowledge to draw from.
+### The Spec-Driven Workflow
 
-### Sharing What You Build
+1. **Write the spec** before writing any code. This forces you to think through the design.
+2. **Share the spec with the agent** as a single prompt.
+3. **Review the generated files** against the spec — check API names, Kconfig entries, and dependencies.
+4. **Build and iterate** — share any errors back to the agent.
+5. **Update the spec** if requirements change, then ask the agent to update the implementation to match.
 
-If you create a useful component during this workshop:
+### Why This Works Well for Embedded Code
 
-1. Clean it up and add a `README.md` with usage instructions.
-2. Publish it to the [ESP Component Registry](https://components.espressif.com/).
-3. Share it with the community in the [ESP32 forum](https://esp32.com/) or [GitHub Discussions](https://github.com/espressif/developer-portal/discussions).
+Embedded firmware has well-defined interfaces (GPIO, I2C, SPI, UART) and strict conventions (ESP-IDF component structure, `idf_component_register`, error codes). These constraints give the agent enough structure to generate correct code from a spec with minimal guesswork.
 
----
-
-You have now completed the AI Agent Coding for ESP-IDF Workshop. Thank you for participating!
+Spec-driven development also makes reviews easier: instead of reviewing free-form generated code, reviewers can compare the implementation against the stated spec.
 
 ## Next step
+
+[Assignment 2: Your First AI-Generated ESP-IDF Project](../assignment-2)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)

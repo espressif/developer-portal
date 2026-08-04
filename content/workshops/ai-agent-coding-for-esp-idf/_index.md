@@ -19,14 +19,15 @@ Through a series of hands-on assignments, you will get familiar with setting up 
 
 If you have met the [prerequisites](#prerequisites), we can start with the individual chapters:
 
-- [Introduction: AI Agent Coding overview](introduction/): An overview of AI-assisted coding concepts, available tools and agents, and how they integrate with the ESP-IDF development workflow.
-- [Assignment 1: Set up your AI Agent coding environment](assignment-1): Install and configure the tools needed to start coding with AI agent assistance.
-- [Lecture 1: The new workflow for embedded development](lecture-1/): ESP-IDF development workflow in a closed-loop enviorment.
-- [Lecture 2: Spec-driven development](lecture-2):
-- [Assignment 2: Your first AI-Generated ESP-IDF project](assignment-2): Use an AI agent to scaffold and build a basic ESP-IDF project from a natural language description.
-- [Assignment 3: AI-Assisted component development](assignment-3): Write and refine custom ESP-IDF components with AI agent support.
-- [Assignment 4: Debugging and refactoring with AI](assignment-4): Use AI agents to identify issues, suggest fixes, and refactor existing firmware code.
-- [Lecture 3: Tips and tricks](lecture-3):
+- [Introduction: AI Agent Coding Overview](introduction/): An overview of AI-assisted coding concepts, available tools and agents, and how they integrate with the ESP-IDF development workflow.
+- [Assignment 1: Set Up Your AI Agent Coding Environment](assignment-1/): Install and configure the tools needed to start coding with AI agent assistance, including ESP-IDF, your IDE, MCP servers, and SKILLs.
+- [Lecture 1: The New Workflow for Embedded Development](lecture-1/): How AI agents change the embedded development loop and what that means for your day-to-day workflow.
+- [Lecture 2: What You Should Know About ESP-IDF to Work Better with Agents](lecture-2/): The ESP-IDF concepts and conventions that help you guide an agent effectively.
+- [Lecture 3: Spec-Driven Development](lecture-3/): How to write a clear spec before prompting the agent, and why it produces better results.
+- [Assignment 2: Create a New Project](assignment-2/): Use an AI agent to scaffold and build a basic ESP-IDF project from a natural language description.
+- [Assignment 3: Create a Component](assignment-3/): Write and refine a custom ESP-IDF component with AI agent support.
+- [Lecture 4: Tools and Tricks for Agent Development with ESP-IDF](lecture-4/): Techniques for scaling up, keeping the agent on track, and knowing when not to use it.
+- **Bonus — [Assignment 4: Debugging and Refactoring with AI](assignment-4/):** Use AI agents to identify issues, suggest fixes, and refactor existing firmware code.
 
 ## Prerequisites
 

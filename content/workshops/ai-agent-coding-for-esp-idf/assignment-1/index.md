@@ -18,17 +18,42 @@ In this assignment, you will install and configure all the tools needed for AI-a
 
 > If you already have ESP-IDF v6.0.2 or later installed, skip to Step 2.
 
-The recommended way to install ESP-IDF is with [EIM](https://github.com/espressif/idf-im-cli) (ESP-IDF Installation Manager), a CLI tool that handles downloading, installing, and switching between ESP-IDF versions.
+The recommended way to install ESP-IDF is with [EIM](https://docs.espressif.com/projects/idf-im-ui/en/latest/) (ESP-IDF Installation Manager), a cross-platform tool that handles prerequisites, ESP-IDF itself, and the required build tools.
+
+**1. Install EIM**
+
+{{< alert icon="circle-info" >}}
+If you prefer to download the installer directly instead of using a package manager, visit **[dl.espressif.com/dl/eim](https://dl.espressif.com/dl/eim/)** for online and offline installer packages for all platforms.
+{{< /alert >}}
 
 {{< tabs group="os" >}}
   {{< tab label="macOS" >}}
 ```bash
-brew tap espressif/eim && brew install eim
+brew tap espressif/eim
+brew install eim
 ```
   {{< /tab >}}
   {{< tab label="Linux (Debian/Ubuntu)" >}}
+Add the Espressif APT repository, then install:
+
 ```bash
+echo "deb [trusted=yes] https://dl.espressif.com/dl/eim/apt/ stable main" | sudo tee /etc/apt/sources.list.d/espressif.list
+sudo apt update
 sudo apt install eim-cli
+```
+  {{< /tab >}}
+  {{< tab label="Linux (Fedora/RHEL)" >}}
+Add the Espressif DNF repository, then install:
+
+```bash
+sudo tee /etc/yum.repos.d/espressif-eim.repo << 'EOF'
+[eim]
+name=ESP-IDF Installation Manager
+baseurl=https://dl.espressif.com/dl/eim/rpm/$basearch
+enabled=1
+gpgcheck=0
+EOF
+sudo dnf install eim-cli
 ```
   {{< /tab >}}
   {{< tab label="Windows" >}}
@@ -42,11 +67,17 @@ winget install Espressif.EIM-CLI
   {{< /tab >}}
 {{< /tabs >}}
 
-Once EIM is installed, install ESP-IDF v6.0.2:
+**2. Install ESP-IDF v6.0.2**
+
+{{< alert icon="circle-info" >}}
+This workshop uses **ESP-IDF v6.0.2**. Install this specific version to ensure all examples and prompts work as expected.
+{{< /alert >}}
 
 ```bash
 eim install -i v6.0.2
 ```
+
+If you'd prefer a guided setup, run `eim wizard` instead and follow the prompts.
 
 To verify the installation and activate the environment:
 
@@ -70,7 +101,7 @@ If `eim` is not found after installation, run `eim --help` to confirm the instal
   {{< /tab >}}
   {{< tab label="VS Code + GitHub Copilot" >}}
 1. Download and install [Visual Studio Code](https://code.visualstudio.com/download).
-2. Install the **ESP-IDF** extension and configure it as described in [Assignment 1 of the ESP-IDF and ESP32-C6 Workshop](../../esp-idf-with-esp32-c6/assignment-1).
+2. Install the **ESP-IDF** extension and configure it as described in [Assignment 1 of the ESP-IDF and ESP32-C5 Workshop](../../esp-idf-with-esp32-c6/assignment-1).
 3. Install the **GitHub Copilot** and **GitHub Copilot Chat** extensions.
 4. Sign in with your GitHub account and verify Copilot is active.
   {{< /tab >}}
@@ -125,24 +156,76 @@ Save the file and click **Start** above the entry to open the authentication pag
   {{< /tab >}}
 {{< /tabs >}}
 
-{{< alert icon="circle-info" >}}
-To confirm the MCP server is active during a session, watch for the tool call indicator in your agent's response. If you don't see it, add `"refer to Espressif documentation"` to your prompt, or add the following rule to your `AGENTS.md`:
+Before starting a session with the agent, make sure the MCP server is running. You can check from the CLI:
 
+```bash
+/mcp list
 ```
-Always use the Espressif documentation MCP server when working with ESP chips or ESP-IDF.
+
+You will see:
+
+```bash
+ MCP Servers (2 servers)
+
+ Filter:
+
+ User
+  → ESP Component Registry - enabled (Enter to view details)
+    Espressif Documentation - enabled
 ```
+
+The Espressif Documentation server should appear in the list with a connected status. If it doesn't, restart your IDE or re-authenticate via **Settings > Tools & MCP**.
+
+### Step 4: Add SKILLs to Your Project
+
+SKILLs are reusable instruction sets for the agent — recipes it can follow for specific tasks like creating a component, running validation, or generating documentation. You install them into your project so they're always available.
+
+To add the SKILLs for this workshop, run the following command from your project root:
+
+```bash
+npx skills add
+```
+
+{{< alert icon="circle-info" >}}
+The specific SKILLs for this workshop will be provided during the session.
 {{< /alert >}}
 
-### Step 4: Verify the Setup
+### Step 5: Add AGENTS.md to Your Project
+
+`AGENTS.md` is a file you commit to your project that gives the agent its standing instructions. Every time you open a session, the agent reads it automatically — so you don't have to repeat the target chip, ESP-IDF version, or coding conventions in every prompt.
+
+Create `AGENTS.md` in your project root with at least the following:
+
+```markdown
+# AGENTS.md
+
+## Project
+
+- Target chip: ESP32-C5
+- ESP-IDF version: v6.0.2
+- Entry point: `void app_main(void)` in `main/`
+
+## Conventions
+
+- Use `ESP_LOGI/W/E` for all log output. Define `TAG` as a static const string in each source file.
+- All ESP-IDF API calls must check the return value using `ESP_ERROR_CHECK` or an explicit `if (ret != ESP_OK)` block.
+- Components live under `components/<name>/` and follow the standard structure: `CMakeLists.txt`, `include/<name>.h`, `<name>.c`.
+- Never hardcode GPIO numbers, baud rates, or other hardware parameters — define them as Kconfig options.
+- Do not commit real Wi-Fi credentials, API keys, or any secrets. Use placeholder defaults in `Kconfig.projbuild`.
+```
+
+Update this file as your project evolves. If you change the target chip or add new conventions, keep `AGENTS.md` in sync — it's the single source of truth for the agent.
+
+### Step 6: Verify the Setup
 
 1. Open your project folder in Cursor or VS Code.
-2. Open the AI chat panel and ask: *"What target chip is this project configured for?"*
-3. The agent should answer correctly based on your rules file and project configuration.
-4. Run a basic build to confirm ESP-IDF is working: `idf.py build`
+2. Open the AI chat panel and ask:
 
-{{< alert icon="circle-info" >}}
-If the agent cannot see your project files, make sure the project folder is opened as a workspace root, not a subfolder.
-{{< /alert >}}
+```
+What is the latest release version of the ESP-IDF?
+```
+
+3. The agent should answer correctly based on your rules file and project configuration.
 
 You are now ready to start using AI agents for ESP-IDF development.
 
