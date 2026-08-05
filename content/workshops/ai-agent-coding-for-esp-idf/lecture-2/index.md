@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Coding for ESP-IDF Workshop - Lecture 2: What You Should Know About ESP-IDF to Work Better with Agents"
+title: "AI agent coding for ESP-IDF workshop - Lecture 2: What you should know about ESP-IDF to work better with agents"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: false
@@ -8,11 +8,11 @@ series_order: 4
 showAuthor: false
 ---
 
-## Lecture 2: What You Should Know About ESP-IDF to Work Better with Agents
+## Lecture 2: What you should know about ESP-IDF to work better with agents
 
 You don't need to be an ESP-IDF expert to work with an AI agent, but knowing the key concepts makes a big difference. The more precisely you can describe what you want, the less the agent has to guess. This lecture covers the ESP-IDF fundamentals that are most useful when writing prompts, plans, and reviewing generated code.
 
-### Project Structure
+### Project structure
 
 An ESP-IDF project has a consistent layout, and the agent knows it. When you describe a task, you can reference this structure directly:
 
@@ -62,6 +62,44 @@ idf_component_register(
 
 `REQUIRES` lists the ESP-IDF components this component depends on. If you forget one, the build will fail with a missing include. The agent usually gets this right if you tell it which ESP-IDF APIs the component uses.
 
+### Board support packages (BSPs)
+
+A Board Support Package, or BSP, is a versioned ESP-IDF component that knows how a specific development board is wired. It can initialise and expose onboard hardware such as LEDs, buttons, displays, touch panels, audio codecs, sensors, and SD cards.
+
+Without a BSP, your application needs to know details such as which GPIO controls the LED or which I2C bus connects to a touch controller. With a BSP, those details stay in the board layer and your application uses a cleaner API. This gives you:
+
+- Faster board bring-up.
+- Fewer pin mapping and peripheral configuration mistakes.
+- Reusable application code across projects using the same board.
+- Automatic installation of the drivers and components required by the board.
+
+A BSP is a shared component distributed through the [ESP Component Registry](https://components.espressif.com/components?q=Board+Support+Package). Add it to a project with the component manager:
+
+```bash
+idf.py add-dependency "espressif/<bsp-name>"
+```
+
+The dependency is recorded in `idf_component.yml`. During the next build, the component manager downloads the BSP and its dependencies into `managed_components/`.
+
+Some development boards have a dedicated BSP. For a simple or custom board, you can use `esp_bsp_devkit` or `esp_bsp_generic` and configure the available hardware with `menuconfig`:
+
+```bash
+idf.py add-dependency "espressif/esp_bsp_devkit"
+idf.py menuconfig
+```
+
+When working with an agent, always give it the exact board model, not only the chip name. An ESP32-C5 can be used on many boards with different LEDs, buttons, and pin mappings. A useful request looks like this:
+
+```text
+Check the ESP Component Registry for a BSP that supports my board.
+If one exists, use it instead of hardcoding the onboard peripherals.
+Explain which BSP and version you selected before adding the dependency.
+```
+
+{{< alert icon="circle-info" >}}
+Do not ask the agent to invent a BSP API from memory. Ask it to check the component documentation and examples first, because the available functions and supported peripherals depend on the selected BSP and version.
+{{< /alert >}}
+
 ### Kconfig and sdkconfig
 
 Kconfig is how ESP-IDF handles configuration. Instead of hardcoding values like GPIO numbers, baud rates, or buffer sizes, you define them as Kconfig options and reference them in code as `CONFIG_MY_OPTION`.
@@ -77,9 +115,81 @@ config MY_COMPONENT_GPIO_NUM
         GPIO pin connected to the LED. Default is 8 (ESP32-C5 DevKitC RGB LED).
 ```
 
-`sdkconfig.defaults` is where you store the values you want committed with the project. The `sdkconfig` file itself is generated and should not be committed (add it to `.gitignore`). When prompting the agent to add a configurable option, mention the Kconfig name, type, default value, and valid range — the agent will generate a correct entry.
+`sdkconfig.defaults` is where you store the values you want committed with the project. The `sdkconfig` file itself is generated and should not be committed (add it to `.gitignore`). When prompting the agent to add a configurable option, mention the Kconfig name, type, default value, and valid range, and the agent will generate a correct entry.
 
-### Error Handling
+### Main idf.py and esptool commands
+
+`idf.py` and `esptool` work at different levels:
+
+- **`idf.py`** manages an ESP-IDF project. It configures CMake, selects the target, builds the project, flashes all generated images at the correct addresses, and opens the serial monitor.
+- **`esptool`** communicates directly with the ROM bootloader in an Espressif chip. It identifies devices and reads, writes, or erases flash.
+
+For normal project development, start with `idf.py`. It calls `esptool` with the correct chip, files, and flash offsets when needed. Use `esptool` directly for device inspection, flashing diagnostics, and binary image operations.
+
+#### Main idf.py commands
+
+Run these commands from the root of an ESP-IDF project:
+
+| Command | Purpose |
+|---|---|
+| `idf.py --version` | Show the active ESP-IDF version |
+| `idf.py set-target esp32c5` | Configure the project for ESP32-C5 |
+| `idf.py menuconfig` | Open the interactive project configuration menu |
+| `idf.py reconfigure` | Regenerate the build configuration |
+| `idf.py build` | Configure and build the complete project |
+| `idf.py clean` | Remove most generated build files |
+| `idf.py fullclean` | Remove the complete build directory |
+| `idf.py -p <PORT> flash` | Flash the project to the connected board |
+| `idf.py -p <PORT> monitor` | Open the serial monitor |
+| `idf.py -p <PORT> flash monitor` | Flash the project and then open the monitor |
+| `idf.py -p <PORT> erase-flash` | Erase the complete flash chip |
+| `idf.py add-dependency "namespace/component"` | Add a managed component dependency |
+
+You can chain compatible actions in one command. For example:
+
+```bash
+idf.py set-target esp32c5
+idf.py build
+idf.py -p <PORT> flash monitor
+```
+
+#### Main esptool commands
+
+Replace `<PORT>` with the serial port connected to your board:
+
+| Command | Purpose |
+|---|---|
+| `esptool version` | Show the installed esptool version |
+| `esptool -p <PORT> chip-id` | Identify the connected chip |
+| `esptool -p <PORT> read-mac` | Read the device MAC address |
+| `esptool -p <PORT> flash-id` | Show the flash manufacturer, device ID, and detected size |
+| `esptool -p <PORT> read-flash <ADDRESS> <SIZE> <FILE>` | Save a region of flash to a file |
+| `esptool -p <PORT> write-flash <ADDRESS> <FILE>` | Write a binary file at a flash address |
+| `esptool -p <PORT> erase-flash` | Erase the entire flash chip |
+| `esptool image-info <FILE>` | Inspect the headers and segments of a firmware image |
+| `esptool merge-bin ...` | Combine multiple binaries into one image |
+
+To see all available actions and options:
+
+```bash
+idf.py --help
+esptool -h
+esptool write-flash -h
+```
+
+{{< alert icon="triangle-exclamation" >}}
+Both `idf.py erase-flash` and `esptool erase-flash` delete the bootloader, partition table, application, NVS data, and everything else stored in flash. Also, do not guess addresses when using `esptool write-flash`. Run `idf.py build` and use the exact flashing command printed at the end of the build output.
+{{< /alert >}}
+
+An agent can use both tools as part of the closed-loop workflow. For example:
+
+```text
+Use esptool to identify the chip and flash size on <PORT>.
+Do not erase or write anything.
+Then run idf.py build and report the result.
+```
+
+### Error handling
 
 ESP-IDF functions return `esp_err_t`. A successful call returns `ESP_OK`; anything else is an error code. Two patterns come up constantly:
 
@@ -125,21 +235,8 @@ CONFIG_LOG_DEFAULT_LEVEL_DEBUG=y
 
 This is useful during development when you want more verbose output, and easy to dial back before shipping.
 
-### What to Always Tell the Agent
-
-These four pieces of context make a meaningful difference in output quality:
-
-| Context | Example |
-|---|---|
-| **Target chip** | `ESP32-C5` |
-| **ESP-IDF version** | `v6.0.2` |
-| **Component name** | `temperature_sensor` |
-| **Log tag** | `"temp_sensor"` |
-
-If your `AGENTS.md` is up to date with the target chip, IDF version, and project conventions, you won't need to repeat most of this in every prompt — the agent reads it automatically. Keep it current and it pays for itself immediately.
-
 ## Next step
 
-[Lecture 3: Spec-Driven Development](../lecture-3)
+[Lecture 3: Spec-driven development](../lecture-3)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)

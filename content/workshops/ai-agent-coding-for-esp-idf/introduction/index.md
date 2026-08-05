@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Coding for ESP-IDF Workshop - Introduction"
+title: "AI agent coding for ESP-IDF workshop - Introduction"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: false
@@ -8,7 +8,7 @@ series_order: 1
 showAuthor: false
 ---
 
-## AI Agent Coding Overview
+## AI agent coding overview
 
 Let's start with the big picture. AI-assisted coding is changing the way developers work, and if you haven't tried it yet for embedded development, this workshop is a great place to start.
 
@@ -16,7 +16,7 @@ The idea is simple: instead of spending time writing boilerplate, hunting throug
 
 For ESP-IDF development specifically, this works really well. The project structure is consistent, the APIs are documented, and the build system gives clear feedback. All of that gives an AI agent enough context to be genuinely useful.
 
-### What is an AI Coding Agent?
+### What is an AI coding agent?
 
 An AI coding agent is more than a smarter autocomplete. It's a tool that combines a large language model (LLM) with access to your actual development environment: your files, your terminal, your build output, and your project context.
 
@@ -32,9 +32,9 @@ Some of the most popular AI coding agents right now include:
 
 Most of these agents can be used directly from the IDE, where they have access to your open files and project context, or from the CLI, where you can run them as part of a script or automated workflow. Both modes are useful: the IDE is great for interactive development, while the CLI fits well into build pipelines and batch tasks.
 
-In this workshop we'll use Cursor as the primary example, but the concepts apply to any of these tools.
+In this workshop we'll use Cursor with the **GPT-5.6 Sol** model as the primary example, but the concepts apply to other agents and models too.
 
-#### Agent vs Chatbot
+#### Agent vs chatbot
 
 Both use a chat interface, so it's easy to mix them up. Here's the practical difference:
 
@@ -48,7 +48,7 @@ Both use a chat interface, so it's easy to mix them up. Here's the practical dif
 
 A chatbot is great for questions. An agent is great for getting things built. In this workshop, you'll be working with agents.
 
-### AI Agents and ESP-IDF
+### AI agents and ESP-IDF
 
 Here are some of the things you can ask an AI agent to do in an ESP-IDF project:
 
@@ -73,7 +73,7 @@ Getting the most out of an AI agent isn't just about the model. The tools and co
 
 Together, these tools make the agent much more reliable, especially for a fast-moving ecosystem like ESP-IDF where training data can go stale quickly.
 
-### Workflow for Embedded Development
+### Workflow for embedded development
 
 The classic embedded dev loop goes like this:
 
@@ -91,7 +91,7 @@ Every step is manual. Errors mean going back to the start, and it's easy to spen
 With an AI agent in the mix, it looks more like this:
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Describe] --> B[Agent writes code]
     B --> C[Build]
     C --> D{Errors?}
@@ -106,7 +106,7 @@ The agent takes care of the mechanical parts. You focus on describing the intent
 
 We'll look at this in more detail in Lecture 1.
 
-### Spec-Driven Development
+### Spec-driven development
 
 Here's something that will save you a lot of time: write a clear spec before you prompt the agent.
 
@@ -124,9 +124,9 @@ The output will be predictable, easier to review, and much closer to what you ac
 
 Taking this further, instead of writing the spec directly in the chat, you can write it as Markdown files committed to your project. Three files are particularly useful:
 
-- **`PLAN.md`** — what you want to build and why. High-level goals, constraints, and open questions.
-- **`ARCHITECTURE.md`** — how the system is structured. Components, their responsibilities, and how they interact.
-- **`STEP.md`** — the current task. A single, focused description of what the agent should do next.
+- **`PLAN.md`:** what you want to build and why. High-level goals, constraints, and open questions.
+- **`ARCHITECTURE.md`:** how the system is structured. Components, their responsibilities, and how they interact.
+- **`STEP.md`:** the current task. A single, focused description of what the agent should do next.
 
 Once these files are in place, you can open the agent and say: *"Read PLAN.md, ARCHITECTURE.md, and STEP.md, then implement accordingly."* The agent has full context, and you can update `STEP.md` for each new task without repeating yourself.
 
@@ -136,6 +136,6 @@ Taking a few minutes to plan before prompting is not extra work. It's the fastes
 
 Now that you know the basic concepts, let's get your hands dirty. First up is setting up the environment.
 
-[Assignment 1: Set Up Your AI Agent Coding Environment](../assignment-1)
+[Assignment 1: Set up your AI agent coding environment](../assignment-1)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)

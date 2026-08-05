@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Coding for ESP-IDF Workshop - Assignment 1: Set Up Your AI Agent Coding Environment"
+title: "AI agent coding for ESP-IDF workshop - Assignment 1: Set up your AI agent coding environment"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: false
@@ -8,7 +8,7 @@ series_order: 2
 showAuthor: false
 ---
 
-## Assignment 1: Set Up Your AI Agent Coding Environment
+## Assignment 1: Set up your AI agent coding environment
 
 ---
 
@@ -22,7 +22,7 @@ The recommended way to install ESP-IDF is with [EIM](https://docs.espressif.com/
 
 **1. Install EIM**
 
-{{< alert icon="circle-info" >}}
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 If you prefer to download the installer directly instead of using a package manager, visit **[dl.espressif.com/dl/eim](https://dl.espressif.com/dl/eim/)** for online and offline installer packages for all platforms.
 {{< /alert >}}
 
@@ -69,7 +69,7 @@ winget install Espressif.EIM-CLI
 
 **2. Install ESP-IDF v6.0.2**
 
-{{< alert icon="circle-info" >}}
+{{< alert icon="circle-info" cardColor="#b3f2d5" iconColor="#04e553">}}
 This workshop uses **ESP-IDF v6.0.2**. Install this specific version to ensure all examples and prompts work as expected.
 {{< /alert >}}
 
@@ -98,6 +98,7 @@ If `eim` is not found after installation, run `eim --help` to confirm the instal
 2. Open Cursor and sign in or create an account.
 3. Install the **ESP-IDF** extension from the Extensions panel (Ctrl+Shift+X).
 4. Run **ESP-IDF: Configure ESP-IDF Extension** from the Command Palette (Ctrl+Shift+P) and point it to your ESP-IDF installation.
+5. Open the Agent chat, select the model menu, and choose **GPT-5.6 Sol**. This is the model we'll use throughout the workshop.
   {{< /tab >}}
   {{< tab label="VS Code + GitHub Copilot" >}}
 1. Download and install [Visual Studio Code](https://code.visualstudio.com/download).
@@ -107,7 +108,7 @@ If `eim` is not found after installation, run `eim --help` to confirm the instal
   {{< /tab >}}
 {{< /tabs >}}
 
-### Step 3: Install the Espressif Documentation MCP Server
+### Step 3: Install the Espressif Documentation MCP server
 
 The [Espressif Documentation MCP Server](https://mcp.espressif.com/docs) connects your AI agent directly to official, up-to-date Espressif documentation. With it installed, the agent can look up ESP-IDF APIs, hardware design guidelines, datasheets, and more without leaving your IDE, and without relying on potentially outdated training data.
 
@@ -176,9 +177,9 @@ You will see:
 
 The Espressif Documentation server should appear in the list with a connected status. If it doesn't, restart your IDE or re-authenticate via **Settings > Tools & MCP**.
 
-### Step 4: Add SKILLs to Your Project
+### Step 4: Add SKILLs to your project
 
-SKILLs are reusable instruction sets for the agent — recipes it can follow for specific tasks like creating a component, running validation, or generating documentation. You install them into your project so they're always available.
+SKILLs are reusable instruction sets for the agent, recipes it can follow for specific tasks like creating a component, running validation, or generating documentation. You install them into your project so they're always available.
 
 To add the SKILLs for this workshop, run the following command from your project root:
 
@@ -186,37 +187,24 @@ To add the SKILLs for this workshop, run the following command from your project
 npx skills add
 ```
 
-{{< alert icon="circle-info" >}}
+{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 The specific SKILLs for this workshop will be provided during the session.
 {{< /alert >}}
 
-### Step 5: Add AGENTS.md to Your Project
+### Step 5: Add AGENTS.md to your project
 
-`AGENTS.md` is a file you commit to your project that gives the agent its standing instructions. Every time you open a session, the agent reads it automatically — so you don't have to repeat the target chip, ESP-IDF version, or coding conventions in every prompt.
+`AGENTS.md` is a file you commit to your project that gives the agent its standing instructions. Every time you open a session, the agent reads it automatically, so you don't have to repeat the target chip, ESP-IDF version, or coding conventions in every prompt.
 
 Create `AGENTS.md` in your project root with at least the following:
 
 ```markdown
 # AGENTS.md
-
-## Project
-
-- Target chip: ESP32-C5
-- ESP-IDF version: v6.0.2
-- Entry point: `void app_main(void)` in `main/`
-
-## Conventions
-
-- Use `ESP_LOGI/W/E` for all log output. Define `TAG` as a static const string in each source file.
-- All ESP-IDF API calls must check the return value using `ESP_ERROR_CHECK` or an explicit `if (ret != ESP_OK)` block.
-- Components live under `components/<name>/` and follow the standard structure: `CMakeLists.txt`, `include/<name>.h`, `<name>.c`.
-- Never hardcode GPIO numbers, baud rates, or other hardware parameters — define them as Kconfig options.
-- Do not commit real Wi-Fi credentials, API keys, or any secrets. Use placeholder defaults in `Kconfig.projbuild`.
+...
 ```
 
-Update this file as your project evolves. If you change the target chip or add new conventions, keep `AGENTS.md` in sync — it's the single source of truth for the agent.
+Update this file as your project evolves. If you change the target chip or add new conventions, keep `AGENTS.md` in sync: it's the single source of truth for the agent.
 
-### Step 6: Verify the Setup
+### Step 6: Verify the setup
 
 1. Open your project folder in Cursor or VS Code.
 2. Open the AI chat panel and ask:
@@ -231,6 +219,6 @@ You are now ready to start using AI agents for ESP-IDF development.
 
 ## Next step
 
-[Lecture 1: The New Workflow for Embedded Development](../lecture-1)
+[Lecture 1: The new workflow for embedded development](../lecture-1)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)

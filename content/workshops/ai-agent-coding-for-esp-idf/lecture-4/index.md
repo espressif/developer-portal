@@ -1,5 +1,5 @@
 ---
-title: "AI Agent Coding for ESP-IDF Workshop - Lecture 4: Tools and Tricks for Agent Development with ESP-IDF"
+title: "AI agent coding for ESP-IDF workshop - Lecture 4: Tools and tricks for agent development with ESP-IDF"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: false
@@ -8,43 +8,153 @@ series_order: 8
 showAuthor: false
 ---
 
-## Lecture 4: Tools and Tricks for Agent Development with ESP-IDF
+## Lecture 4: Tools and tricks for agent development with ESP-IDF
 
-Advanced tips for integrating AI agents into your long-term ESP-IDF development practice.
+You've got the basics down. This lecture is about working smarter: spending fewer tokens, getting better results, and building habits that scale as your projects grow.
 
-### Scaling Up with AI Agents
+### Saving tokens
 
-Once you are comfortable with single-task prompts, you can use AI agents for larger-scale work:
+Every message you send to an agent costs tokens. A bloated context, a vague prompt, or a long back-and-forth costs more than a well-prepared, focused one. A few things that help:
 
-- **Porting projects** — describe the target difference (e.g. from ESP32-C5 to ESP32-H2) and ask the agent to identify and update all chip-specific code.
-- **Adding a protocol stack** — ask the agent to integrate Wi-Fi provisioning, MQTT, or HTTP client, referencing the ESP-IDF examples as a baseline.
-- **Generating test applications** — use the agent to scaffold Unity-based test apps for any component.
+**Keep context tight.** Open only the files relevant to the current task. Agents in IDE mode pick up everything in the open editor — closing unrelated tabs reduces noise and cost.
 
-### Keeping the Agent Grounded
+**Use STEP.md as a scoped task.** Instead of dumping all requirements in the chat, keep them in `STEP.md` and reference it. The agent reads it once, and you don't repeat yourself across messages.
 
-As projects grow, agents can lose track of earlier decisions. Use these techniques to maintain coherence:
+**Avoid over-explaining.** If `AGENTS.md` already captures your conventions, you don't need to restate them. Trust the rules file and keep prompts short.
 
-**Summarise the project state.** At the start of a new session, paste a brief summary: *"This project is an ESP32-C5 firmware that reads a sensor over I2C and publishes data via MQTT. The component structure is: ..."*
+**Ask for one thing at a time.** A prompt that asks for five changes at once is harder for the agent to get right and harder for you to review. Break it into steps. Each step is cheaper and more accurate.
 
-**Reference specific files.** Instead of asking the agent to change "the main file", open the file and reference it directly. This reduces ambiguity.
+**Summarise long sessions.** If a session has gone on for many turns, start a new chat and paste a brief summary of the current state. A fresh context is almost always cheaper and cleaner than a long one.
 
-**Use version control as a checkpoint system.** Tag or commit after each successful assignment. You can then ask the agent: *"Compare the current state to the tag v1.0 and explain what changed."*
+### Planning with expensive models, executing with cheaper ones
 
-### When Not to Use an Agent
+Not all tasks need the same model. Thinking and planning benefit from the most capable models available. Writing boilerplate and applying well-defined changes can be done with a faster, cheaper model.
 
-AI agents work best for well-defined, structured tasks. Be cautious when:
+A practical split:
 
-- **Timing-critical code** — always review ISR handlers and DMA configurations manually.
-- **Security-sensitive code** — cryptographic implementations and provisioning flows require human expert review.
-- **Novel hardware bringup** — if the datasheet is not publicly available, the agent has no reliable knowledge to draw from.
+| Task | Model type |
+|---|---|
+| Writing PLAN.md and ARCHITECTURE.md | High-capability (reasoning) |
+| Reviewing ambiguous requirements | High-capability (reasoning) |
+| Implementing from a clear spec | Fast and cheap |
+| Fixing a specific build error | Fast and cheap |
+| Reviewing generated code for correctness | High-capability (reasoning) |
 
-### Sharing What You Build
+In practice: use a reasoning model to produce the spec and the plan, then switch to a faster model to execute. You get most of the quality at a fraction of the cost. Most IDEs let you switch models per chat session.
 
-If you create a useful component during this workshop:
+### Using tools and scripts to save time and tokens
 
-1. Clean it up and add a `README.md` with usage instructions.
-2. Publish it to the [ESP Component Registry](https://components.espressif.com/).
-3. Share it with the community in the [ESP32 forum](https://esp32.com/) or [GitHub Discussions](https://github.com/espressif/developer-portal/discussions).
+Repetitive tasks are a good target for automation. If you find yourself giving the agent the same context at the start of every session, that's a candidate for a script.
+
+**Pre-prompt scripts.** A simple shell script can assemble a context blob from your project files and paste it as the first message. For example:
+
+```bash
+echo "Project context:" && cat AGENTS.md PLAN.md ARCHITECTURE.md
+```
+
+Pipe that into your clipboard and paste it as the opening message of any new session.
+
+**Build wrappers.** Instead of manually copying build errors into the chat, write a script that runs the build and formats the output for the agent:
+
+```bash
+idf.py build 2>&1 | tee build.log
+echo "Build failed. Error output:" && tail -n 40 build.log
+```
+
+**`idf.py` shortcuts.** Set up shell aliases for the commands you run constantly:
+
+```bash
+alias idf-build='idf.py build'
+alias idf-flash='idf.py -p /dev/ttyUSB0 flash monitor'
+```
+
+The less you have to type manually, the more time you spend on the interesting parts.
+
+### Creating your own skills
+
+A SKILL.md is a reusable recipe the agent can follow for a specific task. You've already seen how to add skills with `npx skills add`. Here's how to write your own.
+
+A skill file is plain Markdown. The structure is simple:
+
+```markdown
+# Skill name
+
+Brief description of what this skill does.
+
+## Steps
+
+1. Step one.
+2. Step two.
+3. Step three.
+
+## Constraints
+
+- Any rules the agent must follow.
+- References to AGENTS.md or other files if relevant.
+```
+
+Some useful skills to create for ESP-IDF development:
+
+- **Create component:** defines the exact file structure, naming conventions, and Kconfig requirements the agent must follow every time.
+- **Add unit test:** scaffolds a Unity-based test app for any component.
+- **Port to new target:** describes how to identify chip-specific code and update it for a different target.
+- **Publish to registry:** walks through cleaning up a component, adding metadata, and publishing it to the ESP Component Registry.
+
+Once a skill is in your project, you invoke it with a single line: *"Use the create component skill to add a `wifi_manager` component."* No need to restate all the conventions.
+
+### Using subagents
+
+Some IDEs and agent tools support subagents: separate agent instances that work on a specific task in parallel or in sequence, without sharing the main session's context.
+
+This is useful when:
+
+- You want to run a code review without polluting your implementation session.
+- You need to explore two different approaches simultaneously and compare results.
+- You have a long-running task (like generating documentation for every component) that you want to hand off and check later.
+
+In Cursor, you can launch a background agent from the agent panel. Give it a focused task, a reference to the relevant spec files, and let it run while you continue working in the main session.
+
+A practical pattern for ESP-IDF: use a subagent to review every component before you flash. Give it the component source, the header, and a prompt like:
+
+```
+Review led_blink.c against led_blink.h.
+Check for: missing error handling, unchecked esp_err_t returns,
+hardcoded values that should be Kconfig options, and anything
+that doesn't follow AGENTS.md. Report findings only, make no changes.
+```
+
+You get a focused review without interrupting your main workflow.
+
+### Mermaid diagrams as architecture specifications
+
+You've been writing architecture in plain text inside `ARCHITECTURE.md`. Mermaid diagrams are a step up: they're structured, unambiguous, and the agent can read them as a precise specification.
+
+A component dependency diagram tells the agent exactly how the pieces fit together:
+
+```mermaid
+graph TD
+    app_main --> led_blink
+    app_main --> wifi_manager
+    wifi_manager --> nvs_flash
+    led_blink --> gpio_driver
+```
+
+A sequence diagram works well for describing the runtime behaviour of an initialisation flow:
+
+```mermaid
+sequenceDiagram
+    participant Main as app_main
+    participant LED as led_blink
+    participant GPIO as GPIO driver
+    Main->>LED: led_blink_init()
+    LED->>GPIO: gpio_config()
+    GPIO-->>LED: ESP_OK
+    LED-->>Main: ESP_OK
+    Main->>LED: led_blink_start()
+    LED->>LED: xTaskCreate(blink_task)
+```
+
+Add diagrams like these to `ARCHITECTURE.md` alongside the text descriptions. When you ask the agent to implement, it has both a human-readable description and a machine-readable structure to work from. The result is usually more accurate than text alone.
 
 ---
 
@@ -52,6 +162,6 @@ You have now completed the main content of the AI Agent Coding for ESP-IDF Works
 
 ## Next step
 
-[Bonus — Assignment 4: Debugging and Refactoring with AI](../assignment-4)
+[Bonus: Assignment 4: Debugging and refactoring with AI](../assignment-4)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)
