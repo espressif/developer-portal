@@ -21,9 +21,9 @@ More Events
 
 ## Featured Articles
 
-{{< article link="/blog/2026/07/espressif-aliro-solution/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/08/open-sourcing-esp-rainmaker-neo/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/07/esp-idf-bootloader-recovery/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/07/espressif-aliro-solution/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
