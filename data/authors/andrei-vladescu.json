@@ -1,0 +1,10 @@
+{
+    "name": "Andrei Vladescu",
+    "type": "community",
+    "image": "img/authors/andrei-vladescu.webp",
+    "bio": "Security Engineer",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/andrei-vladescu-9b82ab1b9/" },
+        { "github": "https://github.com/AndreiVladescu" }
+    ]
+}
