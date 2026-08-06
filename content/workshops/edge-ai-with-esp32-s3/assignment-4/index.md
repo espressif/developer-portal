@@ -58,7 +58,7 @@ In ESP-WHO on the ESP32-S3-EYE, the camera captures frames in **RGB565** format 
 
 ---
 
-## The ESP-WHO camera pipeline
+## How ESP-WHO camera pipeline works
 
 ESP-WHO uses an asynchronous, node-based pipeline to capture and prepare frames. Each node runs as a FreeRTOS task and passes frames to the next node via a queue.
 
@@ -498,3 +498,5 @@ In this assignment you:
 Now that you understand the camera pipeline and have run face detection directly with ESP-DL, the next assignment extends this with hand gesture recognition from live camera frames.
 
 [Assignment 5: Hand gesture recognition with ESP-DL](../assignment-5)
+
+[Return to the workshop main page](/workshops/edge-ai-with-esp32-s3/)

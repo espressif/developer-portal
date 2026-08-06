@@ -56,7 +56,7 @@ sudo apt install eim
 ```
 
   {{< /tab >}}
-  {{< tab label="Windows Terminal" >}}
+  {{< tab label="Windows" >}}
 
 **CLI** — open Windows Terminal with a PowerShell or Command Prompt profile and run:
 
@@ -65,32 +65,6 @@ winget install Espressif.EIM-CLI
 ```
 
 `winget` works in both PowerShell and Command Prompt profiles.
-
-**GUI** — download the Windows installer from the EIM download page and run the setup wizard:
-
-[Download EIM for Windows](https://dl.espressif.com/dl/eim/)
-
-  {{< /tab >}}
-  {{< tab label="Windows (PowerShell)" >}}
-
-**CLI** — install with winget:
-
-```powershell
-winget install Espressif.EIM-CLI
-```
-
-**GUI** — download the Windows installer from the EIM download page and run the setup wizard:
-
-[Download EIM for Windows](https://dl.espressif.com/dl/eim/)
-
-  {{< /tab >}}
-  {{< tab label="Windows (cmd)" >}}
-
-**CLI** — install with winget:
-
-```cmd
-winget install Espressif.EIM-CLI
-```
 
 **GUI** — download the Windows installer from the EIM download page and run the setup wizard:
 
@@ -143,14 +117,21 @@ eim select v5.5.4
 This prints the activation command for your OS. Run it to make `idf.py` available in your terminal:
 
 {{< tabs group="os" >}}
-  {{< tab label="macOS / Linux" >}}
+  {{< tab label="macOS" >}}
 
 ```bash
 source ~/.espressif/tools/activate_idf_v5.5.4.sh
 ```
 
   {{< /tab >}}
-  {{< tab label="Windows Terminal" >}}
+  {{< tab label="Linux" >}}
+
+```bash
+source ~/.espressif/tools/activate_idf_v5.5.4.sh
+```
+
+  {{< /tab >}}
+  {{< tab label="Windows" >}}
 
 If using the **PowerShell** profile (default):
 
@@ -159,20 +140,6 @@ If using the **PowerShell** profile (default):
 ```
 
 If using the **Command Prompt** profile:
-
-```cmd
-%USERPROFILE%\.espressif\tools\activate_idf_v5.5.4.bat
-```
-
-  {{< /tab >}}
-  {{< tab label="Windows (PowerShell)" >}}
-
-```powershell
-. $HOME\.espressif\tools\activate_idf_v5.5.4.ps1
-```
-
-  {{< /tab >}}
-  {{< tab label="Windows (cmd)" >}}
 
 ```cmd
 %USERPROFILE%\.espressif\tools\activate_idf_v5.5.4.bat
@@ -225,44 +192,36 @@ This commit is the version of ESP-WHO that has been validated for the **ESP32-S3
 ESP-WHO uses a custom `idf.py` action to simplify project configuration. You need to point the `IDF_EXTRA_ACTIONS_PATH` variable to the `tools/` folder inside your ESP-WHO clone.
 
 {{< tabs group="os" >}}
-  {{< tab label="Windows Terminal" >}}
-
-Windows Terminal defaults to a PowerShell profile. Open a new tab with the PowerShell profile and run:
-
-```powershell
-$Env:IDF_EXTRA_ACTIONS_PATH = "C:\path\to\esp-who\tools"
-echo $Env:IDF_EXTRA_ACTIONS_PATH
-```
-
-If you are using the Command Prompt profile instead, use:
-
-```cmd
-set IDF_EXTRA_ACTIONS_PATH=C:\path\to\esp-who\tools
-echo %IDF_EXTRA_ACTIONS_PATH%
-```
-
-  {{< /tab >}}
-  {{< tab label="Windows (PowerShell)" >}}
-
-```powershell
-$Env:IDF_EXTRA_ACTIONS_PATH = "C:\path\to\esp-who\tools"
-echo $Env:IDF_EXTRA_ACTIONS_PATH
-```
-
-  {{< /tab >}}
-  {{< tab label="Windows (cmd)" >}}
-
-```cmd
-set IDF_EXTRA_ACTIONS_PATH=C:\path\to\esp-who\tools
-echo %IDF_EXTRA_ACTIONS_PATH%
-```
-
-  {{< /tab >}}
-  {{< tab label="macOS / Linux" >}}
+  {{< tab label="macOS" >}}
 
 ```bash
 export IDF_EXTRA_ACTIONS_PATH=/path/to/esp-who/tools
 echo $IDF_EXTRA_ACTIONS_PATH
+```
+
+  {{< /tab >}}
+  {{< tab label="Linux" >}}
+
+```bash
+export IDF_EXTRA_ACTIONS_PATH=/path/to/esp-who/tools
+echo $IDF_EXTRA_ACTIONS_PATH
+```
+
+  {{< /tab >}}
+  {{< tab label="Windows" >}}
+
+If using the **PowerShell** profile (default):
+
+```powershell
+$Env:IDF_EXTRA_ACTIONS_PATH = "C:\path\to\esp-who\tools"
+echo $Env:IDF_EXTRA_ACTIONS_PATH
+```
+
+If using the **Command Prompt** profile:
+
+```cmd
+set IDF_EXTRA_ACTIONS_PATH=C:\path\to\esp-who\tools
+echo %IDF_EXTRA_ACTIONS_PATH%
 ```
 
   {{< /tab >}}
@@ -307,3 +266,5 @@ If the build completes without errors, your environment is ready.
 You now have a working ESP-IDF and ESP-WHO setup. Time to run your first vision AI application.
 
 [Assignment 2: ESP-WHO - Working with face detection](../assignment-2)
+
+[Return to the workshop main page](/workshops/edge-ai-with-esp32-s3/)

@@ -127,7 +127,7 @@ The recognition result `ret` is a `std::vector<dl::recognition::result_t>`. Each
 
 ---
 
-## Exercise: LED feedback for recognized faces
+## Step 4: LED feedback for recognized faces
 
 In Assignment 2, the green LED turned on whenever **any** face was detected. In this exercise you will change that so the LED only turns on when a face is **recognized** (matched against the database). An unknown face — detected but not enrolled — leaves the LED off.
 
@@ -223,3 +223,5 @@ In this assignment you:
 ## Next step
 
 [Assignment 4: Raw Camera Frames for Custom Applications](../assignment-4)
+
+[Return to the workshop main page](/workshops/edge-ai-with-esp32-s3/)

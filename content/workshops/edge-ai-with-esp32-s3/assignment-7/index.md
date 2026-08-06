@@ -17,7 +17,7 @@ In this final assignment there are no build or flash steps. Instead you will exp
 
 All models that Espressif provides for ESP devices are published as open-source components in the ESP-DL repository and on the [ESP Component Registry](https://components.espressif.com). You have already used several of them during this workshop. The complete set is listed below.
 
-| Model | Task | Supported chips | Registry |
+| Model | Task | Supported SoCs | Registry |
 |-------|------|-----------------|----------|
 | [COCO Detect](https://github.com/espressif/esp-dl/tree/master/models/coco_detect) | Object detection — 80 COCO classes (YOLO11n) | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/coco_detect` |
 | [COCO Pose](https://github.com/espressif/esp-dl/tree/master/models/coco_pose) | Human pose estimation — 17 keypoints (YOLO11n-Pose) | ESP32-S3, ESP32-S31, ESP32-P4 | `espressif/coco_pose` |
@@ -95,7 +95,7 @@ Key parameters to understand:
 
 | Parameter | Effect |
 |-----------|--------|
-| `target` | Selects the quantization strategy (per-tensor vs per-channel) and rounding mode for the target chip. Must match the chip you will deploy on |
+| `target` | Selects the quantization strategy (per-tensor vs per-channel) and rounding mode for the target SoC. Must match the SoC you will deploy on |
 | `calib_steps` | Number of batches used for calibration. More steps give more stable scale estimates but increase quantization time |
 | `export_test_values` | Embeds reference input/output tensors in the `.espdl` file so you can verify on-chip output matches the expected values during development |
 
@@ -130,7 +130,7 @@ model->run(inputs, outputs);
 
 PTQ is the default starting point. If the quantized model shows significant accuracy degradation compared to the full-precision version, switch to QAT by incorporating the quantization error into the training loss function.
 
-### Quantization differences per chip
+### Quantization differences per SoC
 
 The quantization strategy varies by target. Set the `target` parameter in ESP-PPQ accordingly:
 
@@ -141,7 +141,7 @@ The quantization strategy varies by target. Set the `target` parameter in ESP-PP
 | ESP32-P4 | Per-Channel (Conv, GEMM), Per-Tensor (others) | ROUND_HALF_EVEN |
 
 > [!NOTE]
-> `.espdl` files are target-specific and cannot be mixed between chip families. A model quantized for ESP32-S3 will produce incorrect results if run on an ESP32-P4.
+> `.espdl` files are target-specific and cannot be mixed between SoC families. A model quantized for ESP32-S3 will produce incorrect results if run on an ESP32-P4.
 
 For detailed tutorials and example scripts, see the [ESP-DL quantization documentation](https://docs.espressif.com/projects/esp-dl/en/latest/tutorials/how_to_quantize_model.html) and the [ESP-PPQ repository](https://github.com/espressif/esp-ppq).
 
@@ -190,7 +190,7 @@ while True:
 
 ESP-Vision runs on the following boards:
 
-| Board | Chip | Supported modules |
+| Board | SoC | Supported modules |
 |-------|------|------------------|
 | ESP32-P4X-EYE | ESP32-P4 | sensor · image · display · espdl · tflite · h264 · rtsp · barcode |
 | ESP32-P4-Function-EV-Board | ESP32-P4 | sensor · image · display · espdl · tflite · h264 · rtsp · barcode |
@@ -254,3 +254,7 @@ We hope this gives you a solid foundation for building your own Edge AI applicat
 {{< github repo="espressif/esp-dl" >}}
 
 {{< github repo="espressif/esp-who" >}}
+
+## Next step
+
+[Return to the workshop main page](/workshops/edge-ai-with-esp32-s3/)

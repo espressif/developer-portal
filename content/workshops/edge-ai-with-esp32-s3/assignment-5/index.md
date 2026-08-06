@@ -258,3 +258,5 @@ In this assignment you:
 ## Next step
 
 [Assignment 6: Object detection with YOLO11](../assignment-6)
+
+[Return to the workshop main page](/workshops/edge-ai-with-esp32-s3/)

@@ -31,7 +31,7 @@ Running a neural network model on a microcontroller is fundamentally different f
 
 This means that models must be carefully quantized, pruned, and optimized to fit within the available memory and run at a useful frame rate. Model weights are typically quantized from 32-bit floats to 8-bit integers (INT8), which reduces memory usage by 4x and allows faster arithmetic with minimal accuracy loss.
 
-### Espressif chips for edge AI
+### Espressif SoCs for edge AI
 
 Espressif offers several SoCs purpose-built for edge AI workloads. The table below compares the three most relevant ones for vision applications:
 
@@ -51,7 +51,7 @@ Espressif offers several SoCs purpose-built for edge AI workloads. The table bel
 
 #### ESP32-S3
 
-The [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) is the chip used in this workshop, via the ESP32-S3-EYE development board. It was designed with AI workloads in mind, adding **128-bit SIMD vector instructions** to the Xtensa LX7 core (see PIE). These instructions accelerate operations common in neural network inference, such as multiply-accumulate (MAC), dot products, and convolution. They are the hardware foundation that makes frameworks like ESP-DL practical on a microcontroller.
+The [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) is the SoC used in this workshop, via the ESP32-S3-EYE development board. It was designed with AI workloads in mind, adding **128-bit SIMD vector instructions** to the Xtensa LX7 core (see [PIE](https://documentation.espressif.com/esp32-s3_technical_reference_manual_en.pdf)). These instructions accelerate operations common in neural network inference, such as multiply-accumulate (MAC), dot products, and convolution. They are the hardware foundation that makes frameworks like ESP-DL practical on a microcontroller.
 
 Key properties for vision AI:
 
@@ -65,7 +65,7 @@ Key properties for vision AI:
 
 The [ESP32-P4](https://www.espressif.com/en/products/socs/esp32-p4) is Espressif's current high-performance SoC for edge AI and rich HMI. Its dual-core RISC-V at 400 MHz, combined with **PIE (Processor Instruction Extensions)** that fuse multiply-accumulate-shift into a single cycle on INT8 vectors, delivers roughly **2.7-3x faster inference** than the ESP32-S3 for typical vision models.
 
-Notable advantages for vision:
+Notable advantages for edge-AI vision:
 
 - **MIPI-CSI camera input:** supports higher-resolution and higher-framerate image sensors
 - **Up to 32 MB PSRAM:** headroom for larger models and higher-resolution frame buffers
@@ -74,7 +74,7 @@ Notable advantages for vision:
 
 #### ESP32-S31
 
-The [ESP32-S31](https://www.espressif.com/en/products/socs/esp32-s31) is Espressif's newest connectivity-focused SoC, announced in 2026. It targets applications that combine edge AI with comprehensive wireless protocols, including Wi-Fi 6, Bluetooth 5.4 (LE + Classic), Thread, and Zigbee, all in a single chip.
+The [ESP32-S31](https://www.espressif.com/en/products/socs/esp32-s31) is Espressif's newest connectivity-focused SoC, announced in 2026. It targets applications that combine edge AI with comprehensive wireless protocols, including Wi-Fi 6, Bluetooth 5.4 (LE + Classic), Thread, and Zigbee, all in a single SoC.
 
 Notable properties:
 
@@ -96,7 +96,7 @@ In this workshop, we will go further than the article and deep-dive into vision 
 
 ### Supported hardware
 
-ESP-WHO targets ESP SoCs with hardware AI acceleration and uses the BSP abstraction layer so that the same application code runs across supported boards without modification. The table below lists the officially supported development boards:
+ESP-WHO targets ESP SoCs with hardware AI acceleration and uses the BSP abstraction layer so that the same application code runs across supported boards without modification. The table below lists the supported development boards from Espressif:
 
 | Development board | SoC | Camera interface | Notes |
 |-------------------|-----|-----------------|-------|
@@ -149,10 +149,10 @@ Each node in the diagram represents a distinct layer of the stack:
 |-------|-------------|
 | **Your Application** | The code you write. It uses ESP-WHO components to build a vision pipeline, combining capture, inference, and display stages |
 | **ESP-WHO** | A collection of composable C++ components that implement the vision pipeline stages — camera capture, model inference, face recognition, QR decoding, and display output |
-| **ESP-DL** | Espressif's neural network inference engine. ESP-WHO delegates all model loading and execution to ESP-DL, which optimizes and runs `.espdl` models using chip-specific SIMD instructions |
+| **ESP-DL** | Espressif's neural network inference engine. ESP-WHO delegates all model loading and execution to ESP-DL, which optimizes and runs `.espdl` models using SoC-specific SIMD instructions |
 | **ESP-BSP** | Board Support Package that abstracts the hardware peripherals (camera, display, buttons, microphone) behind a unified API, making the application portable across supported boards |
 | **esp_video** | Camera driver component from [ESP Video Components](#esp-video-components). Provides a V4L2-compatible API for the OV2640 sensor over DVP. The BSP initializes it and exposes camera access through BSP calls |
-| **esp_lvgl_port** | LVGL integration layer. Manages the display task, flush callbacks, and touch input routing so that LVGL can render directly to the ST7789 LCD |
+| **esp_lvgl_port** | LVGL integration layer. Manages the display task, flush callbacks, and touch input routing so that LVGL can render directly to the LCD |
 | **ESP-IDF** | The foundation of the entire stack. Provides FreeRTOS, peripheral drivers, the HAL, and the build system that all other components are built on |
 
 **ESP-WHO internal components:**
@@ -186,12 +186,12 @@ ESP-WHO relies on a set of Espressif-maintained components that are declared in 
 
 #### ESP-DL
 
-[ESP-DL](https://github.com/espressif/esp-dl) is Espressif's lightweight neural network inference framework designed specifically for ESP series chips. It provides the low-level engine that loads, optimizes, and runs AI models on the device, and is the foundation that ESP-WHO builds on for vision tasks.
+[ESP-DL](https://github.com/espressif/esp-dl) is Espressif's lightweight neural network inference framework designed specifically for ESP SoCs. It provides the low-level engine that loads, optimizes, and runs AI models on the device, and is the foundation that ESP-WHO builds on for vision tasks.
 
 Key capabilities:
 
 - **`.espdl` model format:** a FlatBuffers-based format (similar to ONNX) optimized for embedded targets, with support for zero-copy deserialization to reduce startup time and RAM usage
-- **Optimized operators:** common AI operators (Conv, DepthwiseConv, Gemm, Add, Mul, etc.) are implemented using chip-specific SIMD/PIE instructions for maximum throughput
+- **Optimized operators:** common AI operators (Conv, DepthwiseConv, Gemm, Add, Mul, etc.) are implemented using SoC-specific SIMD/PIE instructions for maximum throughput
 - **Static memory planner:** automatically places model layers into the optimal memory region (internal SRAM vs PSRAM) based on user-specified constraints
 - **Dual-core scheduling:** computationally heavy operators (Conv2D, DepthwiseConv2D) are automatically split across both cores
 - **8-bit LUT activations:** all activation functions except ReLU/PReLU are computed via an 8-bit look-up table, keeping inference latency flat regardless of activation complexity
@@ -279,7 +279,7 @@ bsp_sdcard_unmount();
 
 [esp-video-components](https://github.com/espressif/esp-video-components) is Espressif's collection of video-related components for ESP-IDF, covering camera capture, image signal processing, and video encoding. The most relevant component for this workshop is [`esp_video`](https://components.espressif.com/components/espressif/esp_video), which provides the camera driver used by the ESP32-S3-EYE BSP. Each component in the repository can be used independently — the BSP pulls in `esp_video` as its camera dependency, not the repository as a whole.
 
-The key feature of esp-video-components is its **Linux V4L2-compatible API**, using the same `open()`, `ioctl()`, and buffer queue model used in Linux camera stacks. This makes it consistent across all supported interfaces (DVP, MIPI-CSI, SPI, USB) and all supported chips.
+The key feature of esp-video-components is its **Linux V4L2-compatible API**, using the same `open()`, `ioctl()`, and buffer queue model used in Linux camera stacks. This makes it consistent across all supported interfaces (DVP, MIPI-CSI, SPI, USB) and all supported SoCs.
 
 ##### Key capabilities
 
@@ -287,7 +287,7 @@ The key feature of esp-video-components is its **Linux V4L2-compatible API**, us
 - **ISP pipeline:** built-in image signal processing support (ESP32-P4)
 - **H.264 hardware encoding:** high-speed video encoding (ESP32-P4)
 - **Multi-camera support:** manage multiple sensors simultaneously
-- **Broad chip support:** ESP32-S3 (DVP), ESP32-P4 (DVP + MIPI-CSI), ESP32-S31 (DVP + MIPI-CSI), ESP32-C series (SPI)
+- **Broad SoC support:** ESP32-S3 (DVP), ESP32-P4 (DVP + MIPI-CSI), ESP32-S31 (DVP + MIPI-CSI), ESP32-C series (SPI)
 
 For the ESP32-S3-EYE, `esp_video` operates over the DVP interface with the OV2640 sensor. Since the BSP handles initialization, you interact with the camera through BSP calls rather than the `esp_video` API directly in most ESP-WHO examples.
 
@@ -384,3 +384,5 @@ The block diagram below shows the main components of the ESP32-S3-EYE-MB main bo
 After this introduction, it is time to get started and install the development environment.
 
 [Assignment 1: Install ESP-IDF and ESP-WHO](../assignment-1)
+
+[Return to the workshop main page](/workshops/edge-ai-with-esp32-s3/)

@@ -345,3 +345,5 @@ In this assignment you:
 ## Next step
 
 [Assignment 7: Going further](../assignment-7)
+
+[Return to the workshop main page](/workshops/edge-ai-with-esp32-s3/)

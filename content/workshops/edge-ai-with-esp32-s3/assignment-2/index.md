@@ -138,7 +138,7 @@ If `det_res` is empty, no face was detected. If it has one or more entries, that
 
 ---
 
-## Exercise: Light up the LED on face detection
+## Step 3: Light up the LED on face detection
 
 The ESP32-S3-EYE has a green LED on GPIO3, already initialized by the example in `app_main.cpp`:
 
@@ -245,3 +245,5 @@ In this assignment you:
 Now that you can detect faces, the next assignment goes further and adds face enrollment and recognition.
 
 [Assignment 3: Face recognition with ESP-WHO](../assignment-3)
+
+[Return to the workshop main page](/workshops/edge-ai-with-esp32-s3/)
