@@ -5,13 +5,13 @@ summary: "iOS 26 brings Wi-Fi Aware to the iPhone, a standard that allows peer-t
 authors:
   - "nachiket-kukade"
 tags:
-  - Wi-Fi
   - Wi-Fi Aware
   - iOS
-  - ESP-IDF component
-  - service discovery
+  - ESP-IDF
+  - ESP-IDF Component
+  - P2P
   - how-to
-  - practitioner
+  - Practitioner
 showTableOfContents: true
 ---
 
@@ -74,7 +74,7 @@ wa_dp_security_cfg_t security = {
 };
 ```
 
-`WA_SEC_PIN_PAIRING` selects the `NCS-PK-PASN-128` cipher suite, and the component advertises `WIFI_NAN_BOOTSTRAP_PIN_CODE_KEYPAD` as the bootstrapping method.
+`WA_SEC_PIN_PAIRING` configures the secure PIN-pairing mode, and the component advertises PIN entry as the supported bootstrapping method.
 
 The direction of the PIN matters and it is easy to get backwards. In Apple's flow, **the publisher displays the PIN and the subscriber types it in**. Since an accessory is naturally the publisher, that means your ESP device generates and shows the PIN, and the user enters it on the iPhone. A device with a display can show it directly; a headless device can log it, derive it from a label, or use a fixed factory PIN.
 
@@ -113,10 +113,10 @@ CONFIG_IDF_EXPERIMENTAL_FEATURES=y
 CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
 ```
 
-`CONFIG_ESP_WIFI_NAN_SECURITY` and `CONFIG_ESP_WIFI_NAN_PAIRING` gate the PIN-pairing code paths in both ESP-IDF and the component, so without them `WA_SEC_PIN_PAIRING` is not even compiled in. `CONFIG_IDF_EXPERIMENTAL_FEATURES` is there because the NAN options are still gated behind experimental features, and the larger single-app partition gives the NAN and PASN code room to fit.
+`CONFIG_ESP_WIFI_NAN_SECURITY` and `CONFIG_ESP_WIFI_NAN_PAIRING` gate the PIN-pairing code paths in both ESP-IDF and the component, so without them `WA_SEC_PIN_PAIRING` is not even compiled in. `CONFIG_IDF_EXPERIMENTAL_FEATURES` is there because the NAN options are still gated behind experimental features, and the larger single-app partition gives the NAN and pairing code room to fit.
 
 > [!TIP]
-> The component uses `WA_PAIRING_SUPPORTED` and `WA_SECURE_NDP_SUPPORTED` macros, derived from those Kconfig options, to conditionally compile struct fields and functions. If a field like `pairing_info` or a function like `wifi_aware_set_credentials()` does not exist in your build, the Kconfig options are the first thing to check.
+> If a pairing field or API such as `pairing_info` or `wifi_aware_set_credentials()` is unavailable in your build, verify the security and pairing Kconfig options first.
 
 ### Advertise the service
 
@@ -124,14 +124,14 @@ Wi-Fi is owned by the application, so call `esp_wifi_init()` before `wifi_aware_
 
 Then `wifi_aware_service_advertise()` takes the service config, the port to advertise, and the security config from above. In the service config you set `service_type` to `ESP-Demo` and `proto` to `WA_PROTO_UDP`, and the component advertises `_ESP-Demo._udp` — you never write the underscores or the transport suffix yourself.
 
-The service name is the one string that has to match the iOS app exactly. Apple allows only `a-z`, `A-Z`, `0-9`, and hyphens, requires at least one letter, forbids a leading or trailing hyphen, and caps the name at **15 characters**. The name is compared case-insensitively over the air, but an invalid or mismatched string in `Info.plist` crashes the app rather than failing gracefully, so keep the two identical.
+The service name is the one string that has to match the iOS app exactly. Apple allows only `a-z`, `A-Z`, `0-9`, and hyphens, requires at least one letter, forbids a leading or trailing hyphen, and caps the name at **15 characters**. An invalid service name in `Info.plist` causes the app to crash, while a valid but mismatched name prevents discovery. Keep the ESP and iOS strings identical.
 
 ### Complete the pairing
 
 When the iPhone selects your device, the component raises `WA_EVENT_BOOTSTRAP_INDICATION`, carrying the bootstrapping method the peer chose. Two calls finish the exchange from your handler:
 
 - **`wifi_aware_bootstrap_response()`** accepts (or rejects) the peer's proposed pairing method. Passing `NULL` as the instance name uses the pending bootstrap context the component populated from the incoming request, which is what you want when a single service is advertised.
-- **`wifi_aware_set_credentials()`** arms the six-digit PIN that the subsequent PASN exchange will verify. Display the same PIN you pass here, and keep it within `NAN_PAIRING_PINCODE_MIN` and `NAN_PAIRING_PINCODE_MAX`.
+- **`wifi_aware_set_credentials()`** sets the six-digit PIN that the secure pairing exchange will verify. Display the same PIN you pass here, and keep it within `NAN_PAIRING_PINCODE_MIN` and `NAN_PAIRING_PINCODE_MAX`.
 
 Check the event's `selected_method` against `WIFI_NAN_BOOTSTRAP_PIN_CODE_KEYPAD` before responding, so a peer offering a method you do not support is rejected rather than left hanging.
 
@@ -139,11 +139,13 @@ Check the event's `selected_method` against `WIFI_NAN_BOOTSTRAP_PIN_CODE_KEYPAD`
 
 The publisher has nothing left to do on the NAN side, because the component auto-accepts the incoming datapath request. Once the interface has an IPv6 address it fires `IP_EVENT_GOT_IP6`, which is your cue to open a socket.
 
-Two details are easy to trip over. Look the interface up by the `WA_NETIF_KEY` ifkey rather than by its implementation name, because the key is stable across a deinit and init cycle, and ignore `GOT_IP6` from any other interface. And keep the interface index from `esp_netif_get_netif_impl_index()` around: since these are link-local addresses, every `sockaddr_in6` you send to needs `sin6_scope_id` set to that index or lwIP will not know which interface to route out of.
+Two details are easy to trip over. Use `WA_NETIF_KEY` to identify the NAN interface, because that key remains stable across a deinit and init cycle, and ignore `GOT_IP6` events from other interfaces. Keep the interface index returned by `esp_netif_get_netif_impl_index()` and assign it to `sockaddr_in6.sin6_scope_id` when sending to a link-local address, so lwIP routes the packet through the NAN interface.
 
 ## The iOS app side
 
-Here is the shape of the app, with pointers into Apple's documentation rather than a full tutorial.
+A companion iOS demo maintained by the article author is available in the [`wifi-aware-ios-demo` repository](https://github.com/nachiketkukade/wifi-aware-ios-demo). It uses AccessorySetupKit to pair with the component's `udp_server` example, opens a UDP datapath for `_ESP-Demo._udp`, and displays the send/echo loop in an on-screen console.
+
+The project demonstrates the following application flow:
 
 **Declare the entitlement and the service.** The `com.apple.developer.wifi-aware` entitlement takes an array of capability strings: `Publish` to host a service, `Subscribe` to consume one. Talking to an ESP accessory needs `Subscribe`. Then declare the service in `Info.plist`, keyed by its fully qualified name:
 
@@ -191,7 +193,7 @@ sequenceDiagram
     E->>E: wifi_aware_set_credentials(PIN)
 
     Note over P: user types the PIN
-    P->>E: PASN pairing exchange
+    P->>E: secure pairing exchange
     E-->>P: pairing confirm
 
     P->>E: NAN datapath request
@@ -207,11 +209,11 @@ Note the asymmetry that follows from Apple's model: the ESP device advertises an
 
 ## Try it on real hardware
 
-The component ships with a pair of examples that exercise the whole flow between two ESP boards. They are the fastest way to confirm your hardware and IDF setup are right before an iPhone enters the picture.
+The fastest end-to-end test uses the component's `udp_server` example and the companion iOS demo.
 
 {{< github repo="espressif/esp-wifi-apps" >}}
 
-`udp_server` is the publisher: it advertises `ESP-Demo` over UDP and echoes back every datagram it receives, prefixed with `OK: `. `udp_client` is the subscriber: it discovers the service, runs the PIN bootstrap and pairing, resolves the peer's IPv6 address and port, then sends a message every two seconds. Both default to a static PIN of `0` so they pair without any manual entry, and the PIN is configurable through `idf.py menuconfig` under *Example Configuration*.
+`udp_server` is the publisher: it advertises `_ESP-Demo._udp` and echoes back every datagram it receives, prefixed with `OK: `. Build and flash it to a supported ESP32:
 
 ```bash
 cd components/wifi_aware/examples/udp_server
@@ -219,23 +221,9 @@ idf.py set-target esp32s2
 idf.py build flash monitor
 ```
 
-Flash `udp_client` to a second board of the same target and you should see the pairing exchange followed by the echo loop in both monitors. There is also a `pytest-embedded` test in the examples directory that flashes both roles and asserts the round trip from the device logs, which is handy if you have two boards on the same host.
+Then clone the [companion iOS project](https://github.com/nachiketkukade/wifi-aware-ios-demo), open `ESPWiFiAwareDemo.xcodeproj`, select your own Apple development team, and run the app on a compatible physical iPhone or iPad. Tap **Pair New Device**, select the ESP32, and enter the PIN printed in the ESP32 monitor. After pairing, the app opens the UDP datapath and displays the echo exchange.
 
-Once that works, point an iOS app at the publisher. The only firmware change needed is the service type, if you want something other than `ESP-Demo`.
-
-## Troubleshooting
-
-Most failures look identical from the phone: a device that never appears.
-
-**The device never shows up in the pairing sheet.** Check the service name character by character on both sides. Then confirm you are on ESP-IDF v6.1 or later and that `CONFIG_ESP_WIFI_NAN_PAIRING=y` is actually in the generated `sdkconfig`, not just in `sdkconfig.defaults`. A build without pairing support advertises no PIN bootstrapping method, and iOS will not offer a device it cannot pair with.
-
-**Pairing fails after the PIN is entered.** The most likely cause is a mismatch between the PIN you displayed and the one you passed to `wifi_aware_set_credentials()`. If you generate a random PIN, generate it once and use the same value in both places.
-
-**The datapath comes up but sockets fail.** This is almost always the scope ID. Every `sockaddr_in6` for a link-local address needs `sin6_scope_id` set to the NAN interface index.
-
-**Pairing has to be redone after every reboot.** Set both `caching_enabled` in the security config and `use_nvs_for_caching` in the init config, and make sure `erase_old_creds` is `false`.
-
-**The discovery callback deadlocks.** The callback runs in the Wi-Fi event loop task. Do not block in it and do not call blocking component APIs such as `wifi_aware_request_connection()` from it. Post to your own task instead. This applies to subscriber-side ESP firmware rather than the publisher flow above, but it is the most common way to hang a first attempt.
+The component also ships a `udp_client` example for ESP-to-ESP testing. It discovers the same service, performs PIN pairing, and runs the same echo loop against `udp_server`.
 
 ## Wrapping up
 

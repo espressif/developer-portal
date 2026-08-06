@@ -1,7 +1,10 @@
 {
     "name": "Nachiket Kukade",
     "type": "espressif",
-    "image": "img/authors/espressif.webp",
-    "bio": "",
-    "social": []
+    "image": "img/authors/nachiket-kukade.webp",
+    "bio": "Software Firmware Manager @ Espressif Systems",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/nachiket-kukade/" },
+        { "github": "https://github.com/nachiketkukade" }
+    ]
 }
