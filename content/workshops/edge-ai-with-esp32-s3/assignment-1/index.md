@@ -15,11 +15,9 @@ In this assignment you will set up everything you need to build and flash ESP-WH
 
 ## Step 1: Install ESP-IDF
 
-The recommended way to install and manage ESP-IDF is through the **ESP-IDF Installation Manager (EIM)**, available in both a graphical and a command-line edition. Download either from the official page:
+The recommended way to install and manage ESP-IDF is through the **ESP-IDF Installation Manager (EIM)**, available in both a graphical and a command-line edition. You can [download EIM](https://dl.espressif.com/dl/eim/) from the official page.
 
-**[Download EIM](https://dl.espressif.com/dl/eim/)**
-
-Alternatevely, you can download directly from the terminal using:
+Alternatevely, you can download directly from the terminal:
 
 {{< tabs group="os" >}}
   {{< tab label="macOS" >}}

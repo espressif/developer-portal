@@ -477,9 +477,8 @@ The dual-core pipeline handles this without stalling the display:
 
 The `memcpy` snapshot decouples the two cores: Core 0 never waits for inference to complete, and Core 1 always has a stable copy of the frame to work on.
 
-{{< alert >}}
-Skipping every 4 out of 5 frames is a deliberate trade-off. The `HumanFaceDetect` model takes longer than a single 30 FPS frame interval to run on the ESP32-S3, so throttling inference prevents the camera pipeline from backing up.
-{{< /alert >}}
+> [!NOTE]
+> Skipping every 4 out of 5 frames is a deliberate trade-off. The `HumanFaceDetect` model takes longer than a single 30 FPS frame interval to run on the ESP32-S3, so throttling inference prevents the camera pipeline from backing up.
 
 Because the model is fully encapsulated behind `app_dl_init()` / `app_dl_run()` / `app_dl_deinit()`, the same dual-core architecture works with any ESP-DL model. To swap in a different task — such as hand gesture recognition or object detection — you only need to change the implementation inside `app_dl.cpp` and update the `Kconfig.projbuild` menu. The camera capture, format conversion, and display pipeline remain unchanged.
 

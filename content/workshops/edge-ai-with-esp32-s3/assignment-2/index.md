@@ -12,7 +12,7 @@ showAuthor: false
 In this assignment you will run the ESP-WHO face detection and recognition example on the ESP32-S3-EYE, explore how the face detection model works, and then modify the application to light up the onboard LED whenever a face is detected in the camera frame.
 
 > [!NOTE]
-> ESP-WHO uses a two-step approach: **face detection** locates faces in a frame and returns bounding boxes, then **face recognition** identifies whose face it is. This assignment covers **step 1 — face detection only**. Recognition will be added in Assignment 3.
+> ESP-WHO uses a two-step approach: **face detection** locates faces in a frame and returns bounding boxes, then **face recognition** identifies whose face it is. This assignment covers **face detection only**. Recognition will be added in Assignment 3.
 
 ---
 

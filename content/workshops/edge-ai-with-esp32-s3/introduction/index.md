@@ -151,7 +151,7 @@ Each node in the diagram represents a distinct layer of the stack:
 | **ESP-WHO** | A collection of composable C++ components that implement the vision pipeline stages — camera capture, model inference, face recognition, QR decoding, and display output |
 | **ESP-DL** | Espressif's neural network inference engine. ESP-WHO delegates all model loading and execution to ESP-DL, which optimizes and runs `.espdl` models using chip-specific SIMD instructions |
 | **ESP-BSP** | Board Support Package that abstracts the hardware peripherals (camera, display, buttons, microphone) behind a unified API, making the application portable across supported boards |
-| **esp_video** | Camera driver component from esp-video-components. Provides a V4L2-compatible API for the OV2640 sensor over DVP. The BSP initializes it and exposes camera access through BSP calls |
+| **esp_video** | Camera driver component from [ESP Video Components](#esp-video-components). Provides a V4L2-compatible API for the OV2640 sensor over DVP. The BSP initializes it and exposes camera access through BSP calls |
 | **esp_lvgl_port** | LVGL integration layer. Manages the display task, flush callbacks, and touch input routing so that LVGL can render directly to the ST7789 LCD |
 | **ESP-IDF** | The foundation of the entire stack. Provides FreeRTOS, peripheral drivers, the HAL, and the build system that all other components are built on |
 
@@ -293,9 +293,7 @@ For the ESP32-S3-EYE, `esp_video` operates over the DVP interface with the OV264
 
 {{< github repo="espressif/esp-video-components" >}}
 
-### AI capabilities on ESP chips
-
-#### ESP32-S3-EYE
+## AI capabilities of ESP32-S3-EYE
 
 The [ESP32-S3-EYE](https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP32-S3-EYE_Getting_Started_Guide.md) is a small-sized AI development board produced by Espressif. It is based on the ESP32-S3 SoC, featuring a 2-megapixel camera, a 1.3" LCD display, and a digital microphone for image recognition and audio processing.
 

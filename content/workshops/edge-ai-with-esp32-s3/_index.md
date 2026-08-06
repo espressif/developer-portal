@@ -12,7 +12,7 @@ Welcome to the Edge AI with ESP32-S3 workshop on computer vision!
 
 In this workshop, you will build real edge AI vision applications on the ESP32-S3-EYE using ESP-WHO and ESP-DL — Espressif's frameworks for camera-based AI on embedded devices. All inference runs directly on the chip, with no cloud dependency.
 
-You will start with the complete ESP-WHO framework to run face detection and face recognition out of the box, then move to using ESP-DL directly for hand gesture recognition and YOLO11-based object detection. Along the way, you will also learn how to capture raw camera frames without ESP-WHO, giving you the flexibility to build fully custom inference pipelines.
+You will start with the complete ESP-WHO framework to run face detection and face recognition out of the box, then move on to using ESP-DL -- the framework on which ESP-WHO is built -- for hand gesture recognition and YOLO11-based object detection. Along the way, you will also learn how to capture raw camera frames without ESP-WHO, giving you the flexibility to build fully custom inference pipelines.
 
 By the end of the workshop, you will know how to:
 
