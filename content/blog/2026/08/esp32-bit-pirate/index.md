@@ -63,7 +63,7 @@ The board is on revision V3, and the design is fully open. KiCad schematic and l
 
 ## The C5 adapter: a dual-band radio alongside the S3
 
-The second companion is the one we find most interesting, because it is really about putting two Espressif parts to work together.
+The second companion is the one we find most interesting, because it is really about putting two Espressif SoCs to work together.
 
 The **ESP32-C5** is Espressif's dual-band RISC-V SoC, covering 2.4 GHz and 5 GHz. Pairing it with the S3 rather than swapping to it keeps the S3's peripheral set and everything the firmware already does with it, and adds the C5's radio next to it as a coprocessor.
 
