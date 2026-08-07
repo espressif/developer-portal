@@ -51,9 +51,9 @@ Espressif offers several SoCs purpose-built for edge AI workloads. The table bel
 
 #### ESP32-S3
 
-The [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) is the SoC used in this workshop, via the ESP32-S3-EYE development board. It was designed with AI workloads in mind, adding **128-bit SIMD vector instructions** to the Xtensa LX7 core (see [PIE](https://documentation.espressif.com/esp32-s3_technical_reference_manual_en.pdf)). These instructions accelerate operations common in neural network inference, such as multiply-accumulate (MAC), dot products, and convolution. They are the hardware foundation that makes frameworks like ESP-DL practical on a microcontroller.
+The [ESP32-S3](https://www.espressif.com/en/products/socs/esp32-s3) is the SoC used in this workshop, via the ESP32-S3-EYE development board. It was designed with AI workloads in mind, adding **128-bit SIMD vector instructions** to the Xtensa LX7 core (see the [ESP32-S3 TRM](https://documentation.espressif.com/esp32-s3_technical_reference_manual_en.pdf#pie) > Chapter Processor Instruction Extensions (PIE)). These instructions accelerate operations common in neural network inference, such as multiply-accumulate (MAC), dot products, and convolution. They are the hardware foundation that makes frameworks like ESP-DL practical on a microcontroller.
 
-Key properties for vision AI:
+Notable advantages for edge-AI vision:
 
 - **Dual-core Xtensa LX7 at 240 MHz:** one core handles inference while the other manages peripherals and communication
 - **128-bit SIMD vector instructions:** hardware-accelerated INT8 neural network operations with ~18x speedup over unoptimized code
@@ -76,7 +76,7 @@ Notable advantages for edge-AI vision:
 
 The [ESP32-S31](https://www.espressif.com/en/products/socs/esp32-s31) is Espressif's newest connectivity-focused SoC, announced in 2026. It targets applications that combine edge AI with comprehensive wireless protocols, including Wi-Fi 6, Bluetooth 5.4 (LE + Classic), Thread, and Zigbee, all in a single SoC.
 
-Notable properties:
+Notable advantages for edge-AI vision:
 
 - **128-bit SIMD on one RISC-V core:** accelerates INT8 inference with wide parallel data paths
 - **Wi-Fi 6 + BT 5.4 + Thread + Zigbee:** ideal for smart home and industrial automation requiring multi-protocol connectivity
