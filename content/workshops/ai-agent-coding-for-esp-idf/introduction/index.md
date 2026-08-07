@@ -46,6 +46,8 @@ Both use a chat interface, so it's easy to mix them up. Here's the practical dif
 | **Error handling** | You paste errors back manually | Agent reads build output and self-corrects |
 | **Memory** | Stateless between messages | Maintains project context across steps |
 
+For Espressif-specific questions, try the free [Espressif ChatBot](https://chat.espressif.com/). Its main advantage is access to the latest information from across Espressif's documentation and platforms.
+
 A chatbot is great for questions. An agent is great for getting things built. In this workshop, you'll be working with agents.
 
 ### AI agents and ESP-IDF
@@ -67,7 +69,7 @@ You'll get hands-on practice with most of these during the assignments.
 
 Getting the most out of an AI agent isn't just about the model. The tools and context you give it make a big difference. Here are the most important ones for ESP-IDF work:
 
-- **`AGENTS.md`:** a file you commit to your project that gives the agent its standing instructions. Things like the target chip, ESP-IDF version, logging conventions, and component structure. The agent reads it automatically at the start of every session, so you don't have to explain the basics every time.
+- **`AGENTS.md`:** a file you commit to your project that gives the agent its standing instructions. Things like the target SoC, ESP-IDF version, logging conventions, and component structure. The agent reads it automatically at the start of every session, so you don't have to explain the basics every time.
 - **`SKILL.md`:** reusable instruction sets for specific tasks. Think of them as recipes the agent can follow for things like creating a component or running validation.
 - **MCP Servers:** these connect the agent to live external sources. The [Espressif Documentation MCP Server](https://mcp.espressif.com) gives it access to up-to-date ESP-IDF API docs, and the [ESP Component Registry MCP Server](https://mcp.espressif.com) lets it search for and fetch components directly.
 
@@ -124,11 +126,15 @@ The output will be predictable, easier to review, and much closer to what you ac
 
 Taking this further, instead of writing the spec directly in the chat, you can write it as Markdown files committed to your project. Three files are particularly useful:
 
-- **`PLAN.md`:** what you want to build and why. High-level goals, constraints, and open questions.
 - **`ARCHITECTURE.md`:** how the system is structured. Components, their responsibilities, and how they interact.
+- **`PLAN.md`:** what you want to build and why. High-level goals, constraints, and open questions.
 - **`STEP.md`:** the current task. A single, focused description of what the agent should do next.
 
-Once these files are in place, you can open the agent and say: *"Read PLAN.md, ARCHITECTURE.md, and STEP.md, then implement accordingly."* The agent has full context, and you can update `STEP.md` for each new task without repeating yourself.
+Once these files are in place, you can open the agent and say:
+
+> *"Read PLAN.md, ARCHITECTURE.md, and STEP.md, then implement accordingly."*
+
+The agent has full context, and you can update `STEP.md` for each new task without repeating yourself.
 
 Taking a few minutes to plan before prompting is not extra work. It's the fastest way to get a good result. We'll go deeper on this in Lecture 3.
 

@@ -65,7 +65,7 @@ The loop ends when the implementation meets the acceptance criteria, not simply 
 
 The quality of the output depends a lot on the quality of the input. A useful pattern for ESP-IDF prompts:
 
-1. **State the target:** chip, IDF version, component name.
+1. **State the target:** SoC (partnumber), board name and version, ESP-IDF version, component name.
 2. **Describe the behaviour:** what the code should do, not how.
 3. **Specify constraints:** which APIs to use, naming conventions, file structure.
 4. **Reference the rules file:** always end with "Follow the project rules in AGENTS.md."
@@ -74,18 +74,22 @@ You don't need to write an essay. A few clear lines beat a long vague paragraph 
 
 As your project grows, you can take this further by writing the spec as Markdown files committed alongside your code:
 
-- **`PLAN.md`:** what you want to build and why. High-level goals, constraints, and open questions.
 - **`ARCHITECTURE.md`:** how the system is structured. Components, their responsibilities, and how they interact.
+- **`PLAN.md`:** what you want to build and why. High-level goals, constraints, and open questions.
 - **`STEP.md`:** the current task. A single, focused description of what the agent should do next.
 
-Once these files are in place, your prompt becomes simply: *"Read PLAN.md, ARCHITECTURE.md, and STEP.md, then implement accordingly."* Update `STEP.md` for each new task without repeating yourself. We'll use this approach in the assignments.
+Once these files are in place, your prompt becomes simply:
+
+> *"Read PLAN.md, ARCHITECTURE.md, and STEP.md, then implement accordingly."*
+
+Update `STEP.md` for each new task without repeating yourself. We'll use this approach in the assignments.
 
 ### Reviewing agent output
 
 Before accepting any change, run through this quickly:
 
 - Does the generated file follow the expected component structure?
-- Are ESP-IDF API calls correct for the specified IDF version?
+- Are ESP-IDF API calls correct for the specified version?
 - Are error return values checked?
 - Are no secrets or hardcoded credentials introduced?
 
@@ -139,9 +143,8 @@ The agent knows the diff and can write a more accurate message than a rushed `"f
 | `refactor/<name>` | Code restructuring |
 | `step/<n>` | One agent-driven implementation step |
 
-{{< alert icon="circle-info" cardColor="#b3f2d5" iconColor="#04e553">}}
-We won't use Git flow during this workshop to keep things moving, but treat it as a default habit for any real project. The time it saves when something goes wrong is worth the few extra seconds per step.
-{{< /alert >}}
+> [!NOTE]
+> We won't use Git flow during this workshop to keep things moving, but treat it as a default habit for any real project. The time it saves when something goes wrong is worth the few extra seconds per step.
 
 ## Next step
 

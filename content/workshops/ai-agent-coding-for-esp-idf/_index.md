@@ -11,9 +11,26 @@ Welcome to the AI Agent Coding for ESP-IDF workshop!
 
 ## About this workshop
 
-This workshop introduces developers to AI-assisted coding workflows for ESP-IDF projects. You will learn how to leverage AI coding agents and tools to accelerate firmware development, automate repetitive tasks, and write better embedded code for Espressif chips.
+This workshop introduces developers to AI-assisted coding workflows for ESP-IDF projects. You will learn how to leverage AI coding agents and tools to accelerate firmware development, automate repetitive tasks, and write better embedded code for Espressif SoCs.
 
 Through a series of hands-on assignments, you will get familiar with setting up an AI agent coding environment, writing and refining ESP-IDF code with AI assistance, generating components and configurations, and validating the results on real hardware.
+
+## Prerequisites
+
+To follow this workshop, you will need both hardware and software.
+
+Required hardware:
+
+- Computer running Linux, Windows, or macOS
+- An ESP32 series development board (e.g. ESP32-C5-DevKitC, ESP32-H2-DevKitM, or similar)
+- USB cable (supporting power + data) compatible with the devkit above
+
+Required software:
+
+- [Visual Studio Code](https://code.visualstudio.com/download) or [Cursor IDE](https://www.cursor.com/).
+- [ESP-IDF plugin for VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use). 
+- [ESP-IDF](https://github.com/espressif/esp-idf) v6.0.2 or later.
+- An account on an AI coding platform (e.g. [Cursor](https://www.cursor.com/), [GitHub Copilot](https://github.com/features/copilot), [OpenAI Codex](https://platform.openai.com/), or similar).
 
 ## Agenda
 
@@ -28,22 +45,6 @@ If you have met the [prerequisites](#prerequisites), we can start with the indiv
 - [Assignment 3: Create a component](assignment-3/): Write and refine a custom ESP-IDF component with AI agent support.
 - [Lecture 4: Tools and tricks for agent development with ESP-IDF](lecture-4/): Techniques for scaling up, keeping the agent on track, and knowing when not to use it.
 - **Bonus: [Assignment 4: Debugging and refactoring with AI](assignment-4/):** Use AI agents to identify issues, suggest fixes, and refactor existing firmware code.
-
-## Prerequisites
-
-To follow this workshop, you will need both hardware and software.
-
-Required hardware:
-
-- Computer running Linux, Windows, or macOS
-- An ESP32 series development board (e.g. ESP32-C5-DevKitC, ESP32-H2-DevKitM, or similar)
-- USB cable (supporting power + data) compatible with the devkit above
-
-Required software:
-
-- [Visual Studio Code](https://code.visualstudio.com/download) or [Cursor IDE](https://www.cursor.com/)
-- [ESP-IDF plugin for VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use) with ESP-IDF v6.0.2 or later
-- An account on an AI coding platform (e.g. [Cursor](https://www.cursor.com/), [GitHub Copilot](https://github.com/features/copilot), [OpenAI Codex](https://platform.openai.com/), or similar)
 
 ## Time requirements
 

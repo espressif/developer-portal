@@ -16,15 +16,16 @@ In this assignment, you will install and configure all the tools needed for AI-a
 
 ### Step 1: Install ESP-IDF
 
+We will need the ESP-IDF installed.
+
+> [!NOTE]
 > If you already have ESP-IDF v6.0.2 or later installed, skip to Step 2.
 
 The recommended way to install ESP-IDF is with [EIM](https://docs.espressif.com/projects/idf-im-ui/en/latest/) (ESP-IDF Installation Manager), a cross-platform tool that handles prerequisites, ESP-IDF itself, and the required build tools.
 
 **1. Install EIM**
 
-{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 If you prefer to download the installer directly instead of using a package manager, visit **[dl.espressif.com/dl/eim](https://dl.espressif.com/dl/eim/)** for online and offline installer packages for all platforms.
-{{< /alert >}}
 
 {{< tabs group="os" >}}
   {{< tab label="macOS" >}}
@@ -69,9 +70,11 @@ winget install Espressif.EIM-CLI
 
 **2. Install ESP-IDF v6.0.2**
 
-{{< alert icon="circle-info" cardColor="#b3f2d5" iconColor="#04e553">}}
-This workshop uses **ESP-IDF v6.0.2**. Install this specific version to ensure all examples and prompts work as expected.
-{{< /alert >}}
+For the installation, we will use the CLI.
+
+> [!NOTE]
+> This workshop uses **ESP-IDF v6.0.2**. Install this specific version to ensure all examples and prompts work as expected.
+
 
 ```bash
 eim install -i v6.0.2
@@ -86,11 +89,12 @@ eim list
 eim select v6.0.2
 ```
 
-{{< alert icon="circle-info" >}}
-If `eim` is not found after installation, run `eim --help` to confirm the install completed and check that the EIM binary is on your PATH.
-{{< /alert >}}
+> [!TIP]
+> If `eim` is not found after installation, run `eim --help` to confirm the install completed and check that the EIM binary is on your PATH.
 
 ### Step 2: Install Cursor IDE (or VS Code with Copilot)
+
+Now it's time to install the Agent. We will cover Cursor and Copilot, but any other Agent can be used on this workshop.
 
 {{< tabs group="ide" >}}
   {{< tab label="Cursor" >}}
@@ -157,7 +161,7 @@ Save the file and click **Start** above the entry to open the authentication pag
   {{< /tab >}}
 {{< /tabs >}}
 
-Before starting a session with the agent, make sure the MCP server is running. You can check from the CLI:
+Before starting a session with the agent, make sure the MCP server is running. You can check from the Cursor CLI:
 
 ```bash
 /mcp list
@@ -187,13 +191,12 @@ To add the SKILLs for this workshop, run the following command from your project
 npx skills add
 ```
 
-{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
-The specific SKILLs for this workshop will be provided during the session.
-{{< /alert >}}
+> [!TIP]
+> The specific SKILLs for this workshop will be provided during the session.
 
 ### Step 5: Add AGENTS.md to your project
 
-`AGENTS.md` is a file you commit to your project that gives the agent its standing instructions. Every time you open a session, the agent reads it automatically, so you don't have to repeat the target chip, ESP-IDF version, or coding conventions in every prompt.
+`AGENTS.md` is a file you commit to your project that gives the agent its standing instructions. Every time you open a session, the agent reads it automatically, so you don't have to repeat the target SoC, ESP-IDF version, or coding conventions in every prompt.
 
 Create `AGENTS.md` in your project root with at least the following:
 
@@ -202,7 +205,7 @@ Create `AGENTS.md` in your project root with at least the following:
 ...
 ```
 
-Update this file as your project evolves. If you change the target chip or add new conventions, keep `AGENTS.md` in sync: it's the single source of truth for the agent.
+Update this file as your project evolves. If you change the target SoC or add new conventions, keep `AGENTS.md` in sync: it's the single source of truth for the agent.
 
 ### Step 6: Verify the setup
 

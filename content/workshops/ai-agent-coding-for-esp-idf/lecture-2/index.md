@@ -37,7 +37,13 @@ Components are the building blocks of an ESP-IDF project. Every piece of reusabl
 There are two kinds:
 
 - **Local components** live under `components/` in your project. They're private to that project and the easiest place to start.
-- **Shared components** are standalone packages published to the [ESP Component Registry](https://components.espressif.com/). They can be reused across multiple projects and installed with `idf.py add-dependency`.
+- **Shared components** are standalone packages published to the [ESP Component Registry](https://components.espressif.com/). They can be reused across multiple projects and installed with:
+
+```bash
+idf.py add-dependency "espressif/led_strip^3.0.3"
+```
+
+The shared components will be added to the project on a folder called `managed_components`.
 
 A standard component looks like this:
 
@@ -64,7 +70,7 @@ idf_component_register(
 
 ### Board support packages (BSPs)
 
-A Board Support Package, or BSP, is a versioned ESP-IDF component that knows how a specific development board is wired. It can initialise and expose onboard hardware such as LEDs, buttons, displays, touch panels, audio codecs, sensors, and SD cards.
+A Board Support Package, or BSP, is a versioned ESP-IDF component that knows how a specific development board is wired. It can initialise and expose onboard hardware such as LEDs, buttons, displays, touch panels, audio codecs, sensors, and protocols.
 
 Without a BSP, your application needs to know details such as which GPIO controls the LED or which I2C bus connects to a touch controller. With a BSP, those details stay in the board layer and your application uses a cleaner API. This gives you:
 
@@ -79,7 +85,7 @@ A BSP is a shared component distributed through the [ESP Component Registry](htt
 idf.py add-dependency "espressif/<bsp-name>"
 ```
 
-The dependency is recorded in `idf_component.yml`. During the next build, the component manager downloads the BSP and its dependencies into `managed_components/`.
+The dependency is recorded in `idf_component.yml`. During the next build, the component manager downloads the BSP and its dependencies into `managed_components/` folder.
 
 Some development boards have a dedicated BSP. For a simple or custom board, you can use `esp_bsp_devkit` or `esp_bsp_generic` and configure the available hardware with `menuconfig`:
 
@@ -88,7 +94,7 @@ idf.py add-dependency "espressif/esp_bsp_devkit"
 idf.py menuconfig
 ```
 
-When working with an agent, always give it the exact board model, not only the chip name. An ESP32-C5 can be used on many boards with different LEDs, buttons, and pin mappings. A useful request looks like this:
+When working with an agent, always give it the exact board model, not only the SoC name. An ESP32-C5 can be used on many boards with different LEDs, buttons, and pin mappings. A useful request looks like this:
 
 ```text
 Check the ESP Component Registry for a BSP that supports my board.
@@ -96,9 +102,8 @@ If one exists, use it instead of hardcoding the onboard peripherals.
 Explain which BSP and version you selected before adding the dependency.
 ```
 
-{{< alert icon="circle-info" >}}
-Do not ask the agent to invent a BSP API from memory. Ask it to check the component documentation and examples first, because the available functions and supported peripherals depend on the selected BSP and version.
-{{< /alert >}}
+> [!TIP]
+> Do not ask the agent to invent a BSP API from memory. Ask it to check the component documentation and examples first, because the available functions and supported peripherals depend on the selected BSP and version.
 
 ### Kconfig and sdkconfig
 
@@ -119,12 +124,12 @@ config MY_COMPONENT_GPIO_NUM
 
 ### Main idf.py and esptool commands
 
-`idf.py` and `esptool` work at different levels:
+The ESP-IDF packs some tools th`idf.py` and `esptool` work at different levels:
 
 - **`idf.py`** manages an ESP-IDF project. It configures CMake, selects the target, builds the project, flashes all generated images at the correct addresses, and opens the serial monitor.
-- **`esptool`** communicates directly with the ROM bootloader in an Espressif chip. It identifies devices and reads, writes, or erases flash.
+- **`esptool`** communicates directly with the ROM bootloader in an Espressif SoC. It identifies devices and reads, writes, or erases flash.
 
-For normal project development, start with `idf.py`. It calls `esptool` with the correct chip, files, and flash offsets when needed. Use `esptool` directly for device inspection, flashing diagnostics, and binary image operations.
+For normal project development, start with `idf.py`. It calls `esptool` with the correct SoC, files, and flash offsets when needed. Use `esptool` directly for device inspection, flashing diagnostics, and binary image operations.
 
 #### Main idf.py commands
 
@@ -160,7 +165,7 @@ Replace `<PORT>` with the serial port connected to your board:
 | Command | Purpose |
 |---|---|
 | `esptool version` | Show the installed esptool version |
-| `esptool -p <PORT> chip-id` | Identify the connected chip |
+| `esptool -p <PORT> chip-id` | Identify the connected SoC |
 | `esptool -p <PORT> read-mac` | Read the device MAC address |
 | `esptool -p <PORT> flash-id` | Show the flash manufacturer, device ID, and detected size |
 | `esptool -p <PORT> read-flash <ADDRESS> <SIZE> <FILE>` | Save a region of flash to a file |
@@ -177,14 +182,13 @@ esptool -h
 esptool write-flash -h
 ```
 
-{{< alert icon="triangle-exclamation" >}}
-Both `idf.py erase-flash` and `esptool erase-flash` delete the bootloader, partition table, application, NVS data, and everything else stored in flash. Also, do not guess addresses when using `esptool write-flash`. Run `idf.py build` and use the exact flashing command printed at the end of the build output.
-{{< /alert >}}
+> [!NOTE]
+> Both `idf.py erase-flash` and `esptool erase-flash` delete the bootloader, partition table, application, NVS data, and everything else stored in flash. Also, do not guess addresses when using `esptool write-flash`. Run `idf.py build` and use the exact flashing command printed at the end of the build output.
 
 An agent can use both tools as part of the closed-loop workflow. For example:
 
 ```text
-Use esptool to identify the chip and flash size on <PORT>.
+Use esptool to identify the SoC and flash size on <PORT>.
 Do not erase or write anything.
 Then run idf.py build and report the result.
 ```
@@ -210,6 +214,14 @@ When reviewing agent-generated code, check that every ESP-IDF call either uses `
 ### Logging
 
 Use `ESP_LOGI`, `ESP_LOGW`, and `ESP_LOGE` instead of `printf`. They add a timestamp, log level, and tag, which makes serial output much easier to read.
+
+| Macro | Log level | When to use it |
+|---|---|---|
+| `ESP_LOGE` | Error | Report failures that prevent an operation from completing |
+| `ESP_LOGW` | Warning | Report unexpected conditions from which the application can recover |
+| `ESP_LOGI` | Information | Report normal application events and status |
+| `ESP_LOGD` | Debug | Provide detailed information useful during development |
+| `ESP_LOGV` | Verbose | Provide the most detailed diagnostic output |
 
 ```c
 static const char *TAG = "my_component";

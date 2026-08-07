@@ -12,6 +12,16 @@ showAuthor: false
 
 You've got the basics down. This lecture is about working smarter: spending fewer tokens, getting better results, and building habits that scale as your projects grow.
 
+### Export the ESP-IDF environment first
+
+Before starting the agent, export the ESP-IDF environment in the terminal from which you will launch it:
+
+```bash
+source "$HOME/esp/v6.0.2/esp-idf/export.sh"
+```
+
+Replace the path if ESP-IDF is installed elsewhere. Starting the agent from that terminal lets it inherit the ESP-IDF environment, including access to `idf.py` and the required toolchain. Exporting the environment in a different terminal does not update an agent that is already running. If you use an IDE-based agent, launch the IDE from the exported terminal or ensure that its ESP-IDF extension has configured the environment.
+
 ### Saving tokens
 
 Every message you send to an agent costs tokens. A bloated context, a vague prompt, or a long back-and-forth costs more than a well-prepared, focused one. A few things that help:
@@ -97,7 +107,7 @@ Some useful skills to create for ESP-IDF development:
 
 - **Create component:** defines the exact file structure, naming conventions, and Kconfig requirements the agent must follow every time.
 - **Add unit test:** scaffolds a Unity-based test app for any component.
-- **Port to new target:** describes how to identify chip-specific code and update it for a different target.
+- **Port to new target:** describes how to identify SoC-specific code and update it for a different target.
 - **Publish to registry:** walks through cleaning up a component, adding metadata, and publishing it to the ESP Component Registry.
 
 Once a skill is in your project, you invoke it with a single line: *"Use the create component skill to add a `wifi_manager` component."* No need to restate all the conventions.

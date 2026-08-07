@@ -10,13 +10,14 @@ showAuthor: false
 
 ## Bonus: Debugging and refactoring with AI
 
-{{< alert icon="circle-info" >}}
-This is an optional assignment. If you've finished the main workshop content, this is a great way to practice two more high-value AI agent workflows: diagnosing bugs and improving code structure.
-{{< /alert >}}
+> [!NOTE]
+> This is an optional assignment. If you've finished the main workshop content, this is a great way to practice two more high-value AI agent workflows: diagnosing bugs and improving code structure.
 
 ---
 
 In this assignment, you will practice using an AI agent to identify and fix bugs in firmware code, and then to refactor the existing code to improve its structure. Both workflows build directly on the `led-blink` project and the `led_blink` component from assignments 2 and 3.
+
+Before starting the agent, export the ESP-IDF environment in the terminal from which you launch it. This allows the agent to run `idf.py`, build, flash, and monitor without additional environment setup.
 
 ### Part A: Debugging with AI
 
@@ -24,21 +25,26 @@ In this assignment, you will practice using an AI agent to identify and fix bugs
 
 To practice the debugging workflow, intentionally introduce a bug into the `led_blink` component from assignment 3. A few options:
 
-- Remove the `gpio_config_t` initialisation from `led_blink_init`, so the GPIO is never configured.
-- Pass an invalid GPIO number to `gpio_set_level`.
+- Remove the `led_strip_refresh()` call after changing the pixel, so the logs change but the physical LED does not.
+- Give the `led_strip` driver an invalid data GPIO, so `led_blink_init()` fails.
 - Remove the `vTaskDelay` call from the blink task so the task starves the scheduler.
 
-Build the project and note the resulting error or unexpected runtime behaviour.
+Choose one bug and note the resulting error or unexpected runtime behaviour. Do not update the specification files—the implementation is intentionally violating the existing specification.
 
 #### Step 2: Let the agent find and fix the error
 
-Instead of copying and pasting the error output manually, let the agent run the build itself and read the output directly. Open the agent chat and send:
+Let the agent run the complete diagnostic cycle and read the terminal output directly. Tell it about any physical symptom that it cannot observe itself:
 
-```
-Run idf.py build, read the output, identify the root cause of any errors in the led_blink component, and fix them.
+```text
+Build the project. If the build succeeds, detect the ESP32-C5 serial port,
+flash the application, and monitor its output.
+The physical symptom is: <describe what you observed>.
+Identify the root cause in the led_blink component, explain it, and fix it.
+Repeat the build, flash, and monitor cycle, then ask me to confirm the physical
+LED behaviour.
 ```
 
-The agent will trigger the build, read the error or panic output from the terminal, trace it back to the source, and propose a fix — all without you having to copy anything. This is the closed-loop workflow from Lecture 1 in practice.
+The agent will read build errors, initialization failures, or monitor output and trace them back to the source. For a bug such as a missing `led_strip_refresh()` call, the build and logs may look correct, so your report that the physical LED is not changing is essential evidence.
 
 {{< alert icon="circle-info" >}}
 If the agent doesn't have terminal access enabled, you can still share the output by pasting `build.log` or the serial monitor output into the chat. But giving the agent direct terminal access is faster and removes a manual step.
@@ -54,12 +60,14 @@ Why does this fix address the root cause? What would happen without it?
 
 Understanding the fix is as important as applying it. If the explanation doesn't make sense, push back with follow-up questions until it does.
 
-Rebuild and flash to confirm the fix resolves the issue:
+Ask the agent to rebuild, flash, and monitor after applying the fix:
 
-```bash
-idf.py build
-idf.py -p <PORT> flash monitor
+```text
+Rebuild the project, fix any remaining errors, then flash and monitor it.
+Report the serial output and ask me to confirm the physical LED behaviour.
 ```
+
+Do not continue until the build succeeds and you have confirmed that the physical addressable LED behaves as specified.
 
 ### Part B: Refactoring with AI
 
@@ -67,14 +75,21 @@ idf.py -p <PORT> flash monitor
 
 At this point the `led-blink` project has:
 
-- `main/led_blink_main.c` with a minimal `app_main` that calls `led_blink_init` and `led_blink_start`.
-- `components/led_blink/` with the full blink logic.
+- `main/led_blink.c` with a minimal `app_main` that initialises the component, selects a color, and starts blinking.
+- `components/led_blink/` with the `led_strip` driver, FreeRTOS task, lifecycle functions, and thread-safe color API.
 
-The component works, but let's improve it. The `led_blink_start` function currently creates a FreeRTOS task internally without giving the caller any control over it. There's no way to stop the blink from outside the component, and the task stack size is hardcoded.
+The component works, but the blink task's stack size and priority are still hardcoded. Move these values into Kconfig so they can be adjusted without editing the component source.
 
 #### Step 2: Update the spec
 
-Update `STEP.md` with the refactoring task:
+First, add the task settings to the `Configuration (Kconfig)` section in `ARCHITECTURE.md`:
+
+```markdown
+LED_BLINK_TASK_STACK_SIZE: task stack size, default 2048, range 1024–8192
+LED_BLINK_TASK_PRIORITY: task priority, default 5, range 1–24
+```
+
+Then update `STEP.md` with the refactoring task:
 
 **`STEP.md`**
 
@@ -83,18 +98,17 @@ Update `STEP.md` with the refactoring task:
 
 Read PLAN.md and ARCHITECTURE.md, then refactor the led_blink component:
 
-1. Add `led_blink_stop()` implementation that actually stops the FreeRTOS task.
-2. Use a task handle (`TaskHandle_t`) stored as a static variable to allow stopping.
-3. Add `CONFIG_LED_BLINK_TASK_STACK_SIZE` to Kconfig (default 2048, range 1024-8192).
-4. Add `CONFIG_LED_BLINK_TASK_PRIORITY` to Kconfig (default 5, range 1-24).
-5. Use the new Kconfig values in `xTaskCreate`.
+1. Add `LED_BLINK_TASK_STACK_SIZE` to Kconfig (default 2048, range 1024-8192).
+2. Add `LED_BLINK_TASK_PRIORITY` to Kconfig (default 5, range 1-24).
+3. Use `CONFIG_LED_BLINK_TASK_STACK_SIZE` and `CONFIG_LED_BLINK_TASK_PRIORITY` when creating the blink task.
+4. Preserve the existing `led_blink_init`, `led_blink_start`, `led_blink_stop`, and `led_blink_set_color` behaviour.
 
 ## Acceptance criteria
 
-- [ ] `led_blink_stop()` deletes the blink task and sets the task handle to NULL.
-- [ ] Calling `led_blink_stop()` followed by `led_blink_start()` restarts blinking correctly.
 - [ ] `Kconfig` defines `LED_BLINK_TASK_STACK_SIZE` and `LED_BLINK_TASK_PRIORITY` with defaults and help text.
 - [ ] No stack size or priority value is hardcoded in `led_blink.c`.
+- [ ] Calling `led_blink_stop()` followed by `led_blink_start()` still restarts blinking correctly.
+- [ ] `led_blink_set_color()` still changes the color safely while the task is running.
 - [ ] `idf.py build` succeeds with no errors.
 ```
 
@@ -106,20 +120,25 @@ Switch to planning mode first and ask the agent to describe what it would change
 Read PLAN.md, ARCHITECTURE.md, and STEP.md, then describe the changes you would make.
 ```
 
-Review the plan, then switch to agent mode to implement:
+Review the plan before implementation. Depending on the agent, approve it through a confirmation question, checkbox, or button. If no built-in option is available, switch to Agent mode and send:
 
 ```
 Read PLAN.md, ARCHITECTURE.md, and STEP.md, then implement accordingly.
 ```
 
-#### Step 4: Build and test
+#### Step 4: Build, flash, and test
 
-```bash
-idf.py build
-idf.py -p <PORT> flash monitor
+Ask the agent to verify that the refactoring did not change the component's behaviour:
+
+```text
+Build the project and fix any errors without changing the requirements.
+Temporarily update app_main to start blinking blue, stop after two seconds,
+change the color to green, and start blinking again.
+Flash and monitor the application, report the logs, and ask me to confirm the
+physical LED behaviour.
 ```
 
-The LED should blink as before. To verify `led_blink_stop` works, temporarily add a call to it in `app_main` after a delay and confirm the LED stops blinking.
+Confirm that the LED blinks blue, stops, and then blinks green. After verification, ask the agent to restore the normal `app_main`, rebuild the project, and confirm that the working tree contains no temporary test code.
 
 ## Next step
 
