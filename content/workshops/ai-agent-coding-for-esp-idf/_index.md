@@ -11,9 +11,9 @@ Welcome to the AI Agent Coding for ESP-IDF workshop!
 
 ## About this workshop
 
-This workshop introduces developers to AI-assisted coding workflows for ESP-IDF projects. You will learn how to leverage AI coding agents and tools to accelerate firmware development, automate repetitive tasks, and write better embedded code for Espressif SoCs.
+This hands-on workshop teaches you how to use AI coding agents throughout the ESP-IDF development workflow. You will set up ESP-IDF with EIM, configure an agent in Cursor or VS Code, connect it to Espressif documentation through MCP, and give it persistent project instructions and reusable skills.
 
-Through a series of hands-on assignments, you will get familiar with setting up an AI agent coding environment, writing and refining ESP-IDF code with AI assistance, generating components and configurations, and validating the results on real hardware.
+You will learn the ESP-IDF concepts needed to guide an agent effectively, including the project build system and `CMakeLists.txt` files, components, BSPs, Kconfig, `sdkconfig`, `idf.py`, `esptool`, error handling, and logging. You will then apply a spec-driven workflow to create a project, build a reusable component, and validate the generated firmware through build, flash, monitor, debugging, and refactoring cycles.
 
 ## Prerequisites
 

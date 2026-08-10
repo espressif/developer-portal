@@ -329,8 +329,6 @@ void app_main(void)
 }
 ```
 
-`Kconfig.projbuild`
-
 ---
 
 ### Step 2: Build and fix

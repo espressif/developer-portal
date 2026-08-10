@@ -30,6 +30,52 @@ my_project/
 
 The entry point is always `void app_main(void)`. Everything else is organised as components, including `main` itself.
 
+### Build system and CMakeLists.txt files
+
+ESP-IDF uses CMake to configure the project and Ninja or Make to perform the build. You normally interact with this build system through `idf.py`, which selects the correct ESP-IDF toolchain, prepares CMake, and runs the underlying build tool. For example, `idf.py build` configures the project when necessary and then compiles the application.
+
+An ESP-IDF project usually contains two kinds of `CMakeLists.txt` files:
+
+- The **project-level `CMakeLists.txt`** identifies the directory as an ESP-IDF project and gives the project a name.
+- A **component `CMakeLists.txt`** tells ESP-IDF which source files, include directories, and dependencies belong to that component.
+
+The project-level file is placed in the project root and is intentionally small:
+
+```cmake
+cmake_minimum_required(VERSION 3.16)
+
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(my_project)
+```
+
+The order is important: `cmake_minimum_required` must come first, the ESP-IDF project script must be included before declaring the project, and `project()` sets the project name used by the build.
+
+Each component, including `main`, has its own `CMakeLists.txt`. A minimal file for the `main` component looks like this:
+
+```cmake
+idf_component_register(
+    SRCS "app_main.c"
+    INCLUDE_DIRS "."
+)
+```
+
+For a component with multiple source files and dependencies, list them explicitly:
+
+```cmake
+idf_component_register(
+    SRCS "sensor.c" "sensor_i2c.c"
+    INCLUDE_DIRS "include"
+    PRIV_REQUIRES driver
+)
+```
+
+Use `REQUIRES` when a dependency is part of the component's public API and `PRIV_REQUIRES` when it is used only by the component implementation. Keeping this distinction accurate prevents unnecessary dependencies from propagating to other components.
+
+When asking an agent to add or move source files, also ask it to update the corresponding component `CMakeLists.txt`. A source file that is present in the directory but missing from `SRCS` will not be compiled. Likewise, adding an ESP-IDF header may require adding its component to `REQUIRES` or `PRIV_REQUIRES`.
+
+> [!TIP]
+> Prefer `idf.py build` over running CMake or Ninja directly. It sets up ESP-IDF-specific configuration and gives the agent a consistent command for verifying changes.
+
 ### Components
 
 Components are the building blocks of an ESP-IDF project. Every piece of reusable code (a driver, a protocol handler, a utility library) should be a component. The agent is good at generating them, but it needs you to tell it the component name and what the public API should look like.

@@ -140,6 +140,104 @@ physical LED behaviour.
 
 Confirm that the LED blinks blue, stops, and then blinks green. After verification, ask the agent to restore the normal `app_main`, rebuild the project, and confirm that the working tree contains no temporary test code.
 
+### Part C: External tools
+
+An agent can also use external instruments through an MCP server. In this exercise, you will connect a Saleae logic analyzer to Cursor through the experimental [Logic 2 MCP server](https://docs.saleae.com/mcp/guides/getting-started). This allows the agent to list connected devices, start and stop captures, add protocol analyzers, and export captured data.
+
+The MCP server currently supports Saleae Logic 8, Logic Pro 8, and Logic Pro 16 devices. Keep the Logic 2 application open while using the server.
+
+#### Step 1: Enable the Logic 2 MCP server
+
+Open Logic 2 and go to **Settings > Automation**, then enable **MCP Server**. You can also open the Automation settings from the button in the bottom bar.
+
+By default, the server listens locally at:
+
+```text
+http://127.0.0.1:10530
+```
+
+The server is available only from your computer and does not require credentials.
+
+#### Step 2: Connect Cursor to Logic 2
+
+Add the server in **Cursor Settings > Tools & MCP**, or add the following entry to `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "logic2": {
+      "url": "http://127.0.0.1:10530"
+    }
+  }
+}
+```
+
+Return to the MCP settings and confirm that `logic2` is connected and its tools are enabled. Then verify the connection from the agent:
+
+```text
+List the Saleae logic analyzers I have connected. Exclude simulation devices.
+```
+
+The agent should report the model and device ID of the connected analyzer. If it cannot connect, confirm that Logic 2 is running, the MCP server is enabled, and the URL is correct.
+
+![Saleae Logic 8 logic analyzer connected for the exercise](assets/logic-8-black-main.webp)
+
+#### Step 3: Connect the ESP32-C3-DevKit-RUST-1
+
+The ESP32-C3-DevKit-RUST-1 includes an ICM-42670-P inertial measurement unit at address `0x68` and an SHTC3 temperature and humidity sensor at address `0x70`. Both sensors share the board's I2C bus:
+
+| I2C signal | ESP32-C3 GPIO | Saleae channel |
+|---|---|---|
+| SDA | GPIO10, header pin labelled `IO10/SDA` | Digital channel 0 |
+| SCL | GPIO8, header pin labelled `IO8/SCL` | Digital channel 1 |
+| GND | Any board GND pin | GND |
+
+Turn off or disconnect the board before attaching the probes. Then:
+
+1. Connect a Saleae ground wire to a GND pin on the development board.
+2. Connect Saleae digital channel 0 to `IO10/SDA`.
+3. Connect Saleae digital channel 1 to `IO8/SCL`.
+4. Check every connection, then power the board through its USB connector.
+
+> [!WARNING]
+> The logic analyzer and development board must share a common ground. Do not connect a Saleae input to the `3V3`, `5V`, or `VBAT` pins. The analyzer inputs should only observe SDA and SCL; they do not power the I2C bus.
+
+#### Step 4: Create and run the SHTC3 example
+
+The project for this exercise is based on the `shtc3_read` example from version 1.4.1 of the [`pedrominatel/shtc3`](https://components.espressif.com/components/pedrominatel/shtc3/versions/1.4.1/examples/shtc3_read) component. Ask the agent to create, configure, build, flash, and verify the example.
+
+The monitor should report that the SHTC3 was found at address `0x70`, followed by a new temperature and relative humidity measurement every second.
+
+#### Step 5: Capture and decode the I2C traffic
+
+With the ESP32-C3-DevKit-RUST-1 powered and generating I2C traffic, ask the agent to operate the logic analyzer:
+
+```text
+Use the connected Saleae logic analyzer to capture digital channels 0 and 1
+for 30 seconds at a valid sample rate of at least 1 MS/s.
+Add an I2C analyzer with SDA on channel 0 and SCL on channel 1.
+After the capture completes, export the decoded data and summarize the
+addresses, reads, writes, acknowledgements, and any protocol errors.
+```
+
+The decoded traffic should contain acknowledgements from `0x68`, `0x70`, or both, depending on what the firmware accesses. Compare the analyzer output with the ESP-IDF monitor logs.
+
+If the analyzer reports no I2C packets, ask the agent to inspect the raw channels before changing the firmware:
+
+```text
+Check whether either captured channel contains transitions.
+If there are transitions but no decoded I2C packets, verify the SDA and SCL
+channel mapping and report any malformed bus activity.
+If both channels are inactive, report their idle states and list the wiring
+and firmware checks I should perform.
+```
+
+Always tell the agent the exact channel mapping. A protocol analyzer configured with swapped or incorrect channels may produce no decoded data even when electrical activity is present.
+
+#### Step 6: Clean up
+
+After verifying the capture, stop the monitor and disconnect power before removing the probes. Keep or delete the separate `shtc3_read` example as needed, and confirm that no Saleae capture exports or temporary test files were added to the workshop's Git working tree.
+
 ## Next step
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)
