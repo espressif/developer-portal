@@ -1,7 +1,7 @@
 ---
 title: "Connect ESP32 with an iPhone directly using Wi-Fi Aware — the new cross-platform P2P standard"
 date: "2026-08-11"
-summary: "iOS 26 brings Wi-Fi Aware to the iPhone, a standard that allows peer-to-peer discovery of and connection to nearby devices. This requires no access point and does not affect the current network connectivity of the iPhone. This article explains how the protocol works and walks through the steps to set up an ESP32 and an iPhone so they can pair and connect using Wi-Fi Aware."
+summary: "iOS 26 brings Wi-Fi Aware™ support on iPhone 12 and later, enabling compatible devices to securely discover, pair, and communicate directly. This requires no access point and does not affect the current network connectivity of the iPhone. This article explains how the protocol works and walks through the steps to set up an ESP32 and an iPhone so they can pair and connect using Wi-Fi Aware."
 authors:
   - "nachiket-kukade"
 tags:
@@ -17,7 +17,7 @@ showTableOfContents: true
 
 ## Introduction
 
-Getting your iPhone to communicate with an IoT device using Wi-Fi has always been awkward. One way to achieve this is to bring the device into your local network first (assuming there is an access point to begin with), which involves multiple steps: discovery (typically over BLE), entering credentials, and provisioning. Another way is to make the device bring up its own SoftAP and connect to it. Although some iOS frameworks have streamlined that process, they cannot prevent the phone from going off the local network for the duration of the session.
+Establishing direct Wi-Fi communication between an iPhone device and an IoT device has always been a complex process. One way to achieve this is to bring the device into your local network first (assuming there is an access point to begin with), which involves multiple steps: discovery (typically over BLE), entering credentials, and provisioning. Another way is to make the device bring up its own SoftAP and connect to it. Although some iOS frameworks have streamlined that process, they cannot prevent the phone from going off the local network for the duration of the session.
 
 **Wi-Fi Aware**, also known as Neighbor Awareness Networking (NAN), is the Wi-Fi Alliance standard that fills this gap. Devices synchronize into a cluster, advertise and discover services, optionally pair if required, and then set up a direct, high-bandwidth encrypted data link between two peers, opening up socket-level communication over IPv6. There is no access point, no DHCP server, and no internet connection involved.
 
@@ -38,11 +38,10 @@ Apple took a different approach: the iOS [Wi-Fi Aware framework](https://develop
 
 This push for Wi-Fi Aware by Apple did not go unnoticed, and slowly but steadily the industry is catching up.
 
-At Espressif, we've also upgraded our security standards to match that of Apple and closed the gap in implementation. A new component [`wifi_aware`](https://components.espressif.com/components/espressif/wifi_aware) is specifically built for this purpose. It implements the DNS-SD naming and discovery conventions on top of ESP-IDF's NAN support, so you never assemble a service name by hand, and it is compatible with iOS out of the box.
+At Espressif, we've also upgraded our security standards to match that of Apple and closed the gap in implementation. A new component [wifi_aware](https://components.espressif.com/components/espressif/wifi_aware) is specifically built for this purpose. It implements the DNS-SD naming and discovery conventions on top of ESP-IDF's NAN support, so you never assemble a service name by hand, and it is compatible with iOS out of the box.
 
-{{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5" >}}
-For ESP-to-ESP or ESP-to-Android communication, any security standard or even no security can be chosen. The restriction of higher security standard is only iOS-specific.
-{{< /alert >}}
+> [!NOTE]
+> For ESP-to-ESP or ESP-to-Android communication, any security standard or even no security can be chosen. The restriction of higher security standard is only iOS-specific.
 
 ## What you need
 
@@ -57,7 +56,7 @@ For ESP-to-ESP or ESP-to-Android communication, any security standard or even no
 - Xcode, with the `com.apple.developer.wifi-aware` entitlement on your target.
 - A physical iPhone or iPad from the generations listed above. Wi-Fi Aware cannot be exercised in the simulator.
 
-## What iOS requires from the ESP side
+## What iOS requires from the ESP device
 
 Two things have to line up with what iOS expects. Getting either of them wrong produces the same symptom, which is a device that never appears in the pairing sheet.
 
@@ -213,7 +212,7 @@ The fastest end-to-end test uses the component's `udp_server` example and the co
 
 {{< github repo="espressif/esp-wifi-apps" >}}
 
-`udp_server` is the publisher: it advertises `_ESP-Demo._udp` and echoes back every datagram it receives, prefixed with `OK: `. Build and flash it to a supported ESP32:
+`udp_server` is the publisher: it advertises `_ESP-Demo._udp` and echoes back every datagram it receives, prefixed with `OK: `. Build and flash it to a supported ESP device:
 
 ```bash
 cd components/wifi_aware/examples/udp_server
@@ -230,3 +229,12 @@ The component also ships a `udp_client` example for ESP-to-ESP testing. It disco
 Wi-Fi Aware removes the provisioning step from phone-to-device communication, and iOS 26 makes that useful for a very large installed base of phones. On the ESP side the `wifi_aware` component handles the naming, discovery, and datapath plumbing, leaving you a service name, a PIN, and a few identifying strings to fill in.
 
 If you are building a shipping product rather than a prototype, read Apple's Accessory Design Guidelines for the Wi-Fi Aware interoperability requirements, and look into Wi-Fi Alliance certification. Apple's framework is documented as connecting to Wi-Fi Aware certified accessories, and following the guidelines is what keeps discovery, pairing, and throughput reliable across iOS releases.
+
+<div style="font-size: 0.8em; color: #888; margin-top: 2em;">
+Apple and HomePod are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
+This article is an independent publication and has not been authorized, sponsored, or otherwise approved by Apple Inc.
+
+IOS is a trademark or registered trademark of Cisco in the U.S. and other countries and is used under license.
+
+Wi-Fi Aware is a trademark of Wi-Fi Alliance.
+</div>
