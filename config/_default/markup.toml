@@ -7,6 +7,9 @@
 
 [highlight]
   noClasses = false
+  # Render `lineNos=true` as inline line numbers. The table layout Chroma
+  # produces leaves no gap between numbers and code.
+  lineNumbersInTable = false
 
 [tableOfContents]
   startLevel = 2

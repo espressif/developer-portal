@@ -263,7 +263,7 @@ This file will be used by this project when calling the SDK configuration interf
 
 To use the new configuration entries, you can do:
 
-{{< highlight c "linenos=table,hl_lines=">}}
+{{< highlight c "linenos=true,hl_lines=">}}
     #define WIFI_SSID CONFIG_ESP_WIFI_SSID
     #define WIFI_PASS CONFIG_ESP_WIFI_PASSWORD
 {{< /highlight >}}
