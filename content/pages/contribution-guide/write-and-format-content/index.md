@@ -269,26 +269,74 @@ After that, include your `.mp4` video using this shortcode:
 You might also find useful [Asciinema casts](#asciinema-casts) and [Video](#video).
 
 
-### Code block
+### Code blocks
 
-A code block can be inserted using the standard markdown syntax -- backticks.
+A code block can be inserted using the standard markdown syntax -- backticks. The Developer Portal supports additional parameters in fenced code blocks, including the ones from [highlight shortcode](https://gohugo.io/shortcodes/highlight/) and Blowfish's `title` parameter.
 
-Hugo also provides the [highlight shortcode](https://gohugo.io/shortcodes/highlight/) which offers additional features, such as numbering and highlighting lines:
+Here are the most useful additional parameters:
 
-{{< highlight c "linenos=table,hl_lines=3 5" >}}
-    led_strip_config_t strip_config = {
-        // Set the GPIO8 that the LED is connected
-        .strip_gpio_num = 8,
-        // Set the number of connected LEDs, 1
-        .max_leds = 1,
-        // Set the pixel format of your LED strip
-        .led_pixel_format = LED_PIXEL_FORMAT_GRB,
-        // LED model
-        .led_model = LED_MODEL_WS2812,
-        // In some cases, the logic is inverted
-        .flags.invert_out = false,
-    };
-{{< /highlight >}}
+| Parameter | Description |
+|--------|---------|
+| `title="string"` | Add a code block header (typically used for a code filename) |
+| `hl_lines="2 4-6"` | Highlight lines, e.g `"2 4-6"` or `[4,"7-9"]` |
+| `lineNos=true` | Add line numbers |
+| `lineNoStart="10"` | Start from given line number (default `1`) |
+| `anchorLineNos=true` | Make line numbers linkable anchors (also set `lineAnchors`) |
+| `lineAnchors="id"` | For each `anchorLineNos=true` code block, set ID to make links unique |
+
+Here is an example of a code block with a filename and highlighted lines:
+
+````markdown
+```c {title="main/blink_main.c" hl_lines="3"}
+void app_main(void)
+{
+    ESP_ERROR_CHECK(gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT));
+    ESP_LOGI(TAG, "Blink LED configured on GPIO %d", BLINK_GPIO);
+}
+```
+````
+
+```c {title="main/blink_main.c" hl_lines="3"}
+void app_main(void)
+{
+    ESP_ERROR_CHECK(gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT));
+    ESP_LOGI(TAG, "Blink LED configured on GPIO %d", BLINK_GPIO);
+}
+```
+
+Here is another example of a code block with line numbers that also have linkable anchors enabled:
+
+````markdown
+```c {lineNos=true anchorLineNos=true lineAnchors="led-strip"}
+led_strip_config_t strip_config = {
+  // Set the GPIO8 that the LED is connected
+  .strip_gpio_num = 8,
+  // Set the number of connected LEDs, 1
+  .max_leds = 1,
+  // Set the pixel format of your LED strip
+  .led_pixel_format = LED_PIXEL_FORMAT_GRB,
+  // LED model
+  .led_model = LED_MODEL_WS2812,
+  // In some cases, the logic is inverted
+  .flags.invert_out = false,
+};
+```
+````
+
+```c {lineNos=true anchorLineNos=true lineAnchors="led-strip"}
+led_strip_config_t strip_config = {
+  // Set the GPIO8 that the LED is connected
+  .strip_gpio_num = 8,
+  // Set the number of connected LEDs, 1
+  .max_leds = 1,
+  // Set the pixel format of your LED strip
+  .led_pixel_format = LED_PIXEL_FORMAT_GRB,
+  // LED model
+  .led_model = LED_MODEL_WS2812,
+  // In some cases, the logic is inverted
+  .flags.invert_out = false,
+};
+```
 
 
 ### Tabs
