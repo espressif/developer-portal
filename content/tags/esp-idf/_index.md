@@ -142,52 +142,157 @@ winget install Espressif.EIM
 winget install Espressif.EIM-CLI
 ```
 
-**Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for Windows installers or portable builds.
+To update EIM later:
+```powershell
+winget upgrade Espressif.EIM
+```
+
+**Manual download:** Get the installer from the [EIM downloads page](https://dl.espressif.com/dl/eim/) or from [GitHub Releases](https://github.com/espressif/idf-im-ui/releases), then run the `.exe`. It will automatically detect and install any missing prerequisites and guide you through the setup process.
+
+> [!NOTE]
+> If you download the CLI-only version (e.g., `eim-cli-*.exe`), it must be run from a terminal/command prompt rather than double-clicking. Double-clicking opens a terminal window briefly, displays help information, and then closes immediately — which may appear as if the installer crashed. Open PowerShell, navigate to the file location, and run it with `.\eim-cli-*.exe --help`.
+
+After installation, launch the GUI from the Start Menu or use the CLI:
+```powershell
+eim install
+```
 {{< /tab >}}
 {{< tab label="macOS" >}}
 **Package manager (recommended)**
 
 ```bash
-# First add the EIM tap
+# Add the Espressif tap
 brew tap espressif/eim
-# Install GUI version
+# Install GUI version (launchable from Applications)
 brew install --cask eim-gui
-# Or install CLI version only
+# Or install CLI version only (runnable from terminal)
 brew install eim
 ```
 
-**Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for macOS builds.
+To update EIM later:
+```bash
+brew upgrade eim
+# or
+brew upgrade --cask eim-gui
+```
+
+**Manual download:** You can also download macOS `.dmg` or `.zip` installers from the [EIM downloads page](https://dl.espressif.com/dl/eim/) — useful if you prefer manual setup or offline installation.
 {{< /tab >}}
-{{< tab label="Linux (deb)" >}}
-**Package manager (recommended)**
+{{< tab label="Linux (Homebrew)" >}}
+Homebrew works on most Linux distributions:
 
 ```bash
-# Add the EIM APT repository
-echo "deb [trusted=yes] https://dl.espressif.com/dl/eim/apt/ stable main" | \
-    sudo tee /etc/apt/sources.list.d/espressif.list
+# Add the Espressif tap
+brew tap espressif/eim
+# Install CLI only
+brew install eim
+# Or install GUI (includes CLI)
+brew install --cask eim-gui
+```
+
+To update EIM later:
+```bash
+brew upgrade eim
+# or
+brew upgrade --cask eim-gui
+```
+
+> [!NOTE]
+> The GUI version requires a graphical environment and may have additional dependencies depending on your Linux distribution.
+{{< /tab >}}
+{{< tab label="Linux (deb)" >}}
+**Package manager (recommended)** — Debian, Ubuntu, Linux Mint, etc.
+
+Install the Espressif signing key and add the signed APT repository:
+
+```bash
+# Install the Espressif signing key
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://dl.espressif.com/dl/eim/eim.gpg -o /etc/apt/keyrings/eim.gpg
+sudo chmod 0644 /etc/apt/keyrings/eim.gpg
+
+# Add the Espressif APT repository (deb822 with signed-by)
+sudo curl -fsSL https://dl.espressif.com/dl/eim/eim.sources -o /etc/apt/sources.list.d/espressif.sources
+
 # Update package lists
 sudo apt update
-# Install CLI version
+
+# Install CLI only
 sudo apt install eim-cli
-# Or install GUI version
+# Or install GUI (includes CLI)
 sudo apt install eim
+```
+
+To update EIM later:
+```bash
+sudo apt update && sudo apt upgrade eim
 ```
 
 **Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for `.deb` packages or portable Linux binaries.
 {{< /tab >}}
 {{< tab label="Linux (rpm)" >}}
-**Package manager (recommended)**
+**Package manager (recommended)** — Fedora, RHEL, CentOS, openSUSE, etc.
+
+Import the Espressif signing key and add the RPM repository:
 
 ```bash
-# Download and install the RPM repository configuration
-sudo dnf install https://dl.espressif.com/dl/eim/rpm/eim-repo-latest.noarch.rpm
-# Install CLI version
+# Import the Espressif signing key
+sudo rpm --import https://dl.espressif.com/dl/eim/eim.asc
+
+# Add the Espressif RPM repository
+sudo curl -fsSL https://dl.espressif.com/dl/eim/rpm/eim.repo -o /etc/yum.repos.d/espressif-eim.repo
+
+# Install CLI only
 sudo dnf install eim-cli
-# Or install GUI version
+# Or install GUI (includes CLI)
 sudo dnf install eim
 ```
 
+> [!NOTE]
+> `eim.repo` enables both `gpgcheck=1` (verifies each package) and `repo_gpgcheck=1` (verifies repository metadata). If you previously set up this repo manually with `gpgcheck=0`, you can keep using it as-is — the change only affects new installs.
+
+To update EIM later:
+```bash
+sudo dnf upgrade eim
+```
+
 **Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for RPM packages or portable Linux binaries.
+{{< /tab >}}
+{{< tab label="Arch Linux" >}}
+**Package manager (recommended)** — Arch Linux, Manjaro, EndeavourOS, CachyOS, etc.
+
+```bash
+# 1. Import and locally sign the Espressif signing key (required once, before pacman -Syu)
+curl -fsSL https://dl.espressif.com/dl/eim/eim.asc | sudo pacman-key --add -
+sudo pacman-key --lsign-key 06E9A6C0325E124198C685F18B1F38BDC9383E1D
+
+# 2. Add the EIM pacman repository to /etc/pacman.conf
+sudo tee -a /etc/pacman.conf << 'EOF'
+[eim]
+SigLevel = Required DatabaseOptional TrustAll
+Server = https://dl.espressif.com/dl/eim/pacman/$arch
+EOF
+
+# 3. Update package databases
+sudo pacman -Syu
+
+# 4. Install CLI only
+sudo pacman -S eim-cli
+# Or install GUI (includes CLI)
+sudo pacman -S eim-gui
+```
+
+> **Important:** Step 1 (key import) must be done **before** running `pacman -Syu`. Without it, pacman cannot verify the repository database and will refuse to sync. The key fingerprint is `06E9A6C0325E124198C685F18B1F38BDC9383E1D`.
+
+> [!NOTE]
+> The GUI package depends on `gtk4`, `libadwaita`, and `webkit2gtk-4.1`, which may require additional setup on some distributions.
+
+To update EIM later:
+```bash
+sudo pacman -Syu
+```
+
+**Manual download:** use the [EIM downloads page](https://dl.espressif.com/dl/eim/) for Arch Linux packages or portable binaries.
 {{< /tab >}}
 {{< /tabs >}}
 
