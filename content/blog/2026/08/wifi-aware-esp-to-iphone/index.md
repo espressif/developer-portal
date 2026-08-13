@@ -1,7 +1,7 @@
 ---
-title: "Connect ESP32 with an iPhone directly using Wi-Fi Aware — the new cross-platform P2P standard"
-date: "2026-08-11"
-summary: "iOS 26 brings Wi-Fi Aware™ support on iPhone 12 and later, enabling compatible devices to securely discover, pair, and communicate directly. This requires no access point and does not affect the current network connectivity of the iPhone. This article explains how the protocol works and walks through the steps to set up an ESP32 and an iPhone so they can pair and connect using Wi-Fi Aware."
+title: "Connect ESP with an iPhone directly using Wi-Fi Aware — the new cross-platform P2P standard"
+date: "2026-08-14"
+summary: "iOS 26 brings Wi-Fi Aware™ support on iPhone 12 and later, enabling compatible devices to securely discover, pair, and communicate directly. This requires no access point and does not affect the current network connectivity of the iPhone. This article explains how the protocol works and walks through the steps to set up an ESP device and an iPhone so they can pair and connect using Wi-Fi Aware."
 authors:
   - "nachiket-kukade"
 tags:
@@ -47,14 +47,14 @@ At Espressif, we've also upgraded our security standards to match that of Apple 
 
 ### On the ESP side
 
-- Wi-Fi Aware needs hardware NAN support, which at the time of writing is available on the ESP32, ESP32-S2, ESP32-C5, ESP32-C61, and ESP32-S31.
+- Wi-Fi Aware is not available on all ESP-IDF targets. Check the component [README](https://components.espressif.com/components/espressif/wifi_aware) section for full list of supported targets.
 - Wi-Fi Aware Pairing, the standard required by iOS, is available from ESP-IDF v6.1 onwards.
-- The component also works with earlier ESP-IDF versions and is fine to use for ESP-to-ESP or ESP-to-Android over an open datapath.
+- The component also works with earlier ESP-IDF versions where only open datapath is supported. This still works for ESP-to-ESP or ESP-to-Android use cases.
 
 ### On the iOS side
 
 - Xcode, with the `com.apple.developer.wifi-aware` entitlement on your target.
-- A physical iPhone or iPad from the generations listed above. Wi-Fi Aware cannot be exercised in the simulator.
+- A physical iPhone 12 or newer, or iPad (10th generation or newer), running iOS 26. Wi-Fi Aware cannot be exercised in the simulator.
 
 ## What iOS requires from the ESP device
 
@@ -83,7 +83,7 @@ Setting `caching_enabled` keeps the pairing keys so the phone and the device can
 
 Apple's recommended pairing path for hardware is [AccessorySetupKit](https://developer.apple.com/documentation/accessorysetupkit), where the app builds an `ASDiscoveryDescriptor` that filters candidate devices by properties like vendor and model before showing them to the user. Those properties come from the accessory's advertisement, and the component carries them in `wa_pairing_info_t` as `vendor_name`, `model_name`, and `pairing_name`, each capped at 15 characters. Fill them in even if your first app does not filter on them: it costs nothing, and it is what lets an app show a meaningful name in the pairing sheet instead of a raw identifier.
 
-Note that these are the only names an iOS app ever sees, alongside the service name itself. The component's `instance_name` is not surfaced to iOS; it distinguishes devices advertising the same service type on the ESP side and is the handle you pass into the component's own connection APIs.
+Note that these are the only names an iOS app ever sees, alongside the service name itself. The component's `instance_name` is not surfaced to iOS — following Apple's guideline it never goes on the air at all, and is kept purely as local registration data. Peers are addressed instead by an opaque `wa_peer_handle_t`, which the component hands you in its events and in the discovery callback, and which every pairing and connection API takes.
 
 ## Firmware: advertising a service an iPhone can find
 
@@ -91,12 +91,12 @@ The role you want is publisher, since that is what an accessory is in Apple's mo
 
 ### Add the component
 
-In your project's `main/idf_component.yml`:
+In your project's `main/idf_component.yml`, use `version: "*"` to pull the latest published release from the Component Registry:
 
 ```yaml
 dependencies:
   espressif/wifi_aware:
-    version: "^0.0.1"
+    version: "*"
 ```
 
 ### Enable the required Kconfig options
@@ -107,36 +107,37 @@ Put these in `sdkconfig.defaults`:
 CONFIG_ESP_WIFI_NAN_SYNC_ENABLE=y
 CONFIG_ESP_WIFI_NAN_SECURITY=y
 CONFIG_ESP_WIFI_NAN_PAIRING=y
+CONFIG_WIFI_AWARE_COMPAT_IOS=y
 CONFIG_LWIP_IPV6=y
 CONFIG_IDF_EXPERIMENTAL_FEATURES=y
 CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
 ```
 
-`CONFIG_ESP_WIFI_NAN_SECURITY` and `CONFIG_ESP_WIFI_NAN_PAIRING` gate the PIN-pairing code paths in both ESP-IDF and the component, so without them `WA_SEC_PIN_PAIRING` is not even compiled in. `CONFIG_IDF_EXPERIMENTAL_FEATURES` is there because the NAN options are still gated behind experimental features, and the larger single-app partition gives the NAN and pairing code room to fit.
+`CONFIG_ESP_WIFI_NAN_SECURITY` and `CONFIG_ESP_WIFI_NAN_PAIRING` gate the PIN-pairing code paths in both ESP-IDF and the component, so without them `WA_SEC_PIN_PAIRING` is not even compiled in. `CONFIG_WIFI_AWARE_COMPAT_IOS` picks the iOS peer-compatibility mode: it is a component-wide build-time choice (`CONFIG_WIFI_AWARE_COMPAT_MODE`) rather than a runtime setting, and it needs ESP-IDF v6.1 with NAN synchronised discovery — the build fails with a clear `#error` otherwise. `CONFIG_IDF_EXPERIMENTAL_FEATURES` is there because the NAN options are still gated behind experimental features, and the larger single-app partition gives the NAN and pairing code room to fit.
 
 > [!TIP]
-> If a pairing field or API such as `pairing_info` or `wifi_aware_set_credentials()` is unavailable in your build, verify the security and pairing Kconfig options first.
+> If a pairing field or API such as `pairing_info` or `wifi_aware_pairing_set_credentials()` is unavailable in your build, verify the security and pairing Kconfig options first.
 
 ### Advertise the service
 
 Wi-Fi is owned by the application, so call `esp_wifi_init()` before `wifi_aware_init()`. The init config takes a `hostname`, which becomes the DNS-SD SRV target and must be unique per device — deriving it from the base MAC is the easy way to guarantee that.
 
-Then `wifi_aware_service_advertise()` takes the service config, the port to advertise, and the security config from above. In the service config you set `service_type` to `ESP-Demo` and `proto` to `WA_PROTO_UDP`, and the component advertises `_ESP-Demo._udp` — you never write the underscores or the transport suffix yourself.
+Then `wifi_aware_advertise()` takes a single `wa_publish_cfg_t` — the port to advertise, the `ttl_sec` lifetime and the security config from above all live inside it — and hands back a `wa_session_handle_t` that you keep and pass to `wifi_aware_advertise_stop()` later. In that config you set `service_type` to `ESP-Demo` and `proto` to `WA_PROTO_UDP`, and the component advertises `_ESP-Demo._udp` — you never write the underscores or the transport suffix yourself.
 
 The service name is the one string that has to match the iOS app exactly. Apple allows only `a-z`, `A-Z`, `0-9`, and hyphens, requires at least one letter, forbids a leading or trailing hyphen, and caps the name at **15 characters**. An invalid service name in `Info.plist` causes the app to crash, while a valid but mismatched name prevents discovery. Keep the ESP and iOS strings identical.
 
 ### Complete the pairing
 
-When the iPhone selects your device, the component raises `WA_EVENT_BOOTSTRAP_INDICATION`, carrying the bootstrapping method the peer chose. Two calls finish the exchange from your handler:
+When the iPhone selects your device, the component raises `WA_EVENT_BOOTSTRAP_INDICATION`, carrying a `peer` handle and the bootstrapping `method` the peer chose. Two calls finish the exchange from your handler, both addressed by that handle:
 
-- **`wifi_aware_bootstrap_response()`** accepts (or rejects) the peer's proposed pairing method. Passing `NULL` as the instance name uses the pending bootstrap context the component populated from the incoming request, which is what you want when a single service is advertised.
-- **`wifi_aware_set_credentials()`** sets the six-digit PIN that the secure pairing exchange will verify. Display the same PIN you pass here, and keep it within `NAN_PAIRING_PINCODE_MIN` and `NAN_PAIRING_PINCODE_MAX`.
+- **`wifi_aware_pairing_bootstrap_respond(peer, accept)`** accepts (or rejects) the peer's proposed pairing method. The peer comes straight off the event, so nothing is inferred from a pending global context and several exchanges can be in flight without ambiguity.
+- **`wifi_aware_pairing_set_credentials(peer, &cred)`** arms the six-digit PIN that the secure pairing exchange will verify, passed as a `wa_pairing_cred_t` with its `pincode` field set. Nothing is transmitted by the call — it only sets what the peer must match in the PASN exchange it is about to start. Display the same PIN you pass here, and keep it within `NAN_PAIRING_PINCODE_MIN` and `NAN_PAIRING_PINCODE_MAX`.
 
-Check the event's `selected_method` against `WIFI_NAN_BOOTSTRAP_PIN_CODE_KEYPAD` before responding, so a peer offering a method you do not support is rejected rather than left hanging.
+Check the event's `method` against `WA_BOOTSTRAP_PINCODE` before responding, so a peer offering a method you do not support is rejected rather than left hanging. The outcome then arrives as `WA_EVENT_PAIRING_CONFIRMED`, which fires for both roles and is where a failed PASN exchange becomes visible.
 
 ### Serve data on the datapath
 
-The publisher has nothing left to do on the NAN side, because the component auto-accepts the incoming datapath request. Once the interface has an IPv6 address it fires `IP_EVENT_GOT_IP6`, which is your cue to open a socket.
+The publisher has nothing left to do on the NAN side, because the component auto-accepts the incoming datapath request. It reports the attachment as `WA_EVENT_DATAPATH_CONNECTED` with `inbound` set to true, so you see clients come and go instead of inferring it from socket errors. The event's `endpoint.port` is 0 on this side, since no SRV record flows publisher-ward — learn the client's port from the first `recvfrom()`. Once the interface has an IPv6 address it fires `IP_EVENT_GOT_IP6`, which is your cue to open a socket.
 
 Two details are easy to trip over. Use `WA_NETIF_KEY` to identify the NAN interface, because that key remains stable across a deinit and init cycle, and ignore `GOT_IP6` events from other interfaces. Keep the interface index returned by `esp_netif_get_netif_impl_index()` and assign it to `sockaddr_in6.sin6_scope_id` when sending to a link-local address, so lwIP routes the packet through the NAN interface.
 
@@ -163,7 +164,7 @@ The project demonstrates the following application flow:
 
 **Pair.** For an accessory, build an `ASDiscoveryDescriptor` with the service name and any vendor or model filters, then present the picker with `ASAccessorySession.showPicker`. The system runs discovery, shows the PIN prompt, and performs the pairing. On success you get an `ASAccessory` carrying an `ASAccessoryWiFiAwarePairedDeviceID`, which you look up as a `WAPairedDevice`. If you are pairing app-to-app instead, `DeviceDiscoveryUI` provides `DevicePairingView` and `DevicePicker` for the two sides.
 
-**Connect.** Build a `NetworkBrowser` from the `WASubscribableService` and a device filter, run it to get connectable endpoints, and open a connection. Stop the browser once you have the connections you need, since browsing costs power and airtime.
+**Connect.** Build a `NetworkBrowser` from the `WASubscribableService` and a device filter, run it to get connectable endpoints, and open a `NetworkConnection`. When establishing that connection over Wi-Fi Aware, set `performanceMode` to `.bulk` so the datapath prioritizes throughput. Stop the browser once you have the connections you need, since browsing costs power and airtime.
 
 Apple's [Adopting Wi-Fi Aware](https://developer.apple.com/documentation/wifiaware/adopting-wi-fi-aware) article covers the entitlement and `Info.plist` in detail, and the WWDC25 session [Supercharge device connectivity with Wi-Fi Aware](https://developer.apple.com/videos/play/wwdc2025/228/) walks through the pairing and connection code.
 
@@ -179,32 +180,34 @@ sequenceDiagram
 
     E->>E: esp_wifi_init
     E->>E: wifi_aware_init(hostname)
-    E->>E: wifi_aware_service_advertise(_ESP-Demo._udp, PIN pairing)
+    E->>E: wifi_aware_advertise(_ESP-Demo._udp, PIN pairing) → session
     Note over E,P: Service advertised over NAN
 
     P->>P: ASAccessorySession.showPicker(descriptor)
     P->>E: discovers _ESP-Demo._udp, matches vendor/model filter
     P->>E: bootstrap request (PIN code keypad)
 
-    E->>E: WA_EVENT_BOOTSTRAP_INDICATION
+    E->>E: WA_EVENT_BOOTSTRAP_INDICATION (peer, method)
     E->>E: display PIN
-    E->>P: wifi_aware_bootstrap_response(accept)
-    E->>E: wifi_aware_set_credentials(PIN)
+    E->>P: wifi_aware_pairing_bootstrap_respond(peer, accept)
+    E->>E: wifi_aware_pairing_set_credentials(peer, PIN)
 
     Note over P: user types the PIN
     P->>E: secure pairing exchange
     E-->>P: pairing confirm
+    E->>E: WA_EVENT_PAIRING_CONFIRMED (peer)
 
     P->>E: NAN datapath request
     E-->>P: datapath accepted (auto)
     Note over E,P: secured NAN datapath up
+    E->>E: WA_EVENT_DATAPATH_CONNECTED (peer, inbound)
 
     E->>E: IP_EVENT_GOT_IP6 on NAN netif
     E->>E: bind UDP socket on port 3333
     P->>E: NetworkBrowser endpoint, then app data
 ```
 
-Note the asymmetry that follows from Apple's model: the ESP device advertises and waits, while the phone drives discovery, pairing, and the datapath request. The ESP firmware never calls `wifi_aware_request_connection()`, which is a subscriber-side API. It is there for ESP-to-ESP setups, where one of the two devices has to play the phone's role.
+Note the asymmetry that follows from Apple's model: the ESP device advertises and waits, while the phone drives discovery, pairing, and the datapath request. The ESP firmware never calls `wifi_aware_connect()`, which is a subscriber-side API taking the peer handle from discovery. It is there for ESP-to-ESP setups, where one of the two devices has to play the phone's role.
 
 ## Try it on real hardware
 
@@ -228,7 +231,7 @@ The component also ships a `udp_client` example for ESP-to-ESP testing. It disco
 
 Wi-Fi Aware removes the provisioning step from phone-to-device communication, and iOS 26 makes that useful for a very large installed base of phones. On the ESP side the `wifi_aware` component handles the naming, discovery, and datapath plumbing, leaving you a service name, a PIN, and a few identifying strings to fill in.
 
-If you are building a shipping product rather than a prototype, read Apple's Accessory Design Guidelines for the Wi-Fi Aware interoperability requirements, and look into Wi-Fi Alliance certification. Apple's framework is documented as connecting to Wi-Fi Aware certified accessories, and following the guidelines is what keeps discovery, pairing, and throughput reliable across iOS releases.
+If you are building a shipping product rather than a prototype, read Apple's [Accessory Design Guidelines](https://developer.apple.com/accessories/Accessory-Design-Guidelines.pdf) for the Wi-Fi Aware interoperability requirements. Following the guidelines is what keeps discovery, pairing, and throughput reliable across iOS releases.
 
 <div style="font-size: 0.8em; color: #888; margin-top: 2em;">
 Apple and HomePod are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
