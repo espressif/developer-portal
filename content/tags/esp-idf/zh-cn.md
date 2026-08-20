@@ -142,7 +142,20 @@ winget install Espressif.EIM
 winget install Espressif.EIM-CLI
 ```
 
-**手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 Windows 安装包或便携构建。
+如需更新 EIM：
+```powershell
+winget upgrade Espressif.EIM
+```
+
+**手动下载：** 从 [EIM 下载页](https://dl.espressif.com/dl/eim/) 或 [GitHub Releases](https://github.com/espressif/idf-im-ui/releases) 获取安装包，然后运行 `.exe`。安装程序会自动检测并安装缺失的依赖项，并引导您完成设置流程。
+
+> [!NOTE]
+> 如果您下载的是 CLI 专用版本（例如 `eim-cli-*.exe`），必须从终端/命令提示符运行，而不是双击。双击会短暂打开终端窗口，显示帮助信息后立即关闭——看起来像安装程序崩溃了。请打开 PowerShell，切换到文件所在目录，然后运行 `.\eim-cli-*.exe --help`。
+
+安装完成后，可从「开始」菜单启动图形界面版本，或使用 CLI：
+```powershell
+eim install
+```
 {{< /tab >}}
 {{< tab label="macOS" >}}
 **包管理器（推荐）**
@@ -150,44 +163,134 @@ winget install Espressif.EIM-CLI
 ```bash
 # 添加 EIM tap
 brew tap espressif/eim
-# 安装图形界面版本
+# 安装图形界面版本（可从「应用程序」启动）
 brew install --cask eim-gui
-# 或仅安装 CLI 版本
+# 或仅安装 CLI 版本（可在终端运行）
 brew install eim
 ```
 
-**手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 macOS 构建。
+如需更新 EIM：
+```bash
+brew upgrade eim
+# 或
+brew upgrade --cask eim-gui
+```
+
+**手动下载：** 您也可以从 [EIM 下载页](https://dl.espressif.com/dl/eim/) 下载 macOS 的 `.dmg` 或 `.zip` 安装包——适合离线安装场景。
 {{< /tab >}}
-{{< tab label="Linux (deb)" >}}
-**包管理器（推荐）**
+{{< tab label="Linux (Homebrew)" >}}
+Homebrew 适用于大多数 Linux 发行版：
 
 ```bash
-# 添加 EIM APT 软件源
-echo "deb [trusted=yes] https://dl.espressif.com/dl/eim/apt/ stable main" | \
-    sudo tee /etc/apt/sources.list.d/espressif.list
+# 添加 Espressif tap
+brew tap espressif/eim
+# 仅安装 CLI 版本
+brew install eim
+# 或安装图形界面版本（包含 CLI）
+brew install --cask eim-gui
+```
+
+如需更新 EIM：
+```bash
+brew upgrade eim
+# 或
+brew upgrade --cask eim-gui
+```
+
+> [!NOTE]
+> 图形界面版本需要图形环境，具体依赖取决于您的 Linux 发行版。
+{{< /tab >}}
+{{< tab label="Linux (deb)" >}}
+**包管理器（推荐）** — Debian、Ubuntu、Linux Mint 等。
+
+安装 Espressif 签名密钥并添加已签名的 APT 软件源：
+
+```bash
+# 安装 Espressif 签名密钥
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://dl.espressif.com/dl/eim/eim.gpg -o /etc/apt/keyrings/eim.gpg
+sudo chmod 0644 /etc/apt/keyrings/eim.gpg
+
+# 添加 Espressif APT 软件源（deb822，启用 signed-by）
+sudo curl -fsSL https://dl.espressif.com/dl/eim/eim.sources -o /etc/apt/sources.list.d/espressif.sources
+
 # 更新软件包索引
 sudo apt update
-# 安装 CLI 版本
+
+# 仅安装 CLI 版本
 sudo apt install eim-cli
-# 或安装图形界面版本
+# 或安装图形界面版本（包含 CLI）
 sudo apt install eim
+```
+
+如需更新 EIM：
+```bash
+sudo apt update && sudo apt upgrade eim
 ```
 
 **手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 `.deb` 包或 Linux 便携二进制。
 {{< /tab >}}
 {{< tab label="Linux (rpm)" >}}
-**包管理器（推荐）**
+**包管理器（推荐）** — Fedora、RHEL、CentOS、openSUSE 等。
+
+导入 Espressif 签名密钥并添加 RPM 仓库：
 
 ```bash
-# 下载并安装 RPM 仓库配置
-sudo dnf install https://dl.espressif.com/dl/eim/rpm/eim-repo-latest.noarch.rpm
-# 安装 CLI 版本
+# 导入 Espressif 签名密钥
+sudo rpm --import https://dl.espressif.com/dl/eim/eim.asc
+
+# 添加 Espressif RPM 仓库
+sudo curl -fsSL https://dl.espressif.com/dl/eim/rpm/eim.repo -o /etc/yum.repos.d/espressif-eim.repo
+
+# 仅安装 CLI 版本
 sudo dnf install eim-cli
-# 或安装图形界面版本
+# 或安装图形界面版本（包含 CLI）
 sudo dnf install eim
 ```
 
+> **注意：** `eim.repo` 同时启用 `gpgcheck=1`（校验每个软件包）和 `repo_gpgcheck=1`（校验仓库元数据）。如果您之前使用 `gpgcheck=0` 手动配置过该仓库，可继续使用——本次变更仅影响新安装。
+
+如需更新 EIM：
+```bash
+sudo dnf upgrade eim
+```
+
 **手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 RPM 包或 Linux 便携二进制。
+{{< /tab >}}
+{{< tab label="Arch Linux" >}}
+**包管理器（推荐）** — Arch Linux、Manjaro、EndeavourOS、CachyOS 等。
+
+```bash
+# 1. 导入并在本地签名 Espressif 签名密钥（一次性操作，必须在 pacman -Syu 前完成）
+curl -fsSL https://dl.espressif.com/dl/eim/eim.asc | sudo pacman-key --add -
+sudo pacman-key --lsign-key 06E9A6C0325E124198C685F18B1F38BDC9383E1D
+
+# 2. 将 EIM pacman 仓库添加到 /etc/pacman.conf
+sudo tee -a /etc/pacman.conf << 'EOF'
+[eim]
+SigLevel = Required DatabaseOptional TrustAll
+Server = https://dl.espressif.com/dl/eim/pacman/$arch
+EOF
+
+# 3. 更新软件包数据库
+sudo pacman -Syu
+
+# 4. 仅安装 CLI 版本
+sudo pacman -S eim-cli
+# 或安装图形界面版本（包含 CLI）
+sudo pacman -S eim-gui
+```
+
+> **重要：** 第 1 步（导入密钥）必须在执行 `pacman -Syu` **之前**完成。否则 pacman 无法验证仓库数据库，会拒绝同步。密钥指纹为 `06E9A6C0325E124198C685F18B1F38BDC9383E1D`。
+
+> **注意：** 图形界面版本依赖 `gtk4`、`libadwaita` 和 `webkit2gtk-4.1`，在某些发行版上可能需要额外配置。
+
+如需更新 EIM：
+```bash
+sudo pacman -Syu
+```
+
+**手动下载：** 使用 [EIM 下载页](https://dl.espressif.com/dl/eim/) 获取 Arch Linux 包或便携二进制。
 {{< /tab >}}
 {{< /tabs >}}
 
