@@ -16,14 +16,14 @@ In the previous assignment, the LED blink task and addressable LED driver logic 
 
 In this assignment, you'll ask the agent to refactor that logic into a proper local component called `led_blink`. The component exposes a clean public API, uses Kconfig for configuration, and controls the ESP32-C5-DevKitC-1's addressable LED with the appropriate driver.
 
-You'll do this by updating the spec files from assignment-2 and asking the agent to implement the changes, the same workflow you'd use for any new feature.
+You'll do this by updating the spec files from Assignment 2 and asking the agent to implement the changes, the same workflow you'd use for any new feature.
 
 ### What you will build
 
 A local `led_blink` component that:
 
-- Encapsulates all addressable LED control, FreeRTOS task, and timing logic away from `app_main`.
-- Exposes a simple public API: `led_blink_init`, `led_blink_start`, `led_blink_stop`.
+- Keeps all addressable LED control, FreeRTOS task, and timing logic out of `app_main`.
+- Exposes a simple public API: `led_blink_init`, `led_blink_start`, and `led_blink_stop`.
 - Uses Kconfig to configure the GPIO pin and blink interval.
 - Leaves `app_main` clean: it only initialises the component and starts blinking.
 
@@ -128,7 +128,7 @@ Read PLAN.md and ARCHITECTURE.md, then:
 
 Before asking the agent to make any changes, use **planning mode** to review what it intends to do first.
 
-Planning mode is a read-only mode where the agent reads your project and spec files, then describes the changes it would make without actually touching any files. This is especially useful for refactoring tasks like this one, where the agent will be modifying existing code across multiple files. A misunderstood spec is much cheaper to fix in a plan than in a partially-applied implementation.
+Planning mode is a read-only mode where the agent reads your project and spec files, then describes the changes it would make without actually touching any files. This is especially useful for refactoring tasks like this one, where the agent will be modifying existing code across multiple files. A misunderstood spec is much cheaper to fix in a plan than in a partially applied implementation.
 
 To use planning mode in Cursor, open the agent chat, switch to **Plan** (**/plan**) mode using the mode selector, and send:
 
@@ -191,7 +191,7 @@ If there is no built-in option to proceed, switch back to **Agent** mode and sen
 Implement the plan.
 ```
 
-The agent will create the component, move the logic, and clean up `app_main`. Review the changes before accepting. Make sure the component structure matches what's in `ARCHITECTURE.md` and that no addressable LED driver logic leaked back into `main`.
+The agent will create the component, move the logic, and clean up `app_main`. Review the changes before accepting. Make sure the component structure matches what's in `ARCHITECTURE.md` and that no addressable LED driver logic remains in `main`.
 
 ### Step 4: Build, flash, and verify
 
@@ -205,13 +205,13 @@ least two LED ON/OFF cycles before stopping the monitor.
 Report the build result and captured log output.
 ```
 
-Behaviour should be identical to assignment-2: the LED blinks at 500 ms intervals. The difference is where the code lives: `app_main` is now just a few lines, and the blink logic is self-contained in the component.
+Behaviour should be identical to Assignment 2: the LED blinks at 500 ms intervals. The difference is where the code lives: `app_main` is now just a few lines, and the blink logic is self-contained in the component.
 
 The agent can verify the build, flashing, and serial output, but it cannot see the physical LED. Confirm that the addressable LED is blinking before moving to the next step.
 
-### Step 5: Add an API to change the LED color
+### Step 5: Add an API to change the LED colour
 
-Extend the component with a public API that changes the color used while the LED is on:
+Extend the component with a public API that changes the colour used while the LED is on:
 
 ```c
 esp_err_t led_blink_set_color(uint8_t red, uint8_t green, uint8_t blue);
@@ -221,9 +221,9 @@ Update `ARCHITECTURE.md` and `STEP.md` before changing the implementation. Add t
 
 - `led_blink_set_color` accepts red, green, and blue values from 0 to 255.
 - The function returns `ESP_ERR_INVALID_STATE` if `led_blink_init` has not completed successfully.
-- The color can be changed while the blink task is running without restarting the task.
-- Access to the color values is safe between the calling task and the blink task.
-- `main/led_blink.c` sets the LED to blue with `led_blink_set_color(0, 0, 32)` after initialization and before starting the blink task.
+- The colour can be changed while the blink task is running without restarting the task.
+- Access to the colour values is safe between the calling task and the blink task.
+- `main/led_blink.c` sets the LED to blue with `led_blink_set_color(0, 0, 32)` after initialisation and before starting the blink task.
 
 Ask the agent to review the updated specifications, implement the new API, and verify the result:
 
@@ -234,7 +234,7 @@ Build the project, fix any errors, then flash and monitor the application.
 Report the result and ask me to confirm that the physical LED is blinking blue.
 ```
 
-Do not continue until the component builds successfully and the physical LED blinks in the selected color.
+Do not continue until the component builds successfully and the physical LED blinks in the selected colour.
 
 ## Next step
 

@@ -12,7 +12,7 @@ showAuthor: false
 
 ---
 
-In this assignment, you'll use an AI agent to create a simple LED blink application, the embedded "Hello World". But the goal isn't just to get the code working. You'll try three different ways of prompting the agent and observe how the quality and precision of the output changes with each one.
+In this assignment, you'll use an AI agent to create a simple LED blink application, the embedded "Hello World". But the goal isn't just to get the code working. You'll try three different ways of prompting the agent and observe how the quality and precision of the output change with each one.
 
 By the end, you'll have a clear feel for why a good spec saves time.
 
@@ -45,66 +45,42 @@ Create a LED blink project for ESP-IDF.
 
 Hit send and watch what happens.
 
-The agent will likely ask several clarifying questions before writing a single line of code: which SoC? which GPIO? which IDF version? what blink rate? should it use a FreeRTOS task or a simple loop? The more it has to guess, the more it asks, or worse, it makes assumptions that don't match your setup.
+The agent may ask clarifying questions, but it may also start immediately and fill in the missing details itself: which SoC, which GPIO, which ESP-IDF version, what blink rate, and how the application should be structured. In this example, it asked no questions and generated a generic implementation based on its own assumptions.
 
 This isn't a failure. It's a signal that the prompt didn't give the agent enough to work with.
 
 #### Approach 1 results
 
-**Number of questions asked by the agent:** 0.
+**How many questions did the agent ask you?** ______
 
-**Generated code: `blink.c`**
+**Generated code: `main.c`**
 
 ```text
-#include <stdbool.h>
+#include <stdio.h>
 
 #include "driver/gpio.h"
-#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-static const char *TAG = "blink";
+#define LED_PIN 2
 
 void app_main(void)
 {
-    const gpio_num_t led_gpio = (gpio_num_t)CONFIG_BLINK_GPIO;
-    bool led_on = false;
+    gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
 
-    ESP_ERROR_CHECK(gpio_reset_pin(led_gpio));
-    ESP_ERROR_CHECK(gpio_set_direction(led_gpio, GPIO_MODE_OUTPUT));
+    while (1) {
+        printf("LED ON\n");
+        gpio_set_level(LED_PIN, 1);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-    ESP_LOGI(TAG, "Blinking LED on GPIO %d", CONFIG_BLINK_GPIO);
-
-    while (true) {
-        led_on = !led_on;
-        ESP_ERROR_CHECK(gpio_set_level(led_gpio, led_on));
-        ESP_LOGI(TAG, "LED %s", led_on ? "ON" : "OFF");
-        vTaskDelay(pdMS_TO_TICKS(CONFIG_BLINK_PERIOD_MS));
+        printf("LED OFF\n");
+        gpio_set_level(LED_PIN, 0);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
 ```
 
-`Kconfig.projbuild`
-
-```text
-menu "Blink configuration"
-
-    config BLINK_GPIO
-        int "Blink GPIO number"
-        range 0 48
-        default 2
-        help
-            GPIO connected to the LED.
-
-    config BLINK_PERIOD_MS
-        int "Blink period (milliseconds)"
-        range 50 60000
-        default 1000
-        help
-            Time between LED state changes.
-
-endmenu
-```
+In this implementation, the agent chose the filename and program structure itself, put the infinite loop directly in `app_main`, guessed GPIO 2 and a 1000 ms delay, and used `printf` for logging. Both values are hardcoded, there is no Kconfig configuration, and return values are not checked. The result satisfies a generic interpretation of "LED blink," but several important implementation details were left to the agent's assumptions.
 
 ---
 
@@ -119,19 +95,20 @@ Using ESP-IDF v6.0.2 for ESP32-C5, create a LED blink application called "led-bl
 2. Define the GPIO pin number as CONFIG_LED_BLINK_GPIO (Kconfig.projbuild, default 8, range 0–48).
 3. Define the blink interval as CONFIG_LED_BLINK_PERIOD_MS (Kconfig.projbuild, default 500, range 100–5000).
 4. Use ESP_LOGI with tag "app" for log output.
+5. Run the blink loop in a separate FreeRTOS task and let app_main return after creating it.
 ```
 
 The agent will start writing immediately. The output will be more complete, better structured, and much closer to what you actually want on the first try. Notice how few (if any) follow-up questions it asks compared to Approach 1.
 
 Review the generated files before accepting:
 
-- [ ] `main/led_blink.c` contains `app_main` with a GPIO toggle loop.
+- [ ] `main/led_blink.c` contains `app_main` and a separate FreeRTOS task with the GPIO toggle loop.
 - [ ] `Kconfig.projbuild` defines `LED_BLINK_GPIO` and `LED_BLINK_PERIOD_MS` with defaults and help text.
 - [ ] `main/CMakeLists.txt` registers `led_blink.c` as the source file.
 
 #### Approach 2 results
 
-**Number of questions asked by the agent:** 0.
+**How many questions did the agent ask you?** ______
 
 **Generated code: `led_blink.c`**
 
@@ -147,19 +124,35 @@ Review the generated files before accepting:
 
 static const char *TAG = "app";
 
-void app_main(void)
+static void led_blink_task(void *arg)
 {
+    (void)arg;
     bool led_on = false;
-
-    ESP_LOGI(TAG, "Configuring LED on GPIO %d", CONFIG_LED_BLINK_GPIO);
-    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LED_BLINK_GPIO));
-    ESP_ERROR_CHECK(gpio_set_direction(CONFIG_LED_BLINK_GPIO, GPIO_MODE_OUTPUT));
 
     while (true) {
         led_on = !led_on;
         ESP_ERROR_CHECK(gpio_set_level(CONFIG_LED_BLINK_GPIO, led_on));
         ESP_LOGI(TAG, "LED %s", led_on ? "ON" : "OFF");
         vTaskDelay(pdMS_TO_TICKS(CONFIG_LED_BLINK_PERIOD_MS));
+    }
+}
+
+void app_main(void)
+{
+    ESP_LOGI(TAG, "Configuring LED on GPIO %d", CONFIG_LED_BLINK_GPIO);
+    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LED_BLINK_GPIO));
+    ESP_ERROR_CHECK(gpio_set_direction(CONFIG_LED_BLINK_GPIO, GPIO_MODE_OUTPUT));
+
+    BaseType_t task_created = xTaskCreate(
+        led_blink_task,
+        "led_blink",
+        2048,
+        NULL,
+        5,
+        NULL);
+
+    if (task_created != pdPASS) {
+        ESP_LOGI(TAG, "Failed to create LED blink task");
     }
 }
 
@@ -186,6 +179,8 @@ menu "LED blink configuration"
 
 endmenu
 ```
+
+In this implementation, the agent followed the details provided in the prompt: it used the requested filename, moved the blink loop into a separate FreeRTOS task, and configured GPIO 8 and the 500 ms interval through Kconfig. It also used the requested `ESP_LOGI` tag and checked the GPIO operation results. Because the prompt defined the important design choices, the agent did not need to guess them.
 
 ---
 
@@ -272,11 +267,11 @@ Based on @ARCHITECTURE.md, @PLAN.md and @STEP.md, create the application.
 ```
 
 > [!NOTE]
-> Notice the difference across all three approaches: the simpler the prompt, the more the agent has to guess. The spec files approach inverts this: you do the thinking up front, and the agent does the implementation.
+> Notice the difference across all three approaches: the simpler the prompt, the more the agent has to guess. The approach based on spec files inverts this: you do the thinking up front, and the agent does the implementation.
 
 #### Approach 3 results
 
-**Number of questions asked by the agent:** 0.
+**How many questions did the agent ask you?** ______
 
 **Generated code: `led_blink.c`**
 
@@ -329,6 +324,8 @@ void app_main(void)
 }
 ```
 
+In this implementation, the agent followed the design recorded in the spec files. `app_main` configures the GPIO with `gpio_config`, creates a dedicated `led_blink_task`, and then returns. The task owns the continuous blink loop, toggles the Kconfig-selected GPIO, logs each state change, and waits for the configured interval. The GPIO, timing, file structure, task behaviour, and acceptance criteria are documented separately, making the implementation easier to review and reproduce without expanding the chat prompt.
+
 ---
 
 ### Step 2: Build and fix
@@ -380,7 +377,7 @@ The agent can verify the serial output, but it cannot see the physical LED. Conf
 
 No. The application built and flashed successfully, and the serial monitor showed the expected ON/OFF messages, but the physical LED did not blink.
 
-This happened because the specification named the **ESP32-C5** SoC but did not identify the board as the **ESP32-C5-DevKitC-1**. Without the exact board model, the agent assumed that the LED was a regular LED connected directly to a GPIO. The DevKitC-1 instead has an addressable LED, which requires the appropriate LED driver and cannot be controlled by simply setting a GPIO high or low.
+This happened because the specification named the **ESP32-C5** SoC but did not identify the board as the **ESP32-C5-DevKitC-1**. Without the exact board model, the agent assumed that the LED was a regular LED connected directly to a GPIO. Instead, the DevKitC-1 has an addressable LED, which requires the appropriate LED driver and cannot be controlled by simply setting a GPIO high or low.
 
 From the agent's perspective, everything was working:
 

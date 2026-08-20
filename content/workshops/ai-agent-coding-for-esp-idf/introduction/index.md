@@ -10,7 +10,7 @@ showAuthor: false
 
 ## AI agent coding overview
 
-Let's start with the big picture. AI-assisted coding is changing the way developers work, and if you haven't tried it yet for embedded development, this workshop is a great place to start.
+Let's start with the big picture. AI-assisted coding is changing the way developers work, and if you haven't tried it for embedded development yet, this workshop is a great place to start.
 
 The idea is simple: instead of spending time writing boilerplate, hunting through documentation, or manually chasing build errors, you describe what you want and let an AI agent do a lot of the heavy lifting. That frees you up to focus on the things that actually need your attention, like design decisions, hardware validation, and making sure the firmware does what it's supposed to do.
 
@@ -32,7 +32,7 @@ Some of the most popular AI coding agents right now include:
 
 Most of these agents can be used directly from the IDE, where they have access to your open files and project context, or from the CLI, where you can run them as part of a script or automated workflow. Both modes are useful: the IDE is great for interactive development, while the CLI fits well into build pipelines and batch tasks.
 
-In this workshop we'll use Cursor with the **GPT-5.6 Sol** model as the primary example, but the concepts apply to other agents and models too.
+In this workshop, we'll use Cursor with the **GPT-5.6 Sol** model as the primary example, but the concepts apply to other agents and models too.
 
 #### Agent vs chatbot
 
@@ -40,7 +40,7 @@ Both use a chat interface, so it's easy to mix them up. Here's the practical dif
 
 | | Chatbot | AI Coding Agent |
 |---|---|---|
-| **Context** | What you paste into the chat | Your entire project, open files, terminal |
+| **Context** | What you paste into the chat | Your entire project, open files, and terminal |
 | **Actions** | Generates text suggestions | Reads, writes, and runs code |
 | **Iteration** | You apply changes manually | Agent applies changes and re-checks |
 | **Error handling** | You paste errors back manually | Agent reads build output and self-corrects |
@@ -116,7 +116,7 @@ A vague prompt like this:
 
 > *"Write me a temperature sensor driver."*
 
-...gives the agent very little to work with. When a prompt is too vague, the agent will either make assumptions that don't match your expectations, or it will start asking a lot of clarifying questions before writing a single line of code. Both situations slow you down. The more context you give upfront, the less back-and-forth you'll have.
+...gives the agent very little to work with. When a prompt is too vague, the agent will either make assumptions that don't match your expectations or start asking a lot of clarifying questions before writing a single line of code. Both situations slow you down. The more context you give upfront, the less back-and-forth you'll have.
 
 A spec-driven prompt like this gives the agent a real contract to implement:
 
@@ -140,7 +140,7 @@ Taking a few minutes to plan before prompting is not extra work. It's the fastes
 
 ## Next step
 
-Now that you know the basic concepts, let's get your hands dirty. First up is setting up the environment.
+Now that you know the basic concepts, let's get your hands dirty. First, you'll set up the environment.
 
 [Assignment 1: Set up your AI agent coding environment](../assignment-1)
 

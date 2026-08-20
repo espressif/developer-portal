@@ -23,18 +23,18 @@ Required hardware:
 
 - Computer running Linux, Windows, or macOS
 - An ESP32 series development board (e.g. ESP32-C5-DevKitC, ESP32-H2-DevKitM, or similar)
-- USB cable (supporting power + data) compatible with the devkit above
+- USB cable that supports power and data and is compatible with the development kit above
 
 Required software:
 
-- [Visual Studio Code](https://code.visualstudio.com/download) or [Cursor IDE](https://www.cursor.com/).
-- [ESP-IDF plugin for VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use). 
-- [ESP-IDF](https://github.com/espressif/esp-idf) v6.0.2 or later.
-- An account on an AI coding platform (e.g. [Cursor](https://www.cursor.com/), [GitHub Copilot](https://github.com/features/copilot), [OpenAI Codex](https://platform.openai.com/), or similar).
+- [Visual Studio Code](https://code.visualstudio.com/download) or [Cursor IDE](https://www.cursor.com/)
+- [ESP-IDF plugin for VS Code](https://github.com/espressif/vscode-esp-idf-extension?tab=readme-ov-file#how-to-use)
+- [ESP-IDF](https://github.com/espressif/esp-idf) v6.0.2 or later
+- An account on an AI coding platform (e.g. [Cursor](https://www.cursor.com/), [GitHub Copilot](https://github.com/features/copilot), [OpenAI Codex](https://platform.openai.com/), or similar)
 
 ## Agenda
 
-If you have met the [prerequisites](#prerequisites), we can start with the individual chapters:
+If you have met the [prerequisites](#prerequisites), you can start with the individual chapters:
 
 - [Introduction: AI agent coding overview](introduction/): An overview of AI-assisted coding concepts, available tools and agents, and how they integrate with the ESP-IDF development workflow.
 - [Assignment 1: Set up your AI agent coding environment](assignment-1/): Install and configure the tools needed to start coding with AI agent assistance, including ESP-IDF, your IDE, MCP servers, and SKILLs.

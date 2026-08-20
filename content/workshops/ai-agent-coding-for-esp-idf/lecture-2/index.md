@@ -10,7 +10,7 @@ showAuthor: false
 
 ## Lecture 2: What you should know about ESP-IDF to work better with agents
 
-You don't need to be an ESP-IDF expert to work with an AI agent, but knowing the key concepts makes a big difference. The more precisely you can describe what you want, the less the agent has to guess. This lecture covers the ESP-IDF fundamentals that are most useful when writing prompts, plans, and reviewing generated code.
+You don't need to be an ESP-IDF expert to work with an AI agent, but knowing the key concepts makes a big difference. The more precisely you can describe what you want, the less the agent has to guess. This lecture covers the ESP-IDF fundamentals that are most useful when writing prompts and plans and when reviewing generated code.
 
 ### Project structure
 
@@ -89,7 +89,7 @@ There are two kinds:
 idf.py add-dependency "espressif/led_strip^3.0.3"
 ```
 
-The shared components will be added to the project on a folder called `managed_components`.
+Shared components are added to the project's `managed_components/` folder.
 
 A standard component looks like this:
 
@@ -131,7 +131,7 @@ A BSP is a shared component distributed through the [ESP Component Registry](htt
 idf.py add-dependency "espressif/<bsp-name>"
 ```
 
-The dependency is recorded in `idf_component.yml`. During the next build, the component manager downloads the BSP and its dependencies into `managed_components/` folder.
+The dependency is recorded in `idf_component.yml`. During the next build, the component manager downloads the BSP and its dependencies into the `managed_components/` folder.
 
 Some development boards have a dedicated BSP. For a simple or custom board, you can use `esp_bsp_devkit` or `esp_bsp_generic` and configure the available hardware with `menuconfig`:
 
@@ -170,7 +170,7 @@ config MY_COMPONENT_GPIO_NUM
 
 ### Main idf.py and esptool commands
 
-The ESP-IDF packs some tools th`idf.py` and `esptool` work at different levels:
+`idf.py` and `esptool` operate at different levels:
 
 - **`idf.py`** manages an ESP-IDF project. It configures CMake, selects the target, builds the project, flashes all generated images at the correct addresses, and opens the serial monitor.
 - **`esptool`** communicates directly with the ROM bootloader in an Espressif SoC. It identifies devices and reads, writes, or erases flash.
@@ -196,7 +196,7 @@ Run these commands from the root of an ESP-IDF project:
 | `idf.py -p <PORT> erase-flash` | Erase the complete flash chip |
 | `idf.py add-dependency "namespace/component"` | Add a managed component dependency |
 
-You can chain compatible actions in one command. For example:
+A typical sequence of commands is:
 
 ```bash
 idf.py set-target esp32c5
@@ -255,7 +255,7 @@ if (ret != ESP_OK) {
 }
 ```
 
-When reviewing agent-generated code, check that every ESP-IDF call either uses `ESP_ERROR_CHECK` or checks the return value. Unchecked errors are a common source of silent failures in embedded firmware.
+When reviewing agent-generated code, check that every ESP-IDF call that returns an error code either uses `ESP_ERROR_CHECK` or has its return value checked. Unchecked errors are a common source of silent failures in embedded firmware.
 
 ### Logging
 
@@ -277,7 +277,7 @@ ESP_LOGW(TAG, "Retrying connection...");
 ESP_LOGE(TAG, "Failed to read sensor: %s", esp_err_to_name(ret));
 ```
 
-Always define `TAG` as a static const string at the top of each source file. When prompting the agent, tell it what tag to use, otherwise it will make one up.
+Always define `TAG` as a static const string at the top of each source file. When prompting the agent, tell it what tag to use; otherwise, it will make one up.
 
 The default log level is `INFO`. You can change it at runtime for a specific tag:
 
@@ -291,7 +291,7 @@ Or set the global default in `sdkconfig.defaults`:
 CONFIG_LOG_DEFAULT_LEVEL_DEBUG=y
 ```
 
-This is useful during development when you want more verbose output, and easy to dial back before shipping.
+This is useful during development when you want more verbose output and is easy to dial back before shipping.
 
 ## Next step
 

@@ -12,7 +12,7 @@ showAuthor: false
 
 If you've been doing embedded development for a while, you already know the loop: write some code, build it, flash it, stare at the serial output, figure out what went wrong, and go back to the start. It works, but it's slow, and a lot of that time is spent on things that aren't really the interesting part.
 
-AI agents change this by taking over the mechanical parts of the loop. The agent can read your build output, apply a fix, and rebuild without you having to copy-paste errors or manually track down which line caused a type mismatch. You stay focused on the parts that actually need your judgment.
+AI agents change this by taking over the mechanical parts of the loop. The agent can read your build output, apply a fix, and rebuild without you having to copy and paste errors or manually track down which line caused a type mismatch. You stay focused on the parts that actually need your judgment.
 
 ### The closed-loop development model
 
@@ -47,7 +47,7 @@ Each part has a clear role:
 - **The toolchain provides objective feedback.** Compiler errors, warnings, tests, and serial logs show whether the implementation is technically valid.
 - **You verify the hardware behaviour.** A successful build does not prove that the correct LED blinks, a sensor is accurate, or timing requirements are met.
 
-Closed loop does not mean fully autonomous. The agent can automate the mechanical work, but you still decide whether the implementation matches the intent. Hardware access can also limit automation. If the agent cannot access the serial port or observe the physical device, you need to report what happened or provide the monitor output.
+A closed-loop workflow is not fully autonomous. The agent can automate the mechanical work, but you still decide whether the implementation matches the intent. Hardware access can also limit automation. If the agent cannot access the serial port or observe the physical device, you need to report what happened or provide the monitor output.
 
 The loop ends when the implementation meets the acceptance criteria, not simply when the build succeeds. This distinction is important in embedded development because code can compile correctly and still behave incorrectly on real hardware.
 
@@ -63,9 +63,9 @@ The loop ends when the implementation meets the acceptance criteria, not simply 
 
 ### Structuring your prompts
 
-The quality of the output depends a lot on the quality of the input. A useful pattern for ESP-IDF prompts:
+The quality of the output depends a lot on the quality of the input. Here is a useful pattern for ESP-IDF prompts:
 
-1. **State the target:** SoC (partnumber), board name and version, ESP-IDF version, component name.
+1. **State the target:** SoC (part number), board name and version, ESP-IDF version, component name.
 2. **Describe the behaviour:** what the code should do, not how.
 3. **Specify constraints:** which APIs to use, naming conventions, file structure.
 4. **Reference the rules file:** always end with "Follow the project rules in AGENTS.md."
@@ -91,7 +91,7 @@ Before accepting any change, run through this quickly:
 - Does the generated file follow the expected component structure?
 - Are ESP-IDF API calls correct for the specified version?
 - Are error return values checked?
-- Are no secrets or hardcoded credentials introduced?
+- Does the code avoid introducing secrets or hardcoded credentials?
 
 The agent accelerates the work; you're still the one responsible for correctness. Treat every generated file as a first draft that needs a quick read before it lands in your project.
 
@@ -121,7 +121,7 @@ git add .
 git commit -m "feat: implement LED blink with configurable GPIO and interval"
 ```
 
-This gives you checkpoints you can return to, and makes it easy to ask the agent:
+This gives you checkpoints you can return to and makes it easy to ask the agent:
 
 > *"Compare the current state to the last commit and explain what changed."*
 
@@ -144,7 +144,7 @@ The agent knows the diff and can write a more accurate message than a rushed `"f
 | `step/<n>` | One agent-driven implementation step |
 
 > [!NOTE]
-> We won't use Git flow during this workshop to keep things moving, but treat it as a default habit for any real project. The time it saves when something goes wrong is worth the few extra seconds per step.
+> We won't use this Git workflow during the workshop to keep things moving, but treat it as a default habit for any real project. The time it saves when something goes wrong is worth the few extra seconds per step.
 
 ## Next step
 

@@ -16,7 +16,7 @@ In this assignment, you will install and configure all the tools needed for AI-a
 
 ### Step 1: Install ESP-IDF
 
-We will need the ESP-IDF installed.
+You will need ESP-IDF installed.
 
 > [!NOTE]
 > If you already have ESP-IDF v6.0.2 or later installed, skip to Step 2.
@@ -83,7 +83,7 @@ winget install Espressif.EIM-CLI
 
 **2. Install ESP-IDF v6.0.2**
 
-For the installation, we will use the CLI.
+For this installation, use the CLI.
 
 > [!NOTE]
 > This workshop uses **ESP-IDF v6.0.2**. Install this specific version to ensure all examples and prompts work as expected.
@@ -103,11 +103,11 @@ eim select v6.0.2
 ```
 
 > [!TIP]
-> If `eim` is not found after installation, run `eim --help` to confirm the install completed and check that the EIM binary is on your PATH.
+> If `eim` is not found after installation, check that the EIM binary is on your PATH. Once it is available, run `eim --help` to verify the installation.
 
 ### Step 2: Install Cursor IDE (or VS Code with Copilot)
 
-Now it's time to install the Agent. We will cover Cursor and Copilot, but any other Agent can be used on this workshop.
+Now it's time to install an agent. We will cover Cursor and Copilot, but you can use another agent for this workshop.
 
 {{< tabs group="ide" >}}
   {{< tab label="Cursor" >}}
@@ -119,7 +119,7 @@ Now it's time to install the Agent. We will cover Cursor and Copilot, but any ot
   {{< /tab >}}
   {{< tab label="VS Code + GitHub Copilot" >}}
 1. Download and install [Visual Studio Code](https://code.visualstudio.com/download).
-2. Install the **ESP-IDF** extension and configure it as described in [Assignment 1 of the ESP-IDF and ESP32-C5 Workshop](../../esp-idf-with-esp32-c6/assignment-1).
+2. Install the **ESP-IDF** extension and configure it as described in [Assignment 1 of the ESP-IDF and ESP32-C6 Workshop](../../esp-idf-with-esp32-c6/assignment-1).
 3. Install the **GitHub Copilot** and **GitHub Copilot Chat** extensions.
 4. Sign in with your GitHub account and verify Copilot is active.
   {{< /tab >}}
@@ -127,7 +127,7 @@ Now it's time to install the Agent. We will cover Cursor and Copilot, but any ot
 
 ### Step 3: Install the Espressif Documentation MCP server
 
-The [Espressif Documentation MCP Server](https://mcp.espressif.com/docs) connects your AI agent directly to official, up-to-date Espressif documentation. With it installed, the agent can look up ESP-IDF APIs, hardware design guidelines, datasheets, and more without leaving your IDE, and without relying on potentially outdated training data.
+The [Espressif Documentation MCP Server](https://mcp.espressif.com/docs) connects your AI agent directly to official, up-to-date Espressif documentation. With it installed, the agent can look up ESP-IDF APIs, hardware design guidelines, datasheets, and more without leaving your IDE or relying on potentially outdated training data.
 
 You need a GitHub or WeChat account to authenticate with the server.
 

@@ -15,7 +15,7 @@ showAuthor: false
 
 ---
 
-In this assignment, you will practice using an AI agent to identify and fix bugs in firmware code, and then to refactor the existing code to improve its structure. Both workflows build directly on the `led-blink` project and the `led_blink` component from assignments 2 and 3.
+In this assignment, you will practice using an AI agent to identify and fix bugs in firmware code and then refactor the existing code to improve its structure. Both workflows build directly on the `led-blink` project and the `led_blink` component from assignments 2 and 3.
 
 Before starting the agent, export the ESP-IDF environment in the terminal from which you launch it. This allows the agent to run `idf.py`, build, flash, and monitor without additional environment setup.
 
@@ -44,7 +44,7 @@ Repeat the build, flash, and monitor cycle, then ask me to confirm the physical
 LED behaviour.
 ```
 
-The agent will read build errors, initialization failures, or monitor output and trace them back to the source. For a bug such as a missing `led_strip_refresh()` call, the build and logs may look correct, so your report that the physical LED is not changing is essential evidence.
+The agent will read build errors, initialisation failures, or monitor output and trace them back to the source. For a bug such as a missing `led_strip_refresh()` call, the build and logs may look correct, so your report that the physical LED is not changing is essential evidence.
 
 {{< alert icon="circle-info" >}}
 If the agent doesn't have terminal access enabled, you can still share the output by pasting `build.log` or the serial monitor output into the chat. But giving the agent direct terminal access is faster and removes a manual step.
@@ -75,8 +75,8 @@ Do not continue until the build succeeds and you have confirmed that the physica
 
 At this point the `led-blink` project has:
 
-- `main/led_blink.c` with a minimal `app_main` that initialises the component, selects a color, and starts blinking.
-- `components/led_blink/` with the `led_strip` driver, FreeRTOS task, lifecycle functions, and thread-safe color API.
+- `main/led_blink.c` with a minimal `app_main` that initialises the component, selects a colour, and starts blinking.
+- `components/led_blink/` with the `led_strip` driver, FreeRTOS task, lifecycle functions, and thread-safe colour API.
 
 The component works, but the blink task's stack size and priority are still hardcoded. Move these values into Kconfig so they can be adjusted without editing the component source.
 
@@ -120,7 +120,7 @@ Switch to planning mode first and ask the agent to describe what it would change
 Read PLAN.md, ARCHITECTURE.md, and STEP.md, then describe the changes you would make.
 ```
 
-Review the plan before implementation. Depending on the agent, approve it through a confirmation question, checkbox, or button. If no built-in option is available, switch to Agent mode and send:
+Review the plan before implementation. Depending on the agent, approve it through a confirmation prompt, checkbox, or button. If no built-in option is available, switch to Agent mode and send:
 
 ```
 Read PLAN.md, ARCHITECTURE.md, and STEP.md, then implement accordingly.
@@ -148,7 +148,7 @@ The MCP server currently supports Saleae Logic 8, Logic Pro 8, and Logic Pro 16 
 
 #### Step 1: Enable the Logic 2 MCP server
 
-Open Logic 2 and go to **Settings > Automation**, then enable **MCP Server**. You can also open the Automation settings from the button in the bottom bar.
+Open Logic 2 and go to **Settings > Automation**, then enable **MCP Server**. You can also open the Automation settings using the button in the bottom bar.
 
 By default, the server listens locally at:
 
@@ -250,6 +250,6 @@ We hope the sessions gave you a practical feel for how AI agents fit into embedd
 
 The patterns you practised here — spec files, planning mode, closed-loop builds, reusable skills — work just as well on real projects as they do on workshop exercises. Take them with you.
 
-If you build something useful, share it. Publish your components to the [ESP Component Registry](https://components.espressif.com/), post in the [ESP32 forum](https://esp32.com/), or open a discussion on [GitHub](https://github.com/espressif/developer-portal/discussions). The community grows when people share what they make.
+If you build something useful, share it. Publish your components to the [ESP Component Registry](https://components.espressif.com/), post on the [ESP32 forum](https://esp32.com/), or open a discussion on [GitHub](https://github.com/espressif/developer-portal/discussions). The community grows when people share what they make.
 
 See you at the next one.

@@ -24,7 +24,7 @@ Replace the path if ESP-IDF is installed elsewhere. Starting the agent from that
 
 ### Saving tokens
 
-Every message you send to an agent costs tokens. A bloated context, a vague prompt, or a long back-and-forth costs more than a well-prepared, focused one. A few things that help:
+Every message you send to an agent costs tokens. A bloated context, a vague prompt, or a lengthy exchange uses more tokens than a focused interaction. A few things that help:
 
 **Keep context tight.** Open only the files relevant to the current task. Agents in IDE mode pick up everything in the open editor — closing unrelated tabs reduces noise and cost.
 
@@ -50,7 +50,7 @@ A practical split:
 | Fixing a specific build error | Fast and cheap |
 | Reviewing generated code for correctness | High-capability (reasoning) |
 
-In practice: use a reasoning model to produce the spec and the plan, then switch to a faster model to execute. You get most of the quality at a fraction of the cost. Most IDEs let you switch models per chat session.
+In practice, use a reasoning model to produce the spec and the plan, then switch to a faster model to execute. You get most of the quality at a fraction of the cost. Most IDEs let you switch models per chat session.
 
 ### Using tools and scripts to save time and tokens
 
@@ -62,7 +62,7 @@ Repetitive tasks are a good target for automation. If you find yourself giving t
 echo "Project context:" && cat AGENTS.md PLAN.md ARCHITECTURE.md
 ```
 
-Pipe that into your clipboard and paste it as the opening message of any new session.
+Copy that output to your clipboard and paste it as the opening message of any new session.
 
 **Build wrappers.** Instead of manually copying build errors into the chat, write a script that runs the build and formats the output for the agent:
 
@@ -82,7 +82,7 @@ The less you have to type manually, the more time you spend on the interesting p
 
 ### Creating your own skills
 
-A SKILL.md is a reusable recipe the agent can follow for a specific task. You've already seen how to add skills with `npx skills add`. Here's how to write your own.
+A `SKILL.md` file is a reusable recipe the agent can follow for a specific task. You've already seen how to add skills with `npx skills add`. Here's how to write your own.
 
 A skill file is plain Markdown. The structure is simple:
 
@@ -168,7 +168,7 @@ Add diagrams like these to `ARCHITECTURE.md` alongside the text descriptions. Wh
 
 ---
 
-You have now completed the main content of the AI Agent Coding for ESP-IDF Workshop. If you want to go further, there's one more optional assignment waiting.
+You have now completed the main content of the AI Agent Coding for ESP-IDF workshop. If you want to go further, there's one more optional assignment waiting.
 
 ## Next step
 
