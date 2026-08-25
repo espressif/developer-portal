@@ -1,6 +1,6 @@
 ---
 title: "ESP-BIST in Action: A Self-Testing HMI using ESP32-P4"
-date: 2026-08-22
+date: 2026-08-21
 authors:
   - "filipe-cavalcanti"
 tags:
