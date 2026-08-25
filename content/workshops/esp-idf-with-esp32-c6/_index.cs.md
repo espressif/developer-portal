@@ -2,6 +2,7 @@
 title: "Workshop: ESP-IDF a ESP32-C6"
 date: 2024-09-30T00:00:00+01:00
 lastmod: 2026-01-20
+featureAsset: "img/featured/featured-esp-idf-chip-workshop.webp"
 tags: ["Workshop", "ESP-IDF", "ESP32-C6", "Espressif VSCode plugin"]
 
 ---
