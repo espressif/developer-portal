@@ -2,6 +2,7 @@
 title: "ESP-IDF Workshop: ESP32-C5"
 date: "2026-07-29"
 lastmod: "2026-07-29"
+featureAsset: "img/featured/featured-esp-idf-chip-workshop.webp"
 series: ["WS00C"]
 series_order: 1
 showAuthor: false
