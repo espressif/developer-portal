@@ -14,7 +14,7 @@ showAuthor: false
 
 In this assignment, you will install and configure all the tools needed for AI-assisted ESP-IDF development. By the end, your environment will be ready to accept natural language instructions and produce buildable firmware.
 
-### Step 1: Install ESP-IDF
+## Step 1: Install ESP-IDF
 
 You will need ESP-IDF installed.
 

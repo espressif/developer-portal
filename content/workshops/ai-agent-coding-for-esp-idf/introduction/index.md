@@ -2,7 +2,7 @@
 title: "AI agent coding for ESP-IDF workshop - Introduction"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
-showTableOfContents: false
+showTableOfContents: true
 series: ["WS003EN"]
 series_order: 1
 showAuthor: false
@@ -12,7 +12,7 @@ showAuthor: false
 
 Let's start with the big picture. AI-assisted coding is changing the way developers work, and if you haven't tried it for embedded development yet, this workshop is a great place to start.
 
-The idea is simple: instead of spending time writing boilerplate, hunting through documentation, or manually chasing build errors, you describe what you want and let an AI agent do a lot of the heavy lifting. That frees you up to focus on the things that actually need your attention, like design decisions, hardware validation, and making sure the firmware does what it's supposed to do.
+The idea is simple: instead of spending time writing boilerplate, hunting through documentation, or manually chasing build errors, you describe what you want and let an AI agent do the heavy lifting. That frees you up to focus on the things that actually need your attention, like design decisions, hardware validation, and making sure the firmware does what it's supposed to do.
 
 For ESP-IDF development specifically, this works really well. The project structure is consistent, the APIs are documented, and the build system gives clear feedback. All of that gives an AI agent enough context to be genuinely useful.
 
@@ -20,7 +20,7 @@ For ESP-IDF development specifically, this works really well. The project struct
 
 An AI coding agent is more than a smarter autocomplete. It's a tool that combines a large language model (LLM) with access to your actual development environment: your files, your terminal, your build output, and your project context.
 
-Instead of just suggesting code for you to copy and paste, an agent can open files, make changes, run a build, read the error output, fix the issue, and try again, all on its own. You review the result and decide whether to keep it.
+Instead of just suggesting code for you to copy and paste, an agent can open files, make changes, run a build, read the error output, fix the issue, and try again, all on its own. You review the result and decide whether to keep the changes.
 
 That's a very different experience from a chatbot.
 
@@ -30,7 +30,7 @@ Some of the most popular AI coding agents right now include:
 - [GitHub Copilot](https://github.com/features/copilot): available inside VS Code and other editors, with an agent mode that can make multi-file changes and run terminal commands.
 - [OpenAI Codex](https://platform.openai.com/docs/guides/codex): a cloud-based coding agent from OpenAI, accessible via the API or the ChatGPT interface.
 
-Most of these agents can be used directly from the IDE, where they have access to your open files and project context, or from the CLI, where you can run them as part of a script or automated workflow. Both modes are useful: the IDE is great for interactive development, while the CLI fits well into build pipelines and batch tasks.
+Most of these agents can be used directly from the IDE, where they have access to your open files and project context, or from the CLI, where you can run them as part of a script or automated workflow. Both IDE and CLI modes are useful: the IDE is great for interactive development, while the CLI fits well into build pipelines and batch tasks.
 
 In this workshop, we'll use Cursor with the **GPT-5.6 Sol** model as the primary example, but the concepts apply to other agents and models too.
 
@@ -71,7 +71,7 @@ Getting the most out of an AI agent isn't just about the model. The tools and co
 
 - **`AGENTS.md`:** a file you commit to your project that gives the agent its standing instructions. Things like the target SoC, ESP-IDF version, logging conventions, and component structure. The agent reads it automatically at the start of every session, so you don't have to explain the basics every time.
 - **`SKILL.md`:** reusable instruction sets for specific tasks. Think of them as recipes the agent can follow for things like creating a component or running validation.
-- **MCP Servers:** these connect the agent to live external sources. The [Espressif Documentation MCP Server](https://mcp.espressif.com) gives it access to up-to-date ESP-IDF API docs, and the [ESP Component Registry MCP Server](https://mcp.espressif.com) lets it search for and fetch components directly.
+- **MCP Servers:** these connect the agent to live external sources. The [Espressif Documentation MCP Server](https://mcp.espressif.com/#espressif-documentation) gives it access to up-to-date ESP-IDF API docs, and the [ESP Component Registry MCP Server](https://mcp.espressif.com/#esp-component-registry) lets it search for and fetch components directly.
 
 Together, these tools make the agent much more reliable, especially for a fast-moving ecosystem like ESP-IDF where training data can go stale quickly.
 

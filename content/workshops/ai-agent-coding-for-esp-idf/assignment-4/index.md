@@ -204,7 +204,7 @@ Turn off or disconnect the board before attaching the probes. Then:
 
 #### Step 4: Create and run the SHTC3 example
 
-The project for this exercise is based on the `shtc3_read` example from version 1.4.1 of the [`pedrominatel/shtc3`](https://components.espressif.com/components/pedrominatel/shtc3/versions/1.4.1/examples/shtc3_read) component. Ask the agent to create, configure, build, flash, and verify the example.
+The project for this exercise is based on the `shtc3_read` example from version 1.4.1 of the [pedrominatel/shtc3](https://components.espressif.com/components/pedrominatel/shtc3/versions/1.4.1/examples/shtc3_read) component. Ask the agent to create, configure, build, flash, and verify the example.
 
 The monitor should report that the SHTC3 was found at address `0x70`, followed by a new temperature and relative humidity measurement every second.
 

@@ -60,7 +60,7 @@ If you have any feedback about the workshop, feel free to start a new [discussio
 
 ## Conclusion
 
-We hope this workshop gives you practical skills to integrate AI agents into your ESP-IDF development workflow. Thank you for participating, and we look forward to seeing what you build!
+We hope this workshop has given you the practical skills to integrate AI agents into your ESP-IDF development workflow. Thank you for participating, and we look forward to seeing what you build!
 
 ## Next step
 
