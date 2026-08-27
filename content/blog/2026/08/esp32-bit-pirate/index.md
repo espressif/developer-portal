@@ -1,6 +1,7 @@
 ---
 title: "ESP32 Bit Pirate: a multi-protocol workbench built on the ESP32-S3"
 date: "2026-08-20"
+lastmod: "2026-08-27"
 summary: "ESP32 Bit Pirate turns an ESP32-S3 into a scriptable multi-protocol workbench with more than twenty modes, a web and serial CLI, and dump and sniff tooling. This article walks through the firmware and the two open-hardware companions that extend it: a carrier dock with selectable 1.8 V, 3.3 V and 5 V level translation, and an ESP32-C5 adapter that adds a dual-band radio."
 authors:
   - "andrei-vladescu"
