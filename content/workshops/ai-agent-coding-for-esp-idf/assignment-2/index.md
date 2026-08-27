@@ -2,13 +2,13 @@
 title: "AI agent coding for ESP-IDF workshop - Assignment 2: Create a new project"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
-showTableOfContents: false
+showTableOfContents: true
 series: ["WS003EN"]
 series_order: 6
 showAuthor: false
 ---
 
-## Assignment 2: Create a new project
+## Assignment steps
 
 ---
 

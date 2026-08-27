@@ -39,7 +39,7 @@ If you have met the [prerequisites](#prerequisites), you can start with the indi
 - [Introduction: AI agent coding overview](introduction/): An overview of AI-assisted coding concepts, available tools and agents, and how they integrate with the ESP-IDF development workflow.
 - [Assignment 1: Set up your AI agent coding environment](assignment-1/): Install and configure the tools needed to start coding with AI agent assistance, including ESP-IDF, your IDE, MCP servers, and SKILLs.
 - [Lecture 1: The new workflow for embedded development](lecture-1/): How AI agents change the embedded development loop and what that means for your day-to-day workflow.
-- [Lecture 2: What you should know about ESP-IDF to work better with agents](lecture-2/): The ESP-IDF concepts and conventions that help you guide an agent effectively.
+- [Lecture 2: What you should know about ESP-IDF to work effectively with AI Agents](lecture-2/): The ESP-IDF concepts and conventions that help you guide an agent effectively.
 - [Lecture 3: Spec-driven development](lecture-3/): How to write a clear spec before prompting the agent, and why it produces better results.
 - [Assignment 2: Create a new project](assignment-2/): Use an AI agent to scaffold and build a basic ESP-IDF project from a natural language description.
 - [Assignment 3: Create a component](assignment-3/): Write and refine a custom ESP-IDF component with AI agent support.

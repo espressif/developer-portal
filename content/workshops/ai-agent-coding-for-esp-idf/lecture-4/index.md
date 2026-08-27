@@ -2,13 +2,13 @@
 title: "AI agent coding for ESP-IDF workshop - Lecture 4: Tools and tricks for agent development with ESP-IDF"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
-showTableOfContents: false
+showTableOfContents: true
 series: ["WS003EN"]
 series_order: 8
 showAuthor: false
 ---
 
-## Lecture 4: Tools and tricks for agent development with ESP-IDF
+## Introduction
 
 You've got the basics down. This lecture is about working smarter: spending fewer tokens, getting better results, and building habits that scale as your projects grow.
 

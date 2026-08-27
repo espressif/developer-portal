@@ -2,13 +2,13 @@
 title: "AI agent coding for ESP-IDF workshop - Assignment 1: Set up your AI agent coding environment"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
-showTableOfContents: false
+showTableOfContents: true
 series: ["WS003EN"]
 series_order: 2
 showAuthor: false
 ---
 
-## Assignment 1: Set up your AI agent coding environment
+## Assignment steps
 
 ---
 

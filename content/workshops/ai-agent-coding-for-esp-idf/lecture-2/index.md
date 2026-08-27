@@ -1,14 +1,14 @@
 ---
-title: "AI agent coding for ESP-IDF workshop - Lecture 2: What you should know about ESP-IDF to work better with agents"
+title: "AI agent coding for ESP-IDF workshop - Lecture 2: What you should know about ESP-IDF to work effectively with AI Agents"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
-showTableOfContents: false
+showTableOfContents: true
 series: ["WS003EN"]
 series_order: 4
 showAuthor: false
 ---
 
-## Lecture 2: What you should know about ESP-IDF to work better with agents
+## Introduction
 
 You don't need to be an ESP-IDF expert to work with an AI agent, but knowing the key concepts makes a big difference. The more precisely you can describe what you want, the less the agent has to guess. This lecture covers the ESP-IDF fundamentals that are most useful when writing prompts and plans and when reviewing generated code.
 

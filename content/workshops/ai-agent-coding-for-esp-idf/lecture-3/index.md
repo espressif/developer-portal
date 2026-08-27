@@ -2,13 +2,13 @@
 title: "AI agent coding for ESP-IDF workshop - Lecture 3: Spec-driven development"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
-showTableOfContents: false
+showTableOfContents: true
 series: ["WS003EN"]
 series_order: 5
 showAuthor: false
 ---
 
-## Lecture 3: Spec-driven development
+## Introduction
 
 Spec-driven development is a workflow where you write a clear specification first and let the AI agent generate the implementation from it. This approach produces more consistent, reviewable code and reduces the number of correction cycles.
 

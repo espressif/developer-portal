@@ -2,13 +2,13 @@
 title: "AI agent coding for ESP-IDF workshop - Lecture 1: The new workflow for embedded development"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
-showTableOfContents: false
+showTableOfContents: true
 series: ["WS003EN"]
 series_order: 3
 showAuthor: false
 ---
 
-## Lecture 1: The new workflow for embedded development
+## Introduction
 
 If you've been doing embedded development for a while, you already know the loop: write some code, build it, flash it, stare at the serial output, figure out what went wrong, and go back to the start. It works, but it's slow, and a lot of that time is spent on things that aren't really the interesting part.
 
@@ -57,7 +57,7 @@ The loop ends when the implementation meets the acceptance criteria, not simply 
 |---|---|---|
 | Scaffolding | Manual file creation | Prompt-driven generation |
 | Build errors | Read, search, fix manually | Agent reads and fixes automatically |
-| Kconfig/CMake | Written by hand | Generated from description |
+| Kconfig | Written by hand | Generated from description |
 | Refactoring | Manual edits | Agent applies changes across files |
 | Documentation | Written separately | Generated alongside code |
 
@@ -68,7 +68,7 @@ The quality of the output depends a lot on the quality of the input. Here is a u
 1. **State the target:** SoC (part number), board name and version, ESP-IDF version, component name.
 2. **Describe the behaviour:** what the code should do, not how.
 3. **Specify constraints:** which APIs to use, naming conventions, file structure.
-4. **Reference the rules file:** always end with "Follow the project rules in AGENTS.md."
+4. **Keep project rules in `AGENTS.md`:** supported agents load this file automatically, so you do not need to reference it in every prompt.
 
 You don't need to write an essay. A few clear lines beat a long vague paragraph every time.
 
