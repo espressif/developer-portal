@@ -1,300 +1,167 @@
 ---
-title: "AI agent coding for ESP-IDF workshop - Lecture 2: What you should know about ESP-IDF to work effectively with AI Agents"
+title: "AI agent coding for ESP-IDF workshop - Lecture 2: Spec-driven development"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: true
 series: ["WS003EN"]
-series_order: 4
+series_order: 6
 showAuthor: false
 ---
 
 ## Introduction
 
-You don't need to be an ESP-IDF expert to work with an AI agent, but knowing the key concepts makes a big difference. The more precisely you can describe what you want, the less the agent has to guess. This lecture covers the ESP-IDF fundamentals that are most useful when writing prompts and plans and when reviewing generated code.
+Spec-driven development is a workflow where you write a clear specification first and let the AI agent generate the implementation from it. This approach produces more consistent, reviewable code and reduces the number of correction cycles.
 
-### Project structure
+### Structuring your prompts
 
-An ESP-IDF project has a consistent layout, and the agent knows it. When you describe a task, you can reference this structure directly:
+The quality of the output depends on the quality of the input. A useful prompt for ESP-IDF work should:
 
-```
-my_project/
-├── CMakeLists.txt          # top-level build config
-├── sdkconfig               # resolved configuration (generated)
-├── sdkconfig.defaults      # your default config values (committed)
-├── main/
-│   ├── CMakeLists.txt      # registers main as a component
-│   └── app_main.c          # entry point: void app_main(void)
-└── components/
-    └── my_component/       # your custom components live here
-```
+1. **State the target:** identify the SoC, exact board model, ESP-IDF version, and affected component.
+2. **Describe the behaviour:** explain what the firmware should do and how success will be observed.
+3. **Specify constraints:** name required APIs, conventions, files, interfaces, and hardware limitations.
+4. **Define acceptance criteria:** list the checks that must pass before the task is complete.
 
-The entry point is always `void app_main(void)`. Everything else is organised as components, including `main` itself.
+You do not need to write an essay. A few precise requirements are more useful than a long but ambiguous prompt. If project rules are stored in `AGENTS.md`, supported agents load them automatically.
 
-### Build system and CMakeLists.txt files
+### What is a spec?
 
-ESP-IDF uses CMake to configure the project and Ninja or Make to perform the build. You normally interact with this build system through `idf.py`, which selects the correct ESP-IDF toolchain, prepares CMake, and runs the underlying build tool. For example, `idf.py build` configures the project when necessary and then compiles the application.
+A spec is a structured description of what you want to build. For ESP-IDF components, a good spec covers:
 
-An ESP-IDF project usually contains two kinds of `CMakeLists.txt` files:
+- **Purpose:** what the component does and why.
+- **API surface:** the public functions, their signatures, and their return types.
+- **Configuration:** any `Kconfig` options, their names, defaults, and valid ranges.
+- **Dependencies:** the ESP-IDF components, header files, and external libraries that are required.
+- **Behaviour and errors:** expected results, failure cases, and error codes.
+- **Lifecycle and concurrency:** valid call order, resource cleanup, and whether functions are thread-safe.
+- **Constraints:** target SoC, IDF version, coding conventions.
+- **Acceptance criteria:** checks that prove the implementation meets the requirements.
 
-- The **project-level `CMakeLists.txt`** identifies the directory as an ESP-IDF project and gives the project a name.
-- A **component `CMakeLists.txt`** tells ESP-IDF which source files, include directories, and dependencies belong to that component.
+### Writing a spec for an ESP-IDF component
 
-The project-level file is placed in the project root and is intentionally small:
+A spec does not need to be a formal document. A well-structured prompt is sufficient, but saving it as `SPEC.md` keeps it version-controlled and reusable across agent sessions. For example:
 
-```cmake
-cmake_minimum_required(VERSION 3.16)
+**`SPEC.md`**
 
-include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(my_project)
-```
+```markdown
+Component: temperature_sensor
+Target: ESP32-C5, ESP-IDF v6.0.2
 
-The order is important: `cmake_minimum_required` must come first, the ESP-IDF project script must be included before declaring the project, and `project()` sets the project name used by the build.
+API:
+  esp_err_t temperature_sensor_init(void);
+  esp_err_t temperature_sensor_read(float *out_celsius);
+  esp_err_t temperature_sensor_deinit(void);
 
-Each component, including `main`, has its own `CMakeLists.txt`. A minimal file for the `main` component looks like this:
+Kconfig:
+  TEMPERATURE_SENSOR_SAMPLE_PERIOD_MS: sampling period in ms, default 1000, range 100-60000
 
-```cmake
-idf_component_register(
-    SRCS "app_main.c"
-    INCLUDE_DIRS "."
-)
-```
+Dependencies:
+  - Build component: esp_driver_tsens (PRIV_REQUIRES)
+  - Header: driver/temperature_sensor.h
 
-For a component with multiple source files and dependencies, list them explicitly:
+Constraints:
+  - Use ESP_LOGI with tag "temp_sensor" for all log output.
+  - Do not call the API from an interrupt service routine.
+  - The caller must serialise access; the API is not thread-safe.
+  - Follow the component structure in AGENTS.md.
 
-```cmake
-idf_component_register(
-    SRCS "sensor.c" "sensor_i2c.c"
-    INCLUDE_DIRS "include"
-    PRIV_REQUIRES driver
-)
-```
+Behaviour and errors:
+  - init returns ESP_ERR_INVALID_STATE if the component is already initialised.
+  - Return ESP_ERR_INVALID_ARG if out_celsius is NULL.
+  - read and deinit return ESP_ERR_INVALID_STATE if the component is not initialised.
+  - deinit releases all resources allocated by init.
 
-Use `REQUIRES` when a dependency is part of the component's public API and `PRIV_REQUIRES` when it is used only by the component implementation. Keeping this distinction accurate prevents unnecessary dependencies from propagating to other components.
-
-When asking an agent to add or move source files, also ask it to update the corresponding component `CMakeLists.txt`. A source file that is present in the directory but missing from `SRCS` will not be compiled. Likewise, adding an ESP-IDF header may require adding its component to `REQUIRES` or `PRIV_REQUIRES`.
-
-> [!TIP]
-> Prefer `idf.py build` over running CMake or Ninja directly. It sets up ESP-IDF-specific configuration and gives the agent a consistent command for verifying changes.
-
-### Components
-
-Components are the building blocks of an ESP-IDF project. Every piece of reusable code (a driver, a protocol handler, a utility library) should be a component. The agent is good at generating them, but it needs you to tell it the component name and what the public API should look like.
-
-There are two kinds:
-
-- **Local components** live under `components/` in your project. They're private to that project and the easiest place to start.
-- **Shared components** are standalone packages published to the [ESP Component Registry](https://components.espressif.com/). They can be reused across multiple projects and installed with:
-
-```bash
-idf.py add-dependency "espressif/led_strip^3.0.3"
+Acceptance criteria:
+  - The component declares esp_driver_tsens in PRIV_REQUIRES.
+  - idf.py build succeeds for ESP32-C5.
+  - On target hardware, init, read, and deinit return ESP_OK and read produces
+    a valid Celsius value.
 ```
 
-Shared components are added to the project's `managed_components/` folder.
+If a requirement is unknown, record it as an open question instead of leaving the agent to guess. Ask the agent to list ambiguities and assumptions before it starts implementing, then resolve anything that could affect the API or architecture.
 
-A standard component looks like this:
+### The spec-driven workflow
 
-```
-components/my_component/
-├── CMakeLists.txt
-├── Kconfig                 # optional configuration
-├── include/
-│   └── my_component.h      # public API
-└── my_component.c          # implementation
-```
+1. **Write the spec** before writing any code. This forces you to think through the design.
+2. **Ask the agent to review it** and identify ambiguities, missing requirements, and assumptions.
+3. **Resolve the open questions**, then ask the agent to implement the approved spec.
+4. **Review the generated files** against the spec: check API names, Kconfig entries, dependencies, error handling, and cleanup.
+5. **Build and test:** ask the agent to run the checks when it has access to the tools; otherwise, run them yourself and share the output.
+6. **Update the spec first** when requirements change, then ask the agent to update the implementation to match.
 
-The `CMakeLists.txt` uses `idf_component_register` to tell the build system what to compile and where the public headers are:
+### Reviewing agent output
 
-```cmake
-idf_component_register(
-    SRCS "my_component.c"
-    INCLUDE_DIRS "include"
-    REQUIRES driver nvs_flash
-)
-```
+Treat generated code as a first draft and compare it with the approved specification. For an ESP-IDF change, check at least:
 
-`REQUIRES` lists the ESP-IDF components this component depends on. If you forget one, the build will fail with a missing include. The agent usually gets this right if you tell it which ESP-IDF APIs the component uses.
+- Does the generated file structure match the specification?
+- Are the APIs correct for the selected ESP-IDF version and target?
+- Are return values and documented failure cases handled?
+- Do Kconfig symbols, defaults, ranges, and help text match the requirements?
+- Are component dependencies declared in the correct `CMakeLists.txt` or manifest?
+- Does the implementation avoid secrets and hardcoded credentials?
+- Were the required build, test, and hardware acceptance criteria actually verified?
 
-### Board support packages (BSPs)
+If the output does not match the specification, correct the spec or the implementation explicitly. Do not weaken a requirement simply to make a build pass.
 
-A Board Support Package, or BSP, is a versioned ESP-IDF component that knows how a specific development board is wired. It can initialise and expose onboard hardware such as LEDs, buttons, displays, touch panels, audio codecs, sensors, and protocols.
+### Keep the spec as the source of truth
 
-Without a BSP, your application needs to know details such as which GPIO controls the LED or which I2C bus connects to a touch controller. With a BSP, those details stay in the board layer and your application uses a cleaner API. This gives you:
+Commit the spec alongside the code and review changes to both together. If the implementation needs to deviate from the spec, document and approve that change rather than allowing the two to drift apart. This gives future developers and agent sessions an accurate description of the intended behaviour.
 
-- Faster board bring-up.
-- Fewer pin mapping and peripheral configuration mistakes.
-- Reusable application code across projects using the same board.
-- Automatic installation of the drivers and components required by the board.
+For guidance on branches and checkpoints, see the optional [Git workflow for agent-assisted development](../optional-git-workflow/).
 
-A BSP is a shared component distributed through the [ESP Component Registry](https://components.espressif.com/components?q=Board+Support+Package). Add it to a project with the component manager:
+### Keep each task focused
 
-```bash
-idf.py add-dependency "espressif/<bsp-name>"
-```
+A good specification also makes the agent interaction more efficient:
 
-The dependency is recorded in `idf_component.yml`. During the next build, the component manager downloads the BSP and its dependencies into the `managed_components/` folder.
+- Keep the current task and its acceptance criteria in `STEP.md` instead of repeating the complete architecture in every message.
+- Keep persistent conventions in `AGENTS.md`; do not restate instructions the agent already loads automatically.
+- Ask for one coherent change at a time so the agent can retrieve fewer files and you can review a smaller diff.
+- Point to the relevant spec and source paths instead of pasting whole files into the chat.
+- Start a new task only after the current acceptance criteria are met and `STEP.md` has been updated.
 
-Some development boards have a dedicated BSP. For a simple or custom board, you can use `esp_bsp_devkit` or `esp_bsp_generic` and configure the available hardware with `menuconfig`:
+Reducing repetition must not remove required context. Target, board, interfaces, constraints, and acceptance criteria still need to be explicit in the specification.
 
-```bash
-idf.py add-dependency "espressif/esp_bsp_devkit"
-idf.py menuconfig
-```
+### Use diagrams for structural requirements
 
-When working with an agent, always give it the exact board model, not only the SoC name. An ESP32-C5 can be used on many boards with different LEDs, buttons, and pin mappings. A useful request looks like this:
+Mermaid diagrams can make relationships and runtime flows unambiguous while remaining readable by both people and agents. For example, a component diagram can define dependencies:
 
-```text
-Check the ESP Component Registry for a BSP that supports my board.
-If one exists, use it instead of hardcoding the onboard peripherals.
-Explain which BSP and version you selected before adding the dependency.
+```mermaid
+graph TD
+    app_main --> led_blink
+    app_main --> wifi_manager
+    wifi_manager --> nvs_flash
+    led_blink --> led_strip
 ```
 
-> [!TIP]
-> Do not ask the agent to invent a BSP API from memory. Ask it to check the component documentation and examples first, because the available functions and supported peripherals depend on the selected BSP and version.
+A sequence diagram can describe an initialisation flow:
 
-### Kconfig and sdkconfig
-
-Kconfig is how ESP-IDF handles configuration. Instead of hardcoding values like GPIO numbers, baud rates, or buffer sizes, you define them as Kconfig options and reference them in code as `CONFIG_MY_OPTION`.
-
-A typical Kconfig entry looks like this:
-
-```kconfig
-config MY_COMPONENT_GPIO_NUM
-    int "GPIO pin number"
-    default 8
-    range 0 48
-    help
-        GPIO pin connected to the LED. Default is 8 (ESP32-C5 DevKitC RGB LED).
+```mermaid
+sequenceDiagram
+    participant Main as app_main
+    participant LED as led_blink
+    participant Driver as led_strip
+    Main->>LED: led_blink_init()
+    LED->>Driver: led_strip_new_rmt_device()
+    Driver-->>LED: ESP_OK
+    LED-->>Main: ESP_OK
+    Main->>LED: led_blink_start()
 ```
 
-`sdkconfig.defaults` is where you store the values you want committed with the project. The `sdkconfig` file itself is generated and should not be committed (add it to `.gitignore`). When prompting the agent to add a configurable option, mention the Kconfig name, type, default value, and valid range, and the agent will generate a correct entry.
+Add a diagram when it communicates a requirement more clearly than prose. Keep the corresponding API, error behaviour, and acceptance criteria in text so the specification remains complete.
 
-### Main idf.py and esptool commands
+### Tools for spec-driven development
 
-`idf.py` and `esptool` operate at different levels:
+You can manage specifications with ordinary Markdown files, or use a toolkit that provides a more structured workflow. [GitHub Spec Kit](https://github.com/github/spec-kit/) helps you turn a feature description into a specification, implementation plan, and actionable tasks for an AI coding agent.
 
-- **`idf.py`** manages an ESP-IDF project. It configures CMake, selects the target, builds the project, flashes all generated images at the correct addresses, and opens the serial monitor.
-- **`esptool`** communicates directly with the ROM bootloader in an Espressif SoC. It identifies devices and reads, writes, or erases flash.
+Such tools are optional and are not specific to ESP-IDF. Review their generated files, add the hardware and ESP-IDF constraints described above, and keep the resulting specifications in version control with the code.
 
-For normal project development, start with `idf.py`. It calls `esptool` with the correct SoC, files, and flash offsets when needed. Use `esptool` directly for device inspection, flashing diagnostics, and binary image operations.
+### Why this works well for embedded code
 
-#### Main idf.py commands
+Embedded firmware has well-defined interfaces (GPIO, I2C, SPI, UART) and strict conventions (ESP-IDF component structure, `idf_component_register`, error codes). These constraints give the agent enough structure to generate correct code from a spec with minimal guesswork.
 
-Run these commands from the root of an ESP-IDF project:
-
-| Command | Purpose |
-|---|---|
-| `idf.py --version` | Show the active ESP-IDF version |
-| `idf.py set-target esp32c5` | Configure the project for ESP32-C5 |
-| `idf.py menuconfig` | Open the interactive project configuration menu |
-| `idf.py reconfigure` | Regenerate the build configuration |
-| `idf.py build` | Configure and build the complete project |
-| `idf.py clean` | Remove most generated build files |
-| `idf.py fullclean` | Remove the complete build directory |
-| `idf.py -p <PORT> flash` | Flash the project to the connected board |
-| `idf.py -p <PORT> monitor` | Open the serial monitor |
-| `idf.py -p <PORT> flash monitor` | Flash the project and then open the monitor |
-| `idf.py -p <PORT> erase-flash` | Erase the complete flash chip |
-| `idf.py add-dependency "namespace/component"` | Add a managed component dependency |
-
-A typical sequence of commands is:
-
-```bash
-idf.py set-target esp32c5
-idf.py build
-idf.py -p <PORT> flash monitor
-```
-
-#### Main esptool commands
-
-Replace `<PORT>` with the serial port connected to your board:
-
-| Command | Purpose |
-|---|---|
-| `esptool version` | Show the installed esptool version |
-| `esptool -p <PORT> chip-id` | Identify the connected SoC |
-| `esptool -p <PORT> read-mac` | Read the device MAC address |
-| `esptool -p <PORT> flash-id` | Show the flash manufacturer, device ID, and detected size |
-| `esptool -p <PORT> read-flash <ADDRESS> <SIZE> <FILE>` | Save a region of flash to a file |
-| `esptool -p <PORT> write-flash <ADDRESS> <FILE>` | Write a binary file at a flash address |
-| `esptool -p <PORT> erase-flash` | Erase the entire flash chip |
-| `esptool image-info <FILE>` | Inspect the headers and segments of a firmware image |
-| `esptool merge-bin ...` | Combine multiple binaries into one image |
-
-To see all available actions and options:
-
-```bash
-idf.py --help
-esptool -h
-esptool write-flash -h
-```
-
-> [!NOTE]
-> Both `idf.py erase-flash` and `esptool erase-flash` delete the bootloader, partition table, application, NVS data, and everything else stored in flash. Also, do not guess addresses when using `esptool write-flash`. Run `idf.py build` and use the exact flashing command printed at the end of the build output.
-
-An agent can use both tools as part of the closed-loop workflow. For example:
-
-```text
-Use esptool to identify the SoC and flash size on <PORT>.
-Do not erase or write anything.
-Then run idf.py build and report the result.
-```
-
-### Error handling
-
-ESP-IDF functions return `esp_err_t`. A successful call returns `ESP_OK`; anything else is an error code. Two patterns come up constantly:
-
-```c
-// Abort on error, use for unrecoverable startup failures
-ESP_ERROR_CHECK(nvs_flash_init());
-
-// Check and handle, use when you want to log and continue
-esp_err_t ret = esp_wifi_start();
-if (ret != ESP_OK) {
-    ESP_LOGE(TAG, "Wi-Fi start failed: %s", esp_err_to_name(ret));
-    return ret;
-}
-```
-
-When reviewing agent-generated code, check that every ESP-IDF call that returns an error code either uses `ESP_ERROR_CHECK` or has its return value checked. Unchecked errors are a common source of silent failures in embedded firmware.
-
-### Logging
-
-Use `ESP_LOGI`, `ESP_LOGW`, and `ESP_LOGE` instead of `printf`. They add a timestamp, log level, and tag, which makes serial output much easier to read.
-
-| Macro | Log level | When to use it |
-|---|---|---|
-| `ESP_LOGE` | Error | Report failures that prevent an operation from completing |
-| `ESP_LOGW` | Warning | Report unexpected conditions from which the application can recover |
-| `ESP_LOGI` | Information | Report normal application events and status |
-| `ESP_LOGD` | Debug | Provide detailed information useful during development |
-| `ESP_LOGV` | Verbose | Provide the most detailed diagnostic output |
-
-```c
-static const char *TAG = "my_component";
-
-ESP_LOGI(TAG, "Initialised on GPIO %d", CONFIG_MY_COMPONENT_GPIO_NUM);
-ESP_LOGW(TAG, "Retrying connection...");
-ESP_LOGE(TAG, "Failed to read sensor: %s", esp_err_to_name(ret));
-```
-
-Always define `TAG` as a static const string at the top of each source file. When prompting the agent, tell it what tag to use; otherwise, it will make one up.
-
-The default log level is `INFO`. You can change it at runtime for a specific tag:
-
-```c
-esp_log_level_set("my_component", ESP_LOG_DEBUG);
-```
-
-Or set the global default in `sdkconfig.defaults`:
-
-```
-CONFIG_LOG_DEFAULT_LEVEL_DEBUG=y
-```
-
-This is useful during development when you want more verbose output and is easy to dial back before shipping.
+Spec-driven development also makes reviews easier: instead of reviewing free-form generated code, reviewers can compare the implementation against the stated spec.
 
 ## Next step
 
-[Lecture 3: Spec-driven development](../lecture-3)
+[Assignment 3: Prepare specs and prompts for an ESP-IDF project](../assignment-3)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)

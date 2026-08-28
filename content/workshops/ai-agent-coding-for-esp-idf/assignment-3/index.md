@@ -1,5 +1,5 @@
 ---
-title: "AI agent coding for ESP-IDF workshop - Assignment 3: Create a component"
+title: "AI agent coding for ESP-IDF workshop - Assignment 3: Prepare specs and prompts for an ESP-IDF project"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
 showTableOfContents: true
@@ -12,24 +12,183 @@ showAuthor: false
 
 ---
 
-In the previous assignment, the LED blink task and addressable LED driver logic lived in `main/led_blink.c`. That's fine for a quick test, but it's not reusable. If you wanted to use the same LED in a second project, you'd be copying and pasting code.
+In the previous lecture, you learned how a clear specification constrains an agent's implementation. In this assignment, you'll put that into practice by preparing three forms of input for the same ESP-IDF project: a simple prompt, a detailed prompt, and a set of specification files.
 
-In this assignment, you'll ask the agent to refactor that logic into a proper local component called `led_blink`. The component exposes a clean public API, uses Kconfig for configuration, and controls the ESP32-C5-DevKitC-1's addressable LED with the appropriate driver.
+You'll compare the results, then use the best specification to build and verify a simple LED blink application, the embedded "Hello World". By the end, you'll have a practical feel for how better prompts and specs reduce assumptions and correction cycles.
 
-You'll do this by updating the spec files from Assignment 2 and asking the agent to implement the changes, the same workflow you'd use for any new feature.
+> [!NOTE]
+> AI-generated code is **probabilistic** and **non-deterministic**. Even with identical spec files and prompts, the output can vary between runs, agents, and models. What you see in your session may look different from what someone next to you gets. That's expected. The goal of a good spec isn't to guarantee identical output — it's to keep the variation within acceptable bounds and reduce the number of correction cycles.
 
-### What you will build
+### What you will prepare and build
 
-A local `led_blink` component that:
+You will prepare prompts and specification files for a simple ESP-IDF application on **ESP32-C5**, then use them to build an application that blinks an LED at a configurable interval.
 
-- Keeps all addressable LED control, FreeRTOS task, and timing logic out of `app_main`.
-- Exposes a simple public API: `led_blink_init`, `led_blink_start`, and `led_blink_stop`.
-- Uses Kconfig to configure the GPIO pin and blink interval.
-- Leaves `app_main` clean: it only initialises the component and starts blinking.
+### Step 1: Create a new project
 
-### Step 1: Update the spec files
+Create a new ESP-IDF project using the ESP-IDF extension:
 
-First, update `PLAN.md` with the board information learned in assignment 2:
+1. Open the Command Palette (Ctrl+Shift+P).
+2. Select **ESP-IDF: Create Project from Extension Template**.
+3. Choose the `hello_world` template as a starting point.
+4. Name the project `led-blink` and select a location.
+5. Open the project folder in your IDE.
+
+---
+
+### Approach 1: The simple prompt
+
+Start with the most natural thing you might type. Open the AI chat panel and enter:
+
+```
+Create a LED blink project for ESP-IDF.
+```
+
+Hit send and watch what happens.
+
+The agent may ask clarifying questions, but it may also start immediately and fill in the missing details itself: which SoC, which GPIO, which ESP-IDF version, what blink rate, and how the application should be structured. In this example, it asked no questions and generated a generic implementation based on its own assumptions.
+
+This isn't a failure. It's a signal that the prompt didn't give the agent enough to work with.
+
+#### Approach 1 results
+
+**How many questions did the agent ask you?** ______
+
+**Generated code: `main.c`**
+
+```text
+#include <stdio.h>
+
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+#define LED_PIN 2
+
+void app_main(void)
+{
+    gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
+
+    while (1) {
+        printf("LED ON\n");
+        gpio_set_level(LED_PIN, 1);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+        printf("LED OFF\n");
+        gpio_set_level(LED_PIN, 0);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+```
+
+In this implementation, the agent chose the filename and program structure itself, put the infinite loop directly in `app_main`, guessed GPIO 2 and a 1000 ms delay, and used `printf` for logging. Both values are hardcoded, there is no Kconfig configuration, and return values are not checked. The result satisfies a generic interpretation of "LED blink," but several important implementation details were left to the agent's assumptions.
+
+---
+
+### Approach 2: The detailed prompt
+
+Now give the agent the context it needs. Open a new chat and enter:
+
+```
+Using ESP-IDF v6.0.2 for ESP32-C5, create a LED blink application called "led-blink":
+
+1. Blink the LED connected to GPIO 8 at a 500 ms interval.
+2. Define the GPIO pin number as CONFIG_LED_BLINK_GPIO (Kconfig.projbuild, default 8, range 0–48).
+3. Define the blink interval as CONFIG_LED_BLINK_PERIOD_MS (Kconfig.projbuild, default 500, range 100–5000).
+4. Use ESP_LOGI with tag "app" for log output.
+5. Run the blink loop in a separate FreeRTOS task and let app_main return after creating it.
+```
+
+The agent will start writing immediately. The output will be more complete, better structured, and much closer to what you actually want on the first try. Notice how few (if any) follow-up questions it asks compared to Approach 1.
+
+Review the generated files before accepting:
+
+- [ ] `main/led_blink.c` contains `app_main` and a separate FreeRTOS task with the GPIO toggle loop.
+- [ ] `Kconfig.projbuild` defines `LED_BLINK_GPIO` and `LED_BLINK_PERIOD_MS` with defaults and help text.
+- [ ] `main/CMakeLists.txt` registers `led_blink.c` as the source file.
+
+#### Approach 2 results
+
+**How many questions did the agent ask you?** ______
+
+**Generated code: `led_blink.c`**
+
+```text
+#include <stdbool.h>
+
+#include "driver/gpio.h"
+#include "esp_err.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "sdkconfig.h"
+
+static const char *TAG = "app";
+
+static void led_blink_task(void *arg)
+{
+    (void)arg;
+    bool led_on = false;
+
+    while (true) {
+        led_on = !led_on;
+        ESP_ERROR_CHECK(gpio_set_level(CONFIG_LED_BLINK_GPIO, led_on));
+        ESP_LOGI(TAG, "LED %s", led_on ? "ON" : "OFF");
+        vTaskDelay(pdMS_TO_TICKS(CONFIG_LED_BLINK_PERIOD_MS));
+    }
+}
+
+void app_main(void)
+{
+    ESP_LOGI(TAG, "Configuring LED on GPIO %d", CONFIG_LED_BLINK_GPIO);
+    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LED_BLINK_GPIO));
+    ESP_ERROR_CHECK(gpio_set_direction(CONFIG_LED_BLINK_GPIO, GPIO_MODE_OUTPUT));
+
+    BaseType_t task_created = xTaskCreate(
+        led_blink_task,
+        "led_blink",
+        2048,
+        NULL,
+        5,
+        NULL);
+
+    if (task_created != pdPASS) {
+        ESP_LOGI(TAG, "Failed to create LED blink task");
+    }
+}
+
+```
+
+`Kconfig.projbuild`
+
+```text
+menu "LED blink configuration"
+
+    config LED_BLINK_GPIO
+        int "LED GPIO number"
+        range 0 48
+        default 8
+        help
+            GPIO connected to the LED.
+
+    config LED_BLINK_PERIOD_MS
+        int "Blink interval (milliseconds)"
+        range 100 5000
+        default 500
+        help
+            Delay between LED state changes.
+
+endmenu
+```
+
+In this implementation, the agent followed the details provided in the prompt: it used the requested filename, moved the blink loop into a separate FreeRTOS task, and configured GPIO 8 and the 500 ms interval through Kconfig. It also used the requested `ESP_LOGI` tag and checked the GPIO operation results. Because the prompt defined the important design choices, the agent did not need to guess them.
+
+---
+
+### Approach 3: Spec files
+
+The most reliable approach is to write the spec as Markdown files before touching the agent at all. This keeps the spec in version control, makes it easy to update, and gives the agent a stable reference across sessions.
+
+Create the following three files in your project root:
 
 **`PLAN.md`**
 
@@ -37,207 +196,210 @@ First, update `PLAN.md` with the board information learned in assignment 2:
 # LED blink
 
 ## Goal
-Refactor the working onboard addressable LED application into a reusable local component without changing its behaviour.
+A minimal ESP-IDF application that blinks an LED to verify the environment is working end-to-end.
 
 ## Target
-- Board: ESP32-C5-DevKitC-1
 - SoC: ESP32-C5
 - ESP-IDF: v6.0.2
 
 ## Constraints
-- Use the onboard addressable LED, not a regular GPIO-driven LED
-- Use the espressif/led_strip component with the RMT backend
-- LED GPIO pin must be configurable via Kconfig
+- GPIO pin must be configurable via Kconfig
 - Blink interval must be configurable via Kconfig
-- LED blinking must run in a separate FreeRTOS task
-- The physical LED must be verified before the task is considered complete
+- LED toggle as a separate FreeRTOS task
 ```
-
-Then replace `ARCHITECTURE.md` with the new component structure:
 
 **`ARCHITECTURE.md`**
 
 ```markdown
 # Architecture
 
-## Components
-
-### led_blink (components/led_blink/)
-Encapsulates addressable LED driver setup and blinking logic.
-
-Public API (include/led_blink.h):
-  esp_err_t led_blink_init(void);
-  esp_err_t led_blink_start(void);
-  esp_err_t led_blink_stop(void);
-
-Configuration (Kconfig):
-  LED_BLINK_GPIO: addressable LED data GPIO, default 27, range 0–28
-  LED_BLINK_PERIOD_MS: blink interval in ms, default 500, range 100–5000
-
-Dependencies:
-  espressif/led_strip: addressable LED driver using the RMT backend
-
-Files:
-  components/led_blink/CMakeLists.txt
-  components/led_blink/idf_component.yml
-  components/led_blink/Kconfig
-  components/led_blink/include/led_blink.h
-  components/led_blink/led_blink.c
-
-## Entry point (main/led_blink.c)
+## Entry point
 void app_main(void):
-1. Call led_blink_init().
-2. Call led_blink_start().
-3. Return (the blink loop runs in a FreeRTOS task inside the component).
+1. Configure GPIO pin as output.
+2. Create the led_blink_task FreeRTOS task.
+3. Return after the task has been created.
 
-Files:
-  main/led_blink.c
-  main/CMakeLists.txt (add led_blink to REQUIRES)
+## LED blink task
+void led_blink_task(void *arg):
+1. Toggle the configured GPIO.
+2. Log whether the LED is ON or OFF.
+3. Delay for CONFIG_LED_BLINK_PERIOD_MS.
+4. Repeat indefinitely.
+
+## Configuration (Kconfig.projbuild)
+- LED_BLINK_GPIO: GPIO pin number, default 8, range 0–48
+- LED_BLINK_PERIOD_MS: blink interval in ms, default 500, range 100–5000
+
+## Files
+- main/led_blink.c
+- main/CMakeLists.txt
+- Kconfig.projbuild
+- sdkconfig.defaults
 ```
-
-Then update `STEP.md`:
 
 **`STEP.md`**
 
 ```markdown
-# Step 2: Refactor LED logic into a component
+# Step 1: Implement the LED blink application
 
-Read PLAN.md and ARCHITECTURE.md, then:
-
-1. Create the `led_blink` component under `components/led_blink/` as described.
-2. Move all addressable LED driver configuration and blink task logic from `main/led_blink.c` into the component.
-3. Update `main/led_blink.c` to use only the public API: `led_blink_init` and `led_blink_start`.
-4. Remove the Kconfig entries from `main/Kconfig.projbuild`, as they now live in the component's `Kconfig`.
-5. Update `main/CMakeLists.txt` to add `led_blink` to `REQUIRES`.
-6. Declare the `espressif/led_strip` dependency in `components/led_blink/idf_component.yml` and remove any direct dependency on it from `main`.
+Read PLAN.md and ARCHITECTURE.md, then implement the application exactly as described.
+Create all files listed under Architecture > Files.
 
 ## Acceptance criteria
 
-- [ ] `components/led_blink/` exists with `CMakeLists.txt`, `idf_component.yml`, `Kconfig`, `include/led_blink.h`, and `led_blink.c`.
-- [ ] `led_blink.h` declares `led_blink_init`, `led_blink_start`, and `led_blink_stop` with `esp_err_t` return types.
-- [ ] `led_blink.c` implements all three functions using the `led_strip` API and the RMT backend, not direct GPIO level changes.
-- [ ] The blink loop runs in a FreeRTOS task created by `led_blink_start`, and `led_blink_stop` stops the task and turns off the LED.
-- [ ] `idf_component.yml` declares the `espressif/led_strip` dependency.
-- [ ] `Kconfig` defines `LED_BLINK_GPIO` and `LED_BLINK_PERIOD_MS` with defaults and help text.
-- [ ] `app_main` only calls `led_blink_init()` and `led_blink_start()`, with no GPIO or delay logic in main.
-- [ ] `main/CMakeLists.txt` lists `led_blink` in `REQUIRES`.
+Verify the following before considering this step complete:
+
+- [ ] `main/led_blink.c` exists and contains `app_main` and a separate `led_blink_task`.
+- [ ] `app_main` configures the GPIO, creates `led_blink_task`, and then returns.
+- [ ] `led_blink_task` toggles the GPIO, logs the LED state, waits for the configured interval, and repeats indefinitely.
+- [ ] `Kconfig.projbuild` defines `LED_BLINK_GPIO` (default 8, range 0–48) and `LED_BLINK_PERIOD_MS` (default 500, range 100–5000), both with help text.
+- [ ] `main/CMakeLists.txt` registers `led_blink.c` as the source file.
+- [ ] No GPIO pin or interval is hardcoded in the source: both reference `CONFIG_LED_BLINK_GPIO` and `CONFIG_LED_BLINK_PERIOD_MS`.
+- [ ] All log output uses `ESP_LOGI` with tag `"app"`.
+- [ ] `sdkconfig.defaults` is present and does not override defaults unnecessarily.
 - [ ] `idf.py build` succeeds with no errors.
 ```
 
-### Step 2: Plan before you implement
-
-Before asking the agent to make any changes, use **planning mode** to review what it intends to do first.
-
-Planning mode is a read-only mode where the agent reads your project and spec files, then describes the changes it would make without actually touching any files. This is especially useful for refactoring tasks like this one, where the agent will be modifying existing code across multiple files. A misunderstood spec is much cheaper to fix in a plan than in a partially applied implementation.
-
-To use planning mode in Cursor, open the agent chat, switch to **Plan** (**/plan**) mode using the mode selector, and send:
-
-```
-/plan Read PLAN.md, ARCHITECTURE.md, and STEP.md, then describe the changes you would make.
-```
-
-The agent will respond with a structured breakdown of what it plans to create, modify, and remove. Review it against your spec:
-
-- Does it plan to create all the files listed in `ARCHITECTURE.md`?
-- Does it plan to move the addressable LED driver and blink task logic, not duplicate it?
-- Does it preserve the working `led_strip` configuration from assignment 2?
-- Does it declare `espressif/led_strip` as a dependency of the new component?
-- Does it plan to update `main/CMakeLists.txt` to add `led_blink` to `REQUIRES`?
-- Does it plan to clean up `main/Kconfig.projbuild`?
-
-**The plan**
+Then run the prompt:
 
 ```text
- ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
- │ Plan                                                                                                                                                                          │
- │                                                                                                                                                                               │
- │ Refactor LED Blink into a Component                                                                                                                                           │
- │                                                                                                                                                                               │
- │ • Create components/led_blink/ (components/led_blink/) with:                                                                                                                  │
- │   • include/led_blink.h (components/led_blink/include/led_blink.h) exposing led_blink_init, led_blink_start, and led_blink_stop as esp_err_t APIs.                            │
- │   • led_blink.c (components/led_blink/led_blink.c) owning the led_strip RMT handle, lifecycle state, FreeRTOS task, ON/OFF updates, logging, and cleanup. start creates       │
- │     the task; stop deletes it and clears the LED.                                                                                                                             │
- │   • Kconfig (components/led_blink/Kconfig) defining GPIO 27 by default (range 0–28) and the existing 500 ms period (range 100–5000), both with help text.                     │
- │   • CMakeLists.txt (components/led_blink/CMakeLists.txt) registering the source and public include directory.                                                                 │
- │   • idf_component.yml (components/led_blink/idf_component.yml) declaring espressif/led_strip ^3.0.3.                                                                          │
- │ • Reduce main/led_blink.c (main/led_blink.c) to app_main, which calls only led_blink_init() and led_blink_start() and checks their returned errors.                           │
- │ • Update main/CMakeLists.txt (main/CMakeLists.txt) to require led_blink; remove main/idf_component.yml (main/idf_component.yml) so main no longer depends directly on         │
- │   led_strip.                                                                                                                                                                  │
- │ • Move configuration ownership out of main by removing main/Kconfig.projbuild (main/Kconfig.projbuild) and the obsolete root Kconfig.projbuild (Kconfig.projbuild); the       │
- │   component Kconfig becomes the single source of the symbols.                                                                                                                 │
- │ • Build with ESP-IDF v6.0.2, flash the detected ESP32-C5 port, monitor at least two ON/OFF cycles, stop monitoring, and confirm 500 ms transitions. Ask for visual            │
- │   confirmation that the physical onboard LED blinks before marking the task complete.                                                                                         │
- │                                                                                                                                                                               │
- │  Saved to Users/pedrominatel/.cursor/plans/Refactor LED Component-705440e8.plan.md                                                                                            │
- │ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── │
- │                                                                                                                                                                               │
- │ Ready to build?                                                                                                                                                               │
- │                                                                                                                                                                               │
- │  → 1. Yes, build locally (b)                                                                                                                                                  │
- │    2. No, propose changes (p or Esc)                                                                                                                                          │
- │                                                                                                                                                                               │
- └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+Based on @ARCHITECTURE.md, @PLAN.md and @STEP.md, create the application.
 ```
 
-If something looks off, clarify it in the chat before switching to implementation. This is the moment to catch misunderstandings cheaply.
+> [!NOTE]
+> Notice the difference across all three approaches: the simpler the prompt, the more the agent has to guess. The approach based on spec files inverts this: you do the thinking up front, and the agent does the implementation.
 
-### Step 3: Ask the agent to implement
+#### Approach 3 results
 
-How you proceed depends on the agent. It may ask you to confirm the plan, present a checkbox or button to start implementation, or require you to switch back to **Agent** mode manually. If the plan needs no changes, approve it using the option provided. Otherwise, ask the agent to update the plan before implementation.
+**How many questions did the agent ask you?** ______
 
-If there is no built-in option to proceed, switch back to **Agent** mode and send:
-
-```
-Implement the plan.
-```
-
-The agent will create the component, move the logic, and clean up `app_main`. Review the changes before accepting. Make sure the component structure matches what's in `ARCHITECTURE.md` and that no addressable LED driver logic remains in `main`.
-
-### Step 4: Build, flash, and verify
-
-Ask the agent to build the refactored application and fix any errors before flashing it:
+**Generated code: `led_blink.c`**
 
 ```text
-Run idf.py build, read the output, and fix any errors without changing the
-requirements. Repeat until the build succeeds.
-Then detect the ESP32-C5 serial port, flash the application, and monitor at
-least two LED ON/OFF cycles before stopping the monitor.
-Report the build result and captured log output.
+#include <stdbool.h>
+
+#include "driver/gpio.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
+static const char *const TAG = "app";
+
+static void led_blink_task(void *arg)
+{
+    (void)arg;
+    bool led_is_on = false;
+
+    while (true) {
+        led_is_on = !led_is_on;
+        gpio_set_level(CONFIG_LED_BLINK_GPIO, led_is_on);
+        ESP_LOGI(TAG, "LED is %s", led_is_on ? "ON" : "OFF");
+        vTaskDelay(pdMS_TO_TICKS(CONFIG_LED_BLINK_PERIOD_MS));
+    }
+}
+
+void app_main(void)
+{
+    const gpio_config_t led_config = {
+        .pin_bit_mask = 1ULL << CONFIG_LED_BLINK_GPIO,
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE,
+    };
+
+    ESP_ERROR_CHECK(gpio_config(&led_config));
+
+    const BaseType_t task_created = xTaskCreate(
+        led_blink_task,
+        "led_blink",
+        2048,
+        NULL,
+        5,
+        NULL);
+
+    if (task_created != pdPASS) {
+        ESP_LOGI(TAG, "Failed to create LED blink task");
+    }
+}
 ```
 
-Behaviour should be identical to Assignment 2: the LED blinks at 500 ms intervals. The difference is where the code lives: `app_main` is now just a few lines, and the blink logic is self-contained in the component.
+In this implementation, the agent followed the design recorded in the spec files. `app_main` configures the GPIO with `gpio_config`, creates a dedicated `led_blink_task`, and then returns. The task owns the continuous blink loop, toggles the Kconfig-selected GPIO, logs each state change, and waits for the configured interval. The GPIO, timing, file structure, task behaviour, and acceptance criteria are documented separately, making the implementation easier to review and reproduce without expanding the chat prompt.
 
-The agent can verify the build, flashing, and serial output, but it cannot see the physical LED. Confirm that the addressable LED is blinking before moving to the next step.
+---
 
-### Step 5: Add an API to change the LED colour
+### Step 2: Build and fix
 
-Extend the component with a public API that changes the colour used while the LED is on:
-
-```c
-esp_err_t led_blink_set_color(uint8_t red, uint8_t green, uint8_t blue);
-```
-
-Update `ARCHITECTURE.md` and `STEP.md` before changing the implementation. Add these requirements:
-
-- `led_blink_set_color` accepts red, green, and blue values from 0 to 255.
-- The function returns `ESP_ERR_INVALID_STATE` if `led_blink_init` has not completed successfully.
-- The colour can be changed while the blink task is running without restarting the task.
-- Access to the colour values is safe between the calling task and the blink task.
-- `main/led_blink.c` sets the LED to blue with `led_blink_set_color(0, 0, 32)` after initialisation and before starting the blink task.
-
-Ask the agent to review the updated specifications, implement the new API, and verify the result:
+Whichever approach produced the best result, ask the agent to handle the complete build-and-fix cycle:
 
 ```text
-Read the updated PLAN.md, ARCHITECTURE.md, and STEP.md.
-Plan and implement the new led_blink_set_color API.
-Build the project, fix any errors, then flash and monitor the application.
-Report the result and ask me to confirm that the physical LED is blinking blue.
+Set the target to esp32c5 and run idf.py build.
+Read the build output, fix any errors, and rebuild.
+Repeat until the build succeeds, then summarise the changes you made.
 ```
 
-Do not continue until the component builds successfully and the physical LED blinks in the selected colour.
+The agent runs the commands in its terminal and reads the output directly, so you do not need to copy and paste build errors. Review each fix it makes and confirm that it does not change the requirements just to make the build pass.
+
+If the build fails because `idf.py` is not found or the environment is not set up, ask the agent to export it first:
+
+```text
+Export the ESP-IDF environment from <path to your ESP-IDF installation>, then run idf.py build.
+```
+
+Replace `<path to your ESP-IDF installation>` with the actual path, for example `~/esp/v6.0.2/esp-idf`. The agent will source the export script and retry the build.
+
+### Step 3: Flash and verify
+
+Ask the agent to flash the application and verify its serial output:
+
+```text
+Detect the connected ESP32-C5 serial port. If no port or more than one suitable
+port is found, ask me which one to use.
+Run idf.py -p <PORT> flash monitor, observe at least two LED ON/OFF cycles,
+then stop the monitor.
+Report the captured log output and whether the timing matches the specification.
+```
+
+The agent should report log output similar to:
+
+```
+  I (260) app: LED is ON
+  I (760) app: LED is OFF
+  I (1260) app: LED is ON
+  I (1760) app: LED is OFF
+  I (2260) app: LED is ON
+  I (2760) app: LED is OFF
+```
+
+The agent can verify the serial output, but it cannot see the physical LED. Confirm that the LED is blinking on the board. If it is not, tell the agent the exact board model and ask it to check the LED type and GPIO configuration before making any changes.
+
+### Is the LED blinking?
+
+No. The application built and flashed successfully, and the serial monitor showed the expected ON/OFF messages, but the physical LED did not blink.
+
+This happened because the specification named the **ESP32-C5** SoC but did not identify the board as the **ESP32-C5-DevKitC-1**. Without the exact board model, the agent assumed that the LED was a regular LED connected directly to a GPIO. Instead, the DevKitC-1 has an addressable LED, which requires the appropriate LED driver and cannot be controlled by simply setting a GPIO high or low.
+
+From the agent's perspective, everything was working:
+
+- The project compiled without errors.
+- The firmware flashed successfully.
+- The application ran and produced the expected log messages.
+
+Those checks verify the software workflow, but they do not verify the physical output. The log messages only report the state that the application attempted to set, and the agent cannot see whether the LED actually changed.
+
+This is why an embedded specification should include the exact board model and relevant hardware details, not only the target SoC. Tell the agent what happened and provide the missing context:
+
+```text
+The physical LED is not blinking. The board is an ESP32-C5-DevKitC-1 and its
+onboard LED is addressable. Check the board documentation for the LED type and
+GPIO, then update the implementation to use the appropriate ESP-IDF driver.
+Build, flash, and monitor the application again.
+```
+
+Do not move to the next assignment until you have confirmed that the physical LED is blinking correctly.
 
 ## Next step
 
-[Lecture 4: Tools and tricks for agent development with ESP-IDF](../lecture-4)
+[Assignment 4: Refactor an application into a reusable component](../assignment-4)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)

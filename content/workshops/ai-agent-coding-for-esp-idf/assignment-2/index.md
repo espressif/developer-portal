@@ -1,10 +1,10 @@
 ---
-title: "AI agent coding for ESP-IDF workshop - Assignment 2: Create a new project"
+title: "AI agent coding for ESP-IDF workshop - Assignment 2: Configure your ESP-IDF project for AI agents"
 date: 2026-07-30T00:00:00+01:00
-lastmod: 2026-07-30
+lastmod: 2026-08-28
 showTableOfContents: true
 series: ["WS003EN"]
-series_order: 6
+series_order: 4
 showAuthor: false
 ---
 
@@ -12,394 +12,219 @@ showAuthor: false
 
 ---
 
-In this assignment, you'll use an AI agent to create a simple LED blink application, the embedded "Hello World". But the goal isn't just to get the code working. You'll try three different ways of prompting the agent and observe how the quality and precision of the output change with each one.
+In this assignment, you will add reusable skills and persistent agent instructions to an ESP-IDF project. You will then verify that the agent can use the project context and the Espressif Documentation MCP server.
 
-By the end, you'll have a clear feel for why a good spec saves time.
+Use an existing ESP-IDF project, such as the project created while completing the preliminary setup. These files are project-specific, so add or adapt them whenever you start another project.
 
-> [!NOTE]
-> AI-generated code is **probabilistic** and **non-deterministic**. Even with identical spec files and prompts, the output can vary between runs, agents, and models. What you see in your session may look different from what someone next to you gets. That's expected. The goal of a good spec isn't to guarantee identical output — it's to keep the variation within acceptable bounds and reduce the number of correction cycles.
+### Step 1: Add skills to your project
 
-### What you will build
+Skills are reusable instruction sets for the agent: recipes it can follow for tasks such as creating a component, running validation, or generating documentation.
 
-A simple ESP-IDF application for **ESP32-C5** that blinks an LED connected to a GPIO pin at a configurable interval.
+Run the following commands from your project root:
 
-### Step 1: Create a new project
+**ESP-IDF**
 
-Create a new ESP-IDF project using the ESP-IDF extension:
-
-1. Open the Command Palette (Ctrl+Shift+P).
-2. Select **ESP-IDF: Create Project from Extension Template**.
-3. Choose the `hello_world` template as a starting point.
-4. Name the project `led-blink` and select a location.
-5. Open the project folder in your IDE.
-
----
-
-### Approach 1: The simple prompt
-
-Start with the most natural thing you might type. Open the AI chat panel and enter:
-
-```
-Create a LED blink project for ESP-IDF.
+```sh
+npx skills add pedrominatel/awesome-esp-ai@esp-idf
 ```
 
-Hit send and watch what happens.
+**ESP-IDF components**
 
-The agent may ask clarifying questions, but it may also start immediately and fill in the missing details itself: which SoC, which GPIO, which ESP-IDF version, what blink rate, and how the application should be structured. In this example, it asked no questions and generated a generic implementation based on its own assumptions.
-
-This isn't a failure. It's a signal that the prompt didn't give the agent enough to work with.
-
-#### Approach 1 results
-
-**How many questions did the agent ask you?** ______
-
-**Generated code: `main.c`**
-
-```text
-#include <stdio.h>
-
-#include "driver/gpio.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-#define LED_PIN 2
-
-void app_main(void)
-{
-    gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
-
-    while (1) {
-        printf("LED ON\n");
-        gpio_set_level(LED_PIN, 1);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-
-        printf("LED OFF\n");
-        gpio_set_level(LED_PIN, 0);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-}
+```sh
+npx skills add pedrominatel/awesome-esp-ai@esp-idf-components
 ```
 
-In this implementation, the agent chose the filename and program structure itself, put the infinite loop directly in `app_main`, guessed GPIO 2 and a 1000 ms delay, and used `printf` for logging. Both values are hardcoded, there is no Kconfig configuration, and return values are not checked. The result satisfies a generic interpretation of "LED blink," but several important implementation details were left to the agent's assumptions.
+> [!TIP]
+> The specific skills for this workshop will be provided during the session.
 
----
+### Step 2: Add `AGENTS.md` to your project
 
-### Approach 2: The detailed prompt
+`AGENTS.md` gives the agent persistent project instructions. Supported agents load it automatically, so you do not have to repeat the target SoC, ESP-IDF version, or coding conventions in every prompt.
 
-Now give the agent the context it needs. Open a new chat and enter:
-
-```
-Using ESP-IDF v6.0.2 for ESP32-C5, create a LED blink application called "led-blink":
-
-1. Blink the LED connected to GPIO 8 at a 500 ms interval.
-2. Define the GPIO pin number as CONFIG_LED_BLINK_GPIO (Kconfig.projbuild, default 8, range 0–48).
-3. Define the blink interval as CONFIG_LED_BLINK_PERIOD_MS (Kconfig.projbuild, default 500, range 100–5000).
-4. Use ESP_LOGI with tag "app" for log output.
-5. Run the blink loop in a separate FreeRTOS task and let app_main return after creating it.
-```
-
-The agent will start writing immediately. The output will be more complete, better structured, and much closer to what you actually want on the first try. Notice how few (if any) follow-up questions it asks compared to Approach 1.
-
-Review the generated files before accepting:
-
-- [ ] `main/led_blink.c` contains `app_main` and a separate FreeRTOS task with the GPIO toggle loop.
-- [ ] `Kconfig.projbuild` defines `LED_BLINK_GPIO` and `LED_BLINK_PERIOD_MS` with defaults and help text.
-- [ ] `main/CMakeLists.txt` registers `led_blink.c` as the source file.
-
-#### Approach 2 results
-
-**How many questions did the agent ask you?** ______
-
-**Generated code: `led_blink.c`**
-
-```text
-#include <stdbool.h>
-
-#include "driver/gpio.h"
-#include "esp_err.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "sdkconfig.h"
-
-static const char *TAG = "app";
-
-static void led_blink_task(void *arg)
-{
-    (void)arg;
-    bool led_on = false;
-
-    while (true) {
-        led_on = !led_on;
-        ESP_ERROR_CHECK(gpio_set_level(CONFIG_LED_BLINK_GPIO, led_on));
-        ESP_LOGI(TAG, "LED %s", led_on ? "ON" : "OFF");
-        vTaskDelay(pdMS_TO_TICKS(CONFIG_LED_BLINK_PERIOD_MS));
-    }
-}
-
-void app_main(void)
-{
-    ESP_LOGI(TAG, "Configuring LED on GPIO %d", CONFIG_LED_BLINK_GPIO);
-    ESP_ERROR_CHECK(gpio_reset_pin(CONFIG_LED_BLINK_GPIO));
-    ESP_ERROR_CHECK(gpio_set_direction(CONFIG_LED_BLINK_GPIO, GPIO_MODE_OUTPUT));
-
-    BaseType_t task_created = xTaskCreate(
-        led_blink_task,
-        "led_blink",
-        2048,
-        NULL,
-        5,
-        NULL);
-
-    if (task_created != pdPASS) {
-        ESP_LOGI(TAG, "Failed to create LED blink task");
-    }
-}
-
-```
-
-`Kconfig.projbuild`
-
-```text
-menu "LED blink configuration"
-
-    config LED_BLINK_GPIO
-        int "LED GPIO number"
-        range 0 48
-        default 8
-        help
-            GPIO connected to the LED.
-
-    config LED_BLINK_PERIOD_MS
-        int "Blink interval (milliseconds)"
-        range 100 5000
-        default 500
-        help
-            Delay between LED state changes.
-
-endmenu
-```
-
-In this implementation, the agent followed the details provided in the prompt: it used the requested filename, moved the blink loop into a separate FreeRTOS task, and configured GPIO 8 and the 500 ms interval through Kconfig. It also used the requested `ESP_LOGI` tag and checked the GPIO operation results. Because the prompt defined the important design choices, the agent did not need to guess them.
-
----
-
-### Approach 3: Spec files
-
-The most reliable approach is to write the spec as Markdown files before touching the agent at all. This keeps the spec in version control, makes it easy to update, and gives the agent a stable reference across sessions.
-
-Create the following three files in your project root:
-
-**`PLAN.md`**
+Create `AGENTS.md` in your project root with at least the following:
 
 ```markdown
-# LED blink
+# ESP-IDF Agent Instructions
 
-## Goal
-A minimal ESP-IDF application that blinks an LED to verify the environment is working end-to-end.
+This file is a reusable baseline for coding agents working in ESP-IDF application
+and component repositories. Follow more specific instructions in the target
+repository when they override this baseline.
 
-## Target
-- SoC: ESP32-C5
-- ESP-IDF: v6.0.2
+## Discover the Project First
 
-## Constraints
-- GPIO pin must be configurable via Kconfig
-- Blink interval must be configurable via Kconfig
-- LED toggle as a separate FreeRTOS task
+- Locate the ESP-IDF project root before running commands. A project root normally
+  contains a top-level `CMakeLists.txt` with a `project(...)` call.
+- In repositories with multiple applications or test apps, identify the affected
+  project roots and run commands from each relevant root.
+- Read the repository README, CI configuration, top-level `CMakeLists.txt`,
+  `sdkconfig.defaults*`, component manifests, partition tables, and existing build
+  scripts before choosing commands.
+- Determine the required ESP-IDF version, supported targets, board assumptions,
+  and project-specific validation commands. Prefer repository and CI commands over
+  generic commands in this file.
+- If no project is present, do not create a scaffold unless the user requested a
+  new project or the task clearly requires one.
+- When a new project scaffold is required, use
+  `idf.py create-project <PROJECT_NAME>` instead of manually generating the
+  boilerplate files.
+
+## Environment and Documentation
+
+- Ensure the correct ESP-IDF environment is active before using `idf.py`.
+- Prefer EIM CLI for installing and selecting ESP-IDF versions when the repository
+  does not prescribe another setup. Use these commands as needed:
+  - Verify EIM is available: `eim --version`
+  - List installed ESP-IDF versions, their absolute installation paths, and the
+    selected version: `eim list`
+  - Select an installed version: `eim select <ESP_IDF_VERSION>`
+  - Run with the selected version: `eim run "idf.py <command>"`
+  - Run with a specific version without changing the selection:
+    `eim run "idf.py <command>" <ESP_IDF_VERSION>`
+  - Verify a specific ESP-IDF environment before building:
+    `eim run "idf.py --version" <ESP_IDF_VERSION>`
+  - Install a missing version when authorized:
+    `eim install -i <ESP_IDF_VERSION>`
+  - Open the interactive installer when requested: `eim wizard`
+- Use the installation path reported by `eim list` when a task needs `IDF_PATH`
+  or direct access to a matching ESP-IDF checkout. Do not guess installation
+  paths.
+- If the environment is sourced directly, verify that `idf.py --version` matches
+  the version required by the project.
+- Prefer `idf.py` workflows over invoking CMake or Ninja directly.
+- Use ESP-IDF documentation and migration guides matching the project's version
+  and target. Do not rely on `latest` documentation for version-sensitive APIs.
+
+## Standard Commands
+
+- Reconfigure: `idf.py reconfigure`
+- Build: `idf.py build`
+- Select target: `idf.py set-target <TARGET>`
+- Flash: `idf.py -p <PORT> flash`
+- Monitor: `idf.py -p <PORT> monitor`
+- Flash and monitor: `idf.py -p <PORT> flash monitor`
+
+`idf.py set-target` already clears the build directory, moves the previous
+`sdkconfig` to `sdkconfig.old`, and reconfigures the project. Ask the user before
+running it because it replaces configuration and build state. Do not run a
+redundant `idf.py fullclean` afterward. Use `fullclean` only when stale artifacts
+are a demonstrated problem, and ask before deleting build state.
+
+## Configuration and Generated Files
+
+- Treat `sdkconfig` as generated configuration. Do not edit it directly unless the
+  user explicitly requests that exact file.
+- Store intentional project defaults in `sdkconfig.defaults` and target-specific
+  overrides in files such as `sdkconfig.defaults.esp32c6`. Keep changes minimal,
+  then ask the user whether to run `idf.py reconfigure`.
+- A target-specific defaults file is used only when the base
+  `sdkconfig.defaults` file also exists; create an empty base file when no common
+  defaults are needed.
+- `Kconfig` and `Kconfig.projbuild` define configuration symbols, prompts,
+  dependencies, and defaults. They do not store the project's selected values.
+- Use component `Kconfig` for component-local options. Use `Kconfig.projbuild`
+  only when an option must appear at project scope.
+- Namespace new symbols, provide a prompt, a sensible default, and useful help
+  text. Put configurable hardware assignments such as GPIOs in Kconfig instead
+  of hardcoding them.
+- After changing `Kconfig` or `Kconfig.projbuild`, ask the user whether to run
+  `idf.py reconfigure` before the next build or validation step.
+- `idf.py build` normally detects Kconfig definition changes and invokes CMake
+  reconfiguration automatically. An explicit `idf.py reconfigure` remains useful
+  for validating configuration separately before a build.
+- Changing a Kconfig default does not necessarily replace a value already stored
+  in `sdkconfig`. When the project's selected value must change, update the
+  appropriate `sdkconfig.defaults*` file and reconfigure with user approval.
+- Never edit files under `build/` or `managed_components/`.
+- Never edit `dependencies.lock` manually. Allow Component Manager to regenerate
+  it, and commit the resulting lock file when the application repository tracks
+  managed dependencies for reproducible builds.
+
+## Components and Code Conventions
+
+- Before implementing a dependency, search the ESP Component Registry and inspect
+  existing `idf_component.yml` manifests. Prefer adding a suitable managed
+  dependency over duplicating it locally.
+- Add a managed dependency with
+  `idf.py add-dependency "namespace/component^<VERSION>"`. From the project root,
+  this updates the `main` component by default. Use `--component=<NAME>` for a
+  component under `components/` or `--path=<PATH>` for another component
+  directory.
+- Prefer `idf.py create-component <name>` when creating a project-local component.
+  Keep public headers in `include/`, register sources with
+  `idf_component_register(...)`, and declare dependencies explicitly with
+  `REQUIRES` or `PRIV_REQUIRES`.
+- Keep reusable functionality in components rather than a monolithic application.
+  A component intended for publication should be self-contained, documented,
+  licensed, versioned, and tested in one or more test applications.
+- Keep the firmware entry point as `void app_main(void)`.
+- Prefer ESP-IDF APIs and `ESP_LOGI/W/E` for application logging. Handle
+  `esp_err_t` results explicitly and avoid long blocking operations without
+  yielding where appropriate.
+
+## Validation
+
+- Match validation to the change and follow the repository's CI matrix:
+  - documentation-only changes: run relevant documentation checks
+  - Kconfig changes: ask whether to run `idf.py reconfigure`
+  - manifest or build-system changes: run `idf.py reconfigure`
+  - firmware changes: build every affected supported target that is practical
+  - component changes: build or test the component's relevant test applications
+- Use host-based tests before hardware tests when both cover the behavior.
+- Do not flash merely because a serial device is connected. Flash only when the
+  user requested it or explicitly authorized hardware validation.
+- Before flashing, confirm the port, target, and that the device is safe to
+  overwrite. Never assume a port or monitor baud rate.
+- When authorized hardware validation is required, use the project's documented
+  command, normally `idf.py -p <PORT> flash monitor`, and capture the relevant
+  runtime output.
+- Report the exact commands, ESP-IDF version, target, and tests run. Summarize
+  configuration changes and clearly state anything not validated.
+
+## Safety and Collaboration
+
+- Keep changes narrowly scoped. If unrelated workspace changes appear, stop and
+  ask how to proceed.
+- Ask before destructive actions such as `fullclean`, deleting files, erasing
+  flash, changing eFuses, or broadly regenerating configuration.
+- Do not commit build outputs, transient logs, generated binaries, or
+  `managed_components/` unless the repository explicitly requires them.
+- Never hardcode or commit SSIDs, passwords, API keys, certificates, private
+  keys, tokens, or device secrets. Use placeholders, configuration, environment
+  variables, or secure provisioning.
+- Review partition size and OTA/rollback implications when changes affect
+  application size, partition tables, or update behavior.
+
+## Specialized Guidance
+
+When these files are present, use the relevant workflow:
+
+- Firmware development: `skills/esp-idf/SKILL.md`
+- Component creation and publication:
+  `skills/esp-idf-components/SKILL.md`
+- ESP-IDF 5.x to 6.0 migration:
+  `skills/esp-idf-v6-migration/SKILL.md`
 ```
 
-**`ARCHITECTURE.md`**
+Update this file as your project evolves. If you change the target SoC or add new conventions, keep `AGENTS.md` in sync: it is the single source of truth for the agent.
 
-```markdown
-# Architecture
+### Step 3: Verify the setup
 
-## Entry point
-void app_main(void):
-1. Configure GPIO pin as output.
-2. Create the led_blink_task FreeRTOS task.
-3. Return after the task has been created.
-
-## LED blink task
-void led_blink_task(void *arg):
-1. Toggle the configured GPIO.
-2. Log whether the LED is ON or OFF.
-3. Delay for CONFIG_LED_BLINK_PERIOD_MS.
-4. Repeat indefinitely.
-
-## Configuration (Kconfig.projbuild)
-- LED_BLINK_GPIO: GPIO pin number, default 8, range 0–48
-- LED_BLINK_PERIOD_MS: blink interval in ms, default 500, range 100–5000
-
-## Files
-- main/led_blink.c
-- main/CMakeLists.txt
-- Kconfig.projbuild
-- sdkconfig.defaults
-```
-
-**`STEP.md`**
-
-```markdown
-# Step 1: Implement the LED blink application
-
-Read PLAN.md and ARCHITECTURE.md, then implement the application exactly as described.
-Create all files listed under Architecture > Files.
-
-## Acceptance criteria
-
-Verify the following before considering this step complete:
-
-- [ ] `main/led_blink.c` exists and contains `app_main` and a separate `led_blink_task`.
-- [ ] `app_main` configures the GPIO, creates `led_blink_task`, and then returns.
-- [ ] `led_blink_task` toggles the GPIO, logs the LED state, waits for the configured interval, and repeats indefinitely.
-- [ ] `Kconfig.projbuild` defines `LED_BLINK_GPIO` (default 8, range 0–48) and `LED_BLINK_PERIOD_MS` (default 500, range 100–5000), both with help text.
-- [ ] `main/CMakeLists.txt` registers `led_blink.c` as the source file.
-- [ ] No GPIO pin or interval is hardcoded in the source: both reference `CONFIG_LED_BLINK_GPIO` and `CONFIG_LED_BLINK_PERIOD_MS`.
-- [ ] All log output uses `ESP_LOGI` with tag `"app"`.
-- [ ] `sdkconfig.defaults` is present and does not override defaults unnecessarily.
-- [ ] `idf.py build` succeeds with no errors.
-```
-
-Then run the prompt:
+1. Open the configured project folder in Cursor or VS Code.
+2. Open the AI chat panel and ask:
 
 ```text
-Based on @ARCHITECTURE.md, @PLAN.md and @STEP.md, create the application.
+Which ESP-IDF version and target does this project use?
+Use the project files and Espressif documentation, and identify the sources
+for your answer.
 ```
 
-> [!NOTE]
-> Notice the difference across all three approaches: the simpler the prompt, the more the agent has to guess. The approach based on spec files inverts this: you do the thinking up front, and the agent does the implementation.
+3. Confirm that the agent reads the project context and can use the Espressif Documentation MCP server. If the project does not yet specify a version or target, the agent should say so instead of guessing.
+4. Ask the agent to list the ESP-IDF skills available in the project and briefly describe when it would use each one.
 
-#### Approach 3 results
-
-**How many questions did the agent ask you?** ______
-
-**Generated code: `led_blink.c`**
-
-```text
-#include <stdbool.h>
-
-#include "driver/gpio.h"
-#include "esp_log.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-
-static const char *const TAG = "app";
-
-static void led_blink_task(void *arg)
-{
-    (void)arg;
-    bool led_is_on = false;
-
-    while (true) {
-        led_is_on = !led_is_on;
-        gpio_set_level(CONFIG_LED_BLINK_GPIO, led_is_on);
-        ESP_LOGI(TAG, "LED is %s", led_is_on ? "ON" : "OFF");
-        vTaskDelay(pdMS_TO_TICKS(CONFIG_LED_BLINK_PERIOD_MS));
-    }
-}
-
-void app_main(void)
-{
-    const gpio_config_t led_config = {
-        .pin_bit_mask = 1ULL << CONFIG_LED_BLINK_GPIO,
-        .mode = GPIO_MODE_OUTPUT,
-        .pull_up_en = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type = GPIO_INTR_DISABLE,
-    };
-
-    ESP_ERROR_CHECK(gpio_config(&led_config));
-
-    const BaseType_t task_created = xTaskCreate(
-        led_blink_task,
-        "led_blink",
-        2048,
-        NULL,
-        5,
-        NULL);
-
-    if (task_created != pdPASS) {
-        ESP_LOGI(TAG, "Failed to create LED blink task");
-    }
-}
-```
-
-In this implementation, the agent followed the design recorded in the spec files. `app_main` configures the GPIO with `gpio_config`, creates a dedicated `led_blink_task`, and then returns. The task owns the continuous blink loop, toggles the Kconfig-selected GPIO, logs each state change, and waits for the configured interval. The GPIO, timing, file structure, task behaviour, and acceptance criteria are documented separately, making the implementation easier to review and reproduce without expanding the chat prompt.
-
----
-
-### Step 2: Build and fix
-
-Whichever approach produced the best result, ask the agent to handle the complete build-and-fix cycle:
-
-```text
-Set the target to esp32c5 and run idf.py build.
-Read the build output, fix any errors, and rebuild.
-Repeat until the build succeeds, then summarise the changes you made.
-```
-
-The agent runs the commands in its terminal and reads the output directly, so you do not need to copy and paste build errors. Review each fix it makes and confirm that it does not change the requirements just to make the build pass.
-
-If the build fails because `idf.py` is not found or the environment is not set up, ask the agent to export it first:
-
-```text
-Export the ESP-IDF environment from <path to your ESP-IDF installation>, then run idf.py build.
-```
-
-Replace `<path to your ESP-IDF installation>` with the actual path, for example `~/esp/v6.0.2/esp-idf`. The agent will source the export script and retry the build.
-
-### Step 3: Flash and verify
-
-Ask the agent to flash the application and verify its serial output:
-
-```text
-Detect the connected ESP32-C5 serial port. If no port or more than one suitable
-port is found, ask me which one to use.
-Run idf.py -p <PORT> flash monitor, observe at least two LED ON/OFF cycles,
-then stop the monitor.
-Report the captured log output and whether the timing matches the specification.
-```
-
-The agent should report log output similar to:
-
-```
-  I (260) app: LED is ON
-  I (760) app: LED is OFF
-  I (1260) app: LED is ON
-  I (1760) app: LED is OFF
-  I (2260) app: LED is ON
-  I (2760) app: LED is OFF
-```
-
-The agent can verify the serial output, but it cannot see the physical LED. Confirm that the LED is blinking on the board. If it is not, tell the agent the exact board model and ask it to check the LED type and GPIO configuration before making any changes.
-
-### Is the LED blinking?
-
-No. The application built and flashed successfully, and the serial monitor showed the expected ON/OFF messages, but the physical LED did not blink.
-
-This happened because the specification named the **ESP32-C5** SoC but did not identify the board as the **ESP32-C5-DevKitC-1**. Without the exact board model, the agent assumed that the LED was a regular LED connected directly to a GPIO. Instead, the DevKitC-1 has an addressable LED, which requires the appropriate LED driver and cannot be controlled by simply setting a GPIO high or low.
-
-From the agent's perspective, everything was working:
-
-- The project compiled without errors.
-- The firmware flashed successfully.
-- The application ran and produced the expected log messages.
-
-Those checks verify the software workflow, but they do not verify the physical output. The log messages only report the state that the application attempted to set, and the agent cannot see whether the LED actually changed.
-
-This is why an embedded specification should include the exact board model and relevant hardware details, not only the target SoC. Tell the agent what happened and provide the missing context:
-
-```text
-The physical LED is not blinking. The board is an ESP32-C5-DevKitC-1 and its
-onboard LED is addressable. Check the board documentation for the LED type and
-GPIO, then update the implementation to use the appropriate ESP-IDF driver.
-Build, flash, and monitor the application again.
-```
-
-Do not move to the next assignment until you have confirmed that the physical LED is blinking correctly.
+You are now ready to use persistent rules, reusable skills, and current Espressif documentation in an ESP-IDF project.
 
 ## Next step
 
-[Assignment 3: Create a component](../assignment-3)
+[Lecture 1: What you should know about ESP-IDF to work effectively with AI agents](../lecture-1)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)

@@ -1,177 +1,117 @@
 ---
-title: "AI agent coding for ESP-IDF workshop - Lecture 4: Tools and tricks for agent development with ESP-IDF"
+title: "AI agent coding for ESP-IDF workshop - Lecture 4: Evidence-driven debugging with AI"
 date: 2026-07-30T00:00:00+01:00
-lastmod: 2026-07-30
+lastmod: 2026-08-28
 showTableOfContents: true
 series: ["WS003EN"]
-series_order: 8
+series_order: 11
 showAuthor: false
 ---
 
 ## Introduction
 
-You've got the basics down. This lecture is about working smarter: spending fewer tokens, getting better results, and building habits that scale as your projects grow.
+Debugging is not a sequence of random code changes. It is a process of collecting evidence, explaining that evidence with a testable hypothesis, and verifying that a minimal change fixes the root cause.
 
-### Export the ESP-IDF environment first
+An AI agent can accelerate this loop by reading build output, searching the code, consulting documentation, and rerunning checks. It cannot replace evidence from the target hardware or decide that a symptom is fixed without verification.
 
-Before starting the agent, export the ESP-IDF environment in the terminal from which you will launch it:
+### The debugging loop
 
-```bash
-source "$HOME/esp/v6.0.2/esp-idf/export.sh"
+Use the same sequence for build failures, crashes, and incorrect hardware behaviour:
+
+1. **Reproduce:** describe the expected and observed behaviour and make the failure happen consistently.
+2. **Collect evidence:** capture the first relevant error, logs, backtrace, reset reason, configuration, and physical observations.
+3. **Form a hypothesis:** explain one likely root cause and identify evidence that supports or contradicts it.
+4. **Test the hypothesis:** run a focused diagnostic check before changing unrelated code.
+5. **Apply a minimal fix:** change only what is needed to address the supported root cause.
+6. **Verify:** repeat the original reproduction steps and check for regressions.
+
+```mermaid
+flowchart TD
+    Reproduce --> CollectEvidence
+    CollectEvidence --> Hypothesis
+    Hypothesis --> Test
+    Test -->|Unsupported| Hypothesis
+    Test -->|Supported| MinimalFix
+    MinimalFix --> Verify
+    Verify -->|StillFails| CollectEvidence
+    Verify -->|Passes| Complete
 ```
 
-Replace the path if ESP-IDF is installed elsewhere. Starting the agent from that terminal lets it inherit the ESP-IDF environment, including access to `idf.py` and the required toolchain. Exporting the environment in a different terminal does not update an agent that is already running. If you use an IDE-based agent, launch the IDE from the exported terminal or ensure that its ESP-IDF extension has configured the environment.
+Do not let the agent skip directly from a symptom to an edit. A plausible explanation is still only a hypothesis until the evidence supports it.
 
-### Saving tokens
+### Evidence in an ESP-IDF project
 
-Every message you send to an agent costs tokens. A bloated context, a vague prompt, or a lengthy exchange uses more tokens than a focused interaction. A few things that help:
+Different failures require different evidence:
 
-**Keep context tight.** Open only the files relevant to the current task. Agents in IDE mode pick up everything in the open editor — closing unrelated tabs reduces noise and cost.
-
-**Use STEP.md as a scoped task.** Instead of dumping all requirements in the chat, keep them in `STEP.md` and reference it. The agent reads it once, and you don't repeat yourself across messages.
-
-**Avoid over-explaining.** If `AGENTS.md` already captures your conventions, you don't need to restate them. Trust the rules file and keep prompts short.
-
-**Ask for one thing at a time.** A prompt that asks for five changes at once is harder for the agent to get right and harder for you to review. Break it into steps. Each step is cheaper and more accurate.
-
-**Summarise long sessions.** If a session has gone on for many turns, start a new chat and paste a brief summary of the current state. A fresh context is almost always cheaper and cleaner than a long one.
-
-### Planning with expensive models, executing with cheaper ones
-
-Not all tasks need the same model. Thinking and planning benefit from the most capable models available. Writing boilerplate and applying well-defined changes can be done with a faster, cheaper model.
-
-A practical split:
-
-| Task | Model type |
+| Failure | Useful evidence |
 |---|---|
-| Writing PLAN.md and ARCHITECTURE.md | High-capability (reasoning) |
-| Reviewing ambiguous requirements | High-capability (reasoning) |
-| Implementing from a clear spec | Fast and cheap |
-| Fixing a specific build error | Fast and cheap |
-| Reviewing generated code for correctness | High-capability (reasoning) |
+| Compiler or linker error | The first error, affected source line, component `CMakeLists.txt`, and declared dependencies |
+| Configuration error | Kconfig definition, `sdkconfig.defaults*`, selected target, and reconfiguration output |
+| Startup failure | `ESP_LOGE` output, returned `esp_err_t`, reset reason, and initialization order |
+| Crash or watchdog reset | Panic output, decoded backtrace, task name, stack size, and logs immediately before the failure |
+| Wrong peripheral behaviour | Exact board, schematic or board documentation, GPIO/peripheral configuration, logs, and physical observation |
+| Timing or protocol problem | Timestamps, protocol traces, logic-analyzer evidence, and expected timing constraints |
 
-In practice, use a reasoning model to produce the spec and the plan, then switch to a faster model to execute. You get most of the quality at a fraction of the cost. Most IDEs let you switch models per chat session.
+Capture the complete first error and enough surrounding output to understand it. The final line of a build log often reports only that the build failed, not why.
 
-### Using tools and scripts to save time and tokens
+ESP-IDF monitor output can include reset reasons, panic information, and decoded backtraces when the matching application ELF is available. Keep the firmware build and captured runtime output from the same build.
 
-Repetitive tasks are a good target for automation. If you find yourself giving the agent the same context at the start of every session, that's a candidate for a script.
+### Separate software evidence from hardware evidence
 
-**Pre-prompt scripts.** A simple shell script can assemble a context blob from your project files and paste it as the first message. For example:
+A successful build proves that the project compiles. A successful flash proves that data reached the device. Expected log messages prove that the relevant code path ran.
 
-```bash
-echo "Project context:" && cat AGENTS.md PLAN.md ARCHITECTURE.md
+None of these proves that an LED emitted light, a sensor value is accurate, or a bus waveform meets its electrical requirements. Report physical observations to the agent explicitly:
+
+```text
+The build and flash succeeded. The log reports LED ON and LED OFF every
+500 ms, but the physical onboard LED remains off.
 ```
 
-Copy that output to your clipboard and paste it as the opening message of any new session.
+This distinction prevents the agent from treating software logs as proof of physical behaviour.
 
-**Build wrappers.** Instead of manually copying build errors into the chat, write a script that runs the build and formats the output for the agent:
+### Give the agent a diagnostic contract
 
-```bash
-idf.py build 2>&1 | tee build.log
-echo "Build failed. Error output:" && tail -n 40 build.log
+A debugging prompt should define the symptom, available evidence, scope, and verification:
+
+```text
+Expected: the onboard addressable LED alternates ON and OFF every 500 ms.
+Observed: the log alternates correctly, but the physical LED remains off.
+Board: ESP32-C5-DevKitC-1. ESP-IDF: v6.0.2.
+
+Inspect the led_blink component and the captured monitor output.
+First identify the most likely root cause and cite the supporting evidence.
+Do not edit files until you have explained a focused diagnostic check.
+After I approve the diagnosis, apply the minimal fix, build, flash, and ask me
+to confirm the physical LED behaviour.
 ```
 
-**`idf.py` shortcuts.** Set up shell aliases for the commands you run constantly:
+For a compiler failure, replace the physical symptom with the build command and complete error output. For a crash, include the panic and backtrace.
 
-```bash
-alias idf-build='idf.py build'
-alias idf-flash='idf.py -p /dev/ttyUSB0 flash monitor'
-```
+### Review the diagnosis before the edit
 
-The less you have to type manually, the more time you spend on the interesting parts.
+Before approving a fix, check that the agent:
 
-### Creating your own skills
+- Distinguishes observed facts from assumptions.
+- Connects the hypothesis to specific code or configuration.
+- Explains why the proposed diagnostic check can confirm or reject it.
+- Avoids unrelated refactoring during diagnosis.
+- Defines how the original failure will be reproduced after the fix.
 
-A `SKILL.md` file is a reusable recipe the agent can follow for a specific task. You've already seen how to add skills with `npx skills add`. Here's how to write your own.
+If the evidence does not support the hypothesis, collect more evidence instead of applying several speculative changes at once.
 
-A skill file is plain Markdown. The structure is simple:
+### Verify the root cause and the fix
 
-```markdown
-# Skill name
+A debugging task is complete only when:
 
-Brief description of what this skill does.
-
-## Steps
-
-1. Step one.
-2. Step two.
-3. Step three.
-
-## Constraints
-
-- Any rules the agent must follow.
-- References to AGENTS.md or other files if relevant.
-```
-
-Some useful skills to create for ESP-IDF development:
-
-- **Create component:** defines the exact file structure, naming conventions, and Kconfig requirements the agent must follow every time.
-- **Add unit test:** scaffolds a Unity-based test app for any component.
-- **Port to new target:** describes how to identify SoC-specific code and update it for a different target.
-- **Publish to registry:** walks through cleaning up a component, adding metadata, and publishing it to the ESP Component Registry.
-
-Once a skill is in your project, you invoke it with a single line: *"Use the create component skill to add a `wifi_manager` component."* No need to restate all the conventions.
-
-### Using subagents
-
-Some IDEs and agent tools support subagents: separate agent instances that work on a specific task in parallel or in sequence, without sharing the main session's context.
-
-This is useful when:
-
-- You want to run a code review without polluting your implementation session.
-- You need to explore two different approaches simultaneously and compare results.
-- You have a long-running task (like generating documentation for every component) that you want to hand off and check later.
-
-In Cursor, you can launch a background agent from the agent panel. Give it a focused task, a reference to the relevant spec files, and let it run while you continue working in the main session.
-
-A practical pattern for ESP-IDF: use a subagent to review every component before you flash. Give it the component source, the header, and a prompt like:
-
-```
-Review led_blink.c against led_blink.h.
-Check for: missing error handling, unchecked esp_err_t returns,
-hardcoded values that should be Kconfig options, and anything
-that doesn't follow AGENTS.md. Report findings only, make no changes.
-```
-
-You get a focused review without interrupting your main workflow.
-
-### Mermaid diagrams as architecture specifications
-
-You've been writing architecture in plain text inside `ARCHITECTURE.md`. Mermaid diagrams are a step up: they're structured, unambiguous, and the agent can read them as a precise specification.
-
-A component dependency diagram tells the agent exactly how the pieces fit together:
-
-```mermaid
-graph TD
-    app_main --> led_blink
-    app_main --> wifi_manager
-    wifi_manager --> nvs_flash
-    led_blink --> gpio_driver
-```
-
-A sequence diagram works well for describing the runtime behaviour of an initialisation flow:
-
-```mermaid
-sequenceDiagram
-    participant Main as app_main
-    participant LED as led_blink
-    participant GPIO as GPIO driver
-    Main->>LED: led_blink_init()
-    LED->>GPIO: gpio_config()
-    GPIO-->>LED: ESP_OK
-    LED-->>Main: ESP_OK
-    Main->>LED: led_blink_start()
-    LED->>LED: xTaskCreate(blink_task)
-```
-
-Add diagrams like these to `ARCHITECTURE.md` alongside the text descriptions. When you ask the agent to implement, it has both a human-readable description and a machine-readable structure to work from. The result is usually more accurate than text alone.
-
----
-
-You have now completed the main content of the AI Agent Coding for ESP-IDF workshop. If you want to go further, there's one more optional assignment waiting.
+- The original failure can no longer be reproduced.
+- The expected build and runtime checks pass.
+- Physical behaviour is confirmed when relevant.
+- The explanation accounts for both the symptom and the fix.
+- Temporary diagnostic code and configuration are removed.
+- No unrelated behaviour changed.
 
 ## Next step
 
-[Bonus: Assignment 4: Debugging and refactoring with AI](../assignment-4)
+[Assignment 6: Debug an ESP-IDF application with AI](../assignment-6)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)
