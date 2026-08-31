@@ -134,7 +134,7 @@ On the first boot after an update, the app needs to check itself and then either
 
 <details>
 <summary>
-Solution Code
+Show assignment solution
 </summary>
 
 ```c

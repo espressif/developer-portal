@@ -25,7 +25,7 @@ When you are done, the board should:
 You do not need to rewrite the application. Start from your Assignment 1.1 code and change only how the band is selected.
 
 * Recall from [Lecture 1](../lecture-1/) that the band is chosen through the `esp_wifi_set_band_mode()` API, and that this function accepts more than one `wifi_band_mode_t` value.
-* Review the list of accepted values in the [`esp_wifi_set_band_mode()` reference](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c5/api-reference/network/esp_wifi.html) and decide which one lets the driver scan both bands and pick the connection itself.
+* Review the list of accepted values in the [`esp_wifi_set_band_mode()` reference](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c5/api-reference/network/esp_wifi.html#_CPPv422esp_wifi_set_band_mode16wifi_band_mode_t) and decide which one lets the driver scan both bands and pick the connection itself.
 * Locate where Assignment 1.1 sets the band mode and update the value accordingly. Everything else, including the `esp_wifi_get_band()` and `esp_wifi_sta_get_ap_info()` logging, stays the same and will report whichever band the board landed on.
 
 To see the fallback in action, test against a network that broadcasts only on 2.4 GHz, or move away from your 5 GHz access point. The log line should switch from `Connected on 5 GHz!` to `Connected on 2.4 GHz.`, and the reported channel should drop below 36.

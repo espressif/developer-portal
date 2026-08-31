@@ -1,5 +1,5 @@
 ---
-title: "ESP-IDF C5 - Assign. 3.2"
+title: "ESP-IDF C5 - Assign. 3.3"
 date: "2026-07-29"
 lastmod: "2026-07-29"
 series: ["WS00C"]
@@ -12,7 +12,7 @@ Unlike the previous assignment, this one is a short challenge rather than a step
 
 In [Assignment 3.1](../assignment-3-1/), the board always downloaded and applied `FIRMWARE_URL` on every boot, with no way to tell whether the firmware behind that URL was actually newer than what was already running. That's wasteful, and on a real deployment it would mean re-flashing the same image over and over.
 
-Your task is to add a version check in front of the update. A second file is hosted at the following link
+Your task is to add a version check in front of the update. The second file is hosted at the following link:
 
 ```terminal
 https://github.com/espressif/developer-portal-codebase/blob/update-workshop-to-c5-code/content/workshops/esp-idf-with-esp32-c5/ota/version

@@ -5,7 +5,7 @@ lastmod: "2026-07-29"
 series: ["WS00C"]
 series_order: 13
 showAuthor: false
-summary: "Write a program that runs on the LP core while the main CPU is in Deep-sleep. The LP core wakes periodically on the LP timer, increments a counter, and wakes the main CPU once the counter reaches a threshold."
+summary: "Write a program that runs on the LP core while the main CPU is in deep sleep. The LP core wakes periodically on the LP timer, increments a counter, and wakes the main CPU once the counter reaches a threshold."
 ---
 
 In the previous assignment, the main CPU woke itself up with the RTC timer. This time the main CPU stays asleep, and a small program on the __LP core__ does the work. This is the pattern you use to watch a sensor or input while the rest of the chip stays powered down.
@@ -18,7 +18,7 @@ To keep things simple, the LP core just counts. After a few counts it wakes the 
 2. Write the LP core program.
 3. Embed the LP core program in the build.
 4. Load and start the LP core from the main application.
-5. Enter Deep-sleep and report the count on wakeup.
+5. Enter deep sleep and report the count on wakeup.
 6. Build, flash, and monitor.
 
 ## Create a new project and enable the LP core
@@ -126,9 +126,9 @@ Now write the main application. It loads the LP core program, starts it with the
 
    With `lp_timer_sleep_duration_us` set to one million microseconds, the LP core wakes up and runs `main()` once per second.
 
-## Enter Deep-sleep and report the count on wakeup
+## Enter deep sleep and report the count on wakeup
 
-1. Add `app_main()`. On the first boot it starts the LP core and enters Deep-sleep. When the LP core wakes the main CPU, the application reboots, detects the LP core as the wakeup source, and reads the shared counter:
+1. Add `app_main()`. On the first boot it starts the LP core and enters deep sleep. When the LP core wakes the main CPU, the application reboots, detects the LP core as the wakeup source, and reads the shared counter:
 
    ```c
    void app_main(void)
@@ -146,12 +146,12 @@ Now write the main application. It loads the LP core program, starts it with the
        ESP_LOGI(TAG, "Allowing the LP core to wake the main CPU");
        ESP_ERROR_CHECK(esp_sleep_enable_ulp_wakeup());
 
-       ESP_LOGI(TAG, "Entering Deep-sleep, the LP core keeps counting");
+       ESP_LOGI(TAG, "Entering deep sleep, the LP core keeps counting");
        esp_deep_sleep_start();
    }
    ```
 
-   Note how the shared `counter` from the LP core is read here as `ulp_counter`: the generated `ulp_main.h` header exposes every LP core global with an `ulp_` prefix. The `esp_sleep_enable_ulp_wakeup()` call is what lets the LP core wake the chip out of Deep-sleep.
+   Note how the shared `counter` from the LP core is read here as `ulp_counter`: the generated `ulp_main.h` header exposes every LP core global with an `ulp_` prefix. The `esp_sleep_enable_ulp_wakeup()` call is what lets the LP core wake the chip out of deep sleep.
 
 ## Build, flash, and monitor
 
@@ -162,12 +162,12 @@ Now write the main application. It loads the LP core program, starts it with the
    ```
    I (310) lp_core: First boot, starting the LP core
    I (320) lp_core: Allowing the LP core to wake the main CPU
-   I (320) lp_core: Entering Deep-sleep, the LP core keeps counting
+   I (320) lp_core: Entering deep sleep, the LP core keeps counting
    ...
    I (300) lp_core: Woken up by the LP core after 5 counts
    ```
 
-   The main CPU spent those five seconds in Deep-sleep while the LP core did all the counting on its own.
+   The main CPU spent those five seconds in deep sleep while the LP core did all the counting on its own.
 
 ## Conclusion
 

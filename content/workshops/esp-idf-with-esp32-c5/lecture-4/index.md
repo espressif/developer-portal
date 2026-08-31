@@ -19,31 +19,35 @@ In this lecture we look at two closely related topics:
 
 Together, these features let you build applications that run for months on a small battery while still reacting quickly to real-world events.
 
+>[!TIP]
+> For a deeper dive, check the developer portal article [Building low power applications on Espressif chips: Ultra-Low-Power (ULP) coprocessor](https://developer.espressif.com/blog/2025/04/ulp-lp-core-get-started/).
+
 ## Power Modes on the ESP32-C5
 
 The ESP32-C5 includes an advanced Power Management Unit (PMU) that can power up different domains of the chip independently. This lets the system balance performance, power consumption, and wake-up latency.
 
 Rather than configuring the PMU by hand, ESP-IDF exposes a set of predefined power modes:
 
-* __Active mode:__ The high-power (HP) CPU, radio, and all peripherals are on. The chip can process data and communicate over Wi-Fi or Bluetooth LE.
+* __Active mode:__ The high-performance (HP) CPU, radio, and all peripherals are on. The chip can process data and communicate over Wi-Fi or Bluetooth LE.
 * __Modem-sleep mode:__ The HP CPU stays on, but its clock frequency can be reduced. The radio is switched on periodically to keep wireless connections alive.
 * __Light-sleep mode:__ The HP CPU is clock-gated and its supply voltage is reduced. RAM, peripherals, and CPU state are preserved, so execution resumes exactly where it left off after wakeup.
 * __Deep-sleep mode:__ Only the low-power (LP) system stays powered. The CPUs, most of the RAM, and the digital peripherals are turned off, which gives the lowest power consumption.
 
+For more details about predefined power modes, see ESP32-C5 [datasheet](https://documentation.espressif.com/esp32-c5_datasheet_en.html#[43,%22XYZ%22,56.69,254.84,null]) > _Functional Description_ > _System Components_ > _Power Management Unit_.
 
-### Light-sleep vs Deep-sleep
+### Light sleep vs deep sleep
 
 The main practical difference between the two sleep modes is what survives the sleep period.
 
-In __Light-sleep__, the digital peripherals, most of the RAM, and the CPUs are clock-gated but keep their state. When the chip wakes up, the CPU continues from the same instruction, and peripherals resume their previous operation. This makes Light-sleep ideal when you need to sleep briefly and react quickly, for example while maintaining a Wi-Fi connection.
+In __light sleep__, the digital peripherals, most of the RAM, and the CPUs are clock-gated but keep their state. When the chip wakes up, the CPU continues from the same instruction, and peripherals resume their previous operation. This makes light sleep ideal when you need to sleep briefly and react quickly, for example while maintaining a Wi-Fi connection.
 
-In __Deep-sleep__, almost everything is powered off. The only parts that remain on are:
+In __deep sleep__, almost everything is powered off. The only parts that remain on are:
 
 * The RTC controller
 * The ULP coprocessor
 * The RTC FAST memory
 
-Because the CPU context is lost, waking from Deep-sleep restarts the boot process and your application runs again from the beginning. Any data you want to preserve across a Deep-sleep cycle must be stored in RTC FAST memory using the `RTC_DATA_ATTR` attribute.
+Because the CPU context is lost, waking from deep sleep restarts the boot process and your application runs again from the beginning. Any data you want to preserve across a deep sleep cycle must be stored in RTC FAST memory using the `RTC_DATA_ATTR` attribute.
 
 
 ## The ULP LP Core Coprocessor
@@ -64,19 +68,19 @@ The assignments in this section walk through the details of building and running
 
 To put the main CPU to sleep, you configure one or more wakeup sources and then call a start function:
 
-* `esp_light_sleep_start()` enters Light-sleep and returns once a wakeup source triggers.
-* `esp_deep_sleep_start()` enters Deep-sleep and does not return: the chip reboots on wakeup.
+* `esp_light_sleep_start()` enters light sleep and returns once a wakeup source triggers.
+* `esp_deep_sleep_start()` enters deep sleep and does not return: the chip reboots on wakeup.
 
 The ESP32-C5 offers several wakeup sources that you can combine, including an RTC timer, LP (RTC-capable) GPIOs, and the LP core itself. After waking, the application can check what triggered the wakeup and react accordingly.
 
 > [!TIP]
-> A common low-power design keeps the main CPU in Deep-sleep while the LP core watches a sensor. When the LP core detects a meaningful change, it calls `ulp_lp_core_wakeup_main_processor()` to bring the HP CPU back online only when there is real work to do.
+> A common low-power design keeps the main CPU in deep sleep while the LP core watches a sensor. When the LP core detects a meaningful change, it calls `ulp_lp_core_wakeup_main_processor()` to bring the HP CPU back online only when there is real work to do.
 
 The first assignment guides you through a minimal sleep-and-wake cycle so you can see these APIs in action.
 
 ## Conclusion
 
-The ESP32-C5 gives you a spectrum of options for reducing power consumption, from Dynamic Frequency Scaling and Modem-sleep down to Deep-sleep, where nearly the entire chip is switched off. Choosing the right mode is a matter of balancing how quickly you need to respond against how little energy you can afford to spend.
+The ESP32-C5 gives you a spectrum of options for reducing power consumption, from Dynamic Frequency Scaling and Modem-sleep down to deep sleep, where nearly the entire chip is switched off. Choosing the right mode is a matter of balancing how quickly you need to respond against how little energy you can afford to spend.
 
 The ULP LP core makes that trade-off far more flexible. By offloading simple monitoring tasks to a low-power RISC-V processor that keeps running during sleep, your application can stay responsive to sensors and inputs while the main CPU rests. Waking the HP CPU only when needed is often the difference between a device that lasts days and one that lasts months on the same battery.
 
