@@ -24,12 +24,12 @@ ESP-IDF uses partition tables because they enable:
 
 ## Structure and Location
 
-The partition table is typically flashed at offset `0x8000` in the device’s SPI flash. It occupies `0xC00` bytes, supporting up to 95 entries, and includes an MD5 checksum for integrity verification. The table itself takes up a full 4 KB flash sector, so any partition following it must start at least at offset `0x9000`, depending on the table size and alignment requirements. Each entry in the table includes a name (label), type (such as app or data), subtype, offset, and size in flash memory.
+The partition table is typically flashed at offset `0x8000` in the device’s SPI flash. It occupies `0xC00` bytes, supporting up to 95 entries, and includes an MD5 checksum for integrity verification. The table itself takes up a full 4 KB flash sector, so any partition following it must start at least at offset `0x9000`, depending on the table size and alignment requirements.
 
 
 ### Typical partition table elements
 
-Every entry in a partition table has a name (label), a type (`app` or `data`), a subtype, an offset in flash, and a size.
+Every entry in a partition table has a name (label), type (such as `app` or `data`), subtype, offset in flash, and size.
 
 | Field    | Description                                                                                          |
 | -------- | ---------------------------------------------------------------------------------------------------- |
@@ -61,7 +61,7 @@ The `otadata` partition is only present in tables that support OTA. It keeps tra
 ESP-IDF provides several predefined partition tables for common use cases, selectable via `menuconfig`:
 
 * __Single factory app, no OTA__: Contains a single application partition and basic data partitions (`nvs`, `phy_init`).
-* __Factory app, two OTA definitions__: Adds support for over-the-air (OTA) updates, with two OTA app partitions and an OTA data slot. We will use this predefined partition table in the [assignment 2.1](assignment-2-1/)
+* __Factory app, two OTA definitions__: Adds support for over-the-air (OTA) updates, with two OTA app partitions and an OTA data slot. We will use this predefined partition table in [Assignment 2.1](assignment-2-1/)
 
 For example, the "Factory app, two OTA definitions" scheme typically looks like this:
 

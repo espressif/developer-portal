@@ -24,7 +24,7 @@ In this assignment, you'll put the theory from [Lecture 1](../lecture-1/) into p
 
 Before writing any code, you need a 5 GHz access point that the `ESP32-C5` can join. This is worth a moment of attention, because most networks make the 5 GHz band harder to reach than you might expect.
 
-Many home routers broadcast the 2.4 GHz and 5 GHz radios under the __same SSID__ (a feature often called band steering or Smart Connect). When both bands share one name, a station only sees a single network. Because this assignment sets the band mode to `WIFI_BAND_MODE_5G_ONLY`, the board will only ever join the 5 GHz radio, so a shared SSID is fine as long as the access point actually broadcasts on 5 GHz. Any of the options below gives you a network you can be sure supports the 5 GHz band.
+Many home routers broadcast the 2.4 GHz and 5 GHz radios under the __same SSID__ (a feature often called band steering or Smart Connect). When both bands share one name, a station only sees a single network. Because this assignment sets the band mode to `WIFI_BAND_MODE_5G_ONLY`, the board will only ever join the 5 GHz radio, so a shared SSID is fine as long as the access point actually broadcasts on 5 GHz. Here are the options to have a network that supports the 5 GHz band:
 
 * __Split the SSIDs on your router.__ Log into your router's admin page and give the 5 GHz radio its own SSID (for example, `MyNetwork_5G`). Most routers expose this under the wireless settings, sometimes behind an "advanced" or "separate bands" toggle. You then connect the board to that dedicated 5 GHz SSID.
 
@@ -231,7 +231,7 @@ Finally, block until the event handler signals success or failure, then read bac
                                               portMAX_DELAY);
    ```
 
-2. If the connection succeeded, confirm the active band with `esp_wifi_get_band()` and cross-check it against the channel reported by `esp_wifi_sta_get_ap_info()`. With `WIFI_BAND_MODE_5G_ONLY` the band should always be 5 GHz, and channels of 36 and above confirm it:
+2. If the connection succeeded, confirm the active band with `esp_wifi_get_band()` and cross-check it against the channel reported by `esp_wifi_sta_get_ap_info()`. With `WIFI_BAND_MODE_5G_ONLY` the band should always be 5 GHz, and the use of channels 36 and above confirms it:
 
    ```c
        if (bits & WIFI_CONNECTED_BIT) {
@@ -271,7 +271,7 @@ Finally, block until the event handler signals success or failure, then read bac
         idf.py -p PORT flash monitor
     ```     
 
-    where PORT is the port at which your device is attached. Then name depend on your O.S. (usually "COM" on Windows, "ttyusb" on Linux, "tty.usbserial" on macos).
+    Where `PORT` is the port on which your device is connected. The name depend on your OS (usually, Windows -- "COM", Linux -- "ttyusb", macOS -- "tty.usbserial").
     {{< /tab >}}
     {{< /tabs >}}
 

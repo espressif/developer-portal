@@ -45,7 +45,7 @@ ESP-IDF offers built-in support for OTA through two main methods:
 * __Native API__: Using the `app_update` component for full control over the update process.
 * __Simplified API__: Using the `esp_https_ota` component for a higher-level interface that handles HTTPS download and flashing automatically.
 
-In most cases, application needs to interact with public interface of `esp_https_ota` and `app_update` components only.
+In most cases, application needs to interact with the public interfaces of `esp_https_ota` and `app_update` components only.
 In Fig.2 you can find a simplified diagram of the OTA key components.
 
 {{< figure
@@ -102,7 +102,7 @@ OTA requires a specific partition table layout. At minimum, you need:
 * __`otadata` partition:__ To track which firmware partition is active.
 * __Two OTA app partitions:__ For active/passive firmware images.
 
-An example of valid partition table is the following.
+An example of valid partition table is as follows:
 
 ```
 Name,   Type, SubType, Offset,  Size, Flags
@@ -113,7 +113,7 @@ ota_0,    app,  ota_0,   ,        1M,
 ota_1,    app,  ota_1,   ,        1M,
 ```
 
-This layout ensures safe updates: the new firmware is written to the inactive partition, and only after verification is it marked as active for the next boot. The OTA data partition is two flash sectors (0x2000 bytes) to prevent corruption in case of power failure during updates.
+This layout ensures safe updates: the new firmware is written to the inactive partition, and only after verification is it marked as active for the next boot. The OTA data partition is two flash sectors (`0x2000` bytes) to prevent corruption in case of power failure during updates.
 
 Besides the already mentioned (`data`,`nvs`), this partition table contains a (`data`,`ota`) field which plays an important role in OTA updates.
 
@@ -122,8 +122,8 @@ Besides the already mentioned (`data`,`nvs`), this partition table contains a (`
 The `otadata` partition is a special partition in the ESP-IDF partition table, required for projects that use Over-The-Air (OTA) firmware updates. Its main purpose is to store information about which OTA app slot (such as `ota_0` or `ota_1`) should be booted by the device. It's typical size is `0x2000` bytes (two flash sectors)
 
 The otadata partition is used as follows:
-* On first boot (or after erasing), the otadata partition is empty (all bytes set to 0xFF). In this state, the bootloader will boot the factory app if present, or the first OTA slot if not.
-* After a successful OTA update, the otadata partition is updated to indicate which OTA app slot should be booted next.
+* On first boot (or after erasing), the otadata partition is empty (all bytes set to `0xFF`). In this state, the bootloader will boot the factory app if present. If not, it will boot the first OTA slot.
+* After a successful OTA update, the `otadata` partition is updated to indicate which OTA app slot should be booted next.
 * The partition is designed to be robust against power failures: it uses two sectors, and a counter field to determine the most recent valid data if the sectors disagree.
 
 

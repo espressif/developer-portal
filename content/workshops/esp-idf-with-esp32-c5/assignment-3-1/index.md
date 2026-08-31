@@ -29,7 +29,7 @@ Its only job is to log a message confirming the update worked.
 
 1. Create a new ESP-IDF project
 
-OTA needs at least two app partitions: one to boot from and one to receive the new firmware, so you need to change it next.
+   OTA needs at least two app partitions: one to boot from and one to receive the new firmware, so you need to change it next.
 
 2. Open `menuconfig` (`> ESP-IDF: SDK Configuration Editor (menuconfig)`) and go to `Partition Table` &rarr; `Factory app, two OTA definitions`.
 
@@ -214,7 +214,7 @@ With Wi-Fi connected, download the new firmware and let `esp_https_ota` write it
 
 
 <details>
-<summary>
+<summary>Show assignment solution</summary>
 
 ```c
 #include "freertos/FreeRTOS.h"
@@ -321,7 +321,6 @@ void app_main(void)
 }
 ```
 
-</summary>
 </details>
 
 

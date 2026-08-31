@@ -14,7 +14,7 @@ The `ESP32-C5` is one of the latest Espressif SoCs, and it stands out for its wi
 
 ## Wi-Fi 6 and the 5 GHz Band
 
-Wi-Fi 6, also known as 802.11ax, is the latest generation of the Wi-Fi standard. Compared to previous generations, it introduces several improvements that are particularly useful for IoT applications, such as:
+Wi-Fi 6, also known as 802.11ax, is one of the latest generations of the Wi-Fi standard. Compared to previous generations, it introduces several improvements that are particularly useful for IoT applications, such as:
 
 * __Target Wake Time (TWT)__: allows devices to negotiate when and how often they wake up to send or receive data, reducing power consumption.
 * __OFDMA (Orthogonal Frequency-Division Multiple Access)__: lets multiple devices share the same channel more efficiently, lowering latency in crowded networks.

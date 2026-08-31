@@ -5,17 +5,17 @@ lastmod: "2026-07-29"
 series: ["WS00C"]
 series_order: 12
 showAuthor: false
-summary: "Write an application that enters Deep-sleep, wakes up periodically with the RTC timer, and keeps a counter alive across sleep cycles using RTC memory."
+summary: "Write an application that enters deep sleep, wakes up periodically with the RTC timer, and keeps a counter alive across sleep cycles using RTC memory."
 ---
 
-In this assignment, you'll build a simple sleep-and-wake cycle. The board wakes up, prints how many times it has woken and why, then goes back to Deep-sleep.
+In this assignment, you'll build a simple sleep-and-wake cycle. The board wakes up, prints how many times it has woken and why, then goes back to deep sleep.
 
 ## Assignment steps
 
 1. Create a new project and add the sleep includes.
-2. Keep a boot counter in RTC memory so it survives Deep-sleep.
+2. Keep a boot counter in RTC memory so it survives deep sleep.
 3. Report the wakeup cause after each wakeup.
-4. Configure the RTC timer as a wakeup source and enter Deep-sleep.
+4. Configure the RTC timer as a wakeup source and enter deep sleep.
 5. Build, flash, and monitor
 
 ## Create a new project and add the sleep includes
@@ -36,9 +36,9 @@ In this assignment, you'll build a simple sleep-and-wake cycle. The board wakes 
    static const char *TAG = "deep_sleep";
    ```
 
-## Keep a boot counter in RTC memory so it survives Deep-sleep
+## Keep a boot counter in RTC memory so it survives deep sleep
 
-Deep-sleep powers off the CPU and most of the RAM, so ordinary variables are lost. Only RTC FAST memory survives and you can place a variable there with the `RTC_DATA_ATTR` attribute.
+Deep sleep powers off the CPU and most of the RAM, so ordinary variables are lost. Only RTC FAST memory survives and you can place a variable there with the `RTC_DATA_ATTR` attribute.
 
 1. Declare a boot counter in RTC memory, just above `app_main()`:
 
@@ -47,7 +47,7 @@ Deep-sleep powers off the CPU and most of the RAM, so ordinary variables are los
    ```
 
    > [!INFO]
-   > Because it lives in RTC FAST memory, this variable keeps its value across Deep-sleep cycles. A normal global would be reset to `0` every time the board wakes up and reboots.
+   > Because it lives in RTC FAST memory, this variable keeps its value across deep sleep cycles. A normal global would be reset to `0` every time the board wakes up and reboots.
 
 ## Report the wakeup cause after each wakeup
 
@@ -70,7 +70,7 @@ After waking, the application can find out what triggered the wakeup. Since ESP-
 
    On the very first boot there is no wakeup source, so the bitmap is empty and the `else` branch runs. On every later wakeup, the timer bit is set.
 
-## Configure the RTC timer as a wakeup source and enter Deep-sleep
+## Configure the RTC timer as a wakeup source and enter deep sleep
 
 Now tie it together: count the boot, report the cause, arm the timer, and go back to sleep.
 
@@ -87,11 +87,11 @@ Now tie it together: count the boot, report the cause, arm the timer, and go bac
 
    ```c
        const int wakeup_time_sec = 10;
-       ESP_LOGI(TAG, "Entering Deep-sleep for %d seconds", wakeup_time_sec);
+       ESP_LOGI(TAG, "Entering deep sleep for %d seconds", wakeup_time_sec);
        ESP_ERROR_CHECK(esp_sleep_enable_timer_wakeup(wakeup_time_sec * 1000000));
    ```
 
-3. Give the log output a moment to flush, then enter Deep-sleep. Remember that `esp_deep_sleep_start()` never returns: when the timer fires, the chip reboots and `app_main()` runs again from the top:
+3. Give the log output a moment to flush, then enter deep sleep. Remember that `esp_deep_sleep_start()` never returns: when the timer fires, the chip reboots and `app_main()` runs again from the top:
 
    ```c
        vTaskDelay(pdMS_TO_TICKS(100));
@@ -107,11 +107,11 @@ Now tie it together: count the boot, report the cause, arm the timer, and go bac
    ```
    I (310) deep_sleep: Boot count: 1
    I (310) deep_sleep: First boot or reset (not a timer wakeup)
-   I (320) deep_sleep: Entering Deep-sleep for 10 seconds
+   I (320) deep_sleep: Entering deep sleep for 10 seconds
    ...
    I (300) deep_sleep: Boot count: 2
    I (300) deep_sleep: Woken up by the RTC timer
-   I (310) deep_sleep: Entering Deep-sleep for 10 seconds
+   I (310) deep_sleep: Entering deep sleep for 10 seconds
    ```
 
    The boot count keeps growing because it lives in RTC memory, and every wakeup after the first reports the RTC timer as its cause.
@@ -119,7 +119,7 @@ Now tie it together: count the boot, report the cause, arm the timer, and go bac
 
 ## Conclusion
 
-You built a complete low-power cycle: the `ESP32-C5` wakes on a timer, does a small amount of work, remembers state across sleep with `RTC_DATA_ATTR`, and returns to Deep-sleep. This pattern is the backbone of battery-powered sensors that wake up, take a reading, and sleep again.
+You built a complete low-power cycle: the `ESP32-C5` wakes on a timer, does a small amount of work, remembers state across sleep with `RTC_DATA_ATTR`, and returns to deep sleep. This pattern is the backbone of battery-powered sensors that wake up, take a reading, and sleep again.
 
 In the next assignment, you'll go further and let the ULP LP core do the monitoring while the main CPU stays asleep.
 

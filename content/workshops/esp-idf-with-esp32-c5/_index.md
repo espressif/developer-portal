@@ -40,7 +40,7 @@ To follow this workshop, make sure you meet the prerequisites listed below.
 
 * **VS Code** installed on your computer (v1.108+)
 * **[ESP-IDF extension for VS Code](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/)** added to VS Code (v1.11+)
-* **ESP-IDF** installed on your machine (__>v5.5,<6__)
+* **ESP-IDF** installed on your machine (above v5.5 but below v6)
   *It can be installed via VS Code or by using the [ESP-IDF Installation Manager](https://docs.espressif.com/projects/idf-im-ui/en/latest/index.html)*
 
 
@@ -56,7 +56,10 @@ To install everything, you can follow the [ESP-IDF Setup guide](/workshops/esp-i
 
 The `ESP32-C5-DevKitC-1` is an entry-level development board built around the `ESP32-C5-WROOM-1` module. It breaks out most of the SoC's GPIO pins to headers on both sides of the board, so you can easily connect it to a breadboard or to peripherals using jumper wires.
 
-The board includes a USB Type-C to UART port, used both to power the board and to flash and monitor your application, and a second, dedicated USB Type-C port wired directly to the SoC for native USB communication and JTAG debugging.
+The board includes two USB Type-C ports:
+
+- USB Type-C to UART port used both to power the board and to flash and monitor your application.
+- Dedicated USB Type-C port wired directly to the SoC for native USB communication and JTAG debugging.
 
 #### ESP32-C5 SoC Main Characteristics
 
@@ -97,7 +100,7 @@ The workshop is divided into four parts.
   * [Assignment 3.2](assignment-3-2/) – (Optional) Add app rollback support, so a broken firmware update is automatically reverted to the last working version
   * [Assignment 3.3](assignment-3-3/) – Check a remote version file before updating, so the device only downloads new firmware when it is actually newer
 
-* Part 4: **Extra ULP**
+* Part 4: **ULP**
 
   * [Lecture 4](lecture-4/) – The ESP32-C5's sleep modes and the Ultra Low Power (ULP) LP core coprocessor
   * [Assignment 4.1](assignment-4-1/) – Build a Deep-sleep example that wakes on the RTC timer and keeps a boot counter in RTC memory
