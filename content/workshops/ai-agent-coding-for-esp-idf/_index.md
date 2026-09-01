@@ -22,7 +22,7 @@ To follow this workshop, you will need both hardware and software.
 Required hardware:
 
 - Computer running Linux, Windows, or macOS
-- An ESP32 series development board (e.g. ESP32-C5-DevKitC, ESP32-H2-DevKitM, or similar)
+- An ESP32-C5-DevKitC development board
 - USB cable that supports power and data and is compatible with the development kit above
 
 Required software:

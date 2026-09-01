@@ -10,8 +10,6 @@ showAuthor: false
 
 ## Assignment steps
 
----
-
 In this assignment, you will add reusable skills and persistent agent instructions to an ESP-IDF project. You will then verify that the agent can use the project context and the Espressif Documentation MCP server.
 
 Use an existing ESP-IDF project, such as the project created while completing the preliminary setup. These files are project-specific, so add or adapt them whenever you start another project.
@@ -33,9 +31,6 @@ npx skills add pedrominatel/awesome-esp-ai@esp-idf
 ```sh
 npx skills add pedrominatel/awesome-esp-ai@esp-idf-components
 ```
-
-> [!TIP]
-> The specific skills for this workshop will be provided during the session.
 
 ### Step 2: Add `AGENTS.md` to your project
 

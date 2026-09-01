@@ -160,8 +160,8 @@ A typical Kconfig entry looks like this:
 ```kconfig
 config MY_COMPONENT_GPIO_NUM
     int "GPIO pin number"
-    default 8
-    range 0 48
+    default 27
+    range 0 28
     help
         GPIO pin connected to the LED. Default is 8 (ESP32-C5 DevKitC RGB LED).
 ```

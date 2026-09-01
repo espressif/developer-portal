@@ -26,7 +26,8 @@ Some of the most popular AI coding agents right now include:
 
 - [Cursor](https://www.cursor.com/): an IDE built around AI agents, with deep codebase awareness and support for custom rules and skills.
 - [GitHub Copilot](https://github.com/features/copilot): available inside VS Code and other editors, with an agent mode that can make multi-file changes and run terminal commands.
-- [OpenAI Codex](https://platform.openai.com/docs/guides/codex): a coding agent from OpenAI, accessible via the CLI or IDE plugin/extension.
+- [OpenAI Codex](https://learn.chatgpt.com/docs): a coding agent from OpenAI, accessible via the CLI or IDE plugin/extension.
+- [Claude](https://claude.com/solutions/agents): an AI coding agent from Anthropic, available via the terminal.
 
 Agents can be used directly from the IDE, where they have access to your open files and project context, or from the CLI, where you can run them as part of a script or automated workflow. Both IDE and CLI modes are useful: the IDE is great for interactive development, while the CLI fits well into build pipelines and batch tasks.
 

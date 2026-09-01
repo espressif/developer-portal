@@ -10,8 +10,6 @@ showAuthor: false
 
 ## Assignment steps
 
----
-
 In this assignment, you will ask the same agent to perform the same read-only review in two fresh sessions. The first prompt leaves the scope broad. The second defines the relevant files, review criteria, output limit, and stopping condition.
 
 The goal is to compare efficiency without sacrificing result quality.

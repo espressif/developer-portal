@@ -10,8 +10,6 @@ showAuthor: false
 
 ## Assignment steps
 
----
-
 In the previous lecture, you learned how a clear specification constrains an agent's implementation. In this assignment, you'll put that into practice by preparing three forms of input for the same ESP-IDF project: a simple prompt, a detailed prompt, and a set of specification files.
 
 You'll compare the results, then use the best specification to build and verify a simple LED blink application, the embedded "Hello World". By the end, you'll have a practical feel for how better prompts and specs reduce assumptions and correction cycles.
@@ -27,7 +25,7 @@ You will prepare prompts and specification files for a simple ESP-IDF applicatio
 
 Create a new ESP-IDF project using the ESP-IDF extension:
 
-1. Open the Command Palette (Ctrl+Shift+P).
+1. Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P for macOS).
 2. Select **ESP-IDF: Create Project from Extension Template**.
 3. Choose the `hello_world` template as a starting point.
 4. Name the project `led-blink` and select a location.
@@ -152,7 +150,7 @@ void app_main(void)
         NULL);
 
     if (task_created != pdPASS) {
-        ESP_LOGI(TAG, "Failed to create LED blink task");
+        ESP_LOGE(TAG, "Failed to create LED blink task");
     }
 }
 
@@ -319,7 +317,7 @@ void app_main(void)
         NULL);
 
     if (task_created != pdPASS) {
-        ESP_LOGI(TAG, "Failed to create LED blink task");
+        ESP_LOGE(TAG, "Failed to create LED blink task");
     }
 }
 ```

@@ -10,8 +10,6 @@ showAuthor: false
 
 ## Assignment steps
 
----
-
 In this assignment, you will install an AI coding agent and connect it to the Espressif Documentation MCP server. By the end, your agent will be able to access current Espressif documentation directly from your development environment.
 
 ### Before you begin
@@ -40,7 +38,7 @@ We will cover Cursor and GitHub Copilot, but you can use another coding agent fo
 
 ### Step 2: Install the Espressif Documentation MCP server
 
-The [Espressif Documentation MCP Server](https://mcp.espressif.com/docs) connects your AI agent directly to official, up-to-date Espressif documentation. The agent can use it to look up ESP-IDF APIs, hardware design guidelines, datasheets, and more without relying only on its training data.
+The [Espressif Documentation MCP Server](https://mcp.espressif.com/#espressif-documentation) connects your AI agent directly to official, up-to-date Espressif documentation. The agent can use it to look up ESP-IDF APIs, hardware design guidelines, datasheets, and more without relying only on its training data.
 
 You need a GitHub or WeChat account to authenticate with the server.
 

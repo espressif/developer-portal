@@ -10,8 +10,6 @@ showAuthor: false
 
 ## Assignment steps
 
----
-
 In Assignment 3, you created a working LED blink application for the ESP32-C5-DevKitC-1. The addressable LED driver, FreeRTOS task, and timing logic currently live in `main/led_blink.c`.
 
 In this assignment, you will move that logic into a reusable local component. You have already practised the ESP-IDF concepts and spec-driven workflow involved, so each step below focuses on one checkpoint.

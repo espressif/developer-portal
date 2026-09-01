@@ -10,8 +10,6 @@ showAuthor: false
 
 ## Assignment steps
 
----
-
 In this assignment, you will introduce one controlled defect into the working `led_blink` component, collect evidence, and use an AI agent to diagnose and fix the root cause.
 
 The defect changes physical LED behaviour while allowing the project to build and logs to continue. This demonstrates why runtime logs alone are not proof that hardware behaves correctly.
@@ -112,5 +110,6 @@ Complete the assignment only when:
 
 - [Refactor an ESP-IDF component with AI](../optional-refactoring/)
 - [Analyze addressable LED frames with Saleae Logic 2](../optional-saleae/)
+- [Git workflow for agent-assisted development](../optional-git-workflow)
 
 [Back to workshop home](/workshops/ai-agent-coding-for-esp-idf/)
