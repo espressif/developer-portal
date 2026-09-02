@@ -21,9 +21,13 @@ More Events
 
 ## Featured Articles
 
-{{< article link="/blog/2026/08/open-sourcing-esp-rainmaker-neo/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/08/esp-bist-motor-controller-hmi/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/07/espressif-aliro-solution/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/08/wifi-aware-esp-to-iphone/" showSummary=true compactSummary=true >}}
+
+## Featured Community Articles
+
+{{< article link="/blog/2026/08/esp32-bit-pirate/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
