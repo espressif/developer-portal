@@ -179,3 +179,25 @@ table th[align="right"], table td[align="right"] {
 .prose .tab__container {
   max-width: none;
 }
+
+/*
+  Bordered tables.
+  The default prose styling uses horizontal rules only, which reads as
+  loose when a table carries dense reference content. Cell borders make
+  row and column boundaries explicit.
+*/
+.prose table {
+  border-collapse: collapse;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid rgb(var(--color-neutral-300));
+  padding: 0.5rem 0.75rem;
+  vertical-align: top;
+}
+
+.dark .prose th,
+.dark .prose td {
+  border-color: rgb(var(--color-neutral-700));
+}
