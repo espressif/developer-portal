@@ -3,7 +3,7 @@ sync_github:
   image: alpine:latest
   tags:
     - deploy_docs
-    - shiny
+    - brew
   rules:
     !reference [.label-based-rules, rules]
   variables:

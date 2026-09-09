@@ -3,7 +3,7 @@ deploy_preview:
   image: espressif/scp
   tags:
     - deploy_docs
-    - shiny
+    - brew
   rules:
     !reference [.default-rules, rules]
   needs: ["build_hugo"]

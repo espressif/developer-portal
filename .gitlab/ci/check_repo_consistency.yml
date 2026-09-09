@@ -3,7 +3,7 @@ check_repo_consistency:
   image: ubuntu:latest
   tags:
     - deploy_docs
-    - shiny
+    - brew
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       allow_failure: true
