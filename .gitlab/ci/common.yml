@@ -5,7 +5,7 @@ default:
   image: badouralix/curl-jq
   tags:
     - deploy_docs
-    - shiny
+    - brew
 
 .add_comment_script:
   script:
