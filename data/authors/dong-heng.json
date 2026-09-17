@@ -1,0 +1,9 @@
+{
+    "name": "Dong Heng",
+    "type": "espressif",
+    "image": "img/authors/espressif.webp",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "github": "https://github.com/dongheng" }
+    ]
+}
