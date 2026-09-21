@@ -268,7 +268,8 @@ After that, include your `.mp4` video using this shortcode:
 {{</* video src="video/my-video.mp4" */>}}
 ```
 
-You might also find useful [Asciinema casts](#asciinema-casts) and [Video](#video).
+> [!IMPORTANT]
+> MP4 files increase developer portal size and slow down page loading. If your animated image exceeds 200 KB, consider using [Asciinema casts](#asciinema-casts) or [Video](#video).
 
 
 ### Code blocks
