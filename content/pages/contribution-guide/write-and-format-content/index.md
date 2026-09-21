@@ -103,7 +103,9 @@ If you need other content types or shortcodes implemented, either create a discu
 
 When you link to other places on the Developer Portal, you can use:
 
-- Absolute paths starting with `/` that map from `content/_index.md`
+- Absolute paths:
+  - Start with `/`
+  - The root is mapped against `content/_index.md` (see examples below)
 - Relative paths:
   - To refer to a parent page, use `.`
   - To refer to a sibling page, use the name of its folder directly
