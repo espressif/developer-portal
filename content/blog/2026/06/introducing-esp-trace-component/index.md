@@ -1,6 +1,7 @@
 ---
 title: Introducing the esp_trace component
 date: 2026-06-01
+lastmod: 2026-09-17
 summary: esp_trace is a new ESP-IDF component that splits application-level tracing into pluggable encoders and transports, so adding a new trace library no longer means patching the kernel. This post gives a high-level tour and walks through the example that demonstrates the integration.
 tags:
   - ESP-IDF
@@ -67,6 +68,10 @@ Today the component ships with one production encoder and one example encoder:
 
   ![SystemView showing a captured ESP-IDF trace](img/sysview-output.webp)
 
+  You can also open SystemView captures in [ESP-Trace-Viewer](https://github.com/espressif/esp-trace-viewer), an open-source viewer that runs in your browser. There is nothing to install, and your trace data never leaves your machine. Load a `.svdat` file together with your application's `.elf` to see function and heap allocation names, CPU load, and runtime statistics for each task.
+
+  ![ESP-Trace-Viewer showing a captured ESP-IDF trace](img/esp-trace-viewer.webp)
+
 - **A small reference encoder** that ships with the example. It emits plain text, one line per FreeRTOS event, so you can read the trace live in any serial terminal.
 
 The architecture is open. A CTF encoder is on the roadmap, and the same extension points let anyone publish their own encoder (or transport) as a managed component. From the application's point of view they all look the same; only the Kconfig selection changes.
@@ -85,13 +90,14 @@ The example is designed as a starting template for anyone integrating a new trac
 
 ## Conclusion
 
-The takeaway: third-party trace tools no longer need to patch ESP-IDF. If you maintain a tracer, the integration is now a self-contained managed component built around two small contracts (encoder and transport). SystemView is the recommended out-of-the-box choice today, the example shows the smallest viable port, and a CTF encoder is on the roadmap.
+The takeaway: third-party trace tools no longer need to patch ESP-IDF. If you maintain a tracer, the integration is now a self-contained managed component built around two small contracts (encoder and transport). SystemView is the recommended out-of-the-box choice today (its traces can be viewed in SystemView or in ESP-Trace-Viewer), the example shows the smallest viable port, and a CTF encoder is on the roadmap.
 
 ## Where to go next
 
 - [`components/esp_trace`](https://github.com/espressif/esp-idf/tree/master/components/esp_trace) — full architecture diagram and a reference for the encoder and transport vtables.
 - [`examples/system/esp_trace`](https://github.com/espressif/esp-idf/tree/master/examples/system/esp_trace) — the minimal example. Start here if you want to write your own encoder.
 - [`examples/system/sysview_tracing`](https://github.com/espressif/esp-idf/tree/master/examples/system/sysview_tracing) — shows SystemView tracing end-to-end using the `esp_sysview` encoder adapter.
+- [ESP-Trace-Viewer](https://espressif.github.io/esp-trace-viewer/) — a browser-based viewer for SystemView trace files, with demo captures you can try right away.
 - [Application Tracing API guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/app_trace.html) — the broader docs that put `esp_trace` in context with the rest of the tracing stack.
 
 If you build something on top of `esp_trace`, we would love to see it.
