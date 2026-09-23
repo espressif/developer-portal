@@ -1,0 +1,9 @@
+{
+    "name": "Wan Lei",
+    "image" : "img/authors/espressif.webp",
+    "bio": "Embedded Software Engineer at Espressif",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/wanckl/" },
+        { "github": "https://github.com/wanckl" }
+    ]
+}
