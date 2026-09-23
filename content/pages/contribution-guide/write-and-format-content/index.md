@@ -103,7 +103,9 @@ If you need other content types or shortcodes implemented, either create a discu
 
 When you link to other places on the Developer Portal, you can use:
 
-- Absolute paths starting with `/` that map from `content/_index.md`
+- Absolute paths:
+  - Start with `/`
+  - The root is mapped against `content/_index.md` (see examples below)
 - Relative paths:
   - To refer to a parent page, use `.`
   - To refer to a sibling page, use the name of its folder directly
@@ -266,7 +268,8 @@ After that, include your `.mp4` video using this shortcode:
 {{</* video src="video/my-video.mp4" */>}}
 ```
 
-You might also find useful [Asciinema casts](#asciinema-casts) and [Video](#video).
+> [!IMPORTANT]
+> MP4 files increase developer portal size and slow down page loading. If your animated image exceeds 200 KB, consider using [Asciinema casts](#asciinema-casts) or [Video](#video).
 
 
 ### Code blocks

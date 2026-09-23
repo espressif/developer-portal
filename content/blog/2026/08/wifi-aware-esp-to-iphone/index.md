@@ -76,6 +76,7 @@ Run the app on a physical device that supports Wi-Fi Aware and runs iOS 26 or iP
 Once both sides are running, tap **Pair New Device** in the app, select the ESP device, and enter the PIN shown in the ESP monitor which is `000000` by default.
 
 {{< youtube id="4ho_wjy3w4I" title="Wi-Fi Aware UDP demo running on an ESP device and an iPhone" loading=lazy >}}
+{{< bilibili-note BV1vUhJ6FEFp >}}
 
 ### What happens after pairing?
 
