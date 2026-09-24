@@ -279,7 +279,7 @@ camera has seen our goal within 500 ms, **and** the line sensors are on the line
     caption="How the defender fits the rest of the firmware. Roles are thin; the behaviour lives in the shared primitives underneath, and defendGoal() is where everything above happens."
     >}}
 
-If it crosses out on one side, the defender latches that side and re-clamps its strafe so it can only
+If it crosses the line on one side, the defender latches that side and re-clamps its strafe so it can only
 push back toward the centre. The result is what we are proudest of: it covered the full width of the
 goal and nothing beyond it, and never needed recalibrating.
 
