@@ -375,7 +375,7 @@ Eleventh of twenty-four is not a podium and we will not dress it up as one. It i
 of where we are: a team that can build hardware and control systems at the level of the best in the
 world, and has not yet built a complete robot at that level.
 
-The ESP32-S3 never failed doing its job — not at 1 kHz on the heading loop, not with 16,000 ADC
+The ESP32-S3 never failed to do its job — not at 1 kHz on the heading loop, not with 16,000 ADC
 samples a second, not with ESP-NOW running on the other core. The boards we destroyed, we destroyed
 ourselves, through a gate driver wired the way a datasheet said we could.
 
