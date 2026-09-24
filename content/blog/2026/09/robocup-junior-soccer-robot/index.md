@@ -357,7 +357,7 @@ Solve the hard behaviour at home; the venue will not give you time to think.
 absolute references, measured rather than estimated position, a control law simple enough to reason
 about — and we never gave the attacker that treatment.
 
-**Our own ball fusion.** We trust the commercial MRMS module's angle directly, and rate it as
+**Our own ball fusion.** We trust the commercial MRMS module's angle directly, and rate it
 mediocre — but its filtering beats what we managed ourselves. Our own version already exists in the
 repository, compiled out behind a flag, and it is the more sophisticated pipeline. It is not yet the
 *better* one, because the module filters noise we have not characterised. Next year's job is not
