@@ -90,7 +90,7 @@ We did not pick it from a comparison table. We got the choice wrong twice first.
 **Arduino Mega Pro** was a really bad mistake, picked for the reason a lot of bad decisions get made:
 we already had them at home. Memory hurt most. It was full almost all the time, so we wrote simpler
 code than the robot needed — not because simple was better, but because the good version would not
-fit. And floating-point maths was unusable at the speeds our robot moves at.
+fit. And floating-point maths was unusable at the speeds our robot moves.
 
 That is the whole argument. The line-angle calculation alone runs `sin` and `cos` across 32 sensors at
 333 Hz, and the rest of the cycle wants `atan2f` and a PD loop with a real `dt`. An ATmega2560 is an
