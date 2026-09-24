@@ -66,7 +66,7 @@ In this version we have also introduced the **ESP-IDF: Build App, Flash App and 
 If you just want to just build or flash one of these partitions, these commands are also available:
 
 - **ESP-IDF: Build App Only**,
-- **ESP-IDF: Build Bootloader Only** 
+- **ESP-IDF: Build Bootloader Only**
 - **ESP-IDF: Build Partition Table**
 - **ESP-IDF: Flash App Only (UART)**
 - **ESP-IDF: Flash Bootloader Only (UART)**
