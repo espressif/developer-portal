@@ -110,8 +110,8 @@ dribbler. Two kicker channels. Four speed feedback lines. Two dribbler contacts.
 strings. An I2C bus. Two buttons. The referee module. And a sixteen-channel address bus plus three
 analog returns for the line sensors.
 
-That is thirty-three GPIOs, and the DevKitC-1 has thirty-three only if you use the pins the
-documentation warns you about. We used all of them.
+That is thirty-three GPIOs, and the DevKitC-1 has **thirty-three** only if you use the pins the
+documentation warns you about. The table also lists GPIO43/44, which we left free for UART0, our only console.
 
 **All four strapping pins became our multiplexer address bus.** GPIO0, 3, 45 and 46 are the pins the
 S3 samples at reset to decide how to boot. We drive them as plain outputs carrying a 4-bit address.
@@ -379,18 +379,18 @@ The ESP32-S3 never failed to do its job — not at 1 kHz on the heading loop, no
 samples a second, not with ESP-NOW running on the other core. The boards we destroyed, we destroyed
 ourselves, through a gate driver wired the way a datasheet said we could.
 
-Four things worth stealing:
+Three things worth stealing:
 
 - **Let behaviours blend instead of arbitrating.** Summing weighted vectors into an accumulator gave
   us line avoidance for free, with no priority logic to get wrong.
-- **Know which pins you are spending.** Strapping pins, the PSRAM bank, native USB and JTAG are all
-  yours if you want them — deliberately, unlike us.
+- **Know which pins you are spending.** Strapping pins, the PSRAM bank, native USB and JTAG can all
+  be used as GPIOs, but decide that up front. We ended up using them only because we ran out of pins.
 - **A datasheet's permission is not a test result.** Merging two driver outputs was allowed on paper
   and destroyed hardware on our board.
 
 {{< figure
     src="img/team.webp"
-    alt="The four members of team XLC – WYLDFYRE standing in front of the Incheon RoboCup 2026 sponsor backdrop, two of them holding their robots"
+    alt="The four members of team XLC – WYLDFYRE and their mentor standing in front of the Incheon RoboCup 2026 sponsor backdrop, two of them holding their robots"
     caption="Diana Kunová, Martin Šuriak, Ondrej Peter, Samuel Peter (mentor) and Jakub Bohunický — Incheon, July 2026."
     >}}
 
