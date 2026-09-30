@@ -21,13 +21,13 @@ More Events
 
 ## Featured Articles
 
-{{< article link="/blog/2026/08/esp-bist-motor-controller-hmi/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/09/esp32-rainmaker-en18031-case-study/" showSummary=true compactSummary=true >}}
 <br>
-{{< article link="/blog/2026/08/wifi-aware-esp-to-iphone/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/09/esp32-cra-obligations-and-deadlines/" showSummary=true compactSummary=true >}}
 
 ## Featured Community Articles
 
-{{< article link="/blog/2026/08/esp32-bit-pirate/" showSummary=true compactSummary=true >}}
+{{< article link="/blog/2026/09/robocup-junior-soccer-robot/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="blog/" target="_self" >}}
@@ -38,7 +38,7 @@ More Articles
 
 Dive into our latest workshops and master the skills you need to maximize the power of the ESP32.
 
-{{< article link="/workshops/rainmaker-studio/" showSummary=true compactSummary=true >}}
+{{< article link="/workshops/edge-ai-with-esp32-s3/" showSummary=true compactSummary=true >}}
 
 <br>
 {{< button href="workshops/" target="_self" >}}
