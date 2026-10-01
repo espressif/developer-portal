@@ -21,9 +21,9 @@ More Events
 
 ## Featured Articles
 
-{{< article link="/blog/2026/09/esp32-rainmaker-en18031-case-study/" showSummary=true compactSummary=true >}}
-<br>
 {{< article link="/blog/2026/09/esp32-cra-obligations-and-deadlines/" showSummary=true compactSummary=true >}}
+<br>
+{{< article link="/blog/2026/09/esp32-rainmaker-en18031-case-study/" showSummary=true compactSummary=true >}}
 
 ## Featured Community Articles
 
