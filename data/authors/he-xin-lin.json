@@ -1,5 +1,6 @@
 {
     "name": "He Xinlin",
-    "image" : "img/authors/espressif.png",
+    "type": "espressif",
+    "image": "img/authors/espressif.webp",
     "bio": "Embedded Software Engineer at Espressif"
 }
