@@ -1,5 +1,5 @@
 ---
-title: "Introduction to the ESP32-S31 with Vision: Introduction"
+title: "Introduction to the ESP32-S31 with Vision: Overview of the ESP32-S31"
 date: 2026-09-28
 showTableOfContents: true
 series: ["ESP32-S31-VISION"]
@@ -7,11 +7,20 @@ series_order: 1
 showAuthor: false
 ---
 
-## Introduction to the ESP32-S31
+## Understanding the capabilities of a new SoC
 
 The [ESP32-S31](https://www.espressif.com/en/products/socs/esp32-s31) is a high-performance system-on-chip for multimedia and AIoT applications with wireless connectivity. It combines two 32-bit RISC-V application cores, extensive wired and wireless connectivity, image and audio accelerators, and hardware security in one device.
 
 This combination targets applications such as video doorbells, smart-home control panels, industrial automation, connected cameras, voice terminals, and appliances with rich human-machine interfaces. In this workshop, we focus on its ability to capture camera frames, run neural-network inference locally, and update a display without sending images to the cloud.
+
+## ESP32-S31 highlights
+
+- Dual-core 32-bit RISC-V processor running at up to 320 MHz
+- 128-bit SIMD data path for efficient AI and signal-processing workloads
+- Dedicated hardware for camera input, display output, JPEG processing, pixel processing, and 2D data movement
+- Wi-Fi 6, Bluetooth 5.4 LE and Classic, IEEE 802.15.4, and a Gigabit Ethernet MAC
+- High-speed external flash and PSRAM interfaces with concurrent access
+- Hardware security features including Secure Boot, memory encryption, protected key storage, and a Trusted Execution Environment
 
 ## Processing and memory
 
@@ -71,7 +80,7 @@ An embedded vision pipeline performs more than inference. It must capture a fram
 
 ```mermaid
 graph TD
-    Camera[OV3660 camera] -->|DVP frame| Memory[PSRAM frame buffers]
+    Camera[OV3660 or SC101IOT camera] -->|DVP frame| Memory[PSRAM frame buffers]
     Memory --> PPA[PPA preprocessing]
     PPA --> ESPDL[ESP-DL inference]
     ESPDL --> Results[Boxes and scores]
@@ -120,6 +129,6 @@ In this introduction, you learned that the ESP32-S31:
 
 ## Next step
 
-[Lecture 1: Introduction to the ESP32-S31-Korvo-1](../lecture-1)
+[Overview of the ESP32-S31-Korvo-1](../overview-esp32-s31-korvo-1)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-with-vision/)

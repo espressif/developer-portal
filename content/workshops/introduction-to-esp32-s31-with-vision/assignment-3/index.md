@@ -3,212 +3,269 @@ title: "Introduction to the ESP32-S31 with Vision: Assignment 3"
 date: 2026-09-28
 showTableOfContents: true
 series: ["ESP32-S31-VISION"]
-series_order: 5
+series_order: 8
 showAuthor: false
 ---
 
-## Assignment 3: Set up the ESP-Vision MCP server
+## Detect hands in live camera frames
 
-> [!NOTE]
-> This assignment is optional. If you are not going to use an AI coding agent, continue directly to [Assignment 4: LED blink with ESP-Vision](../assignment-4).
+In this assignment, you will run an ESPDet Pico hand-detection model on live camera frames. The application draws a rectangle and confidence score around each detected hand and displays the annotated image on the ESP32-S31-Korvo-1 LCD.
 
-The Model Context Protocol (MCP) gives an AI coding assistant access to tools and documentation outside its built-in knowledge. See the official [ESP-Vision MCP page](https://mcp.espressif.com/#esp-vision) for service details. In this assignment, you will connect a compatible client to the endpoint `https://mcp.vision.espressif.com`.
-
-The connection helps the assistant verify APIs, chip capabilities, examples, and concepts before generating code.
-
-This workshop uses **Cursor**. You can follow the same workflow with another agent that supports remote MCP servers, such as:
-
-- Visual Studio Code with GitHub Copilot agent mode
-- Claude Code
-- Claude Desktop
-- Another MCP-compatible IDE or coding agent
+This application performs detection, not tracking. Each frame is processed independently, so detections do not receive persistent IDs.
 
 > [!TIP]
-> If you choose Visual Studio Code, you can combine its MCP-capable agent with the ESP-Vision extension from the [ESP-Vision website](https://vision.espressif.com/en). The agent uses the MCP server for documentation, while the extension handles the local board and script workflow.
+> Edit, upload, and run `hand_detection.py` with the [ESP-Vision Web IDE](https://vision.espressif.com/en). The Web IDE manages the script and logs; the camera image is rendered on the board LCD.
 
-## ESP-Vision MCP server
+> [!IMPORTANT]
+> This application uses `lcd.write(image)`, not `image.flush()`. The annotated camera frames appear on the ESP32-S31-Korvo-1 LCD rather than in the IDE preview.
 
-The server can:
+## Hand-detection pipeline
 
-- Report modules available on `esp32s31`, `esp32p4`, and `esp32s3`
-- Check whether a symbol is available for a selected target
-- Return authoritative signatures for ESP-Vision and MicroPython APIs
-- Find and return runnable examples
-- Explain camera, image, inference, and model workflows
+<div style="display: flex; justify-content: center;">
 
-This prevents a common failure mode: generating desktop Python code or a board API that is not present in the ESP-Vision firmware.
+```mermaid
+graph TD
+    Camera[Camera frame] --> Model[ESPDet Pico Hand]
+    Model --> Results[Boxes and confidence scores]
+    Results --> Overlay[Draw detection overlays]
+    Overlay --> LCD[LCD]
+```
+
+</div>
+
+`espdl.ESPDet` performs image preprocessing, inference, and model-specific output decoding. It returns one tuple for each detection that passes the score and non-maximum suppression thresholds:
+
+```text
+(x, y, width, height, score, category)
+```
+
+The first four values define the bounding box. `score` describes the model's confidence, and `category` identifies the detected class.
+
+## Step 1: Prepare the hand-detection model
+
+Download the ESP32-S31 build of the **ESPDet Pico Hand 224 × 224** model from the model collection on the [ESP-Vision website](https://vision.espressif.com/en). Copy it to the root directory of the ESP-Vision flash drive exposed over USB mass storage with this filename:
+
+```text
+espdet_pico_224_224_hand.espdl
+```
+
+The model path on the device will be:
+
+```text
+/espdet_pico_224_224_hand.espdl
+```
+
+After copying the model to the root directory of the board's internal flash disk, use the REPL to verify that it is available:
+
+```python
+import os
+print(os.listdir("/"))
+```
+
+> [!IMPORTANT]
+> Use a model distributed or exported for ESP32-S31. A model built for another target may fail to load or produce incorrect results.
 
 > [!NOTE]
-> The MCP server supplies documentation and examples to the assistant. It does not grant the remote server access to your board. Uploading and running a script still happens through your local ESP-Vision development workflow.
+> A FAT32 microSD card is only needed for a model that does not fit in the internal flash filesystem. Such a card mounts at `/sdcard`, and the model path must be changed to match.
 
-## Configure your agent
+## Step 2: Configure the application
 
-Choose the tab for the agent or application you are using.
+Create `hand_detection.py` and import the camera, display, inference, and timing modules:
 
-{{< tabs group="mcp-client" >}}
-  {{< tab label="Cursor" >}}
-
-This is the agent used in this workshop.
-
-Create `.cursor/mcp.json` in your project:
-
-```json
-{
-  "mcpServers": {
-    "esp-vision-mcp": {
-      "url": "https://mcp.vision.espressif.com"
-    }
-  }
-}
+```python
+import display
+import espdl
+import sensor
+import time
 ```
 
-Open Cursor settings, navigate to **Tools & MCP**, and confirm that `esp-vision-mcp` is enabled. Reload the window if it does not appear immediately.
+Define the model path and detection thresholds:
 
-For a user-wide configuration, place the same server entry in Cursor's user MCP configuration instead of the project file.
-
-  {{< /tab >}}
-  {{< tab label="Visual Studio Code" >}}
-
-Create `.vscode/mcp.json`:
-
-```json
-{
-  "servers": {
-    "esp-vision-mcp": {
-      "type": "http",
-      "url": "https://mcp.vision.espressif.com"
-    }
-  }
-}
+```python
+MODEL = "/espdet_pico_224_224_hand.espdl"
+SCORE_THRESHOLD = 0.5
+NMS_THRESHOLD = 0.7
+BOX_COLOR = (255, 0, 0)
 ```
 
-Start the server from Visual Studio Code's MCP server list, then open GitHub Copilot Chat in agent mode. If your MCP-capable extension defines a different configuration schema, use its HTTP MCP instructions with the same endpoint.
+- `SCORE_THRESHOLD` discards detections with a confidence score below 0.5.
+- `NMS_THRESHOLD` controls when overlapping candidate boxes are considered duplicates.
+- `BOX_COLOR` draws red boxes and labels in RGB order.
 
-  {{< /tab >}}
-  {{< tab label="Claude Code" >}}
+These values are starting points. Lowering the score threshold can recover difficult detections but may increase false positives. See [Lecture 1](../lecture-1#score-and-nms-thresholds) for additional details.
 
-From the workshop project directory, run:
+## Step 3: Initialize the camera, LCD, and model
 
-```bash
-claude mcp add --transport http esp-vision-mcp \
-  https://mcp.vision.espressif.com
+Initialize the LCD and configure the camera for 320 × 240 RGB frames:
+
+```python
+lcd = display.Display()
+
+sensor.reset()
+sensor.set_pixformat(sensor.RGB565)
+sensor.set_framesize(sensor.QVGA)
+sensor.skip_frames(time=1000)
 ```
 
-Verify the registration:
+Create the detector once, before the frame loop:
 
-```bash
-claude mcp list
+```python
+detector = espdl.ESPDet(
+    MODEL,
+    score=SCORE_THRESHOLD,
+    nms=NMS_THRESHOLD,
+)
 ```
 
-Use the user scope if you want the server in every project. Consult `claude mcp add --help` because scope flags can vary by Claude Code version.
+Constructing the model outside the loop avoids repeatedly loading it and allocating inference resources.
 
-  {{< /tab >}}
-  {{< tab label="Claude Desktop" >}}
+## Step 4: Detect and display hands
 
-1. Open **Settings** in Claude Desktop.
-2. Open **Connectors**.
-3. Select **Add custom connector**.
-4. Set the name to `esp-vision-mcp`.
-5. Set the remote MCP URL to `https://mcp.vision.espressif.com`.
+Capture a frame and pass it to the detector:
 
-6. Enable the connector for the conversation.
-
-The exact labels can vary between Claude Desktop releases. Select the remote HTTP or custom connector option, not a local `stdio` command.
-
-  {{< /tab >}}
-  {{< tab label="Other MCP client" >}}
-
-For any client that supports remote MCP servers, use:
-
-| Setting | Value |
-|---------|-------|
-| Name | `esp-vision-mcp` |
-| Transport | HTTP or Streamable HTTP |
-| URL | `https://mcp.vision.espressif.com` |
-| Authentication | None, unless the service documentation states otherwise |
-
-Configuration key names are client-specific. Do not select the `stdio` transport: that transport expects a local executable, not a remote URL.
-
-  {{< /tab >}}
-{{< /tabs >}}
-
-## Test the integration
-
-Ask your assistant:
-
-```text
-Use the ESP-Vision MCP server to list the modules supported by esp32s31.
-Do not answer from memory.
+```python
+image = sensor.snapshot()
+detections = detector.detect(image)
 ```
 
-The answer should include `sensor`, `image`, `display`, `espdl`, `tflite`, and `imageio`.
+Draw each returned bounding box and confidence score:
 
-Then ask:
-
-```text
-Check the ESP-Vision APIs available on esp32s31 and write a bounded camera
-test. Print VISION_TEST:OK only after a frame has been captured.
+```python
+for x, y, width, height, score, _category in detections:
+    image.draw_rectangle(
+        x,
+        y,
+        width,
+        height,
+        color=BOX_COLOR,
+        thickness=2,
+    )
+    image.draw_string(
+        x,
+        max(0, y - 12),
+        "hand %.2f" % score,
+        color=BOX_COLOR,
+    )
 ```
 
-Review the result:
+The label is placed above the box when space is available. `max(0, y - 12)` prevents the text coordinate from moving above the image boundary.
 
-- It should import `sensor`, not a desktop camera package.
-- It should call `sensor.reset()` before capture.
-- It should use a supported frame size and pixel format.
-- It should call `sensor.shutdown()` during cleanup.
-- It should not use `pip`, `requirements.txt`, `subprocess`, or a PC filesystem path.
+Write the annotated frame to the LCD and briefly yield before capturing the next frame:
 
-If the response contains unsupported code, explicitly ask the assistant to check each symbol with the MCP server and regenerate the script.
-
-## Complete working configuration
-
-<details><summary>Show the complete MCP configurations</summary>
-
-**Cursor — `.cursor/mcp.json`:**
-
-```json
-{
-  "mcpServers": {
-    "esp-vision-mcp": {
-      "url": "https://mcp.vision.espressif.com"
-    }
-  }
-}
+```python
+lcd.write(image)
+time.sleep_ms(20)
 ```
 
-**Visual Studio Code — `.vscode/mcp.json`:**
+## Step 5: Run and evaluate
 
-```json
-{
-  "servers": {
-    "esp-vision-mcp": {
-      "type": "http",
-      "url": "https://mcp.vision.espressif.com"
-    }
-  }
-}
-```
+1. Connect the ESP-Vision Web IDE to the board.
+2. Create `hand_detection.py`.
+3. Paste the complete code and save it to the device.
+4. Select **Run**.
+5. Observe the LCD and REPL output.
 
-**Claude Code:**
+Test these conditions:
 
-```bash
-claude mcp add --transport http esp-vision-mcp \
-  https://mcp.vision.espressif.com
+| Test | Expected behavior |
+|------|-------------------|
+| No hand | No detection box |
+| One visible hand | One red box and confidence score |
+| Two separated hands | A box around each detected hand |
+| Partially hidden hand | Detection may become less confident or disappear |
+| Poor lighting or fast movement | Detection may flicker because of blur or low contrast |
+
+If detections are unreliable:
+
+- Improve front lighting and reduce motion blur.
+- Keep the full hand visible and within the camera frame.
+- Move the hand closer if it occupies very few pixels.
+- Lower `SCORE_THRESHOLD` gradually, for example from 0.5 to 0.4, while checking for false positives.
+- Confirm that the model file is the ESP32-S31 hand-detection model.
+
+## Complete working code
+
+<details><summary>Show the complete hand_detection.py</summary>
+
+```python
+# SPDX-FileCopyrightText: 2026 Espressif Systems (Shanghai) CO LTD
+# SPDX-License-Identifier: Apache-2.0
+
+import display
+import espdl
+import sensor
+import time
+
+MODEL = "/espdet_pico_224_224_hand.espdl"
+SCORE_THRESHOLD = 0.5
+NMS_THRESHOLD = 0.7
+BOX_COLOR = (255, 0, 0)
+
+lcd = display.Display()
+
+sensor.reset()
+sensor.set_pixformat(sensor.RGB565)
+sensor.set_framesize(sensor.QVGA)
+sensor.skip_frames(time=1000)
+
+detector = espdl.ESPDet(
+    MODEL,
+    score=SCORE_THRESHOLD,
+    nms=NMS_THRESHOLD,
+)
+
+try:
+    while True:
+        image = sensor.snapshot()
+
+        detections = detector.detect(image)
+
+        for x, y, width, height, score, _category in detections:
+            image.draw_rectangle(
+                x,
+                y,
+                width,
+                height,
+                color=BOX_COLOR,
+                thickness=2,
+            )
+            image.draw_string(
+                x,
+                max(0, y - 12),
+                "hand %.2f" % score,
+                color=BOX_COLOR,
+            )
+
+        lcd.write(image)
+        time.sleep_ms(20)
+finally:
+    detector.deinit()
+    sensor.shutdown()
+    lcd.deinit()
 ```
 
 </details>
+
+## What you will see
+
+- A live 320 × 240 camera image on the ESP32-S31-Korvo-1 LCD.
+- A red rectangle around each detected hand.
+- A `hand` label and confidence score above each box.
+- Boxes that update independently on every frame.
 
 ## What you learned
 
 In this assignment, you:
 
-- Connected Cursor, Visual Studio Code, Claude Code, or another client to the ESP-Vision MCP server
-- Learned what information the MCP server provides
-- Verified ESP32-S31 modules and APIs through tools rather than model memory
-- Recognized desktop Python patterns that do not work in device-side MicroPython
+- Loaded an ESP32-S31-compatible ESPDet Pico hand model from internal flash
+- Configured score and NMS thresholds
+- Interpreted detector boxes, scores, and categories
+- Drew detection results on live camera frames
+- Displayed annotated frames on the board LCD
+- Released model, camera, and display resources when the script stops
 
 ## Next step
 
-[Assignment 4: LED blink with ESP-Vision](../assignment-4)
+[Assignment 4: Add a safety zone](../assignment-4)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-with-vision/)

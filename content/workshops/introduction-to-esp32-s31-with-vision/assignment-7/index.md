@@ -3,457 +3,674 @@ title: "Introduction to the ESP32-S31 with Vision: Assignment 7"
 date: 2026-09-28
 showTableOfContents: true
 series: ["ESP32-S31-VISION"]
-series_order: 10
+series_order: 12
 showAuthor: false
 ---
 
-## Assignment 7: Add a safety zone
+## Integrate local inference into a native camera pipeline
 
-A safety zone is a region in the camera image that a detected hand should not enter. It could represent a cutting area, a hot surface, a robot workspace, or a protected control panel.
+In this assignment, you will extend the BSP camera project from Assignment 6 with local face detection using [ESP-DL](https://github.com/espressif/esp-dl). Camera frames, model inference, and result rendering all remain on the ESP32-S31.
 
-In this assignment, you will extend the hand detector from Assignment 6 with a simple centroid tracker and a rectangular safety zone. The application calculates how much of each tracked hand overlaps the zone. The hand box, zone, and warning text turn red when the overlap exceeds a threshold.
+By the end, the LCD will show the live camera stream with a bounding box around each detected face.
 
 > [!TIP]
-> Continue with the ESP-Vision Web IDE, or use the ESP-Vision extension for [Visual Studio Code](https://code.visualstudio.com/) available from the [ESP-Vision website](https://vision.espressif.com/en) to edit and run `safety_zone.py`. The IDE manages the script and logs; `lcd.write(frame)` renders the annotated image on the board LCD.
+> The commands in this assignment use the ESP-IDF CLI. As a second option, you can use [Visual Studio Code](https://code.visualstudio.com/) with the [ESP-IDF extension](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) to select the `esp32s31` target, open menuconfig, build, flash, and monitor the project.
 
-## Regions of interest
+## Step 1: Add the ESP-DL dependencies
 
-An image rectangle is represented as `(x, y, width, height)`, where `(x, y)` is its top-left corner. The origin `(0, 0)` is at the top left of the image.
+{{< tabs group="esp-idf-dependencies" >}}
+  {{< tab label="ESP-IDF CLI" >}}
 
-Hardcoded pixels work only at one frame size. Define the zone as a fraction of the frame instead:
+Add the face-detection component to `main/idf_component.yml`:
 
-```text
-left   = 60% of frame width
-top    = 15% of frame height
-width  = 30% of frame width
-height = 70% of frame height
+```yaml
+dependencies:
+  espressif/esp32_s31_korvo_1:
+    version: "1.0.1"
+  espressif/human_face_detect:
+    version: "0.5.0"
 ```
 
-This places a vertical protected region on the right side and scales it when the frame resolution changes.
+Run reconfigure so the Component Manager downloads and registers the new dependencies:
 
-Two rectangles overlap when their intersection has positive width and height:
-
-```text
-intersection_left   = max(hand_left, zone_left)
-intersection_top    = max(hand_top, zone_top)
-intersection_right  = min(hand_right, zone_right)
-intersection_bottom = min(hand_bottom, zone_bottom)
+```bash
+idf.py reconfigure
 ```
-
-This workshop divides the intersection area by the detected hand-box area. Requiring 15% overlap is more stable than triggering on a single boundary pixel.
-
-## Step 1: Define the safety zone
-
-Copy `hand_detection.py` from Assignment 6 to a new file named `safety_zone.py`. Add these constants:
-
-```python
-ZONE_X = 0.60
-ZONE_Y = 0.15
-ZONE_WIDTH = 0.30
-ZONE_HEIGHT = 0.70
-MIN_OVERLAP = 0.15
-```
-
-Add a function that converts the normalized values to pixels:
-
-```python
-def make_zone(frame):
-    return (
-        int(frame.width() * ZONE_X),
-        int(frame.height() * ZONE_Y),
-        int(frame.width() * ZONE_WIDTH),
-        int(frame.height() * ZONE_HEIGHT),
-    )
-```
-
-Draw the zone after capturing a frame:
-
-```python
-zone = make_zone(frame)
-zx, zy, zw, zh = zone
-frame.draw_rectangle(
-    zx, zy, zw, zh, color=(0, 255, 0), thickness=3)
-```
-
-## Step 2: Detect an intrusion
-
-Add the overlap calculation:
-
-```python
-def overlap_ratio(hand, zone):
-    hx, hy, hw, hh, score, category = hand
-    zx, zy, zw, zh = zone
-
-    left = max(hx, zx)
-    top = max(hy, zy)
-    right = min(hx + hw, zx + zw)
-    bottom = min(hy + hh, zy + zh)
-
-    intersection_width = max(0, right - left)
-    intersection_height = max(0, bottom - top)
-    intersection = intersection_width * intersection_height
-    hand_area = max(1, hw * hh)
-    return intersection / hand_area
-```
-
-For every detection:
-
-```python
-ratio = overlap_ratio(detection, zone)
-inside = ratio >= MIN_OVERLAP
-```
-
-Using the hand box as the denominator answers: "How much of this detected hand is inside the zone?" A different application might divide by the zone area or use intersection over union.
-
-## Step 3: Add centroid tracking
-
-The detector returns independent results for every frame. Add a small tracker so the application can associate nearby detections over time:
-
-```python
-MAX_DISTANCE_SQ = 80 * 80
-MAX_MISSED = 3
-
-
-def center(detection):
-    x, y, w, h, score, category = detection
-    return x + w // 2, y + h // 2
-
-
-def update_tracks(detections, tracks, next_id):
-    updated = {}
-    used_ids = set()
-    output = []
-
-    for detection in detections:
-        cx, cy = center(detection)
-        best_id = None
-        best_distance = MAX_DISTANCE_SQ + 1
-
-        for track_id, state in tracks.items():
-            if track_id in used_ids:
-                continue
-            previous_x, previous_y, missed = state
-            dx = cx - previous_x
-            dy = cy - previous_y
-            distance = dx * dx + dy * dy
-            if distance < best_distance:
-                best_id = track_id
-                best_distance = distance
-
-        if best_id is None or best_distance > MAX_DISTANCE_SQ:
-            best_id = next_id
-            next_id += 1
-
-        used_ids.add(best_id)
-        updated[best_id] = (cx, cy, 0)
-        output.append((best_id, detection))
-
-    for track_id, state in tracks.items():
-        if track_id in used_ids:
-            continue
-        previous_x, previous_y, missed = state
-        if missed < MAX_MISSED:
-            updated[track_id] = (
-                previous_x, previous_y, missed + 1)
-
-    return output, updated, next_id
-```
-
-Initialize the tracker once before the frame loop:
-
-```python
-tracks = {}
-next_id = 1
-```
-
-After detecting hands in each frame, update the tracks:
-
-```python
-detections = detector.detect(frame)
-tracked, tracks, next_id = update_tracks(
-    detections, tracks, next_id)
-```
-
-The tracker compares squared distances between bounding-box centers. A detection keeps an existing ID when its nearest unused track is within 80 pixels. `MAX_MISSED` retains a track for up to three missed frames. This lightweight method is suitable for the exercise, but IDs can change when hands move quickly, overlap, or cross.
-
-## Step 4: Combine the zone with tracking
-
-Replace the drawing section from Assignment 6 with:
-
-```python
-intrusion_ids = []
-
-for track_id, detection in tracked:
-    x, y, w, h, score, category = detection
-    ratio = overlap_ratio(detection, zone)
-    inside = ratio >= MIN_OVERLAP
-    color = (255, 0, 0) if inside else (0, 255, 0)
-
-    if inside:
-        intrusion_ids.append(track_id)
-
-    frame.draw_rectangle(
-        x, y, w, h, color=color, thickness=2)
-    frame.draw_string(
-        x, max(0, y - 12),
-        "hand %d %.0f%%" % (track_id, ratio * 100),
-        color=color)
-
-zone_color = (255, 0, 0) if intrusion_ids else (0, 255, 0)
-zx, zy, zw, zh = zone
-frame.draw_rectangle(
-    zx, zy, zw, zh, color=zone_color, thickness=3)
-
-frame.draw_string(
-    8, 8,
-    "KEEP HANDS OFF!" if intrusion_ids else "ZONE CLEAR",
-    color=zone_color)
-```
-
-The track ID in the label makes it possible to see which hand caused an intrusion when multiple hands are visible.
-
-## Step 5: Run and test the safety zone
-
-{{< tabs group="esp-vision-ide" >}}
-  {{< tab label="Web IDE" >}}
-
-1. Connect the ESP-Vision Web IDE to the board.
-2. Create `safety_zone.py`.
-3. Paste the complete code and save it to the device.
-4. Select **Run**.
-5. Observe the safety zone, hand boxes, and labels on the board LCD.
 
   {{< /tab >}}
   {{< tab label="Visual Studio Code" >}}
 
-1. Connect with **ESP-VISION: Connect**.
-2. Create and open `safety_zone.py`.
-3. Paste and save the complete code.
-4. Run **ESP-VISION: Run Current File**.
-5. Observe the safety zone, hand boxes, and labels on the board LCD.
+1. Run **ESP-IDF: Show ESP Component Registry**.
+2. Search for `human_face_detect`.
+3. Open `espressif/human_face_detect`, select version **0.5.0**, and select **Install**.
+4. Confirm that `main/idf_component.yml` contains both required components.
+5. Run **ESP-IDF: Run idf.py reconfigure Task**.
 
   {{< /tab >}}
 {{< /tabs >}}
 
-Run these tests:
+The final component manifest must contain:
 
-| Scenario | Expected result |
-|----------|-----------------|
-| No hand | Green zone |
-| Hand outside zone | Green hand box and green zone |
-| Less than 15% hand overlap | No warning |
-| At least 15% hand overlap | Red hand box, red zone, and warning text |
-| Two hands, one inside | Only the intruding box is red; zone is red |
-| Intruding hand disappears | Warning clears on the next processed result |
+```yaml
+dependencies:
+  espressif/esp32_s31_korvo_1:
+    version: "1.0.1"
+  espressif/human_face_detect:
+    version: "0.5.0"
+```
 
-Move the camera or change its resolution and confirm that the normalized zone remains on the right side.
+The `human_face_detect` component brings in ESP-DL 3.3.x and the face model. The model is local: it is linked into the firmware as flash read-only data and does not require a network connection at runtime.
 
-### Tune the threshold
+## Step 2: Load a local ESP-DL model
 
-Try `MIN_OVERLAP` values of 0.05, 0.15, and 0.50.
+The face model is local because inference uses a `.espdl` file stored on the device. It is not downloaded from a server and camera frames are not uploaded for processing.
 
-- A low value reacts early but is sensitive near the border.
-- A high value waits until most of the hand is inside.
-- The correct value depends on camera placement and the cost of a missed warning.
+For this assignment, select **FLASH RODATA**. The Component Manager downloads the model during development, and the ESP-IDF build system links it into the application firmware. After flashing, the model is stored in the ESP32-S31-Korvo-1 module's **16 MB SPI flash**.
 
-This geometric check cannot determine real-world depth. A hand can appear inside the 2D region while physically being in front of or behind the protected object. A safety-certified product requires a risk assessment and appropriate sensors and controls.
+This is on-board storage, but it is not the ESP32-S31's internal SRAM. ESP-DL can access the model parameters from memory-mapped flash, while internal SRAM and PSRAM remain available for camera frames, model activations, and application data.
+
+ESP-DL supports three model locations:
+
+| Location | How it works | Advantages | Trade-offs |
+|----------|--------------|------------|------------|
+| Flash rodata | The model is linked into the application binary and stored in the board's SPI flash | Simplest setup; parameters can remain in memory-mapped flash; one firmware image contains everything | Updating the model requires rebuilding and flashing the application |
+| Flash partition | The `.espdl` file is stored in a dedicated data partition named `human_face_det` | The model can be updated separately from the application; useful for OTA model updates | Requires a custom partition table and a separate model-flashing step |
+| microSD card | ESP-DL reads an oversized `.espdl` file from a configured directory on an optional mounted card | Accommodates a model that does not fit in flash and allows replacement without rebuilding firmware | Requires a mounted card, increases startup time, and can require PSRAM for model data |
+
+Flash rodata is the best fit for this native application because it minimizes setup and leaves the model available whenever the firmware boots. The earlier ESP-Vision assignments similarly use the root directory of the internal flash filesystem; a microSD card is reserved for models that do not fit in the available flash space.
+
+Create `main/app_dl.h`:
+
+```c
+#pragma once
+
+#include <stdbool.h>
+#include <stdint.h>
+#include "esp_err.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+esp_err_t app_dl_init(void);
+void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
+                            uint32_t height, bool byte_swapped,
+                            bool run_inference);
+
+#ifdef __cplusplus
+}
+#endif
+```
+
+Create `main/app_dl.cpp`:
+
+```cpp
+#include "app_dl.h"
+#include <algorithm>
+#include <list>
+#include <new>
+#include <vector>
+#include "esp_log.h"
+#include "human_face_detect.hpp"
+#include "dl_image_define.hpp"
+#include "dl_image_draw.hpp"
+
+static const char *TAG = "face_detect";
+static HumanFaceDetect *s_detector;
+static std::list<dl::detect::result_t> s_faces;
+
+extern "C" esp_err_t app_dl_init(void)
+{
+    s_detector = new (std::nothrow) HumanFaceDetect();
+    if (!s_detector) {
+        return ESP_ERR_NO_MEM;
+    }
+    ESP_LOGI(TAG, "Face detector ready; model loads on first inference");
+    return ESP_OK;
+}
+
+extern "C" void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
+                                       uint32_t height, bool byte_swapped,
+                                       bool run_inference)
+{
+    if (!s_detector) {
+        return;
+    }
+
+    dl::image::img_t image = {
+        .data = buffer,
+        .width = static_cast<uint16_t>(width),
+        .height = static_cast<uint16_t>(height),
+        .pix_type = byte_swapped
+            ? dl::image::DL_IMAGE_PIX_TYPE_RGB565BE
+            : dl::image::DL_IMAGE_PIX_TYPE_RGB565LE,
+    };
+
+    if (run_inference) {
+        s_faces = s_detector->run(image);
+    }
+    const std::vector<uint8_t> green = byte_swapped
+        ? std::vector<uint8_t>{0x07, 0xE0}
+        : std::vector<uint8_t>{0xE0, 0x07};
+
+    for (const auto &face : s_faces) {
+        int x1 = std::max(0, face.box[0]);
+        int y1 = std::max(0, face.box[1]);
+        int x2 = std::min(static_cast<int>(width) - 1, face.box[2]);
+        int y2 = std::min(static_cast<int>(height) - 1, face.box[3]);
+        dl::image::draw_hollow_rectangle(image, x1, y1, x2, y2, green, 3);
+        ESP_LOGI(TAG, "face score=%.2f box=[%d,%d,%d,%d]",
+                 face.score, x1, y1, x2, y2);
+    }
+}
+```
+
+`HumanFaceDetect` uses the model type and storage location selected by the component's Kconfig. With flash rodata, constructing the wrapper does not copy the model into RAM. By default, the wrapper initializes the selected model lazily on the first `run()`. That call preprocesses the image, executes the quantized network, and returns bounding boxes, confidence scores, and categories. Some detector variants also return keypoints.
+
+> [!NOTE]
+> Regardless of storage location, inference still needs working memory for intermediate tensors. Storing parameters in flash avoids copying all model parameters into PSRAM, but it does not eliminate the model's activation-memory requirements.
+
+## Step 3: Capture frames and run inference
+
+Rename `main/main.c` to `main/main.cpp`, then add the ESP-DL source file to `main/CMakeLists.txt`:
+
+```cmake
+idf_component_register(
+    SRCS "main.cpp" "app_video.c" "app_dl.cpp"
+    INCLUDE_DIRS "."
+    REQUIRES esp_driver_ppa
+)
+```
+
+Add the header to `main.cpp`:
+
+```cpp
+#include "app_dl.h"
+```
+
+In `camera_video_frame_operation()`, run inference before the PPA scales the image for the LCD. Do not run the model on every captured frame.
+
+The camera example is configured for 10 FPS, so a new frame is expected approximately every 100 ms. If face inference takes as long as, or longer than, that interval, processing every frame blocks the capture callback continuously. The display receives fewer updates, frames can be dropped, and interaction appears stalled.
+
+The code below performs inference only when the frame counter is divisible by five:
+
+```text
+target inference rate = camera frame rate / frame interval
+                      = 10 FPS / 5
+                      = approximately 2 inferences per second
+```
+
+On the other four frames, `app_dl_detect_and_draw()` skips `s_detector->run()` and redraws the most recent results stored in `s_faces`. Consequently:
+
+- Camera frames can continue reaching the PPA and LVGL between inference runs.
+- Bounding boxes remain visible instead of disappearing on skipped frames.
+- CPU and memory bandwidth are available for display processing more often.
+- Detection positions can lag behind a quickly moving face for several frames.
+
+Five is a starting value, not a universal optimum. A smaller interval updates detections more frequently but increases blocking. A larger interval improves display continuity but makes boxes react more slowly. Measure the selected model's latency and tune the interval for the required user experience.
+
+```cpp
+static uint32_t frame_count;
+
+static void camera_video_frame_operation(uint8_t *camera_buf,
+        uint8_t camera_buf_index, uint32_t camera_buf_hes,
+        uint32_t camera_buf_ves, size_t camera_buf_len)
+{
+    ++frame_count;
+    bool byte_swapped =
+        app_video_get_pixelformat() == V4L2_PIX_FMT_RGB565X;
+    bool run_inference = frame_count % 5 == 0;
+    app_dl_detect_and_draw(camera_buf, camera_buf_hes,
+                           camera_buf_ves, byte_swapped,
+                           run_inference);
+
+    // Keep the example's existing PPA scaling and LVGL canvas code below.
+    // ...
+}
+```
+
+Finally, initialize the detector in `app_main()` after the BSP starts the camera:
+
+```cpp
+bsp_display_start();
+bsp_display_backlight_on();
+ESP_ERROR_CHECK(bsp_camera_start(NULL));
+ESP_ERROR_CHECK(app_dl_init());
+```
+
+This first implementation still runs inference synchronously in the frame callback. Frame skipping reduces how often the callback is blocked, but every inference frame still pauses capture until the model finishes. A production application should copy a frame into a PSRAM buffer and run inference in a separate task. The display task can then consume camera frames independently and overlay the latest completed result.
+
+## Step 4: Build, flash, and test
+
+Use these model settings in either interface:
+
+1. Select a face-detection model available for ESP32-S31.
+2. Set the model location to **FLASH RODATA**.
+
+{{< tabs group="esp-idf-build-flash" >}}
+  {{< tab label="ESP-IDF CLI" >}}
+
+```bash
+idf.py menuconfig
+```
+
+Apply the settings under **Component config → models: human_face_detect**, save, and exit. Then build, flash, and monitor:
+
+```bash
+idf.py build
+idf.py -p <PORT> flash monitor
+```
+
+  {{< /tab >}}
+  {{< tab label="Visual Studio Code" >}}
+
+1. Run **ESP-IDF: SDK Configuration Editor (menuconfig)**.
+2. Open **Component config → models: human_face_detect**, apply the settings above, and save.
+3. Connect the board through the USB Type-C **UART** port and switch it on.
+4. Run **ESP-IDF: Select Port to Use (COM, tty, usbserial)** and select the UART port.
+5. Run **ESP-IDF: Build, Flash and Start a Monitor on Your Device**.
+6. Select **UART** as the flash method.
+
+  {{< /tab >}}
+{{< /tabs >}}
+
+Point the camera at a face. The LCD should show a green box and the terminal should print output similar to:
+
+```text
+I (4231) face_detect: face score=0.91 box=[126,48,311,267]
+```
+
+### Troubleshooting
+
+| Symptom | Check |
+|---------|-------|
+| `esp32s31` is an unknown target | Install and activate an ESP-IDF release with ESP32-S31 support |
+| Camera device does not open | Confirm the camera module is seated and that OV3660 or SC101IOT auto-detection is enabled |
+| Blank display | Check the LCD subboard connector and call `bsp_display_backlight_on()` |
+| Build cannot find `human_face_detect.hpp` | Check `main/idf_component.yml`, then run `idf.py reconfigure` |
+| Model does not fit | Select the smaller face model and keep it in flash rodata |
+| Low frame rate | Increase the frame-skip interval or move inference to another task |
+
+Exit the serial monitor with `Ctrl+]`.
 
 ## Complete working code
 
-<details><summary>Show the complete safety_zone.py</summary>
+The generated `app_video.c` and `app_video.h` files remain unchanged.
 
-```python
-import display
-import espdl
-import sensor
-import time
+<details><summary>Show all changed and new project files</summary>
 
+**`main/idf_component.yml`:**
 
-MODEL = "/sdcard/espdet_pico_224_224_hand.espdl"
-SCORE = 0.5
-NMS = 0.7
+```yaml
+dependencies:
+  espressif/esp32_s31_korvo_1:
+    version: "1.0.1"
+  espressif/human_face_detect:
+    version: "0.5.0"
+```
 
-ZONE_X = 0.60
-ZONE_Y = 0.15
-ZONE_WIDTH = 0.30
-ZONE_HEIGHT = 0.70
-MIN_OVERLAP = 0.15
+**`main/CMakeLists.txt`:**
 
-MAX_DISTANCE_SQ = 80 * 80
-MAX_MISSED = 3
+```cmake
+idf_component_register(
+    SRCS "main.cpp" "app_video.c" "app_dl.cpp"
+    INCLUDE_DIRS "."
+    REQUIRES esp_driver_ppa
+)
+```
 
+**`main/app_dl.h`:**
 
-def make_zone(frame):
-    return (
-        int(frame.width() * ZONE_X),
-        int(frame.height() * ZONE_Y),
-        int(frame.width() * ZONE_WIDTH),
-        int(frame.height() * ZONE_HEIGHT),
-    )
+```c
+#pragma once
 
+#include <stdbool.h>
+#include <stdint.h>
+#include "esp_err.h"
 
-def center(detection):
-    x, y, w, h, score, category = detection
-    return x + w // 2, y + h // 2
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+esp_err_t app_dl_init(void);
+void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
+                            uint32_t height, bool byte_swapped,
+                            bool run_inference);
 
-def update_tracks(detections, tracks, next_id):
-    updated = {}
-    used_ids = set()
-    output = []
+#ifdef __cplusplus
+}
+#endif
+```
 
-    for detection in detections:
-        cx, cy = center(detection)
-        best_id = None
-        best_distance = MAX_DISTANCE_SQ + 1
+**`main/app_dl.cpp`:**
 
-        for track_id, state in tracks.items():
-            if track_id in used_ids:
-                continue
-            previous_x, previous_y, missed = state
-            dx = cx - previous_x
-            dy = cy - previous_y
-            distance = dx * dx + dy * dy
-            if distance < best_distance:
-                best_id = track_id
-                best_distance = distance
+```cpp
+#include "app_dl.h"
+#include <algorithm>
+#include <list>
+#include <new>
+#include <vector>
+#include "esp_log.h"
+#include "human_face_detect.hpp"
+#include "dl_image_define.hpp"
+#include "dl_image_draw.hpp"
 
-        if best_id is None or best_distance > MAX_DISTANCE_SQ:
-            best_id = next_id
-            next_id += 1
+static const char *TAG = "face_detect";
+static HumanFaceDetect *s_detector;
+static std::list<dl::detect::result_t> s_faces;
 
-        used_ids.add(best_id)
-        updated[best_id] = (cx, cy, 0)
-        output.append((best_id, detection))
+extern "C" esp_err_t app_dl_init(void)
+{
+    s_detector = new (std::nothrow) HumanFaceDetect();
+    if (!s_detector) {
+        return ESP_ERR_NO_MEM;
+    }
+    ESP_LOGI(TAG, "Face detector ready; model loads on first inference");
+    return ESP_OK;
+}
 
-    for track_id, state in tracks.items():
-        if track_id in used_ids:
-            continue
-        previous_x, previous_y, missed = state
-        if missed < MAX_MISSED:
-            updated[track_id] = (
-                previous_x, previous_y, missed + 1)
+extern "C" void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
+                                       uint32_t height, bool byte_swapped,
+                                       bool run_inference)
+{
+    if (!s_detector) {
+        return;
+    }
 
-    return output, updated, next_id
+    dl::image::img_t image = {
+        .data = buffer,
+        .width = static_cast<uint16_t>(width),
+        .height = static_cast<uint16_t>(height),
+        .pix_type = byte_swapped
+            ? dl::image::DL_IMAGE_PIX_TYPE_RGB565BE
+            : dl::image::DL_IMAGE_PIX_TYPE_RGB565LE,
+    };
 
+    if (run_inference) {
+        s_faces = s_detector->run(image);
+    }
 
-def overlap_ratio(hand, zone):
-    hx, hy, hw, hh, score, category = hand
-    zx, zy, zw, zh = zone
+    const std::vector<uint8_t> green = byte_swapped
+        ? std::vector<uint8_t>{0x07, 0xE0}
+        : std::vector<uint8_t>{0xE0, 0x07};
 
-    left = max(hx, zx)
-    top = max(hy, zy)
-    right = min(hx + hw, zx + zw)
-    bottom = min(hy + hh, zy + zh)
+    for (const auto &face : s_faces) {
+        int x1 = std::max(0, face.box[0]);
+        int y1 = std::max(0, face.box[1]);
+        int x2 = std::min(static_cast<int>(width) - 1, face.box[2]);
+        int y2 = std::min(static_cast<int>(height) - 1, face.box[3]);
+        dl::image::draw_hollow_rectangle(
+            image, x1, y1, x2, y2, green, 3);
+        ESP_LOGI(TAG, "face score=%.2f box=[%d,%d,%d,%d]",
+                 face.score, x1, y1, x2, y2);
+    }
+}
+```
 
-    intersection_width = max(0, right - left)
-    intersection_height = max(0, bottom - top)
-    intersection = intersection_width * intersection_height
-    hand_area = max(1, hw * hh)
-    return intersection / hand_area
+**`main/main.cpp`:**
 
+```cpp
+#include <cassert>
+#include <cstdint>
+#include <cstdio>
+#include <cstring>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+#include <linux/videodev2.h>
 
-def main():
-    detector = None
-    lcd = None
-    tracks = {}
-    next_id = 1
+#include "sdkconfig.h"
+#include "bsp/esp-bsp.h"
+#include "esp_err.h"
+#include "esp_log.h"
+#include "esp_private/esp_cache_private.h"
+#include "app_video.h"
+#include "app_dl.h"
 
-    sensor.reset()
-    try:
-        lcd = display.Display()
-        sensor.set_pixformat(sensor.RGB565)
-        sensor.set_framesize(sensor.QVGA)
-        sensor.skip_frames(time=1000)
-        detector = espdl.ESPDet(MODEL, score=SCORE, nms=NMS)
+#if SOC_PPA_SUPPORTED
+#include "driver/ppa.h"
+#endif
 
-        while True:
-            frame = sensor.snapshot()
-            zone = make_zone(frame)
-            detections = detector.detect(frame)
-            tracked, tracks, next_id = update_tracks(
-                detections, tracks, next_id)
+#define NUM_BUFS 2
+#define ALIGN_UP(num, align) \
+    (((num) + ((align) - 1)) & ~((align) - 1))
 
-            intrusion_ids = []
-            for track_id, detection in tracked:
-                x, y, w, h, score, category = detection
-                ratio = overlap_ratio(detection, zone)
-                inside = ratio >= MIN_OVERLAP
-                color = (255, 0, 0) if inside else (0, 255, 0)
+static const char *TAG = "camera_face_detect";
 
-                if inside:
-                    intrusion_ids.append(track_id)
+#if SOC_PPA_SUPPORTED
+static ppa_client_handle_t s_ppa_handle;
+#endif
 
-                frame.draw_rectangle(
-                    x, y, w, h, color=color, thickness=2)
-                frame.draw_string(
-                    x, max(0, y - 12),
-                    "hand %d %.0f%%" % (track_id, ratio * 100),
-                    color=color)
+static size_t s_cache_line_size;
+static lv_obj_t *s_camera_canvas;
+static uint8_t *s_camera_buffers[NUM_BUFS];
+static uint32_t s_camera_buffer_size;
+static lv_color_format_t s_lvgl_rgb565_format;
+static uint32_t s_frame_count;
 
-            zone_color = (
-                (255, 0, 0) if intrusion_ids else (0, 255, 0))
-            zx, zy, zw, zh = zone
-            frame.draw_rectangle(
-                zx, zy, zw, zh, color=zone_color, thickness=3)
+static lv_color_format_t lvgl_rgb565_format_from_v4l2(
+    uint32_t pixel_format)
+{
+    if (pixel_format == V4L2_PIX_FMT_RGB565X) {
+        return LV_COLOR_FORMAT_RGB565_SWAPPED;
+    }
+    if (pixel_format == V4L2_PIX_FMT_RGB565) {
+        return LV_COLOR_FORMAT_RGB565;
+    }
+    ESP_LOGW(TAG, "Unexpected RGB565 format; using RGB565");
+    return LV_COLOR_FORMAT_RGB565;
+}
 
-            frame.draw_string(
-                8, 8,
-                "KEEP HANDS OFF!" if intrusion_ids else "ZONE CLEAR",
-                color=zone_color)
+#if SOC_PPA_SUPPORTED
+static void app_ppa_init(void)
+{
+    ppa_client_config_t config = {
+        .oper_type = PPA_OPERATION_SRM,
+    };
+    ESP_ERROR_CHECK(ppa_register_client(&config, &s_ppa_handle));
+}
 
-            lcd.write(frame)
-            time.sleep_ms(20)
-    finally:
-        if detector is not None:
-            detector.deinit()
-        sensor.shutdown()
-        if lcd is not None:
-            lcd.deinit()
+static esp_err_t scale_and_rotate(
+    uint8_t *input, uint32_t input_width, uint32_t input_height,
+    uint8_t *output, uint32_t output_width, uint32_t output_height,
+    size_t output_size, ppa_srm_rotation_angle_t rotation)
+{
+    float scale_x = static_cast<float>(output_width) / input_width;
+    float scale_y = static_cast<float>(output_height) / input_height;
 
+    if (rotation == PPA_SRM_ROTATION_ANGLE_90 ||
+            rotation == PPA_SRM_ROTATION_ANGLE_270) {
+        scale_x = static_cast<float>(output_height) / input_width;
+        scale_y = static_cast<float>(output_width) / input_height;
+    }
 
-main()
+    ppa_srm_oper_config_t config = {
+        .in.buffer = input,
+        .in.pic_w = input_width,
+        .in.pic_h = input_height,
+        .in.block_w = input_width,
+        .in.block_h = input_height,
+        .in.block_offset_x = 0,
+        .in.block_offset_y = 0,
+        .in.srm_cm = PPA_SRM_COLOR_MODE_RGB565,
+        .out.buffer = output,
+        .out.buffer_size = output_size,
+        .out.pic_w = output_width,
+        .out.pic_h = output_height,
+        .out.block_offset_x = 0,
+        .out.block_offset_y = 0,
+        .out.srm_cm = PPA_SRM_COLOR_MODE_RGB565,
+        .rotation_angle = rotation,
+        .scale_x = scale_x,
+        .scale_y = scale_y,
+        .rgb_swap = 0,
+        .byte_swap = 0,
+        .mode = PPA_TRANS_MODE_BLOCKING,
+    };
 
+    return ppa_do_scale_rotate_mirror(s_ppa_handle, &config);
+}
+
+static void calculate_aspect_fit(
+    uint32_t source_width, uint32_t source_height,
+    uint32_t destination_width, uint32_t destination_height,
+    uint32_t *output_width, uint32_t *output_height)
+{
+    float source_aspect =
+        static_cast<float>(source_width) / source_height;
+    float destination_aspect =
+        static_cast<float>(destination_width) / destination_height;
+
+    if (source_aspect > destination_aspect) {
+        *output_width = destination_width;
+        *output_height =
+            static_cast<uint32_t>(destination_width / source_aspect);
+    } else {
+        *output_height = destination_height;
+        *output_width =
+            static_cast<uint32_t>(destination_height * source_aspect);
+    }
+}
+#endif
+
+static void camera_frame_operation(
+    uint8_t *camera_buffer, uint8_t buffer_index,
+    uint32_t width, uint32_t height, size_t buffer_length)
+{
+    (void)buffer_length;
+
+    ++s_frame_count;
+    bool byte_swapped =
+        app_video_get_pixelformat() == V4L2_PIX_FMT_RGB565X;
+    bool run_inference = s_frame_count % 5 == 0;
+    app_dl_detect_and_draw(
+        camera_buffer, width, height, byte_swapped, run_inference);
+
+    uint32_t output_width = width;
+    uint32_t output_height = height;
+    uint8_t *output_buffer = camera_buffer;
+
+#if SOC_PPA_SUPPORTED
+    ppa_srm_rotation_angle_t rotation = PPA_SRM_ROTATION_ANGLE_0;
+
+    switch (BSP_CAMERA_ROTATION) {
+    case 90:
+        rotation = PPA_SRM_ROTATION_ANGLE_90;
+        break;
+    case 180:
+        rotation = PPA_SRM_ROTATION_ANGLE_180;
+        break;
+    case 270:
+        rotation = PPA_SRM_ROTATION_ANGLE_270;
+        break;
+    default:
+        break;
+    }
+
+    if (BSP_CAMERA_ROTATION == 90 || BSP_CAMERA_ROTATION == 270) {
+        calculate_aspect_fit(
+            height, width, BSP_LCD_H_RES, BSP_LCD_V_RES,
+            &output_width, &output_height);
+    } else {
+        calculate_aspect_fit(
+            width, height, BSP_LCD_H_RES, BSP_LCD_V_RES,
+            &output_width, &output_height);
+    }
+
+    ESP_ERROR_CHECK(scale_and_rotate(
+        camera_buffer, width, height,
+        s_camera_buffers[buffer_index],
+        output_width, output_height,
+        s_camera_buffer_size, rotation));
+    output_buffer = s_camera_buffers[buffer_index];
+#endif
+
+    bsp_display_lock(0);
+    lv_canvas_set_buffer(
+        s_camera_canvas, output_buffer,
+        output_width, output_height,
+        s_lvgl_rgb565_format);
+    lv_obj_center(s_camera_canvas);
+    lv_obj_invalidate(s_camera_canvas);
+    bsp_display_unlock();
+}
+
+extern "C" void app_main(void)
+{
+    bsp_display_start();
+    bsp_display_backlight_on();
+    ESP_ERROR_CHECK(bsp_camera_start(NULL));
+    ESP_ERROR_CHECK(app_dl_init());
+
+#if SOC_PPA_SUPPORTED
+    app_ppa_init();
+#endif
+
+    ESP_ERROR_CHECK(esp_cache_get_alignment(
+        MALLOC_CAP_SPIRAM, &s_cache_line_size));
+
+    s_camera_buffer_size = ALIGN_UP(
+        BSP_LCD_H_RES * BSP_LCD_V_RES * 2, s_cache_line_size);
+
+    for (int index = 0; index < NUM_BUFS; ++index) {
+        s_camera_buffers[index] = static_cast<uint8_t *>(
+            heap_caps_aligned_calloc(
+                s_cache_line_size, 1, s_camera_buffer_size,
+                MALLOC_CAP_SPIRAM));
+        ESP_ERROR_CHECK(
+            s_camera_buffers[index] ? ESP_OK : ESP_ERR_NO_MEM);
+    }
+
+    int video_fd = app_video_open(
+        BSP_CAMERA_DEVICE, APP_VIDEO_FMT_DRIVER_DEFAULT);
+    ESP_ERROR_CHECK(video_fd < 0 ? ESP_FAIL : ESP_OK);
+
+    s_lvgl_rgb565_format = lvgl_rgb565_format_from_v4l2(
+        app_video_get_pixelformat());
+
+    bsp_display_lock(0);
+    s_camera_canvas = lv_canvas_create(lv_screen_active());
+    lv_canvas_set_buffer(
+        s_camera_canvas, s_camera_buffers[0],
+        BSP_LCD_H_RES, BSP_LCD_V_RES,
+        s_lvgl_rgb565_format);
+    assert(s_camera_canvas);
+    lv_obj_center(s_camera_canvas);
+    bsp_display_unlock();
+
+    ESP_ERROR_CHECK(app_video_set_bufs(video_fd, NUM_BUFS, NULL));
+    ESP_ERROR_CHECK(app_video_register_frame_operation_cb(
+        camera_frame_operation));
+    ESP_ERROR_CHECK(app_video_stream_task_start(video_fd, 0));
+
+    ESP_LOGI(TAG, "Camera and face detection running");
+}
 ```
 
 </details>
 
 ## What you will see
 
-- A live 320 × 240 camera image on the ESP32-S31-Korvo-1 LCD
-- A vertical safety zone on the right side of the image
-- A stable numeric ID and overlap percentage for each tracked hand
-- Green hand boxes and a green zone while no intrusion is detected
-- A `ZONE CLEAR` message while all detected hands remain outside the zone
-- A red hand box, red zone, and `KEEP HANDS OFF!` warning when overlap reaches 15%
+After the application starts:
 
-### Expected output
+- The 4.3-inch LCD shows the live stream from the installed OV3660 or SC101IOT camera.
+- A green bounding box appears around each detected face.
+- The box remains visible between inference frames by reusing the latest detection result.
+- The serial monitor reports each detection's confidence score and bounding-box coordinates.
+- A moving face may briefly move ahead of its box because inference runs every fifth camera frame.
 
-{{< figure
-    src="assets/zone-clear.webp"
-    alt="LCD camera image showing a green safety zone, green hand box, and ZONE CLEAR message"
-    caption="Zone clear: the detected hand remains outside the protected area."
->}}
-
-{{< figure
-    src="assets/zone-danger.webp"
-    alt="LCD camera image showing a red safety zone, red hand box, and KEEP HANDS OFF warning"
-    caption="Zone intrusion: the detected hand overlaps the protected area and triggers the warning."
->}}
+When no face is detected, the display continues showing the live camera stream without a bounding box.
 
 ## What you learned
 
 In this assignment, you:
 
-- Defined a resolution-independent region of interest
-- Calculated rectangle intersection and hand-overlap ratio
-- Added centroid-based tracking and persistent hand IDs
-- Associated intrusion state with tracked hand IDs
-- Added visual status through box, zone, and text colors
-- Evaluated threshold and 2D-camera limitations
+- Added the ESP-DL face-detection component to an ESP-IDF project
+- Loaded a model locally from flash and ran inference without a cloud service
+- Drew detection results on frames before displaying them
 
 ## Next step
 
-[Assignment 8: Keep hands off!](../assignment-8)
+[Conclusion](../conclusion)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-with-vision/)

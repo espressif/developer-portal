@@ -12,7 +12,7 @@ Welcome to the Introduction to the ESP32-S31 with Vision workshop!
 
 In this workshop, you will explore the ESP32-S31 and build computer-vision applications that run entirely on the device. You will use the ESP32-S31-Korvo-1 multimedia development board, its Board Support Package (BSP), [ESP-DL](https://github.com/espressif/esp-dl), and ESP-Vision.
 
-The workshop starts with the SoC and board architecture. You will then run face detection from a native ESP-IDF application before moving to the Python-based ESP-Vision workflow. The final assignments combine hand detection, simple tracking, a configurable safety zone, display overlays, and an RGB LED warning into a "Keep hands off!" application.
+The workshop starts with the SoC and board architecture. You will then use the Python-based ESP-Vision workflow to build camera and safety-zone applications. The final two assignments introduce the native ESP32-S31-Korvo-1 BSP and add ESP-DL face detection to its camera example.
 
 Inference remains local throughout the workshop. Camera frames do not need to be sent to a cloud service.
 
@@ -35,34 +35,43 @@ By the end of the workshop, you will know how to:
 - [ESP32-S31-Korvo-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-korvo-1/user_guide.html).
 - USB Type-C data cable connected to the board's **UART** port.
 - USB Type-A to Type-A data cable for connecting the ESP32-S31-Korvo-1 to the ESP-Vision Web IDE.
-- FAT32-formatted microSD card for ESP-Vision model files.
+- Optional FAT32-formatted microSD card for model files that are too large for the ESP-Vision internal flash filesystem.
 - Optional second USB Type-C cable for the dedicated power port.
+
+> [!IMPORTANT]
+> When the board receives power through the USB Type-A connection, the board's power switch cannot turn it off. Disconnect the Type-A to Type-A cable to fully remove power.
 
 ### Required software
 
-- ESP-IDF v6.1
-- `git` and a serial terminal
-- Chromium-based browser with Web Serial support for the ESP-Vision Web IDE and web flasher
+#### ESP-Vision
+
+- A desktop browser with Web Serial support for the [ESP-Vision Web IDE and web flasher](https://vision.espressif.com/en): Google Chrome 89+, Microsoft Edge 89+, Opera 76+, or Firefox 151+. Other Chromium-based browsers, such as Brave, may also work. Safari is not supported; Chrome or Edge is recommended.
 - [Cursor](https://www.cursor.com/) for the agent-assisted exercises. Other MCP-compatible agents can also be used, including Visual Studio Code with GitHub Copilot agent mode, Claude Code, and Claude Desktop.
-- Optional: [Visual Studio Code](https://code.visualstudio.com/) with the [ESP-IDF extension](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension) for native development and the ESP-Vision extension available from the [ESP-Vision website](https://vision.espressif.com/en) for the later Python exercises.
+
+#### ESP-DL and native ESP-IDF development
+
+- ESP-IDF v6.1 or later; v6.1 is recommended
+- `git` and a serial terminal
+- Optional: [Visual Studio Code](https://code.visualstudio.com/) with the [ESP-IDF extension](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension)
 
 > [!IMPORTANT]
 > ESP32-S31 support is evolving. The commands and APIs in this workshop target ESP32-S31, BSP `espressif/esp32_s31_korvo_1` 1.0.x, and ESP-DL 3.3.x. If you intentionally use newer component versions, review their changelogs before adapting the examples.
 
 ## Agenda
 
-- [Introduction to the ESP32-S31](introduction)
-- [Lecture 1: Introduction to the ESP32-S31-Korvo-1](lecture-1)
-- [Assignment 1: Face detection with ESP-DL and the ESP32-S31-Korvo-1 BSP](assignment-1)
-- [Assignment 2: Getting started with ESP-Vision](assignment-2)
-- [Assignment 3: Set up the ESP-Vision MCP server](assignment-3)
-- [Assignment 4: LED blink with ESP-Vision](assignment-4)
-- [Assignment 5: Your first camera application](assignment-5)
-- [Lecture 2: Available models for ESP-Vision](lecture-2)
-- [Assignment 6: Hand detection with ESPDet](assignment-6)
-- [Assignment 7: Add a safety zone](assignment-7)
-- [Assignment 8: Keep hands off!](assignment-8)
-- [Lecture 3: Conclusion](lecture-3)
+- [Overview of the ESP32-S31](introduction)
+- [Overview of the ESP32-S31-Korvo-1](overview-esp32-s31-korvo-1)
+- [Tooling: Getting started with ESP-Vision](tooling-esp-vision)
+- [Tooling: Set up the ESP-Vision MCP server (optional)](tooling-mcp)
+- [Assignment 1: LED blink with ESP-Vision](assignment-1)
+- [Assignment 2: Your first camera application](assignment-2)
+- [Lecture 1: Available models for ESP-Vision](lecture-1)
+- [Assignment 3: Hand detection with ESPDet](assignment-3)
+- [Assignment 4: Add a safety zone](assignment-4)
+- [Assignment 5: Keep hands off!](assignment-5)
+- [Assignment 6: Get started with the ESP32-S31-Korvo-1 BSP](assignment-6)
+- [Assignment 7: Face detection with ESP-DL](assignment-7)
+- [Conclusion](conclusion)
 
 ## Time requirements
 
@@ -72,7 +81,7 @@ By the end of the workshop, you will know how to:
 
 ## Next step
 
-[Introduction to the ESP32-S31](introduction)
+[Overview of the ESP32-S31](introduction)
 
 ## Feedback
 

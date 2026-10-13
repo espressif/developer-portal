@@ -3,187 +3,442 @@ title: "Introduction to the ESP32-S31 with Vision: Assignment 4"
 date: 2026-09-28
 showTableOfContents: true
 series: ["ESP32-S31-VISION"]
-series_order: 6
+series_order: 9
 showAuthor: false
 ---
 
-## Assignment 4: LED blink with ESP-Vision
+## Turn detections into a monitored region
 
-In this assignment, you will create a small hardware application. The onboard RGB LED will blink red five times and then remain off. You can enter the provided code manually or optionally use an MCP-enabled coding assistant to generate it.
+A safety zone is a region in the camera image that a detected hand should not enter. It could represent a cutting area, a hot surface, a robot workspace, or a protected control panel.
 
-Although blinking an LED is simple, the exercise verifies three important details: the selected board, the correct GPIO, and an API that exists in its MicroPython firmware.
+In this assignment, you will extend the hand detector from Assignment 3 with a simple centroid tracker and a rectangular safety zone. The application calculates how much of each tracked hand overlaps the zone. The hand box, zone, and warning text turn red when the overlap exceeds a threshold.
 
 > [!TIP]
-> You can create and run the script with the ESP-Vision Web IDE or use the ESP-Vision extension for [Visual Studio Code](https://code.visualstudio.com/) available from the [ESP-Vision website](https://vision.espressif.com/en).
+> Use the [ESP-Vision Web IDE](https://vision.espressif.com/en) to edit and run `safety_zone.py`. The Web IDE manages the script and logs; `lcd.write(frame)` renders the annotated image on the board LCD.
 
-## The ESP32-S31-Korvo-1 RGB LED
+## Regions of interest
 
-The board has one WS2812-compatible addressable RGB LED on **GPIO37**. A WS2812 receives serialized color data, so treating the pin as a normal on/off GPIO does not produce a stable color.
+An image rectangle is represented as `(x, y, width, height)`, where `(x, y)` is its top-left corner. The origin `(0, 0)` is at the top left of the image.
 
-The current ESP-Vision firmware does not include the optional MicroPython `neopixel` helper module. Instead, use the built-in `machine.bitstream` function to transmit the WS2812 waveform:
-
-```python
-bitstream(pin, 0, (400, 850, 800, 450), data)
-```
-
-The timing tuple specifies the high and low periods for zero and one bits in nanoseconds. The LED expects color bytes in **GRB** order.
-
-## Step 1: Create the application
-
-Create a file named `led_blink.py`. You do not need an AI coding agent or MCP server to complete this assignment; you can type or copy the verified code in Step 2.
-
-If you want to practice the agent workflow from Assignment 3, ask your MCP-enabled coding assistant to generate the file with this prompt:
+Hardcoded pixels work only at one frame size. Define the zone as a fraction of the frame instead:
 
 ```text
-Use the ESP-Vision MCP server before writing code.
-
-Target: ESP32-S31-Korvo-1 running ESP-Vision MicroPython.
-Create one self-contained led_blink.py file that blinks the onboard
-addressable RGB LED on GPIO37 red five times. Use only APIs verified for
-esp32s31. Use machine.Pin and machine.bitstream; do not import neopixel.
-Always switch the LED off in a finally block and print LED_TEST:OK only
-after all five blinks complete.
+left   = 60% of frame width
+top    = 15% of frame height
+width  = 30% of frame width
+height = 70% of frame height
 ```
 
-The hardware, runtime, bounded behavior, cleanup, and success condition are explicit. This gives the assistant less room to make unsafe assumptions.
+This places a vertical protected region on the right side and scales it when the frame resolution changes.
 
-## Step 2: Add and review the code
-
-Enter the following verified code. If an agent generated your script, compare its output with this structure before running it:
-
-```python
-from machine import Pin, bitstream
-import time
-
-
-LED_PIN = 37
-BLINKS = 5
-RED = (32, 0, 0)
-OFF = (0, 0, 0)
-WS2812_TIMING = (400, 850, 800, 450)
-
-
-def set_color(pin, color):
-    red, green, blue = color
-    bitstream(pin, 0, WS2812_TIMING, bytes((green, red, blue)))
-    time.sleep_us(80)
-
-
-def main():
-    led = Pin(LED_PIN, Pin.OUT)
-    try:
-        for _ in range(BLINKS):
-            set_color(led, RED)
-            time.sleep_ms(300)
-            set_color(led, OFF)
-            time.sleep_ms(300)
-    finally:
-        set_color(led, OFF)
-
-    print("LED_TEST:OK")
-
-
-main()
-```
-
-`RED` uses a deliberately modest intensity. Full brightness is unnecessary for a status LED and can be uncomfortable to look at.
-
-The `finally` block runs whether the loop completes or an exception interrupts it. It prevents the LED from remaining on after most runtime errors.
-
-## Step 3: Run and test
-
-1. Connect to the board in the ESP-Vision Web IDE.
-2. Create `led_blink.py`.
-3. Paste the reviewed code.
-4. Save and run the script.
-
-The LED should blink red exactly five times. The REPL should then print:
+Two rectangles overlap when their intersection has positive width and height:
 
 ```text
-LED_TEST:OK
+intersection_left   = max(hand_left, zone_left)
+intersection_top    = max(hand_top, zone_top)
+intersection_right  = min(hand_right, zone_right)
+intersection_bottom = min(hand_bottom, zone_bottom)
 ```
 
-If the LED does not light:
+This workshop divides the intersection area by the detected hand-box area. Requiring 15% overlap is more stable than triggering on a single boundary pixel.
 
-- Confirm that the target is ESP32-S31-Korvo-1.
-- Confirm `LED_PIN = 37`.
-- If you see `ImportError: no module named 'neopixel'`, use the `machine.bitstream` version above rather than importing `neopixel`.
-- Ensure the native ESP-IDF application from Assignment 1 is no longer running.
-- Reset the board and reconnect the Web IDE.
+## Step 1: Define the safety zone
 
-## Exercise: Change the blink pattern
-
-Modify the program to show this sequence:
-
-1. Red for 500 ms
-2. Green for 500 ms
-3. Blue for 500 ms
-4. Repeat the RGB sequence three times
-5. Off
-
-Keep each RGB channel at 64 or below. Add a `STATUS_TEST:OK` marker after the full sequence completes.
-
-Suggested colors:
+Copy `hand_detection.py` from Assignment 3 to a new file named `safety_zone.py`. Add these constants:
 
 ```python
-RED = (32, 0, 0)
-GREEN = (0, 32, 0)
-BLUE = (0, 0, 32)
+ZONE_X = 0.60
+ZONE_Y = 0.15
+ZONE_WIDTH = 0.30
+ZONE_HEIGHT = 0.70
+MIN_OVERLAP = 0.15
 ```
+
+Add a function that converts the normalized values to pixels:
+
+```python
+def make_zone(frame):
+    return (
+        int(frame.width() * ZONE_X),
+        int(frame.height() * ZONE_Y),
+        int(frame.width() * ZONE_WIDTH),
+        int(frame.height() * ZONE_HEIGHT),
+    )
+```
+
+Draw the zone after capturing a frame:
+
+```python
+zone = make_zone(frame)
+zx, zy, zw, zh = zone
+frame.draw_rectangle(
+    zx, zy, zw, zh, color=(0, 255, 0), thickness=3)
+```
+
+## Step 2: Detect an intrusion
+
+Add the overlap calculation:
+
+```python
+def overlap_ratio(hand, zone):
+    hx, hy, hw, hh, score, category = hand
+    zx, zy, zw, zh = zone
+
+    left = max(hx, zx)
+    top = max(hy, zy)
+    right = min(hx + hw, zx + zw)
+    bottom = min(hy + hh, zy + zh)
+
+    intersection_width = max(0, right - left)
+    intersection_height = max(0, bottom - top)
+    intersection = intersection_width * intersection_height
+    hand_area = max(1, hw * hh)
+    return intersection / hand_area
+```
+
+For every detection:
+
+```python
+ratio = overlap_ratio(detection, zone)
+inside = ratio >= MIN_OVERLAP
+```
+
+Using the hand box as the denominator answers: "How much of this detected hand is inside the zone?" A different application might divide by the zone area or use intersection over union.
+
+## Step 3: Add centroid tracking
+
+The detector returns independent results for every frame. Add a small tracker so the application can associate nearby detections over time:
+
+```python
+MAX_DISTANCE_SQ = 80 * 80
+MAX_MISSED = 3
+
+
+def center(detection):
+    x, y, w, h, score, category = detection
+    return x + w // 2, y + h // 2
+
+
+def update_tracks(detections, tracks, next_id):
+    updated = {}
+    used_ids = set()
+    output = []
+
+    for detection in detections:
+        cx, cy = center(detection)
+        best_id = None
+        best_distance = MAX_DISTANCE_SQ + 1
+
+        for track_id, state in tracks.items():
+            if track_id in used_ids:
+                continue
+            previous_x, previous_y, missed = state
+            dx = cx - previous_x
+            dy = cy - previous_y
+            distance = dx * dx + dy * dy
+            if distance < best_distance:
+                best_id = track_id
+                best_distance = distance
+
+        if best_id is None or best_distance > MAX_DISTANCE_SQ:
+            best_id = next_id
+            next_id += 1
+
+        used_ids.add(best_id)
+        updated[best_id] = (cx, cy, 0)
+        output.append((best_id, detection))
+
+    for track_id, state in tracks.items():
+        if track_id in used_ids:
+            continue
+        previous_x, previous_y, missed = state
+        if missed < MAX_MISSED:
+            updated[track_id] = (
+                previous_x, previous_y, missed + 1)
+
+    return output, updated, next_id
+```
+
+Initialize the tracker once before the frame loop:
+
+```python
+tracks = {}
+next_id = 1
+```
+
+After detecting hands in each frame, update the tracks:
+
+```python
+detections = detector.detect(frame)
+tracked, tracks, next_id = update_tracks(
+    detections, tracks, next_id)
+```
+
+The tracker compares squared distances between bounding-box centers. A detection keeps an existing ID when its nearest unused track is within 80 pixels. `MAX_MISSED` retains a track for up to three missed frames. This lightweight method is suitable for the exercise, but IDs can change when hands move quickly, overlap, or cross.
+
+## Step 4: Combine the zone with tracking
+
+Replace the drawing section from Assignment 3 with:
+
+```python
+intrusion_ids = []
+
+for track_id, detection in tracked:
+    x, y, w, h, score, category = detection
+    ratio = overlap_ratio(detection, zone)
+    inside = ratio >= MIN_OVERLAP
+    color = (255, 0, 0) if inside else (0, 255, 0)
+
+    if inside:
+        intrusion_ids.append(track_id)
+
+    frame.draw_rectangle(
+        x, y, w, h, color=color, thickness=2)
+    frame.draw_string(
+        x, max(0, y - 12),
+        "hand %d %.0f%%" % (track_id, ratio * 100),
+        color=color)
+
+zone_color = (255, 0, 0) if intrusion_ids else (0, 255, 0)
+zx, zy, zw, zh = zone
+frame.draw_rectangle(
+    zx, zy, zw, zh, color=zone_color, thickness=3)
+
+frame.draw_string(
+    8, 8,
+    "KEEP HANDS OFF!" if intrusion_ids else "ZONE CLEAR",
+    color=zone_color)
+```
+
+The track ID in the label makes it possible to see which hand caused an intrusion when multiple hands are visible.
+
+## Step 5: Run and test the safety zone
+
+1. Connect the ESP-Vision Web IDE to the board.
+2. Create `safety_zone.py`.
+3. Paste the complete code and save it to the device.
+4. Select **Run**.
+5. Observe the safety zone, hand boxes, and labels on the board LCD.
+
+Run these tests:
+
+| Scenario | Expected result |
+|----------|-----------------|
+| No hand | Green zone |
+| Hand outside zone | Green hand box and green zone |
+| Less than 15% hand overlap | No warning |
+| At least 15% hand overlap | Red hand box, red zone, and warning text |
+| Two hands, one inside | Only the intruding box is red; zone is red |
+| Intruding hand disappears | Warning clears on the next processed result |
+
+Move the camera or change its resolution and confirm that the normalized zone remains on the right side.
+
+### Tune the threshold
+
+Try `MIN_OVERLAP` values of 0.05, 0.15, and 0.50.
+
+- A low value reacts early but is sensitive near the border.
+- A high value waits until most of the hand is inside.
+- The correct value depends on camera placement and the cost of a missed warning.
+
+This geometric check cannot determine real-world depth. A hand can appear inside the 2D region while physically being in front of or behind the protected object. A safety-certified product requires a risk assessment and appropriate sensors and controls.
 
 ## Complete working code
 
-<details><summary>Show the complete led_blink.py with the exercise pattern</summary>
+<details><summary>Show the complete safety_zone.py</summary>
 
 ```python
-from machine import Pin, bitstream
+import display
+import espdl
+import sensor
 import time
 
 
-LED_PIN = 37
-CYCLES = 3
-RED = (32, 0, 0)
-GREEN = (0, 32, 0)
-BLUE = (0, 0, 32)
-OFF = (0, 0, 0)
-WS2812_TIMING = (400, 850, 800, 450)
+MODEL = "/espdet_pico_224_224_hand.espdl"
+SCORE = 0.5
+NMS = 0.7
+
+ZONE_X = 0.60
+ZONE_Y = 0.15
+ZONE_WIDTH = 0.30
+ZONE_HEIGHT = 0.70
+MIN_OVERLAP = 0.15
+
+MAX_DISTANCE_SQ = 80 * 80
+MAX_MISSED = 3
 
 
-def set_color(pin, color):
-    red, green, blue = color
-    bitstream(pin, 0, WS2812_TIMING, bytes((green, red, blue)))
-    time.sleep_us(80)
+def make_zone(frame):
+    return (
+        int(frame.width() * ZONE_X),
+        int(frame.height() * ZONE_Y),
+        int(frame.width() * ZONE_WIDTH),
+        int(frame.height() * ZONE_HEIGHT),
+    )
+
+
+def center(detection):
+    x, y, w, h, score, category = detection
+    return x + w // 2, y + h // 2
+
+
+def update_tracks(detections, tracks, next_id):
+    updated = {}
+    used_ids = set()
+    output = []
+
+    for detection in detections:
+        cx, cy = center(detection)
+        best_id = None
+        best_distance = MAX_DISTANCE_SQ + 1
+
+        for track_id, state in tracks.items():
+            if track_id in used_ids:
+                continue
+            previous_x, previous_y, missed = state
+            dx = cx - previous_x
+            dy = cy - previous_y
+            distance = dx * dx + dy * dy
+            if distance < best_distance:
+                best_id = track_id
+                best_distance = distance
+
+        if best_id is None or best_distance > MAX_DISTANCE_SQ:
+            best_id = next_id
+            next_id += 1
+
+        used_ids.add(best_id)
+        updated[best_id] = (cx, cy, 0)
+        output.append((best_id, detection))
+
+    for track_id, state in tracks.items():
+        if track_id in used_ids:
+            continue
+        previous_x, previous_y, missed = state
+        if missed < MAX_MISSED:
+            updated[track_id] = (
+                previous_x, previous_y, missed + 1)
+
+    return output, updated, next_id
+
+
+def overlap_ratio(hand, zone):
+    hx, hy, hw, hh, score, category = hand
+    zx, zy, zw, zh = zone
+
+    left = max(hx, zx)
+    top = max(hy, zy)
+    right = min(hx + hw, zx + zw)
+    bottom = min(hy + hh, zy + zh)
+
+    intersection_width = max(0, right - left)
+    intersection_height = max(0, bottom - top)
+    intersection = intersection_width * intersection_height
+    hand_area = max(1, hw * hh)
+    return intersection / hand_area
 
 
 def main():
-    led = Pin(LED_PIN, Pin.OUT)
-    try:
-        for _ in range(CYCLES):
-            for color in (RED, GREEN, BLUE):
-                set_color(led, color)
-                time.sleep_ms(500)
-    finally:
-        set_color(led, OFF)
+    detector = None
+    lcd = None
+    tracks = {}
+    next_id = 1
 
-    print("STATUS_TEST:OK")
+    sensor.reset()
+    try:
+        lcd = display.Display()
+        sensor.set_pixformat(sensor.RGB565)
+        sensor.set_framesize(sensor.QVGA)
+        sensor.skip_frames(time=1000)
+        detector = espdl.ESPDet(MODEL, score=SCORE, nms=NMS)
+
+        while True:
+            frame = sensor.snapshot()
+            zone = make_zone(frame)
+            detections = detector.detect(frame)
+            tracked, tracks, next_id = update_tracks(
+                detections, tracks, next_id)
+
+            intrusion_ids = []
+            for track_id, detection in tracked:
+                x, y, w, h, score, category = detection
+                ratio = overlap_ratio(detection, zone)
+                inside = ratio >= MIN_OVERLAP
+                color = (255, 0, 0) if inside else (0, 255, 0)
+
+                if inside:
+                    intrusion_ids.append(track_id)
+
+                frame.draw_rectangle(
+                    x, y, w, h, color=color, thickness=2)
+                frame.draw_string(
+                    x, max(0, y - 12),
+                    "hand %d %.0f%%" % (track_id, ratio * 100),
+                    color=color)
+
+            zone_color = (
+                (255, 0, 0) if intrusion_ids else (0, 255, 0))
+            zx, zy, zw, zh = zone
+            frame.draw_rectangle(
+                zx, zy, zw, zh, color=zone_color, thickness=3)
+
+            frame.draw_string(
+                8, 8,
+                "KEEP HANDS OFF!" if intrusion_ids else "ZONE CLEAR",
+                color=zone_color)
+
+            lcd.write(frame)
+            time.sleep_ms(20)
+    finally:
+        if detector is not None:
+            detector.deinit()
+        sensor.shutdown()
+        if lcd is not None:
+            lcd.deinit()
 
 
 main()
+
 ```
 
 </details>
+
+## What you will see
+
+- A live 320 × 240 camera image on the ESP32-S31-Korvo-1 LCD
+- A vertical safety zone on the right side of the image
+- A stable numeric ID and overlap percentage for each tracked hand
+- Green hand boxes and a green zone while no intrusion is detected
+- A `ZONE CLEAR` message while all detected hands remain outside the zone
+- A red hand box, red zone, and `KEEP HANDS OFF!` warning when overlap reaches 15%
+
+### Expected output
+
+{{< figure
+    src="assets/zone-clear.webp"
+    alt="LCD camera image showing a green safety zone, green hand box, and ZONE CLEAR message"
+    caption="Zone clear: the detected hand remains outside the protected area."
+>}}
+
+{{< figure
+    src="assets/zone-danger.webp"
+    alt="LCD camera image showing a red safety zone, red hand box, and KEEP HANDS OFF warning"
+    caption="Zone intrusion: the detected hand overlaps the protected area and triggers the warning."
+>}}
 
 ## What you learned
 
 In this assignment, you:
 
-- Created the application manually or optionally with an MCP-enabled coding assistant
-- Controlled the onboard WS2812-compatible LED with `machine.bitstream`
-- Reviewed generated code for the correct pin, bounded behavior, and cleanup
-- Used an observable success marker to distinguish completion from startup
+- Defined a resolution-independent region of interest
+- Calculated rectangle intersection and hand-overlap ratio
+- Added centroid-based tracking and persistent hand IDs
+- Associated intrusion state with tracked hand IDs
+- Added visual status through box, zone, and text colors
+- Evaluated threshold and 2D-camera limitations
 
 ## Next step
 
-[Assignment 5: Your first camera application](../assignment-5)
+[Assignment 5: Keep hands off!](../assignment-5)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-with-vision/)
