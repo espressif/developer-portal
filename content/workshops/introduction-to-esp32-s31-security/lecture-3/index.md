@@ -1,117 +1,143 @@
 ---
-title: "Lecture 3: The EU Cyber Resilience Act"
+title: "Lecture 3: Secure Boot V2"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 4
+series_order: 9
 showAuthor: false
 ---
 
-## What do you need to know about the new rules in Europe
+## Secure Boot V2: Firmware authenticity
 
-[Regulation (EU) 2024/2847](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120), the Cyber Resilience Act (CRA), sets mandatory cybersecurity rules for products with digital elements on the EU market. That covers typical ESP32 designs: connected appliances, sensors, gateways, wearables, device firmware, companion apps, and cloud services sold as part of the product.
+If an attacker can replace the bootloader or application in flash, they can run arbitrary code: bypass your TLS stack, exfiltrate [encrypted NVS](../lecture-2) after boot, or impersonate your device on the network. **Secure Boot V2** checks **digital signatures** on the second-stage bootloader and on each application image before execution, using **RSA-PSS** and public-key digests stored in eFuses.
 
-Espressif’s Developer Portal CRA series goes deeper than this lecture. Read [Understanding the EU Cyber Resilience Act (CRA)](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/) first, then [EU Cyber Resilience Act: Vulnerability Reporting Obligations](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/). If your product already falls under the RED Delegated Act, use [ESP32 RED DA / EN 18031 Compliance Guide](https://developer.espressif.com/blog/2025/04/esp32-red-da-en18031-compliance-guide/) alongside the CRA material.
-
-> [!NOTE]
-> This workshop is technical education, not legal advice. Finishing the labs does not make a product CRA-compliant. The manufacturer of the product placed on the market owns the risk assessment, technical file, and lifecycle processes.
+[Assignment 3](../assignment-3) walks through the ESP-IDF enablement flow on the Function CoreBoard with ESP-IDF v6.1: generate a development signing key, build signed images, provision trust with **virtual** eFuses, and confirm that tampered firmware is rejected. Primary reference: [Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html).
 
 ## Learning objectives
 
-- Say which products the CRA covers and how that maps to ESP32-based designs
-- Recall the September 2026 and December 2027 deadlines and what each triggers
-- Tell Annex I Part I (design-time security) from Part II (vulnerability handling)
-- Link workshop labs to artifacts you might keep for a gap analysis or technical file
+- Describe the ESP32-S31 boot chain and where signature verification runs
+- Separate the **signing private key**, the **signature block** on flash, and the **public-key digest** in eFuse
+- Summarize the Secure Boot V2 verification steps for bootloader and app
+- Outline key rotation, revocation, and why unused digest slots are revoked in production
+- Contrast workshop virtual eFuses with manufacturing provisioning
 
-## Scope and who is responsible
+## Integrity threat model
 
-Medical, automotive, aviation, and other sector rules can exempt or overlap with the CRA. Confirm your product category with qualified counsel.
+**In scope:** an attacker with **write access to external flash** (or supply-chain substitution of firmware) should not get persistent execution of **unsigned** or **wrongly signed** bootloader or application code.
 
-Economic operators (manufacturer, importer, distributor) each have defined duties. The manufacturer is normally whoever places the product on the EU market under their name or trademark. Re-branding does not shift liability: the name on the box owns the obligations. See the FAQ in the [vulnerability reporting article](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/#frequently-asked-questions-faq).
+**Out of scope or partial:**
 
-## Key dates
+- **Confidentiality** of flash contents (use [flash encryption](../lecture-4) and [NVS encryption](../lecture-2))
+- A **buggy but signed** application you approved with your own key
+- **Runtime** compromise after a legitimate boot
+- **Physical glitch or invasive** attacks on the chip (different mitigations and test labs)
 
-The CRA entered into force on 10 December 2024. For ESP32 OEMs, two dates usually drive the plan:
+Secure Boot answers: *“Is this image cryptographically approved by keys I trust?”* It does not answer: *“Is this image free of vulnerabilities?”* Patch management, SBOM, and CRA **Part II** vulnerability handling remain product responsibilities.
 
-| Date | What starts | Practical note |
-|------|-------------|----------------|
-| 11 September 2026 | [Article 14](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120#art_14) reporting via the ENISA Single Reporting Platform | In-scope products already on the EU market, not only new SKUs |
-| 11 December 2027 | Essential requirements, conformity assessment, CE marking under the CRA | Units placed on the market from this date; see Art. 69(2) for substantial modifications |
+## Boot chain on ESP32-S31
 
-Timeline figures and context: [CRA overview](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#cra-timeline), [reporting obligations](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/).
+See [ESP-IDF startup flow](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-guides/startup.html) for full detail. At a high level:
 
-The overview FAQ cites a minimum five-year security update period unless you document and communicate a shorter support window to buyers.
+| Stage | Role in Secure Boot V2 |
+|-------|-------------------------|
+| ROM (first stage) | Fixed in silicon; if `SECURE_BOOT_EN` is set, verifies the **second-stage bootloader** signature before running it |
+| Second-stage bootloader | Verifies **application** (and OTA slot) signatures before jump to app |
+| Application | Runs only after verification; may call `esp_secure_boot_init_checks()` on startup |
 
-## Essential cybersecurity requirements
+The ROM image is not signed; trust starts from ROM code plus eFuse policy. Everything **you can update in flash** that affects execution must pass verification once Secure Boot is enabled.
 
-[Annex I Part I](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120#anx_I) covers design and development. Provisioning, update policy, documentation, and post-market handling count alongside firmware features.
+## Secure Boot V2 process
 
-Espressif’s [summary of Part I](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#essential-cra-requirements) groups the themes as:
+ESP32-S31 implements [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#secure-boot-v2-process) with **RSA-3072** and **RSA-PSS** (RFC 8017). Each signed image has one or more **signature blocks** appended (up to **three** per image). Each block contains the image digest, the public key material, and the signature.
 
-- Secure-by-design and secure-by-default development
-- Product-level cybersecurity risk assessment
-- Protection against unauthorized access and misuse
-- Secure update mechanisms
-- Data protection and minimization where relevant
-- Logging and monitoring where relevant
-- Transparency (security documentation and user instructions)
+Verification (simplified):
 
-Secure Boot, encryption, TLS, and signed OTA in this workshop address parts of that list. You still own the product risk assessment and the technical file that ties controls to requirements.
+1. ROM checks whether Secure Boot is enabled (`SECURE_BOOT_EN`).
+2. ROM validates the bootloader’s signature block(s) and image against **trusted digests** in eFuse.
+3. Bootloader validates the selected app partition the same way.
+4. On failure, boot **stops**; the bootloader may try another OTA app partition if one verifies.
 
-## Vulnerability handling and reporting
+The same format applies to bootloader and application binaries. OTA updates re-use this path in production: a bad image should not become the running firmware. The hands-on track covers Secure Boot in [Assignment 3](../assignment-3); signed OTA and anti-rollback are not class labs and are covered in ESP-IDF docs and the [production provisioning appendix](../appendix-production-provisioning).
 
-[Annex I Part II](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120#anx_I) covers vulnerability management for the declared support period.
+Detailed steps: [Verifying a signature block](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#verifying-a-signature-block) and [Verifying an image](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#verifying-an-image).
 
-Reportable conditions under the CRA (see the [overview article](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#essential-cra-requirements)):
+## Keys, signing, and eFuses
 
-- Actively exploited vulnerability in the product
-- Severe incident with significant impact on the product or its users
+Three concepts often get conflated:
 
-When thresholds are met, manufacturers coordinate disclosure, notify users, ship fixes, and report through the [ENISA Single Reporting Platform (SRP)](https://www.enisa.europa.eu/topics/product-security/single-reporting-platform-srp). Notification timelines appear in the overview article reporting table.
+| Artifact | Location | Purpose |
+|----------|----------|---------|
+| **Signing private key** | Host, HSM, or signing service; **never** on the device | Creates signatures at build or release time |
+| **Signature block(s)** | Appended to bootloader/app in flash | Supplies public key + signature for verification |
+| **Public-key digest** | eFuse block with purpose `SECURE_BOOT_DIGEST0` … `SECURE_BOOT_DIGEST2` | Trust anchor: only keys whose digest matches may boot |
 
-Espressif’s side of the stack is described in [Staying Ahead with ESP32 Security Updates](https://developer.espressif.com/blog/2026/03/esp32-security-updates/): advisories, the [ESP-IDF Security Dashboard](https://espressif.github.io/esp-idf-security-dashboard/), [esp-idf-sbom](https://github.com/espressif/esp-idf-sbom), LTS branches, and secure OTA. You still track impact on your firmware, deploy patches, and file CRA reports when your product triggers Article 14.
+On ESP32-S31, the digest is a **SHA-256** hash over part of the signature block (see [eFuse usage](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#efuse-usage)). Digests must be **write-protected** and **readable** (read-protect breaks verification).
 
-## Conformity assessment (overview)
+**Key management** (production): use one to three independent key pairs; sign apps with a single active private key; revoke unused digest slots with `KEY_REVOKEX` so an attacker cannot add a new trusted key later. See [Key management](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#key-management) and [Key revocation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#secure-boot-v2-key-revocation).
 
-Under the full CRA regime, manufacturers usually:
+ESP-IDF build helpers (wrappers around `espsecure`):
 
-1. Classify the product (default, Important Class I or II, or critical) using [Annex III and IV](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#cra-compliance-process). Many ESP32 IoT devices land in default or Important Class I depending on function and risk.
-2. Run the risk assessment, implement measures, write technical documentation, sign an EU Declaration of Conformity, and apply CE marking. Some classes need a Notified Body.
-3. Keep post-market duties: monitor vulnerabilities, ship updates, and report under Article 14 when required.
+- `idf.py secure-generate-signing-key` or `espsecure generate-signing-key --version 2 --scheme rsa3072 …`
+- Signed builds attach blocks automatically when [CONFIG_SECURE_BOOT_BUILD_SIGNED_BINARIES](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-build-signed-binaries) is enabled
+- Inspect signatures: `espsecure signature-info-v2` on a signed binary
 
-Class diagrams and step detail: [CRA compliance process](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#cra-compliance-process).
+Manufacturing may use **menuconfig-first** enablement ([How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2)) or an **external** workflow ([Enable Secure Boot v2 externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-secure-boot-v2-externally)) with manual digest burn and `espsecure sign-data`.
 
-## From workshop controls to CRA evidence
+> [!NOTE]
+> Enabling [CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot) changes flashing: `idf.py flash` does **not** update the bootloader when hardware Secure Boot is on; you flash the signed bootloader with the command printed by `idf.py bootloader`. Plan partition sizes for a larger signed bootloader.
 
-The labs do not finish conformity assessment. They produce testable artifacts for themes that often appear in gap analysis and technical documentation.
+## Relation to other workshop topics
 
-| Workshop topic | Typical CRA-related theme | What you might retain as evidence |
-|----------------|---------------------------|-----------------------------------|
-| Secure Boot V2 | Integrity, unauthorized firmware | Configuration, signing policy, boot logs, rejection tests |
-| Flash encryption | Confidentiality of stored data | Encryption mode, offline read test results |
-| HMAC-based NVS encryption | Credentials and configuration at rest | Partition layout, provisioning record, NVS read tests |
-| TLS | Protection in transit, authentication | Trust store policy, test results, cipher configuration |
-| Secure OTA and bootloader OTA with anti-rollback | Secure updates, rollback prevention | Signed image workflow, version policy, failed downgrade test |
-| Power profiling (optional) | Verification and debug of security behavior | Traces tied to boot, TLS, or OTA steps |
+| Topic | Secure Boot V2 | Complementary control |
+|-------|----------------|------------------------|
+| [HMAC NVS](../lecture-2) | Does not stop rogue **code** from running | Protects **secrets at rest** once honest firmware runs |
+| [Flash encryption](../lecture-4) | Does not prove **authenticity** | Hides ciphertext from offline read |
+| [TLS](../lecture-1) | Protects **network** sessions | Does not verify **local** flash images |
+| Signed OTA (production / appendix) | Hardware SB verifies every boot | OTA path must deliver **signed** images your digests trust |
 
-Platform features (secure boot, flash encryption, eFuse keys, ESP-IDF patches, OTA, SBOM tools) are listed in Espressif’s [CRA overview](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#how-espressif-will-support-oem-customers-for-cra-compliance) and [Product Security](https://docs.espressif.com/projects/esp-product-security/en/latest/) docs. The [reporting FAQ](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/#frequently-asked-questions-faq) states plainly: no API or chip is “CRA-compliant” by itself; compliance belongs to the finished product.
+Together, authenticity (Secure Boot), confidentiality (flash/NVS encryption), and signed updates (product lifecycle) form a typical CRA-oriented **defense-in-depth** story for firmware and data.
 
-## Developer Portal reading list
+## Workshop and production provisioning
 
-| Resource | Focus |
-|----------|--------|
-| [Understanding the EU Cyber Resilience Act (CRA)](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/) | Scope, timeline, Annex I, conformity process, platform support |
-| [EU Cyber Resilience Act: Vulnerability Reporting Obligations](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/) | Article 14, SRP, products already on market, OEM FAQ |
-| [ESP32 RED DA / EN 18031 Compliance Guide](https://developer.espressif.com/blog/2025/04/esp32-red-da-en18031-compliance-guide/) | Radio equipment before full CRA application |
-| [Staying Ahead with ESP32 Security Updates](https://developer.espressif.com/blog/2026/03/esp32-security-updates/) | Dashboard, SBOM, LTS, OTA |
-| [Software Bill of Materials](https://developer.espressif.com/blog/software-bill-of-materials/) | SBOM generation and dependency tracking |
+### Workshop path (Assignment 3)
 
-EU primary sources: [Regulation (EU) 2024/2847](https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng), [Commission CRA policy](https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act), [CRA implementation FAQ](https://digital-strategy.ec.europa.eu/en/library/cyber-resilience-act-implementation-frequently-asked-questions).
+The class lab enables the Secure Boot V2 **build and boot flow** with [CONFIG_EFUSE_VIRTUAL](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual) and [CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual-keep-in-flash). Public-key digests and `SECURE_BOOT_EN` are applied to **emulated** eFuses only. You still sign images and test rejection of bad firmware; the chip’s real eFuses stay at factory defaults.
+
+**Preflight:** After `idf.py build`, confirm `CONFIG_EFUSE_VIRTUAL=y`. After boot, expect a warning that virtual eFuses are active. Use `idf.py efuse-summary` to inspect **emulated** digest slots, not as proof of production state.
+
+**Reset between labs:** `idf.py erase-flash` and reflash the workshop project when virtual state is confusing.
+
+### Production path (appendix)
+
+Hardware Secure Boot burns key digests, enables `SECURE_BOOT_EN`, and may revoke unused digest slots. UART download mode and debug policies are often restricted at the same time. That is **irreversible** on real silicon. Follow the [production provisioning appendix](../appendix-production-provisioning) and [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html) on disposable provisioning hardware, not on workshop kits.
+
+> [!WARNING]
+> Enabling hardware Secure Boot and programming or protecting **real** eFuses can be irreversible. In class, verify virtual eFuse mode before any provisioning step. Never run `espefuse burn` on participant boards.
+
+## CRA and product evidence
+
+The [EU CRA overview](../overview-eu-cra) maps Secure Boot V2 to **integrity** and **protection against unauthorized firmware**. That supports Annex I themes such as secure-by-default design and controlled update surfaces; it does not replace your product risk assessment or conformity process.
+
+Useful artifacts from Assignment 3 and production rollout:
+
+- **Configuration record:** Secure Boot version, signing scheme (RSA-3072), digest slot allocation, virtual vs hardware mode
+- **Signing policy:** who holds the private key, CI signing vs offline HSM, rotation and revocation plan
+- **Boot and test logs:** successful verify messages, intentional **rejection** of unsigned or wrongly signed images (document the test procedure)
+- **Key custody:** evidence that development keys are not shipped as production trust roots
+
+For CRA timelines, reporting duties, and conformity steps, use the overview and linked Developer Portal articles rather than repeating them in each lecture.
+
+## Before Assignment 3
+
+- Target: `idf.py set-target esp32s31`
+- Read [How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2) once before changing **Security features** in menuconfig
+- Keep virtual eFuse defaults from the workshop project
+- Generate a **lab-only** signing key; add `*.pem` to `.gitignore` and never commit private keys
 
 ## Previous and next steps
 
-[Previous: Lecture 2](../lecture-2)
+[Previous: Assignment 2](../assignment-2)
 
-[Next: Lecture 7: TLS for secure communication](../lecture-7)
+[Next: Assignment 3: Enable and verify Secure Boot V2](../assignment-3)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)

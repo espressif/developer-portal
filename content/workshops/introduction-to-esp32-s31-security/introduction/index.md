@@ -12,7 +12,7 @@ showAuthor: false
 A connected product stores firmware in flash, keys in eFuses or protected NVS, and often Wi-Fi or TLS credentials beside user configuration. Tampering with the bootloader, reading flash offline, or intercepting traffic breaks trust in the device and in the company that shipped it. This chapter sets scope for the workshop: which ESP32-S31 mechanisms we will configure, and how that work relates to obligations under the EU Cyber Resilience Act (CRA).
 
 > [!IMPORTANT]
-> The CRA applies to products with digital elements and to the economic operators responsible for them. An ESP32-S31 does not make a finished product compliant by itself. The assignments walk through Secure Boot V2, flash encryption, HMAC-based NVS encryption, TLS, and signed OTA with emulated anti-rollback on the Function CoreBoard using **virtual eFuses** so boards are not permanently provisioned in class. That is technical evidence you can use in a compliance program; it is not legal advice. Real production burns are covered in the [production provisioning appendix](../appendix-production-provisioning).
+> The CRA applies to products with digital elements and to the economic operators responsible for them. An ESP32-S31 does not make a finished product compliant by itself. The assignments walk through Secure Boot V2, flash encryption, HMAC-based NVS encryption, and TLS on the Function CoreBoard using **virtual eFuses** so boards are not permanently provisioned in class. That is technical evidence you can use in a compliance program; it is not legal advice. Secure OTA and anti-rollback are out of scope for the hands-on track; real production burns and update provisioning are covered in the [production provisioning appendix](../appendix-production-provisioning).
 
 ## Learning objectives
 
@@ -27,7 +27,7 @@ After completing this chapter, you will be able to:
 
 The CRA treats cybersecurity as a product requirement under **security by design**: secure defaults, protected credentials and firmware, authenticated updates, and proof that those controls still work during the support period you commit to.
 
-This workshop runs that idea on the ESP32-S31. A lecture introduces each topic; the next assignment implements and checks it on the [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) with ESP-IDF v6.1. After the SoC, security overview, and CRA context, the **lab order** is TLS, HMAC-based NVS encryption, Secure Boot V2, flash encryption, signed application OTA with emulated anti-rollback, then optional Otii power profiling. See the [workshop agenda](/workshops/introduction-to-esp32-s31-security/#agenda).
+This workshop runs that idea on the ESP32-S31. A lecture introduces each topic; the next assignment implements and checks it on the [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) with ESP-IDF v6.1. After the SoC, security overview, and CRA context, the **lab order** is TLS, HMAC-based NVS encryption, Secure Boot V2, and flash encryption. After [Assignment 1](../assignment-1), the instructor may run a **TLS power consumption** demo with Qoitech Otii (observe only). See the [workshop agenda](/workshops/introduction-to-esp32-s31-security/#agenda).
 
 ## Lab safety and virtual eFuses
 
@@ -36,7 +36,7 @@ Many ESP32-S31 security features store trust in **eFuses**, which are one-time p
 | Tier | Hands-on scope | Permanent eFuses |
 |------|----------------|------------------|
 | A | TLS, image signing on the host | None |
-| B | Secure Boot, flash encryption, HMAC NVS, emulated anti-rollback | None (virtual eFuses) |
+| B | Secure Boot, flash encryption, HMAC NVS | None (virtual eFuses) |
 | C | Production provisioning | Yes (appendix and instructor demo only) |
 
 **Workshop firmware** must be built from the course repository with:
@@ -71,6 +71,6 @@ When the workshop is complete, you will have flashed and verified the controls l
 
 ## Next step
 
-[Lecture 1: The ESP32-S31 features](../lecture-1)
+[Overview of the ESP32-S31 features](../overview-esp32-s31-features)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)

@@ -1,154 +1,80 @@
 ---
-title: "Lecture 1: The ESP32-S31 Features"
+title: "Lecture 1: TLS for Secure Communication"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 2
+series_order: 5
 showAuthor: false
 ---
 
-## A walkthrough on the ESP32-S31 features
+## TLS for secure communication
 
-This lecture covers the ESP32-S31 and the Function CoreBoard before you enable Secure Boot, flash encryption, and the other assignment modules. The SoC pairs dual RISC-V cores with Wi-Fi 6, Bluetooth 5.4, IEEE 802.15.4, a Gigabit Ethernet MAC, and security hardware documented in the datasheet and ESP-IDF.
+**TLS** authenticates the remote server and encrypts traffic in transit. [Assignment 1](../assignment-1) uses the ESP-IDF example [`https_mbedtls`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls): an HTTPS client on the [Function CoreBoard](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) that calls **mbedTLS** directly (`mbedtls_ssl_*`, `mbedtls_net_*`), GETs `https://www.howsmyssl.com/a/check`, and prints the JSON response.
 
-This is a walkthrough, not a TRM chapter. You will see which peripherals matter on the bench, which security blocks Lecture 2 configures, how the ESP32-S31-Function-CoreBoard-1 exposes USB and Ethernet for the labs, and where to open the official docs when you need pin names or limits. The [introduction](../introduction) describes how that path fits the rest of the workshop.
+Other examples wrap the same crypto in [ESP-TLS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_tls.html) (for example [`https_request`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_request)). We use **https_mbedtls** so the handshake and certificate checks stay visible in one source file.
+
+> [!NOTE]
+> Set `idf.py set-target esp32s31` on **ESP-IDF v6.1** even if the example README target list does not yet name ESP32-S31.
 
 ## Learning objectives
 
-By the end of this lecture, you should be able to:
+- Say what TLS protects on the network path (and what it does not)
+- Enable the [certificate bundle](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_crt_bundle.html) and explain `esp_crt_bundle_attach()`
+- Outline the flow in `https_mbedtls_example_main.c`: connect, handshake, verify, HTTP read
+- Relate hostname setting and verify mode to Assignment 1 failure tests
 
-- Name the main ESP32-S31 wired and multimedia peripherals compared with earlier ESP32 parts
-- List the on-chip security blocks the later assignments use
-- Point to the Function CoreBoard connectors used to flash, debug, and run TLS and OTA labs
-- Choose the right Espressif datasheet, TRM, board guide, or ESP-IDF security page for a given question
+## Threat model (short)
 
-## System and connectivity
+TLS helps when someone on the LAN or path could **sniff** traffic, run a **fake server**, or steer the device to the **wrong host**. Server authentication plus a correct **hostname check** addresses that for the TLS session.
 
-The ESP32-S31 has a dual-core 32-bit RISC-V CPU at up to 320 MHz, 512 KB on-chip SRAM, and external PSRAM and flash over high-speed SPI. One core implements 128-bit SIMD for signal-processing style workloads. An MMU maps external memory, which you rely on once flash encryption is enabled and the application grows.
+It does not fix a **compromised device**, a **bad trust store**, **disabled verification**, or missing **backend authorization**. Wi-Fi credentials only reach the AP; TLS protects the app’s session to the service.
 
-For radios and wired links, the chip integrates 2.4 GHz Wi-Fi 6 (802.11ax), Bluetooth 5.4 (LE and Classic), IEEE 802.15.4 (Thread and Zigbee), and a Gigabit Ethernet MAC. On the Function CoreBoard, the RJ45 port is the easy choice for TLS and OTA labs when you want to skip Wi-Fi credentials in a classroom.
+## Reference example architecture
 
-## New peripherals on the ESP32-S31
+**`app_main`:** NVS, `esp_netif`, then [`example_connect()`](https://github.com/espressif/esp-idf/blob/master/examples/protocols/README.md) (Wi-Fi from menuconfig in this workshop) and a task that runs the client.
 
-If you have used ESP32-S3 or ESP32-C chips, the I/O list will look familiar but longer. The datasheet lists 60 programmable GPIOs, multiple UART/SPI/I2C blocks (including low-power variants), USB 2.0 High-Speed OTG, USB Serial/JTAG, TWAI (CAN FD), SDIO, timers, ADCs, touch sensing, and motor-control PWM.
+**`https_get_task`:** defaults to `www.howsmyssl.com:443`. In order: attach the cert bundle to the SSL config, set hostname, require peer verification, TCP connect, **handshake**, check **`mbedtls_ssl_get_verify_result`**, send a small HTTP GET, read the response. The task loops after a delay.
 
-For display and audio products, the same chip adds a JPEG codec, Pixel Processing Accelerator (PPA), 2D-DMA, camera and LCD controllers, and I2S with hardware Bluetooth audio timing. The security assignments ignore most of that, but it matches the Function CoreBoard layout: Ethernet, USB host, microphone, and speaker for connected voice demos.
+Look for `esp-x509-crt-bundle: Certificate validated`, `Certificate verified`, and a cipher suite line in the monitor. Sample output is in the example [README](https://github.com/espressif/esp-idf/blob/master/examples/protocols/https_mbedtls/README.md).
 
-The table below ties chip interfaces to this workshop:
+## Network setup (menuconfig)
 
-| Area | ESP32-S31 capability | Relevance in this workshop |
-|------|----------------------|----------------------------|
-| USB | USB 2.0 HS OTG + USB Serial/JTAG | Flashing, debug, and optional device-mode workflows |
-| Ethernet | 1000 Mbps MAC (with external PHY on the board) | TLS and OTA over a stable wired link |
-| Wireless | Wi-Fi 6, Bluetooth 5.4, 802.15.4 | Alternative paths for TLS and OTA exercises |
-| Storage | External flash and PSRAM | Targets for flash encryption and secure boot |
-| Multimedia | JPEG, PPA, I2S, codec-friendly design | Context for power profiling during security operations |
+Under **Example Connection Configuration**, select **Wi-Fi** and set the lab **SSID** and **password** ([protocols README](https://github.com/espressif/esp-idf/blob/master/examples/protocols/README.md)).
 
-## Security elements (overview)
+The network needs **outbound TCP 443**. The baseline lab uses the public howsmyssl endpoint; no lab TLS server is required.
 
-Lecture 2 covers these blocks in detail. The ESP32-S31 includes a cryptography and security component described in the [ESP-IDF security overview](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security.html):
+## Trust anchors and the certificate bundle
 
-- Secure Boot and flash/PSRAM encryption for authenticity and confidentiality of code and data at rest
-- Hardware accelerators (AES, SHA, RSA, ECC, HMAC) and a True Random Number Generator (TRNG) for TLS and provisioning
-- Digital signature peripherals (RSA_DS, ECDSA_DS) so private signing material can stay out of normal software reach
-- Key Manager, Secure Debug Controller, power-glitch detection, and side-channel hardening on selected blocks
-- Access Permission Management (APM) and Trusted Execution Environment (TEE) support for isolating software on multi-app products
+Public HTTPS servers chain to CAs. Enable **Component config → mbedTLS → Certificate Bundle** ([CONFIG_MBEDTLS_CERTIFICATE_BUNDLE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-certificate-bundle)). In code, **`esp_crt_bundle_attach(&conf)`** supplies the roots.
 
-The assignments enable these controls one module at a time.
+Optional: [CONFIG_MBEDTLS_CUSTOM_CERTIFICATE_BUNDLE_PATH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-custom-certificate-bundle-path) for a private CA or lab server. Products need a plan to **update** the bundle when CAs change.
 
-## Development kit: ESP32-S31-Function-CoreBoard-1
+## Hostname and certificate verification
 
-The [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) is the board used in this workshop. It carries the ESP32-S31-WROOM-3 module (16 MB flash and 16 MB PSRAM in the mass-production configuration), breaks out GPIOs on header J2, and adds Gigabit Ethernet, two USB-C ports (UART bridge and native USB Serial/JTAG), a USB 2.0 Type-A host port, microphone and speaker paths through an ES8311 codec, an addressable RGB LED, and Boot and Reset buttons.
+Validation is two parts: the chain must trust a CA in the bundle, and the cert must match the name you meant to reach. **`mbedtls_ssl_set_hostname()`** sets that name (SNI and CN/SAN check). Use **`MBEDTLS_SSL_VERIFY_REQUIRED`** so an unverified peer cannot pass.
 
-Power the board from either USB-C port or the 5 V and GND pins on J2. For daily ESP-IDF work, the USB Serial/JTAG port is enough to build, flash, and monitor; the USB-to-UART port is a familiar fallback. Use Ethernet when you want TLS or OTA on a fixed lab network.
+Wrong hostname or missing CA should fail with verify flags and log lines from `mbedtls_x509_crt_verify_info`. Assignment 1 exercises those cases on purpose; do not disable verification in shipping firmware.
 
-{{< figure
-    src="assets/esp32-s31-function-coreboard-1.webp"
-    alt="ESP32-S31-Function-CoreBoard-1 development board"
-    caption="ESP32-S31-Function-CoreBoard-1 development board"
-    >}}
+Certificate dates need a sensible clock; use SNTP before optional **expiry** tests in the assignment.
 
-### Block diagram
+## One-way TLS vs mutual TLS (mTLS)
 
-The diagram below shows how the ESP32-S31-WROOM-3 module connects to USB, Ethernet, and audio on the board.
+This example is **one-way TLS** (client verifies the server only). **mTLS** adds a client certificate and is not in the stock project; Assignment 1 Step 4 is optional. See [Mbed TLS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/mbedtls.html) and ESP-TLS docs if you extend the lab.
 
-{{< figure
-    src="assets/esp32-s31-function-coreboard-1-block-diagram.webp"
-    alt="Block diagram of the ESP32-S31-Function-CoreBoard-1"
-    caption="ESP32-S31-Function-CoreBoard-1 block diagram"
-    >}}
+## CRA relevance
 
-### Board components
+TLS supports **protection in transit** in a product technical file: trust store policy, success logs, and recorded failure tests (wrong hostname, untrusted cert). That is evidence for gap analysis, not CRA conformity by itself. See the TLS row in the [EU CRA overview](../overview-eu-cra) and the [introduction](../introduction) disclaimer.
 
-The front of the board contains the interfaces and controls used most often during development:
+For production, also plan trust store updates, protected client keys ([Lecture 2](../lecture-2)), and separate handling of Wi-Fi credentials.
 
-{{< figure
-    src="assets/esp32-s31-function-coreboard-1-annotated-photo-front.webp"
-    alt="Annotated front view of the ESP32-S31-Function-CoreBoard-1"
-    caption="ESP32-S31-Function-CoreBoard-1 front view"
-    >}}
+## After Assignment 1 (instructor demo)
 
-| No. | Component | Description |
-|-----|-----------|-------------|
-| 1 | J2 pin header | Exposes power, ground, GPIO, and peripheral signals |
-| 2 | RJ45 Ethernet port | Connects the board to an Ethernet network |
-| 3 | Ethernet transformer | Provides signal coupling and isolation for Ethernet |
-| 4 | USB 2.0 Type-A port | Connects USB peripherals to the board |
-| 5 | USB Serial/JTAG port | Native USB connection for flashing, monitoring, and JTAG debugging |
-| 6 | USB Type-C to UART port | USB-to-UART connection for flashing and serial monitoring |
-| 7 | 3.3 V power-on LED | Indicates that the board's 3.3 V supply is active |
-| 8 | J5 | Current-measurement header; remove the jumper to insert an ammeter in series with the module supply (see the [user guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html#current-measurement)) |
-| 9 | 5 V to 3.3 V DC/DC converter | Supplies the board's 3.3 V power rail |
-| 10 | ESP32-S31-WROOM-3 | Module containing the ESP32-S31 SoC |
-| 11 | Microphone | Captures audio input |
-| 12 | RGB LED | User-controllable status indicator |
-| 13 | Audio codec | Converts and routes digital and analog audio |
-| 14 | Reset button | Resets the ESP32-S31 |
-| 15 | Speaker output port | Connects an external speaker |
-| 16 | Boot button | Controls the boot mode and can be used as an input |
+When TLS exercises are complete, the instructor may run the **TLS power consumption** closing demo in [Assignment 1](../assignment-1/#closing-demo-tls-power-consumption) using Qoitech Otii. You observe supply current during Wi-Fi bring-up and the handshake on the same **https_mbedtls** flow; no student wiring is required.
 
-The back of the board contains additional interface circuitry:
+## Previous and next steps
 
-{{< figure
-    src="assets/esp32-s31-function-coreboard-1-annotated-photo-back.webp"
-    alt="Annotated back view of the ESP32-S31-Function-CoreBoard-1"
-    caption="ESP32-S31-Function-CoreBoard-1 back view"
-    >}}
+[Previous: Overview of the EU Cyber Resilience Act](../overview-eu-cra)
 
-| No. | Component | Description |
-|-----|-----------|-------------|
-| 17 | Audio power-amplifier chip | Drives the speaker output |
-| 18 | Ethernet PHY | Implements the Ethernet physical layer |
-| 19 | USB-to-UART bridge | Converts USB communication to the UART interface |
-| 20 | Switch | TPS2051C USB power switch; limits USB host port current to 500 mA |
-
-## Software support
-
-Use ESP-IDF v6.1 with target `esp32s31`, as listed in the [workshop prerequisites](/workshops/introduction-to-esp32-s31-security/#prerequisites). Install and activate the framework with EIM or the ESP-IDF extension for VS Code, then open or create a project and run `idf.py set-target esp32s31`.
-
-> [!NOTE]
-> ESP-IDF v6.1 support for the ESP32-S31 is still in preview. APIs, default configurations, and documentation may change between releases. Pin the ESP-IDF version you use for the workshop and read release notes before you ship production firmware.
-
-Espressif also publishes [esp_board_manager](https://components.espressif.com/components/espressif/esp_board_manager) for the Function CoreBoard, which can initialize the codec, LED, and buttons when you move past bare security examples. Secure boot, encryption, and related options still come from ESP-IDF Kconfig, eFuse, and the guides in the next section.
-
-## Documentation and resources
-
-Use these references while you work through the workshop:
-
-| Document | Use it when you need |
-|----------|----------------------|
-| [ESP32-S31 Series Datasheet](https://documentation.espressif.com/esp32-s31_datasheet_en.html) | Feature lists, electrical limits, and security block overview |
-| [ESP32-S31 Technical Reference Manual](https://documentation.espressif.com/esp32-s31_technical_reference_manual_en.html) | Register-level detail for peripherals and security hardware |
-| [ESP32-S31-WROOM-3 Datasheet](https://documentation.espressif.com/esp32-s31-wroom-3_datasheet_en.html) | Module pinout, memory, and antenna information |
-| [ESP32-S31-Function-CoreBoard-1 user guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) | Board setup, connectors, and current measurement |
-| [ESP32-S31 Function CoreBoard schematic (PDF)](https://dl.espressif.com/schematics/esp32-s31-function-coreboard-1-schematics.pdf) | Net names and power paths for hardware debug |
-| [ESP-IDF: Security overview (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security.html) | How ESP-IDF maps chip features to Secure Boot, flash encryption, and identity |
-| [ESP Hardware Design Guidelines (ESP32-S31)](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s31/product-overview.html) | Product-level integration and layout guidance |
-
-For a first flash and serial connection, follow [ESP-IDF Get Started for ESP32-S31](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/get-started/index.html).
-
-## Next step
-
-[Lecture 2: Security features on the ESP32-S31](../lecture-2)
+[Next: Assignment 1: Establish and verify a TLS connection](../assignment-1)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)

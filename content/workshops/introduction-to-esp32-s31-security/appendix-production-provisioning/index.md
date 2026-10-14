@@ -32,11 +32,11 @@ Order and exact steps depend on your product; this is a common pattern:
 6. Restrict download mode and debug interfaces according to product policy.
 7. Record eFuse summary, firmware versions, and test results in the product technical file.
 
-## Bootloader OTA and anti-rollback (demo only in class)
+## Bootloader OTA and anti-rollback (not in the default workshop track)
 
 Updating the bootloader and enforcing anti-rollback with **hardware** Secure Boot assumes digests and secure-version eFuses are already programmed correctly. A failed bootloader OTA can leave a device unbootable.
 
-In the workshop, [Lecture 8](../lecture-8) explains this architecture; [Assignment 5](../assignment-5) uses signed **application** OTA and emulated secure version instead. Demonstrate real bootloader OTA on a single pre-provisioned demo board if needed.
+The main workshop does **not** include a hands-on OTA or anti-rollback assignment. Demonstrate real bootloader OTA and secure-version eFuses on a single pre-provisioned demo board if your course needs it, or point learners to ESP-IDF OTA examples and [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html) documentation.
 
 ## If a board was burned by mistake in class
 

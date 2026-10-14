@@ -3,7 +3,7 @@ title: "Introduction to the ESP32-S31: Security - Conclusion"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 17
+series_order: 13
 showAuthor: false
 ---
 
@@ -21,8 +21,7 @@ After completing the finished workshop, you will have:
 - Configured HMAC-based NVS encryption using virtual HMAC key provisioning
 - Walked through Secure Boot V2 signing and verification with virtual eFuses
 - Exercised flash encryption flows in virtual eFuse mode (with known limits vs production)
-- Performed signed application OTA updates and tested emulated anti-rollback
-- Used power profiling to investigate security-operation behavior
+- Observed the instructor-led **TLS power consumption** Otii demo at the end of Assignment 1 (when offered)
 
 ## Classroom vs production
 
@@ -32,10 +31,8 @@ After completing the finished workshop, you will have:
 | Secure Boot | Emulated digests and enable | Hardware `SECURE_BOOT_EN` |
 | Flash encryption | Virtual development simulation | Real keys and release policy |
 | HMAC NVS | Virtual key block | `burn-key` and protections |
-| OTA | Signed apps without hardware Secure Boot | Bootloader OTA + hardware trust chain |
-| Anti-rollback | `CONFIG_BOOTLOADER_EFUSE_SECURE_VERSION_EMULATE` | Secure-version eFuses |
 
-Production provisioning is documented in the [production provisioning appendix](../appendix-production-provisioning).
+Production provisioning, secure OTA, and anti-rollback are documented in the [production provisioning appendix](../appendix-production-provisioning).
 
 ## Security-control recap
 
@@ -71,6 +68,6 @@ TODO: Add links to the final source repository, authoritative ESP32-S31 security
 
 ## Previous step
 
-[Previous: Assignment 6: Profile security operations](../assignment-6)
+[Previous: Assignment 4](../assignment-4)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)
