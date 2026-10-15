@@ -1,6 +1,6 @@
 ---
 title: "ESP-IDF Extension for VS Code v2.3.0 Release"
-date: "2026-09-30"
+date: "2026-10-16"
 summary: "This article describes changes in the v2.3.0 release such as AI Chat integration with extension task output, MCP servers and other changes."
 authors:
   - "brian-ignacio"
