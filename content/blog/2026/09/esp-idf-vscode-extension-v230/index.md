@@ -15,7 +15,7 @@ showTableOfContents: true
 
 ## Introduction
 
-[ESP-IDF VS Code Extension](https://github.com/espressif/vscode-esp-idf-extension) has released v2.3.0! It introduces new features and many improvements. If you face any issue or improvement ideas please share them as a [Github issue](https://github.com/espressif/vscode-esp-idf-extension/issues).
+[ESP-IDF VS Code Extension](https://github.com/espressif/vscode-esp-idf-extension) v2.3.0 has been released! It introduces new features and many improvements. If you face any issue or have improvement ideas, please share them as a [GitHub issue](https://github.com/espressif/vscode-esp-idf-extension/issues).
 
 This article covers the following key features:
 
