@@ -4,6 +4,7 @@ date: "2026-09-30"
 summary: "This article describes changes in the v2.3.0 release such as AI Chat integration with extension task output, MCP servers and other changes."
 authors:
   - "brian-ignacio"
+featureAsset: "img/featured/featured-espressif.webp"
 tags:
   - ESP-IDF Extension for VS Code
   - release
