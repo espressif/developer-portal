@@ -5,12 +5,11 @@ summary: "This article describes changes in the v2.3.0 release such as AI Chat i
 authors:
   - "brian-ignacio"
 tags:
-  - ESP-IDF
-  - Visual Studio Code
+  - ESP-IDF Extension for VS Code
+  - release
+  - ESP-IDF tool
   - VS Code
-  - Extension
   - AI
-  - IDE
 showTableOfContents: true
 ---
 
