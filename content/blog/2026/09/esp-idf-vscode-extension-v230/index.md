@@ -57,7 +57,7 @@ An example of this is shown below:
 
 ## Build Flash and Monitor for single partition
 
-By using the **ESP-IDF: Build, Flash and Start a Monitor on Your Device** (the <img src="https://raw.githubusercontent.com/microsoft/vscode-codicons/refs/heads/main/src/icons/flame.svg" alt="build flash monitor command icon" width="16" height="16" style="display: inline !important; margin: 0; vertical-align: middle;"> icon in the status bar) the user can build the ESP-IDF project, flash the binaries and start a monitor session.
+By using the **ESP-IDF: Build, Flash and Start a Monitor on Your Device** (the <img src="https://raw.githubusercontent.com/microsoft/vscode-codicons/refs/heads/main/src/icons/flame.svg" alt="build flash monitor command icon" width="16" height="16" style="display: inline !important; margin: 0; vertical-align: middle;"> icon in the status bar), the user can build an ESP-IDF project, flash the binaries, and start a monitor session.
 
 In `.vscode/settings.json`, You can set the `"idf.partitionToUse"` vscode extension configuration setting to `app`, `bootloader` or `partition-table` to use the **ESP-IDF: Build, Flash and Start a Monitor on Your Device** to flash one single partition instead of a whole ESP-IDF project.
 
