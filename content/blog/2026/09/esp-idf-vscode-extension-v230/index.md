@@ -16,28 +16,30 @@ showTableOfContents: true
 
 ## Introduction
 
-[ESP-IDF VS Code Extension](https://github.com/espressif/vscode-esp-idf-extension) v2.3.0 has been released! It introduces new features and many improvements. If you face any issue or have improvement ideas, please share them as a [GitHub issue](https://github.com/espressif/vscode-esp-idf-extension/issues).
+[ESP-IDF VS Code Extension](https://github.com/espressif/vscode-esp-idf-extension) v2.3.0 has been released! It introduces new features and many improvements. If you encounter an issue or have improvement ideas, please share them as a [GitHub issue](https://github.com/espressif/vscode-esp-idf-extension/issues).
 
 This article covers the following key features:
 
 <!-- no toc -->
 
-- [Extension refactoring and AI Chat task output integration](#ai-chat-task-output-integration)
-- [Build Flash and monitor for only App partition](#build-flash-and-monitor-for-single-partition)
-- [Add ESP Component Registry and Documentation MCP Servers as extension contribution](#espressif-mcp-servers)
-- [Use gdbinit files in debug session and fix symbols resolution](#debug-adapter-use-build-gdbinit-files)
+- [AI Chat task output integration](#ai-chat-task-output-integration)
+- [Build Flash and Monitor for single partition](#build-flash-and-monitor-for-single-partition)
+- [Espressif MCP Servers](#espressif-mcp-servers)
+- [Improved debug symbols resolution](#improved-debug-symbols-resolution)
 
-For other updates please review [v2.3.0 Release notes](https://github.com/espressif/vscode-esp-idf-extension/releases/tag/v2.3.0). Now let's look into the key features one by one.
+For other updates please review [v2.3.0 Release notes](https://github.com/espressif/vscode-esp-idf-extension/releases/tag/v2.3.0). Let's look into the key features one by one.
 
 ## AI Chat task output integration
 
-Since the v1.11.0 release, we have introduced integration with AI Chat to run extension commands from the chat directly and consume the output directly from there. Please review this feature in the [Language Tools documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html#esp-idf-chat-commands).
+In Visual Studio Code, you can enable Chat and connect it to Copilot, another AI provider, or your own models. Read more in the [VS Code guide to enabling AI features](https://code.visualstudio.com/docs/getstarted/overview#_enable-ai-features) and the [AI Chat view documentation](https://code.visualstudio.com/docs/agents/run/chat-view).
 
-Commands such as `ESP-IDF: Build your project` now offer AI troubleshooting if there are any issues during task execution. Select `Ask AI to fix` in the notification to send the task output to the chat for AI troubleshooting.
+Since the v1.11.0 release, the extension has supported running ESP-IDF commands directly from Chat and viewing their output there. You can build a project by typing **build the project** or **#espIdfCommands build** in Chat. For more information about these and other Chat commands, see the [Language Tools documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html#esp-idf-chat-commands).
+
+In the ESP-IDF VS Code extension v2.3.0 release, commands such as `ESP-IDF: Build your project` now offer AI troubleshooting if there are any issues during task execution. You can select `Ask AI to fix` from the task output notification to send output to the VS Code Chat for troubleshooting with AI. This will open a new AI Chat view with the task output included in a prompt to help fix the issue.
 
 An example of this is shown below:
 
-1. Open a ESP-IDF project that would produce a build error in Visual Studio Code or Cursor. For example calling a function that doesn't exist in main().
+1. Open an ESP-IDF project that would produce a build error in Visual Studio Code or Cursor. For example, call a function that doesn't exist in main().
 2. Run the `ESP-IDF: Build your project` (the <img src="https://raw.githubusercontent.com/microsoft/vscode-codicons/refs/heads/main/src/icons/symbol-property.svg" alt="Build command icon" width="16" height="16" style="display: inline !important; margin: 0; vertical-align: middle;"> icon in the status bar).
 3. The build task will start and reach a point of failure and a notification will appear:
 
@@ -47,7 +49,7 @@ An example of this is shown below:
     caption="If the build produces an error, this notification will appear."
     >}}
 
-4. If you press the **Ask AI to fix** button, the chat will open with the task output copied.
+4. Press **Ask AI to fix**. A new AI Chat view opens with the task output included in a prompt to help diagnose the issue.
 
 {{< figure
     src="img/chat.webp"
@@ -57,15 +59,15 @@ An example of this is shown below:
 
 ## Build Flash and Monitor for single partition
 
-By using the **ESP-IDF: Build, Flash and Start a Monitor on Your Device** (the <img src="https://raw.githubusercontent.com/microsoft/vscode-codicons/refs/heads/main/src/icons/flame.svg" alt="build flash monitor command icon" width="16" height="16" style="display: inline !important; margin: 0; vertical-align: middle;"> icon in the status bar), the user can build an ESP-IDF project, flash the binaries, and start a monitor session.
+The `"idf.partitionToUse"` ESP-IDF extension setting selects the partition to use: `app`, `bootloader`, or `partition-table`. When you run **ESP-IDF: Build, Flash and Start a Monitor on Your Device** (the <img src="https://raw.githubusercontent.com/microsoft/vscode-codicons/refs/heads/main/src/icons/flame.svg" alt="build flash monitor command icon" width="16" height="16" style="display: inline !important; margin: 0; vertical-align: middle;"> status bar icon), the command builds the project, flashes the selected partition, and starts a monitor session.
 
-In `.vscode/settings.json`, You can set the `"idf.partitionToUse"` vscode extension configuration setting to `app`, `bootloader` or `partition-table` to use the **ESP-IDF: Build, Flash and Start a Monitor on Your Device** to flash one single partition instead of a whole ESP-IDF project.
+For example, when `"idf.partitionToUse": "app"`, the **ESP-IDF: Build, Flash and Start a Monitor on Your Device** will build only the app partition, flash the app partition and start a monitor session.
 
-In this version we have also introduced the **ESP-IDF: Build App, Flash App and Start Monitor** command to allow you to do the same but only for the **App** partition instead of the whole project.
+In the v2.3.0 release we have introduced the **ESP-IDF: Build App, Flash App and Start Monitor** command to allow you to do the same but only for the **App** partition and without needing to set `"idf.partitionToUse"` in your settings.json.
 
-If you just want to just build or flash one of these partitions, these commands are also available:
+If you just want to build or flash one of these partitions, several commands are also available:
 
-- **ESP-IDF: Build App Only**,
+- **ESP-IDF: Build App Only**
 - **ESP-IDF: Build Bootloader Only**
 - **ESP-IDF: Build Partition Table**
 - **ESP-IDF: Flash App Only (UART)**
@@ -74,7 +76,7 @@ If you just want to just build or flash one of these partitions, these commands 
 
 ## Espressif MCP servers
 
-As described in the [ESP-IDF VS Code extension Language Tools documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html#espressif-mcp-servers), the extension registers remote Model Context Protocol (MCP) servers so Chat (for example GitHub Copilot) can call Espressif tools without a separate mcp.json entry.
+The Model Context Protocol (MCP) is an open standard that lets AI models connect to external tools, including those in the [Espressif MCP Servers collection](https://mcp.espressif.com). As described in the [ESP-IDF VS Code extension Language Tools documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html#espressif-mcp-servers), this extension registers remote MCP servers so the [VS Code Chat view](https://code.visualstudio.com/docs/agents/run/chat-view) can call Espressif tools without a separate `mcp.json` entry.
 
 The following HTTP servers are contributed:
 
@@ -87,12 +89,45 @@ Here are the steps to enable them:
 
 1. Run **MCP: List Servers** from the Command Palette.
 2. If they are not already running, start the two separate entries: `Espressif Documentation` and `ESP Component Registry`.
-3. VS Code opens a browser for authentication. Sign in with a GitHub or WeChat account. Only an anonymized account ID is used to enforce rate limits. See the Espressif Documentation MCP Server article and Espressif MCP Servers.
+3. VS Code opens a browser for authentication. Sign in with a GitHub or WeChat account. Only an anonymized account ID is used to enforce rate limits. See [Espressif Documentation MCP Server](https://developer.espressif.com/blog/2026/04/doc-mcp-server/).
 4. If the Component Registry server also requests authentication, complete that prompt the same way.
 5. Open Chat (`View` > `Chat`) to start a chat session.
 
 After login, the Chat can use the documentation search and component registry tools together with the ESP-IDF command tool described above.
 
-## Debug Adapter use build gdbinit files
+## Improved debug symbols resolution
 
-We have update the gdb init commands to use the ESP-IDF project build gdbinit files such as symbols, prefix_map (if configured in your ESP-IDF project), python extensions and connect. This should help solve issues such as undefined symbols during a debug session. No need any configuration change from the user side.
+During a debug session, users could see `?? Unknown Source` in the call stack or an error saying the bounds of the current function could not be found.
+
+{{< figure
+    src="img/debugUnknownSource.webp"
+    alt="Unknown source on call stack during debug session"
+    caption="Unknown source on call stack during ESP-IDF debug session"
+    >}}
+
+Previously, you had to configure `launch.json` manually to include ROM symbols.
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "gdbtarget",
+      "request": "attach",
+      "name": "Eclipse CDT GDB Adapter",
+      "imageAndSymbols": {
+        "symbolFileName": "/home/user/.espressif/tools/esp-rom-elfs/20241011/esp32s3_rev0_rom.elf",
+        "symbolOffset": "0"
+      }
+    }
+  ]
+}
+```
+
+or run this gdb command in the VS Code debug console:
+
+```
+add-symbol-file /home/user/.espressif/tools/esp-rom-elfs/20241011/esp32s3_rev0_rom.elf
+```
+
+The debug adapter now loads the ESP-IDF project's gdbinit files from its build directory when you start a debug session. These files contain GDB configuration instructions and symbol information that help resolve source locations, without requiring manual setup.
