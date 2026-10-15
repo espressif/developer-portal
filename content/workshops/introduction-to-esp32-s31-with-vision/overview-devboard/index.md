@@ -1,5 +1,5 @@
 ---
-title: "Introduction to the ESP32-S31 with Vision: Overview of the ESP32-S31-Korvo-1"
+title: "Introduction to the ESP32-S31 with Vision: Overview of the ESP32-S31-Korvo-1 devboard"
 date: 2026-09-28
 showTableOfContents: true
 series: ["ESP32-S31-VISION"]
@@ -101,7 +101,7 @@ Automatic download normally uses the USB-to-UART bridge. If automatic download f
 
 ## What you learned
 
-In this lecture, you learned:
+In this overview, you learned:
 
 - Which ESP32-S31-Korvo-1 peripherals support the vision exercises
 - How the camera, display, touch controller, LED, audio codec, and microSD card connect to the SoC

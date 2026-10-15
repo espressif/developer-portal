@@ -1,5 +1,5 @@
 ---
-title: "Introduction to the ESP32-S31 with Vision: Overview of the ESP32-S31"
+title: "Introduction to the ESP32-S31 with Vision: Overview of the ESP32-S31 SoC"
 date: 2026-09-28
 showTableOfContents: true
 series: ["ESP32-S31-VISION"]
@@ -67,10 +67,12 @@ The multimedia subsystem reduces the amount of pixel work performed by the CPU:
 
 Other notable peripherals include:
 
-- USB 2.0 High-Speed OTG and USB Serial/JTAG
-- CAN FD, SDIO, UART, SPI, I2C, I2S, PARLIO, and LED PWM
-- Two 12-bit SAR ADCs, two DACs, a temperature sensor, and up to 14 capacitive-touch channels
-- Audio Sample Rate Converter (ASRC), CORDIC accelerator, and dual I2S controllers with hardware-level Bluetooth audio synchronization
+- **USB connectivity:** USB 2.0 High-Speed OTG and USB Serial/JTAG
+- **Communication interfaces:** CAN FD, SDIO, UART, SPI, I2C, and PARLIO
+- **Control:** LED PWM
+- **Analog and sensing:** Two 12-bit SAR ADCs, two DACs, a temperature sensor, and up to 14 capacitive-touch channels
+- **Audio:** Audio Sample Rate Converter (ASRC) and dual I2S controllers with hardware-level Bluetooth audio synchronization
+- **Mathematical acceleration:** CORDIC accelerator
 
 ## Edge AI capabilities
 
@@ -119,7 +121,7 @@ These blocks are building blocks, not an automatic security policy. A product mu
 
 ## What you learned
 
-In this introduction, you learned that the ESP32-S31:
+In this overview, you learned that the ESP32-S31:
 
 - Combines dual 320 MHz RISC-V cores with a 128-bit SIMD data path
 - Integrates Wi-Fi 6, Bluetooth 5.4 LE and Classic, IEEE 802.15.4, and a Gigabit Ethernet MAC
@@ -129,6 +131,6 @@ In this introduction, you learned that the ESP32-S31:
 
 ## Next step
 
-[Overview of the ESP32-S31-Korvo-1](../overview-esp32-s31-korvo-1)
+[Overview of the ESP32-S31-Korvo-1](../overview-devboard)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-with-vision/)

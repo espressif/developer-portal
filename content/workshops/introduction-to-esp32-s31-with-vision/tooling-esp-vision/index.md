@@ -208,7 +208,7 @@ The Web IDE also provides access to bundled examples, the API library reference,
 
 ## What you learned
 
-In this assignment, you:
+In this section, you:
 
 - Used ESP-Vision on the ESP32-S31-Korvo-1
 - Learned the difference between device-side MicroPython and desktop Python

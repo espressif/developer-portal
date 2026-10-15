@@ -9,7 +9,7 @@ showAuthor: false
 
 ## Let's blink
 
-In this assignment, you will create a small hardware application. The onboard RGB LED will blink red five times and then remain off. You can enter the provided code manually or optionally use an MCP-enabled coding assistant to generate it.
+In this assignment, you will create a small hardware application. The onboard RGB LED will blink red for five times and then will stay off. You can enter the provided code manually or optionally use an MCP-enabled coding assistant to generate it.
 
 Although blinking an LED is simple, the exercise verifies three important details: the selected board, the correct GPIO, and an API that exists in its MicroPython firmware.
 
@@ -103,7 +103,7 @@ The LED should blink red exactly five times. The REPL should then print:
 LED_TEST:OK
 ```
 
-If the LED does not light:
+If the LED does not light up:
 
 - Confirm that the target is ESP32-S31-Korvo-1.
 - Confirm `LED_PIN = 37`.

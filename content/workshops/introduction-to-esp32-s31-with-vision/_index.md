@@ -10,22 +10,26 @@ Welcome to the Introduction to the ESP32-S31 with Vision workshop!
 
 ## About this workshop
 
-In this workshop, you will explore the ESP32-S31 and build computer-vision applications that run entirely on the device. You will use the ESP32-S31-Korvo-1 multimedia development board, its Board Support Package (BSP), [ESP-DL](https://github.com/espressif/esp-dl), and ESP-Vision.
+In this workshop, you will explore the ESP32-S31 system-on-chip (SoC) and build computer-vision applications that run entirely on the device. You will use the ESP32-S31-Korvo-1 multimedia development board, its Board Support Package (BSP), ESP-Vision, and [ESP-DL](https://github.com/espressif/esp-dl).
 
-The workshop starts with the SoC and board architecture. You will then use the Python-based ESP-Vision workflow to build camera and safety-zone applications. The final two assignments introduce the native ESP32-S31-Korvo-1 BSP and add ESP-DL face detection to its camera example.
+The workshop begins with the SoC and development board overviews. You’ll first use the ESP-VISION workflow to build camera and safety-zone applications in MicroPython—a lightweight implementation of Python designed for microcontrollers. Your Python code will run directly on ESP32-S31, rather than on your computer.
+
+Then, you’ll contrast the ESP-VISION workflow with the traditional ESP-IDF workflow by using the ESP32-S31-Korvo-1 BSP and adding ESP-DL face detection to its camera example.
+
+If you choose so, you will be able to use AI with the ESP-Vision MCP server for agent-assisted application development.
 
 Inference remains local throughout the workshop. Camera frames do not need to be sent to a cloud service.
 
 By the end of the workshop, you will know how to:
 
 - Identify the processing, connectivity, multimedia, and security capabilities of the ESP32-S31.
-- Use the ESP32-S31-Korvo-1 camera, display, touch, LED, audio, and storage hardware through its BSP.
-- Load an ESP-DL model and run face detection from an ESP-IDF application.
 - Use ESP-Vision and develop camera applications in Python.
-- Connect an AI coding assistant to the ESP-Vision MCP server.
+- (optional) Connect an AI coding assistant to the ESP-Vision MCP server.
 - Select an appropriate local model for an embedded vision task.
 - Detect and track hands in camera frames.
 - Detect when a hand enters a safety zone and generate a local warning.
+- Use the ESP32-S31-Korvo-1 camera, display, touch, LED, audio, and storage hardware through its BSP.
+- Load an ESP-DL model and run face detection from an ESP-IDF application.
 
 ## Prerequisites
 
@@ -33,10 +37,11 @@ By the end of the workshop, you will know how to:
 
 - Computer running Linux, Windows, or macOS.
 - [ESP32-S31-Korvo-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-korvo-1/user_guide.html).
-- USB Type-C data cable connected to the board's **UART** port.
-- USB Type-A to Type-A data cable for connecting the ESP32-S31-Korvo-1 to the ESP-Vision Web IDE.
-- Optional FAT32-formatted microSD card for model files that are too large for the ESP-Vision internal flash filesystem.
-- Optional second USB Type-C cable for the dedicated power port.
+- USB Type-C data cable to connect your computer to the board's **UART** port.
+- USB Type-A to Type-A data cable to connect the ESP32-S31-Korvo-1 to the ESP-Vision Web IDE.
+- (optional) microSD card formatted as FAT32 for storing model files that are too large for the ESP-Vision internal flash filesystem.
+- (optional) Another USB Type-C cable for the dedicated power port.
+
 
 > [!IMPORTANT]
 > When the board receives power through the USB Type-A connection, the board's power switch cannot turn it off. Disconnect the Type-A to Type-A cable to fully remove power.
@@ -59,8 +64,8 @@ By the end of the workshop, you will know how to:
 
 ## Agenda
 
-- [Overview of the ESP32-S31](introduction)
-- [Overview of the ESP32-S31-Korvo-1](overview-esp32-s31-korvo-1)
+- [Overview of the ESP32-S31 SoC](overview-soc)
+- [Overview of the ESP32-S31-Korvo-1 devboard](overview-devboard)
 - [Tooling: Getting started with ESP-Vision](tooling-esp-vision)
 - [Tooling: Set up the ESP-Vision MCP server (optional)](tooling-mcp)
 - [Assignment 1: LED blink with ESP-Vision](assignment-1)
@@ -81,7 +86,7 @@ By the end of the workshop, you will know how to:
 
 ## Next step
 
-[Overview of the ESP32-S31](introduction)
+[Overview of the ESP32-S31](overview-soc)
 
 ## Feedback
 

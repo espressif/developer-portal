@@ -12,7 +12,7 @@ showAuthor: false
 > [!NOTE]
 > This tooling step is optional. If you are not going to use an AI coding agent, continue directly to [Assignment 1: LED blink with ESP-Vision](../assignment-1).
 
-The Model Context Protocol (MCP) gives an AI coding assistant access to tools and documentation outside its built-in knowledge. See the official [ESP-Vision MCP page](https://mcp.espressif.com/#esp-vision) for service details. In this assignment, you will connect a compatible client to the endpoint `https://mcp.vision.espressif.com`.
+The Model Context Protocol (MCP) gives an AI coding assistant access to tools and documentation outside its built-in knowledge. See the official [ESP-Vision MCP page](https://mcp.espressif.com/#esp-vision) for service details. In this section, you will connect a compatible client to the endpoint `https://mcp.vision.espressif.com`.
 
 The connection helps the assistant verify APIs, chip capabilities, examples, and concepts before generating code.
 
@@ -200,7 +200,7 @@ claude mcp add --transport http esp-vision-mcp \
 
 ## What you learned
 
-In this assignment, you:
+In this section, you:
 
 - Connected Cursor, Visual Studio Code, Claude Code, or another client to the ESP-Vision MCP server
 - Learned what information the MCP server provides
