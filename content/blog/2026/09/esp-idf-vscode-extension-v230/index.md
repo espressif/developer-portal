@@ -72,7 +72,7 @@ If you just want to just build or flash one of these partitions, these commands 
 - **ESP-IDF: Flash Bootloader Only (UART)**
 - **ESP-IDF: Flash Partition Table (UART)**
 
-## Espressif MCP Servers
+## Espressif MCP servers
 
 As described in the [ESP-IDF VS Code extension Language Tools documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html#espressif-mcp-servers), the extension registers remote Model Context Protocol (MCP) servers so Chat (for example GitHub Copilot) can call Espressif tools without a separate mcp.json entry.
 
