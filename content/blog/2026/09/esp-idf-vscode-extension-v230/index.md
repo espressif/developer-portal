@@ -32,7 +32,7 @@ For other updates please review [v2.3.0 Release notes](https://github.com/espres
 
 Since the v1.11.0 release, we have introduced integration with AI Chat to run extension commands from the chat directly and consume the output directly from there. Please review this feature in the [Language Tools documentation](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/language-tools.html#esp-idf-chat-commands).
 
-In this release we have finally achieve the possibility for any regular commands, such as the `ESP-IDF: Build your project` to allow the user to send the output to the chat if there is any issue during the task execution. A notification shows the `Ask AI to fix` action to send the task output to the Chat for AI troubleshooting.
+Commands such as `ESP-IDF: Build your project` now offer AI troubleshooting if there are any issues during task execution. Select `Ask AI to fix` in the notification to send the task output to the chat for AI troubleshooting.
 
 An example of this is shown below:
 
