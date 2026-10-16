@@ -9,7 +9,7 @@ showAuthor: false
 
 ## Assignment 1: Establish and verify a TLS connection
 
-In this assignment, you will run the ESP-IDF [**https_mbedtls**](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls) example on the Function CoreBoard: configure trust anchors, complete a TLS handshake to a public HTTPS server, and run controlled tests that should **fail** verification. Read [Lecture 1](../lecture-1) first for the threat model, API flow, and menuconfig paths.
+In this assignment, you will run the ESP-IDF [**https_mbedtls**](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls) example on the ESP32-S31-Function-CoreBoard-1: configure trust anchors, complete a TLS handshake to a public HTTPS server, and run controlled tests that should **fail** verification. Read [Lecture 1](../lecture-1) first for the threat model, API flow, and menuconfig paths.
 
 ## Before you begin
 
@@ -22,7 +22,7 @@ In this assignment, you will run the ESP-IDF [**https_mbedtls**](https://github.
 **Commands (from the example directory):**
 
 ```bash
-idf.py set-target esp32s31
+idf.py --preview set-target esp32s31
 idf.py menuconfig
 idf.py -p PORT build flash monitor
 ```
@@ -30,7 +30,7 @@ idf.py -p PORT build flash monitor
 Replace `PORT` with your serial port. TODO: Pin a tested ESP-IDF v6.1 commit or workshop fork when the course repository is published.
 
 > [!IMPORTANT]
-> **Workshop tier A:** This assignment does not burn eFuses. If you merge Kconfig from other labs, keep `CONFIG_EFUSE_VIRTUAL=y` in the shared workshop project so later Tier B assignments stay safe.
+> **Workshop tier A:** This assignment does not burn eFuses. Keep `CONFIG_EFUSE_VIRTUAL` **off** in this project: [Assignment 2](../assignment-2) burns a real HMAC key and needs real eFuses, and [Assignment 3](../assignment-3) turns virtual eFuses on for Secure Boot.
 
 > [!IMPORTANT]
 > Never commit Wi-Fi passwords, production certificates, private keys, tokens, or service credentials.
@@ -107,7 +107,7 @@ You should now be able to:
 
 ## Closing demo: TLS power consumption
 
-After you finish the TLS exercises above, the instructor will run a live demo of **TLS power consumption** on the Function CoreBoard using a [Qoitech](https://www.qoitech.com/) power profiler (for example [Otii Arc Pro](https://www.qoitech.com/otii-arc-pro/)). The demo shows how supply current changes during Wi-Fi bring-up and the TLS handshake while the device runs the same **https_mbedtls** client flow. You observe the trace; no extra steps are required in this assignment.
+After you finish the TLS exercises above, the instructor will run a live demo of **TLS power consumption** on the ESP32-S31-Function-CoreBoard-1 using a [Qoitech](https://www.qoitech.com/) power profiler (for example [Otii Arc Pro](https://www.qoitech.com/otii-arc-pro/)). The demo shows how supply current changes during Wi-Fi bring-up and the TLS handshake while the device runs the same **https_mbedtls** client flow. You observe the trace; no extra steps are required in this assignment.
 
 ## Previous and next steps
 

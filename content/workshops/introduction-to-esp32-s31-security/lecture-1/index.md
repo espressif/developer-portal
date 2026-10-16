@@ -9,12 +9,12 @@ showAuthor: false
 
 ## TLS for secure communication
 
-**TLS** authenticates the remote server and encrypts traffic in transit. [Assignment 1](../assignment-1) uses the ESP-IDF example [`https_mbedtls`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls): an HTTPS client on the [Function CoreBoard](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) that calls **mbedTLS** directly (`mbedtls_ssl_*`, `mbedtls_net_*`), GETs `https://www.howsmyssl.com/a/check`, and prints the JSON response.
+**TLS** authenticates the remote server and encrypts traffic in transit. [Assignment 1](../assignment-1) uses the ESP-IDF example [`https_mbedtls`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls): an HTTPS client on the [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) that calls **mbedTLS** directly (`mbedtls_ssl_*`, `mbedtls_net_*`), GETs `https://www.howsmyssl.com/a/check`, and prints the JSON response.
 
 Other examples wrap the same crypto in [ESP-TLS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_tls.html) (for example [`https_request`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_request)). We use **https_mbedtls** so the handshake and certificate checks stay visible in one source file.
 
 > [!NOTE]
-> Set `idf.py set-target esp32s31` on **ESP-IDF v6.1** even if the example README target list does not yet name ESP32-S31.
+> Set `idf.py --preview set-target esp32s31` on **ESP-IDF v6.1** even if the example README target list does not yet name ESP32-S31. The ESP32-S31 is a preview target in ESP-IDF, so `set-target` needs the `--preview` option.
 
 ## Learning objectives
 

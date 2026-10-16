@@ -7,7 +7,7 @@ showAuthor: false
 
 ## Purpose
 
-This appendix describes **Tier C** provisioning: enabling ESP32-S31 security features with **real eFuse burns** on purpose-built hardware. It is **not** part of the default classroom track. Participants should complete the main workshop using virtual eFuses only.
+This appendix describes **Tier C** provisioning: enabling ESP32-S31 security features with **real eFuse burns** on purpose-built hardware. It is **not** part of the default classroom track. Participants complete the main workshop using virtual eFuses, except for the single `HMAC_UP` key that Assignment 2 generates on the SoC for NVS encryption.
 
 Use this material for manufacturing engineering, a pilot line, or an **instructor demo** (one spare board, students observe).
 
@@ -27,7 +27,7 @@ Order and exact steps depend on your product; this is a common pattern:
 1. Flash unsigned or development firmware only on provisioning stations under access control.
 2. Generate and protect Secure Boot V2 signing keys; burn public-key digests and enable hardware Secure Boot per the ESP-IDF workflow.
 3. Enable flash encryption in **development** mode first on pilot units; validate recovery and reflashing policy before considering release mode.
-4. Provision HMAC keys for NVS (`burn-key` with purpose `HMAC_UP`) on blocks reserved in your eFuse plan.
+4. Provision HMAC keys for NVS on blocks reserved in your eFuse plan: either let `nvs_flash_init()` generate the key on first boot (as in [Assignment 2](../assignment-2)), or pre-burn a host-generated key with `burn-key` and purpose `HMAC_UP` when manufacturing needs to know it.
 5. Configure anti-rollback secure version fields when you commit to minimum firmware versions fleet-wide.
 6. Restrict download mode and debug interfaces according to product policy.
 7. Record eFuse summary, firmware versions, and test results in the product technical file.
@@ -40,7 +40,7 @@ The main workshop does **not** include a hands-on OTA or anti-rollback assignmen
 
 ## If a board was burned by mistake in class
 
-Stop the exercise, swap the board, and continue with virtual eFuses. Do not attempt to “match” production state on remaining student kits.
+This means any real burn other than the expected Assignment 2 HMAC key. Stop the exercise, swap the board, and continue with virtual eFuses. Do not attempt to “match” production state on remaining student kits.
 
 ## Related documentation
 

@@ -9,13 +9,13 @@ showAuthor: false
 
 ## Assignment 3: Enable and verify Secure Boot V2
 
-In [Assignment 2](../assignment-2) you kept the [**https_mbedtls**](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls) client, **encrypted NVS**, and **Wi-Fi credentials in NVS** (`wifi_creds.c`, `workshop_wifi_connect.c`). Here you add **Secure Boot V2** on the same project so only **signed** bootloader and application images run, while virtual eFuses hold the trust anchors in class.
+In [Assignment 2](../assignment-2) you kept the [**https_mbedtls**](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls) client, **encrypted NVS**, and **Wi-Fi credentials in NVS** (`wifi_creds.c`, `workshop_wifi_connect.c`). Here you add **Secure Boot V2** on the same project so only **signed** bootloader and application images run. You now turn on virtual eFuses so the Secure Boot trust anchors stay emulated in class.
 
 Read [Lecture 3](../lecture-3) for the boot chain, keys vs digests, and CRA evidence themes. Official flow: [How to enable Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2).
 
 ## Before you begin
 
-**Starting point:** Assignment 2 complete under `$IDF_PATH/examples/protocols/https_mbedtls` (or your workshop fork): certificate bundle, HMAC NVS, `workshop_wifi` credentials, virtual eFuses.
+**Starting point:** Assignment 2 complete under `$IDF_PATH/examples/protocols/https_mbedtls` (or your workshop fork): certificate bundle, HMAC NVS with a real `HMAC_UP` key in block 0, `workshop_wifi` credentials, and virtual eFuses still off.
 
 **Hardware:** [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html).
 
@@ -23,22 +23,22 @@ Read [Lecture 3](../lecture-3) for the boot chain, keys vs digests, and CRA evid
 
 ```bash
 cd $IDF_PATH/examples/protocols/https_mbedtls
-idf.py set-target esp32s31
+idf.py --preview set-target esp32s31
 ```
 
 Replace `PORT` with your serial port in flash commands below. TODO: Pin a tested ESP-IDF v6.1 commit or workshop fork when the course repository is published.
 
 > [!IMPORTANT]
-> **Workshop mode: virtual eFuses.** Keep `CONFIG_EFUSE_VIRTUAL=y` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y` (see [Lab safety and virtual eFuses](../introduction/#lab-safety-and-virtual-efuses)). Secure Boot **digest** and `SECURE_BOOT_EN` programming must stay emulated; do **not** run `espefuse burn` on participant boards.
+> **Workshop mode: turn on virtual eFuses.** Enable `CONFIG_EFUSE_VIRTUAL=y` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y` in this assignment; they were off in Assignment 2 (see [Lab safety and virtual eFuses](../introduction/#lab-safety-and-virtual-efuses)). Secure Boot **digest** and `SECURE_BOOT_EN` programming must stay emulated; do **not** run `espefuse burn` on participant boards. On first start, ESP-IDF copies the real eFuses into the empty `efuse_em` partition, so block 0 already shows `HMAC_UP` and encrypted NVS keeps working.
 
 **eFuse block plan (same project as Assignment 2):**
 
 | Key block ID | Purpose | Used in |
 |--------------|---------|---------|
-| `0` | `HMAC_UP` (NVS encryption) | Assignment 2 |
-| `1` | `SECURE_BOOT_DIGEST0` | Assignment 3 signing key |
+| `0` | `HMAC_UP` (NVS encryption) | Assignment 2 (real eFuse, already burned) |
+| `1` | `SECURE_BOOT_DIGEST0` | Assignment 3 signing key (virtual) |
 
-Do not store both purposes in the same block. If you already used block `1` for HMAC, pick another free block for the HMAC key in menuconfig and keep **digest 0** on block `1` for this lab.
+Do not store both purposes in the same block. If Assignment 2 used a different key ID for HMAC, keep **digest 0** on another free block.
 
 **Preflight:** After `idf.py build`, confirm in `sdkconfig`:
 
@@ -46,9 +46,9 @@ Do not store both purposes in the same block. If you already used block `1` for 
 - `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y`
 - `CONFIG_NVS_ENCRYPTION=y` and HMAC NVS options from Assignment 2 still present
 
-**Forbidden on participant boards:** `espefuse burn`, `espefuse burn-key`, hardware Secure Boot without virtual eFuses, committing `secure_boot_signing_key.pem` or other private keys.
+**Forbidden on participant boards:** `espefuse burn`, hardware Secure Boot without virtual eFuses, committing `secure_boot_signing_key.pem` or other private keys.
 
-**Reset after lab (optional):** `idf.py -p PORT erase-flash`, then repeat the signed bootloader + app flash sequence so virtual eFuse state and partitions are clean.
+**Reset after lab (optional):** `idf.py -p PORT erase-flash`, then repeat the signed bootloader + app flash sequence so virtual eFuse state and partitions are clean. Erasing flash clears the virtual Secure Boot state but not the real HMAC key from Assignment 2.
 
 > [!WARNING]
 > Production Secure Boot burns digests and `SECURE_BOOT_EN` for real. That flow is in the [production provisioning appendix](../appendix-production-provisioning), not in this assignment.
@@ -58,7 +58,7 @@ Do not store both purposes in the same block. If you already used block `1` for 
 Goal: verify TLS and encrypted NVS still work **before** you change the boot path.
 
 1. Run `idf.py -p PORT build flash monitor`.
-2. Confirm Assignment 2 success criteria: encrypted `nvs`, Wi-Fi from NVS, TLS `Certificate validated`, howsmyssl JSON.
+2. Confirm Assignment 2 success criteria: encrypted `nvs`, Wi-Fi from NVS, TLS `esp-x509-crt-bundle: Certificate validated` and `Certificate verified.`, howsmyssl JSON.
 
 If anything fails, fix Assignment 2 before enabling Secure Boot. Secure Boot changes flashing steps and makes unsigned images harder to recover without `erase-flash`.
 
@@ -66,16 +66,18 @@ If anything fails, fix Assignment 2 before enabling Secure Boot. Secure Boot cha
 
 Goal: persist emulated eFuse state across reboots ([Virtual eFuses (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#debug-efuse-unit-tests)).
 
-1. Switch to a **custom** partition table if the project still uses the default: **Partition Table → Partition Table → Custom partition table CSV**.
-2. Edit `partitions.csv` (or your workshop file) and add an `efuse_em` region. Example (adjust sizes to fit your flash map; increase `factory` offset if the build warns about bootloader size):
+1. Confirm the project uses the custom partition table from [Assignment 2](../assignment-2/#if-the-app-does-not-fit-the-factory-partition) (**Partition Table → Partition Table → Custom partition table CSV**, flash size 16 MB). If it still uses the default table, switch now.
+2. Edit `partitions.csv` and add an `efuse_em` region after `nvs`. `nvs` stays at `0x9000`, so the encrypted Wi-Fi credentials from Assignment 2 are kept; the partitions after it move up, and `factory` moves to the next 64 KB boundary:
 
 ```csv
-# Name,     Type, SubType, Offset,  Size, Flags
-nvs,        data, nvs,     ,        0x6000,
-efuse_em,   data, efuse,   ,        0x2000,
-phy_init,   data, phy,     ,        0x1000,
-factory,    app,  factory, ,        0x140000,
+# Name,   Type, SubType, Offset,   Size,     Flags
+nvs,      data, nvs,     0x9000,   0x6000,
+efuse_em, data, efuse,   0xf000,   0x2000,
+phy_init, data, phy,     0x11000,  0x1000,
+factory,  app,  factory, 0x20000,  0x200000,
 ```
+
+If you have to raise the partition table offset because the signed bootloader is larger, shift every offset by the same amount. That moves the `nvs` partition, and the encrypted Wi-Fi credentials from Assignment 2 are no longer found. On the next boot, `wifi_creds` copies them from menuconfig again (`Stored lab Wi-Fi credentials in encrypted NVS`). This is expected; the HMAC key is unchanged.
 
 3. Rebuild once: `idf.py build`. Resolve partition overlap errors by following the size hint in the linker or Secure Boot docs (signed bootloaders are larger than the stock image).
 
@@ -205,7 +207,7 @@ Goal: prove Secure Boot is active in emulation and that **encrypted NVS + TLS** 
 |-------|----------|
 | NVS encryption | `NVS partition "nvs" is encrypted.` |
 | Wi-Fi | Loaded from NVS, connected |
-| TLS | `Certificate validated`, howsmyssl JSON |
+| TLS | `esp-x509-crt-bundle: Certificate validated`, `Certificate verified.`, howsmyssl JSON |
 
 Capture log excerpts for workshop notes and the **integrity / unauthorized firmware** row in the [EU CRA overview](../overview-eu-cra).
 

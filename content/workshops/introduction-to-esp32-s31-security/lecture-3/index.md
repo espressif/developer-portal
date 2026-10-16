@@ -11,7 +11,7 @@ showAuthor: false
 
 If an attacker can replace the bootloader or application in flash, they can run arbitrary code: bypass your TLS stack, exfiltrate [encrypted NVS](../lecture-2) after boot, or impersonate your device on the network. **Secure Boot V2** checks **digital signatures** on the second-stage bootloader and on each application image before execution, using **RSA-PSS** and public-key digests stored in eFuses.
 
-[Assignment 3](../assignment-3) walks through the ESP-IDF enablement flow on the Function CoreBoard with ESP-IDF v6.1: generate a development signing key, build signed images, provision trust with **virtual** eFuses, and confirm that tampered firmware is rejected. Primary reference: [Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html).
+[Assignment 3](../assignment-3) walks through the ESP-IDF enablement flow on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1: generate a development signing key, build signed images, provision trust with **virtual** eFuses, and confirm that tampered firmware is rejected. Primary reference: [Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html).
 
 ## Learning objectives
 
@@ -30,7 +30,7 @@ If an attacker can replace the bootloader or application in flash, they can run 
 - **Confidentiality** of flash contents (use [flash encryption](../lecture-4) and [NVS encryption](../lecture-2))
 - A **buggy but signed** application you approved with your own key
 - **Runtime** compromise after a legitimate boot
-- **Physical glitch or invasive** attacks on the chip (different mitigations and test labs)
+- **Physical glitch or invasive** attacks on the SoC (different mitigations and test labs)
 
 Secure Boot answers: *“Is this image cryptographically approved by keys I trust?”* It does not answer: *“Is this image free of vulnerabilities?”* Patch management, SBOM, and CRA **Part II** vulnerability handling remain product responsibilities.
 
@@ -101,7 +101,7 @@ Together, authenticity (Secure Boot), confidentiality (flash/NVS encryption), an
 
 ### Workshop path (Assignment 3)
 
-The class lab enables the Secure Boot V2 **build and boot flow** with [CONFIG_EFUSE_VIRTUAL](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual) and [CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual-keep-in-flash). Public-key digests and `SECURE_BOOT_EN` are applied to **emulated** eFuses only. You still sign images and test rejection of bad firmware; the chip’s real eFuses stay at factory defaults.
+The class lab enables the Secure Boot V2 **build and boot flow** with [CONFIG_EFUSE_VIRTUAL](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual) and [CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual-keep-in-flash). Public-key digests and `SECURE_BOOT_EN` are applied to **emulated** eFuses only. You still sign images and test rejection of bad firmware; the SoC’s real eFuses stay at factory defaults, apart from the HMAC key block burned in [Assignment 2](../assignment-2). The emulated copy starts from the real eFuses, so that block still shows `HMAC_UP` and encrypted NVS keeps working.
 
 **Preflight:** After `idf.py build`, confirm `CONFIG_EFUSE_VIRTUAL=y`. After boot, expect a warning that virtual eFuses are active. Use `idf.py efuse-summary` to inspect **emulated** digest slots, not as proof of production state.
 
@@ -112,7 +112,7 @@ The class lab enables the Secure Boot V2 **build and boot flow** with [CONFIG_EF
 Hardware Secure Boot burns key digests, enables `SECURE_BOOT_EN`, and may revoke unused digest slots. UART download mode and debug policies are often restricted at the same time. That is **irreversible** on real silicon. Follow the [production provisioning appendix](../appendix-production-provisioning) and [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html) on disposable provisioning hardware, not on workshop kits.
 
 > [!WARNING]
-> Enabling hardware Secure Boot and programming or protecting **real** eFuses can be irreversible. In class, verify virtual eFuse mode before any provisioning step. Never run `espefuse burn` on participant boards.
+> Enabling hardware Secure Boot and programming or protecting **real** eFuses can be irreversible. In class, verify virtual eFuse mode before any Secure Boot step. Never run `espefuse burn` on participant boards.
 
 ## CRA and product evidence
 
@@ -129,9 +129,9 @@ For CRA timelines, reporting duties, and conformity steps, use the overview and 
 
 ## Before Assignment 3
 
-- Target: `idf.py set-target esp32s31`
+- Target: `idf.py --preview set-target esp32s31`
 - Read [How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2) once before changing **Security features** in menuconfig
-- Keep virtual eFuse defaults from the workshop project
+- Enable virtual eFuses and add an `efuse_em` partition (they were off during Assignment 2)
 - Generate a **lab-only** signing key; add `*.pem` to `.gitignore` and never commit private keys
 
 ## Previous and next steps

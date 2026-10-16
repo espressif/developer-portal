@@ -23,7 +23,7 @@ You enable flash encryption in **development** mode with **virtual** eFuses. Off
 
 ```bash
 cd $IDF_PATH/examples/security/flash_encryption
-idf.py set-target esp32s31
+idf.py --preview set-target esp32s31
 idf.py menuconfig
 idf.py -p PORT build flash monitor
 ```
@@ -33,7 +33,9 @@ Replace `PORT` with your serial port. TODO: Pin a tested ESP-IDF v6.1 commit or 
 > [!IMPORTANT]
 > **Workshop mode: virtual eFuses.** Enable [CONFIG_EFUSE_VIRTUAL](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual) and [CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual-keep-in-flash). Add an **`efuse_em`** row to the custom partition table (see Step 2). Do **not** use flash encryption **release** mode or `espefuse burn` on class boards.
 
-**Switching from Assignment 3:** That lab used `examples/protocols/https_mbedtls` with Secure Boot. Before this assignment, run `idf.py -p PORT erase-flash` on the CoreBoard so old bootloaders and virtual eFuse state do not confuse the flash encryption example.
+**Switching from Assignment 3:** That lab used `examples/protocols/https_mbedtls` with Secure Boot. Before this assignment, run `idf.py -p PORT erase-flash` on the ESP32-S31-Function-CoreBoard-1 so old bootloaders and virtual eFuse state do not confuse the flash encryption example.
+
+**HMAC key from Assignment 2:** the emulated eFuses start as a copy of the real ones, so block 0 already holds `HMAC_UP` in `efuse-summary`. The flash encryption key is placed in the next free key block. This is expected.
 
 **Preflight:** After `idf.py build`, confirm in `sdkconfig`:
 

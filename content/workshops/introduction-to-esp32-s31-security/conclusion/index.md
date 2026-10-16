@@ -18,7 +18,7 @@ After completing the finished workshop, you will have:
 - Reviewed the ESP32-S31 architecture and security capabilities
 - Distinguished SoC security features from product-level CRA compliance
 - Protected data in transit with TLS
-- Configured HMAC-based NVS encryption using virtual HMAC key provisioning
+- Configured HMAC-based NVS encryption with a real HMAC key generated on the SoC at first boot
 - Walked through Secure Boot V2 signing and verification with virtual eFuses
 - Exercised flash encryption flows in virtual eFuse mode (with known limits vs production)
 - Observed the instructor-led **TLS power consumption** Otii demo at the end of Assignment 1 (when offered)
@@ -27,10 +27,10 @@ After completing the finished workshop, you will have:
 
 | Topic | In the workshop | On the manufacturing line |
 |-------|-----------------|---------------------------|
-| eFuses | Virtual (`CONFIG_EFUSE_VIRTUAL`) | Real burns per enablement workflow |
+| eFuses | Virtual (`CONFIG_EFUSE_VIRTUAL`), except the HMAC key block | Real burns per enablement workflow |
 | Secure Boot | Emulated digests and enable | Hardware `SECURE_BOOT_EN` |
 | Flash encryption | Virtual development simulation | Real keys and release policy |
-| HMAC NVS | Virtual key block | `burn-key` and protections |
+| HMAC NVS | Real `HMAC_UP` block, key generated on the SoC | Pre-burned or first-boot key, block recorded per device |
 
 Production provisioning, secure OTA, and anti-rollback are documented in the [production provisioning appendix](../appendix-production-provisioning).
 

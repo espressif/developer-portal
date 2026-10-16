@@ -92,7 +92,7 @@ The labs do not finish conformity assessment. They produce testable artifacts fo
 | HMAC-based NVS encryption | Credentials and configuration at rest | Partition layout, provisioning record, NVS read tests |
 | TLS | Protection in transit, authentication | Trust store policy, test results, cipher configuration |
 | Secure OTA and anti-rollback (not a workshop lab) | Secure updates, rollback prevention | Signed image workflow, version policy, failed downgrade test; see appendix and ESP-IDF |
-Platform features (secure boot, flash encryption, eFuse keys, ESP-IDF patches, OTA, SBOM tools) are listed in Espressif’s [CRA overview](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#how-espressif-will-support-oem-customers-for-cra-compliance) and [Product Security](https://docs.espressif.com/projects/esp-product-security/en/latest/) docs. The [reporting FAQ](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/#frequently-asked-questions-faq) states plainly: no API or chip is “CRA-compliant” by itself; compliance belongs to the finished product.
+Platform features (secure boot, flash encryption, eFuse keys, ESP-IDF patches, OTA, SBOM tools) are listed in Espressif’s [CRA overview](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#how-espressif-will-support-oem-customers-for-cra-compliance) and [Product Security](https://docs.espressif.com/projects/esp-product-security/en/latest/) docs. The [reporting FAQ](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/#frequently-asked-questions-faq) states plainly: no API or SoC is “CRA-compliant” by itself; compliance belongs to the finished product.
 
 ## Developer Portal reading list
 

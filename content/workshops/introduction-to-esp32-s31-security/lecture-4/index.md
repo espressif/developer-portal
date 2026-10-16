@@ -11,7 +11,7 @@ showAuthor: false
 
 Offline access to external flash can expose firmware, file systems, and data partitions. **Flash encryption** uses **XTS-AES** in hardware so ciphertext is stored on the medium while the CPU sees decrypted content through the flash cache during normal operation. It complements [Secure Boot V2](../lecture-3) (authenticity) and [HMAC-based NVS encryption](../lecture-2) (structured secrets in NVS without requiring whole-flash encryption).
 
-[Assignment 4](../assignment-4) follows the ESP-IDF example [`flash_encryption`](https://github.com/espressif/esp-idf/tree/master/examples/security/flash_encryption) on the Function CoreBoard with ESP-IDF v6.1, in **development** mode with **virtual** eFuses. Primary reference: [Flash Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html).
+[Assignment 4](../assignment-4) follows the ESP-IDF example [`flash_encryption`](https://github.com/espressif/esp-idf/tree/master/examples/security/flash_encryption) on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1, in **development** mode with **virtual** eFuses. Primary reference: [Flash Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html).
 
 ## Learning objectives
 
@@ -46,8 +46,7 @@ What typically gets encrypted on first boot after enablement:
 
 Partitions without the flag remain plaintext on the wire unless other layers (such as NVS entry encryption) apply.
 
-Key source on ESP32-S31 is **eFuse-based** by default (bootloader-generated random key on first enable unless a key was pre-burned). **Key Manager** as the flash encryption key source applies to other chips (for example ESP32-C5, ESP32-P4), not the S31 lab path.
-
+Key source on ESP32-S31 is **eFuse-based** by default (bootloader-generated random key on first enable unless a key was pre-burned).
 Enabling flash encryption **increases bootloader size**. The example raises **partition table offset** to `0xD000` so the bootloader does not overlap the table ([example README](https://github.com/espressif/esp-idf/blob/master/examples/security/flash_encryption/README.md)).
 
 ## Reference example architecture
@@ -63,7 +62,7 @@ Path: `$IDF_PATH/examples/security/flash_encryption`
 
 **`app_main` flow (`flash_encrypt_main.c`):**
 
-1. Print chip info and **flash encryption status** (`SPI_BOOT_CRYPT_CNT`, development vs release messaging).
+1. Print SoC information and **flash encryption status** (`SPI_BOOT_CRYPT_CNT`, development vs release messaging).
 2. **`example_read_write_flash`**: exercise encrypted flash read/write helpers.
 3. **`example_read_write_fatfs`** (if FAT partitions exist): write the same test string to **`fat_not_encr`** and **`fat_encrypted`**, read back through FATFS, then use `esp_flash_read()` on the encrypted partition at the same offset. With encryption active, the **raw read** does not show the plaintext string; the non-encrypted partition does.
 4. Initialize default **`nvs`** and optional **`custom_nvs`** with `nvs_flash_secure_init_partition()` when NVS encryption is enabled.
@@ -105,7 +104,7 @@ Keep recoverable UART download settings on student boards unless your instructor
 Release mode and real key/counter eFuses are manufacturing decisions documented in the [production provisioning appendix](../appendix-production-provisioning).
 
 > [!WARNING]
-> Release-mode eFuses and UART lockdown can be **irreversible**. Do not practice production burns on Function CoreBoard kits used in the course.
+> Release-mode eFuses and UART lockdown can be **irreversible**. Do not practice production burns on ESP32-S31-Function-CoreBoard-1 kits used in the course.
 
 ## CRA and product evidence
 
@@ -122,8 +121,8 @@ For Annex I timelines, reporting, and conformity process, use the overview and l
 ## Before Assignment 4
 
 - Example: `$IDF_PATH/examples/security/flash_encryption`
-- Target: `idf.py set-target esp32s31`
-- Confirm `efuse_em` in `partitions.csv` and virtual eFuse Kconfig from earlier labs
+- Target: `idf.py --preview set-target esp32s31`
+- Add `efuse_em` to `partitions_example.csv` and enable virtual eFuses, as you did in Assignment 3
 - Read the example [README](https://github.com/espressif/esp-idf/blob/master/examples/security/flash_encryption/README.md) for partition table offset and NVS key partition erase requirements
 
 ## Previous and next steps
