@@ -39,9 +39,8 @@ Since the release of version 4.0 for the ESP32-C3, the system has been considere
 
 
 **Legend:**
-* ✅ : Supported
-* ⏳ : Not yet Supported
-* ❌ : Not available on this device
+
+{{< dynamic-block contentPath="persist\software\zephyr-status\zephyr-status.json" jsonKey="legend_list_simple" >}}
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
 - *Current chip versions* are listed as supported in Zephyr. For the latest chip versions, please consult the Espressif website.  
