@@ -15,9 +15,7 @@ Read [Lecture 3](../lecture-3) for the boot chain, keys vs digests, and CRA evid
 
 ## Before you begin
 
-**Starting point:** Assignment 2 complete under `$IDF_PATH/examples/protocols/https_mbedtls` (or your workshop fork): certificate bundle, HMAC NVS with a real `HMAC_UP` key in block 0, `workshop_wifi` credentials, and virtual eFuses still off.
-
-**Hardware:** [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html).
+**Starting point:** Assignment 2 complete under `$IDF_PATH/examples/protocols/https_mbedtls` (or your workshop fork): certificate bundle, HMAC NVS with a real `HMAC_UP` key in block 0, `workshop_wifi` credentials, custom `partitions.csv`, and virtual eFuses still off.
 
 **Commands (project directory):**
 
@@ -26,29 +24,23 @@ cd $IDF_PATH/examples/protocols/https_mbedtls
 idf.py --preview set-target esp32s31
 ```
 
-Replace `PORT` with your serial port in flash commands below. TODO: Pin a tested ESP-IDF v6.1 commit or workshop fork when the course repository is published.
+Replace `PORT` with your serial port in flash commands below.
 
 > [!IMPORTANT]
 > **Workshop mode: turn on virtual eFuses.** Enable `CONFIG_EFUSE_VIRTUAL=y` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y` in this assignment; they were off in Assignment 2 (see [Lab safety and virtual eFuses](../introduction/#lab-safety-and-virtual-efuses)). Secure Boot **digest** and `SECURE_BOOT_EN` programming must stay emulated; do **not** run `espefuse burn` on participant boards. On first start, ESP-IDF copies the real eFuses into the empty `efuse_em` partition, so block 0 already shows `HMAC_UP` and encrypted NVS keeps working.
 
 **eFuse block plan (same project as Assignment 2):**
 
-| Key block ID | Purpose | Used in |
-|--------------|---------|---------|
-| `0` | `HMAC_UP` (NVS encryption) | Assignment 2 (real eFuse, already burned) |
-| `1` | `SECURE_BOOT_DIGEST0` | Assignment 3 signing key (virtual) |
+| Key block | Purpose | Where it lives |
+|-----------|---------|----------------|
+| `BLOCK_KEY0` | `HMAC_UP` (NVS encryption) | Real eFuse, burned in Assignment 2; copied into the emulated eFuses |
+| `BLOCK_KEY1` | `SECURE_BOOT_DIGEST0` | Emulated eFuse only, written by the bootloader on first boot |
 
-Do not store both purposes in the same block. If Assignment 2 used a different key ID for HMAC, keep **digest 0** on another free block.
-
-**Preflight:** After `idf.py build`, confirm in `sdkconfig`:
-
-- `CONFIG_EFUSE_VIRTUAL=y`
-- `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y`
-- `CONFIG_NVS_ENCRYPTION=y` and HMAC NVS options from Assignment 2 still present
+The bootloader writes the digest into the first free key block, so with `HMAC_UP` in block 0 it lands in block 1. You do not choose the block manually.
 
 **Forbidden on participant boards:** `espefuse burn`, hardware Secure Boot without virtual eFuses, committing `secure_boot_signing_key.pem` or other private keys.
 
-**Reset after lab (optional):** `idf.py -p PORT erase-flash`, then repeat the signed bootloader + app flash sequence so virtual eFuse state and partitions are clean. Erasing flash clears the virtual Secure Boot state but not the real HMAC key from Assignment 2.
+**Reset after lab (optional):** `python -m esptool --chip esp32s31 -p PORT erase-flash`, then repeat [Step 5](#step-5-erase-and-flash-signed-bootloader-and-application). Erasing flash clears the virtual Secure Boot state but not the real HMAC key from Assignment 2.
 
 > [!WARNING]
 > Production Secure Boot burns digests and `SECURE_BOOT_EN` for real. That flow is in the [production provisioning appendix](../appendix-production-provisioning), not in this assignment.
@@ -62,24 +54,26 @@ Goal: verify TLS and encrypted NVS still work **before** you change the boot pat
 
 If anything fails, fix Assignment 2 before enabling Secure Boot. Secure Boot changes flashing steps and makes unsigned images harder to recover without `erase-flash`.
 
-## Step 2: Add the virtual eFuse partition
+## Step 2: Make room for the signed bootloader and the virtual eFuse partition
 
-Goal: persist emulated eFuse state across reboots ([Virtual eFuses (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#debug-efuse-unit-tests)).
+Goal: move the partition table so the larger Secure Boot bootloader fits, and add the `efuse_em` partition that stores emulated eFuses across reboots ([Virtual eFuses (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#debug-efuse-unit-tests)).
 
-1. Confirm the project uses the custom partition table from [Assignment 2](../assignment-2/#if-the-app-does-not-fit-the-factory-partition) (**Partition Table → Partition Table → Custom partition table CSV**, flash size 16 MB). If it still uses the default table, switch now.
-2. Edit `partitions.csv` and add an `efuse_em` region after `nvs`. `nvs` stays at `0x9000`, so the encrypted Wi-Fi credentials from Assignment 2 are kept; the partitions after it move up, and `factory` moves to the next 64 KB boundary:
+On ESP32-S31 the second-stage bootloader starts at `0x2000`. With the default partition table offset (`0x8000`), the bootloader has only 24 KB. A bootloader built with Secure Boot is larger, and the build fails with `Bootloader binary size [..] is too large for partition table offset`. ESP-IDF's own security examples raise the offset to `0xD000` for this reason.
+
+1. Run `idf.py menuconfig` and set **Partition Table → Offset of partition table** to `0xD000` ([CONFIG_PARTITION_TABLE_OFFSET](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-partition-table-offset)). Keep the custom partition table CSV and the 16 MB flash size from [Assignment 2](../assignment-2/#if-the-app-does-not-fit-the-factory-partition).
+2. Replace `partitions.csv` with the layout below. Every partition must start after the partition table (`0xD000` + `0x1000`), and `factory` stays on a 64 KB boundary:
 
 ```csv
 # Name,   Type, SubType, Offset,   Size,     Flags
-nvs,      data, nvs,     0x9000,   0x6000,
-efuse_em, data, efuse,   0xf000,   0x2000,
-phy_init, data, phy,     0x11000,  0x1000,
+nvs,      data, nvs,     0xE000,   0x6000,
+efuse_em, data, efuse,   0x14000,  0x2000,
+phy_init, data, phy,     0x16000,  0x1000,
 factory,  app,  factory, 0x20000,  0x200000,
 ```
 
-If you have to raise the partition table offset because the signed bootloader is larger, shift every offset by the same amount. That moves the `nvs` partition, and the encrypted Wi-Fi credentials from Assignment 2 are no longer found. On the next boot, `wifi_creds` copies them from menuconfig again (`Stored lab Wi-Fi credentials in encrypted NVS`). This is expected; the HMAC key is unchanged.
+3. Rebuild once: `idf.py build`.
 
-3. Rebuild once: `idf.py build`. Resolve partition overlap errors by following the size hint in the linker or Secure Boot docs (signed bootloaders are larger than the stock image).
+The `nvs` partition moves, and Step 5 erases the flash anyway, so the encrypted Wi-Fi credentials from Assignment 2 are gone. On the next boot, `wifi_creds` copies them from menuconfig again (`Stored lab Wi-Fi credentials in encrypted NVS`). This is expected. The HMAC key lives in real eFuse, so the new NVS contents are still encrypted with keys derived from it.
 
 ## Step 3: Generate a development signing key
 
@@ -100,60 +94,93 @@ secure_boot_signing_key.pem
 *.pem
 ```
 
-3. Optional sanity check:
-
-```bash
-espsecure signature-info-v2 build/bootloader/bootloader.bin
-```
-
-(Run again after Step 4 when signed binaries exist.)
-
-Never use this PEM in production or reuse it as a product root of trust.
+> [!WARNING]
+> Never use this PEM in production or reuse it as a product root of trust.
 
 ## Step 4: Enable Secure Boot V2 in menuconfig
 
-Goal: turn on hardware Secure Boot in the **bootloader** build with RSA Secure Boot v2, while keeping virtual eFuses (see [Keys, signing, and eFuses](../lecture-3/#keys-signing-and-efuses)).
+Goal: turn on Secure Boot V2 with the RSA scheme in the **bootloader** build, while keeping virtual eFuses (see [Keys, signing, and eFuses](../lecture-3/#keys-signing-and-efuses)).
 
 1. Run `idf.py menuconfig`.
-2. Open **Security features**.
-3. Enable **Enable hardware Secure Boot in bootloader** ([CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot)).
-4. Confirm **Secure Boot version 2** / RSA app signing scheme ([CONFIG_SECURE_BOOT_V2_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-v2-enabled)).
-5. Set **Secure Boot signing key** to `secure_boot_signing_key.pem` (path relative to the project root).
-6. Leave **Automatically sign binaries during build** enabled unless your instructor uses the external signing workflow.
-7. Under **Component config → eFuse Bit Manager**, confirm **Use virtual eFuses** and **Keep eFuses in flash** stay enabled.
-8. For the workshop, keep **UART ROM download mode** in a **recoverable** setting (for example the default that allows secure download in development). Do **not** select permanent UART disable on class boards. Production choices are in the appendix and [How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2).
+2. **First**, under **Component config → eFuse Bit Manager**, enable **Simulate eFuse operations in RAM** (`CONFIG_EFUSE_VIRTUAL`) and **Keep eFuses in flash** (`CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH`). Do this before touching Secure Boot, so there is never a saved configuration with Secure Boot on and virtual eFuses off.
+3. Open **Security features**.
+4. Enable **Enable hardware Secure Boot in bootloader** ([CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot)).
+5. Confirm the Secure Boot version is **Enable Secure Boot version 2** ([CONFIG_SECURE_BOOT_V2_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-v2-enabled)) and the app signing scheme is **RSA** ([CONFIG_SECURE_SIGNED_APPS_RSA_SCHEME](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-signed-apps-scheme)). ESP32-S31 supports RSA-3072 only, so there is no key length to choose.
+6. Keep **Sign binaries during build** enabled ([CONFIG_SECURE_BOOT_BUILD_SIGNED_BINARIES](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-build-signed-binaries)) and set **Secure boot private signing key** to `secure_boot_signing_key.pem` (path relative to the project root).
+7. Leave **UART ROM download mode** at its default. On ESP32-S31, ESP-IDF v6.1 does not support Secure download mode yet, so the default is **Enabled (not recommended)**. On SoCs that support it, such as ESP32-C5, the default is **Permanently switch to Secure mode (recommended)**, and with virtual eFuses that switch is only emulated, so the real download mode stays usable for reflashing. Never select **Permanently disabled** on class boards. Production choices are in the appendix and [How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2).
+8. Save, exit menuconfig, and confirm that `sdkconfig` now contains:
+
+```ini
+CONFIG_EFUSE_VIRTUAL=y
+CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y
+CONFIG_SECURE_BOOT=y
+CONFIG_SECURE_BOOT_V2_ENABLED=y
+CONFIG_SECURE_SIGNED_APPS_RSA_SCHEME=y
+```
+
+`CONFIG_SECURE_BOOT` builds a bootloader that enables Secure Boot. It does not set the `SECURE_BOOT_EN` eFuse itself: the bootloader writes `SECURE_BOOT_EN` and the key digest on its first boot in [Step 5](#step-5-erase-and-flash-signed-bootloader-and-application). With virtual eFuses enabled, both go to the emulated eFuses.
 
 Optional `sdkconfig.defaults` additions (merge with Assignment 2):
 
 ```ini
+CONFIG_PARTITION_TABLE_OFFSET=0xD000
 CONFIG_SECURE_BOOT=y
 CONFIG_SECURE_BOOT_V2_ENABLED=y
-CONFIG_SECURE_BOOT_SUPPORTS_RSA=y
-CONFIG_SECURE_BOOT_RSA_KEY_LENGTH_3072=y
+CONFIG_SECURE_SIGNED_APPS_RSA_SCHEME=y
+CONFIG_SECURE_BOOT_BUILD_SIGNED_BINARIES=y
 CONFIG_SECURE_BOOT_SIGNING_KEY="secure_boot_signing_key.pem"
 CONFIG_EFUSE_VIRTUAL=y
 CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y
 ```
 
-9. Run `idf.py build`. Fix missing signing key or partition size errors before flashing.
+ESP-IDF reads `sdkconfig.defaults` only when it creates a new `sdkconfig`. If `sdkconfig` already exists (it does after Assignment 2), adding these lines changes nothing. Either set the options in menuconfig as above, or delete `sdkconfig` and run `idf.py reconfigure`. The check at the start of Step 5 catches both cases.
 
-## Step 5: Flash signed bootloader and application
-
-Goal: follow the ESP-IDF Secure Boot flash order. With [CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot) enabled, **`idf.py flash` does not update the bootloader**.
-
-1. Build the signed bootloader and note the `esptool.py write_flash` command printed at the end:
+9. Run `idf.py build`. Fix missing signing key or partition size errors before flashing. If the bootloader still does not fit, raise the partition table offset again (keep it a multiple of `0x1000`) and shift `nvs`, `efuse_em`, and `phy_init` by the same amount.
+10. Confirm that both images carry a signature block:
 
 ```bash
-idf.py bootloader
+espsecure signature-info-v2 build/bootloader/bootloader.bin
+espsecure signature-info-v2 build/<project-name>.bin
 ```
 
-2. Run the **exact** `write_flash` command from the build log (offsets vary with partition table). Example shape:
+Each command should report one RSA signature block. Use the application binary name printed at the end of the build.
+
+## Step 5: Erase and flash signed bootloader and application
+
+Goal: start from clean flash and follow the ESP-IDF Secure Boot flash order. With [CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot) enabled, **`idf.py flash` does not flash the bootloader**.
+
+> [!WARNING]
+> **Stop and check before flashing.** The first boot of a Secure Boot bootloader writes the Secure Boot eFuses. If the bootloader was built without virtual eFuses, those writes go to the real SoC and cannot be undone. Run:
+>
+> ```bash
+> grep -E '^CONFIG_EFUSE_VIRTUAL(_KEEP_IN_FLASH)?=y' sdkconfig
+> ```
+>
+> It must print both `CONFIG_EFUSE_VIRTUAL=y` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y`. The output of your last `idf.py build` must also contain `Efuse virtual mode is enabled. If Secure boot or Flash encryption is on it does not provide any security. FOR TESTING ONLY!`. If either check fails, **do not flash the bootloader**. Fix the configuration, rebuild, and check again.
+
+1. Erase the flash with esptool directly:
 
 ```bash
-esptool.py -p PORT write_flash --force 0x0 build/bootloader/bootloader.bin
+python -m esptool --chip esp32s31 -p PORT erase-flash
 ```
 
-3. Flash partition table and signed application:
+This step is required. The new `efuse_em` region overlaps flash that held other data before, such as the old application. ESP-IDF treats any non-erased content there as saved eFuse state and loads it instead of copying the real eFuses. All key blocks then look used, and the first boot fails with `Not enough unused key blocks available`. Erasing flash does not touch the real HMAC key.
+
+Do not use `idf.py erase-flash` here. Enabling `CONFIG_SECURE_BOOT` also enables `CONFIG_ESPTOOLPY_NO_STUB`, so `idf.py` runs esptool without its flasher stub, and the ROM alone cannot erase the whole flash (`ROM does not support function erase_flash`). Calling esptool directly uses the stub. This works because, with virtual eFuses, the real download mode is not locked.
+
+2. Flash the signed bootloader:
+
+```bash
+idf.py -p PORT bootloader-flash
+```
+
+Alternatively, run `idf.py bootloader` and copy the `esptool ... write-flash` command it prints. On ESP32-S31 the bootloader offset is `0x2000`, so the command has this shape:
+
+```bash
+python -m esptool --chip esp32s31 -p PORT write-flash 0x2000 build/bootloader/bootloader.bin
+```
+
+3. Flash the partition table and the signed application:
 
 ```bash
 idf.py -p PORT flash
@@ -165,101 +192,146 @@ idf.py -p PORT flash
 idf.py -p PORT monitor
 ```
 
-**First-boot behavior (virtual eFuses):** the second-stage bootloader programs **emulated** `SECURE_BOOT_EN` and the public-key digest for your signing key, then boots the signed app. Expect a warning similar to `eFuse virtual mode is enabled` and Secure Boot enablement logs. If power is lost mid-first-boot, reset and let the sequence finish ([How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2)).
+**First-boot behavior (virtual eFuses):** the bootloader finds `efuse_em` empty and logs `[Virtual] Loading virtual efuse blocks from real efuses`. It then writes the public-key digest of your signing key and `SECURE_BOOT_EN` to the **emulated** eFuses, and the eFuse driver logs `Virtual efuses enabled: Not really burning eFuses`. If that line is missing, stop and tell the instructor before resetting the board again. It then verifies the app (`Verifying image signature...`), and boots it. The application logs `eFuse virtual mode is enabled. If Secure boot or Flash encryption is enabled then it does not provide any security. FOR TESTING ONLY!`. On later boots you see `[Virtual] Loading virtual efuse blocks from flash` instead. If power is lost during the first boot, reset and let the sequence finish ([How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2)).
 
-## Step 6: Optional runtime check in application code
+ESP-IDF also runs `esp_secure_boot_init_checks()` automatically during application startup. With default settings it revokes the unused digest slots (`SECURE_BOOT_DIGEST1` and `SECURE_BOOT_DIGEST2`), again only in the emulated eFuses.
 
-Goal: keep Assignment 2 application logic and add one integrity check from ESP-IDF.
+## Step 6: Log the emulated security state from the application
 
-In `https_mbedtls_example_main.c`, after successful `nvs_flash_init()` and **before** Wi-Fi connect:
+Goal: keep Assignment 2 application logic and print the Secure Boot and key block state the firmware actually sees.
+
+`idf.py efuse-summary` talks to the real eFuses through the ROM, so it cannot show the emulated Secure Boot state. Read it from the application instead.
+
+First, add `bootloader_support` (provides `esp_secure_boot.h`) and `efuse` to `PRIV_REQUIRES` in `main/CMakeLists.txt`. Without them the build fails with `esp_secure_boot.h: No such file or directory`.
+
+```cmake
+idf_component_register(SRCS "https_mbedtls_example_main.c" "wifi_creds.c" "workshop_wifi_connect.c"
+                    INCLUDE_DIRS "."
+                    PRIV_REQUIRES esp_event nvs_flash esp_netif esp_wifi mbedtls bootloader_support efuse)
+```
+
+Then, in `https_mbedtls_example_main.c`, add:
 
 ```c
 #include "esp_secure_boot.h"
+#include "esp_efuse.h"
 
+static void log_security_state(void)
+{
+    esp_efuse_block_t blk;
+
+    ESP_LOGI(TAG, "Secure Boot enabled: %s", esp_secure_boot_enabled() ? "yes" : "no");
+    if (esp_efuse_find_purpose(ESP_EFUSE_KEY_PURPOSE_HMAC_UP, &blk)) {
+        ESP_LOGI(TAG, "HMAC_UP key in BLOCK_KEY%d", blk - EFUSE_BLK_KEY0);
+    }
+    if (esp_efuse_find_purpose(ESP_EFUSE_KEY_PURPOSE_SECURE_BOOT_DIGEST0, &blk)) {
+        ESP_LOGI(TAG, "SECURE_BOOT_DIGEST0 in BLOCK_KEY%d", blk - EFUSE_BLK_KEY0);
+    }
+}
+```
+
+Call it in `app_main()` after `nvs_flash_init()` succeeds and **before** Wi-Fi connect:
+
+```c
 void app_main(void)
 {
     esp_err_t ret = nvs_flash_init();
     /* ... existing erase/retry from Assignment 2 ... */
     ESP_ERROR_CHECK(ret);
 
-    ESP_ERROR_CHECK(esp_secure_boot_init_checks());
+    log_security_state();
 
     ESP_ERROR_CHECK(wifi_creds_provision_from_menuconfig_if_missing());
     /* ... rest unchanged: esp_netif_init, workshop_wifi_connect, https_get_task ... */
 }
 ```
 
-Add `bootloader_support` to `PRIV_REQUIRES` in `main/CMakeLists.txt` if the linker reports missing symbols for `esp_secure_boot_init_checks`.
+With `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH`, `esp_secure_boot_enabled()` and `esp_efuse_find_purpose()` read the emulated eFuses. Rebuild and run `idf.py -p PORT flash monitor` (the bootloader is unchanged, so `idf.py flash` is enough). Expected:
+
+```text
+I (...) example: Secure Boot enabled: yes
+I (...) example: HMAC_UP key in BLOCK_KEY0
+I (...) example: SECURE_BOOT_DIGEST0 in BLOCK_KEY1
+```
 
 Do **not** remove NVS encryption, `wifi_creds`, or the TLS task.
 
-## Step 7: Verify boot, eFuses, and Assignment 2 regression
+## Step 7: Verify boot, real eFuses, and Assignment 2 regression
 
-Goal: prove Secure Boot is active in emulation and that **encrypted NVS + TLS** still work on the signed image.
+Goal: prove Secure Boot is active in emulation, the real eFuses are untouched, and **encrypted NVS + TLS** still work on the signed image.
 
-1. Run `idf.py -p PORT efuse-summary`. Confirm emulated **Secure Boot** fields (for example `SECURE_BOOT_EN` and a key block with purpose `SECURE_BOOT_DIGEST0`). Treat this as **lab state**, not manufacturing proof.
+1. Check the emulated state in the log from Step 6 and the first-boot messages from Step 5. Treat this as **lab state**, not manufacturing proof.
 
-2. Reboot twice (`idf.py monitor`, press EN/RST). Signed firmware should boot each time.
+2. Run `idf.py -p PORT efuse-summary`. This reads the **real** eFuses. Confirm that `SECURE_BOOT_EN` is still `False`, `BLOCK_KEY0` still shows `HMAC_UP` from Assignment 2, and `BLOCK_KEY1` is still empty with purpose `USER`. This is your evidence that Secure Boot stayed emulated.
 
-3. Confirm **Assignment 2** behavior still passes:
+3. Reboot twice (`idf.py -p PORT monitor`, press EN/RST). Signed firmware should boot each time.
+
+4. Confirm **Assignment 2** behavior still passes:
 
 | Check | Expected |
 |-------|----------|
 | NVS encryption | `NVS partition "nvs" is encrypted.` |
-| Wi-Fi | Loaded from NVS, connected |
+| Wi-Fi | Credentials stored again from menuconfig after the erase, then loaded from NVS and connected |
 | TLS | `esp-x509-crt-bundle: Certificate validated`, `Certificate verified.`, howsmyssl JSON |
 
 Capture log excerpts for workshop notes and the **integrity / unauthorized firmware** row in the [EU CRA overview](../overview-eu-cra).
 
-## Step 8: Test rejection of bad firmware
+## Step 8 (optional): Test rejection of bad firmware
 
 Goal: document **fail-closed** boot when the application image does not verify (see [Secure Boot V2 process](../lecture-3/#secure-boot-v2-process)).
 
-Use a **spare** board or plan to **`erase-flash`** and reflash Steps 5 to 7 afterward.
+Use a **spare** board or plan to erase the flash and repeat Step 5 afterward.
 
 **Option A (recommended): corrupt the signed app in flash**
 
-1. Note the factory app offset from `idf.py partition-table` (for example `0x20000`).
-2. With the device in download mode, write a single corrupted byte in the app image (adjust offset inside the partition, not the partition table):
+1. Note the factory app offset from `idf.py partition-table` (`0x20000` with the Step 2 layout).
+2. Overwrite a few bytes inside the application image. Pick an offset well inside the app binary, not past its end, for example `0x30000`:
 
 ```bash
-python -c "open('corrupt.bin','wb').write(b'\\xff')"
-esptool.py -p PORT write_flash 0x200100 corrupt.bin
+python -c "open('corrupt.bin','wb').write(b'\\x00' * 16)"
+python -m esptool --chip esp32s31 -p PORT write-flash 0x30000 corrupt.bin
 ```
 
-3. Reset and watch the serial log. Expect verification failure and **no** normal application log (no TLS task, no Wi-Fi success). Bootloader messages often mention signature or image verification failure.
+`esptool` erases the whole 4 KB sector before writing, which damages the image even more. That is fine for this test.
 
-4. Restore with `idf.py -p PORT erase-flash`, then repeat Step 5 (bootloader + `idf.py flash`).
+3. Reset and watch the serial log. After `Verifying image signature...` the bootloader reports a hash or signature failure, and there is **no** normal application log (no TLS task, no Wi-Fi success).
+
+4. Restore with `idf.py -p PORT flash`. The bootloader and the emulated eFuses are unchanged, so reflashing the signed app is enough.
 
 **Option B: flash an app signed with a different key**
 
-1. Generate `wrong_key.pem` (do not commit).
-2. Temporarily point menuconfig **Secure Boot signing key** at `wrong_key.pem`, `idf.py build`, `idf.py -p PORT flash` (bootloader still trusts the **first** key digest in virtual eFuses).
-3. Observe rejection on boot.
-4. Restore `secure_boot_signing_key.pem`, rebuild, reflash app, or full `erase-flash` if virtual digest state is confused.
+1. Generate `wrong_key.pem` with the Step 3 command (do not commit it).
+2. Temporarily point **Secure boot private signing key** at `wrong_key.pem`, run `idf.py build`, then `idf.py -p PORT flash`. This flashes only the app; the bootloader on the board still trusts the digest of your original key. Do not run `idf.py bootloader-flash` here, or with any build whose `sdkconfig` you have not checked for virtual eFuses.
+3. Reset and observe the rejection. The new key's digest is not in the emulated eFuses, and the other digest slots were revoked in Step 5, so the app cannot boot.
+4. Point the setting back to `secure_boot_signing_key.pem`, rebuild, and run `idf.py -p PORT flash`.
 
 Record: test method, log output, and recovery steps. This is core **CRA-oriented test evidence** for unauthorized firmware (see [CRA and product evidence](../lecture-3/#cra-and-product-evidence)).
+
+> [!NOTE]
+> In this lab only the bootloader-to-app check is exercised. The real `SECURE_BOOT_EN` eFuse stays off, so the ROM does not verify the bootloader itself. On a production device with hardware Secure Boot, a modified bootloader is rejected by the ROM as well.
 
 ## Step 9: Validation matrix
 
 | Test | Action | Expected |
 |------|--------|----------|
 | Baseline | Step 1 | Assignment 2 TLS + NVS OK before Secure Boot |
-| Signed boot | Steps 5 to 7 | Signed app runs; virtual Secure Boot enabled in logs / summary |
+| Signed images | Step 4 | `signature-info-v2` shows one RSA signature block on bootloader and app |
+| Signed boot | Step 5 | `Verifying image signature...`, app runs, virtual eFuse warning present |
+| Emulated state | Step 6 | Secure Boot enabled: yes; `HMAC_UP` in block 0; `SECURE_BOOT_DIGEST0` in block 1 |
+| Real eFuses untouched | Step 7 | `efuse-summary`: `SECURE_BOOT_EN` False, `BLOCK_KEY1` empty |
 | NVS + TLS regression | Step 7 | Same as Assignment 2 after Secure Boot |
-| `esp_secure_boot_init_checks` | Step 6 (if added) | No abort on clean signed boot |
-| Rejection | Step 8 | Tampered or wrong-key app does not run product code |
-| Virtual eFuse | Boot log | Virtual mode warning; no real `espefuse burn` in class |
+| Rejection (optional) | Step 8 | Tampered or wrong-key app does not run product code |
 
 ## What you learned
 
 You should now be able to:
 
 - Enable **Secure Boot V2 (RSA-3072)** on the same **https_mbedtls + encrypted NVS** project from Assignments 1 and 2
+- Size the partition table for a larger signed bootloader and add an `efuse_em` partition
 - Generate and protect a **development signing key** separate from production HSM policy
 - Flash **bootloader** and **application** in the order ESP-IDF requires when `CONFIG_SECURE_BOOT` is on
-- Inspect **virtual** digest and `SECURE_BOOT_EN` state with `idf.py efuse-summary`
-- Demonstrate **rejection** of unsigned or invalid application images
+- Tell the **emulated** Secure Boot state (application log) apart from the **real** eFuses (`idf.py efuse-summary`)
+- Demonstrate **rejection** of unsigned or invalid application images (optional Step 8)
 - Relate configuration, signing policy, boot logs, and rejection tests to the Secure Boot row in the [EU CRA overview](../overview-eu-cra)
 
 ## Previous and next steps

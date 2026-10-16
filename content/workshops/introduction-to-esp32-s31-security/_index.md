@@ -35,7 +35,7 @@ The workshop also relates these capabilities to the technical requirements of th
 
 How to read the table:
 
-- **HMAC NVS:** SoCs without an HMAC peripheral cannot follow Assignment 2. They can still encrypt NVS with the flash encryption-based scheme (an `nvs_keys` partition), which is the scheme Assignment 4 uses.
+- **HMAC NVS:** SoCs without an HMAC peripheral cannot follow Assignment 2. They can still encrypt NVS with the flash encryption-based scheme (an `nvs_keys` partition), shown in the ESP-IDF `flash_encryption` example.
 - **Secure Boot V2:** Assignment 3 signs images with RSA-3072. On SoCs marked **ECDSA only**, use the ECDSA signing scheme instead; the rest of the flow is the same.
 - **TLS:** SoCs without Wi-Fi need another network interface for Assignment 1, such as Ethernet or an SPI Ethernet module.
 - Board-specific steps (ports, Ethernet, partition sizes) and the eFuse key block plan need adapting to your board. Check the ESP-IDF documentation for your SoC and release before running the labs.

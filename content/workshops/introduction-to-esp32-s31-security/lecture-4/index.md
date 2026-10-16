@@ -11,14 +11,14 @@ showAuthor: false
 
 Offline access to external flash can expose firmware, file systems, and data partitions. **Flash encryption** uses **XTS-AES** in hardware so ciphertext is stored on the medium while the CPU sees decrypted content through the flash cache during normal operation. It complements [Secure Boot V2](../lecture-3) (authenticity) and [HMAC-based NVS encryption](../lecture-2) (structured secrets in NVS without requiring whole-flash encryption).
 
-[Assignment 4](../assignment-4) follows the ESP-IDF example [`flash_encryption`](https://github.com/espressif/esp-idf/tree/master/examples/security/flash_encryption) on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1, in **development** mode with **virtual** eFuses. Primary reference: [Flash Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html).
+[Assignment 4](../assignment-4) adds flash encryption to the same **https_mbedtls** project from Assignments 1 to 3 (TLS, HMAC NVS, Secure Boot V2) on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1, in **development** mode with **virtual** eFuses. Primary reference: [Flash Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html).
 
 ## Learning objectives
 
 - State the physical-access threat flash encryption mitigates (and what it does not)
 - Describe first-boot enablement: key generation, `SPI_BOOT_CRYPT_CNT`, and in-place encryption
 - Explain **development** vs **release** mode and why release is incompatible with virtual eFuses in the workshop
-- Outline the `flash_encryption` example: status checks, FATFS on encrypted vs plain partitions, NVS with `nvs_keys`
+- Plan a project that combines flash encryption, Secure Boot V2, and HMAC NVS: key blocks, partition flags, bootloader size
 - Relate flash encryption to Secure Boot and to the HMAC NVS path from Assignment 2
 
 ## Threat model and limitations
@@ -30,7 +30,7 @@ Offline access to external flash can expose firmware, file systems, and data par
 - **Authenticity** of images ([Lecture 3](../lecture-3)): encrypted malware is still malware if it boots
 - **Runtime** memory, debug interfaces, and side channels
 - **Development mode** behavior: the UART bootloader may still accept plaintext downloads that the device encrypts on write, which is not a production control
-- **Virtual eFuse** lab behavior: ciphertext effects depend on emulated state; see [Flash Encryption Testing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#debug-efuse-unit-tests)
+- **Virtual eFuse** lab behavior: the flow runs and is logged, but nothing in flash is actually encrypted; see [Flash Encryption Testing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#flash-encryption-testing)
 
 Flash encryption protects **confidentiality at rest** on the flash bus. Pair it with Secure Boot for a typical connected product baseline; secure OTA is a separate product topic (see appendix and ESP-IDF docs).
 
@@ -42,23 +42,32 @@ What typically gets encrypted on first boot after enablement:
 
 - Second-stage bootloader (in-place)
 - Application partitions
-- Data partitions with the **`encrypted` flag** in the partition table (for example `fat_encrypted` in the example CSV)
+- Data partitions with the **`encrypted` flag** in the partition table (for example the `storage` partition in Assignment 4)
 
 Partitions without the flag remain plaintext on the wire unless other layers (such as NVS entry encryption) apply.
 
 Key source on ESP32-S31 is **eFuse-based** by default (bootloader-generated random key on first enable unless a key was pre-burned).
-Enabling flash encryption **increases bootloader size**. The example raises **partition table offset** to `0xD000` so the bootloader does not overlap the table ([example README](https://github.com/espressif/esp-idf/blob/master/examples/security/flash_encryption/README.md)).
+Enabling flash encryption **increases bootloader size**. On ESP32-S31 the bootloader starts at `0x2000`. With both Secure Boot V2 and flash encryption it is `0xC000` bytes, so the partition table moves to `0xF000` in Assignment 4. The `flash_encryption` example, with flash encryption only, uses `0xD000`.
 
-## Reference example architecture
+## Combining flash encryption with Secure Boot and HMAC NVS
 
-Path: `$IDF_PATH/examples/security/flash_encryption`
+Assignment 4 keeps everything from the earlier labs and adds flash encryption:
+
+- **Key blocks:** `BLOCK_KEY0` holds `HMAC_UP` (real, Assignment 2), `BLOCK_KEY1` the Secure Boot digest, and `BLOCK_KEY2` the XTS-AES-128 flash encryption key. AES-128 is the default key size and needs one block; AES-256 needs two.
+- **NVS:** stays on the HMAC scheme. NVS encryption works alongside flash encryption, and the `nvs` partition is **not** marked `encrypted`; NVS encrypts its own entries.
+- **Partitions:** the app is always encrypted. Custom data partitions, such as a `storage` partition for secrets or files, carry the `encrypted` flag. `efuse_em` and `nvs` must not.
+- **Flashing:** `idf.py flash` writes plaintext. On a real device in development mode, later updates use `idf.py encrypted-flash`; with virtual eFuses, plain `idf.py flash` is the right command because the hardware does not decrypt.
+
+## Reference example: `flash_encryption` (background reading)
+
+Path: `$IDF_PATH/examples/security/flash_encryption`. Assignment 4 does not use this example, but it is a useful reference for FATFS on encrypted and plain partitions. In ESP-IDF v6.1 it does not list ESP32-S31 as a supported target yet, and it needs the NVS scheme change described below to build for `esp32s31`.
 
 **menuconfig (typical):**
 
 - **Security features → Enable flash encryption on boot** ([CONFIG_SECURE_FLASH_ENC_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-enc-enabled))
 - **Enable usage mode → Development** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-development)) for the example and workshop
-- **Partition Table → Custom partition CSV** (`partitions_example.csv`): NVS, `nvs_keys`, `storage`, `custom_nvs`, `fat_encrypted`, `fat_not_encr`, factory app
-- With flash encryption enabled, **NVS encryption** often defaults on; the example uses an **`nvs_keys`** partition and [flash encryption-based NVS scheme](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html#nvs-encryption-flash-encryption-based-scheme) (distinct from the **HMAC** scheme in [Lecture 2](../lecture-2))
+- **Partition Table → Custom partition CSV** (`partitions_example.csv`): `nvs`, `storage`, factory app, `nvs_key` (subtype `nvs_keys`), `custom_nvs`, `fat_encrypted`, `fat_not_encr`
+- With flash encryption enabled, **NVS encryption** defaults on. The example uses the **`nvs_key`** partition and the [flash encryption-based NVS scheme](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html#nvs-encryption-flash-encryption-based-scheme) (distinct from the **HMAC** scheme in [Lecture 2](../lecture-2)). On SoCs with an HMAC peripheral, including ESP32-S31, ESP-IDF picks the HMAC scheme by default, so select **NVS Security Provider → Using Flash Encryption** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-flash-enc)) for this example
 
 **`app_main` flow (`flash_encrypt_main.c`):**
 
@@ -67,7 +76,7 @@ Path: `$IDF_PATH/examples/security/flash_encryption`
 3. **`example_read_write_fatfs`** (if FAT partitions exist): write the same test string to **`fat_not_encr`** and **`fat_encrypted`**, read back through FATFS, then use `esp_flash_read()` on the encrypted partition at the same offset. With encryption active, the **raw read** does not show the plaintext string; the non-encrypted partition does.
 4. Initialize default **`nvs`** and optional **`custom_nvs`** with `nvs_flash_secure_init_partition()` when NVS encryption is enabled.
 
-First boot after `idf.py flash monitor`: the bootloader encrypts eligible content, sets `SPI_BOOT_CRYPT_CNT`, and resets; logs include lines such as `Checking flash encryption...` and `flash encryption is enabled`. Development mode may warn that the mode is **not secure** for production.
+First boot after `idf.py flash monitor`: the bootloader encrypts eligible content, sets `SPI_BOOT_CRYPT_CNT`, and resets; logs include lines such as `Checking flash encryption...` and `Flash encryption completed`. On later boots the bootloader reports `flash encryption is enabled (N plaintext flashes left)`, and the application warns `Flash encryption mode is DEVELOPMENT (not secure)`.
 
 ## Development and release modes
 
@@ -87,13 +96,15 @@ Release mode burns stricter eFuses (for example `DIS_DOWNLOAD_MANUAL_ENCRYPT`) a
 | Flash encryption (this lecture) | **Confidentiality** of flash contents | Assignment 4 (virtual `SPI_BOOT_CRYPT_CNT` / keys) |
 | [HMAC NVS](../lecture-2) | **Confidentiality** of NVS entries without full flash encryption | Assignment 2 |
 
-Products often enable **Secure Boot and flash encryption** together. Assignment 2’s HMAC NVS path can coexist in a product design; the standalone `flash_encryption` example instead demonstrates **NVS + `nvs_keys`** when flash encryption is the platform anchor.
+Products often enable **Secure Boot and flash encryption** together, as Assignment 4 does. HMAC NVS keeps working alongside them. The alternative, the flash encryption-based NVS scheme with an `nvs_keys` partition, suits SoCs without an HMAC peripheral; the `flash_encryption` example shows it.
 
 ## Workshop and production provisioning
 
 ### Workshop path (Assignment 4)
 
-The lab uses flash encryption **development** behavior with virtual eFuses and an `efuse_em` partition. ESP-IDF may log encryption operations even when real `SPI_BOOT_CRYPT_CNT` and key eFuses are not burned on silicon. Offline read tests in virtual mode **do not** match a release-mode product until real eFuses are programmed. See [Flash Encryption Testing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#debug-efuse-unit-tests).
+The lab uses flash encryption **development** mode with virtual eFuses and an `efuse_em` partition. The bootloader runs the full first-boot flow, writes the key and `SPI_BOOT_CRYPT_CNT` to the emulated eFuses, and logs it, but **nothing in flash is actually encrypted**. The real flash encryption hardware stays off, and if the bootloader wrote ciphertext, the SoC could not run the app. ESP-IDF therefore treats `encrypted` partitions as plaintext unless the real eFuses enable flash encryption, and the bootloader warns `Flash encryption not really completed. Must disable virtual efuses`. See [Flash Encryption Testing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#flash-encryption-testing).
+
+In practice, the raw read of an `encrypted` partition, and a dump of the app partition, still show plaintext in the lab. Assignment 4 uses that result to teach what the evidence from a production device must show, and why virtual-mode results cannot serve as evidence of encryption at rest.
 
 [CONFIG_EFUSE_VIRTUAL](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual) cannot be combined with flash encryption **release** mode in menuconfig. The workshop never enables release mode in class.
 
@@ -113,17 +124,17 @@ The [EU CRA overview](../overview-eu-cra) maps flash encryption to **confidentia
 Useful artifacts from Assignment 4 and production planning:
 
 - **Configuration record:** development vs release, partition table with `encrypted` flags, partition table offset, NVS scheme (HMAC vs `nvs_keys`) if both exist in your product
-- **Test notes:** FATFS or `esp_flash_read()` comparison (plaintext partition vs encrypted), boot logs showing encryption enabled
+- **Test notes:** `esp_partition_read()` vs raw `esp_flash_read()` comparison, flash dump search, boot logs showing encryption enabled
 - **Limitations documented:** development mode and virtual eFuse testing called out explicitly in the risk assessment where applicable
 
 For Annex I timelines, reporting, and conformity process, use the overview and linked Developer Portal CRA articles rather than repeating them here.
 
 ## Before Assignment 4
 
-- Example: `$IDF_PATH/examples/security/flash_encryption`
+- Project: the finished Assignment 3 project (`$IDF_PATH/examples/protocols/https_mbedtls`), with virtual eFuses still enabled
 - Target: `idf.py --preview set-target esp32s31`
-- Add `efuse_em` to `partitions_example.csv` and enable virtual eFuses, as you did in Assignment 3
-- Read the example [README](https://github.com/espressif/esp-idf/blob/master/examples/security/flash_encryption/README.md) for partition table offset and NVS key partition erase requirements
+- Keep the NVS key protection scheme on HMAC (key ID `0`)
+- Plan a partition table offset of `0xF000` for the larger bootloader; the board is erased again, so Secure Boot and flash encryption are both enabled on the next first boot
 
 ## Previous and next steps
 

@@ -50,7 +50,7 @@ Many ESP32-S31 security features store trust in **eFuses**, which are one-time p
 
 When `efuse_em` is empty, ESP-IDF fills it from the real eFuses at startup. The emulated copy therefore shows the Assignment 2 HMAC key block as `HMAC_UP`, and encrypted NVS keeps working.
 
-**Preflight** (Assignments 3 and 4): confirm `CONFIG_EFUSE_VIRTUAL=y` in `sdkconfig` after `idf.py build`. After flash, the serial log should include a warning that virtual eFuses are enabled and silicon is not being burned. You may run `idf.py efuse-summary` to inspect **emulated** state.
+**Preflight** (Assignments 3 and 4): confirm `CONFIG_EFUSE_VIRTUAL=y` in `sdkconfig` after `idf.py build`. After flash, the serial log should include a warning that virtual eFuses are enabled and silicon is not being burned. `idf.py efuse-summary` reads the **real** eFuses, so use it to confirm that nothing was burned; the emulated state is visible only from the firmware.
 
 **Forbidden in class** on participant boards: any `espefuse burn` or `burn-key` command other than the Assignment 2 HMAC key, flash encryption **release** mode, and any step that enables hardware Secure Boot without virtual eFuses.
 
