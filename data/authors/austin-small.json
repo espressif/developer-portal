@@ -1,0 +1,9 @@
+{
+    "name": "Austin Small",
+    "type": "community",
+    "image": "img/authors/austin-small.webp",
+    "bio": "Founder of Cirkit Designer, a browser-based platform for designing circuits, developing firmware, and simulating embedded systems.",
+    "social": [
+        { "link": "https://www.cirkitdesigner.com/" }
+    ]
+}
