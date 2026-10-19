@@ -1,10 +1,8 @@
 ---
 title: "Cirkit Designer: AI-powered ESP32 development with instruction-accurate simulation"
-date: 2026-09-30
-heroStyle: big
-summary: "This article introduces Cirkit Designer's ESP32-S3 simulation architecture: an instruction-accurate emulator built from scratch in Rust, compiled to WebAssembly, and connected to simulated hardware in the browser. We'll look at how compiled firmware executes and how it interacts with simulated peripherals."
+date: 2026-10-26
+summary: "This article introduces Cirkit Designer's simulation architecture for ESP32 and ESP32-S3: an instruction-accurate emulator built from scratch in Rust, compiled to WebAssembly, and connected to simulated hardware in the browser. We'll look at how compiled firmware executes and how it interacts with simulated peripherals."
 tags:
-  - ESP32
   - Arduino
   - AI
   - web app
@@ -14,9 +12,9 @@ authors:
   - "austin-small"
 ---
 
-[Cirkit Designer](https://www.cirkitdesigner.com/) is a browser-based electronics development environment for designing circuits, writing firmware, and testing embedded projects in simulation. For ESP32-S3 projects, compiled firmware runs locally in the browser through an instruction-accurate emulator built in Rust and compiled to WebAssembly.
+[Cirkit Designer](https://www.cirkitdesigner.com/) is a browser-based electronics development environment for designing circuits, writing firmware, and testing embedded projects in simulation. It supports both the original ESP32 and ESP32-S3, running compiled firmware locally in the browser through an instruction-accurate emulator built in Rust and compiled to WebAssembly.
 
-The emulator executes the ESP32-S3’s Xtensa instructions and reproduces the hardware behavior needed to boot firmware and connect it to components on the circuit canvas. Running firmware can communicate with simulated displays, sensors, buttons, and other devices through supported interfaces such as GPIO, UART, I2C, SPI, ADC, and PWM. Firmware execution and communication with simulated components happen locally, without requiring a physical board.
+The emulator executes Xtensa instructions for the selected chip and reproduces the hardware behavior needed to boot firmware and connect it to components on the circuit canvas. Running firmware can communicate with simulated displays, sensors, buttons, and other devices through supported interfaces such as GPIO, UART, I2C, SPI, ADC, and PWM. Firmware execution and communication with simulated components happen locally, without requiring a physical board.
 
 Our approach focuses on hardware-level emulation rather than replacing firmware API calls with mocked results. Compiled firmware and its drivers interact with modeled peripheral registers, interrupts, and data transfers.
 
@@ -36,19 +34,13 @@ Cirkit AI created the circuit, wired the ESP32-S3 to the display, and wrote the 
 
 {{< figure
     src="img/iss-tracker-workspace.webp"
-    alt="ISS tracker running in Cirkit Designer beside an ESP32-S3 circuit, a wired ILI9341 display, the build request, and Cirkit AI's response"
-    caption="An ISS tracker developed with Cirkit AI, shown after refinement. Compiled ESP32-S3 firmware retrieves ISS data over HTTPS and renders the map and telemetry on a simulated ILI9341 display."
+    alt="Cirkit Designer's running ISS tracker, annotated to identify the emulated ESP32-S3, SPI signals, and simulated ILI9341 display showing the map and telemetry"
+    caption="An ISS tracker developed with Cirkit AI, shown after refinement. Compiled ESP32-S3 firmware drives the simulated ILI9341 display through the emulated SPI controller, rendering the map and live ISS telemetry."
 >}}
 
-[Open the ISS Space Tracker project](https://app.cirkitdesigner.com/project/e702b8ea-35da-441f-b435-29af65798aa0).
+[Open the ISS Space Tracker project](https://app.cirkitdesigner.com/project/e702b8ea-35da-441f-b435-29af65798aa0) in Cirkit Designer and start the simulation to see it running in real time.
 
-With the tracker running, I worked with Cirkit AI to refine its display: a photographic Earth map, readable telemetry cards, and an animated ISS marker. Updates redraw only the affected areas, keeping the map visible as the position and readings change.
-
-Then I asked Cirkit AI to show where the station was heading.
-
-Cirkit AI added a request for predicted ISS positions covering the next 45 minutes and plotted them as a dashed line across the map. A blue trail shows previously received positions, so the display distinguishes where the station has been from where it is heading.
-
-Working with Cirkit AI, I could add a new feature and run the updated firmware in the same workspace.
+With the tracker running, I worked with Cirkit AI to refine the display with a photographic Earth map, readable telemetry cards, and an animated ISS marker. I then asked it to show where the station was heading. The agent added a request for predicted positions covering the next 45 minutes and plotted them as a dashed line, alongside a blue trail of previously received positions. Updates redraw only the affected areas, keeping the map visible as the readings change.
 
 The firmware uses `WiFiClientSecure` and `HTTPClient` to retrieve the station’s current and predicted positions from the [Where the ISS at? API](https://wheretheiss.at/w/developer). It plots those coordinates on the display using `Adafruit_GFX` and `Adafruit_ILI9341` through the ESP32-S3’s hardware SPI peripheral. A separately downloaded JPEG provides the Earth map, which the firmware decodes in memory and uses as the background.
 
@@ -58,17 +50,19 @@ To explore it, [open the ISS Space Tracker](https://app.cirkitdesigner.com/proje
 
 The tracker’s HTTPS requests pass through Cirkit’s network gateway to external services. The ESP32-S3 firmware processes the responses and drives the display locally in the browser. The same networking support extends to HTTP, MQTT, WebSocket, and UDP projects. [Cirkit’s networking guide](https://www.cirkitdesigner.com/docs/guides/wifi-networking) explains the setup.
 
-## Instruction-accurate ESP32-S3 simulation
+## Instruction-accurate ESP32 and ESP32-S3 simulation
 
 ### Running compiled firmware locally in the browser
 
-Cirkit’s integrated build workflow uses the [Arduino CLI](https://docs.arduino.cc/arduino-cli/) on its backend to compile your project’s code into firmware for the ESP32-S3. Users can also upload compatible precompiled firmware binaries directly into the simulator. In either case, the firmware runs unmodified in your browser, where Cirkit’s emulator executes the same Xtensa instructions that would run on the physical chip.
+Cirkit’s integrated build workflow uses the [Arduino CLI](https://docs.arduino.cc/arduino-cli/) on its backend to compile your project’s code into firmware for the selected ESP32 or ESP32-S3 board. The [Arduino core for ESP32](https://docs.espressif.com/projects/arduino-esp32/en/latest/index.html) is built on ESP-IDF, so these projects already execute ESP-IDF code within the emulator. Support for building ESP-IDF projects directly in Cirkit is coming soon.
+
+Users can also upload compatible precompiled firmware binaries directly into the simulator. In either case, the firmware runs unmodified in your browser, where Cirkit’s emulator executes the same Xtensa instructions that would run on the physical chip.
 
 We built the emulator from scratch in Rust and compiled it to WebAssembly so it can run locally on your device. Getting unmodified firmware to run was one of the hardest engineering challenges. The emulator must execute Espressif’s ROM code, support the second-stage bootloader as it loads the application, and reproduce the hardware behavior needed to run FreeRTOS and your application. Each stage depends on correct processor state, memory access, and peripheral behavior—before your application can execute.
 
 Once running, the firmware communicates with simulated components through the emulated hardware interfaces. It can read a sensor over I2C, send display commands over SPI, or control a servo through PWM. The component models respond to those operations, producing the behavior you see in the circuit.
 
-Cirkit’s integrated ESP32-S3 build workflow currently uses Arduino. The [Arduino core for ESP32](https://github.com/espressif/arduino-esp32/blob/3.3.5/docs/en/index.rst) is built on ESP-IDF, so these projects already execute ESP-IDF code within the emulator. Support for building ESP-IDF projects directly in Cirkit is coming soon. Supported interfaces include GPIO, UART, I2C, SPI, ADC, timers, LEDC PWM, and RMT transmission for NeoPixels. [Cirkit’s ESP32-S3 documentation](https://www.cirkitdesigner.com/docs/platforms/esp32-s3) lists supported features and practical constraints.
+Both chip models support GPIO, UART, I2C, SPI, ADC, timers, LEDC PWM, and RMT transmission for NeoPixels. Peripheral capabilities and pin assignments differ between the two chips. For the board used in this example, [Cirkit’s ESP32-S3 documentation](https://www.cirkitdesigner.com/docs/platforms/esp32-s3) lists supported features and practical constraints.
 
 ### Why we built it to run locally
 
@@ -86,8 +80,8 @@ Arduino CLI compilation, AI requests, and access to external internet services s
 
 {{< figure
     src="img/cirkit-runtime-architecture.webp"
-    alt="Architecture diagram showing compiled firmware and imported compatible binaries feeding the browser-local ESP32-S3 emulator, alongside backend compilation, AI, and networking services"
-    caption="The ESP32-S3 emulator and component models execute locally. Firmware can come from backend Arduino CLI compilation or an imported compatible binary. AI requests and access to external services use Cirkit's backend."
+    alt="Architecture diagram showing compiled firmware and imported compatible binaries feeding the browser-local ESP32 or ESP32-S3 emulator, alongside backend compilation, AI, and networking services"
+    caption="The ESP32 or ESP32-S3 emulator and component models execute locally. Firmware can come from backend Arduino CLI compilation or an imported compatible binary. AI requests and access to external services use Cirkit's backend."
 >}}
 
 ## Add missing simulation components with Cirkit AI
@@ -114,6 +108,6 @@ Building the project and extending its simulation support become part of the sam
 
 ## What comes next
 
-We are expanding support to the original ESP32 and other boards in the ESP32 family, while working to bring simulation feedback directly into Cirkit AI’s development loop so the agent can use observed behavior to guide its next change.
+With ESP32 and ESP32-S3 simulation available, support for ESP32-C3 and ESP32-C6 is coming soon. We are also working to bring simulation feedback directly into Cirkit AI’s development loop, allowing the agent to run firmware, observe how a project behaves, identify problems, and iteratively refine the circuit and firmware.
 
-Cirkit Designer aims to make hardware prototyping more accessible. You can start your next project in [Cirkit Designer](https://www.cirkitdesigner.com/), work with Cirkit AI on the circuit and firmware, and test your design in simulation.
+Looking further ahead, our ambition is to help developers move from an initial idea to a working physical prototype—connecting circuit design and simulation with component sourcing, hardware assembly, and testing on real devices.
