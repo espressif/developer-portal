@@ -17,12 +17,12 @@ This assignment still walks you through every step you need to enable flash encr
 
 ## Before you begin
 
-**Starting point:** Assignment 3 complete under `$IDF_PATH/examples/protocols/https_mbedtls` (or your workshop fork): certificate bundle, HMAC NVS with the real `HMAC_UP` key in block 0, `workshop_wifi` credentials, Secure Boot V2 with `secure_boot_signing_key.pem`, virtual eFuses, and the `log_security_state()` helper from [Assignment 3, Step 6](../assignment-3/#step-6-log-the-emulated-security-state-from-the-application).
+**Starting point:** Assignment 3 complete in the same project: Secure Boot V2 with virtual eFuses, and the `log_security_state()` helper from [Assignment 3, Step 6](../assignment-3/#step-6-log-the-emulated-security-state-from-the-application).
 
 > [!IMPORTANT]
-> **Workshop mode: virtual eFuses stay on.** Keep `CONFIG_EFUSE_VIRTUAL=y` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y` from Assignment 3 (see [Lab safety and virtual eFuses](../introduction/#lab-safety-and-virtual-efuses)). Do **not** use flash encryption **release** mode or `espefuse burn` on class boards.
+> **Virtual eFuses stay on.** Keep `CONFIG_EFUSE_VIRTUAL` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH` enabled. Do **not** select flash encryption **release** mode or run `espefuse burn`: on a real device, release mode is permanent. See [Lab safety and virtual eFuses](../introduction/#lab-safety-and-virtual-efuses).
 
-**eFuse block plan (same project as Assignments 2 and 3):**
+**eFuse block plan:**
 
 | Key block | Purpose | Where it lives |
 |-----------|---------|----------------|
@@ -30,14 +30,9 @@ This assignment still walks you through every step you need to enable flash encr
 | `BLOCK_KEY1` | `SECURE_BOOT_DIGEST0` | Emulated eFuse, written on first boot |
 | `BLOCK_KEY2` | `XTS_AES_128_KEY` (flash encryption) | Emulated eFuse, generated on first boot |
 
-The default key size, XTS-AES-128, needs one key block. The bootloader picks the first free block, so you do not choose it manually.
+The default key size, XTS-AES-128, needs one key block, and the bootloader picks the first free one.
 
-**Forbidden on participant boards:** release mode, `espefuse burn`, burning real `SPI_BOOT_CRYPT_CNT` or flash encryption keys, committing private keys.
-
-**Reset after lab (optional):** `python -m esptool --chip esp32s31 -p PORT erase-flash`, then repeat [Step 3](#step-3-erase-and-flash). With Secure Boot or flash encryption configured, `idf.py erase-flash` fails because ESP-IDF runs esptool without its flasher stub (`CONFIG_ESPTOOLPY_NO_STUB`).
-
-> [!WARNING]
-> Release-mode settings can permanently restrict a device. Release mode is incompatible with `CONFIG_EFUSE_VIRTUAL`. Production enablement is in the [production provisioning appendix](../appendix-production-provisioning).
+**To start over:** repeat [Step 3](#step-3-erase-and-flash), which erases the flash and reflashes everything.
 
 ## Step 1: Enable flash encryption in menuconfig
 
@@ -143,7 +138,7 @@ static void log_flash_encryption_demo(void)
         return;
     }
 
-    ESP_LOGI(TAG, "Flash encryption enabled: %s", esp_flash_encryption_enabled() ? "yes" : "no");
+    ESP_LOGI(TAG, "Flash encryption enabled: %s", esp_efuse_is_flash_encryption_enabled() ? "yes" : "no");
     ESP_LOGI(TAG, "Partition \"%s\" treated as encrypted: %s", part->label, part->encrypted ? "yes" : "no");
 
     ESP_ERROR_CHECK(esp_partition_erase_range(part, 0, part->size));
@@ -282,6 +277,8 @@ You should now be able to:
 
 [Previous: Lecture 4](../lecture-4)
 
-[Next: Conclusion](../conclusion)
+[Next: Assignment 5 (optional): Add secure OTA updates](../assignment-5)
+
+[Skip to: Conclusion](../conclusion)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)

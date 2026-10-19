@@ -15,69 +15,21 @@ The NVS configuration follows the ESP-IDF example [`nvs_encryption_hmac`](https:
 
 ## Before you begin
 
-**Starting point:** Your Assignment 1 tree under `$IDF_PATH/examples/protocols/https_mbedtls` (certificate bundle enabled, `esp32s31` target, Wi-Fi SSID and password set under **Example Connection Configuration**).
-
-**Hardware:** [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html).
-
-**Commands:**
-
-```bash
-cd $IDF_PATH/examples/protocols/https_mbedtls
-idf.py --preview set-target esp32s31
-idf.py menuconfig
-idf.py -p PORT build flash monitor
-```
-
-Replace `PORT` with your serial port. TODO: Pin a tested ESP-IDF v6.1 commit or workshop fork when the course repository is published.
+**Starting point:** Assignment 1 complete in the same project (certificate bundle enabled, Wi-Fi set under **Example Connection Configuration**). Do not run `set-target` again: it resets `sdkconfig`.
 
 > [!WARNING]
-> **This assignment burns a real eFuse key.** On the first encrypted boot, `nvs_flash_init()` generates a random HMAC key and programs it into the selected key block with purpose `HMAC_UP`. This is **permanent**: the block (one of six, `BLOCK_KEY0` to `BLOCK_KEY5`) cannot be reused, and the key cannot be read back. The board keeps working normally, and erasing flash does not undo it. See [Provisioning the HMAC key](../lecture-2/#provisioning-the-hmac-key).
+> **This assignment burns a real eFuse key.** On the first encrypted boot, `nvs_flash_init()` generates a random HMAC key and programs it into the selected key block with purpose `HMAC_UP`. This is **permanent**: the block cannot be reused, the key cannot be read back, and erasing flash does not undo it. The board keeps working normally. Keep `CONFIG_EFUSE_VIRTUAL` **off** for this assignment. See [Provisioning the HMAC key](../lecture-2/#provisioning-the-hmac-key).
 
-**Preflight:**
+**Check that the key block is free:** run `idf.py -p PORT efuse-summary`. For key ID `0`, `BLOCK_KEY0` must show `Purpose: USER` (unused) or `HMAC_UP` from an earlier run:
 
-1. Check the current eFuse state and confirm the block you plan to use is free:
+```text
+BLOCK_KEY0 (BLOCK4)
+Purpose: USER
+            Key0 or user data
+= 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 R/W
+```
 
-   ```bash
-   idf.py -p PORT efuse-summary
-   ```
-
-The expected result:   
-
-   ```text
-    ...
-    BLOCK_KEY0 (BLOCK4)
-    Purpose: USER
-                Key0 or user data
-    = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 R/W
-    BLOCK_KEY1 (BLOCK5)
-    Purpose: USER
-                Key1 or user data
-    = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 R/W
-    BLOCK_KEY2 (BLOCK6)
-    Purpose: USER
-                Key2 or user data
-    = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 R/W
-    BLOCK_KEY3 (BLOCK7)
-    Purpose: USER
-                Key3 or user data
-    = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 R/W
-    BLOCK_KEY4 (BLOCK8)
-    Purpose: USER
-                Key4 or user data
-    = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 R/W
-    BLOCK_KEY5 (BLOCK9)
-    Purpose: USER
-                Key5 or user data
-    = 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 R/W
-    ...
-   ```
-
-For key ID `0`, `BLOCK_KEY0` purpose should be `USER` (unused) or already `HMAC_UP` from an earlier run. Any other purpose means the block is taken; choose another key ID.
-
-**Forbidden:** committing Wi-Fi passwords or HMAC key files to git, and burning keys into blocks reserved for other workshop steps (see your eFuse plan in [Assignment 3](../assignment-3)).
-
-> [!NOTE]
-> Assignment 1 used `example_connect()`, which reads SSID and password from **menuconfig** and keeps Wi-Fi config in **RAM** (`WIFI_STORAGE_RAM`). This assignment stores credentials in **encrypted NVS** and connects using the loaded values, so offline flash dumps do not show your lab passphrase in the NVS region.
+Any other purpose means the block is taken; choose another key ID. Never commit Wi-Fi passwords or key files.
 
 ## Step 1: Enable HMAC-based NVS encryption
 
@@ -87,7 +39,7 @@ Goal: register the HMAC NVS security provider and encrypt the default `nvs` part
 2. Open **Component config → NVS** and enable **Enable NVS encryption** ([CONFIG_NVS_ENCRYPTION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-encryption)).
 3. Open **Component config → NVS Security Provider** (visible only after step 2).
 4. Confirm **NVS Encryption: Key Protection Scheme** is **Using HMAC peripheral** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_HMAC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-hmac)). This is the default on the ESP32-S31.
-5. Set **eFuse key ID storing the HMAC key** to **`0`**, or the free block you chose in the preflight ([CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-hmac-efuse-key-id)).
+5. Set **eFuse key ID storing the HMAC key** to **`0`**, or the free block you chose in [Before you begin](#before-you-begin) ([CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-hmac-efuse-key-id)).
 
 Optional: add the same settings to the project `sdkconfig.defaults` so the team shares one baseline. The first two lines match the upstream example:
 
@@ -445,7 +397,7 @@ BLOCK_KEY0 (BLOCK4)
    = ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? -/-
 ```
 
-Compare this with the preflight output, where the block showed `Purpose: USER`, zeros, and `R/W`. The `??` bytes mean the key is read-protected and software cannot read it. The `-/-` flags mean the block is now protected against both reads and further writes. Save this output for your provisioning record.
+Compare this with the output from [Before you begin](#before-you-begin), where the block showed `Purpose: USER`, zeros, and `R/W`. The `??` bytes mean the key is read-protected and software cannot read it. The `-/-` flags mean the block is now protected against both reads and further writes. Save this output for your provisioning record.
 
 ## Step 5: Inspect raw NVS storage
 

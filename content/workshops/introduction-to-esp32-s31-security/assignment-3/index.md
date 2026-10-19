@@ -15,35 +15,21 @@ Read [Lecture 3](../lecture-3) for the boot chain, keys vs digests, and CRA evid
 
 ## Before you begin
 
-**Starting point:** Assignment 2 complete under `$IDF_PATH/examples/protocols/https_mbedtls` (or your workshop fork): certificate bundle, HMAC NVS with a real `HMAC_UP` key in block 0, `workshop_wifi` credentials, custom `partitions.csv`, and virtual eFuses still off.
-
-**Commands (project directory):**
-
-```bash
-cd $IDF_PATH/examples/protocols/https_mbedtls
-idf.py --preview set-target esp32s31
-```
-
-Replace `PORT` with your serial port in flash commands below.
+**Starting point:** Assignment 2 complete in the same project: HMAC NVS with the real `HMAC_UP` key in block 0, Wi-Fi credentials in NVS, and virtual eFuses still off. Do not run `set-target` again: it resets `sdkconfig`.
 
 > [!IMPORTANT]
-> **Workshop mode: turn on virtual eFuses.** Enable `CONFIG_EFUSE_VIRTUAL=y` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y` in this assignment; they were off in Assignment 2 (see [Lab safety and virtual eFuses](../introduction/#lab-safety-and-virtual-efuses)). Secure Boot **digest** and `SECURE_BOOT_EN` programming must stay emulated; do **not** run `espefuse burn` on participant boards. On first start, ESP-IDF copies the real eFuses into the empty `efuse_em` partition, so block 0 already shows `HMAC_UP` and encrypted NVS keeps working.
+> **This assignment turns on virtual eFuses** (`CONFIG_EFUSE_VIRTUAL` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH`), so the Secure Boot digest and `SECURE_BOOT_EN` are only emulated. On first boot, ESP-IDF copies the real eFuses into the empty `efuse_em` partition, so the `HMAC_UP` key stays visible and encrypted NVS keeps working. Do **not** run `espefuse burn`, and never commit `secure_boot_signing_key.pem`. See [Lab safety and virtual eFuses](../introduction/#lab-safety-and-virtual-efuses).
 
-**eFuse block plan (same project as Assignment 2):**
+**eFuse block plan:**
 
 | Key block | Purpose | Where it lives |
 |-----------|---------|----------------|
 | `BLOCK_KEY0` | `HMAC_UP` (NVS encryption) | Real eFuse, burned in Assignment 2; copied into the emulated eFuses |
 | `BLOCK_KEY1` | `SECURE_BOOT_DIGEST0` | Emulated eFuse only, written by the bootloader on first boot |
 
-The bootloader writes the digest into the first free key block, so with `HMAC_UP` in block 0 it lands in block 1. You do not choose the block manually.
+The bootloader writes the digest into the first free key block, so with `HMAC_UP` in block 0 it lands in block 1.
 
-**Forbidden on participant boards:** `espefuse burn`, hardware Secure Boot without virtual eFuses, committing `secure_boot_signing_key.pem` or other private keys.
-
-**Reset after lab (optional):** `python -m esptool --chip esp32s31 -p PORT erase-flash`, then repeat [Step 5](#step-5-erase-and-flash-signed-bootloader-and-application). Erasing flash clears the virtual Secure Boot state but not the real HMAC key from Assignment 2.
-
-> [!WARNING]
-> Production Secure Boot burns digests and `SECURE_BOOT_EN` for real. That flow is in the [production provisioning appendix](../appendix-production-provisioning), not in this assignment.
+**To start over:** run `python -m esptool --chip esp32s31 -p PORT erase-flash`, then repeat [Step 5](#step-5-erase-and-flash-signed-bootloader-and-application). This clears the emulated Secure Boot state; the real HMAC key from Assignment 2 stays.
 
 ## Step 1: Confirm the Assignment 2 baseline
 

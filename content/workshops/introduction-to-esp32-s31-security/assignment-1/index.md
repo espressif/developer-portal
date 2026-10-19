@@ -13,27 +13,19 @@ In this assignment, you will run the ESP-IDF [**https_mbedtls**](https://github.
 
 ## Before you begin
 
-**Example location:** `$IDF_PATH/examples/protocols/https_mbedtls`
-
-**Hardware:** [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html), USB cable for flash and monitor.
-
-**Network:** Configure **Wi-Fi** under **Example Connection Configuration** (SSID and password for the lab AP). The network must allow **outbound TCP port 443**. The default firmware target is **`www.howsmyssl.com`** (internet access required for the baseline test).
-
-**Commands (from the example directory):**
+**Project:** `$IDF_PATH/examples/protocols/https_mbedtls`. All later assignments build on this project. Set the target once, here:
 
 ```bash
+cd $IDF_PATH/examples/protocols/https_mbedtls
 idf.py --preview set-target esp32s31
-idf.py menuconfig
-idf.py -p PORT build flash monitor
 ```
 
-Replace `PORT` with your serial port. TODO: Pin a tested ESP-IDF v6.1 commit or workshop fork when the course repository is published.
+Replace `PORT` in the commands below with your serial port.
+
+**Network:** a Wi-Fi access point with internet access and outbound TCP port 443. The example connects to `www.howsmyssl.com`.
 
 > [!IMPORTANT]
-> **Workshop tier A:** This assignment does not burn eFuses. Keep `CONFIG_EFUSE_VIRTUAL` **off** in this project: [Assignment 2](../assignment-2) burns a real HMAC key and needs real eFuses, and [Assignment 3](../assignment-3) turns virtual eFuses on for Secure Boot.
-
-> [!IMPORTANT]
-> Never commit Wi-Fi passwords, production certificates, private keys, tokens, or service credentials.
+> This assignment does not touch eFuses. Keep `CONFIG_EFUSE_VIRTUAL` **off**: [Assignment 2](../assignment-2) needs real eFuses. Never commit Wi-Fi passwords, private keys, or other credentials.
 
 ## Step 1: Configure the trust anchor
 
@@ -92,8 +84,6 @@ If your instructor assigns it:
 1. Read [One-way TLS vs mutual TLS](../lecture-1/#one-way-tls-vs-mutual-tls-mtls) in Lecture 1.
 2. Follow ESP-IDF guidance for client certificates (for example [ESP-TLS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_tls.html) or mbedTLS `mbedtls_ssl_conf_own_cert` with PEM buffers embedded at build time).
 3. Use **demonstration** client cert and key from your instructor. Store keys in encrypted NVS in real products ([Lecture 2](../lecture-2)).
-
-TODO: Add a vetted lab endpoint that requires mTLS when the workshop infrastructure is ready.
 
 ## What you learned
 

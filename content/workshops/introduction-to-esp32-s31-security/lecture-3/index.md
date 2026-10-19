@@ -57,7 +57,7 @@ Verification (simplified):
 3. Bootloader validates the selected app partition the same way.
 4. On failure, boot **stops**; the bootloader may try another OTA app partition if one verifies.
 
-The same format applies to bootloader and application binaries. OTA updates re-use this path in production: a bad image should not become the running firmware. The hands-on track covers Secure Boot in [Assignment 3](../assignment-3); signed OTA and anti-rollback are not class labs and are covered in ESP-IDF docs and the [production provisioning appendix](../appendix-production-provisioning).
+The same format applies to bootloader and application binaries. OTA updates re-use this path in production: a bad image should not become the running firmware. The hands-on track covers Secure Boot in [Assignment 3](../assignment-3); signed OTA with app rollback is the optional [Assignment 5](../assignment-5), and anti-rollback is covered in ESP-IDF docs and the [production provisioning appendix](../appendix-production-provisioning).
 
 Detailed steps: [Verifying a signature block](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#verifying-a-signature-block) and [Verifying an image](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#verifying-an-image).
 
@@ -95,7 +95,7 @@ Manufacturing may use **menuconfig-first** enablement ([How to enable Secure Boo
 | [HMAC NVS](../lecture-2) | Does not stop rogue **code** from running | Protects **secrets at rest** once honest firmware runs |
 | [Flash encryption](../lecture-4) | Does not prove **authenticity** | Hides ciphertext from offline read |
 | [TLS](../lecture-1) | Protects **network** sessions | Does not verify **local** flash images |
-| Signed OTA (production / appendix) | Hardware SB verifies every boot | OTA path must deliver **signed** images your digests trust |
+| Signed OTA (optional Assignment 5, production) | Hardware SB verifies every boot | OTA path must deliver **signed** images your digests trust |
 
 Together, authenticity (Secure Boot), confidentiality (flash/NVS encryption), and signed updates (product lifecycle) form a typical CRA-oriented **defense-in-depth** story for firmware and data.
 

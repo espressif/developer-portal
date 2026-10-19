@@ -35,6 +35,7 @@ The list follows the order used in this chapter. Each topic links to its lecture
 | HMAC-based NVS encryption | [Lecture 2](../lecture-2), [Assignment 2](../assignment-2) | B (one real `HMAC_UP` key block) |
 | Secure Boot V2 | [Lecture 3](../lecture-3), [Assignment 3](../assignment-3) | B (virtual digests) |
 | Flash encryption | [Lecture 4](../lecture-4), [Assignment 4](../assignment-4) | B (virtual encryption eFuses) |
+| Secure OTA (optional) | [Assignment 5](../assignment-5) | B (virtual digests, no new eFuses) |
 
 ### TLS for secure connection
 
@@ -54,7 +55,7 @@ Flash encryption hides code and data on external flash from offline reads. With 
 
 ### Secure updates (not a hands-on lab in this workshop)
 
-Signed OTA, bootloader OTA, and anti-rollback are important in production and in CRA-oriented gap analysis, but they are **not** taught as a class assignment here. See the [EU CRA overview](../overview-eu-cra), ESP-IDF [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html) OTA sections, and the [production provisioning appendix](../appendix-production-provisioning).
+Signed OTA, bootloader OTA, and anti-rollback are important in production and in CRA-oriented gap analysis. The optional [Assignment 5](../assignment-5) adds signed HTTPS OTA with app rollback to the workshop project; bootloader OTA and anti-rollback are **not** taught as class assignments. See the [EU CRA overview](../overview-eu-cra), ESP-IDF [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html) OTA sections, and the [production provisioning appendix](../appendix-production-provisioning).
 
 ## eFuses and security state
 

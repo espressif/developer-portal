@@ -32,7 +32,7 @@ Offline access to external flash can expose firmware, file systems, and data par
 - **Development mode** behavior: the UART bootloader may still accept plaintext downloads that the device encrypts on write, which is not a production control
 - **Virtual eFuse** lab behavior: the flow runs and is logged, but nothing in flash is actually encrypted; see [Flash Encryption Testing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#flash-encryption-testing)
 
-Flash encryption protects **confidentiality at rest** on the flash bus. Pair it with Secure Boot for a typical connected product baseline; secure OTA is a separate product topic (see appendix and ESP-IDF docs).
+Flash encryption protects **confidentiality at rest** on the flash bus. Pair it with Secure Boot for a typical connected product baseline; secure OTA is covered in the optional [Assignment 5](../assignment-5).
 
 ## Encryption architecture (ESP32-S31)
 

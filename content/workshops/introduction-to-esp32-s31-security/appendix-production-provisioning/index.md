@@ -36,7 +36,7 @@ Order and exact steps depend on your product; this is a common pattern:
 
 Updating the bootloader and enforcing anti-rollback with **hardware** Secure Boot assumes digests and secure-version eFuses are already programmed correctly. A failed bootloader OTA can leave a device unbootable.
 
-The main workshop does **not** include a hands-on OTA or anti-rollback assignment. Demonstrate real bootloader OTA and secure-version eFuses on a single pre-provisioned demo board if your course needs it, or point learners to ESP-IDF OTA examples and [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html) documentation.
+The optional [Assignment 5](../assignment-5) covers app OTA with signature checks and app rollback using virtual eFuses. The workshop does **not** include a hands-on bootloader OTA or anti-rollback assignment. Demonstrate real bootloader OTA and secure-version eFuses on a single pre-provisioned demo board if your course needs it, or point learners to ESP-IDF OTA examples and [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html) documentation.
 
 ## If a board was burned by mistake in class
 

@@ -56,7 +56,7 @@ Espressif’s [summary of Part I](https://developer.espressif.com/blog/2026/03/e
 - Logging and monitoring where relevant
 - Transparency (security documentation and user instructions)
 
-Secure Boot, encryption, and TLS in this workshop address parts of that list. Signed OTA and anti-rollback belong in your product plan and are referenced here for CRA mapping but are not hands-on labs in this course. You still own the product risk assessment and the technical file that ties controls to requirements.
+Secure Boot, encryption, and TLS in this workshop address parts of that list. Signed OTA belongs in your product plan; the optional [Assignment 5](../assignment-5) shows it with app rollback. Anti-rollback is referenced here for CRA mapping but is not a hands-on lab in this course. You still own the product risk assessment and the technical file that ties controls to requirements.
 
 ## Vulnerability handling and reporting
 
@@ -91,7 +91,7 @@ The labs do not finish conformity assessment. They produce testable artifacts fo
 | Flash encryption | Confidentiality of stored data | Encryption mode, offline read test results |
 | HMAC-based NVS encryption | Credentials and configuration at rest | Partition layout, provisioning record, NVS read tests |
 | TLS | Protection in transit, authentication | Trust store policy, test results, cipher configuration |
-| Secure OTA and anti-rollback (not a workshop lab) | Secure updates, rollback prevention | Signed image workflow, version policy, failed downgrade test; see appendix and ESP-IDF |
+| Secure OTA (optional Assignment 5) and anti-rollback (not a workshop lab) | Secure updates, rollback prevention | Signed image workflow, version policy, failed downgrade test; see appendix and ESP-IDF |
 Platform features (secure boot, flash encryption, eFuse keys, ESP-IDF patches, OTA, SBOM tools) are listed in Espressif’s [CRA overview](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#how-espressif-will-support-oem-customers-for-cra-compliance) and [Product Security](https://docs.espressif.com/projects/esp-product-security/en/latest/) docs. The [reporting FAQ](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/#frequently-asked-questions-faq) states plainly: no API or SoC is “CRA-compliant” by itself; compliance belongs to the finished product.
 
 ## Developer Portal reading list
