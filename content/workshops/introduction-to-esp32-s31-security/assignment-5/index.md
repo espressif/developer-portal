@@ -12,63 +12,60 @@ showAuthor: false
 > [!NOTE]
 > This assignment is **optional**. Do it if you finished Assignment 4 early, or later at home. The [Conclusion](../conclusion) does not depend on it.
 
-After Assignment 4, the firmware has TLS, HMAC-encrypted NVS, Secure Boot V2, and flash encryption. A product also has to be updated in the field, and every update is a chance for an attacker to install their own firmware. Here you add **over-the-air (OTA) updates** to the same project and check that the update path keeps the guarantees you built so far:
+After Assignment 4, the firmware has TLS, encrypted NVS, Secure Boot V2, and flash encryption in release mode. Serial flashing is now disabled, so the only way to change the firmware of a deployed device is an update over the air, and every update is a chance for an attacker to install their own firmware. Here you add **over-the-air (OTA) updates** to the same project and check that the update path keeps the guarantees you built so far:
 
 - The image is downloaded over **HTTPS**, and the device checks the server certificate.
 - The device installs the image only if it is **signed** with your Secure Boot key. With Secure Boot enabled, ESP-IDF turns on [CONFIG_SECURE_SIGNED_ON_UPDATE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-signed-on-update), so the app verifies the signature against the trusted Secure Boot digest before it switches partitions.
 - If a new image fails its self-test, the bootloader **rolls back** to the previous one ([App Rollback](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html#app-rollback)).
 
-The virtual eFuses from Assignments 3 and 4 stay on, and this assignment does not burn any eFuse. The signature check during the update reads the trusted digest from the emulated `BLOCK_KEY1`, so a rejected image is rejected exactly as it would be on a production device.
-
 ## Before you begin
 
-**Starting point:** Assignment 4 complete in the same project, with virtual eFuses still on and the partition table at `0xF000`.
+**Starting point:** Assignment 4 complete in the same project.
+
+This assignment runs in the **native `esp-emu`** tool instead of the browser emulator, for two reasons:
+
+- An update only makes sense on a device that keeps its state. `esp-emu` saves the eFuses and the flash to files between runs, so version 1.0.0 provisions the chip once and later versions arrive by OTA.
+- The emulated device must reach an HTTPS server on your computer. With `--net user`, the address `192.168.4.1` inside the emulator reaches `127.0.0.1` on your computer.
+
+> [!WARNING]
+> **Do not flash these images to your board.** They permanently enable Secure Boot and flash encryption in release mode. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
 
 **What you need:**
 
-- A computer on the same network as the board, reachable on TCP port `8070`. Allow incoming connections on that port if a firewall is active.
-- OpenSSL 1.1.1 or later on the computer, to create the server certificate and run a test HTTPS server.
+- `esp-emu` and `make-efuse.py`, installed as in the [optional step of Assignment 3](../assignment-3/#step-8-optional-test-rejection-of-bad-firmware)
+- Python 3, to run the test HTTPS server
+- OpenSSL, to create the server certificate
 
-**To start over:** run `python -m esptool --chip esp32s31 -p PORT erase-flash`, then repeat [Step 5](#step-5-flash-version-100).
+The shared partition layout from Assignment 2 already has `otadata`, `ota_0` at `0x20000`, and `ota_1` at `0x1E0000`, so you do not change `partitions.csv`.
 
-## Step 1: Switch to an OTA partition layout
+**To start over:** create a new eFuse file and copy the merged image again, as in [Step 5](#step-5-run-version-100).
 
-Goal: replace the single `factory` partition with two OTA slots and an `otadata` partition that records which slot boots ([OTA Process Overview](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html#ota-process-overview)).
-
-Replace `partitions.csv` with:
-
-```csv
-# Name,   Type, SubType, Offset,   Size,     Flags
-nvs,      data, nvs,     0x10000,  0x6000,
-efuse_em, data, efuse,   0x16000,  0x2000,
-phy_init, data, phy,     0x18000,  0x1000,
-storage,  data, 0xff,    0x19000,  0x1000,   encrypted
-otadata,  data, ota,     0x1A000,  0x2000,
-ota_0,    app,  ota_0,   0x20000,  0x180000,
-ota_1,    app,  ota_1,   0x1A0000, 0x180000,
-```
-
-- `nvs` and `efuse_em` keep their Assignment 4 offsets, so the stored Wi-Fi credentials and the emulated Secure Boot and flash encryption state survive. You do not need to erase the flash.
-- Each OTA slot is 1.5 MB. The current app is about 1.2 MB, which leaves room to grow.
-- App partitions must be 64 KB aligned, which also satisfies the 4 KB alignment Secure Boot V2 needs for signed images.
-- With flash encryption enabled, ESP-IDF treats `otadata` as encrypted automatically. Do not add the `encrypted` flag yourself.
-
-## Step 2: Enable app rollback
+## Step 1: Enable app rollback
 
 Goal: let a new image prove it works before the device commits to it.
 
-1. Run `idf.py menuconfig`.
+1. Open the project configuration:
+
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
+```bash
+idf.py menuconfig
+```
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
+
 2. Under **Bootloader config → Application Rollback**, enable **Enable app rollback support** ([CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-rollback-enable)).
-3. Leave **Enable app anti-rollback support** off. The next section explains what it does and why it stays off in this lab.
-4. Save, exit, and confirm that `sdkconfig` contains:
+3. Leave **Enable app anti-rollback support** off. The next section explains what it does.
+4. Save, exit, and add to `sdkconfig.defaults`:
 
 ```ini
 CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
 ```
 
-5. Run `idf.py build`. Expect:
-   - `Bootloader binary size 0xc000 bytes. 0x1000 bytes (8%) free.`
-   - `Smallest app partition is 0x180000 bytes.` with free space left
+The bootloader stays at `0xC000` bytes, and the app fits in the `0x1C0000` OTA slots with about 35% free.
 
 ### Anti-rollback: what it adds
 
@@ -94,7 +91,8 @@ The SoC keeps the minimum accepted secure version in the `SECURE_VERSION` eFuse 
 **Limits:**
 
 - The `SECURE_VERSION` field has 16 bits on ESP32-S31 (9 on ESP32-C5), so the secure version can be raised at most 16 times in the life of the device. Raise it only for releases that fix a security issue, not for every release. [CONFIG_BOOTLOADER_APP_SEC_VER_SIZE_EFUSE_FIELD](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-sec-ver-size-efuse-field) sets how many of those bits ESP-IDF uses.
-- Anti-rollback needs app rollback, and it does not support `factory` or `test` partitions. The OTA layout from Step 1 already meets both requirements.
+- Anti-rollback needs app rollback, and it does not support `factory` or `test` partitions. The shared layout already meets both requirements.
+- Anti-rollback makes the bootloader larger. Check that it still fits below the partition table at `0x10000`.
 
 **Menuconfig options**, all under **Bootloader config → Application Rollback**:
 
@@ -103,26 +101,22 @@ The SoC keeps the minimum accepted secure version in the `SECURE_VERSION` eFuse 
 | **Enable app anti-rollback support** ([CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-anti-rollback)) | Turns on the secure version check in the bootloader |
 | **eFuse secure version of app** | The secure version written into this build's image |
 | **Size of the efuse secure version field** | How many eFuse bits ESP-IDF uses for the counter |
-| **Emulate operations with efuse secure version (only test)** ([CONFIG_BOOTLOADER_EFUSE_SECURE_VERSION_EMULATE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-efuse-secure-version-emulate)) | Tests anti-rollback without burning eFuses. It turns on virtual eFuses, which this project already uses. |
 
-**Why it stays off in this lab:**
+Leave **Emulate operations with efuse secure version (only test)** off: it is a development option that turns on virtual eFuses, and it does not belong in a production build.
 
-- **Bootloader size:** with Secure Boot, flash encryption, and anti-rollback together, the bootloader grows to `0xD000`. That fills all the space between `0x2000` and the partition table at `0xF000`, so any further growth breaks the build. To make room you would move the partition table, which moves `nvs` and `efuse_em`, and then erase and provision the board again.
-- **Production impact:** on a device with real eFuses, every confirmed increase is a permanent burn. Decide the secure version policy before the first release; [Step 10](#step-10-review-production-configuration-read-only) lists it for your technical file.
+**Trying it in the emulator:** anti-rollback stays off in the steps below to keep the lab focused on rollback. If you try it, the `SECURE_VERSION` bits are burned in your eFuse file just as they would be on a chip, so each raise is permanent for that file. A new eFuse file gives you a blank chip again.
 
-## Step 3: Create the OTA server certificate
+## Step 2: Create the OTA server certificate
 
 Goal: give the test server an identity the device can verify.
 
-The device connects to your computer by IP address, so the certificate must contain that IP address in its subject alternative name (SAN). Find the IP address of your computer, for example with `ipconfig getifaddr en0` on macOS or `hostname -I` on Linux. The commands below use `192.168.1.10`; replace it everywhere with your address.
-
-In the project directory, run:
+The device connects to `192.168.4.1`, so the certificate must contain that IP address in its subject alternative name (SAN). In the project directory, run:
 
 ```bash
 mkdir -p server_certs ota_server
 openssl req -x509 -newkey rsa:2048 -nodes -days 365 \
   -keyout server_certs/ca_key.pem -out server_certs/ca_cert.pem \
-  -subj "/CN=192.168.1.10" -addext "subjectAltName=IP:192.168.1.10"
+  -subj "/CN=192.168.4.1" -addext "subjectAltName=IP:192.168.4.1"
 ```
 
 `ca_cert.pem` is embedded in the firmware and is public. `ca_key.pem` is the server private key. Add it to `.gitignore`:
@@ -134,7 +128,7 @@ server_certs/ca_key.pem
 > [!WARNING]
 > This self-signed certificate is for the lab only. A product OTA server uses a certificate from a CA you control or a public CA, and its private key never leaves the server infrastructure.
 
-## Step 4: Add the OTA code
+## Step 3: Add the OTA code
 
 Goal: download, verify, and install a new image, and confirm a new image after it boots.
 
@@ -145,11 +139,10 @@ menu "Workshop OTA"
 
     config WORKSHOP_OTA_URL
         string "Firmware upgrade URL"
-        default "https://192.168.1.10:8070/firmware.bin"
+        default "https://192.168.4.1:8070/firmware.bin"
         help
             HTTPS URL of the signed application image served by the OTA server.
-            Use the IP address of the computer that runs the server; it must match
-            the subjectAltName in server_certs/ca_cert.pem.
+            The host must match the subjectAltName in server_certs/ca_cert.pem.
 
     config WORKSHOP_OTA_FAIL_SELF_TEST
         bool "Simulate a failed self-test after an update"
@@ -281,7 +274,7 @@ What the code does:
 idf_build_get_property(project_dir PROJECT_DIR)
 idf_component_register(SRCS "https_mbedtls_example_main.c" "wifi_creds.c" "workshop_wifi_connect.c" "workshop_ota.c"
                     INCLUDE_DIRS "."
-                    PRIV_REQUIRES esp_event nvs_flash esp_netif esp_wifi mbedtls bootloader_support efuse esp_partition spi_flash
+                    PRIV_REQUIRES esp_event nvs_flash esp_netif esp_wifi mbedtls efuse esp_partition bootloader_support spi_flash
                                   esp_https_ota esp_http_client app_update esp_app_format
                     EMBED_TXTFILES ${project_dir}/server_certs/ca_cert.pem)
 ```
@@ -305,82 +298,132 @@ set(PROJECT_VER "1.0.0")
     workshop_ota_check_and_update();
 ```
 
-Calling `workshop_ota_confirm_running_app()` after Wi-Fi connects makes "Wi-Fi works" the self-test: if a new image cannot connect, `ESP_ERROR_CHECK` resets the board before the image is confirmed, and the bootloader rolls back.
+Calling `workshop_ota_confirm_running_app()` after Wi-Fi connects makes "Wi-Fi works" the self-test: if a new image cannot connect, `ESP_ERROR_CHECK` resets the device before the image is confirmed, and the bootloader rolls back.
 
-7. Run `idf.py menuconfig`, open **Workshop OTA**, and set **Firmware upgrade URL** to `https://<your-computer-ip>:8070/firmware.bin`.
+7. Add the URL to `sdkconfig.defaults`:
 
-## Step 5: Flash version 1.0.0
+```ini
+CONFIG_WORKSHOP_OTA_URL="https://192.168.4.1:8070/firmware.bin"
+```
 
-Goal: install the OTA-capable bootloader and the first application version.
+## Step 4: Create the test OTA server
 
-> [!WARNING]
-> **Stop and check before flashing.** `grep -E '^CONFIG_EFUSE_VIRTUAL(_KEEP_IN_FLASH)?=y' sdkconfig` must print both lines, and the build output must contain `Efuse virtual mode is enabled`. If either check fails, do not flash.
+Goal: serve the update over HTTPS from your computer.
 
-1. Build and flash. The bootloader changed in Step 2, so flash it first:
+Create `ota_server.py` in the project root:
 
+```python
+import http.server
+import ssl
+import sys
+
+ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+ctx.load_cert_chain(sys.argv[1], sys.argv[2])
+srv = http.server.ThreadingHTTPServer(("127.0.0.1", 8070), http.server.SimpleHTTPRequestHandler)
+srv.socket = ctx.wrap_socket(srv.socket, server_side=True)
+print("Serving HTTPS on 127.0.0.1:8070")
+srv.serve_forever()
+```
+
+The server listens only on `127.0.0.1`, so it is not reachable from your network, and it serves the files of the folder it runs in. It keeps running when a download is aborted, which happens on purpose in the rejection tests.
+
+## Step 5: Run version 1.0.0
+
+Goal: provision a blank emulated chip with the first OTA-capable version.
+
+1. Build and merge, as in Assignment 4:
+
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
 ```bash
 idf.py build
-idf.py -p PORT bootloader-flash
-idf.py -p PORT flash monitor
+python -m esptool --chip esp32s31 merge-bin -o build/merged-secure.bin \
+  --flash-mode dio --flash-size 4MB \
+  0x2000  build/bootloader/bootloader.bin \
+  0x10000 build/partition_table/partition-table.bin \
+  0x17000 build/ota_data_initial.bin \
+  0x20000 build/<project-name>.bin
+```
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
+
+2. Create a blank eFuse file and a working copy of the flash image. These two files are your emulated device for the rest of the assignment:
+
+```bash
+python3 make-efuse.py --chip esp32s31 --chip-rev 0.0 -o lab.efuse
+cp build/merged-secure.bin lab-flash.bin
 ```
 
-`idf.py flash` also writes an empty `otadata`, so the device boots from `ota_0`.
+3. Run the first boot. `--save-state` writes the burned eFuses and the encrypted flash back to the files:
 
-2. The OTA server is not running yet, so the update check fails and the app continues with the TLS request. Expect:
+```bash
+esp-emu --chip esp32s31 --firmware lab-flash.bin --efuse lab.efuse --save-state --net user --timeout 120s --exit-on "Certificate verified"
+```
 
-```text
+The first boot enables Secure Boot and flash encryption as in Assignment 4. The OTA server is not running yet, so the update check fails, and the app continues with the TLS request. `esp-emu` has internet access through your computer, so the request succeeds this time:
+
+```log
 I (...) workshop_ota: Running partition: ota_0, version: 1.0.0
-I (...) workshop_ota: Checking https://192.168.1.10:8070/firmware.bin
-E (...) workshop_ota: Could not connect to the OTA server
+I (...) workshop_ota: Checking https://192.168.4.1:8070/firmware.bin
+E (...) esp_https_ota: Failed to open HTTP connection: ESP_ERR_HTTP_CONNECT
+E (...) workshop_ota: workshop_ota_check_and_update(...): Could not connect to the OTA server
+I (...) esp-x509-crt-bundle: Certificate validated
+I (...) example: Certificate verified.
 ```
 
-The rest of the log should match Assignment 4: Secure Boot and flash encryption state, encrypted NVS, Wi-Fi, and the TLS request.
+From now on, always run `esp-emu` on `lab-flash.bin` and `lab.efuse` with `--save-state`. Never copy `merged-secure.bin` over `lab-flash.bin` again: the chip now expects encrypted flash.
 
 ## Step 6: Publish and install version 1.0.1
 
 Goal: run a successful signed update.
 
-1. In a second terminal, start the test HTTPS server from the project directory:
+1. In a second terminal, start the server from the `ota_server` folder. Leave it running for the rest of the assignment:
 
 ```bash
 cd ota_server
-openssl s_server -WWW -key ../server_certs/ca_key.pem -cert ../server_certs/ca_cert.pem -port 8070
+python3 ../ota_server.py ../server_certs/ca_cert.pem ../server_certs/ca_key.pem
 ```
 
-`-WWW` serves files from the current directory, so the device downloads `ota_server/firmware.bin`. Leave the server running for the rest of the assignment.
-
-2. In the top-level `CMakeLists.txt`, change the version to `1.0.1`, then build and publish the **signed** image. Do not flash it:
+2. In the top-level `CMakeLists.txt`, change the version to `1.0.1`, then build and publish the **signed** image:
 
 ```bash
 idf.py build
 cp build/<project-name>.bin ota_server/firmware.bin
 ```
 
-The build writes two application images: `<project-name>.bin`, signed with `secure_boot_signing_key.pem`, and `<project-name>-unsigned.bin`. The signed one is the release artifact.
+The build writes two application images: `<project-name>.bin`, signed with `secure_boot_signing_key.pem`, and `<project-name>-unsigned.bin`. The signed one is the release artifact. The server sends it as plaintext over TLS; the device encrypts it with its own flash encryption key as it writes it to `ota_1`.
 
-3. Reset the board (press **RST** or use `idf.py -p PORT monitor`). Expect:
+3. Boot the device again:
 
-```text
-I (...) workshop_ota: Running version: 1.0.0, server version: 1.0.1
+```bash
+esp-emu --chip esp32s31 --firmware lab-flash.bin --efuse lab.efuse --save-state --net user --timeout 120s --exit-on "Firmware is up to date"
+```
+
+Expect:
+
+```log
+I (...) workshop_ota: Running partition: ota_0, version: 1.0.0
 I (...) esp_https_ota: Starting OTA...
-I (...) esp_https_ota: Writing to <ota_1> partition at offset 0x1a0000
-I (...) esp_image: Verifying image signature...
+I (...) esp_https_ota: Writing to <ota_1> partition at offset 0x1e0000
+I (...) workshop_ota: Running version: 1.0.0, server version: 1.0.1
 I (...) secure_boot_v2: Take trusted digest key(s) from eFuse block(s)
 I (...) secure_boot_v2: #0 app key digest == #0 trusted key digest
-I (...) secure_boot_v2: Verifying with RSA-PSS...
 I (...) workshop_ota: OTA succeeded, rebooting into the new firmware
 ```
 
 After the reboot, the bootloader verifies the new image, and the app confirms it:
 
-```text
+```log
 I (...) workshop_ota: Running partition: ota_1, version: 1.0.1
 I (...) workshop_ota: New firmware passed the self-test, cancelling rollback
 I (...) workshop_ota: Running version: 1.0.1, server version: 1.0.1
 I (...) workshop_ota: Firmware is up to date
 ```
 
-The digest is read from the emulated `BLOCK_KEY1`, the same digest the bootloader trusts since Assignment 3.
+The trusted digest is the one the bootloader burned into `BLOCK_KEY0` on the first boot.
 
 ## Step 7: Reject unsigned and wrongly signed images
 
@@ -393,13 +436,20 @@ idf.py build
 cp build/<project-name>-unsigned.bin ota_server/firmware.bin
 ```
 
-2. Reset the board. The image downloads, then verification fails:
+2. Boot the device, stopping at the rejection:
 
-```text
+```bash
+esp-emu --chip esp32s31 --firmware lab-flash.bin --efuse lab.efuse --save-state --net user --timeout 120s --exit-on "Image rejected"
+```
+
+The image downloads, then verification fails:
+
+```log
 I (...) workshop_ota: Running version: 1.0.1, server version: 1.0.2
-I (...) esp_image: Verifying image signature...
+E (...) secure_boot_v2_rsa: Signature verification failed, err: -149
 E (...) esp_image: Secure boot signature verification failed
 W (...) esp_image: image valid, signature bad
+E (...) esp_ota_ops: New image failed verification
 E (...) workshop_ota: Image rejected: signature or hash verification failed
 ```
 
@@ -412,7 +462,14 @@ espsecure generate-signing-key --version 2 --scheme rsa3072 wrong_key.pem
 espsecure sign-data --version 2 --keyfile wrong_key.pem --output ota_server/firmware.bin build/<project-name>-unsigned.bin
 ```
 
-4. Reset the board. The signature is valid, but its public key digest does not match the trusted digest, so the image is rejected again with `Image rejected: signature or hash verification failed`.
+4. Boot the device with the same command as in item 2. The signature is valid, but its public key digest does not match the trusted digest, so the image is rejected again:
+
+```log
+E (...) esp_image: Secure boot signature verification failed
+W (...) esp_image: image valid, signature bad
+E (...) esp_ota_ops: New image failed verification
+E (...) workshop_ota: Image rejected: signature or hash verification failed
+```
 
 5. Delete `wrong_key.pem`.
 
@@ -422,7 +479,7 @@ Both tests also answer a common question: TLS protects the download, but the sig
 
 Goal: watch the bootloader return to the previous image when a correctly signed update fails its self-test.
 
-1. In menuconfig, enable **Workshop OTA → Simulate a failed self-test after an update**. Keep the version at `1.0.2`.
+1. In the project configuration, enable **Workshop OTA → Simulate a failed self-test after an update**. Keep the version at `1.0.2`.
 2. Build and publish the **signed** image:
 
 ```bash
@@ -430,63 +487,69 @@ idf.py build
 cp build/<project-name>.bin ota_server/firmware.bin
 ```
 
-3. Reset the board. Expect:
-   - The update installs into `ota_0`, as in Step 6.
-   - Version 1.0.2 boots, connects to Wi-Fi, and logs `Self-test failed, rolling back to the previous firmware`.
-   - The board reboots into `ota_1` with version 1.0.1.
-   - The update check logs `Version 1.0.2 was rolled back before, skipping it`.
-4. Disable **Simulate a failed self-test after an update** again.
+3. Boot the device:
 
-## Step 9: Confirm that the real eFuses are untouched
+```bash
+esp-emu --chip esp32s31 --firmware lab-flash.bin --efuse lab.efuse --save-state --net user --timeout 180s --exit-on "was rolled back before"
+```
 
-Goal: confirm that OTA added no permanent change to the board.
+Expect the update to install into `ota_0`, version 1.0.2 to fail its self-test, and the bootloader to return to `ota_1`:
 
-Run `idf.py -p PORT efuse-summary` and check, as in Assignment 4, that the **real** `SECURE_BOOT_EN` is still `False`, `SPI_BOOT_CRYPT_CNT` is still `Disable`, `BLOCK_KEY1` and `BLOCK_KEY2` are still empty, and `SECURE_VERSION` (the anti-rollback field) is still `0`.
+```log
+I (...) workshop_ota: OTA succeeded, rebooting into the new firmware
+...
+I (...) boot: Loaded app from partition at offset 0x20000
+I (...) workshop_ota: Running partition: ota_0, version: 1.0.2
+E (...) workshop_ota: Self-test failed, rolling back to the previous firmware
+I (...) esp_ota_ops: Rollback to previously worked partition.
+...
+I (...) boot: Loaded app from partition at offset 0x1e0000
+I (...) workshop_ota: Running partition: ota_1, version: 1.0.1
+W (...) workshop_ota: Version 1.0.2 was rolled back before, skipping it
+```
 
-Stop the OpenSSL server with **Ctrl+C**. To go back to a known state, run `idf.py -p PORT flash`: it rewrites `ota_0` and an empty `otadata`, so the board boots from `ota_0` again.
+4. Disable **Simulate a failed self-test after an update** again, and stop the server with **Ctrl+C**.
 
-## Step 10: Review production configuration (read only)
+## Step 9: Review production configuration (read only)
 
-Goal: know what changes for a product fleet without performing it on workshop boards.
+Goal: know what changes for a product fleet.
 
-Read (do not execute on class kits):
+Read:
 
 - [Over The Air Updates (OTA)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html), in particular [Anti-rollback](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html#anti-rollback)
 - [ESP HTTPS OTA](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/esp_https_ota.html)
-- [production provisioning appendix](../appendix-production-provisioning)
+- [Real-board appendix](../appendix-production-provisioning)
 
 Note for your technical file:
 
-- **Anti-rollback:** enable [CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-anti-rollback) and raise [CONFIG_BOOTLOADER_APP_SECURE_VERSION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-secure-version) when a release fixes a security issue. Each increase burns eFuse bits, and the field has a limited number of bits. Anti-rollback does not support a `factory` partition, and it needs space for a larger bootloader, so plan the partition table offset early.
-- **Signing:** sign release images in a controlled environment, such as an offline machine or an HSM, never on developer laptops. Plan key rotation and revocation using the extra Secure Boot digest slots.
+- **Anti-rollback:** enable [CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-anti-rollback) and raise [CONFIG_BOOTLOADER_APP_SECURE_VERSION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-secure-version) when a release fixes a security issue. Each increase burns eFuse bits, and the field has a limited number of bits. Decide the policy before the first release.
+- **Signing:** sign release images in a controlled environment, such as an offline machine or an HSM, never on developer laptops. Plan key rotation and revocation: the first boot revoked the unused Secure Boot digest slots, so add the extra keys before that if you need them.
 - **Server identity:** use a CA you control or a public CA, and decide how devices will receive a new CA certificate before the current one expires.
 - **Self-test:** confirm a new image only after the checks that matter for your product, such as cloud connectivity, and keep the self-test short to limit rollbacks caused by power loss.
-- Development mode plus virtual eFuses **must** be called out as non-production in risk assessments.
 
 ## Validation matrix
 
 | Test | Action | Expected |
 |------|--------|----------|
-| Partition layout | Step 1 | `otadata`, `ota_0`, `ota_1`; `nvs` and `efuse_em` unchanged |
-| Bootloader fits | Step 2 | `0xc000` bootloader with rollback, partition table at `0xF000` |
+| Bootloader fits | Step 1 | `0xc000` bootloader with rollback, below the partition table at `0x10000` |
 | First version | Step 5 | Boots from `ota_0`, version 1.0.0; Assignment 4 checks still pass |
 | Signed update | Step 6 | Signature verified, boots from `ota_1`, version 1.0.1 confirmed |
 | Unsigned image | Step 7 | `Image rejected`; still running 1.0.1 |
 | Wrong key | Step 7 | `Image rejected`; still running 1.0.1 |
 | Rollback (optional) | Step 8 | 1.0.2 fails self-test; back on 1.0.1; 1.0.2 skipped |
-| Real eFuses untouched | Step 9 | `efuse-summary`: `SECURE_BOOT_EN` `False`, `SECURE_VERSION` `0` |
 
-Capture the update and rejection logs for the **secure updates** row in the [EU CRA overview](../overview-eu-cra). State clearly that the results come from virtual eFuses and a lab server.
+Capture the update and rejection logs for the **secure updates** row in the [EU CRA overview](../overview-eu-cra). State that the results come from the emulator and a lab server.
 
 ## What you learned
 
 You should now be able to:
 
-- Add HTTPS OTA updates to a project that already uses Secure Boot V2, flash encryption, and HMAC NVS
+- Add HTTPS OTA updates to a project that already uses Secure Boot V2, flash encryption, and encrypted NVS
 - Explain how Secure Boot V2 protects the update path: the app verifies the signature before it switches partitions, and the bootloader verifies again at boot
 - Use app rollback so that a broken update does not leave the device unusable
-- Explain what anti-rollback adds and why it is a permanent, production-only decision
-- Record update evidence for CRA-oriented **secure update** documentation, with the virtual-mode limitation stated
+- Explain what anti-rollback adds and why the secure version policy is a permanent decision
+- Keep a stateful emulated device across runs with `esp-emu --save-state`
+- Record update evidence for CRA-oriented **secure update** documentation
 
 ## Previous and next steps
 

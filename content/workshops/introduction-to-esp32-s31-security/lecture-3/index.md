@@ -11,7 +11,7 @@ showAuthor: false
 
 If an attacker can replace the bootloader or application in flash, they can run arbitrary code: bypass your TLS stack, exfiltrate [encrypted NVS](../lecture-2) after boot, or impersonate your device on the network. **Secure Boot V2** checks **digital signatures** on the second-stage bootloader and on each application image before execution, using **RSA-PSS** and public-key digests stored in eFuses.
 
-[Assignment 3](../assignment-3) walks through the ESP-IDF enablement flow on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1: generate a development signing key, build signed images, provision trust with **virtual** eFuses, and confirm that tampered firmware is rejected. Primary reference: [Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html).
+[Assignment 3](../assignment-3) walks through the ESP-IDF enablement flow on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1: generate a development signing key, build signed images, watch the bootloader burn the key digest on first boot in the ESP32 emulator, and confirm that tampered firmware is rejected. Primary reference: [Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html).
 
 ## Learning objectives
 
@@ -19,7 +19,7 @@ If an attacker can replace the bootloader or application in flash, they can run 
 - Separate the **signing private key**, the **signature block** on flash, and the **public-key digest** in eFuse
 - Summarize the Secure Boot V2 verification steps for bootloader and app
 - Outline key rotation, revocation, and why unused digest slots are revoked in production
-- Contrast workshop virtual eFuses with manufacturing provisioning
+- Contrast the emulator lab with manufacturing provisioning on real silicon
 
 ## Integrity threat model
 
@@ -57,7 +57,7 @@ Verification (simplified):
 3. Bootloader validates the selected app partition the same way.
 4. On failure, boot **stops**; the bootloader may try another OTA app partition if one verifies.
 
-The same format applies to bootloader and application binaries. OTA updates re-use this path in production: a bad image should not become the running firmware. The hands-on track covers Secure Boot in [Assignment 3](../assignment-3); signed OTA with app rollback is the optional [Assignment 5](../assignment-5), and anti-rollback is covered in ESP-IDF docs and the [production provisioning appendix](../appendix-production-provisioning).
+The same format applies to bootloader and application binaries. OTA updates re-use this path in production: a bad image should not become the running firmware. The hands-on track covers Secure Boot in [Assignment 3](../assignment-3); signed OTA with app rollback is the optional [Assignment 5](../assignment-5), and anti-rollback is covered in ESP-IDF docs and the [real-board appendix](../appendix-production-provisioning).
 
 Detailed steps: [Verifying a signature block](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#verifying-a-signature-block) and [Verifying an image](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#verifying-an-image).
 
@@ -86,7 +86,7 @@ Manufacturing may use **menuconfig-first** enablement ([How to enable Secure Boo
 > [!NOTE]
 > Enabling [CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot) changes flashing: `idf.py flash` does **not** flash the bootloader. Flash the signed bootloader separately with `idf.py bootloader-flash`, or with the `esptool write-flash` command printed by `idf.py bootloader` (offset `0x2000` on ESP32-S31).
 >
-> The signed bootloader is also larger. On ESP32-S31 it sits between `0x2000` and the partition table, which leaves only 24 KB at the default offset of `0x8000`. Raise [CONFIG_PARTITION_TABLE_OFFSET](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-partition-table-offset) (for example to `0xD000`) and move the partitions in your CSV accordingly.
+> The signed bootloader is also larger. On ESP32-S31 it sits between `0x2000` and the partition table, which leaves only 24 KB at the default offset of `0x8000`. Raise [CONFIG_PARTITION_TABLE_OFFSET](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-partition-table-offset) and move the partitions in your CSV accordingly. The workshop layout uses `0x10000`, which also leaves room for flash encryption in Assignment 4.
 
 ## Relation to other workshop topics
 
@@ -103,20 +103,23 @@ Together, authenticity (Secure Boot), confidentiality (flash/NVS encryption), an
 
 ### Workshop path (Assignment 3)
 
-The class lab enables the Secure Boot V2 **build and boot flow** with [CONFIG_EFUSE_VIRTUAL](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual) and [CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual-keep-in-flash). Public-key digests and `SECURE_BOOT_EN` are applied to **emulated** eFuses only. You still sign images and can optionally test rejection of bad firmware; the SoC’s real eFuses stay at factory defaults, apart from the HMAC key block burned in [Assignment 2](../assignment-2). The emulated copy starts from the real eFuses, so that block still shows `HMAC_UP` and encrypted NVS keeps working.
+The lab builds a production configuration: Secure Boot V2 with RSA-3072, ROM download mode permanently disabled, and JTAG disabled. It runs in the [ESP32 emulator](https://espressif.github.io/esp-emulator/) instead of on your board. The emulator models the eFuses and the ROM, so the whole chain of trust runs as on silicon:
 
-Emulation has one important limit: the ROM reads the **real** `SECURE_BOOT_EN` eFuse, which stays off. In the lab, the ROM does not verify the bootloader; only the bootloader's verification of the application is exercised. That is enough to sign images and see a tampered app rejected, but it is not the full hardware chain of trust.
+- On first boot, the bootloader burns the public key digest into `BLOCK_KEY0`, revokes the unused digest slots, and sets `SECURE_BOOT_EN`.
+- After a reset, the ROM verifies the bootloader (`RSA-PSS secure boot verification succeeded`), and the bootloader verifies the app.
 
-**Preflight:** After `idf.py build`, confirm `CONFIG_EFUSE_VIRTUAL=y` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH=y`. After boot, expect the `eFuse virtual mode is enabled` warning. Note that `idf.py efuse-summary` reads the **real** eFuses through the ROM, so it shows `SECURE_BOOT_EN` as `False` even when emulated Secure Boot is on. Read the emulated state from the application (for example with `esp_secure_boot_enabled()`), as Assignment 3 does.
+Each image you load in the browser starts on a blank chip, so nothing is permanent. To test rejection of a tampered or wrongly signed app, the chip must already trust your key. The optional step of Assignment 3 uses the native `esp-emu` tool for this, because it can save the eFuse and flash state between runs.
 
-**Reset between labs:** erase the flash, then flash the signed bootloader and app again. Erase before the first Secure Boot flash as well, so `efuse_em` starts empty and is filled from the real eFuses. Erasing flash never touches the real HMAC key. Once `CONFIG_SECURE_BOOT` is set, `idf.py erase-flash` fails because ESP-IDF switches esptool to ROM-only mode (`CONFIG_ESPTOOLPY_NO_STUB`); run `python -m esptool --chip esp32s31 -p PORT erase-flash` instead.
+**Burn order:** Secure Boot write-protects the eFuse read-protection bits on first boot. An HMAC key for NVS encryption must therefore be burned before that boot, which a blank emulated chip cannot do. Assignment 3 runs with NVS encryption off, and Assignment 4 turns it back on with the flash encryption-based scheme (see [Lecture 2](../lecture-2/#efuse-burn-order)).
+
+**Flashing images:** with `CONFIG_SECURE_BOOT`, `idf.py merge-bin` leaves out the bootloader. The assignments merge the signed bootloader, partition table, `otadata`, and app with `esptool merge-bin` instead.
 
 ### Production path (appendix)
 
-Hardware Secure Boot burns key digests, enables `SECURE_BOOT_EN`, and may revoke unused digest slots. UART download mode and debug policies are often restricted at the same time. That is **irreversible** on real silicon. Follow the [production provisioning appendix](../appendix-production-provisioning) and [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html) on disposable provisioning hardware, not on workshop kits.
+Hardware Secure Boot burns key digests, enables `SECURE_BOOT_EN`, and may revoke unused digest slots. UART download mode and debug policies are often restricted at the same time. That is **irreversible** on real silicon. Follow the [real-board appendix](../appendix-production-provisioning) and [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html) on hardware you are ready to give up, not on workshop kits.
 
 > [!WARNING]
-> Enabling hardware Secure Boot and programming or protecting **real** eFuses can be irreversible. In class, verify virtual eFuse mode before any Secure Boot step. Never run `espefuse burn` on participant boards.
+> Enabling hardware Secure Boot and programming or protecting **real** eFuses is irreversible. In class, run Secure Boot firmware only in the emulator. Never flash it to participant boards or run `espefuse burn` on them.
 
 ## CRA and product evidence
 
@@ -124,7 +127,7 @@ The [EU CRA overview](../overview-eu-cra) maps Secure Boot V2 to **integrity** a
 
 Useful artifacts from Assignment 3 and production rollout:
 
-- **Configuration record:** Secure Boot version, signing scheme (RSA-3072), digest slot allocation, virtual vs hardware mode
+- **Configuration record:** Secure Boot version, signing scheme (RSA-3072), digest slot allocation, and whether results come from the emulator or production silicon
 - **Signing policy:** who holds the private key, CI signing vs offline HSM, rotation and revocation plan
 - **Boot and test logs:** successful verify messages, intentional **rejection** of unsigned or wrongly signed images (document the test procedure)
 - **Key custody:** evidence that development keys are not shipped as production trust roots
@@ -135,8 +138,8 @@ For CRA timelines, reporting duties, and conformity steps, use the overview and 
 
 - Target: `idf.py --preview set-target esp32s31`
 - Read [How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2) once before changing **Security features** in menuconfig
-- Enable virtual eFuses and add an `efuse_em` partition (they were off during Assignment 2)
-- Plan a partition table offset of `0xD000` for the larger signed bootloader; the move resets NVS, and the Wi-Fi credentials are stored again from menuconfig
+- The partition table from Assignment 2, at offset `0x10000`, already fits the larger signed bootloader
+- Open the [ESP32 emulator](https://espressif.github.io/esp-emulator/); for the optional rejection tests, install the native `esp-emu` tool from the [esp-emulator repository](https://github.com/espressif/esp-emulator)
 - Generate a **lab-only** signing key; add `*.pem` to `.gitignore` and never commit private keys
 
 ## Previous and next steps

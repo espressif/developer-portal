@@ -11,115 +11,107 @@ showAuthor: false
 
 In [Assignment 1](../assignment-1) you ran [**https_mbedtls**](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls) with the certificate bundle and Wi-Fi from menuconfig. Here you **keep that TLS client code** and add **HMAC-based NVS encryption** on the default `nvs` partition, so the lab **Wi-Fi SSID and password live in encrypted NVS** instead of only in the compiled `CONFIG_EXAMPLE_WIFI_*` strings.
 
-The NVS configuration follows the ESP-IDF example [`nvs_encryption_hmac`](https://github.com/espressif/esp-idf/tree/master/examples/security/nvs_encryption_hmac): the HMAC key lives in a **real eFuse key block**, and `nvs_flash_init()` derives the XTS keys from it at runtime. Read [Lecture 2](../lecture-2) for the threat model, the first-boot behavior, and how this differs from flash encryption.
+The NVS configuration follows the ESP-IDF example [`nvs_encryption_hmac`](https://github.com/espressif/esp-idf/tree/master/examples/security/nvs_encryption_hmac): the HMAC key lives in an eFuse key block, and `nvs_flash_init()` derives the XTS keys from it at runtime. Read [Lecture 2](../lecture-2) for the threat model, the first-boot behavior, and how this differs from flash encryption.
+
+From this assignment on, you run the firmware in the [ESP32 emulator](https://espressif.github.io/esp-emulator/) instead of on your board. The firmware burns a real HMAC key on its first boot, and the emulator burns it into its own eFuses, so your board stays untouched.
 
 ## Before you begin
 
 **Starting point:** Assignment 1 complete in the same project (certificate bundle enabled, Wi-Fi set under **Example Connection Configuration**). Do not run `set-target` again: it resets `sdkconfig`.
 
 > [!WARNING]
-> **This assignment burns a real eFuse key.** On the first encrypted boot, `nvs_flash_init()` generates a random HMAC key and programs it into the selected key block with purpose `HMAC_UP`. This is **permanent**: the block cannot be reused, the key cannot be read back, and erasing flash does not undo it. The board keeps working normally. Keep `CONFIG_EFUSE_VIRTUAL` **off** for this assignment. See [Provisioning the HMAC key](../lecture-2/#provisioning-the-hmac-key).
+> **Do not flash this firmware to your board.** On first boot it permanently burns an HMAC key into eFuse block `BLOCK_KEY0`. Run it only in the emulator. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
+>
+> **Disconnect the board now:** unplug the USB cable from your computer before you continue. A flash command run by mistake then has no device to write to, and your board stays untouched. Keep it unplugged for Assignments 2 to 5.
 
-**Check that the key block is free:** run `idf.py -p PORT efuse-summary`. For key ID `0`, `BLOCK_KEY0` must show `Purpose: USER` (unused) or `HMAC_UP` from an earlier run:
+**Emulator Wi-Fi:** the emulator provides an access point with SSID `myssid` and password `mypassword`. You set these in Step 2. The emulator in the browser has no internet access, so the TLS request at the end of the log fails; that is expected.
 
-```text
-BLOCK_KEY0 (BLOCK4)
-Purpose: USER
-            Key0 or user data
-= 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 R/W
+Never commit Wi-Fi passwords or key files.
+
+## Step 1: Set the flash size and partition table
+
+Goal: use the partition layout that all the remaining assignments share.
+
+The table below reserves room for everything the later labs add: a larger bootloader for Secure Boot and flash encryption, an encrypted `storage` partition, an `nvs_keys` partition, and two OTA slots. Setting it up now means you never move a partition again.
+
+1. Create `partitions.csv` in the project root (next to `CMakeLists.txt`):
+
+   ```csv
+   # Name,   Type, SubType,  Offset,   Size,     Flags
+   nvs,      data, nvs,      0x11000,  0x6000,
+   otadata,  data, ota,      0x17000,  0x2000,
+   phy_init, data, phy,      0x19000,  0x1000,
+   storage,  data, 0xff,     0x1A000,  0x1000,   encrypted
+   nvs_keys, data, nvs_keys, 0x1B000,  0x1000,   encrypted
+   ota_0,    app,  ota_0,    0x20000,  0x1C0000,
+   ota_1,    app,  ota_1,    0x1E0000, 0x1C0000,
+   ```
+
+2. Add these lines to `sdkconfig.defaults` in the project root (create the file if it does not exist):
+
+   ```ini
+   CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+   CONFIG_PARTITION_TABLE_CUSTOM=y
+   CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+   CONFIG_PARTITION_TABLE_OFFSET=0x10000
+   ```
+
+How the layout fits together:
+
+- The bootloader starts at `0x2000`. Moving the partition table to `0x10000` leaves it up to `0xE000` bytes. With Secure Boot and flash encryption, the Assignment 4 bootloader is `0xC000` bytes.
+- `storage` and `nvs_keys` are marked `encrypted`. They take effect in Assignment 4; until flash encryption is on, the flag has no effect.
+- There is no `factory` partition. With an empty `otadata`, the bootloader starts the app from `ota_0`.
+- The emulator flash is 4 MB, so the project uses 4 MB even though the module on your board has more.
+
+## Step 2: Enable HMAC-based NVS encryption
+
+Goal: register the HMAC NVS security provider, encrypt the default `nvs` partition, and set the emulator Wi-Fi credentials (see [HMAC scheme in ESP-IDF](../lecture-2/#hmac-scheme-in-esp-idf)).
+
+Open the project configuration:
+
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
+```bash
+idf.py menuconfig
 ```
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
 
-Any other purpose means the block is taken; choose another key ID. Never commit Wi-Fi passwords or key files.
+Then:
 
-## Step 1: Enable HMAC-based NVS encryption
+1. Open **Component config → NVS** and enable **Enable NVS encryption** ([CONFIG_NVS_ENCRYPTION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-encryption)).
+2. Open **Component config → NVS Security Provider** (visible only after the previous step).
+3. Confirm **NVS Encryption: Key Protection Scheme** is **Using HMAC peripheral** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_HMAC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-hmac)). This is the default on the ESP32-S31.
+4. Set **eFuse key ID storing the HMAC key** to **`0`** ([CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-hmac-efuse-key-id)).
+5. Open **Example Connection Configuration** and set **WiFi SSID** to `myssid` and **WiFi Password** to `mypassword`.
 
-Goal: register the HMAC NVS security provider and encrypt the default `nvs` partition (see [HMAC scheme in ESP-IDF](../lecture-2/#hmac-scheme-in-esp-idf)).
-
-1. Run `idf.py menuconfig`.
-2. Open **Component config → NVS** and enable **Enable NVS encryption** ([CONFIG_NVS_ENCRYPTION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-encryption)).
-3. Open **Component config → NVS Security Provider** (visible only after step 2).
-4. Confirm **NVS Encryption: Key Protection Scheme** is **Using HMAC peripheral** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_HMAC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-hmac)). This is the default on the ESP32-S31.
-5. Set **eFuse key ID storing the HMAC key** to **`0`**, or the free block you chose in [Before you begin](#before-you-begin) ([CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-hmac-efuse-key-id)).
-
-Optional: add the same settings to the project `sdkconfig.defaults` so the team shares one baseline. The first two lines match the upstream example:
+Add the same settings to `sdkconfig.defaults` so the configuration survives a clean rebuild:
 
 ```ini
 CONFIG_NVS_ENCRYPTION=y
 CONFIG_NVS_SEC_KEY_PROTECT_USING_HMAC=y
 CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID=0
+CONFIG_EXAMPLE_WIFI_SSID="myssid"
+CONFIG_EXAMPLE_WIFI_PASSWORD="mypassword"
 ```
 
-You do **not** need the `custom_nvs` partition from the standalone example; the default `nvs` partition is enough for Wi-Fi credentials.
+These are the emulator's public test credentials. Never put real Wi-Fi credentials in `sdkconfig.defaults`.
 
-Build once: `idf.py build`. If the build stops with `Configured eFuse block (CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID) out of range!`, the key ID is still `-1`.
-
-### If the app does not fit the factory partition
-
-The default partition table reserves 1 MB (`0x100000`) for the app and assumes a 2 MB flash. With NVS encryption, Wi-Fi, and mbedTLS, the binary can exceed that, and the build fails with an error like this:
-
-```text
-Error: app partition is too small for binary https_mbedtls.bin size 0x108580:
-  - Part 'factory' 0/0 @ 0x10000 size 0x100000 (overflow 0x8580)
-```
-
-The ESP32-S31-WROOM-3 module on the board has 16 MB of flash, so increase the flash size and use a custom partition table with a larger `factory` partition:
-
-1. Run `idf.py menuconfig`.
-2. Open **Serial flasher config → Flash size** and select **16 MB** ([CONFIG_ESPTOOLPY_FLASHSIZE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-esptoolpy-flashsize)).
-3. Open **Partition Table → Partition Table** and select **Custom partition table CSV**. Keep **Custom partition CSV file** as `partitions.csv`.
-4. Check that **Partition Table → Offset of partition table** is `0x8000` (the default, [CONFIG_PARTITION_TABLE_OFFSET](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-partition-table-offset)). The offsets in the CSV below assume this value.
-5. Create `partitions.csv` in the project root (next to `CMakeLists.txt`):
-
-   ```csv
-   # Name,   Type, SubType, Offset,   Size,     Flags
-   nvs,      data, nvs,     0x9000,   0x6000,
-   phy_init, data, phy,     0xf000,   0x1000,
-   factory,  app,  factory, 0x10000,  0x200000,
-   ```
-
-   The partition table itself occupies `0x8000` to `0x8FFF`, so `nvs` starts at `0x9000`, which is the same place as in the default table. App partitions must start on a 64 KB (`0x10000`) boundary. The `factory` partition grows from 1 MB to 2 MB.
-
-6. Run `idf.py build` again.
-
-If you later change the partition table offset (for example, because a larger bootloader no longer fits below `0x8000`), shift every offset in the CSV by the same amount, or leave the **Offset** column empty so ESP-IDF places the partitions automatically.
-
-To share the configuration with the team, add these lines to `sdkconfig.defaults`:
-
-```ini
-CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
-CONFIG_PARTITION_TABLE_CUSTOM=y
-CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
-CONFIG_PARTITION_TABLE_OFFSET=0x8000
-```
-
-**Optional, pre-burn your own key.** The workshop lets the firmware generate the key on first boot. To use a key generated on the host instead, burn it **before** flashing the app, into the block that matches the key ID:
-
-```bash
-idf.py -p PORT efuse-burn-key BLOCK_KEY0 hmac_key_file.bin HMAC_UP
-```
-
-## Step 2: Erase the plaintext NVS from Assignment 1
-
-Goal: start the encrypted partition from a clean state.
-
-The `nvs` partition still holds **plaintext** pages written by Assignment 1. Encrypted NVS cannot read them, so erase the flash before the first encrypted boot:
-
-```bash
-idf.py -p PORT erase-flash
-```
-
-Erasing flash does not touch eFuses.
+You do **not** need the `custom_nvs` partition from the standalone example; the default `nvs` partition is enough for Wi-Fi credentials. If the build stops with `Configured eFuse block (CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID) out of range!`, the key ID is still `-1`.
 
 ## Step 3: Add Wi-Fi credential helpers
 
 Goal: write SSID and password into namespace `workshop_wifi` on the **encrypted** default NVS partition, then load them for connection.
 
 1. In `main/`, add four files: `wifi_creds.h`, `wifi_creds.c`, `workshop_wifi_connect.h`, and `workshop_wifi_connect.c`.
-2. Register the new sources in `main/CMakeLists.txt`, keeping `https_mbedtls_example_main.c` and the upstream dependencies, and add `esp_wifi`:
+2. Register the new sources in `main/CMakeLists.txt`, keeping `https_mbedtls_example_main.c` and the upstream dependencies, and add `esp_wifi`, `efuse`, and `esp_partition`:
 
 ```cmake
 idf_component_register(SRCS "https_mbedtls_example_main.c" "wifi_creds.c" "workshop_wifi_connect.c"
-                    PRIV_REQUIRES esp_event nvs_flash esp_netif esp_wifi mbedtls
+                    PRIV_REQUIRES esp_event nvs_flash esp_netif esp_wifi mbedtls efuse esp_partition
                     INCLUDE_DIRS ".")
 ```
 
@@ -190,7 +182,7 @@ esp_err_t wifi_creds_provision_from_menuconfig_if_missing(void)
     }
     nvs_close(h);
     if (err == ESP_OK) {
-        ESP_LOGI(TAG, "Stored lab Wi-Fi credentials in encrypted NVS");
+        ESP_LOGI(TAG, "Stored lab Wi-Fi credentials in NVS");
     }
     return err;
 #else
@@ -315,99 +307,30 @@ esp_err_t workshop_wifi_connect(void)
 
 `WIFI_STORAGE_RAM` stops the Wi-Fi driver from keeping its own copy of the credentials in NVS, so `workshop_wifi` is the only place they are stored.
 
-## Step 4: Wire app_main (keep the TLS task)
+## Step 4: Wire app_main and add evidence helpers
 
-Goal: initialize **encrypted NVS before** any credential access; keep **`https_get_task`** unchanged from Assignment 1.
+Goal: initialize **encrypted NVS before** any credential access, keep **`https_get_task`** unchanged from Assignment 1, and log the evidence you will check in the emulator.
 
 In `https_mbedtls_example_main.c`:
 
 1. Keep all mbedTLS client code and the certificate bundle setup in `https_get_task`.
-2. Replace `#include "protocol_examples_common.h"` with the two new headers, and replace the `nvs_flash_init()` / `example_connect()` block in `app_main`:
-
-```c
-#include "wifi_creds.h"
-#include "workshop_wifi_connect.h"
-
-void app_main(void)
-{
-    esp_err_t ret = nvs_flash_init();
-    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
-        ret = nvs_flash_init();
-    }
-    ESP_ERROR_CHECK(ret);
-
-    ESP_ERROR_CHECK(wifi_creds_provision_from_menuconfig_if_missing());
-
-    ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-
-    ESP_ERROR_CHECK(workshop_wifi_connect());
-
-    xTaskCreate(&https_get_task, "https_get_task", 8192, NULL, 5, NULL);
-}
-```
-
-3. Leave **Component config → mbedTLS → Certificate Bundle** as in Assignment 1. Keep `protocol_examples_common` in the project: `wifi_creds.c` still reads the lab SSID and password from its menuconfig options on first boot.
-
-Flash and monitor: `idf.py -p PORT flash monitor`.
-
-**First boot** (empty key block). The error and warning lines are expected: no key exists yet, so `nvs_flash_init()` generates one and burns it.
-
-```log
-E (418) nvs_sec_provider: Could not find HMAC key in configured eFuse block!
-W (428) nvs: Failed to read NVS security cfg: [0xF001] (ERROR)
-I (428) nvs: Generating NVS encr-keys...
-I (438) efuse: Batch mode of writing fields is enabled
-I (438) efuse: BURN BLOCK4
-I (448) efuse: BURN BLOCK4 - OK (write block == read block)
-I (448) efuse: BURN BLOCK0
-I (448) efuse: BURN BLOCK0 - OK (all write block bits are set)
-I (458) efuse: BURN BLOCK0
-I (458) efuse: BURN BLOCK0 - OK (all write block bits are set)
-I (468) efuse: Batch mode. Prepared fields are committed
-I (478) nvs: NVS partition "nvs" is encrypted.
-```
-
-**Success criteria** (log text may vary slightly):
-
-| Check | Expected |
-|-------|----------|
-| HMAC NVS scheme | `NVS Encryption - Registering HMAC-based scheme...` |
-| HMAC key | First boot: `Generating NVS encr-keys...`. Later boots: no key messages |
-| Default NVS encrypted | `NVS partition "nvs" is encrypted.` on every boot |
-| Credentials stored | `Stored lab Wi-Fi credentials in encrypted NVS` on first boot, then `Wi-Fi credentials already in NVS` |
-| Wi-Fi from NVS | `Loaded Wi-Fi SSID from NVS: ...` and `Connected using credentials from NVS` |
-| TLS unchanged | Same success lines as Assignment 1: `esp-x509-crt-bundle: Certificate validated`, `Certificate verified.`, HTTP JSON from howsmyssl |
-
-Reboot without reflashing: Wi-Fi and TLS should still work using NVS only.
-
-Then confirm the key in eFuse:
-
-```bash
-idf.py -p PORT efuse-summary
-```
-
-The block for your key ID should now show purpose `HMAC_UP`, with the key value hidden:
-
-```text
-BLOCK_KEY0 (BLOCK4)
-  Purpose: HMAC_UP
-            Key0 or user data
-   = ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? -/-
-```
-
-Compare this with the output from [Before you begin](#before-you-begin), where the block showed `Purpose: USER`, zeros, and `R/W`. The `??` bytes mean the key is read-protected and software cannot read it. The `-/-` flags mean the block is now protected against both reads and further writes. Save this output for your provisioning record.
-
-## Step 5: Inspect raw NVS storage
-
-Goal: show that the **passphrase is not visible** in a raw partition read, as the example does with `dump_custom_nvs_partition()` (see [Reference example architecture](../lecture-2/#reference-example-architecture)).
-
-1. Add a development-only dump helper to `https_mbedtls_example_main.c`:
+2. Replace `#include "protocol_examples_common.h"` with the new headers, and add two helpers. `log_security_state()` reports which eFuse key block holds the HMAC key; you extend it in Assignments 3 and 4. `dump_nvs_prefix()` prints the start of the raw `nvs` partition, as the upstream example does with `dump_custom_nvs_partition()` (see [Reference example architecture](../lecture-2/#reference-example-architecture)):
 
 ```c
 #include <stdlib.h>
+#include "esp_efuse.h"
 #include "esp_partition.h"
+#include "wifi_creds.h"
+#include "workshop_wifi_connect.h"
+
+static void log_security_state(void)
+{
+    esp_efuse_block_t blk;
+
+    if (esp_efuse_find_purpose(ESP_EFUSE_KEY_PURPOSE_HMAC_UP, &blk)) {
+        ESP_LOGI(TAG, "HMAC_UP key in BLOCK_KEY%d", blk - EFUSE_BLK_KEY0);
+    }
+}
 
 static void dump_nvs_prefix(size_t len)
 {
@@ -426,35 +349,169 @@ static void dump_nvs_prefix(size_t len)
 }
 ```
 
-2. Call `dump_nvs_prefix(512)` right after `wifi_creds_provision_from_menuconfig_if_missing()`.
-3. Search the monitor hex dump for your **Wi-Fi password** and for the **`workshop_wifi`** namespace string. Neither should appear as contiguous ASCII. The first 32 bytes (page header) stay readable; that is expected. The SSID and password may still appear inside the **application image**, because the menuconfig strings are compiled into the binary. Record that gap in your notes.
-4. **Erase test:** run `idf.py -p PORT erase-flash`, then `idf.py -p PORT flash monitor`. Expected:
-   - No `Generating NVS encr-keys...` line: the HMAC key is still in eFuse, so the same XTS keys are derived.
-   - `Stored lab Wi-Fi credentials in encrypted NVS` again, because the NVS contents were erased.
-   - The dump still shows no plaintext password.
+3. Replace the `nvs_flash_init()` / `example_connect()` block in `app_main`:
 
-Remove the dump call when you are done. Keep screenshots or log excerpts for your CRA-oriented **credentials at rest** evidence (see [CRA and product evidence](../lecture-2/#cra-and-product-evidence)).
+```c
+void app_main(void)
+{
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
 
-## Step 6: Validation matrix
+    log_security_state();
+
+    ESP_ERROR_CHECK(wifi_creds_provision_from_menuconfig_if_missing());
+
+    dump_nvs_prefix(512);
+
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+
+    ESP_ERROR_CHECK(workshop_wifi_connect());
+
+    xTaskCreate(&https_get_task, "https_get_task", 8192, NULL, 5, NULL);
+}
+```
+
+4. Leave **Component config → mbedTLS → Certificate Bundle** as in Assignment 1. Keep `protocol_examples_common` in the project: `wifi_creds.c` still reads the lab SSID and password from its menuconfig options on first boot.
+
+## Step 5: Build the emulator image
+
+Goal: produce one file that contains the bootloader, partition table, OTA data, and app.
+
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
+```bash
+idf.py build
+idf.py merge-bin
+```
+
+The image is `build/merged-binary.bin`.
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
+
+## Step 6: Run in the emulator
+
+Goal: watch the first boot generate and burn the HMAC key, and confirm that NVS is encrypted.
+
+1. Open the [ESP32 emulator](https://espressif.github.io/esp-emulator/) in a new browser tab. The emulator runs entirely in your tab, and the firmware never leaves your machine. The page has these parts:
+   - The **Target** panel on the left selects the chip and the firmware image.
+   - The **WiFi Soft AP** panel shows the emulated access point, `myssid` with password `mypassword`.
+   - The **UART0 console** in the middle shows the serial output, as `idf.py monitor` would.
+   - The **Run**, **Pause**, and **Reset** buttons at the top control the emulated chip.
+
+   {{< figure
+       src="assets/esp-emulator-web.webp"
+       alt="ESP32 emulator web page before a firmware image is loaded"
+       caption="The ESP32 emulator, ready to load a firmware image"
+       >}}
+
+2. Under **Target → Chip**, select **ESP32-S31 · RV32IMAFC ×2**. The default chip is ESP32-C3; an image built for `esp32s31` does not run on it.
+
+   {{< figure
+       src="assets/esp-emulator-soc-selection.webp"
+       alt="Chip selection list in the ESP32 emulator with ESP32-S31 at the bottom"
+       caption="Selecting ESP32-S31 as the emulated chip"
+       >}}
+
+3. Under **Firmware (merged flash image)**, click **Choose a .bin** and select `build/merged-binary.bin`, or drop the file on the field. Leave **ROM ELF** on the embedded ROM.
+4. Click **Run** and read the UART0 console. The status at the top right changes to **Running**.
+
+   {{< figure
+       src="assets/esp-emulator-running-firmware.webp"
+       alt="ESP32 emulator running ESP32-S31 firmware with the boot log in the UART0 console"
+       caption="Firmware running on the emulated ESP32-S31. This example shows the flash encryption first boot from Assignment 4"
+       >}}
+
+You do not need the **Network proxy** panel: the emulated access point is enough for the firmware to join Wi-Fi and get an IP address.
+
+**First boot.** The error and warning lines are expected: no key exists yet, so `nvs_flash_init()` generates one and burns it into `BLOCK4`, which is `BLOCK_KEY0`:
+
+```log
+I (...) nvs_sec_provider: NVS Encryption - Registering HMAC-based scheme...
+E (...) nvs_sec_provider: Could not find HMAC key in configured eFuse block!
+W (...) nvs: Failed to read NVS security cfg: [0xF001] (ERROR)
+I (...) nvs: Generating NVS encr-keys...
+I (...) efuse: Batch mode of writing fields is enabled
+I (...) efuse: BURN BLOCK4
+I (...) efuse: BURN BLOCK4 - OK (write block == read block)
+I (...) efuse: BURN BLOCK0
+I (...) efuse: BURN BLOCK0 - OK (write block == read block)
+I (...) efuse: BURN BLOCK0
+I (...) efuse: BURN BLOCK0 - OK (all write block bits are set)
+I (...) efuse: Batch mode. Prepared fields are committed
+I (...) nvs: NVS partition "nvs" is encrypted.
+I (...) example: HMAC_UP key in BLOCK_KEY0
+I (...) wifi_creds: Stored lab Wi-Fi credentials in NVS
+```
+
+The first `BURN BLOCK0` sets the key purpose to `HMAC_UP`; the second sets the read protection, so software can never read the key back.
+
+Then the app connects to the emulator access point:
+
+```log
+I (...) wifi_creds: Loaded Wi-Fi SSID from NVS: myssid
+I (...) esp_netif_handlers: sta ip: 192.168.4.2, mask: 255.255.255.0, gw: 192.168.4.1
+I (...) workshop_wifi: Connected using credentials from NVS
+I (...) example: Connecting to www.howsmyssl.com:443...
+E (...) example: mbedtls_net_connect returned -52
+```
+
+The last line is expected: the browser emulator has no internet access. TLS was verified on the board in Assignment 1, and `https_get_task` is unchanged.
+
+5. **Second boot.** Click **Reset** without loading a new image. eFuses and flash are kept across a reset within the same run. Expected:
+   - No `Generating NVS encr-keys...` line: the HMAC key is already in eFuse, so the same XTS keys are derived.
+   - `Wi-Fi credentials already in NVS`, and the connection still works using NVS only.
+
+Loading an image again, or reloading the page, starts with a blank chip, so the next first boot generates a new key.
+
+**Success criteria** (log text may vary slightly):
+
+| Check | Expected |
+|-------|----------|
+| HMAC NVS scheme | `NVS Encryption - Registering HMAC-based scheme...` |
+| HMAC key | First boot: `Generating NVS encr-keys...` and the `BURN BLOCK4` lines. After a reset: no key messages |
+| Key block | `HMAC_UP key in BLOCK_KEY0` on every boot |
+| Default NVS encrypted | `NVS partition "nvs" is encrypted.` on every boot |
+| Credentials stored | `Stored lab Wi-Fi credentials in NVS` on first boot, then `Wi-Fi credentials already in NVS` |
+| Wi-Fi from NVS | `Loaded Wi-Fi SSID from NVS: myssid` and `Connected using credentials from NVS` |
+
+## Step 7: Inspect raw NVS storage
+
+Goal: show that the **password is not visible** in a raw partition read.
+
+1. In the console, find the `nvs_raw` hex dump that follows `Stored lab Wi-Fi credentials in NVS`.
+2. Search it for `mypassword` and for the `workshop_wifi` namespace string. Neither should appear as readable ASCII. The first 32 bytes (page header) stay readable; that is expected.
+3. The SSID and password may still appear inside the **application image**, because the menuconfig strings are compiled into the binary. Assignment 4 closes that gap with flash encryption. Record it in your notes.
+
+Keep log excerpts for your CRA-oriented **credentials at rest** evidence (see [CRA and product evidence](../lecture-2/#cra-and-product-evidence)). You can remove the `dump_nvs_prefix()` call afterwards, but keep it if you want to compare the dump in Assignments 3 and 4.
+
+## Step 8: Validation matrix
 
 Run these checks and record pass or fail in your workshop notes.
 
 | Test | Action | Expected |
 |------|--------|----------|
-| Encrypted init | First flash after Step 4 | Key generated once, `nvs` encrypted log line present |
-| eFuse key | `idf.py efuse-summary` | Purpose `HMAC_UP` on the configured block, key value read-protected |
-| TLS regression | No changes inside `https_get_task` | Assignment 1 TLS success criteria still met |
-| NVS persistence | Reboot, no reflash | `Wi-Fi credentials already in NVS`, connects from NVS |
-| Dump | Step 5 hex dump | Lab password and namespace not visible as plaintext |
-| Erase keeps key | Step 5 erase test | No new key generated; credentials provisioned again and still encrypted |
+| Encrypted init | First boot in the emulator | Key generated once, `nvs` encrypted log line present |
+| eFuse key | Same boot | `BURN BLOCK4` lines and `HMAC_UP key in BLOCK_KEY0` |
+| Wi-Fi from NVS | Same boot | `Connected using credentials from NVS` |
+| NVS persistence | Reset, no new image | No new key, `Wi-Fi credentials already in NVS`, connects from NVS |
+| Dump | Step 7 hex dump | Lab password and namespace not visible as plaintext |
 
 ## What you learned
 
 You should now be able to:
 
 - Enable **HMAC-based NVS encryption** and set a valid **HMAC eFuse key ID** on ESP32-S31
-- Provision a real `HMAC_UP` key on first boot and record the block in a provisioning record
+- Explain how the first boot generates an `HMAC_UP` key and burns it with read protection
 - Keep the **https_mbedtls** TLS flow from Assignment 1 while moving **Wi-Fi credentials** into encrypted NVS
+- Build a merged image and run it in the ESP32 emulator
 - Explain why `nvs_flash_init()` must run before reading or writing secrets
 - Compare API reads with a **raw partition dump** for test evidence
 - Tie results to the **credentials at rest** row in the [EU CRA overview](../overview-eu-cra) without duplicating full CRA legal context

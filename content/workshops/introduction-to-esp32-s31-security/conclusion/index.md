@@ -17,35 +17,42 @@ After completing the finished workshop, you will have:
 
 - Reviewed the ESP32-S31 architecture and security capabilities
 - Distinguished SoC security features from product-level CRA compliance
-- Protected data in transit with TLS
-- Configured HMAC-based NVS encryption with a real HMAC key generated on the SoC at first boot
-- Walked through Secure Boot V2 signing and verification with virtual eFuses
-- Exercised flash encryption flows in virtual eFuse mode (with known limits vs production)
-- Optionally, added signed HTTPS OTA updates with app rollback (Assignment 5)
+- Protected data in transit with TLS on the ESP32-S31-Function-CoreBoard-1
+- Built production firmware with no development options and ran it in the [ESP32 emulator](https://espressif.github.io/esp-emulator/), so every eFuse burn happened on an emulated chip instead of your board
+- Encrypted NVS with an HMAC key that the SoC generates and burns on first boot
+- Enabled Secure Boot V2 with an RSA signing key, and watched the bootloader burn the key digest and disable ROM download mode and JTAG
+- Enabled flash encryption in release mode, protected the NVS keys with flash encryption, and confirmed that raw flash reads return ciphertext
+- Learned why the order of eFuse burns matters in production: an HMAC key has to be burned before Secure Boot or flash encryption runs
+- Optionally, added signed HTTPS OTA updates with app rollback ([Assignment 5](../assignment-5))
+- Optionally, provisioned a real board with the same image ([real-board appendix](../appendix-production-provisioning))
 - Observed the instructor-led **TLS power consumption** Otii demo at the end of Assignment 1 (when offered)
 
-## Classroom vs production
+## Emulator vs production device
 
-| Topic | In the workshop | On the manufacturing line |
-|-------|-----------------|---------------------------|
-| eFuses | Virtual (`CONFIG_EFUSE_VIRTUAL`), except the HMAC key block | Real burns per enablement workflow |
-| Secure Boot | Emulated digests and enable | Hardware `SECURE_BOOT_EN` |
-| Flash encryption | Virtual development simulation | Real keys and release policy |
-| HMAC NVS | Real `HMAC_UP` block, key generated on the SoC | Pre-burned or first-boot key, block recorded per device |
+Assignments 2 to 4 used the same production configuration you would ship. What differs is where the eFuses live:
 
-Production provisioning and anti-rollback are documented in the [production provisioning appendix](../appendix-production-provisioning). Signed OTA with app rollback is covered in the optional [Assignment 5](../assignment-5).
+| Topic | In the emulator | On a production device |
+|-------|-----------------|------------------------|
+| eFuses | Burned in emulator memory, blank again after a page reload | Burned in silicon, permanent |
+| Secure Boot V2 | Real ROM and bootloader verification, digest in emulated `BLOCK_KEY0` | Same flow, digest in real `BLOCK_KEY0` |
+| Flash encryption | Release mode, flash really encrypted in emulated flash | Release mode, flash encrypted with a key only the chip can use |
+| NVS encryption | HMAC key generated on first boot (Assignment 2); NVS keys protected by flash encryption (Assignment 4) | Scheme and key order chosen in the eFuse plan; HMAC keys burned from the host before the first secure boot |
+| ROM download mode and JTAG | Disabled in emulated eFuses | Disabled for good; updates only through signed OTA |
+| Network | Wi-Fi to the emulator access point, no internet in the web version | Full network access |
+
+The optional [real-board appendix](../appendix-production-provisioning) runs the Assignment 4 image on a board and lists what a production line adds. Signed OTA with app rollback is covered in the optional [Assignment 5](../assignment-5).
 
 ## Security-control recap
 
 | Control | Protected assets | Security property | How you verified it | Depends on | Residual risk |
 |---------|------------------|-------------------|---------------------|------------|---------------|
 | TLS ([Assignment 1](../assignment-1)) | Data exchanged with the server, server identity | Confidentiality and integrity in transit, server authentication | `Certificate verified.`; wrong-hostname and untrusted-server tests fail | An up-to-date CA bundle, correct device time | Aging CA bundle; the server does not authenticate the device unless you add mutual TLS |
-| HMAC-based NVS encryption ([Assignment 2](../assignment-2)) | Wi-Fi credentials and configuration in NVS | Confidentiality at rest | Raw NVS dump shows no plaintext credentials | `HMAC_UP` key in a real eFuse block | Data outside NVS is not covered; any code running on the device can still read NVS |
-| Secure Boot V2 ([Assignment 3](../assignment-3)) | Bootloader and application images | Integrity and authenticity of firmware | Signature verified at boot; tampered or wrongly signed images rejected | Custody of the signing key, key digest in eFuse | A leaked signing key; in the lab the digest and `SECURE_BOOT_EN` are emulated |
-| Flash encryption ([Assignment 4](../assignment-4)) | Code and data in external flash | Confidentiality against offline reads | First-boot flow logged; raw read explained (plaintext in virtual mode) | Release mode, encryption key in eFuse | Development mode keeps reflashing open; encryption at rest is not proven in the lab |
-| Secure OTA ([Assignment 5](../assignment-5), optional) | The update path and the running firmware | Only authentic updates install; recovery from a bad update | Unsigned and wrongly signed images rejected; rollback test | Secure Boot signing key, OTA server identity | Downgrade to an older signed image is possible without anti-rollback |
+| HMAC-based NVS encryption ([Assignment 2](../assignment-2)) | Wi-Fi credentials and configuration in NVS | Confidentiality at rest | Raw NVS dump shows no plaintext credentials; `HMAC_UP` key in `BLOCK_KEY0` | HMAC key burned with read protection before Secure Boot or flash encryption | Data outside NVS is not covered; any code running on the device can still read NVS |
+| Secure Boot V2 ([Assignment 3](../assignment-3)) | Bootloader and application images | Integrity and authenticity of firmware | `Secure boot permanently enabled`; digest in `BLOCK_KEY0`; ROM download mode and JTAG disabled | Custody of the signing key, key digest in eFuse | A leaked signing key lets an attacker sign firmware; NVS is plaintext in this lab |
+| Flash encryption and NVS keys ([Assignment 4](../assignment-4)) | Code, data, and NVS keys in external flash | Confidentiality against offline reads | `Flash encryption mode is RELEASE`; raw read of `storage` returns ciphertext; raw NVS dump without plaintext credentials | Release mode, encryption key in eFuse, `nvs_keys` partition marked `encrypted` | Code running on the device can still read decrypted data; physical attacks are out of scope |
+| Secure OTA ([Assignment 5](../assignment-5), optional) | The update path and the running firmware | Only authentic updates install; recovery from a bad update | Signed update installs; unsigned and wrongly signed images rejected; rollback test | Secure Boot signing key, OTA server identity | Downgrade to an older signed image is possible without anti-rollback |
 
-Secure Boot, flash encryption, and secure OTA ran with virtual eFuses. The results show the configuration and the flows; production evidence has to come from devices provisioned with real eFuses.
+Assignments 2 to 5 ran the production configuration on an emulated ESP32-S31: the ROM, bootloader, and eFuse logic are the real ones, but the eFuses and flash are not silicon. The logs are valid evidence of the configuration and the boot flows. Evidence for a shipped product, such as a flash dump from a provisioned device, has to come from production hardware.
 
 ## CRA-support mapping
 
@@ -54,9 +61,9 @@ Use this table as a starting template for the traceability part of your technica
 | Product risk | CRA theme | Design control | Implementation evidence | Test evidence | Lifecycle process | Typical owner |
 |--------------|-----------|----------------|-------------------------|---------------|-------------------|---------------|
 | Eavesdropping or a fake server | Protection of data in transit, protection against unauthorized access | TLS with server certificate verification | `sdkconfig` (certificate bundle, verification required), trust store policy | Successful handshake log; wrong-hostname and untrusted-server failures | CA bundle updates through firmware releases | Firmware lead |
-| Credential theft from a lost or stolen device | Data protection at rest | HMAC-based NVS encryption | NVS configuration, partition table, eFuse key block record per device | Raw NVS dump without plaintext credentials | Provisioning record, key block plan | Firmware lead, manufacturing |
+| Credential theft from a lost or stolen device | Data protection at rest | NVS encryption (HMAC-based or flash encryption-based scheme) | NVS configuration, partition table, eFuse key block record per device | Raw NVS dump without plaintext credentials | Provisioning record, key block plan, eFuse burn order | Firmware lead, manufacturing |
 | Malicious or modified firmware | Protection against unauthorized access and misuse | Secure Boot V2 | Signing configuration, key digest record, signing procedure | Boot log with signature check; rejection of tampered and wrongly signed images | Signing key custody, rotation, and revocation plan | Security lead |
-| Firmware or data extraction from flash | Confidentiality of stored data | Flash encryption in release mode | Flash encryption mode, `encrypted` partition flags | Flash dump shows ciphertext on a production device | Key generation on the device, factory provisioning procedure | Security lead, manufacturing |
+| Firmware or data extraction from flash | Confidentiality of stored data | Flash encryption in release mode | Flash encryption mode, `encrypted` partition flags | Raw flash read shows ciphertext in the emulator and on a production device | Key generation on the device, factory provisioning procedure | Security lead, manufacturing |
 | Known vulnerabilities stay in the field | Secure update mechanisms | Signed HTTPS OTA with app rollback, anti-rollback in production | OTA partition layout, rollback and secure version settings | Signed update installs; unsigned and wrongly signed updates rejected; rollback test; failed downgrade test | Release process, secure version policy, OTA server certificate rotation | Product owner, firmware lead |
 | Vulnerabilities are not found or not handled | Vulnerability handling ([Annex I Part II](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A02024R2847-20241120#anx_I)) | Not a firmware control: SBOM, monitoring of advisories, disclosure policy | SBOM (for example from [esp-idf-sbom](https://github.com/espressif/esp-idf-sbom)), disclosure policy | Records of advisories reviewed and fixes shipped | Coordinated disclosure, reporting through the ENISA Single Reporting Platform | Product owner, security lead |
 
@@ -65,7 +72,7 @@ Use this table as a starting template for the traceability part of your technica
 
 ## Production-readiness checklist
 
-Use this list before moving from the workshop configuration to a product. The [production provisioning appendix](../appendix-production-provisioning) describes the manufacturing steps.
+The Assignment 4 configuration already has production settings. Use this list for what a product needs beyond it. The [real-board appendix](../appendix-production-provisioning) shows the first provisioning of a board and what a production line adds.
 
 ### Design and keys
 
@@ -78,9 +85,9 @@ Use this list before moving from the workshop configuration to a product. The [p
 
 ### Manufacturing and device configuration
 
-- Virtual eFuses off (`CONFIG_EFUSE_VIRTUAL` not set) in every release build
-- Secure Boot enabled in real eFuses, and flash encryption in **release** mode
-- eFuse key block plan recorded per device (HMAC, Secure Boot digest, flash encryption key)
+- No development options in release builds: `CONFIG_EFUSE_VIRTUAL` not set, flash encryption in **release** mode, Secure Boot V2 enabled
+- eFuse key block plan and burn order recorded (Secure Boot digest, flash encryption key, HMAC key if used); HMAC keys burned before the first secure boot
+- Per-device credentials written into encrypted NVS during provisioning, not compiled into the firmware from menuconfig
 - Partition table offset sized for the final bootloader, including Secure Boot, flash encryption, and anti-rollback
 - UART download mode set to Secure or disabled, and JTAG disabled, according to policy
 - Provisioning process controlled, logged, and tested
@@ -98,8 +105,10 @@ Use this list before moving from the workshop configuration to a product. The [p
 
 ### Limits of the workshop
 
-- Secure Boot, flash encryption, and secure OTA ran with virtual eFuses, so the labs show the flows but not the protection of a production device.
-- Flash encryption ran in development mode only; release mode is described, not performed.
+- Assignments 2 to 5 ran on an emulated chip. The emulator does not model physical attacks such as fault injection, side channels, or probing the flash bus, so the labs show the configuration and the boot flows, not resistance to those attacks.
+- The web emulator has no internet access, so TLS was tested only on the board in Assignment 1.
+- Each web emulator run starts from blank eFuses, so every assignment image has to work on a new chip. That is why Assignment 3 runs without NVS encryption, and Assignment 4 protects the NVS keys with flash encryption instead of an HMAC key.
+- The lab firmware compiles the Wi-Fi credentials from menuconfig into the app; a product provisions them per device.
 - There is no hands-on lab for bootloader OTA or anti-rollback.
 - ESP32-S31 is a preview target in ESP-IDF v6.1. Check the documentation of your ESP-IDF release before you plan a product.
 
@@ -129,6 +138,11 @@ ESP-IDF documentation for ESP32-S31:
 - [Over The Air Updates (OTA)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html)
 - [Security Features Enablement Workflows](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html)
 
+ESP32 emulator:
+
+- [Web emulator](https://espressif.github.io/esp-emulator/)
+- [`esp-emulator` repository](https://github.com/espressif/esp-emulator), including the native `esp-emu` tool used in Assignment 5
+
 ESP-IDF examples used or referenced in the workshop:
 
 - [`https_mbedtls`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls)
@@ -147,5 +161,7 @@ Product security and the CRA:
 ## Previous step
 
 [Previous: Assignment 5 (optional)](../assignment-5) or [Assignment 4](../assignment-4)
+
+Optional: [Provision a real board (permanent)](../appendix-production-provisioning)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)

@@ -11,15 +11,15 @@ showAuthor: false
 
 Offline access to external flash can expose firmware, file systems, and data partitions. **Flash encryption** uses **XTS-AES** in hardware so ciphertext is stored on the medium while the CPU sees decrypted content through the flash cache during normal operation. It complements [Secure Boot V2](../lecture-3) (authenticity) and [HMAC-based NVS encryption](../lecture-2) (structured secrets in NVS without requiring whole-flash encryption).
 
-[Assignment 4](../assignment-4) adds flash encryption to the same **https_mbedtls** project from Assignments 1 to 3 (TLS, HMAC NVS, Secure Boot V2) on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1, in **development** mode with **virtual** eFuses. Primary reference: [Flash Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html).
+[Assignment 4](../assignment-4) adds flash encryption in **release** mode to the same **https_mbedtls** project from Assignments 1 to 3 (TLS, NVS, Secure Boot V2) with ESP-IDF v6.1, and runs it in the ESP32 emulator, which encrypts the emulated flash as the chip would. Primary reference: [Flash Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html).
 
 ## Learning objectives
 
 - State the physical-access threat flash encryption mitigates (and what it does not)
 - Describe first-boot enablement: key generation, `SPI_BOOT_CRYPT_CNT`, and in-place encryption
-- Explain **development** vs **release** mode and why release is incompatible with virtual eFuses in the workshop
-- Plan a project that combines flash encryption, Secure Boot V2, and HMAC NVS: key blocks, partition flags, bootloader size
-- Relate flash encryption to Secure Boot and to the HMAC NVS path from Assignment 2
+- Explain **development** vs **release** mode and why a product ships in release mode
+- Plan a project that combines flash encryption, Secure Boot V2, and NVS encryption: key blocks, partition flags, bootloader size
+- Relate flash encryption to Secure Boot and to the two NVS encryption schemes
 
 ## Threat model and limitations
 
@@ -30,7 +30,6 @@ Offline access to external flash can expose firmware, file systems, and data par
 - **Authenticity** of images ([Lecture 3](../lecture-3)): encrypted malware is still malware if it boots
 - **Runtime** memory, debug interfaces, and side channels
 - **Development mode** behavior: the UART bootloader may still accept plaintext downloads that the device encrypts on write, which is not a production control
-- **Virtual eFuse** lab behavior: the flow runs and is logged, but nothing in flash is actually encrypted; see [Flash Encryption Testing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#flash-encryption-testing)
 
 Flash encryption protects **confidentiality at rest** on the flash bus. Pair it with Secure Boot for a typical connected product baseline; secure OTA is covered in the optional [Assignment 5](../assignment-5).
 
@@ -47,16 +46,16 @@ What typically gets encrypted on first boot after enablement:
 Partitions without the flag remain plaintext on the wire unless other layers (such as NVS entry encryption) apply.
 
 Key source on ESP32-S31 is **eFuse-based** by default (bootloader-generated random key on first enable unless a key was pre-burned).
-Enabling flash encryption **increases bootloader size**. On ESP32-S31 the bootloader starts at `0x2000`. With both Secure Boot V2 and flash encryption it is `0xC000` bytes, so the partition table moves to `0xF000` in Assignment 4. The `flash_encryption` example, with flash encryption only, uses `0xD000`.
+Enabling flash encryption **increases bootloader size**. On ESP32-S31 the bootloader starts at `0x2000`. With both Secure Boot V2 and flash encryption it is `0xC000` bytes, which fits below the workshop partition table at `0x10000`. The `flash_encryption` example, with flash encryption only, uses `0xD000`.
 
-## Combining flash encryption with Secure Boot and HMAC NVS
+## Combining flash encryption with Secure Boot and NVS encryption
 
 Assignment 4 keeps everything from the earlier labs and adds flash encryption:
 
-- **Key blocks:** `BLOCK_KEY0` holds `HMAC_UP` (real, Assignment 2), `BLOCK_KEY1` the Secure Boot digest, and `BLOCK_KEY2` the XTS-AES-128 flash encryption key. AES-128 is the default key size and needs one block; AES-256 needs two.
-- **NVS:** stays on the HMAC scheme. NVS encryption works alongside flash encryption, and the `nvs` partition is **not** marked `encrypted`; NVS encrypts its own entries.
-- **Partitions:** the app is always encrypted. Custom data partitions, such as a `storage` partition for secrets or files, carry the `encrypted` flag. `efuse_em` and `nvs` must not.
-- **Flashing:** `idf.py flash` writes plaintext. On a real device in development mode, later updates use `idf.py encrypted-flash`; with virtual eFuses, plain `idf.py flash` is the right command because the hardware does not decrypt.
+- **Key blocks:** on a blank chip, the bootloader writes the Secure Boot digest to `BLOCK_KEY0` and the XTS-AES-128 flash encryption key to `BLOCK_KEY1`. AES-128 is the default key size and needs one block; AES-256 needs two.
+- **NVS:** uses the flash encryption-based scheme. The app generates the NVS keys on first boot and stores them in the encrypted `nvs_keys` partition. The HMAC scheme cannot be used here, because Secure Boot locks eFuse read protection before the app could burn an HMAC key (see [eFuse burn order](../lecture-2/#efuse-burn-order)).
+- **Partitions:** the app is always encrypted. `nvs_keys` and custom data partitions, such as a `storage` partition for secrets or files, carry the `encrypted` flag. `nvs` must not: NVS encrypts its own entries.
+- **Flashing:** the factory, or the emulator, writes a plaintext image, and the first boot encrypts it in place. In release mode, later updates arrive only through signed OTA ([Assignment 5](../assignment-5)).
 
 ## Reference example: `flash_encryption` (background reading)
 
@@ -65,7 +64,7 @@ Path: `$IDF_PATH/examples/security/flash_encryption`. Assignment 4 does not use 
 **menuconfig (typical):**
 
 - **Security features → Enable flash encryption on boot** ([CONFIG_SECURE_FLASH_ENC_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-enc-enabled))
-- **Enable usage mode → Development** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-development)) for the example and workshop
+- **Enable usage mode → Development** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-development)) for the example; the workshop uses **Release**
 - **Partition Table → Custom partition CSV** (`partitions_example.csv`): `nvs`, `storage`, factory app, `nvs_key` (subtype `nvs_keys`), `custom_nvs`, `fat_encrypted`, `fat_not_encr`
 - With flash encryption enabled, **NVS encryption** defaults on. The example uses the **`nvs_key`** partition and the [flash encryption-based NVS scheme](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html#nvs-encryption-flash-encryption-based-scheme) (distinct from the **HMAC** scheme in [Lecture 2](../lecture-2)). On SoCs with an HMAC peripheral, including ESP32-S31, ESP-IDF picks the HMAC scheme by default, so select **NVS Security Provider → Using Flash Encryption** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-flash-enc)) for this example
 
@@ -83,39 +82,37 @@ First boot after `idf.py flash monitor`: the bootloader encrypts eligible conten
 | | Development | Release |
 |--|-------------|---------|
 | Plaintext UART flash | Allowed (bootloader encrypts on write) | Not allowed for arbitrary plaintext |
-| Typical use | Bring-up, example, workshop | Manufacturing and field devices |
-| Workshop | Yes, with virtual eFuses | **No** in class ([CONFIG_EFUSE_VIRTUAL](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual) blocks release mode in menuconfig) |
+| Typical use | Bring-up and examples | Manufacturing and field devices |
+| Workshop | Not used | Assignment 4, in the emulator |
 
-Release mode burns stricter eFuses (for example `DIS_DOWNLOAD_MANUAL_ENCRYPT`) and write-protects `SPI_BOOT_CRYPT_CNT`. Transition from development on a real device requires explicit steps such as [`esp_flash_encryption_set_release_mode()`](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/peripherals/spi_flash/index.html#_CPPv437esp_flash_encryption_set_release_modev); see [Transitioning from Development to Release Mode](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#transitioning-from-development-to-release-mode). Production workflows are in the [production provisioning appendix](../appendix-production-provisioning) and [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally).
+Release mode burns stricter eFuses (for example `DIS_DOWNLOAD_MANUAL_ENCRYPT`) and write-protects `SPI_BOOT_CRYPT_CNT`. Transition from development on a real device requires explicit steps such as [`esp_flash_encryption_set_release_mode()`](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/peripherals/spi_flash/index.html#_CPPv437esp_flash_encryption_set_release_modev); see [Transitioning from Development to Release Mode](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#transitioning-from-development-to-release-mode). Production workflows are in the [real-board appendix](../appendix-production-provisioning) and [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally).
 
 ## Versus Secure Boot and NVS encryption
 
 | Control | Primary property | Workshop lab |
 |---------|------------------|--------------|
-| [Secure Boot V2](../lecture-3) | **Integrity** of bootloader and app | Assignment 3 (virtual digests) |
-| Flash encryption (this lecture) | **Confidentiality** of flash contents | Assignment 4 (virtual `SPI_BOOT_CRYPT_CNT` / keys) |
-| [HMAC NVS](../lecture-2) | **Confidentiality** of NVS entries without full flash encryption | Assignment 2 |
+| [Secure Boot V2](../lecture-3) | **Integrity** of bootloader and app | Assignment 3 |
+| Flash encryption (this lecture) | **Confidentiality** of flash contents | Assignment 4 |
+| [NVS encryption](../lecture-2) | **Confidentiality** of NVS entries | Assignment 2 (HMAC scheme), Assignment 4 (flash encryption-based scheme) |
 
-Products often enable **Secure Boot and flash encryption** together, as Assignment 4 does. HMAC NVS keeps working alongside them. The alternative, the flash encryption-based NVS scheme with an `nvs_keys` partition, suits SoCs without an HMAC peripheral; the `flash_encryption` example shows it.
+Products often enable **Secure Boot and flash encryption** together, as Assignment 4 does. Either NVS scheme works alongside them: the HMAC scheme if the factory burns the HMAC key before the first boot, or the flash encryption-based scheme with an `nvs_keys` partition, which also suits SoCs without an HMAC peripheral.
 
 ## Workshop and production provisioning
 
 ### Workshop path (Assignment 4)
 
-The lab uses flash encryption **development** mode with virtual eFuses and an `efuse_em` partition. The bootloader runs the full first-boot flow, writes the key and `SPI_BOOT_CRYPT_CNT` to the emulated eFuses, and logs it, but **nothing in flash is actually encrypted**. The real flash encryption hardware stays off, and if the bootloader wrote ciphertext, the SoC could not run the app. ESP-IDF therefore treats `encrypted` partitions as plaintext unless the real eFuses enable flash encryption, and the bootloader warns `Flash encryption not really completed. Must disable virtual efuses`. See [Flash Encryption Testing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#flash-encryption-testing).
+The lab uses flash encryption in **release** mode, together with Secure Boot V2 and ROM download mode disabled: the configuration a product ships with. It runs in the [ESP32 emulator](https://espressif.github.io/esp-emulator/), which models the eFuses and the XTS-AES flash encryption block. On first boot, the bootloader generates the key, burns it into `BLOCK_KEY1`, encrypts the bootloader, partition table, app, and every `encrypted` partition in place, sets `SPI_BOOT_CRYPT_CNT`, and resets.
 
-In practice, the raw read of an `encrypted` partition, and a dump of the app partition, still show plaintext in the lab. Assignment 4 uses that result to teach what the evidence from a production device must show, and why virtual-mode results cannot serve as evidence of encryption at rest.
+The results are real: a raw `esp_flash_read()` of the `storage` partition returns ciphertext, and the raw NVS dump no longer shows the Wi-Fi credentials. Each image load in the browser starts on a blank chip, so nothing is permanent.
 
-[CONFIG_EFUSE_VIRTUAL](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-efuse-virtual) cannot be combined with flash encryption **release** mode in menuconfig. The workshop never enables release mode in class.
-
-Keep recoverable UART download settings on student boards unless your instructor explicitly configures otherwise.
+Your board is never flashed with this firmware in class. Its ROM download mode and JTAG stay available.
 
 ### Production path (appendix)
 
-Release mode and real key/counter eFuses are manufacturing decisions documented in the [production provisioning appendix](../appendix-production-provisioning).
+On real silicon, the same image burns the eFuses permanently. The [real-board appendix](../appendix-production-provisioning) shows how to provision a board with it, and what changes on a production line.
 
 > [!WARNING]
-> Release-mode eFuses and UART lockdown can be **irreversible**. Do not practice production burns on ESP32-S31-Function-CoreBoard-1 kits used in the course.
+> Release-mode eFuses and UART lockdown are **irreversible**. Do not flash this firmware to the ESP32-S31-Function-CoreBoard-1 kits used in the course.
 
 ## CRA and product evidence
 
@@ -125,16 +122,16 @@ Useful artifacts from Assignment 4 and production planning:
 
 - **Configuration record:** development vs release, partition table with `encrypted` flags, partition table offset, NVS scheme (HMAC vs `nvs_keys`) if both exist in your product
 - **Test notes:** `esp_partition_read()` vs raw `esp_flash_read()` comparison, flash dump search, boot logs showing encryption enabled
-- **Limitations documented:** development mode and virtual eFuse testing called out explicitly in the risk assessment where applicable
+- **Limitations documented:** results from the emulator called out as such, and confirmed on production-configured devices before they serve as evidence
 
 For Annex I timelines, reporting, and conformity process, use the overview and linked Developer Portal CRA articles rather than repeating them here.
 
 ## Before Assignment 4
 
-- Project: the finished Assignment 3 project (`$IDF_PATH/examples/protocols/https_mbedtls`), with virtual eFuses still enabled
+- Project: the finished Assignment 3 project (`$IDF_PATH/examples/protocols/https_mbedtls`)
 - Target: `idf.py --preview set-target esp32s31`
-- Keep the NVS key protection scheme on HMAC (key ID `0`)
-- Plan a partition table offset of `0xF000` for the larger bootloader; the board is erased again, so Secure Boot and flash encryption are both enabled on the next first boot
+- You switch NVS encryption back on with the flash encryption-based scheme; the `nvs_keys` partition is already in the Assignment 2 layout
+- The partition table at `0x10000` already fits the `0xC000` bootloader, so no partition moves
 
 ## Previous and next steps
 

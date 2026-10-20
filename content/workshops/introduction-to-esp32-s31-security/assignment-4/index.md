@@ -9,121 +9,96 @@ showAuthor: false
 
 ## Assignment 4: Enable and verify flash encryption
 
-In Assignments 1 to 3 you built one product-style firmware on the [**https_mbedtls**](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls) client: TLS with the certificate bundle, Wi-Fi credentials in **HMAC-encrypted NVS**, and **Secure Boot V2**. Here you add **flash encryption** to the same project, so the firmware ends up with all four protections. Read [Lecture 4](../lecture-4) for architecture and CRA context.
+In Assignments 1 to 3 you built one product-style firmware on the [**https_mbedtls**](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls) client: TLS with the certificate bundle, Wi-Fi credentials in NVS, and **Secure Boot V2**. Here you add **flash encryption** in **release** mode and turn NVS encryption back on, protected by the flash encryption key. The result is the production configuration of the workshop firmware. Read [Lecture 4](../lecture-4) for architecture and CRA context.
 
-You enable flash encryption in **development** mode with **virtual** eFuses. In this mode ESP-IDF runs the whole first-boot flow and logs it, but **nothing in flash is actually encrypted**: the real flash encryption hardware stays off, so data is written and read as plaintext ([Flash Encryption Testing](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html#flash-encryption-testing)). The lab therefore teaches the configuration, the boot flow, and how to read the evidence. Part of that evidence is seeing, and explaining, why raw reads stay plaintext here while they would show ciphertext on a production device.
-
-This assignment still walks you through every step you need to enable flash encryption on a production device later: the configuration, the partition layout, the flashing order, the checks, and the move from development to release mode. The only thing you skip for now is burning the real eFuses. While you are still developing the application, you stay on the safe side: the board remains fully reflashable, and nothing on it is changed permanently.
+You run the firmware in the ESP32 emulator, which encrypts the emulated flash exactly as the chip would. The raw reads in this assignment therefore show real ciphertext.
 
 ## Before you begin
 
-**Starting point:** Assignment 3 complete in the same project: Secure Boot V2 with virtual eFuses, and the `log_security_state()` helper from [Assignment 3, Step 6](../assignment-3/#step-6-log-the-emulated-security-state-from-the-application).
-
-> [!IMPORTANT]
-> **Virtual eFuses stay on.** Keep `CONFIG_EFUSE_VIRTUAL` and `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH` enabled. Do **not** select flash encryption **release** mode or run `espefuse burn`: on a real device, release mode is permanent. See [Lab safety and virtual eFuses](../introduction/#lab-safety-and-virtual-efuses).
-
-**eFuse block plan:**
-
-| Key block | Purpose | Where it lives |
-|-----------|---------|----------------|
-| `BLOCK_KEY0` | `HMAC_UP` (NVS encryption) | Real eFuse, burned in Assignment 2 |
-| `BLOCK_KEY1` | `SECURE_BOOT_DIGEST0` | Emulated eFuse, written on first boot |
-| `BLOCK_KEY2` | `XTS_AES_128_KEY` (flash encryption) | Emulated eFuse, generated on first boot |
-
-The default key size, XTS-AES-128, needs one key block, and the bootloader picks the first free one.
-
-**To start over:** repeat [Step 3](#step-3-erase-and-flash), which erases the flash and reflashes everything.
-
-## Step 1: Enable flash encryption in menuconfig
-
-Goal: add flash encryption in **development** mode while keeping HMAC NVS, Secure Boot, and virtual eFuses ([Development Mode (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#development-mode)).
-
-1. Run `idf.py menuconfig`.
-2. Under **Component config → eFuse Bit Manager**, confirm **Simulate eFuse operations in RAM** and **Keep eFuses in flash** are still enabled.
-3. Open **Security features**.
-4. Enable **Enable flash encryption on boot** ([CONFIG_SECURE_FLASH_ENC_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-enc-enabled)).
-5. Set **Enable usage mode** to **Development (NOT SECURE)** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-development)).
-6. Keep **Size of generated XTS-AES key** at the default, **AES-128 (256-bit key)**.
-7. Leave **UART ROM download mode** at its default, and never select **Permanently disabled** on class boards.
-8. Under **Component config → NVS Security Provider**, keep the key protection scheme on **Using HMAC peripheral** with key ID `0` from Assignment 2. Do not switch to **Using Flash Encryption**: that scheme needs an `nvs_keys` partition this project does not have.
-9. Save, exit menuconfig, and confirm that `sdkconfig` contains:
-
-```ini
-CONFIG_SECURE_FLASH_ENC_ENABLED=y
-CONFIG_SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT=y
-```
-
-## Step 2: Make room for the larger bootloader
-
-Goal: fit a bootloader that now contains both Secure Boot and flash encryption, and add a small encrypted partition for the raw-read test.
-
-With both features, the bootloader is `0xC000` bytes. Between `0x2000` and the Assignment 3 partition table at `0xD000` there is only `0xB000`, so the build fails with `Bootloader binary size 0xc000 bytes is too large for partition table offset 0xd000`.
-
-1. In menuconfig, set **Partition Table → Offset of partition table** to `0xF000`.
-2. Replace `partitions.csv` with:
-
-```csv
-# Name,   Type, SubType, Offset,   Size,     Flags
-nvs,      data, nvs,     0x10000,  0x6000,
-efuse_em, data, efuse,   0x16000,  0x2000,
-phy_init, data, phy,     0x18000,  0x1000,
-storage,  data, 0xff,    0x19000,  0x1000,   encrypted
-factory,  app,  factory, 0x20000,  0x200000,
-```
-
-`storage` is a custom data partition marked `encrypted`; Step 4 writes a test string to it. `nvs` and `efuse_em` must **not** be marked `encrypted`: NVS is protected by the HMAC scheme, and `efuse_em` must stay readable by the bootloader.
-
-3. Run `idf.py build`. Expect `Bootloader binary size 0xc000 bytes. 0x1000 bytes (8%) free.`
-
-Moving `efuse_em` drops the emulated Secure Boot state from Assignment 3, and moving `nvs` drops the stored Wi-Fi credentials. Both are rebuilt on the next first boot: the bootloader enables Secure Boot and flash encryption together, and `wifi_creds` stores the credentials again from menuconfig.
-
-## Step 3: Erase and flash
-
-Goal: start from clean flash so `efuse_em` is filled from the real eFuses, then flash the new bootloader and app.
+**Starting point:** Assignment 3 complete in the same project: Secure Boot V2, the signing key, and the `log_security_state()` helper from [Assignment 3, Step 4](../assignment-3/#step-4-log-the-secure-boot-state-from-the-application).
 
 > [!WARNING]
-> **Stop and check before flashing.** Repeat the check from [Assignment 3, Step 5](../assignment-3/#step-5-erase-and-flash-signed-bootloader-and-application): `grep -E '^CONFIG_EFUSE_VIRTUAL(_KEEP_IN_FLASH)?=y' sdkconfig` must print both lines, and the build output must contain `Efuse virtual mode is enabled`. If either check fails, do not flash.
+> **Do not flash this firmware to your board.** On first boot it permanently enables Secure Boot and flash encryption in release mode, and disables ROM download mode and JTAG. Run it only in the emulator. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
 
-1. Erase the flash:
+**eFuse block plan:** each emulator run starts with a blank chip, and the bootloader fills the key blocks in order:
 
+| Key block | Purpose | Written by |
+|-----------|---------|------------|
+| `BLOCK_KEY0` | `SECURE_BOOT_DIGEST0` | Bootloader, first boot (Secure Boot) |
+| `BLOCK_KEY1` | `XTS_AES_128_KEY` (purpose 4) | Bootloader, first boot (flash encryption) |
+| none | NVS encryption keys | App, first boot, stored in the encrypted `nvs_keys` partition |
+
+The default key size, XTS-AES-128, needs one key block.
+
+## Step 1: Enable flash encryption and NVS encryption
+
+Goal: turn on flash encryption in **release** mode and protect the NVS keys with it ([Release Mode (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#release-mode)).
+
+1. Open the project configuration:
+
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
 ```bash
-python -m esptool --chip esp32s31 -p PORT erase-flash
+idf.py menuconfig
+```
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
+
+2. Open **Security features**.
+3. Enable **Enable flash encryption on boot** ([CONFIG_SECURE_FLASH_ENC_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-enc-enabled)).
+4. Set **Enable usage mode** to **Release** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_RELEASE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-release)). Development mode keeps a way to reflash plaintext over serial, which a product must not have.
+5. Keep **Size of generated XTS-AES key** at the default, **AES-128 (256-bit key)**.
+6. Open **Component config → NVS** and enable **Enable NVS encryption** again.
+7. Open **Component config → NVS Security Provider** and set **NVS Encryption: Key Protection Scheme** to **Using Flash Encryption** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-flash-enc)).
+8. Save and exit.
+
+In `sdkconfig.defaults`, replace `# CONFIG_NVS_ENCRYPTION is not set` and add the new lines, so the security part of the file reads:
+
+```ini
+CONFIG_SECURE_BOOT=y
+CONFIG_SECURE_BOOT_V2_ENABLED=y
+CONFIG_SECURE_SIGNED_APPS_RSA_SCHEME=y
+CONFIG_SECURE_BOOT_BUILD_SIGNED_BINARIES=y
+CONFIG_SECURE_BOOT_SIGNING_KEY="secure_boot_signing_key.pem"
+CONFIG_SECURE_DISABLE_ROM_DL_MODE=y
+CONFIG_SECURE_FLASH_ENC_ENABLED=y
+CONFIG_SECURE_FLASH_ENCRYPTION_MODE_RELEASE=y
+CONFIG_NVS_ENCRYPTION=y
+CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC=y
 ```
 
-2. Flash the signed bootloader, then the partition table and app:
+**Why this NVS scheme here:** with the flash encryption scheme, the app generates random NVS keys on first boot and stores them in the `nvs_keys` partition, which flash encryption protects. No eFuse key block is needed, so it works even though Secure Boot has already locked eFuse read protection (see [Assignment 3, Step 1](../assignment-3/#step-1-turn-off-nvs-encryption-for-this-assignment)). The HMAC scheme from Assignment 2 is still a valid production choice, as long as the factory burns the HMAC key before the first boot. Lecture 2 compares the two schemes.
 
-```bash
-idf.py -p PORT bootloader-flash
-idf.py -p PORT flash monitor
-```
+## Step 2: Check the partition table
 
-Use plain `idf.py flash`, not `idf.py encrypted-flash`. With virtual eFuses the hardware does not decrypt, so the images must stay plaintext in flash.
+Goal: confirm that the layout from Assignment 2 already fits flash encryption.
 
-**First-boot behavior:** after `[Virtual] Loading virtual efuse blocks from real efuses`, the bootloader enables Secure Boot as in Assignment 3, then runs the flash encryption flow and resets. Watch for:
+You do not need to change `partitions.csv`. Check these points against it:
 
-- `Checking flash encryption...`
-- `Flash encryption completed`
-- `Flash encryption not really completed. Must disable virtual efuses` (warning, virtual mode only)
-- `Virtual efuses enabled: Not really burning eFuses`
+- **Bootloader size:** with Secure Boot and flash encryption, the bootloader is `0xC000` bytes. It fits between `0x2000` and the partition table at `0x10000`.
+- **`nvs_keys` is `encrypted`:** the NVS keys must never sit in flash as plaintext, so ESP-IDF requires this flag on the `nvs_keys` partition.
+- **`nvs` is not marked `encrypted`:** NVS encrypts its own entries with the keys from `nvs_keys`. Flash encryption cannot be applied on top, because NVS writes in units smaller than the encryption block.
+- **`storage` is `encrypted`:** you write a test string to it in Step 3.
+- **App partitions:** all `app` partitions are always encrypted when flash encryption is on, without a flag.
 
-After the reset, the app logs `Flash encryption mode is DEVELOPMENT (not secure)`, stores the Wi-Fi credentials again, and runs the TLS request. Do not power off during the first boot.
-
-## Step 4: Add a raw-read check to the application
+## Step 3: Add a raw-read check to the application
 
 Goal: show what an authorized read and a raw flash read return for an `encrypted` partition.
 
-1. Add `esp_partition` and `spi_flash` to `PRIV_REQUIRES` in `main/CMakeLists.txt`:
+1. Add `spi_flash` to `PRIV_REQUIRES` in `main/CMakeLists.txt`:
 
 ```cmake
 idf_component_register(SRCS "https_mbedtls_example_main.c" "wifi_creds.c" "workshop_wifi_connect.c"
                     INCLUDE_DIRS "."
-                    PRIV_REQUIRES esp_event nvs_flash esp_netif esp_wifi mbedtls bootloader_support efuse esp_partition spi_flash)
+                    PRIV_REQUIRES esp_event nvs_flash esp_netif esp_wifi mbedtls efuse esp_partition bootloader_support spi_flash)
 ```
 
 2. In `https_mbedtls_example_main.c`, add:
 
 ```c
-#include "esp_partition.h"
 #include "esp_flash.h"
 #include "esp_flash_encrypt.h"
 
@@ -155,7 +130,7 @@ static void log_flash_encryption_demo(void)
 }
 ```
 
-The test string is 32 bytes because encrypted flash writes must be 16-byte aligned.
+The test string is 32 bytes because encrypted flash writes must be 16-byte aligned. `esp_partition_read()` decrypts through the hardware; `esp_flash_read()` returns the bytes as stored in flash.
 
 3. Extend `log_security_state()` from Assignment 3 with the flash encryption key block:
 
@@ -172,56 +147,112 @@ The test string is 32 bytes because encrypted flash writes must be 16-byte align
     log_flash_encryption_demo();
 ```
 
-5. Rebuild and run `idf.py -p PORT flash monitor`. The bootloader is unchanged, so you do not need `bootloader-flash` again.
+Keep the `dump_nvs_prefix()` call from Assignment 2: in Step 5 it shows that the Wi-Fi password is no longer readable.
 
-**Expected output in this lab:**
+## Step 4: Build and merge the images
 
-```text
+Goal: build the signed images and merge them into one emulator image, as in Assignment 3.
+
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
+```bash
+idf.py build
+python -m esptool --chip esp32s31 merge-bin -o build/merged-secure.bin \
+  --flash-mode dio --flash-size 4MB \
+  0x2000  build/bootloader/bootloader.bin \
+  0x10000 build/partition_table/partition-table.bin \
+  0x17000 build/ota_data_initial.bin \
+  0x20000 build/<project-name>.bin
+```
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
+
+Expect `Bootloader binary size 0xc000 bytes. 0x2000 bytes (14%) free.` The merged image is **plaintext**: the bootloader encrypts it in place on first boot. That is also how a production line programs a blank chip.
+
+## Step 5: Run in the emulator
+
+Goal: watch the first boot encrypt the flash, then read the evidence.
+
+1. Reload the [ESP32 emulator](https://espressif.github.io/esp-emulator/) page, so you start with a blank chip.
+2. Select the chip **esp32s31**, load `build/merged-secure.bin`, and start the emulator. Do not reset during the first boot.
+
+**First boot.** The bootloader enables Secure Boot exactly as in Assignment 3, then generates the flash encryption key and encrypts every encrypted partition in place:
+
+```log
+I (...) secure_boot_v2: Secure boot permanently enabled
+I (...) boot: Checking flash encryption...
+I (...) flash_encrypt: Generating new flash encryption key...
+I (...) efuse: Writing EFUSE_BLK_KEY1 with purpose 4
+I (...) flash_encrypt: Disable UART bootloader encryption...
+I (...) flash_encrypt: Disable UART bootloader cache...
+I (...) flash_encrypt: Disable JTAG...
+I (...) flash_encrypt: bootloader encrypted successfully
+I (...) flash_encrypt: partition table encrypted and loaded successfully
+I (...) flash_encrypt: Encrypting partition 1 at offset 0x17000 (length 0x2000)...
+I (...) flash_encrypt: Encrypting partition 3 at offset 0x1a000 (length 0x1000)...
+I (...) flash_encrypt: Encrypting partition 4 at offset 0x1b000 (length 0x1000)...
+I (...) flash_encrypt: Encrypting partition 5 at offset 0x20000 (length 0x111000)...
+E (...) esp_image: image at 0x1e0000 has invalid magic byte (nothing flashed here?)
+I (...) flash_encrypt: Setting CRYPT_CNT for permanent encryption
+I (...) flash_encrypt: Flash encryption completed
+I (...) boot: Resetting with flash encryption enabled...
+```
+
+The error for `0x1e0000` is expected: `ota_1` is empty, so there is nothing to encrypt there.
+
+**After the reset.** The bootloader runs from encrypted flash, and the app creates the NVS keys:
+
+```log
+I (...) flash_encrypt: flash encryption is enabled (0 plaintext flashes left)
+I (...) flash_encrypt: Flash encryption mode is RELEASE
+I (...) nvs_sec_provider: NVS Encryption - Registering Flash encryption-based scheme...
+W (...) nvs: Failed to read NVS security cfg: [0x1116] (ESP_ERR_NVS_KEYS_NOT_INITIALIZED)
+I (...) nvs: Generating NVS encr-keys...
+I (...) nvs: NVS partition "nvs" is encrypted.
 I (...) example: Secure Boot enabled: yes
-I (...) example: HMAC_UP key in BLOCK_KEY0
-I (...) example: SECURE_BOOT_DIGEST0 in BLOCK_KEY1
-I (...) example: XTS_AES_128_KEY in BLOCK_KEY2
+I (...) example: SECURE_BOOT_DIGEST0 in BLOCK_KEY0
+I (...) example: XTS_AES_128_KEY in BLOCK_KEY1
 I (...) example: Flash encryption enabled: yes
-I (...) example: Partition "storage" treated as encrypted: no
+I (...) example: Partition "storage" treated as encrypted: yes
 I (...) example: esp_partition_read: matches test string
-I (...) example: esp_flash_read (raw): matches test string (plaintext)
+I (...) example: esp_flash_read (raw): does not match test string (ciphertext)
+I (...) wifi_creds: Stored lab Wi-Fi credentials in NVS
+I (...) nvs_raw: ...   f2 b9 1c 04 51 6f ee ea  50 23 e3 80 ff 9d 5b 70  |....Qo..P#....[p|
+I (...) workshop_wifi: Connected using credentials from NVS
+E (...) example: mbedtls_net_connect returned -52
 ```
 
-## Step 5: Interpret the results
+The `ESP_ERR_NVS_KEYS_NOT_INITIALIZED` warning appears once: `nvs_keys` is empty, so the app generates the keys and writes them. Search the `nvs_raw` dump for `myssid` or `mypassword`: neither appears. The TLS error is expected in the browser emulator.
 
-Goal: explain what virtual mode can and cannot show ([Encryption architecture](../lecture-4/#encryption-architecture)).
+3. Reset the emulated chip without loading a new image. This time there is no key generation, and the app loads the stored credentials from encrypted NVS.
 
-| Check | Expected in this lab (virtual eFuses) | Expected on a production device (real eFuses) |
-|-------|---------------------------------------|-----------------------------------------------|
-| `Flash encryption enabled` | `yes` (emulated) | `yes` |
-| `storage` treated as encrypted | `no` | `yes` |
-| `esp_partition_read` | Matches test string | Matches test string (decrypted by hardware) |
-| `esp_flash_read` (raw) | Matches test string (plaintext) | Does not match (ciphertext) |
-| Bootloader log | `Flash encryption not really completed. Must disable virtual efuses` | No such warning |
+## Step 6: Interpret the results
 
-Why the raw read stays plaintext: with `CONFIG_EFUSE_VIRTUAL_KEEP_IN_FLASH`, ESP-IDF treats a partition as encrypted only if flash encryption is enabled in the **real** eFuses. Here it is enabled only in the emulated copy, so every write, including the bootloader's first-boot pass, goes to flash in plaintext. This is by design: if the real hardware does not decrypt, encrypted code could not run.
+Goal: connect each result to the protection it proves ([Encryption architecture](../lecture-4/#encryption-architecture-esp32-s31)).
 
-Run `idf.py -p PORT efuse-summary` and confirm that the **real** `SPI_BOOT_CRYPT_CNT` is still `Disable` (`0`), `SECURE_BOOT_EN` is still `False`, and `BLOCK_KEY1` and `BLOCK_KEY2` are still empty. This command reads silicon eFuses, not the emulated copy, so it proves both features stayed emulated.
+| Check | Expected | What it proves |
+|-------|----------|----------------|
+| `Writing EFUSE_BLK_KEY1 with purpose 4` | Once, on first boot | The XTS-AES key was generated on the chip and never left it |
+| `0 plaintext flashes left` and `mode is RELEASE` | After the reset | Plaintext can no longer be flashed, and serial encryption and decryption are disabled |
+| `esp_partition_read` | Matches the test string | Authorized code reads plaintext through the hardware |
+| `esp_flash_read` (raw) | Ciphertext | A flash dump only contains ciphertext |
+| `nvs_raw` dump | No readable SSID or password | NVS entries are encrypted with keys from `nvs_keys` |
+| `nvs_keys` | Encrypted by the first-boot pass | The NVS keys are protected by the flash encryption key |
 
-## Step 6: Optional offline read check
+### Emulator and real board
 
-Goal: see what an attacker with a flash dump would get.
+| Aspect | ESP32 emulator | Real ESP32-S31 board |
+|--------|----------------|----------------------|
+| eFuses | Blank on every page load; burns last only for the session | Burned permanently |
+| Flash encryption | Real XTS-AES encryption of the emulated flash | Same, on the external flash chip |
+| Updating firmware after first boot | Load a new image (fresh chip) | Only signed OTA updates; serial flashing is disabled |
+| Wi-Fi and TLS | Emulated access point, no internet | Your network and the internet |
+| Recovery from a mistake | Reload the page | None: the chip is permanently configured |
 
-1. Read the application partition into a file:
-
-```bash
-python -m esptool --chip esp32s31 -p PORT read-flash 0x20000 0x200000 app_dump.bin
-```
-
-2. Search the dump for a string from the firmware:
-
-```bash
-strings app_dump.bin | grep howsmyssl
-```
-
-In this lab you see `www.howsmyssl.com` and the HTTP request line, because nothing is encrypted. On a device with flash encryption enabled in real eFuses, the dump holds ciphertext and the search finds nothing.
-
-Delete `app_dump.bin` afterwards. On a real product a dump can also contain secrets, so treat it like any other sensitive file.
+Capture log excerpts for the **confidentiality of stored data** row in the [EU CRA overview](../overview-eu-cra) (see [CRA and product evidence](../lecture-4/#cra-and-product-evidence)).
 
 ## Step 7: Regression check
 
@@ -229,49 +260,42 @@ Goal: confirm that adding flash encryption did not break the earlier labs.
 
 | Check | Expected |
 |-------|----------|
+| Secure Boot | `Signature verified successfully!` in the bootloader log; `Secure Boot enabled: yes` |
 | NVS encryption | `NVS partition "nvs" is encrypted.` |
-| Wi-Fi | Credentials stored again after the erase, then loaded from NVS and connected |
-| TLS | `esp-x509-crt-bundle: Certificate validated`, `Certificate verified.`, howsmyssl JSON |
-| Secure Boot | `Verifying image signature...` in the bootloader log; `Secure Boot enabled: yes` |
+| Wi-Fi | Credentials stored, then loaded from NVS; `Connected using credentials from NVS` |
+| TLS | The request starts; `-52` is the expected result without internet |
 
-Capture log excerpts for the **confidentiality of stored data** row in the [EU CRA overview](../overview-eu-cra) (see [CRA and product evidence](../lecture-4/#cra-and-product-evidence)). State clearly that the workshop results come from virtual eFuses and are not evidence of encryption at rest; that evidence has to come from production-configured devices.
+## Step 8: Review the production flow (read only)
 
-## Step 8: Review production configuration (read only)
+Goal: know what changes on a manufacturing line.
 
-Goal: know what changes for manufacturing without performing it on workshop boards.
-
-Read (do not execute on class kits):
-
-- [Release Mode](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#release-mode) and [Transitioning from Development to Release Mode](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#transitioning-from-development-to-release-mode)
-- [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally)
-- [production provisioning appendix](../appendix-production-provisioning)
-
-Note for your technical file:
-
-- Production uses **release** mode, key custody, and often stricter UART/JTAG policy.
-- Development mode plus virtual eFuses **must** be called out as non-production in risk assessments.
+- **Programming:** the factory writes the same plaintext merged image to a blank chip, and the first boot does what you just watched. See the [real-board appendix](../appendix-production-provisioning) for the commands and checks, and [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally) for host-generated keys.
+- **Updates in the field:** with release mode and ROM download mode disabled, the only way to change the firmware is a signed OTA update. [Assignment 5](../assignment-5) adds one.
+- **HMAC NVS instead:** if you prefer the HMAC scheme, burn the HMAC key from the host before the first boot, for example with `espefuse burn-key BLOCK_KEY0 hmac_key.bin HMAC_UP`.
+- **Per-device secrets:** Wi-Fi or cloud credentials must be provisioned per device, not compiled into `sdkconfig`.
 
 ## Step 9: Validation matrix
 
 | Test | Action | Expected |
 |------|--------|----------|
-| Configuration | Step 1 | `sdkconfig` has flash encryption (development), Secure Boot, HMAC NVS, virtual eFuses |
-| Bootloader fits | Step 2 | `0xc000` bootloader with partition table at `0xF000` |
-| First-boot flow | Step 3 | `Flash encryption completed`, then the virtual-mode warning |
-| Raw read | Step 4 | `esp_flash_read` still plaintext; you can explain why |
-| Real eFuses untouched | Step 5 | `efuse-summary`: `SPI_BOOT_CRYPT_CNT` `Disable`, `SECURE_BOOT_EN` `False` |
-| Offline dump (optional) | Step 6 | `www.howsmyssl.com` visible in virtual mode |
-| Regression | Step 7 | NVS, Wi-Fi, TLS, and Secure Boot still pass |
+| Configuration | Step 1 | Secure Boot, flash encryption in release mode, NVS encryption with the flash encryption scheme |
+| Bootloader fits | Step 4 | `0xc000` bootloader below the partition table at `0x10000` |
+| First boot | Step 5 | `Flash encryption completed`, then `0 plaintext flashes left` and `mode is RELEASE` |
+| Key blocks | Step 5 | `SECURE_BOOT_DIGEST0 in BLOCK_KEY0`, `XTS_AES_128_KEY in BLOCK_KEY1` |
+| Raw read | Step 5 | `esp_flash_read` returns ciphertext |
+| NVS | Step 5 | `NVS partition "nvs" is encrypted.`, no credentials in `nvs_raw` |
+| Regression | Step 7 | Secure Boot, NVS, Wi-Fi, and TLS still pass |
 
 ## What you learned
 
 You should now be able to:
 
-- Add **flash encryption** in **development** mode to a project that already uses HMAC NVS and Secure Boot V2
-- Size the partition table for a bootloader with both features, and mark partitions `encrypted` correctly
-- Explain first-boot encryption, **`SPI_BOOT_CRYPT_CNT`**, and the key block plan for all three keys
-- Explain why raw reads and flash dumps stay plaintext with virtual eFuses, and what changes when real eFuses enable flash encryption
-- Record configuration and boot logs for CRA-oriented **data at rest** documentation, with the virtual-mode limitation stated
+- Add **flash encryption** in **release** mode to a project that already uses Secure Boot V2
+- Choose an NVS encryption scheme that fits the eFuse burn order, and explain the role of `nvs_keys`
+- Mark partitions `encrypted` correctly, and explain why `nvs` is not marked
+- Read the first-boot log: key generation, in-place encryption, and `SPI_BOOT_CRYPT_CNT` set for permanent encryption
+- Show with a raw read that flash holds ciphertext while authorized reads return plaintext
+- Record configuration and boot logs for CRA-oriented **data at rest** documentation
 
 ## Previous and next steps
 

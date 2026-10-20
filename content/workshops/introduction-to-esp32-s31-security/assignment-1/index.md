@@ -13,39 +13,85 @@ In this assignment, you will run the ESP-IDF [**https_mbedtls**](https://github.
 
 ## Before you begin
 
+**Tools:** you can follow every assignment from the command line (CLI) or from the CLion IDE. Pick a tab in any of the boxes below; all boxes on the page switch to the same tool.
+
 **Project:** `$IDF_PATH/examples/protocols/https_mbedtls`. All later assignments build on this project. Set the target once, here:
 
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
 ```bash
 cd $IDF_PATH/examples/protocols/https_mbedtls
 idf.py --preview set-target esp32s31
 ```
 
 Replace `PORT` in the commands below with your serial port.
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
 
 **Network:** a Wi-Fi access point with internet access and outbound TCP port 443. The example connects to `www.howsmyssl.com`.
-
-> [!IMPORTANT]
-> This assignment does not touch eFuses. Keep `CONFIG_EFUSE_VIRTUAL` **off**: [Assignment 2](../assignment-2) needs real eFuses. Never commit Wi-Fi passwords, private keys, or other credentials.
 
 ## Step 1: Configure the trust anchor
 
 Goal: enable the embedded CA bundle used by `esp_crt_bundle_attach()` (see [Trust anchors and the certificate bundle](../lecture-1/#trust-anchors-and-the-certificate-bundle) in Lecture 1).
 
-1. Run `idf.py menuconfig`.
-2. Open **Component config → mbedTLS → Certificate Bundle**.
-3. Enable **Certificate Bundle** ([CONFIG_MBEDTLS_CERTIFICATE_BUNDLE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-certificate-bundle)).
-4. Leave the default **filter list** bundle unless your instructor asks for the full Mozilla set (larger binary, broader coverage).
-5. (Optional, for Step 3 untrusted-server tests) Set **Custom Certificate Bundle Path** to a folder with a lab CA PEM file: [CONFIG_MBEDTLS_CUSTOM_CERTIFICATE_BUNDLE_PATH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-custom-certificate-bundle-path). Use `.pem` or `.der` extensions only, as documented in [ESP x509 Certificate Bundle](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_crt_bundle.html).
+Open the project configuration:
 
-Save and run `idf.py build`. Confirm the project still fits your flash budget after the bundle is linked.
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
+```bash
+idf.py menuconfig
+```
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
+
+Then:
+
+1. Open **Component config → mbedTLS → Certificate Bundle**.
+2. Enable **Certificate Bundle** ([CONFIG_MBEDTLS_CERTIFICATE_BUNDLE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-certificate-bundle)).
+3. Leave the default **filter list** bundle unless your instructor asks for the full Mozilla set (larger binary, broader coverage).
+4. (Optional, for Step 3 untrusted-server tests) Set **Custom Certificate Bundle Path** to a folder with a lab CA PEM file: [CONFIG_MBEDTLS_CUSTOM_CERTIFICATE_BUNDLE_PATH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-custom-certificate-bundle-path). Use `.pem` or `.der` extensions only, as documented in [ESP x509 Certificate Bundle](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_crt_bundle.html).
+
+Save the configuration and build the project:
+
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
+```bash
+idf.py build
+```
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
+
+Confirm the project still fits your flash budget after the bundle is linked.
 
 ## Step 2: Connect with server authentication
 
 Goal: bring up the network and complete one successful HTTPS GET (see [Network setup](../lecture-1/#network-setup-menuconfig) and [Reference example architecture](../lecture-1/#reference-example-architecture)).
 
-1. In menuconfig, open **Example Connection Configuration**.
+1. In the project configuration, open **Example Connection Configuration**.
 2. Under **Connect using**, select **Wi-Fi**. Set the lab **SSID** and **password** (see [protocols README](https://github.com/espressif/esp-idf/blob/master/examples/protocols/README.md)).
-3. Build, flash, and open the monitor: `idf.py -p PORT flash monitor`.
+3. Build, flash, and open the monitor:
+
+{{< tabs group="workflow" >}}
+  {{< tab label="CLI" >}}
+```bash
+idf.py -p PORT flash monitor
+```
+
+To leave the monitor, press **Ctrl+]**.
+  {{< /tab >}}
+  {{< tab label="CLion" >}}
+CLion instructions will be added soon.
+  {{< /tab >}}
+{{< /tabs >}}
 
 **Success criteria** (order may vary slightly):
 
