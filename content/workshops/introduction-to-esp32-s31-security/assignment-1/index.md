@@ -13,7 +13,7 @@ In this assignment, you will run the ESP-IDF [**https_mbedtls**](https://github.
 
 ## Before you begin
 
-**Tools:** you can follow every assignment from the command line (CLI) or from the CLion IDE. Pick a tab in any of the boxes below; all boxes on the page switch to the same tool.
+**Tools:** you can follow every assignment from the command line (CLI) or from the CLion IDE.
 
 **Project:** `$IDF_PATH/examples/protocols/https_mbedtls`. All later assignments build on this project. Set the target once, here:
 
@@ -35,7 +35,7 @@ CLion instructions will be added soon.
 
 ## Step 1: Configure the trust anchor
 
-Goal: enable the embedded CA bundle used by `esp_crt_bundle_attach()` (see [Trust anchors and the certificate bundle](../lecture-1/#trust-anchors-and-the-certificate-bundle) in Lecture 1).
+**Goal**: enable the embedded CA bundle used by `esp_crt_bundle_attach()` (see [Trust anchors and the certificate bundle](../lecture-1/#trust-anchors-and-the-certificate-bundle) in Lecture 1).
 
 Open the project configuration:
 
@@ -74,7 +74,7 @@ Confirm the project still fits your flash budget after the bundle is linked.
 
 ## Step 2: Connect with server authentication
 
-Goal: bring up the network and complete one successful HTTPS GET (see [Network setup](../lecture-1/#network-setup-menuconfig) and [Reference example architecture](../lecture-1/#reference-example-architecture)).
+**Goal**: bring up the network and complete one successful HTTPS GET (see [Network setup](../lecture-1/#network-setup-menuconfig) and [Reference example architecture](../lecture-1/#reference-example-architecture)).
 
 1. In the project configuration, open **Example Connection Configuration**.
 2. Under **Connect using**, select **Wi-Fi**. Set the lab **SSID** and **password** (see [protocols README](https://github.com/espressif/esp-idf/blob/master/examples/protocols/README.md)).
@@ -86,7 +86,7 @@ Goal: bring up the network and complete one successful HTTPS GET (see [Network s
 idf.py -p PORT flash monitor
 ```
 
-To leave the monitor, press **Ctrl+]**.
+To quit the monitor, press **Ctrl+]**.
   {{< /tab >}}
   {{< tab label="CLion" >}}
 CLion instructions will be added soon.
@@ -106,7 +106,7 @@ Capture a screenshot or log excerpt for your workshop notes. This is useful **te
 
 ## Step 3: Test certificate validation
 
-Goal: confirm that verification **fails closed** when trust or hostname is wrong (see [Hostname and certificate verification](../lecture-1/#hostname-and-certificate-verification)).
+**Goal**: confirm that verification **fails closed** when trust or hostname is wrong (see [Hostname and certificate verification](../lecture-1/#hostname-and-certificate-verification)).
 
 Revert to a known-good tree or git stash between tests. Rebuild and flash after each change.
 

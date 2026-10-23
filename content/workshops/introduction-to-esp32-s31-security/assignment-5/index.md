@@ -42,7 +42,7 @@ The shared partition layout from Assignment 2 already has `otadata`, `ota_0` at 
 
 ## Step 1: Enable app rollback
 
-Goal: let a new image prove it works before the device commits to it.
+**Goal**: let a new image prove it works before the device commits to it.
 
 1. Open the project configuration:
 
@@ -108,7 +108,7 @@ Leave **Emulate operations with efuse secure version (only test)** off: it is a 
 
 ## Step 2: Create the OTA server certificate
 
-Goal: give the test server an identity the device can verify.
+**Goal**: give the test server an identity the device can verify.
 
 The device connects to `192.168.4.1`, so the certificate must contain that IP address in its subject alternative name (SAN). In the project directory, run:
 
@@ -130,7 +130,7 @@ server_certs/ca_key.pem
 
 ## Step 3: Add the OTA code
 
-Goal: download, verify, and install a new image, and confirm a new image after it boots.
+**Goal**: download, verify, and install a new image, and confirm a new image after it boots.
 
 1. Create `main/Kconfig.projbuild`:
 
@@ -308,7 +308,7 @@ CONFIG_WORKSHOP_OTA_URL="https://192.168.4.1:8070/firmware.bin"
 
 ## Step 4: Create the test OTA server
 
-Goal: serve the update over HTTPS from your computer.
+**Goal**: serve the update over HTTPS from your computer.
 
 Create `ota_server.py` in the project root:
 
@@ -329,7 +329,7 @@ The server listens only on `127.0.0.1`, so it is not reachable from your network
 
 ## Step 5: Run version 1.0.0
 
-Goal: provision a blank emulated chip with the first OTA-capable version.
+**Goal**: provision a blank emulated chip with the first OTA-capable version.
 
 1. Build and merge, as in Assignment 4:
 
@@ -378,7 +378,7 @@ From now on, always run `esp-emu` on `lab-flash.bin` and `lab.efuse` with `--sav
 
 ## Step 6: Publish and install version 1.0.1
 
-Goal: run a successful signed update.
+**Goal**: run a successful signed update.
 
 1. In a second terminal, start the server from the `ota_server` folder. Leave it running for the rest of the assignment:
 
@@ -427,7 +427,7 @@ The trusted digest is the one the bootloader burned into `BLOCK_KEY0` on the fir
 
 ## Step 7: Reject unsigned and wrongly signed images
 
-Goal: show that an attacker who controls the download cannot install their own firmware.
+**Goal**: show that an attacker who controls the download cannot install their own firmware.
 
 1. Change the version to `1.0.2` and build. Publish the **unsigned** image:
 
@@ -477,7 +477,7 @@ Both tests also answer a common question: TLS protects the download, but the sig
 
 ## Step 8: Test rollback (optional)
 
-Goal: watch the bootloader return to the previous image when a correctly signed update fails its self-test.
+**Goal**: watch the bootloader return to the previous image when a correctly signed update fails its self-test.
 
 1. In the project configuration, enable **Workshop OTA → Simulate a failed self-test after an update**. Keep the version at `1.0.2`.
 2. Build and publish the **signed** image:
@@ -512,7 +512,7 @@ W (...) workshop_ota: Version 1.0.2 was rolled back before, skipping it
 
 ## Step 9: Review production configuration (read only)
 
-Goal: know what changes for a product fleet.
+**Goal**: know what changes for a product fleet.
 
 Read:
 
@@ -551,7 +551,7 @@ You should now be able to:
 - Keep a stateful emulated device across runs with `esp-emu --save-state`
 - Record update evidence for CRA-oriented **secure update** documentation
 
-## Previous and next steps
+## Navigation
 
 [Previous: Assignment 4](../assignment-4)
 

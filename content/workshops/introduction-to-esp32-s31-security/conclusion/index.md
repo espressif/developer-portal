@@ -158,7 +158,7 @@ Product security and the CRA:
 - [Staying Ahead with ESP32 Security Updates](https://developer.espressif.com/blog/2026/03/esp32-security-updates/)
 - [Regulation (EU) 2024/2847](https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng) and the [Commission CRA policy page](https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act)
 
-## Previous step
+## Navigation
 
 [Previous: Assignment 5 (optional)](../assignment-5) or [Assignment 4](../assignment-4)
 

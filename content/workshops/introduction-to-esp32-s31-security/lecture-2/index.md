@@ -20,6 +20,8 @@ This lecture follows the ESP-IDF example [`nvs_encryption_hmac`](https://github.
 
 ## Learning objectives
 
+By the end of this lecture, you should be able to:
+
 - Explain what NVS encryption protects (and what remains visible, such as page headers and partition layout)
 - Describe how the HMAC key in eFuse relates to the derived NVS encryption keys
 - Outline the `nvs_encryption_hmac` flow: default `nvs` partition plus a custom encrypted partition
@@ -130,7 +132,7 @@ The HMAC key can reach the eFuse block in two ways:
   ```
 
 > [!WARNING]
-> **Do not run these commands during the workshop.** They are shown for reference only, and they burn your real board. In [Assignment 2](../assignment-2), the firmware generates and burns the HMAC key in the emulator on first boot, so no manual burn is needed. A mistyped block or key file is written permanently and cannot be undone.
+> **Do not run these commands during the workshop.** They are shown for reference only, and they burn your real board. In [Assignment 2](../assignment-2), the firmware generates and burns the HMAC key in the emulator on first boot, so no manual burn is needed. A mistyped block or key file is written permanently and cannot be reverted.
 
 Things to know before you burn:
 
@@ -161,7 +163,7 @@ For Annex I themes and deadlines, rely on the overview and Developer Portal CRA 
 - The emulator starts with blank eFuses, so `BLOCK_KEY0` is free; the workshop uses key ID `0`
 - Set **eFuse key ID storing the HMAC key** in the project configuration before you build
 
-## Previous and next steps
+## Navigation
 
 [Previous: Assignment 1](../assignment-1)
 

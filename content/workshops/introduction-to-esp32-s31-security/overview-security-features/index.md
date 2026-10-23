@@ -7,13 +7,15 @@ series_order: 3
 showAuthor: false
 ---
 
-## A walkthrough on ESP32-S31 security
+## A walkthrough of ESP32-S31 security
 
 You will walk through TLS, NVS encryption, Secure Boot V2, and flash encryption on the ESP32-S31. This chapter explains what each control does on the ESP32-S31 and where it sits in ESP-IDF.
 
 The [workshop agenda](/workshops/introduction-to-esp32-s31-security/#agenda) runs labs in an order that starts with network and storage topics, then authenticity and confidentiality. TLS runs on the ESP32-S31-Function-CoreBoard-1. NVS encryption, Secure Boot, and flash encryption use production settings and run in the [ESP32 emulator](https://espressif.github.io/esp-emulator/), which burns eFuses on an emulated chip instead of your board. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
 
 ## Learning objectives
+
+By the end of this overview, you should be able to:
 
 - Name the boot chain and where Secure Boot V2 and flash encryption apply
 - Describe how eFuses and hardware keys back NVS encryption

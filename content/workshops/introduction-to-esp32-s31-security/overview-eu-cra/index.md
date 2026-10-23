@@ -13,15 +13,17 @@ showAuthor: false
 
 Espressif’s Developer Portal CRA series goes deeper than this lecture. Read [Understanding the EU Cyber Resilience Act (CRA)](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/) first, then [EU Cyber Resilience Act: Vulnerability Reporting Obligations](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/). If your product already falls under the RED Delegated Act, use [ESP32 RED DA / EN 18031 Compliance Guide](https://developer.espressif.com/blog/2025/04/esp32-red-da-en18031-compliance-guide/) alongside the CRA material.
 
-> [!NOTE]
-> This workshop is technical education, not legal advice. Finishing the labs does not make a product CRA-compliant. The manufacturer of the product placed on the market owns the risk assessment, technical file, and lifecycle processes.
+> [!IMPORTANT]
+> This workshop is technical education, not legal advice. Finishing the labs does not make a product CRA-compliant. The manufacturer who places the product on the market owns the risk assessment, CRA technical file, and lifecycle processes.
 
 ## Learning objectives
+
+By the end of this overview, you should be able to:
 
 - Say which products the CRA covers and how that maps to ESP32-based designs
 - Recall the September 2026 and December 2027 deadlines and what each triggers
 - Tell Annex I Part I (design-time security) from Part II (vulnerability handling)
-- Link workshop labs to artifacts you might keep for a gap analysis or technical file
+- Link workshop labs to artifacts you might keep for a gap analysis or CRA technical file
 
 ## Scope and who is responsible
 
@@ -56,7 +58,7 @@ Espressif’s [summary of Part I](https://developer.espressif.com/blog/2026/03/e
 - Logging and monitoring where relevant
 - Transparency (security documentation and user instructions)
 
-Secure Boot, encryption, and TLS in this workshop address parts of that list. Signed OTA belongs in your product plan; the optional [Assignment 5](../assignment-5) shows it with app rollback. Anti-rollback is referenced here for CRA mapping but is not a hands-on lab in this course. You still own the product risk assessment and the technical file that ties controls to requirements.
+Secure Boot, encryption, and TLS in this workshop address parts of that list. Signed OTA belongs in your product plan; the optional [Assignment 5](../assignment-5) shows it with app rollback. Anti-rollback is referenced here for CRA mapping but is not a hands-on lab in this course. You still own the product risk assessment and the CRA technical file that ties controls to requirements.
 
 ## Vulnerability handling and reporting
 
@@ -92,6 +94,7 @@ The labs do not finish conformity assessment. They produce testable artifacts fo
 | HMAC-based NVS encryption | Credentials and configuration at rest | Partition layout, provisioning record, NVS read tests |
 | TLS | Protection in transit, authentication | Trust store policy, test results, cipher configuration |
 | Secure OTA (optional Assignment 5) and anti-rollback (not a workshop lab) | Secure updates, rollback prevention | Signed image workflow, version policy, failed downgrade test; see appendix and ESP-IDF |
+
 Platform features (secure boot, flash encryption, eFuse keys, ESP-IDF patches, OTA, SBOM tools) are listed in Espressif’s [CRA overview](https://developer.espressif.com/blog/2026/03/esp32-cra-compliance/#how-espressif-will-support-oem-customers-for-cra-compliance) and [Product Security](https://docs.espressif.com/projects/esp-product-security/en/latest/) docs. The [reporting FAQ](https://developer.espressif.com/blog/2026/09/esp32-cra-obligations-and-deadlines/#frequently-asked-questions-faq) states plainly: no API or SoC is “CRA-compliant” by itself; compliance belongs to the finished product.
 
 ## Developer Portal reading list
@@ -106,7 +109,7 @@ Platform features (secure boot, flash encryption, eFuse keys, ESP-IDF patches, O
 
 EU primary sources: [Regulation (EU) 2024/2847](https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng), [Commission CRA policy](https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act), [CRA implementation FAQ](https://digital-strategy.ec.europa.eu/en/library/cyber-resilience-act-implementation-frequently-asked-questions).
 
-## Previous and next steps
+## Navigation
 
 [Previous: Overview of the security features on the ESP32-S31](../overview-security-features)
 

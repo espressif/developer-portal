@@ -18,6 +18,8 @@ Other examples wrap the same crypto in [ESP-TLS](https://docs.espressif.com/proj
 
 ## Learning objectives
 
+By the end of this lecture, you should be able to:
+
 - Say what TLS protects on the network path (and what it does not)
 - Enable the [certificate bundle](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_crt_bundle.html) and explain `esp_crt_bundle_attach()`
 - Outline the flow in `https_mbedtls_example_main.c`: connect, handshake, verify, HTTP read
@@ -71,7 +73,7 @@ For production, also plan trust store updates, protected client keys ([Lecture 2
 
 When TLS exercises are complete, the instructor may run the **TLS power consumption** closing demo in [Assignment 1](../assignment-1/#closing-demo-tls-power-consumption) using Qoitech Otii. You observe supply current during Wi-Fi bring-up and the handshake on the same **https_mbedtls** flow; no student wiring is required.
 
-## Previous and next steps
+## Navigation
 
 [Previous: Overview of the EU Cyber Resilience Act](../overview-eu-cra)
 

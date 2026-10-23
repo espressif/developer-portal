@@ -30,7 +30,7 @@ Never commit Wi-Fi passwords or key files.
 
 ## Step 1: Set the flash size and partition table
 
-Goal: use the partition layout that all the remaining assignments share.
+**Goal**: use the partition layout that all the remaining assignments share.
 
 The table below reserves room for everything the later labs add: a larger bootloader for Secure Boot and flash encryption, an encrypted `storage` partition, an `nvs_keys` partition, and two OTA slots. Setting it up now means you never move a partition again.
 
@@ -65,7 +65,7 @@ How the layout fits together:
 
 ## Step 2: Enable HMAC-based NVS encryption
 
-Goal: register the HMAC NVS security provider, encrypt the default `nvs` partition, and set the emulator Wi-Fi credentials (see [HMAC scheme in ESP-IDF](../lecture-2/#hmac-scheme-in-esp-idf)).
+**Goal**: register the HMAC NVS security provider, encrypt the default `nvs` partition, and set the emulator Wi-Fi credentials (see [HMAC scheme in ESP-IDF](../lecture-2/#hmac-scheme-in-esp-idf)).
 
 Open the project configuration:
 
@@ -104,7 +104,7 @@ You do **not** need the `custom_nvs` partition from the standalone example; the 
 
 ## Step 3: Add Wi-Fi credential helpers
 
-Goal: write SSID and password into namespace `workshop_wifi` on the **encrypted** default NVS partition, then load them for connection.
+**Goal**: write SSID and password into namespace `workshop_wifi` on the **encrypted** default NVS partition, then load them for connection.
 
 1. In `main/`, add four files: `wifi_creds.h`, `wifi_creds.c`, `workshop_wifi_connect.h`, and `workshop_wifi_connect.c`.
 2. Register the new sources in `main/CMakeLists.txt`, keeping `https_mbedtls_example_main.c` and the upstream dependencies, and add `esp_wifi`, `efuse`, and `esp_partition`:
@@ -309,7 +309,7 @@ esp_err_t workshop_wifi_connect(void)
 
 ## Step 4: Wire app_main and add evidence helpers
 
-Goal: initialize **encrypted NVS before** any credential access, keep **`https_get_task`** unchanged from Assignment 1, and log the evidence you will check in the emulator.
+**Goal**: initialize **encrypted NVS before** any credential access, keep **`https_get_task`** unchanged from Assignment 1, and log the evidence you will check in the emulator.
 
 In `https_mbedtls_example_main.c`:
 
@@ -380,7 +380,7 @@ void app_main(void)
 
 ## Step 5: Build the emulator image
 
-Goal: produce one file that contains the bootloader, partition table, OTA data, and app.
+**Goal**: produce one file that contains the bootloader, partition table, OTA data, and app.
 
 {{< tabs group="workflow" >}}
   {{< tab label="CLI" >}}
@@ -398,7 +398,7 @@ CLion instructions will be added soon.
 
 ## Step 6: Run in the emulator
 
-Goal: watch the first boot generate and burn the HMAC key, and confirm that NVS is encrypted.
+**Goal**: watch the first boot generate and burn the HMAC key, and confirm that NVS is encrypted.
 
 1. Open the [ESP32 emulator](https://espressif.github.io/esp-emulator/) in a new browser tab. The emulator runs entirely in your tab, and the firmware never leaves your machine. The page has these parts:
    - The **Target** panel on the left selects the chip and the firmware image.
@@ -484,7 +484,7 @@ Loading an image again, or reloading the page, starts with a blank chip, so the 
 
 ## Step 7: Inspect raw NVS storage
 
-Goal: show that the **password is not visible** in a raw partition read.
+**Goal**: show that the **password is not visible** in a raw partition read.
 
 1. In the console, find the `nvs_raw` hex dump that follows `Stored lab Wi-Fi credentials in NVS`.
 2. Search it for `mypassword` and for the `workshop_wifi` namespace string. Neither should appear as readable ASCII. The first 32 bytes (page header) stay readable; that is expected.

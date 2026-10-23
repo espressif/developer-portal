@@ -7,9 +7,9 @@ series_order: 2
 showAuthor: false
 ---
 
-## A walkthrough on the ESP32-S31 features
+## A walkthrough of the ESP32-S31 features
 
-This lecture covers the ESP32-S31 and the ESP32-S31-Function-CoreBoard-1 before you enable Secure Boot, flash encryption, and the other assignment modules. The SoC pairs dual RISC-V cores with Wi-Fi 6, Bluetooth 5.4, IEEE 802.15.4, a Gigabit Ethernet MAC, and security hardware documented in the datasheet and ESP-IDF documentation.
+This lecture covers the ESP32-S31 and the ESP32-S31-Function-CoreBoard-1 before you enable Secure Boot, flash encryption, and the other assignment modules. The SoC offers dual RISC-V cores with Wi-Fi 6, Bluetooth 5.4, IEEE 802.15.4, a Gigabit Ethernet MAC, and security hardware documented in the datasheet and ESP-IDF documentation.
 
 This is a walkthrough, not a TRM chapter. You will see which peripherals matter on the bench, which security blocks the security overview configures, how the ESP32-S31-Function-CoreBoard-1 exposes USB and Ethernet for the labs, and where to open the official docs when you need pin names, etc. The [introduction](../introduction) describes how that path fits the rest of the workshop.
 
@@ -18,7 +18,7 @@ This is a walkthrough, not a TRM chapter. You will see which peripherals matter 
 By the end of this lecture, you should be able to:
 
 - Name the main ESP32-S31 wired and multimedia peripherals compared with earlier ESP32 parts
-- List the SoC security blocks the later assignments use
+- List the SoC security blocks that the later assignments use
 - Point to the ESP32-S31-Function-CoreBoard-1 connectors used to flash, debug, and run TLS labs
 - Choose the right Espressif datasheet, TRM, board guide, or ESP-IDF security page for a given question
 
@@ -146,8 +146,8 @@ Use these references while you work through the workshop:
 
 For a first flash and serial connection, follow [ESP-IDF Get Started for ESP32-S31](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/get-started/index.html).
 
-## Next step
+## Navigation
 
-[Overview of the security features on the ESP32-S31](../overview-security-features)
+[Next: Overview of the security features on the ESP32-S31](../overview-security-features)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)

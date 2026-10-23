@@ -32,7 +32,7 @@ The default key size, XTS-AES-128, needs one key block.
 
 ## Step 1: Enable flash encryption and NVS encryption
 
-Goal: turn on flash encryption in **release** mode and protect the NVS keys with it ([Release Mode (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#release-mode)).
+**Goal**: turn on flash encryption in **release** mode and protect the NVS keys with it ([Release Mode (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#release-mode)).
 
 1. Open the project configuration:
 
@@ -74,7 +74,7 @@ CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC=y
 
 ## Step 2: Check the partition table
 
-Goal: confirm that the layout from Assignment 2 already fits flash encryption.
+**Goal**: confirm that the layout from Assignment 2 already fits flash encryption.
 
 You do not need to change `partitions.csv`. Check these points against it:
 
@@ -86,7 +86,7 @@ You do not need to change `partitions.csv`. Check these points against it:
 
 ## Step 3: Add a raw-read check to the application
 
-Goal: show what an authorized read and a raw flash read return for an `encrypted` partition.
+**Goal**: show what an authorized read and a raw flash read return for an `encrypted` partition.
 
 1. Add `spi_flash` to `PRIV_REQUIRES` in `main/CMakeLists.txt`:
 
@@ -151,7 +151,7 @@ Keep the `dump_nvs_prefix()` call from Assignment 2: in Step 5 it shows that the
 
 ## Step 4: Build and merge the images
 
-Goal: build the signed images and merge them into one emulator image, as in Assignment 3.
+**Goal**: build the signed images and merge them into one emulator image, as in Assignment 3.
 
 {{< tabs group="workflow" >}}
   {{< tab label="CLI" >}}
@@ -174,7 +174,7 @@ Expect `Bootloader binary size 0xc000 bytes. 0x2000 bytes (14%) free.` The merge
 
 ## Step 5: Run in the emulator
 
-Goal: watch the first boot encrypt the flash, then read the evidence.
+**Goal**: watch the first boot encrypt the flash, then read the evidence.
 
 1. Reload the [ESP32 emulator](https://espressif.github.io/esp-emulator/) page, so you start with a blank chip.
 2. Select the chip **esp32s31**, load `build/merged-secure.bin`, and start the emulator. Do not reset during the first boot.
@@ -231,7 +231,7 @@ The `ESP_ERR_NVS_KEYS_NOT_INITIALIZED` warning appears once: `nvs_keys` is empty
 
 ## Step 6: Interpret the results
 
-Goal: connect each result to the protection it proves ([Encryption architecture](../lecture-4/#encryption-architecture-esp32-s31)).
+**Goal**: connect each result to the protection it proves ([Encryption architecture](../lecture-4/#encryption-architecture-esp32-s31)).
 
 | Check | Expected | What it proves |
 |-------|----------|----------------|
@@ -256,7 +256,7 @@ Capture log excerpts for the **confidentiality of stored data** row in the [EU C
 
 ## Step 7: Regression check
 
-Goal: confirm that adding flash encryption did not break the earlier labs.
+**Goal**: confirm that adding flash encryption did not break the earlier labs.
 
 | Check | Expected |
 |-------|----------|
@@ -267,7 +267,7 @@ Goal: confirm that adding flash encryption did not break the earlier labs.
 
 ## Step 8: Review the production flow (read only)
 
-Goal: know what changes on a manufacturing line.
+**Goal**: know what changes on a manufacturing line.
 
 - **Programming:** the factory writes the same plaintext merged image to a blank chip, and the first boot does what you just watched. See the [real-board appendix](../appendix-production-provisioning) for the commands and checks, and [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally) for host-generated keys.
 - **Updates in the field:** with release mode and ROM download mode disabled, the only way to change the firmware is a signed OTA update. [Assignment 5](../assignment-5) adds one.

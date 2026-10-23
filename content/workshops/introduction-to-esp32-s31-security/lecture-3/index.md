@@ -15,6 +15,8 @@ If an attacker can replace the bootloader or application in flash, they can run 
 
 ## Learning objectives
 
+By the end of this lecture, you should be able to:
+
 - Describe the ESP32-S31 boot chain and where signature verification runs
 - Separate the **signing private key**, the **signature block** on flash, and the **public-key digest** in eFuse
 - Summarize the Secure Boot V2 verification steps for bootloader and app
@@ -142,7 +144,7 @@ For CRA timelines, reporting duties, and conformity steps, use the overview and 
 - Open the [ESP32 emulator](https://espressif.github.io/esp-emulator/); for the optional rejection tests, install the native `esp-emu` tool from the [esp-emulator repository](https://github.com/espressif/esp-emulator)
 - Generate a **lab-only** signing key; add `*.pem` to `.gitignore` and never commit private keys
 
-## Previous and next steps
+## Navigation
 
 [Previous: Assignment 2](../assignment-2)
 

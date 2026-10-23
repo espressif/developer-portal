@@ -28,7 +28,7 @@ Read [Lecture 3](../lecture-3) for the boot chain, keys vs digests, and CRA evid
 
 ## Step 1: Turn off NVS encryption for this assignment
 
-Goal: understand why this lab runs without NVS encryption, and turn it off.
+**Goal**: understand why this lab runs without NVS encryption, and turn it off.
 
 Secure Boot write-protects the eFuse read-protection bits on its first boot (`Prevent read disabling of additional efuses`). The HMAC key from Assignment 2 must be read-protected, so once Secure Boot is on, the application can no longer burn it. On a blank chip, the bootloader enables Secure Boot before the app runs, so `nvs_flash_init()` would fail:
 
@@ -65,7 +65,7 @@ For the rest of this assignment, the Wi-Fi password is stored in **plaintext** i
 
 ## Step 2: Generate a development signing key
 
-Goal: create an RSA-3072 **lab** private key used only to sign bootloader and app images in this course.
+**Goal**: create an RSA-3072 **lab** private key used only to sign bootloader and app images in this course.
 
 1. From the project directory, generate a key:
 
@@ -94,7 +94,7 @@ secure_boot_signing_key.pem
 
 ## Step 3: Enable Secure Boot V2
 
-Goal: turn on Secure Boot V2 with the RSA scheme and production settings (see [Keys, signing, and eFuses](../lecture-3/#keys-signing-and-efuses)).
+**Goal**: turn on Secure Boot V2 with the RSA scheme and production settings (see [Keys, signing, and eFuses](../lecture-3/#keys-signing-and-efuses)).
 
 1. Open the project configuration, as in Step 1.
 2. Open **Security features**.
@@ -129,7 +129,7 @@ ESP-IDF reads `sdkconfig.defaults` only when it creates a new `sdkconfig`, so me
 
 ## Step 4: Log the Secure Boot state from the application
 
-Goal: extend `log_security_state()` from Assignment 2 so the app reports what the eFuses now enforce.
+**Goal**: extend `log_security_state()` from Assignment 2 so the app reports what the eFuses now enforce.
 
 1. Add `bootloader_support` (provides `esp_secure_boot.h`) to `PRIV_REQUIRES` in `main/CMakeLists.txt`. Without it the build fails with `esp_secure_boot.h: No such file or directory`.
 
@@ -162,7 +162,7 @@ The call in `app_main()` stays where Assignment 2 put it, right after `nvs_flash
 
 ## Step 5: Build and merge the signed images
 
-Goal: build signed images and merge them into one emulator image.
+**Goal**: build signed images and merge them into one emulator image.
 
 With Secure Boot enabled, `idf.py merge-bin` leaves the bootloader out, because ESP-IDF expects you to flash it separately. Merge the images with `esptool` instead, using the offsets of the shared layout:
 
@@ -198,7 +198,7 @@ Each command should report one RSA signature block. The build also writes `build
 
 ## Step 6: Run in the emulator
 
-Goal: watch the bootloader enable Secure Boot on a blank chip, and check the result.
+**Goal**: watch the bootloader enable Secure Boot on a blank chip, and check the result.
 
 1. Reload the [ESP32 emulator](https://espressif.github.io/esp-emulator/) page, so you start with a blank chip.
 2. Select the chip **esp32s31**, load `build/merged-secure.bin`, and start the emulator.
@@ -253,7 +253,7 @@ Capture log excerpts for workshop notes and the **integrity / unauthorized firmw
 
 ## Step 7: Check the evidence
 
-Goal: tie each log line to the protection it proves.
+**Goal**: tie each log line to the protection it proves.
 
 | Check | Expected in the log |
 |-------|---------------------|
@@ -267,7 +267,7 @@ Goal: tie each log line to the protection it proves.
 
 ## Step 8 (optional): Test rejection of bad firmware
 
-Goal: document **fail-closed** boot when the application image does not verify (see [Secure Boot V2 process](../lecture-3/#secure-boot-v2-process)).
+**Goal**: document **fail-closed** boot when the application image does not verify (see [Secure Boot V2 process](../lecture-3/#secure-boot-v2-process)).
 
 The browser emulator cannot run this test: every image you load starts on a blank chip, which burns the digest of whatever key signed that image and then trusts it. To boot a modified image on a chip that already trusts your key, use the native `esp-emu` tool, which can save the eFuse and flash state between runs.
 

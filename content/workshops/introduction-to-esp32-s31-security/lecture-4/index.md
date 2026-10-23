@@ -15,6 +15,8 @@ Offline access to external flash can expose firmware, file systems, and data par
 
 ## Learning objectives
 
+By the end of this lecture, you should be able to:
+
 - State the physical-access threat flash encryption mitigates (and what it does not)
 - Describe first-boot enablement: key generation, `SPI_BOOT_CRYPT_CNT`, and in-place encryption
 - Explain **development** vs **release** mode and why a product ships in release mode
@@ -133,7 +135,7 @@ For Annex I timelines, reporting, and conformity process, use the overview and l
 - You switch NVS encryption back on with the flash encryption-based scheme; the `nvs_keys` partition is already in the Assignment 2 layout
 - The partition table at `0x10000` already fits the `0xC000` bootloader, so no partition moves
 
-## Previous and next steps
+## Navigation
 
 [Previous: Assignment 3](../assignment-3)
 
