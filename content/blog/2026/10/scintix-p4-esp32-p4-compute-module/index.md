@@ -157,28 +157,30 @@ For a UI or a connected agent, the following demos provide firmware and setup gu
 
 Use the ESP32-P4 GPIO numbers in the table to configure I²C, SPI, UART or PWM through the GPIO matrix. The original header functions are included for reference when connecting HATs.
 
-| Raspberry Pi function | ESP32-P4 | Pin | Pin | ESP32-P4 | Raspberry Pi function |
-|---:|:-:|:-:|:-:|:-:|:---|
-| 3V3 | — | **1** | **2** | — | 5V |
-| GPIO2 / I²C SDA | not connected | **3** | **4** | — | 5V |
-| GPIO3 / I²C SCL | not connected | **5** | **6** | — | GND |
-| GPIO4 | GPIO53 | **7** | **8** | GPIO32 | GPIO14 / UART TX |
-| GND | — | **9** | **10** | GPIO33 | GPIO15 / UART RX |
-| GPIO17 | GPIO2 | **11** | **12** | GPIO23 | GPIO18 / PWM0 |
-| GPIO27 | GPIO3 | **13** | **14** | — | GND |
-| GPIO22 | GPIO4 | **15** | **16** | GPIO22 | GPIO23 |
-| 3V3 | — | **17** | **18** | GPIO54 <sup>c</sup> | GPIO24 |
-| GPIO10 / SPI MOSI | GPIO5 | **19** | **20** | — | GND |
-| GPIO9 / SPI MISO | GPIO6 <sup>c</sup> | **21** | **22** | GPIO21 | GPIO25 |
-| GPIO11 / SPI SCLK | GPIO7 <sup>b</sup> | **23** | **24** | GPIO20 | GPIO8 / SPI CE0 |
-| GND | — | **25** | **26** | GPIO13 <sup>a</sup> | GPIO7 / SPI CE1 |
-| GPIO0 / ID_SD | GPIO12 <sup>a</sup> | **27** | **28** | GPIO13 <sup>a</sup> | GPIO1 / ID_SC |
-| GPIO5 | GPIO8 <sup>b</sup> | **29** | **30** | — | GND |
-| GPIO6 | GPIO48 <sup>d</sup> | **31** | **32** | GPIO12 <sup>a</sup> | GPIO12 / PWM0 |
-| GPIO13 / PWM1 | GPIO47 <sup>d</sup> | **33** | **34** | — | GND |
-| GPIO19 | GPIO9 | **35** | **36** | GPIO36 <sup>e</sup> | GPIO16 |
-| GPIO26 | GPIO46 <sup>a</sup> | **37** | **38** | GPIO11 | GPIO20 |
-| GND | — | **39** | **40** | GPIO46 <sup>a</sup> | GPIO21 |
+The table follows the layout of the 2×20 header on the carrier: each row is a pair of adjacent pins, with odd positions in the left half and even positions in the right half.
+
+| Raspberry Pi function | ESP32-P4 | Pin | | Pin | ESP32-P4 | Raspberry Pi function |
+|---:|:-:|:-:|:-:|:-:|:-:|:---|
+| 3V3 | — | **1** | | **2** | — | 5V |
+| GPIO2 / I²C SDA | not connected | **3** | | **4** | — | 5V |
+| GPIO3 / I²C SCL | not connected | **5** | | **6** | — | GND |
+| GPIO4 | GPIO53 | **7** | | **8** | GPIO32 | GPIO14 / UART TX |
+| GND | — | **9** | | **10** | GPIO33 | GPIO15 / UART RX |
+| GPIO17 | GPIO2 | **11** | | **12** | GPIO23 | GPIO18 / PWM0 |
+| GPIO27 | GPIO3 | **13** | | **14** | — | GND |
+| GPIO22 | GPIO4 | **15** | | **16** | GPIO22 | GPIO23 |
+| 3V3 | — | **17** | | **18** | GPIO54 <sup>c</sup> | GPIO24 |
+| GPIO10 / SPI MOSI | GPIO5 | **19** | | **20** | — | GND |
+| GPIO9 / SPI MISO | GPIO6 <sup>c</sup> | **21** | | **22** | GPIO21 | GPIO25 |
+| GPIO11 / SPI SCLK | GPIO7 <sup>b</sup> | **23** | | **24** | GPIO20 | GPIO8 / SPI CE0 |
+| GND | — | **25** | | **26** | GPIO13 <sup>a</sup> | GPIO7 / SPI CE1 |
+| GPIO0 / ID_SD | GPIO12 <sup>a</sup> | **27** | | **28** | GPIO13 <sup>a</sup> | GPIO1 / ID_SC |
+| GPIO5 | GPIO8 <sup>b</sup> | **29** | | **30** | — | GND |
+| GPIO6 | GPIO48 <sup>d</sup> | **31** | | **32** | GPIO12 <sup>a</sup> | GPIO12 / PWM0 |
+| GPIO13 / PWM1 | GPIO47 <sup>d</sup> | **33** | | **34** | — | GND |
+| GPIO19 | GPIO9 | **35** | | **36** | GPIO36 <sup>e</sup> | GPIO16 |
+| GPIO26 | GPIO46 <sup>a</sup> | **37** | | **38** | GPIO11 | GPIO20 |
+| GND | — | **39** | | **40** | GPIO46 <sup>a</sup> | GPIO21 |
 
 Shared signals and constraints:
 
