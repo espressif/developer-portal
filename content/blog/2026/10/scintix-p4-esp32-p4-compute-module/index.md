@@ -47,7 +47,13 @@ The following tables compare support across several widely used carrier boards, 
     caption="The same module on different CM4/CM5 carriers"
     >}}
 
-✅ tested on hardware · (✓) checked against the schematic only · \* requires a change or has a limitation · ❌ unsupported · — absent from the carrier
+Legend for the tables below:
+
+- ✅ tested on hardware
+- (✓) checked against the schematic only
+- \* requires a change or has a limitation
+- ❌ unsupported
+- — absent from the carrier
 
 ### Power and connectivity
 
