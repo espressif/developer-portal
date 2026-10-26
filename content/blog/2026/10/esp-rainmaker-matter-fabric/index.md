@@ -49,7 +49,9 @@ ESP RainMaker parses the Matter protocol in the cloud, covers Matter product cat
 
 **Unified management on ESP RainMaker.** Use RainMaker as the IoT cloud for both Matter and non-Matter devices. The serverless backend, open-source mobile apps, voice-assistant integrations, and device firmware SDKs are ready to use. This path suits you if you want Matter quickly without operating a separate IoT cloud.
 
-**Cloud-to-cloud integration.** If you already have a mature business cloud, you can add Matter Fabric Support as modules—Fabric management, PKI issuance, and Matter protocol parsing—without replacing the rest of your stack. The [Matter Fabric Interface](https://docs.rainmaker.espressif.com/docs/product_overview/integrated_solutions/matter-fabric/interface) is an optional cloud API add-on for this integration, exposing Matter Fabric capabilities through APIs. It can also be used in the Unified RainMaker model when a product has specific API integration needs, but it is not required for standard RainMaker integration.
+**Cloud-to-cloud integration.** If you already have a mature business cloud, you can add Matter Fabric Support as modules—Fabric management, PKI issuance, and Matter protocol parsing—without replacing the rest of your stack.
+
+The [Matter Fabric Interface](https://docs.rainmaker.espressif.com/docs/product_overview/integrated_solutions/matter-fabric/interface) is the optional API for that path. Your app or backend talks to RainMaker; after authentication you can list the devices in a Fabric and read, write, or invoke them. You do not have to stand up a Matter cloud of your own. Remote calls still go through a controller in the home. The same add-on can sit on unified RainMaker if a product needs that API. You can evaluate the rest of the solution first; [contact us](https://www.espressif.com/en/contact-esp-rainmaker) when you want this API in your own cloud.
 
 ESP RainMaker is built on AWS serverless architecture. Private deployments keep data under your control and can scale to large device fleets.
 
