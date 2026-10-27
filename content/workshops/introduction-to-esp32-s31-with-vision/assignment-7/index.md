@@ -266,7 +266,7 @@ idf.py -p <PORT> flash monitor
 
 1. Run **ESP-IDF: SDK Configuration Editor (menuconfig)**.
 2. Open **Component config → models: human_face_detect**, apply the settings above, and save.
-3. Connect the board through the USB Type-C **UART** port and switch it on.
+3. Connect the board through the USB Type-C **UART** port.
 4. Run **ESP-IDF: Select Port to Use (COM, tty, usbserial)** and select the UART port.
 5. Run **ESP-IDF: Build, Flash and Start a Monitor on Your Device**.
 6. Select **UART** as the flash method.

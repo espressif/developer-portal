@@ -155,7 +155,7 @@ The example captures frames through the V4L2-compatible video API, uses the PPA 
 
 ## Step 3: Build, flash, and test the hardware
 
-Connect the board through the USB Type-C **UART** port and switch it on.
+Connect the board through the USB Type-C **UART** port.
 
 {{< tabs group="esp-idf-bsp-test" >}}
   {{< tab label="ESP-IDF CLI" >}}

@@ -141,7 +141,7 @@ Use the ESP-Vision MCP server to list the modules supported by esp32s31.
 Do not answer from memory.
 ```
 
-The answer should include `sensor`, `image`, `display`, `espdl`, `tflite`, and `imageio`.
+The answer should include the importable modules `sensor`, `image`, `display`, `espdl`, and `tflite`. `ImageIO` belongs to the `image` API and is accessed as `image.ImageIO`; it is not a separate `imageio` module.
 
 Then ask:
 

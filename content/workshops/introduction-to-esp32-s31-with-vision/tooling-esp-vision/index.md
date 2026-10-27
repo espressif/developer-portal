@@ -34,7 +34,9 @@ The ESP32-S31 build provides these principal modules:
 | `display` | Control the board LCD |
 | `espdl` | Load and execute `.espdl` models |
 | `tflite` | Execute supported TensorFlow Lite Micro models |
-| `imageio` | Read and write supported image sequences |
+| `image.ImageIO` (part of `image`) | Read and write supported image sequences |
+
+`ImageIO` is [registered as part of the `image` public API](https://github.com/espressif/esp-vision/blob/057c7224277876f14b45441d891ffd103a78db1e/modules/py_image.c#L7287-L7292). Access it as `image.ImageIO`; do not use `import imageio`, because the firmware does not provide a separate `imageio` module.
 
 ESP-Vision also inherits a subset of MicroPython modules. The ESP32-S31 documentation indexes the following module groups:
 
@@ -109,9 +111,8 @@ Scripts and model files are separate. Models used in this workshop are stored in
 > Power supplied through the USB Type-A connection bypasses the board's power switch. Moving the switch to **OFF** does not turn the board off while the Type-A cable is connected. Disconnect the Type-A to Type-A cable to fully remove power.
 
 1. Connect a data-capable USB Type-A to Type-A cable between your computer and the board's USB Type-A **USB CDC/JTAG/Debug** port.
-2. Turn the board on.
-3. Open [vision.espressif.com](https://vision.espressif.com/en) in a supported desktop browser.
-4. Select **Flash It Now**.
+2. Open [vision.espressif.com](https://vision.espressif.com/en) in a supported desktop browser.
+3. Select **Flash It Now**.
 
 {{< figure
     src="assets/esp-vision-landing-page.webp"
@@ -119,7 +120,8 @@ Scripts and model files are separate. Models used in this workshop are stored in
     caption="Open the ESP-Vision website and select Flash It Now."
 >}}
 
-5. Choose **ESP32-S31-Korvo-1** and the current stable ESP-Vision firmware.
+4. Choose **ESP32-S31-Korvo-1** and the current stable ESP-Vision firmware.
+5. Under **Flash Mode**, select **Full Install (blank board / recovery)**.
 
 {{< figure
     src="assets/esp-vision-web-flash-target.webp"
@@ -159,6 +161,9 @@ After ESP-Vision starts, the host computer detects the board as a removable disk
 ## Step 2: Connect to the board
 
 Close serial monitors and other applications first; only one application can own the USB CDC/JTAG/Debug device at a time.
+
+> [!IMPORTANT]
+> ESP-Vision Web IDE 1.3.0 requires firmware with EV-MUX v4. If the board has older ESP-Vision firmware, return to the web flasher and perform a **Full Install (blank board / recovery)** before connecting to the Web IDE. See the [ESP-Vision release notes](https://github.com/espressif/esp-vision/blob/057c7224277876f14b45441d891ffd103a78db1e/CHANGELOG.md) for compatibility details.
 
 1. Open the **Web IDE** from [vision.espressif.com](https://vision.espressif.com/en).
 2. Select **Connect**.

@@ -79,8 +79,6 @@ The board has two USB Type-C connectors:
 | Power | Yes | No |
 | UART | Yes | USB-to-UART flashing and serial logs |
 
-For normal workshop use, connect a data-capable cable to the **UART** connector and move the power switch to **ON**. Use the separate Power connector when the display, speakers, or a downstream USB device requires more current. Espressif recommends ensuring up to 3 A input capacity when high-power audio and USB Host power are used together.
-
 The USB Type-A connector is connected to the ESP32-S31 USB 2.0 High-Speed OTG peripheral and can supply up to 500 mA in Host mode.
 
 > [!IMPORTANT]
