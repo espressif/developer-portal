@@ -27,7 +27,7 @@ This appendix takes the **same Assignment 4 image** and runs it on a real ESP32-
 - Finish [Assignment 4](../assignment-4) and confirm in the emulator that the image boots twice with the expected logs.
 - Back up `secure_boot_signing_key.pem` outside the repository. Never commit it.
 - Plan how the board receives updates. With ROM download mode disabled, the only path is signed OTA, so build OTA into the firmware first ([Assignment 5](../assignment-5)) if you want to update this board later.
-- Read [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html).
+- Read [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html).
 
 ## eFuse key block plan
 
@@ -42,7 +42,7 @@ On the first boot, the bootloader writes keys into the first free key blocks, in
 The NVS keys are not in eFuse. With the flash encryption-based scheme, they live in the `nvs_keys` partition, which flash encryption protects.
 
 > [!NOTE]
-> If your product uses **HMAC-based NVS encryption** (Assignment 2) together with Secure Boot or flash encryption, the HMAC key must be burned **before** the first boot of the secure firmware. Secure Boot and flash encryption both write-protect the eFuse read-protection bits, and after that the application can no longer burn a read-protected HMAC key: `nvs_flash_init()` fails with `Failed to write the HMAC key to eFuse: [0x103] (ESP_ERR_INVALID_STATE)`. Burn it from the host first, for example with `espefuse burn-key BLOCK_KEY0 hmac_key.bin HMAC_UP`, then let the bootloader put the Secure Boot digest and flash encryption key into the next free blocks. See [Enable NVS encryption based on HMAC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-nvs-encryption-based-on-hmac).
+> If your product uses **HMAC-based NVS encryption** (Assignment 2) together with Secure Boot or flash encryption, the HMAC key must be burned **before** the first boot of the secure firmware. Secure Boot and flash encryption both write-protect the eFuse read-protection bits, and after that the application can no longer burn a read-protected HMAC key: `nvs_flash_init()` fails with `Failed to write the HMAC key to eFuse: [0x103] (ESP_ERR_INVALID_STATE)`. Burn it from the host first, for example with `espefuse burn-key BLOCK_KEY0 hmac_key.bin HMAC_UP`, then let the bootloader put the Secure Boot digest and flash encryption key into the next free blocks. See [Enable NVS encryption based on HMAC](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-nvs-encryption-based-on-hmac).
 
 ## Step 1: Check that the board is blank
 
@@ -153,15 +153,15 @@ Goal: keep proof of what the board now enforces.
 The firmware you just provisioned has production settings, but a production line adds steps the workshop does not cover:
 
 - **Credentials.** The workshop firmware stores the lab Wi-Fi credentials compiled into the app from menuconfig. A product writes per-device credentials into NVS during provisioning or at commissioning, and never builds them into the firmware.
-- **Host-side provisioning.** On a line, keys are often generated and burned by the provisioning station instead of on first boot, so they can be recorded and the first boot is fast. See [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally) and [Enable Secure Boot V2 externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-secure-boot-v2-externally).
-- **Download mode policy.** This firmware disables ROM download mode completely. [Secure download mode](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-uart-rom-dl-mode) is an alternative that keeps a restricted serial path for provisioning tools while blocking flash reads.
+- **Host-side provisioning.** On a line, keys are often generated and burned by the provisioning station instead of on first boot, so they can be recorded and the first boot is fast. See [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally) and [Enable Secure Boot V2 externally](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-secure-boot-v2-externally).
+- **Download mode policy.** This firmware disables ROM download mode completely. [Secure download mode](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-uart-rom-dl-mode) is an alternative that keeps a restricted serial path for provisioning tools while blocking flash reads.
 - **Signing key custody.** Production signing keys belong in an HSM or a signing service, with access control and a documented revocation plan. Secure Boot V2 supports up to three key digests; this firmware revoked the two unused slots.
 - **Anti-rollback.** Decide the secure version policy before the first release; every confirmed increase burns an eFuse bit. See the anti-rollback section in [Assignment 5](../assignment-5/#anti-rollback-what-it-adds).
 - **Records.** Keep the eFuse plan, firmware versions, and test results per device in the product technical file.
 
 ## Bootloader OTA
 
-The workshop does not cover bootloader OTA. Updating the bootloader on a board with Secure Boot V2 is possible, but a failed update can leave the device unable to boot. See [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html) and the ESP-IDF OTA documentation before you plan it.
+The workshop does not cover bootloader OTA. Updating the bootloader on a board with Secure Boot V2 is possible, but a failed update can leave the device unable to boot. See [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html) and the ESP-IDF OTA documentation before you plan it.
 
 ## If a classroom board was provisioned by mistake
 
@@ -169,10 +169,10 @@ The workshop labs never burn eFuses on a real board. If a production image was f
 
 ## Related documentation
 
-- [ESP-IDF: eFuse Manager (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/efuse.html)
-- [ESP-IDF: Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html)
-- [ESP-IDF: Flash encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html)
-- [ESP-IDF: NVS Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html)
+- [ESP-IDF: eFuse Manager (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/system/efuse.html)
+- [ESP-IDF: Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html)
+- [ESP-IDF: Flash encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/flash-encryption.html)
+- [ESP-IDF: NVS Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_encryption.html)
 - [ESP Product Security](https://docs.espressif.com/projects/esp-product-security/en/latest/)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)

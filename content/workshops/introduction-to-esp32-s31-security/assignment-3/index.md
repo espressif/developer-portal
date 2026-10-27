@@ -11,14 +11,16 @@ showAuthor: false
 
 In [Assignment 2](../assignment-2) you kept the [**https_mbedtls**](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls) client, moved the **Wi-Fi credentials into NVS** (`wifi_creds.c`, `workshop_wifi_connect.c`), and ran the firmware in the ESP32 emulator. Here you add **Secure Boot V2** to the same project, with production settings, so only **signed** bootloader and application images run.
 
-Read [Lecture 3](../lecture-3) for the boot chain, keys vs digests, and CRA evidence themes. Official flow: [How to enable Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2).
+Read [Lecture 3](../lecture-3) for the boot chain, keys vs digests, and CRA evidence themes. Official flow: [How to enable Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2).
 
 ## Before you begin
 
-**Starting point:** Assignment 2 complete in the same project: the shared partition table, the Wi-Fi helpers, and the `log_security_state()` and `dump_nvs_prefix()` helpers. Do not run `set-target` again: it resets `sdkconfig`.
+**Prepared project (recommended):** use the complete [Assignment 3 project](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/introduction-to-esp32-s31-security/code-examples/assignment-3) from the [workshop project setup](../introduction/#get-the-workshop-projects). From the `code-examples` directory, run `cd assignment-3`. The steps below explain the supplied source and configuration; the private signing key is intentionally generated locally in Step 2.
+
+For the manual cumulative route, continue in your completed Assignment 2 project and apply each change below. Do not run `set-target` again in that same project because it resets `sdkconfig`.
 
 > [!WARNING]
-> **Do not flash this firmware to your board.** On first boot it permanently enables Secure Boot, burns your key digest, and disables ROM download mode and JTAG. A board that runs it can never be flashed over serial again. Run it only in the emulator, and never commit `secure_boot_signing_key.pem`. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
+> **Physically disconnect the board by unplugging its USB cable, and keep it disconnected. Do not flash this firmware to real hardware.** On first boot it permanently enables Secure Boot, burns your key digest, and disables ROM download mode and JTAG. A board that runs it can never be flashed over serial again. Run it only in the emulator, and never commit `secure_boot_signing_key.pem`. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
 
 **eFuse block plan:** each emulator run starts with a blank chip, so the bootloader writes the digest into the first free key block:
 
@@ -38,6 +40,9 @@ E (...) nvs_sec_provider: Failed to write the HMAC key to eFuse: [0x103] (ESP_ER
 ...
 abort() was called at PC ...
 ```
+
+> [!NOTE]
+> [CONFIG_SECURE_BOOT_V2_ALLOW_EFUSE_RD_DIS](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-v2-allow-efuse-rd-dis) would allow the application to read-protect an HMAC key after Secure Boot is enabled. This workshop does not enable it because it leaves `EFUSE_RD_DIS` writable, creating denial-of-service and fault-injection risks. If a product must use this option, it should burn all read-protected keys and then permanently lock further read protection by burning `WR_DIS_RD_DIS`. The preferred production flow is to provision every read-protected key before enabling Secure Boot.
 
 A production line avoids this by burning the HMAC key **before** the first boot of secure firmware (see the [real-board appendix](../appendix-production-provisioning/#efuse-key-block-plan)). The browser emulator always starts from a blank chip, so it cannot follow that order. This assignment therefore runs with NVS encryption off, and [Assignment 4](../assignment-4) turns it back on with a scheme that works on a blank chip: NVS keys protected by flash encryption.
 
@@ -75,7 +80,7 @@ For the rest of this assignment, the Wi-Fi password is stored in **plaintext** i
 idf.py secure-generate-signing-key --version 2 --scheme rsa3072 secure_boot_signing_key.pem
 ```
 
-Equivalent: `espsecure generate-signing-key --version 2 --scheme rsa3072 secure_boot_signing_key.pem` ([Enable Secure Boot v2 externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-secure-boot-v2-externally)).
+Equivalent: `espsecure generate-signing-key --version 2 --scheme rsa3072 secure_boot_signing_key.pem` ([Enable Secure Boot v2 externally](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-secure-boot-v2-externally)).
   {{< /tab >}}
   {{< tab label="CLion" >}}
 CLion instructions will be added soon.
@@ -86,7 +91,12 @@ CLion instructions will be added soon.
 
 ```
 secure_boot_signing_key.pem
-*.pem
+wrong_key.pem
+lab.efuse
+lab-flash.bin
+tampered.bin
+wrongkey.bin
+wrong_app.bin
 ```
 
 > [!WARNING]
@@ -98,10 +108,10 @@ secure_boot_signing_key.pem
 
 1. Open the project configuration, as in Step 1.
 2. Open **Security features**.
-3. Enable **Enable hardware Secure Boot in bootloader** ([CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot)).
-4. Confirm the Secure Boot version is **Enable Secure Boot version 2** ([CONFIG_SECURE_BOOT_V2_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-v2-enabled)) and the app signing scheme is **RSA** ([CONFIG_SECURE_SIGNED_APPS_RSA_SCHEME](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-signed-apps-scheme)). ESP32-S31 supports RSA-3072 only, so there is no key length to choose.
-5. Keep **Sign binaries during build** enabled ([CONFIG_SECURE_BOOT_BUILD_SIGNED_BINARIES](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-build-signed-binaries)) and set **Secure boot private signing key** to `secure_boot_signing_key.pem` (path relative to the project root).
-6. Set **UART ROM download mode** to **Permanently disabled (recommended)** ([CONFIG_SECURE_DISABLE_ROM_DL_MODE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-disable-rom-dl-mode)). On ESP32-S31, ESP-IDF v6.1 does not support Secure download mode yet, so this is the production choice. On SoCs that support it, such as ESP32-C5, **Permanently switch to Secure mode** keeps a restricted serial path for provisioning tools.
+3. Enable **Enable hardware Secure Boot in bootloader** ([CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-boot)).
+4. Confirm the Secure Boot version is **Enable Secure Boot version 2** ([CONFIG_SECURE_BOOT_V2_ENABLED](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-v2-enabled)) and the app signing scheme is **RSA** ([CONFIG_SECURE_SIGNED_APPS_RSA_SCHEME](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-signed-apps-scheme)). ESP32-S31 supports RSA-3072 only, so there is no key length to choose.
+5. Keep **Sign binaries during build** enabled ([CONFIG_SECURE_BOOT_BUILD_SIGNED_BINARIES](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-build-signed-binaries)) and set **Secure boot private signing key** to `secure_boot_signing_key.pem` (path relative to the project root).
+6. Set **UART ROM download mode** to **Permanently disabled (recommended)** ([CONFIG_SECURE_DISABLE_ROM_DL_MODE](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-disable-rom-dl-mode)).
 7. Leave the JTAG options at their defaults. With Secure Boot enabled, the bootloader disables JTAG on first boot.
 8. Save and exit.
 
@@ -185,7 +195,7 @@ CLion instructions will be added soon.
   {{< /tab >}}
 {{< /tabs >}}
 
-The build should report `Bootloader binary size 0xb000 bytes`, which fits below the partition table at `0x10000`.
+Check the build output and confirm that the bootloader fits below the partition table at `0x10000`. Its exact size depends on the ESP-IDF version and project configuration.
 
 Confirm that both images carry a signature block:
 

@@ -25,7 +25,7 @@ By the end of this overview, you should be able to:
 
 ## Cryptographic capabilities
 
-The ESP32-S31 has hardware accelerators for AES, SHA, RSA, ECC, and HMAC, plus a True Random Number Generator (TRNG) for keys and TLS nonces. RSA_DS and ECDSA_DS can sign without giving application code access to the private key. See the [ESP32-S31 Series Datasheet](https://documentation.espressif.com/esp32-s31_datasheet_en.html) and [ESP-IDF security overview](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security.html).
+The ESP32-S31 has hardware accelerators for AES, SHA, RSA, ECC, and HMAC, plus a True Random Number Generator (TRNG) for keys and TLS nonces. RSA_DS and ECDSA_DS can sign without giving application code access to the private key. See the [ESP32-S31 Series Datasheet](https://documentation.espressif.com/esp32-s31_datasheet_en.html) and [ESP-IDF security overview](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security.html).
 
 ## What you are going to use
 
@@ -64,7 +64,7 @@ Flash encryption hides code and data on external flash from offline reads. With 
 
 ### Secure updates (optional lab)
 
-Signed OTA, bootloader OTA, and anti-rollback are important in production and in CRA-oriented gap analysis. The optional [Assignment 5](../assignment-5) adds signed HTTPS OTA with app rollback to the workshop project; bootloader OTA and anti-rollback are **not** taught as class assignments. See the [EU CRA overview](../overview-eu-cra), ESP-IDF [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html) OTA sections, and the [real-board appendix](../appendix-production-provisioning).
+Signed OTA, bootloader OTA, and anti-rollback are important in production and in CRA-oriented gap analysis. The optional [Assignment 5](../assignment-5) adds signed HTTPS OTA with app rollback to the workshop project; bootloader OTA and anti-rollback are **not** taught as class assignments. See the [EU CRA overview](../overview-eu-cra), ESP-IDF [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html) OTA sections, and the [real-board appendix](../appendix-production-provisioning).
 
 ## eFuses and security state
 

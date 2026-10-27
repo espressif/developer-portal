@@ -15,10 +15,12 @@ You run the firmware in the ESP32 emulator, which encrypts the emulated flash ex
 
 ## Before you begin
 
-**Starting point:** Assignment 3 complete in the same project: Secure Boot V2, the signing key, and the `log_security_state()` helper from [Assignment 3, Step 4](../assignment-3/#step-4-log-the-secure-boot-state-from-the-application).
+**Prepared project (recommended):** use the complete [Assignment 4 project](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/introduction-to-esp32-s31-security/code-examples/assignment-4) from the [workshop project setup](../introduction/#get-the-workshop-projects). From the `code-examples` directory, run `scripts/prepare-assignment.sh 4`, then `cd assignment-4`. The preparation script creates the ignored development signing key required by this standalone project.
+
+For the manual cumulative route, continue in your completed Assignment 3 project with its signing key, and apply each change below.
 
 > [!WARNING]
-> **Do not flash this firmware to your board.** On first boot it permanently enables Secure Boot and flash encryption in release mode, and disables ROM download mode and JTAG. Run it only in the emulator. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
+> **Physically disconnect the board by unplugging its USB cable, and keep it disconnected. Do not flash this firmware to real hardware.** On first boot it permanently enables Secure Boot and flash encryption in release mode, and disables ROM download mode and JTAG. Run it only in the emulator. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
 
 **eFuse block plan:** each emulator run starts with a blank chip, and the bootloader fills the key blocks in order:
 
@@ -32,7 +34,7 @@ The default key size, XTS-AES-128, needs one key block.
 
 ## Step 1: Enable flash encryption and NVS encryption
 
-**Goal**: turn on flash encryption in **release** mode and protect the NVS keys with it ([Release Mode (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#release-mode)).
+**Goal**: turn on flash encryption in **release** mode and protect the NVS keys with it ([Release Mode (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/flash-encryption.html#release-mode)).
 
 1. Open the project configuration:
 
@@ -48,11 +50,11 @@ CLion instructions will be added soon.
 {{< /tabs >}}
 
 2. Open **Security features**.
-3. Enable **Enable flash encryption on boot** ([CONFIG_SECURE_FLASH_ENC_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-enc-enabled)).
-4. Set **Enable usage mode** to **Release** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_RELEASE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-release)). Development mode keeps a way to reflash plaintext over serial, which a product must not have.
+3. Enable **Enable flash encryption on boot** ([CONFIG_SECURE_FLASH_ENC_ENABLED](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-enc-enabled)).
+4. Set **Enable usage mode** to **Release** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_RELEASE](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-release)). Development mode keeps a way to reflash plaintext over serial, which a product must not have.
 5. Keep **Size of generated XTS-AES key** at the default, **AES-128 (256-bit key)**.
 6. Open **Component config → NVS** and enable **Enable NVS encryption** again.
-7. Open **Component config → NVS Security Provider** and set **NVS Encryption: Key Protection Scheme** to **Using Flash Encryption** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-flash-enc)).
+7. Open **Component config → NVS Security Provider** and set **NVS Encryption: Key Protection Scheme** to **Using Flash Encryption** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-flash-enc)).
 8. Save and exit.
 
 In `sdkconfig.defaults`, replace `# CONFIG_NVS_ENCRYPTION is not set` and add the new lines, so the security part of the file reads:
@@ -78,7 +80,7 @@ CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC=y
 
 You do not need to change `partitions.csv`. Check these points against it:
 
-- **Bootloader size:** with Secure Boot and flash encryption, the bootloader is `0xC000` bytes. It fits between `0x2000` and the partition table at `0x10000`.
+- **Bootloader size:** Secure Boot and flash encryption make the bootloader larger. Check the build output and confirm that it fits between `0x2000` and the partition table at `0x10000`.
 - **`nvs_keys` is `encrypted`:** the NVS keys must never sit in flash as plaintext, so ESP-IDF requires this flag on the `nvs_keys` partition.
 - **`nvs` is not marked `encrypted`:** NVS encrypts its own entries with the keys from `nvs_keys`. Flash encryption cannot be applied on top, because NVS writes in units smaller than the encryption block.
 - **`storage` is `encrypted`:** you write a test string to it in Step 3.
@@ -170,7 +172,7 @@ CLion instructions will be added soon.
   {{< /tab >}}
 {{< /tabs >}}
 
-Expect `Bootloader binary size 0xc000 bytes. 0x2000 bytes (14%) free.` The merged image is **plaintext**: the bootloader encrypts it in place on first boot. That is also how a production line programs a blank chip.
+Confirm that the build reports the bootloader fits below the partition table at `0x10000`. The merged image is **plaintext**: the bootloader encrypts it in place on first boot. That is also how a production line programs a blank chip.
 
 ## Step 5: Run in the emulator
 
@@ -194,12 +196,15 @@ I (...) flash_encrypt: partition table encrypted and loaded successfully
 I (...) flash_encrypt: Encrypting partition 1 at offset 0x17000 (length 0x2000)...
 I (...) flash_encrypt: Encrypting partition 3 at offset 0x1a000 (length 0x1000)...
 I (...) flash_encrypt: Encrypting partition 4 at offset 0x1b000 (length 0x1000)...
-I (...) flash_encrypt: Encrypting partition 5 at offset 0x20000 (length 0x111000)...
+I (...) flash_encrypt: Encrypting partition 5 at offset 0x20000 (length 0x...)...
 E (...) esp_image: image at 0x1e0000 has invalid magic byte (nothing flashed here?)
 I (...) flash_encrypt: Setting CRYPT_CNT for permanent encryption
 I (...) flash_encrypt: Flash encryption completed
 I (...) boot: Resetting with flash encryption enabled...
 ```
+
+The application partition length varies with the enabled features and the
+resulting signed image size.
 
 The error for `0x1e0000` is expected: `ota_1` is empty, so there is nothing to encrypt there.
 
@@ -269,7 +274,7 @@ Capture log excerpts for the **confidentiality of stored data** row in the [EU C
 
 **Goal**: know what changes on a manufacturing line.
 
-- **Programming:** the factory writes the same plaintext merged image to a blank chip, and the first boot does what you just watched. See the [real-board appendix](../appendix-production-provisioning) for the commands and checks, and [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally) for host-generated keys.
+- **Programming:** the factory writes the same plaintext merged image to a blank chip, and the first boot does what you just watched. See the [real-board appendix](../appendix-production-provisioning) for the commands and checks, and [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally) for host-generated keys.
 - **Updates in the field:** with release mode and ROM download mode disabled, the only way to change the firmware is a signed OTA update. [Assignment 5](../assignment-5) adds one.
 - **HMAC NVS instead:** if you prefer the HMAC scheme, burn the HMAC key from the host before the first boot, for example with `espefuse burn-key BLOCK_KEY0 hmac_key.bin HMAC_UP`.
 - **Per-device secrets:** Wi-Fi or cloud credentials must be provisioned per device, not compiled into `sdkconfig`.
@@ -279,7 +284,7 @@ Capture log excerpts for the **confidentiality of stored data** row in the [EU C
 | Test | Action | Expected |
 |------|--------|----------|
 | Configuration | Step 1 | Secure Boot, flash encryption in release mode, NVS encryption with the flash encryption scheme |
-| Bootloader fits | Step 4 | `0xc000` bootloader below the partition table at `0x10000` |
+| Bootloader fits | Step 4 | Build succeeds with the bootloader below the partition table at `0x10000` |
 | First boot | Step 5 | `Flash encryption completed`, then `0 plaintext flashes left` and `mode is RELEASE` |
 | Key blocks | Step 5 | `SECURE_BOOT_DIGEST0 in BLOCK_KEY0`, `XTS_AES_128_KEY in BLOCK_KEY1` |
 | Raw read | Step 5 | `esp_flash_read` returns ciphertext |

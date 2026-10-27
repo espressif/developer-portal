@@ -35,6 +35,24 @@ The CRA treats cybersecurity as a product requirement under **security by design
 
 This workshop runs that idea on the ESP32-S31 with ESP-IDF v6.1. A lecture introduces each topic, and the next assignment implements and checks it. After the overview of SoC, its security features, and the CRA context, the **lab order** is TLS, HMAC-based NVS encryption, Secure Boot V2, and flash encryption. TLS runs on the [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html); the other labs run the same firmware project in the ESP32 emulator.
 
+## Get the workshop projects
+
+The [workshop code examples](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/introduction-to-esp32-s31-security/code-examples) provide one complete, independently buildable ESP-IDF v6.1 project for each assignment, plus controlled build and emulator scripts.
+
+Clone only the workshop examples:
+
+```bash
+git clone --depth 1 --filter=blob:none --sparse \
+  https://github.com/espressif/developer-portal-codebase.git
+cd developer-portal-codebase
+git sparse-checkout set \
+  content/workshops/introduction-to-esp32-s31-security/code-examples
+cd content/workshops/introduction-to-esp32-s31-security/code-examples
+scripts/check-environment.sh
+```
+
+Each assignment links to its matching folder. The prepared project is the recommended route: inspect the supplied source while following the steps, then build and run the checks. If you want to practice every edit, you can instead use the cumulative manual route described in the assignments, starting from the ESP-IDF `https_mbedtls` example.
+
 ## Lab safety and the ESP32 emulator
 
 Many ESP32-S31 security features store user settings and secrets in **eFuses** which are one-time programmable. The firmware you build in this workshop uses production settings, so on its first boot it burns eFuses for real: the Secure Boot key digest, the flash encryption key, and the bits that disable ROM download mode and JTAG. On a physical board, it cannot be reverted. From then on, the board will accept only the firmware signed with your key and will lose the ability to be flashed over serial.
@@ -64,7 +82,7 @@ The emulator runs entirely in your browser tab: the firmware never leaves your m
 
 **Forbidden in class:** flashing the Assignment 2 to 5 images to your board, and running any `espefuse burn` or `burn-key` command on it. These images provision a chip on first boot; on a board, that is permanent.
 
-**Production** enablement on real hardware belongs in manufacturing or a controlled pilot. The optional [real-board appendix](../appendix-production-provisioning) shows how to provision one dedicated board with the Assignment 4 image. Also see Espressif's [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html).
+**Production** enablement on real hardware belongs in manufacturing or a controlled pilot. The optional [real-board appendix](../appendix-production-provisioning) shows how to provision one dedicated board with the Assignment 4 image. Also see Espressif's [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html).
 
 ## Threat model
 

@@ -15,14 +15,18 @@ In this assignment, you will run the ESP-IDF [**https_mbedtls**](https://github.
 
 **Tools:** you can follow every assignment from the command line (CLI) or from the CLion IDE.
 
-**Project:** `$IDF_PATH/examples/protocols/https_mbedtls`. All later assignments build on this project. Set the target once, here:
+**Prepared project (recommended):** use the complete [Assignment 1 project](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/introduction-to-esp32-s31-security/code-examples/assignment-1) from the [workshop project setup](../introduction/#get-the-workshop-projects). The steps below explain the supplied implementation and its verification.
+
+For the manual cumulative route, start from `$IDF_PATH/examples/protocols/https_mbedtls` and carry the same project through later assignments.
 
 {{< tabs group="workflow" >}}
   {{< tab label="CLI" >}}
 ```bash
-cd $IDF_PATH/examples/protocols/https_mbedtls
+cd assignment-1
 idf.py --preview set-target esp32s31
 ```
+
+Run this from the `code-examples` directory created during workshop setup. For the manual route, replace `assignment-1` with `$IDF_PATH/examples/protocols/https_mbedtls`.
 
 Replace `PORT` in the commands below with your serial port.
   {{< /tab >}}
@@ -53,11 +57,20 @@ CLion instructions will be added soon.
 Then:
 
 1. Open **Component config → mbedTLS → Certificate Bundle**.
-2. Enable **Certificate Bundle** ([CONFIG_MBEDTLS_CERTIFICATE_BUNDLE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-certificate-bundle)).
+2. Enable **Certificate Bundle** ([CONFIG_MBEDTLS_CERTIFICATE_BUNDLE](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-certificate-bundle)).
 3. Leave the default **filter list** bundle unless your instructor asks for the full Mozilla set (larger binary, broader coverage).
-4. (Optional, for Step 3 untrusted-server tests) Set **Custom Certificate Bundle Path** to a folder with a lab CA PEM file: [CONFIG_MBEDTLS_CUSTOM_CERTIFICATE_BUNDLE_PATH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-custom-certificate-bundle-path). Use `.pem` or `.der` extensions only, as documented in [ESP x509 Certificate Bundle](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_crt_bundle.html).
+4. (Optional, for Step 3 untrusted-server tests) Set **Custom Certificate Bundle Path** to a folder with a lab CA PEM file: [CONFIG_MBEDTLS_CUSTOM_CERTIFICATE_BUNDLE_PATH](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-custom-certificate-bundle-path). Use `.pem` or `.der` extensions only, as documented in [ESP x509 Certificate Bundle](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/protocols/esp_crt_bundle.html).
+5. Open **Serial flasher config → Flash size** and select **4 MB**.
+6. Open **Partition Table** and select **Single factory app (large), no OTA**. This gives the application a 1.5 MB partition instead of the default 1 MB partition.
 
-Save the configuration and build the project:
+Save the configuration. Add these settings to `sdkconfig.defaults` in the project root so they survive a clean configuration:
+
+```ini
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+```
+
+Then build the project:
 
 {{< tabs group="workflow" >}}
   {{< tab label="CLI" >}}
@@ -70,7 +83,7 @@ CLion instructions will be added soon.
   {{< /tab >}}
 {{< /tabs >}}
 
-Confirm the project still fits your flash budget after the bundle is linked.
+Confirm that the build reports the application fits in the 1.5 MB factory partition.
 
 ## Step 2: Connect with server authentication
 
@@ -128,7 +141,7 @@ The stock **https_mbedtls** example does **not** implement mTLS. This step is op
 If your instructor assigns it:
 
 1. Read [One-way TLS vs mutual TLS](../lecture-1/#one-way-tls-vs-mutual-tls-mtls) in Lecture 1.
-2. Follow ESP-IDF guidance for client certificates (for example [ESP-TLS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_tls.html) or mbedTLS `mbedtls_ssl_conf_own_cert` with PEM buffers embedded at build time).
+2. Follow ESP-IDF guidance for client certificates (for example [ESP-TLS](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/protocols/esp_tls.html) or mbedTLS `mbedtls_ssl_conf_own_cert` with PEM buffers embedded at build time).
 3. Use **demonstration** client cert and key from your instructor. Store keys in encrypted NVS in real products ([Lecture 2](../lecture-2)).
 
 ## What you learned

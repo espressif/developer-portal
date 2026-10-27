@@ -11,7 +11,7 @@ showAuthor: false
 
 If an attacker can replace the bootloader or application in flash, they can run arbitrary code: bypass your TLS stack, exfiltrate [encrypted NVS](../lecture-2) after boot, or impersonate your device on the network. **Secure Boot V2** checks **digital signatures** on the second-stage bootloader and on each application image before execution, using **RSA-PSS** and public-key digests stored in eFuses.
 
-[Assignment 3](../assignment-3) walks through the ESP-IDF enablement flow on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1: generate a development signing key, build signed images, watch the bootloader burn the key digest on first boot in the ESP32 emulator, and confirm that tampered firmware is rejected. Primary reference: [Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html).
+[Assignment 3](../assignment-3) walks through the ESP-IDF enablement flow on the ESP32-S31-Function-CoreBoard-1 with ESP-IDF v6.1: generate a development signing key, build signed images, watch the bootloader burn the key digest on first boot in the ESP32 emulator, and confirm that tampered firmware is rejected. Primary reference: [Secure Boot v2 (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html).
 
 ## Learning objectives
 
@@ -38,7 +38,7 @@ Secure Boot answers: *“Is this image cryptographically approved by keys I trus
 
 ## Boot chain on ESP32-S31
 
-See [ESP-IDF startup flow](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-guides/startup.html) for full detail. At a high level:
+See [ESP-IDF startup flow](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-guides/startup.html) for full detail. At a high level:
 
 | Stage | Role in Secure Boot V2 |
 |-------|-------------------------|
@@ -46,11 +46,45 @@ See [ESP-IDF startup flow](https://docs.espressif.com/projects/esp-idf/en/latest
 | Second-stage bootloader | Verifies **application** (and OTA slot) signatures before jump to app |
 | Application | Runs only after verification; ESP-IDF runs `esp_secure_boot_init_checks()` automatically at startup to check the Secure Boot eFuses and, by default, revoke unused digest slots |
 
+```mermaid
+flowchart TD
+    subgraph release [Before the device boots]
+        PrivateKey["Private signing key<br>kept off the device"]
+        SignedBootloader["Signed bootloader"]
+        SignedApp["Signed application or OTA update"]
+        PrivateKey -->|"sign"| SignedBootloader
+        PrivateKey -->|"sign"| SignedApp
+    end
+
+    subgraph device [Every device boot]
+        Reset["Reset"]
+        Digest["Trusted public-key digest<br>read-only eFuse"]
+        Rom["1. Immutable ROM<br>verify the bootloader"]
+        Bootloader["2. Verified bootloader<br>verify the selected app"]
+        App["3. Verified application<br>start app_main"]
+        Stop["Reject and stop"]
+        OtherSlot["Reject app<br>try another OTA slot or stop"]
+
+        Reset --> Rom
+        Digest --> Rom
+        Rom -->|"valid and trusted"| Bootloader
+        Rom -->|"invalid or untrusted"| Stop
+        Digest --> Bootloader
+        Bootloader -->|"valid and trusted"| App
+        Bootloader -->|"invalid or untrusted"| OtherSlot
+    end
+
+    SignedBootloader --> Rom
+    SignedApp --> Bootloader
+```
+
+The private key never belongs on the device. Each signature block carries the public key and signature; the verifier hashes that public key material and accepts it only when the result matches a non-revoked digest in eFuse. The chain is fail-closed: untrusted code is rejected before it executes.
+
 The ROM image is not signed; trust starts from ROM code plus eFuse policy. Everything **you can update in flash** that affects execution must pass verification once Secure Boot is enabled.
 
 ## Secure Boot V2 process
 
-ESP32-S31 implements [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#secure-boot-v2-process) with **RSA-3072** and **RSA-PSS** (RFC 8017). Each signed image has one or more **signature blocks** appended (up to **three** per image). Each block contains the image digest, the public key material, and the signature.
+ESP32-S31 implements [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#secure-boot-v2-process) with **RSA-3072** and **RSA-PSS** (RFC 8017). Each signed image has one or more **signature blocks** appended (up to **three** per image). Each block contains the image digest, the public key material, and the signature.
 
 Verification (simplified):
 
@@ -61,7 +95,7 @@ Verification (simplified):
 
 The same format applies to bootloader and application binaries. OTA updates re-use this path in production: a bad image should not become the running firmware. The hands-on track covers Secure Boot in [Assignment 3](../assignment-3); signed OTA with app rollback is the optional [Assignment 5](../assignment-5), and anti-rollback is covered in ESP-IDF docs and the [real-board appendix](../appendix-production-provisioning).
 
-Detailed steps: [Verifying a signature block](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#verifying-a-signature-block) and [Verifying an image](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#verifying-an-image).
+Detailed steps: [Verifying a signature block](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#verifying-a-signature-block) and [Verifying an image](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#verifying-an-image).
 
 ## Keys, signing, and eFuses
 
@@ -73,22 +107,22 @@ Three concepts often get conflated:
 | **Signature block(s)** | Appended to bootloader/app in flash | Supplies public key + signature for verification |
 | **Public-key digest** | eFuse block with purpose `SECURE_BOOT_DIGEST0` … `SECURE_BOOT_DIGEST2` | Trust anchor: only keys whose digest matches may boot |
 
-On ESP32-S31, the digest is a **SHA-256** hash over part of the signature block (see [eFuse usage](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#efuse-usage)). Digests must be **write-protected** and **readable** (read-protect breaks verification).
+On ESP32-S31, the digest is a **SHA-256** hash over part of the signature block (see [eFuse usage](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#efuse-usage)). Digests must be **write-protected** and **readable** (read-protect breaks verification).
 
-**Key management** (production): use one to three independent key pairs; sign apps with a single active private key; revoke unused digest slots with `KEY_REVOKEX` so an attacker cannot add a new trusted key later. See [Key management](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#key-management) and [Key revocation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#secure-boot-v2-key-revocation).
+**Key management** (production): use one to three independent key pairs; sign apps with a single active private key; revoke unused digest slots with `KEY_REVOKEX` so an attacker cannot add a new trusted key later. See [Key management](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#key-management) and [Key revocation](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#secure-boot-v2-key-revocation).
 
 ESP-IDF build helpers (wrappers around `espsecure`):
 
 - `idf.py secure-generate-signing-key` or `espsecure generate-signing-key --version 2 --scheme rsa3072 …`
-- Signed builds attach blocks automatically when [CONFIG_SECURE_BOOT_BUILD_SIGNED_BINARIES](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-build-signed-binaries) is enabled
+- Signed builds attach blocks automatically when [CONFIG_SECURE_BOOT_BUILD_SIGNED_BINARIES](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-boot-build-signed-binaries) is enabled
 - Inspect signatures: `espsecure signature-info-v2` on a signed binary
 
-Manufacturing may use **menuconfig-first** enablement ([How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2)) or an **external** workflow ([Enable Secure Boot v2 externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-secure-boot-v2-externally)) with manual digest burn and `espsecure sign-data`.
+Manufacturing may use **menuconfig-first** enablement ([How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2)) or an **external** workflow ([Enable Secure Boot v2 externally](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-secure-boot-v2-externally)) with manual digest burn and `espsecure sign-data`.
 
 > [!NOTE]
-> Enabling [CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-boot) changes flashing: `idf.py flash` does **not** flash the bootloader. Flash the signed bootloader separately with `idf.py bootloader-flash`, or with the `esptool write-flash` command printed by `idf.py bootloader` (offset `0x2000` on ESP32-S31).
+> Enabling [CONFIG_SECURE_BOOT](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-boot) changes flashing: `idf.py flash` does **not** flash the bootloader. Flash the signed bootloader separately with `idf.py bootloader-flash`, or with the `esptool write-flash` command printed by `idf.py bootloader` (offset `0x2000` on ESP32-S31).
 >
-> The signed bootloader is also larger. On ESP32-S31 it sits between `0x2000` and the partition table, which leaves only 24 KB at the default offset of `0x8000`. Raise [CONFIG_PARTITION_TABLE_OFFSET](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-partition-table-offset) and move the partitions in your CSV accordingly. The workshop layout uses `0x10000`, which also leaves room for flash encryption in Assignment 4.
+> The signed bootloader is also larger. On ESP32-S31 it sits between `0x2000` and the partition table, which leaves only 24 KB at the default offset of `0x8000`. Raise [CONFIG_PARTITION_TABLE_OFFSET](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-partition-table-offset) and move the partitions in your CSV accordingly. The workshop layout uses `0x10000`, which also leaves room for flash encryption in Assignment 4.
 
 ## Relation to other workshop topics
 
@@ -118,7 +152,7 @@ Each image you load in the browser starts on a blank chip, so nothing is permane
 
 ### Production path (appendix)
 
-Hardware Secure Boot burns key digests, enables `SECURE_BOOT_EN`, and may revoke unused digest slots. UART download mode and debug policies are often restricted at the same time. That is **irreversible** on real silicon. Follow the [real-board appendix](../appendix-production-provisioning) and [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html) on hardware you are ready to give up, not on workshop kits.
+Hardware Secure Boot burns key digests, enables `SECURE_BOOT_EN`, and may revoke unused digest slots. UART download mode and debug policies are often restricted at the same time. That is **irreversible** on real silicon. Follow the [real-board appendix](../appendix-production-provisioning) and [Security Features Enablement Workflows (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html) on hardware you are ready to give up, not on workshop kits.
 
 > [!WARNING]
 > Enabling hardware Secure Boot and programming or protecting **real** eFuses is irreversible. In class, run Secure Boot firmware only in the emulator. Never flash it to participant boards or run `espefuse burn` on them.
@@ -139,10 +173,10 @@ For CRA timelines, reporting duties, and conformity steps, use the overview and 
 ## Before Assignment 3
 
 - Target: `idf.py --preview set-target esp32s31`
-- Read [How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2) once before changing **Security features** in menuconfig
+- Read [How to enable Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html#how-to-enable-secure-boot-v2) once before changing **Security features** in menuconfig
 - The partition table from Assignment 2, at offset `0x10000`, already fits the larger signed bootloader
 - Open the [ESP32 emulator](https://espressif.github.io/esp-emulator/); for the optional rejection tests, install the native `esp-emu` tool from the [esp-emulator repository](https://github.com/espressif/esp-emulator)
-- Generate a **lab-only** signing key; add `*.pem` to `.gitignore` and never commit private keys
+- Generate a **lab-only** signing key; add `secure_boot_signing_key.pem` to `.gitignore` and never commit private keys
 
 ## Navigation
 

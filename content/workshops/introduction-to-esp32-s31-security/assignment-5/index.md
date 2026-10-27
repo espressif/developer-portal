@@ -12,15 +12,17 @@ showAuthor: false
 > [!NOTE]
 > This assignment is **optional**. Do it if you finished Assignment 4 early, or later at home. The [Conclusion](../conclusion) does not depend on it.
 
-After Assignment 4, the firmware has TLS, encrypted NVS, Secure Boot V2, and flash encryption in release mode. Serial flashing is now disabled, so the only way to change the firmware of a deployed device is an update over the air, and every update is a chance for an attacker to install their own firmware. Here you add **over-the-air (OTA) updates** to the same project and check that the update path keeps the guarantees you built so far:
+After Assignment 4, the firmware has TLS, encrypted NVS, Secure Boot V2, and flash encryption in release mode. Serial flashing is now disabled, so the only way to change the firmware of a deployed device is an update over the air, and every update is a chance for an attacker to install their own firmware. Here you add **over-the-air (OTA) updates** and check that the update path keeps the guarantees you built so far:
 
 - The image is downloaded over **HTTPS**, and the device checks the server certificate.
-- The device installs the image only if it is **signed** with your Secure Boot key. With Secure Boot enabled, ESP-IDF turns on [CONFIG_SECURE_SIGNED_ON_UPDATE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-signed-on-update), so the app verifies the signature against the trusted Secure Boot digest before it switches partitions.
-- If a new image fails its self-test, the bootloader **rolls back** to the previous one ([App Rollback](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html#app-rollback)).
+- The device installs the image only if it is **signed** with your Secure Boot key. With Secure Boot enabled, ESP-IDF turns on [CONFIG_SECURE_SIGNED_ON_UPDATE](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-signed-on-update), so the app verifies the signature against the trusted Secure Boot digest before it switches partitions.
+- If a new image fails its self-test, the bootloader **rolls back** to the previous one ([App Rollback](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/system/ota.html#app-rollback)).
 
 ## Before you begin
 
-**Starting point:** Assignment 4 complete in the same project.
+**Prepared project (recommended):** use the complete [Assignment 5 project](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/introduction-to-esp32-s31-security/code-examples/assignment-5) from the [workshop project setup](../introduction/#get-the-workshop-projects). From the `code-examples` directory, run `scripts/prepare-assignment.sh 5`, then `cd assignment-5`. The preparation script creates the ignored development signing key and matching local OTA certificate pair.
+
+For the manual cumulative route, continue in your completed Assignment 4 project and apply each change below.
 
 This assignment runs in the **native `esp-emu`** tool instead of the browser emulator, for two reasons:
 
@@ -28,7 +30,7 @@ This assignment runs in the **native `esp-emu`** tool instead of the browser emu
 - The emulated device must reach an HTTPS server on your computer. With `--net user`, the address `192.168.4.1` inside the emulator reaches `127.0.0.1` on your computer.
 
 > [!WARNING]
-> **Do not flash these images to your board.** They permanently enable Secure Boot and flash encryption in release mode. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
+> **Physically disconnect the board by unplugging its USB cable, and keep it disconnected. Do not flash these images to real hardware.** They permanently enable Secure Boot and flash encryption in release mode. Run them only in the native emulator. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
 
 **What you need:**
 
@@ -57,7 +59,7 @@ CLion instructions will be added soon.
   {{< /tab >}}
 {{< /tabs >}}
 
-2. Under **Bootloader config → Application Rollback**, enable **Enable app rollback support** ([CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-rollback-enable)).
+2. Under **Bootloader config → Application Rollback**, enable **Enable app rollback support** ([CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-rollback-enable)).
 3. Leave **Enable app anti-rollback support** off. The next section explains what it does.
 4. Save, exit, and add to `sdkconfig.defaults`:
 
@@ -65,21 +67,21 @@ CLion instructions will be added soon.
 CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
 ```
 
-The bootloader stays at `0xC000` bytes, and the app fits in the `0x1C0000` OTA slots with about 35% free.
+Check the build output and confirm that the bootloader still fits below the partition table at `0x10000` and that the app fits in the `0x1C0000` OTA slots. Rollback support can increase the bootloader size.
 
 ### Anti-rollback: what it adds
 
 Rollback and anti-rollback solve different problems:
 
 - **Rollback** protects the device from a **broken** update: if a new image does not confirm itself, the bootloader goes back to the previous one.
-- **Anti-rollback** protects the device from an **old** image ([Anti-rollback](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html#anti-rollback)). Secure Boot does not stop a downgrade: a version with a known vulnerability is still signed with your key, so it passes the signature check. Anti-rollback stops the device from booting it.
+- **Anti-rollback** protects the device from an **old** image ([Anti-rollback](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/system/ota.html#anti-rollback)). Secure Boot does not stop a downgrade: a version with a known vulnerability is still signed with your key, so it passes the signature check. Anti-rollback stops the device from booting it.
 
 **How it works.** Each image carries two version numbers:
 
 | Version | Set by | Used for |
 |---------|--------|----------|
 | App version, for example `1.0.1` | `PROJECT_VER` | Information only. This assignment's code compares it to decide whether to download. |
-| Secure version, an integer | [CONFIG_BOOTLOADER_APP_SECURE_VERSION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-secure-version) | Anti-rollback. Stored in the image header (`esp_app_desc_t.secure_version`) and covered by the signature. |
+| Secure version, an integer | [CONFIG_BOOTLOADER_APP_SECURE_VERSION](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-secure-version) | Anti-rollback. Stored in the image header (`esp_app_desc_t.secure_version`) and covered by the signature. |
 
 The SoC keeps the minimum accepted secure version in the `SECURE_VERSION` eFuse field, as a count of burned bits. eFuse bits can only go from 0 to 1, so the value can only increase.
 
@@ -90,7 +92,7 @@ The SoC keeps the minimum accepted secure version in the `SECURE_VERSION` eFuse 
 
 **Limits:**
 
-- The `SECURE_VERSION` field has 16 bits on ESP32-S31 (9 on ESP32-C5), so the secure version can be raised at most 16 times in the life of the device. Raise it only for releases that fix a security issue, not for every release. [CONFIG_BOOTLOADER_APP_SEC_VER_SIZE_EFUSE_FIELD](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-sec-ver-size-efuse-field) sets how many of those bits ESP-IDF uses.
+- The `SECURE_VERSION` field has 16 bits on ESP32-S31 (9 on ESP32-C5), so the secure version can be raised at most 16 times in the life of the device. Raise it only for releases that fix a security issue, not for every release. [CONFIG_BOOTLOADER_APP_SEC_VER_SIZE_EFUSE_FIELD](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-sec-ver-size-efuse-field) sets how many of those bits ESP-IDF uses.
 - Anti-rollback needs app rollback, and it does not support `factory` or `test` partitions. The shared layout already meets both requirements.
 - Anti-rollback makes the bootloader larger. Check that it still fits below the partition table at `0x10000`.
 
@@ -98,7 +100,7 @@ The SoC keeps the minimum accepted secure version in the `SECURE_VERSION` eFuse 
 
 | Option | Purpose |
 |--------|---------|
-| **Enable app anti-rollback support** ([CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-anti-rollback)) | Turns on the secure version check in the bootloader |
+| **Enable app anti-rollback support** ([CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-anti-rollback)) | Turns on the secure version check in the bootloader |
 | **eFuse secure version of app** | The secure version written into this build's image |
 | **Size of the efuse secure version field** | How many eFuse bits ESP-IDF uses for the counter |
 
@@ -516,13 +518,13 @@ W (...) workshop_ota: Version 1.0.2 was rolled back before, skipping it
 
 Read:
 
-- [Over The Air Updates (OTA)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html), in particular [Anti-rollback](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html#anti-rollback)
-- [ESP HTTPS OTA](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/esp_https_ota.html)
+- [Over The Air Updates (OTA)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/system/ota.html), in particular [Anti-rollback](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/system/ota.html#anti-rollback)
+- [ESP HTTPS OTA](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/system/esp_https_ota.html)
 - [Real-board appendix](../appendix-production-provisioning)
 
 Note for your technical file:
 
-- **Anti-rollback:** enable [CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-anti-rollback) and raise [CONFIG_BOOTLOADER_APP_SECURE_VERSION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-secure-version) when a release fixes a security issue. Each increase burns eFuse bits, and the field has a limited number of bits. Decide the policy before the first release.
+- **Anti-rollback:** enable [CONFIG_BOOTLOADER_APP_ANTI_ROLLBACK](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-anti-rollback) and raise [CONFIG_BOOTLOADER_APP_SECURE_VERSION](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-bootloader-app-secure-version) when a release fixes a security issue. Each increase burns eFuse bits, and the field has a limited number of bits. Decide the policy before the first release.
 - **Signing:** sign release images in a controlled environment, such as an offline machine or an HSM, never on developer laptops. Plan key rotation and revocation: the first boot revoked the unused Secure Boot digest slots, so add the extra keys before that if you need them.
 - **Server identity:** use a CA you control or a public CA, and decide how devices will receive a new CA certificate before the current one expires.
 - **Self-test:** confirm a new image only after the checks that matter for your product, such as cloud connectivity, and keep the self-test short to limit rollbacks caused by power loss.
@@ -531,7 +533,7 @@ Note for your technical file:
 
 | Test | Action | Expected |
 |------|--------|----------|
-| Bootloader fits | Step 1 | `0xc000` bootloader with rollback, below the partition table at `0x10000` |
+| Bootloader fits | Step 1 | Build succeeds with rollback enabled and the bootloader below the partition table at `0x10000` |
 | First version | Step 5 | Boots from `ota_0`, version 1.0.0; Assignment 4 checks still pass |
 | Signed update | Step 6 | Signature verified, boots from `ota_1`, version 1.0.1 confirmed |
 | Unsigned image | Step 7 | `Image rejected`; still running 1.0.1 |

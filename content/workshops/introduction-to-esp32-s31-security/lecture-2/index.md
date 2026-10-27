@@ -9,9 +9,9 @@ showAuthor: false
 
 ## Secure storage with HMAC-based NVS encryption
 
-Products store Wi-Fi credentials, tokens, calibration, and user settings in [NVS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_flash.html). Plain NVS is readable from flash if an attacker dumps the partition. **NVS encryption** keeps values confidential on the medium; your app still uses the normal `nvs_set_*` / `nvs_get_*` APIs after initialization.
+Products store Wi-Fi credentials, tokens, calibration, and user settings in [NVS](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_flash.html). Plain NVS is readable from flash if an attacker dumps the partition. **NVS encryption** keeps values confidential on the medium; your app still uses the normal `nvs_set_*` / `nvs_get_*` APIs after initialization.
 
-This lecture follows the ESP-IDF example [`nvs_encryption_hmac`](https://github.com/espressif/esp-idf/tree/master/examples/security/nvs_encryption_hmac), which uses the **HMAC peripheral scheme**: the XTS keys for NVS are **derived at runtime** from an HMAC key stored in a **real eFuse key block**. You do not need a separate `nvs_keys` partition, and you do **not** need flash encryption enabled for this path. See [NVS Encryption: HMAC peripheral-based scheme (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html#nvs-encryption-hmac-peripheral-based-scheme).
+This lecture follows the ESP-IDF example [`nvs_encryption_hmac`](https://github.com/espressif/esp-idf/tree/master/examples/security/nvs_encryption_hmac), which uses the **HMAC peripheral scheme**: the XTS keys for NVS are **derived at runtime** from an HMAC key stored in a **real eFuse key block**. You do not need a separate `nvs_keys` partition, and you do **not** need flash encryption enabled for this path. See [NVS Encryption: HMAC peripheral-based scheme (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_encryption.html#nvs-encryption-hmac-peripheral-based-scheme).
 
 [Assignment 2](../assignment-2) applies the same NVS configuration to the **https_mbedtls** project from Assignment 1, so the lab Wi-Fi SSID and password are stored in encrypted NVS.
 
@@ -25,7 +25,7 @@ By the end of this lecture, you should be able to:
 - Explain what NVS encryption protects (and what remains visible, such as page headers and partition layout)
 - Describe how the HMAC key in eFuse relates to the derived NVS encryption keys
 - Outline the `nvs_encryption_hmac` flow: default `nvs` partition plus a custom encrypted partition
-- Configure [CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-hmac-efuse-key-id) and interpret first-boot and later-boot logs
+- Configure [CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-hmac-efuse-key-id) and interpret first-boot and later-boot logs
 - Contrast this lab with [Lecture 4](../lecture-4) flash encryption (whole-flash confidentiality)
 - Compare the HMAC scheme with the flash encryption-based scheme, and explain why the HMAC key must be burned before Secure Boot or flash encryption is enabled
 
@@ -44,16 +44,32 @@ XTS-AES encrypts all NVS data **except the page headers**, so the partition layo
 
 ## HMAC scheme in ESP-IDF
 
-Two keys are involved (see [Enable NVS encryption based on HMAC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-nvs-encryption-based-on-hmac)):
+Two keys are involved (see [Enable NVS encryption based on HMAC](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-nvs-encryption-based-on-hmac)):
 
 | Key | Where it lives | Role |
 |-----|----------------|------|
 | HMAC key (256-bit) | eFuse key block with purpose `HMAC_UP`, read-protected | Root for derivation; one block per device |
 | NVS encryption (XTS) keys | Derived at runtime, never stored in flash | Encrypt NVS entries in the partition |
 
-The [nvs_sec_provider](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html#nvs-security-provider) component registers the HMAC-based scheme at startup when [CONFIG_NVS_ENCRYPTION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-encryption) is enabled and [CONFIG_NVS_SEC_KEY_PROTECTION_SCHEME](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protection-scheme) is set to `CONFIG_NVS_SEC_KEY_PROTECT_USING_HMAC`. You will see `NVS Encryption - Registering HMAC-based scheme...` early in the boot log.
+```mermaid
+flowchart LR
+    App["Application<br>reads and writes settings"]
+    HmacKey["1. HMAC root key<br>read-protected eFuse"]
+    DerivedKeys["2. Derive two NVS keys<br>again on every boot"]
+    NvsEngine["3. NVS encrypts or decrypts<br>each entry"]
+    NvsPartition["4. nvs partition in flash<br>ciphertext entries"]
 
-[`nvs_flash_init()`](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_flash.html#_CPPv414nvs_flash_initv) then checks the eFuse block selected by `CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID`:
+    HmacKey -->|"HMAC with two fixed seeds"| DerivedKeys
+    DerivedKeys -->|"runtime only"| NvsEngine
+    App <--> NvsEngine
+    NvsEngine <--> NvsPartition
+```
+
+The HMAC peripheral performs two calculations with different fixed seeds, producing independent XTS encryption and tweak keys. The read-protected `HMAC_UP` key cannot be read by software, and the derived XTS keys are recreated at runtime rather than stored in flash. This scheme therefore has no `nvs_keys` partition.
+
+The [nvs_sec_provider](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_encryption.html#nvs-security-provider) component registers the HMAC-based scheme at startup when [CONFIG_NVS_ENCRYPTION](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-nvs-encryption) is enabled and [CONFIG_NVS_SEC_KEY_PROTECTION_SCHEME](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protection-scheme) is set to `CONFIG_NVS_SEC_KEY_PROTECT_USING_HMAC`. You will see `NVS Encryption - Registering HMAC-based scheme...` early in the boot log.
+
+[`nvs_flash_init()`](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_flash.html#_CPPv414nvs_flash_initv) then checks the eFuse block selected by `CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID`:
 
 - **Block empty:** a random 256-bit key is generated on the SoC and burned with purpose `HMAC_UP`. The key block is read-protected, so software cannot read the key back.
 - **Block already holds an `HMAC_UP` key** (pre-burned or from an earlier boot): that key is used.
@@ -101,7 +117,7 @@ Many products use **both**: flash encryption for firmware and bulk storage, and 
 
 ## Two NVS encryption schemes
 
-ESP-IDF offers two ways to protect the NVS encryption keys ([NVS Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html)):
+ESP-IDF offers two ways to protect the NVS encryption keys ([NVS Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_encryption.html)):
 
 | | HMAC peripheral scheme | Flash encryption-based scheme |
 |--|------------------------|-------------------------------|
@@ -111,6 +127,33 @@ ESP-IDF offers two ways to protect the NVS encryption keys ([NVS Encryption (ESP
 | Needs flash encryption | No | Yes |
 | eFuse key block | One, purpose `HMAC_UP` | None beyond the flash encryption key |
 | Used in the workshop | [Assignment 2](../assignment-2) | [Assignment 4](../assignment-4) |
+
+The flash encryption-based scheme stores the NVS XTS keys instead of deriving them on every boot:
+
+```mermaid
+flowchart LR
+    Random["1. First boot<br>generate two NVS keys"]
+    NewKeys["Plaintext NVS keys<br>inside the chip"]
+    FlashKey["Flash-encryption key<br>read-protected eFuse"]
+    FlashEngine["Flash encryption<br>hardware"]
+    NvsKeysPartition["2. nvs_keys partition<br>encrypted keys in flash"]
+    LoadedKeys["3. Later boots<br>recover NVS keys inside the chip"]
+    NvsEngine["4. NVS encrypts or decrypts<br>each entry"]
+    NvsPartition["5. nvs partition in flash<br>ciphertext entries"]
+    App["Application<br>reads and writes settings"]
+
+    Random --> NewKeys
+    NewKeys -->|"store through hardware"| FlashEngine
+    FlashKey --> FlashEngine
+    FlashEngine --> NvsKeysPartition
+    NvsKeysPartition -->|"read through hardware"| FlashEngine
+    FlashEngine --> LoadedKeys
+    LoadedKeys --> NvsEngine
+    App <--> NvsEngine
+    NvsEngine <--> NvsPartition
+```
+
+These are two encryption layers with different jobs. Flash encryption protects the `nvs_keys` partition at rest. The keys recovered from that partition are then used by NVS to encrypt entries in the `nvs` partition, which is why `nvs_keys` carries the partition-table `encrypted` flag but `nvs` does not.
 
 ### eFuse burn order
 
@@ -123,7 +166,7 @@ The HMAC key must therefore be in eFuse **before** the first boot of firmware wi
 The HMAC key can reach the eFuse block in two ways:
 
 - **First-boot generation:** flash firmware with the block empty and let `nvs_flash_init()` generate and burn the key. No key material ever leaves the SoC. This is the path used in Assignment 2. It only works while Secure Boot and flash encryption are not yet enabled (see [eFuse burn order](#efuse-burn-order)).
-- **Pre-burned key:** program a key you generated on the host before flashing the app. This is useful when manufacturing needs to know the key, for example to pre-generate encrypted NVS images with the [NVS Partition Generator](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_partition_gen.html). Use either command, with the block matching `CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID`:
+- **Pre-burned key:** program a key you generated on the host before flashing the app. This is useful when manufacturing needs to know the key, for example to pre-generate encrypted NVS images with the [NVS Partition Generator](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_partition_gen.html). Use either command, with the block matching `CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID`:
 
   ```bash
   idf.py -p PORT efuse-burn-key BLOCK_KEY0 hmac_key_file.bin HMAC_UP
@@ -141,7 +184,7 @@ Things to know before you burn:
 - Record which block holds the HMAC key. Later features (Secure Boot digests, flash encryption keys, digital signature keys) need their own free blocks.
 - Check the current state with `idf.py -p PORT efuse-summary` before choosing a block.
 
-For production line steps and risks, see [Enable NVS encryption based on HMAC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-nvs-encryption-based-on-hmac) and the [real-board appendix](../appendix-production-provisioning).
+For production line steps and risks, see [Enable NVS encryption based on HMAC](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-nvs-encryption-based-on-hmac) and the [real-board appendix](../appendix-production-provisioning).
 
 ## CRA and product evidence
 

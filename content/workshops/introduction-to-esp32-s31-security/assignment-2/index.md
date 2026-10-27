@@ -17,7 +17,9 @@ From this assignment on, you run the firmware in the [ESP32 emulator](https://es
 
 ## Before you begin
 
-**Starting point:** Assignment 1 complete in the same project (certificate bundle enabled, Wi-Fi set under **Example Connection Configuration**). Do not run `set-target` again: it resets `sdkconfig`.
+**Prepared project (recommended):** use the complete [Assignment 2 project](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/introduction-to-esp32-s31-security/code-examples/assignment-2) from the [workshop project setup](../introduction/#get-the-workshop-projects). From the `code-examples` directory, run `cd assignment-2`. The steps below explain the supplied partition table, source, configuration, and verification flow.
+
+For the manual cumulative route, continue in your completed Assignment 1 project and apply each change below. Do not run `set-target` again in that same project because it resets `sdkconfig`.
 
 > [!WARNING]
 > **Do not flash this firmware to your board.** On first boot it permanently burns an HMAC key into eFuse block `BLOCK_KEY0`. Run it only in the emulator. See [Lab safety and the ESP32 emulator](../introduction/#lab-safety-and-the-esp32-emulator).
@@ -47,7 +49,9 @@ The table below reserves room for everything the later labs add: a larger bootlo
    ota_1,    app,  ota_1,    0x1E0000, 0x1C0000,
    ```
 
-2. Add these lines to `sdkconfig.defaults` in the project root (create the file if it does not exist):
+2. Open the project configuration with `idf.py menuconfig`. Keep **Serial flasher config → Flash size** at **4 MB**. Under **Partition Table**, select **Custom partition table CSV**, set the filename to `partitions.csv`, and set the partition table offset to `0x10000`.
+
+3. In `sdkconfig.defaults`, replace `CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y` from Assignment 1 with the custom partition settings below. Keep the 4 MB flash setting:
 
    ```ini
    CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
@@ -58,7 +62,7 @@ The table below reserves room for everything the later labs add: a larger bootlo
 
 How the layout fits together:
 
-- The bootloader starts at `0x2000`. Moving the partition table to `0x10000` leaves it up to `0xE000` bytes. With Secure Boot and flash encryption, the Assignment 4 bootloader is `0xC000` bytes.
+- The bootloader starts at `0x2000`. Moving the partition table to `0x10000` leaves up to `0xE000` bytes for it, including room for the security features enabled in later assignments.
 - `storage` and `nvs_keys` are marked `encrypted`. They take effect in Assignment 4; until flash encryption is on, the flag has no effect.
 - There is no `factory` partition. With an empty `otadata`, the bootloader starts the app from `ota_0`.
 - The emulator flash is 4 MB, so the project uses 4 MB even though the module on your board has more.
@@ -82,10 +86,10 @@ CLion instructions will be added soon.
 
 Then:
 
-1. Open **Component config → NVS** and enable **Enable NVS encryption** ([CONFIG_NVS_ENCRYPTION](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-encryption)).
+1. Open **Component config → NVS** and enable **Enable NVS encryption** ([CONFIG_NVS_ENCRYPTION](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-nvs-encryption)).
 2. Open **Component config → NVS Security Provider** (visible only after the previous step).
-3. Confirm **NVS Encryption: Key Protection Scheme** is **Using HMAC peripheral** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_HMAC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-hmac)). This is the default on the ESP32-S31.
-4. Set **eFuse key ID storing the HMAC key** to **`0`** ([CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-hmac-efuse-key-id)).
+3. Confirm **NVS Encryption: Key Protection Scheme** is **Using HMAC peripheral** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_HMAC](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-hmac)). This is the default on the ESP32-S31.
+4. Set **eFuse key ID storing the HMAC key** to **`0`** ([CONFIG_NVS_SEC_HMAC_EFUSE_KEY_ID](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-hmac-efuse-key-id)).
 5. Open **Example Connection Configuration** and set **WiFi SSID** to `myssid` and **WiFi Password** to `mypassword`.
 
 Add the same settings to `sdkconfig.defaults` so the configuration survives a clean rebuild:

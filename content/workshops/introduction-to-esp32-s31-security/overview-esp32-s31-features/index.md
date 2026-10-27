@@ -40,13 +40,13 @@ The table below ties SoC interfaces to this workshop:
 |------|----------------------|----------------------------|
 | USB | USB 2.0 HS OTG + USB Serial/JTAG | Flashing, debug, and optional device-mode workflows |
 | Ethernet | 1000 Mbps MAC (with external PHY on the board) | TLS over a stable wired link in Assignment 1 |
-| Wireless | Wi-Fi 6, Bluetooth 5.4, 802.15.4 | Wi-Fi path used in Assignments 1 to 3 |
+| Wireless | Wi-Fi 6, Bluetooth 5.4, 802.15.4 | Wi-Fi path used in Assignments 1 to 5 |
 | Storage | External flash and PSRAM | Targets for flash encryption and secure boot |
 | Multimedia | JPEG, PPA, I2S, codec-friendly design | Optional product features outside this security lab track |
 
 ## Security elements (overview)
 
-The [security features overview](../overview-security-features) covers these blocks in detail. The ESP32-S31 includes a cryptography and security component described in the [ESP-IDF security overview](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security.html):
+The [security features overview](../overview-security-features) covers these blocks in detail. The ESP32-S31 includes a cryptography and security component described in the [ESP-IDF security overview](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security.html):
 
 - Secure Boot and flash/PSRAM encryption for authenticity and confidentiality of code and data at rest
 - Hardware accelerators (AES, SHA, RSA, ECC, HMAC) and a True Random Number Generator (TRNG) for TLS and provisioning
@@ -141,10 +141,10 @@ Use these references while you work through the workshop:
 | [ESP32-S31-WROOM-3 Datasheet](https://documentation.espressif.com/esp32-s31-wroom-3_datasheet_en.html) | Module pinout, memory, and antenna information |
 | [ESP32-S31-Function-CoreBoard-1 user guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) | Board setup, connectors, and current measurement |
 | [ESP32-S31-Function-CoreBoard-1 schematic (PDF)](https://dl.espressif.com/schematics/esp32-s31-function-coreboard-1-schematics.pdf) | Net names and power paths for hardware debug |
-| [ESP-IDF: Security overview (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security.html) | How ESP-IDF maps SoC features to Secure Boot, flash encryption, and identity |
+| [ESP-IDF: Security overview (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security.html) | How ESP-IDF maps SoC features to Secure Boot, flash encryption, and identity |
 | [ESP Hardware Design Guidelines (ESP32-S31)](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32s31/product-overview.html) | Product-level integration and layout guidance |
 
-For a first flash and serial connection, follow [ESP-IDF Get Started for ESP32-S31](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/get-started/index.html).
+For a first flash and serial connection, follow [ESP-IDF Get Started for ESP32-S31](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/get-started/index.html).
 
 ## Navigation
 

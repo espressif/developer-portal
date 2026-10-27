@@ -11,7 +11,7 @@ showAuthor: false
 
 **TLS** authenticates the remote server and encrypts traffic in transit. [Assignment 1](../assignment-1) uses the ESP-IDF example [`https_mbedtls`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_mbedtls): an HTTPS client on the [ESP32-S31-Function-CoreBoard-1](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp32-s31-function-coreboard-1/user_guide.html) that calls **mbedTLS** directly (`mbedtls_ssl_*`, `mbedtls_net_*`), GETs `https://www.howsmyssl.com/a/check`, and prints the JSON response.
 
-Other examples wrap the same crypto in [ESP-TLS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_tls.html) (for example [`https_request`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_request)). We use **https_mbedtls** so the handshake and certificate checks stay visible in one source file.
+Other examples wrap the same crypto in [ESP-TLS](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/protocols/esp_tls.html) (for example [`https_request`](https://github.com/espressif/esp-idf/tree/master/examples/protocols/https_request)). We use **https_mbedtls** so the handshake and certificate checks stay visible in one source file.
 
 > [!NOTE]
 > Set `idf.py --preview set-target esp32s31` on **ESP-IDF v6.1** even if the example README target list does not yet name ESP32-S31. The ESP32-S31 is a preview target in ESP-IDF, so `set-target` needs the `--preview` option.
@@ -21,7 +21,7 @@ Other examples wrap the same crypto in [ESP-TLS](https://docs.espressif.com/proj
 By the end of this lecture, you should be able to:
 
 - Say what TLS protects on the network path (and what it does not)
-- Enable the [certificate bundle](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/esp_crt_bundle.html) and explain `esp_crt_bundle_attach()`
+- Enable the [certificate bundle](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/protocols/esp_crt_bundle.html) and explain `esp_crt_bundle_attach()`
 - Outline the flow in `https_mbedtls_example_main.c`: connect, handshake, verify, HTTP read
 - Relate hostname setting and verify mode to Assignment 1 failure tests
 
@@ -37,6 +37,33 @@ It does not fix a **compromised device**, a **bad trust store**, **disabled veri
 
 **`https_get_task`:** defaults to `www.howsmyssl.com:443`. In order: attach the cert bundle to the SSL config, set hostname, require peer verification, TCP connect, **handshake**, check **`mbedtls_ssl_get_verify_result`**, send a small HTTP GET, read the response. The task loops after a delay.
 
+### What the TLS handshake establishes
+
+```mermaid
+sequenceDiagram
+    participant Device as ESP32-S31
+    participant Server as HTTPS server
+
+    Device->>Server: 1. Hello: requested hostname and supported algorithms
+    Server-->>Device: 2. Certificate chain and key-exchange data
+    Device->>Device: 3. Is the certificate issued by a trusted CA?
+    Device->>Device: 4. Does its SAN match the requested hostname?
+    Note over Device: Stop if either check fails
+    Device->>Server: 5. Complete the key exchange
+    Server-->>Device: 6. Confirm the handshake
+    Note over Device,Server: Both sides now share temporary session keys
+    Device->>Server: 7. Encrypted and authenticated HTTP request
+    Server-->>Device: 8. Encrypted and authenticated HTTP response
+```
+
+TLS provides three different properties that must all succeed:
+
+- **Server identity:** the certificate chain ends at a CA in the bundle, and the certificate's SAN matches the hostname passed to `mbedtls_ssl_set_hostname()`.
+- **Confidentiality:** the handshake derives symmetric session keys, so observers cannot read the HTTP request or response.
+- **Integrity:** authenticated encryption detects changes to protected records. A modified record is rejected instead of delivered to the application.
+
+The CA bundle does not encrypt traffic by itself. It tells the device which certificate issuers to trust; the handshake authenticates the server and establishes the session keys.
+
 Look for `esp-x509-crt-bundle: Certificate validated`, `Certificate verified`, and a cipher suite line in the monitor. Sample output is in the example [README](https://github.com/espressif/esp-idf/blob/master/examples/protocols/https_mbedtls/README.md).
 
 ## Network setup (menuconfig)
@@ -47,9 +74,9 @@ The network needs **outbound TCP 443**. The baseline lab uses the public howsmys
 
 ## Trust anchors and the certificate bundle
 
-Public HTTPS servers chain to CAs. Enable **Component config → mbedTLS → Certificate Bundle** ([CONFIG_MBEDTLS_CERTIFICATE_BUNDLE](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-certificate-bundle)). In code, **`esp_crt_bundle_attach(&conf)`** supplies the roots.
+Public HTTPS servers chain to CAs. Enable **Component config → mbedTLS → Certificate Bundle** ([CONFIG_MBEDTLS_CERTIFICATE_BUNDLE](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-certificate-bundle)). In code, **`esp_crt_bundle_attach(&conf)`** supplies the roots.
 
-Optional: [CONFIG_MBEDTLS_CUSTOM_CERTIFICATE_BUNDLE_PATH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-custom-certificate-bundle-path) for a private CA or lab server. Products need a plan to **update** the bundle when CAs change.
+Optional: [CONFIG_MBEDTLS_CUSTOM_CERTIFICATE_BUNDLE_PATH](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-mbedtls-custom-certificate-bundle-path) for a private CA or lab server. Products need a plan to **update** the bundle when CAs change.
 
 ## Hostname and certificate verification
 
@@ -61,7 +88,7 @@ Certificate dates need a sensible clock; use SNTP before optional **expiry** tes
 
 ## One-way TLS vs mutual TLS (mTLS)
 
-This example is **one-way TLS** (client verifies the server only). **mTLS** adds a client certificate and is not in the stock project; Assignment 1 Step 4 is optional. See [Mbed TLS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/protocols/mbedtls.html) and ESP-TLS docs if you extend the lab.
+This example is **one-way TLS** (client verifies the server only). **mTLS** adds a client certificate and is not in the stock project; Assignment 1 Step 4 is optional. See [Mbed TLS](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/protocols/mbedtls.html) and ESP-TLS docs if you extend the lab.
 
 ## CRA relevance
 

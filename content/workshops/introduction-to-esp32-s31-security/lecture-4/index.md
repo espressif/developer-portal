@@ -11,7 +11,7 @@ showAuthor: false
 
 Offline access to external flash can expose firmware, file systems, and data partitions. **Flash encryption** uses **XTS-AES** in hardware so ciphertext is stored on the medium while the CPU sees decrypted content through the flash cache during normal operation. It complements [Secure Boot V2](../lecture-3) (authenticity) and [HMAC-based NVS encryption](../lecture-2) (structured secrets in NVS without requiring whole-flash encryption).
 
-[Assignment 4](../assignment-4) adds flash encryption in **release** mode to the same **https_mbedtls** project from Assignments 1 to 3 (TLS, NVS, Secure Boot V2) with ESP-IDF v6.1, and runs it in the ESP32 emulator, which encrypts the emulated flash as the chip would. Primary reference: [Flash Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html).
+[Assignment 4](../assignment-4) adds flash encryption in **release** mode to the same **https_mbedtls** project from Assignments 1 to 3 (TLS, NVS, Secure Boot V2) with ESP-IDF v6.1, and runs it in the ESP32 emulator, which encrypts the emulated flash as the chip would. Primary reference: [Flash Encryption (ESP32-S31)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/flash-encryption.html).
 
 ## Learning objectives
 
@@ -37,7 +37,7 @@ Flash encryption protects **confidentiality at rest** on the flash bus. Pair it 
 
 ## Encryption architecture (ESP32-S31)
 
-Hardware derives or loads an **XTS-AES** key into eFuse key blocks (`BLOCK_KEYN` with flash-encryption purpose). The **flash encryption block** encrypts and decrypts cache-mapped flash transparently. On ESP32-S31, `SPI_BOOT_CRYPT_CNT` records how many encryption enable cycles completed; an **odd** bit count means encryption is active ([Flash encryption process](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#flash-encryption-process)).
+Hardware derives or loads an **XTS-AES** key into eFuse key blocks (`BLOCK_KEYN` with flash-encryption purpose). The **flash encryption block** encrypts and decrypts cache-mapped flash transparently. On ESP32-S31, `SPI_BOOT_CRYPT_CNT` records how many encryption enable cycles completed; an **odd** bit count means encryption is active ([Flash encryption process](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/flash-encryption.html#flash-encryption-process)).
 
 What typically gets encrypted on first boot after enablement:
 
@@ -47,8 +47,33 @@ What typically gets encrypted on first boot after enablement:
 
 Partitions without the flag remain plaintext on the wire unless other layers (such as NVS entry encryption) apply.
 
+```mermaid
+flowchart TD
+    PlainImage["1. Factory writes<br>plaintext firmware"]
+    FirstBoot["2. First boot<br>generate flash key"]
+    EfuseKey["3. Store key in<br>read-protected eFuse"]
+    EncryptFlash["4. Encrypt bootloader,<br>apps and marked data"]
+    Reset["5. Enable release mode<br>and reset"]
+    CiphertextFlash["External flash<br>ciphertext at rest"]
+    FlashEngine["On-chip encryption hardware"]
+    Cpu["CPU and application<br>see plaintext"]
+    RawDump["Offline flash reader<br>sees ciphertext"]
+
+    PlainImage --> FirstBoot
+    FirstBoot --> EfuseKey
+    EfuseKey --> EncryptFlash
+    EncryptFlash --> Reset
+    Reset --> CiphertextFlash
+    EfuseKey --> FlashEngine
+    CiphertextFlash --> FlashEngine
+    FlashEngine -->|"decrypt automatically"| Cpu
+    CiphertextFlash -->|"read chip directly"| RawDump
+```
+
+At runtime, application code reads normal plaintext through the cache; it does not handle the flash encryption key or decrypt its own instructions. An offline reader bypasses the on-chip encryption hardware and sees only ciphertext. Flash encryption provides confidentiality, not authenticity, so Secure Boot is still required to reject modified firmware.
+
 Key source on ESP32-S31 is **eFuse-based** by default (bootloader-generated random key on first enable unless a key was pre-burned).
-Enabling flash encryption **increases bootloader size**. On ESP32-S31 the bootloader starts at `0x2000`. With both Secure Boot V2 and flash encryption it is `0xC000` bytes, which fits below the workshop partition table at `0x10000`. The `flash_encryption` example, with flash encryption only, uses `0xD000`.
+Enabling flash encryption **increases bootloader size**. On ESP32-S31 the bootloader starts at `0x2000`; the workshop partition table at `0x10000` leaves up to `0xE000` bytes for it. Check every build because the exact size depends on the enabled features and ESP-IDF version.
 
 ## Combining flash encryption with Secure Boot and NVS encryption
 
@@ -65,10 +90,10 @@ Path: `$IDF_PATH/examples/security/flash_encryption`. Assignment 4 does not use 
 
 **menuconfig (typical):**
 
-- **Security features → Enable flash encryption on boot** ([CONFIG_SECURE_FLASH_ENC_ENABLED](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-enc-enabled))
-- **Enable usage mode → Development** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-development)) for the example; the workshop uses **Release**
+- **Security features → Enable flash encryption on boot** ([CONFIG_SECURE_FLASH_ENC_ENABLED](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-enc-enabled))
+- **Enable usage mode → Development** ([CONFIG_SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-secure-flash-encryption-mode-development)) for the example; the workshop uses **Release**
 - **Partition Table → Custom partition CSV** (`partitions_example.csv`): `nvs`, `storage`, factory app, `nvs_key` (subtype `nvs_keys`), `custom_nvs`, `fat_encrypted`, `fat_not_encr`
-- With flash encryption enabled, **NVS encryption** defaults on. The example uses the **`nvs_key`** partition and the [flash encryption-based NVS scheme](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html#nvs-encryption-flash-encryption-based-scheme) (distinct from the **HMAC** scheme in [Lecture 2](../lecture-2)). On SoCs with an HMAC peripheral, including ESP32-S31, ESP-IDF picks the HMAC scheme by default, so select **NVS Security Provider → Using Flash Encryption** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-flash-enc)) for this example
+- With flash encryption enabled, **NVS encryption** defaults on. The example uses the **`nvs_key`** partition and the [flash encryption-based NVS scheme](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_encryption.html#nvs-encryption-flash-encryption-based-scheme) (distinct from the **HMAC** scheme in [Lecture 2](../lecture-2)). On SoCs with an HMAC peripheral, including ESP32-S31, ESP-IDF picks the HMAC scheme by default, so select **NVS Security Provider → Using Flash Encryption** ([CONFIG_NVS_SEC_KEY_PROTECT_USING_FLASH_ENC](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/kconfig-reference.html#config-nvs-sec-key-protect-using-flash-enc)) for this example
 
 **`app_main` flow (`flash_encrypt_main.c`):**
 
@@ -87,7 +112,7 @@ First boot after `idf.py flash monitor`: the bootloader encrypts eligible conten
 | Typical use | Bring-up and examples | Manufacturing and field devices |
 | Workshop | Not used | Assignment 4, in the emulator |
 
-Release mode burns stricter eFuses (for example `DIS_DOWNLOAD_MANUAL_ENCRYPT`) and write-protects `SPI_BOOT_CRYPT_CNT`. Transition from development on a real device requires explicit steps such as [`esp_flash_encryption_set_release_mode()`](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/peripherals/spi_flash/index.html#_CPPv437esp_flash_encryption_set_release_modev); see [Transitioning from Development to Release Mode](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html#transitioning-from-development-to-release-mode). Production workflows are in the [real-board appendix](../appendix-production-provisioning) and [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally).
+Release mode burns stricter eFuses (for example `DIS_DOWNLOAD_MANUAL_ENCRYPT`) and write-protects `SPI_BOOT_CRYPT_CNT`. Transition from development on a real device requires explicit steps such as [`esp_flash_encryption_set_release_mode()`](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/peripherals/spi_flash/index.html#_CPPv437esp_flash_encryption_set_release_modev); see [Transitioning from Development to Release Mode](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/flash-encryption.html#transitioning-from-development-to-release-mode). Production workflows are in the [real-board appendix](../appendix-production-provisioning) and [Enable Flash Encryption externally](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-flash-encryption-externally).
 
 ## Versus Secure Boot and NVS encryption
 
@@ -133,7 +158,7 @@ For Annex I timelines, reporting, and conformity process, use the overview and l
 - Project: the finished Assignment 3 project (`$IDF_PATH/examples/protocols/https_mbedtls`)
 - Target: `idf.py --preview set-target esp32s31`
 - You switch NVS encryption back on with the flash encryption-based scheme; the `nvs_keys` partition is already in the Assignment 2 layout
-- The partition table at `0x10000` already fits the `0xC000` bootloader, so no partition moves
+- The partition table at `0x10000` leaves up to `0xE000` bytes for the bootloader, so no partition moves are expected; confirm this in the build output
 
 ## Navigation
 

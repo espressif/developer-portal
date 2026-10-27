@@ -131,12 +131,12 @@ TODO: Add the link to the workshop source-code repository when it is published.
 
 ESP-IDF documentation for ESP32-S31:
 
-- [Security Overview](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security.html)
-- [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/secure-boot-v2.html)
-- [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/flash-encryption.html)
-- [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/storage/nvs_encryption.html)
-- [Over The Air Updates (OTA)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/api-reference/system/ota.html)
-- [Security Features Enablement Workflows](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s31/security/security-features-enablement-workflows.html)
+- [Security Overview](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security.html)
+- [Secure Boot v2](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/secure-boot-v2.html)
+- [Flash Encryption](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/flash-encryption.html)
+- [NVS Encryption](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/storage/nvs_encryption.html)
+- [Over The Air Updates (OTA)](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/api-reference/system/ota.html)
+- [Security Features Enablement Workflows](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html)
 
 ESP32 emulator:
 
