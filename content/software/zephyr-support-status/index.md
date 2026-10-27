@@ -8,15 +8,17 @@ authors:
 tags: ["Zephyr", "Support", "Espressif"]
 ---
 
+**Last updated:** {{< dynamic-block contentPath="persist\software\zephyr-status\zephyr-status.json" jsonKey="timestamp" >}}
+
 ## Zephyr Support Status
 
 ### General Information
 
-Questions about the contents of this page should be directed to:  
-* [Espressif Sales Contact Page](https://www.espressif.com/en/contact-us/sales-questions)  
-* [Espressif Technical Inquiries Page](https://www.espressif.com/en/contact-us/technical-inquiries)  
-* [Zephyr Discord Server – Espressif Channel](https://discord.com/channels/720317445772017664/883444902971727882)  
-* [GitHub Issues](https://github.com/zephyrproject-rtos/zephyr/issues)  
+Questions about the contents of this page should be directed to:
+* [Espressif Sales Contact Page](https://www.espressif.com/en/contact-us/sales-questions)
+* [Espressif Technical Inquiries Page](https://www.espressif.com/en/contact-us/technical-inquiries)
+* [Zephyr Discord Server – Espressif Channel](https://discord.com/channels/720317445772017664/883444902971727882)
+* [GitHub Issues](https://github.com/zephyrproject-rtos/zephyr/issues)
 * [GitHub Discussions](https://github.com/zephyrproject-rtos/zephyr/discussions)
 
 Additionally, be sure to check the [Zephyr section on Espressif's website](https://www.espressif.com/en/sdks/esp-zephyr) for general information about Espressif and Zephyr. You can also use the chatbot for assistance.
@@ -43,14 +45,14 @@ Since the release of version 4.0 for the ESP32-C3, the system has been considere
 {{< dynamic-block contentPath="persist\software\zephyr-status\zephyr-status.json" jsonKey="legend_list_simple" >}}
 
 {{< alert icon="circle-info" cardColor="#b3e0f2" iconColor="#04a5e5">}}
-- *Current chip versions* are listed as supported in Zephyr. For the latest chip versions, please consult the Espressif website.  
-- Peripherals developed by the community are marked as supported if a test case is provided and has passed both internal manual and automated testing.  
-- The camera implementation on ESP32 and ESP32-S2 is based on ESP-IDF software. It will not be ported to Zephyr.  
-- ULP is not a full CPU and will not be supported in Zephyr for ESP32 and ESP32-S2.  
-- For ESP32 and ESP32-S2, DMA is implemented on a per-peripheral basis. With the exception of the ESP32 DAC, all peripheral DMA is supported.  
-- Flash encryption and secure boot are only available through Espressif's port of MCUboot. MCUboot's "soft features" may still be available in the Zephyr port of MCUboot.  
-- SMP (Symmetric MultiProcessing) is currently non-functional and has Bluetooth limitations. [Check the thread about it](https://github.com/zephyrproject-rtos/zephyr/issues/56011).  
-- For ESP8684, please refer to ESP32-C2.  
+- *Current chip versions* are listed as supported in Zephyr. For the latest chip versions, please consult the Espressif website.
+- Peripherals developed by the community are marked as supported if a test case is provided and has passed both internal manual and automated testing.
+- The camera implementation on ESP32 and ESP32-S2 is based on ESP-IDF software. It will not be ported to Zephyr.
+- ULP is not a full CPU and will not be supported in Zephyr for ESP32 and ESP32-S2.
+- For ESP32 and ESP32-S2, DMA is implemented on a per-peripheral basis. With the exception of the ESP32 DAC, all peripheral DMA is supported.
+- Flash encryption and secure boot are only available through Espressif's port of MCUboot. MCUboot's "soft features" may still be available in the Zephyr port of MCUboot.
+- SMP (Symmetric MultiProcessing) is currently non-functional and has Bluetooth limitations. [Check the thread about it](https://github.com/zephyrproject-rtos/zephyr/issues/56011).
+- For ESP8684, please refer to ESP32-C2.
 - For ESP8685, please refer to ESP32-C3.
 {{< /alert >}}
 
@@ -81,7 +83,7 @@ Espressif strongly recommends adhering to the rolling release model for Zephyr-b
 Espressif follows Zephyr's LTS releases solely for operating system bug fixes.
 
 ## Disclaimers
- 
+
 Espressif does not control the Zephyr Project and does not claim any ownership of it. The Zephyr Project is managed by the Linux Foundation, and Espressif participates as a regular contributor.
 
 Accordingly, elements such as release dates, planning, issue classification, relevance levels, major technical decisions, and the activities of the Technical Steering Committee (TSC) and the broader community, as well as much of the information found on the Zephyr Project's GitHub, are not under Espressif's control or supervision.
