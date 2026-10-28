@@ -1,0 +1,14 @@
+{
+    "name": "Manali Kaswa",
+    "type": "espressif",
+    "image": "img/authors/espressif.webp",
+    "bio": "[Role at Espressif]",
+    "social": [
+        {
+            "linkedin": "https://www.linkedin.com/in/[profile]"
+        },
+        {
+            "github": "https://github.com/[handle]"
+        }
+    ]
+}
