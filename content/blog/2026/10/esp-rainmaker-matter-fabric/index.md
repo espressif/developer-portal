@@ -1,6 +1,6 @@
 ---
 title: "ESP RainMaker Matter Fabric Support: A Complete Solution for Branded Ecosystems"
-date: 2026-10-23T00:00:00.000Z
+date: 2026-10-30
 summary: "Build an ecosystem that supports Matter—and still keep end users on your app, with user accounts and remote control."
 tags:
   - Matter
@@ -33,7 +33,7 @@ ESP RainMaker parses the Matter protocol in the cloud, covers Matter product cat
 
 **PKI and certificate management.** During commissioning, RainMaker can issue Node Operational Certificates (NOCs) for the Fabric. Device identity across the lifecycle is managed in the cloud, so you do not need to operate a separate certificate system for Fabric operations.
 
-**User-level Fabric management.** An end user can own multiple Fabrics, each bound to their account. The platform covers create, configure, share, and delete, plus the full [sharing-invitation flow](https://docs.rainmaker.espressif.com/docs/product_overview/features/group_sharing)—useful when a household needs isolation across homes or multi-dwelling deployments.
+**User-level Fabric management.** An end user can own multiple Fabrics, each bound to their account. The platform supports creating, configuring, sharing, and deleting Fabrics, plus the full [sharing-invitation flow](https://docs.rainmaker.espressif.com/docs/product_overview/features/group_sharing)—useful when a household needs isolation across homes or multi-dwelling deployments.
 
 **App and SDK.** Built on a React Native stack, the open-source [ESP RainMaker Home](https://docs.rainmaker.espressif.com/docs/dev/phone-app/home-app/home-app-get-started#download-esp-rainmaker-home) app is the starting point. It already supports Matter commissioning (BLE or QR code), local control on the LAN, and remote control through a cloud-connected controller. Going branded is straightforward: change the logo and the UI to whatever you need, deploy RainMaker privately, and that same app becomes yours. End users stay in one place, which is how brand recognition and habit build. [`@espressif/rainmaker-matter-sdk`](https://docs.rainmaker.espressif.com/docs/sdk/rainmaker-matter-sdk/overview) exposes the same capabilities—Fabric management, commissioning, certificates, and challenge-response—for branded apps built on [`@espressif/rainmaker-base-sdk`](https://docs.rainmaker.espressif.com/docs/sdk/rainmaker-base-sdk/overview).
 
