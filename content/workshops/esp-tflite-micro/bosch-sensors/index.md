@@ -38,7 +38,7 @@ The BME690 is also not part of the gesture pipeline.
 
 ## BMI270 — six-axis IMU
 
-The [BMI270](https://www.bosch-sensortec.com/products/motion-sensors/imus/bmi270/) is a low-power **6-axis IMU** that combines a digital triaxial accelerometer and triaxial gyroscope in one package. Bosch positions it for wearables, hearables, AR/VR, and activity recognition, with on-chip motion features (step counting, wrist-wear detection, gesture hints) that can run while the host sleeps.
+The [BMI270](https://www.bosch-sensortec.com/en/products/motion-sensors/imus/bmi270/) is a low-power **6-axis IMU** that combines a digital triaxial accelerometer and triaxial gyroscope in one package. Bosch positions it for wearables, hearables, AR/VR, and activity recognition, with on-chip motion features (step counting, wrist-wear detection, gesture hints) that can run while the host sleeps.
 
 ### Sensor channels
 
@@ -75,7 +75,7 @@ Collection starts when the sum of absolute gyroscope readings exceeds a **motion
 
 ## BMM350 — three-axis magnetometer
 
-The [BMM350](https://www.bosch-sensortec.com/products/motion-sensors/magnetometers/bmm350/) is a **16-bit, three-axis magnetometer** based on Bosch **TMR (tunnel magnetoresistance)** technology. It targets heading, compass, indoor navigation, AR/VR orientation, and robotics dead reckoning when paired with an IMU.
+The [BMM350](https://www.bosch-sensortec.com/en/products/motion-sensors/magnetometers/bmm350/) is a **16-bit, three-axis magnetometer** based on Bosch **TMR (tunnel magnetoresistance)** technology. It targets heading, compass, indoor navigation, AR/VR orientation, and robotics dead reckoning when paired with an IMU.
 
 Compared with the earlier BMM150, Bosch cites roughly **3× better sensitivity** and about **20× lower power** in product materials. On the same daughterboard as the BMI270, the BMM350 completes a **9-DoF** sensing set (gyro + accel + mag) for applications that need stable heading or map orientation.
 
