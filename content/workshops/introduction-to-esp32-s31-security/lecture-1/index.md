@@ -98,7 +98,9 @@ For production, also plan trust store updates, protected client keys ([Lecture 2
 
 ## After Assignment 1 (instructor demo)
 
-When TLS exercises are complete, the instructor may run the **TLS power consumption** closing demo in [Assignment 1](../assignment-1/#closing-demo-tls-power-consumption) using Qoitech Otii. You observe supply current during Wi-Fi bring-up and the handshake on the same **https_mbedtls** flow; no student wiring is required.
+When the TLS exercises are complete, the instructor may demonstrate **TLS power consumption** using a [Qoitech Otii Ace Pro Power Profiler](https://www.qoitech.com/). You will observe the supply current during Wi-Fi startup and communication with a server while comparing plain HTTP, a full TLS handshake, and a resumed TLS session. No student wiring is required.
+
+See [Power consumption measurement](../power-consumption-measurement) for the measurement setup, results, and instructions for exploring the recordings.
 
 ## Navigation
 

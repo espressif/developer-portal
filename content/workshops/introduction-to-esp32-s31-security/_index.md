@@ -56,7 +56,7 @@ By the end of the workshop, you will be able to:
 - Protect data at rest with NVS encryption, using an HMAC key or keys protected by flash encryption
 - Understand why the order of eFuse burns matters when you provision a device
 - Protect data in transit with TLS
-- Follow the **TLS power consumption** demo with Qoitech Otii led by the workshop instructor (closing [Assignment 1](assignment-1/#closing-demo-tls-power-consumption))
+- Follow the **TLS power consumption** demo with Qoitech Otii led by the workshop instructor ([Power consumption measurement](power-consumption-measurement))
 - Map technical controls to product-level CRA compliance activities
 - Build, configure, and run ESP-IDF security projects in CLion
 
@@ -70,7 +70,7 @@ To follow this workshop, you will need the following hardware and software.
 - USB cable supporting power and data
 - Computer running Linux, macOS, or Windows
 
-**Instructor-only (Otii TLS demo):** [Qoitech Otii Arc Pro](https://www.qoitech.com/otii-arc-pro/) or equivalent, probes, and validated supply wiring. Students observe during the [Assignment 1 closing demo](assignment-1/#closing-demo-tls-power-consumption); participant kits do not require Otii hardware.
+**Instructor-only (Otii TLS demo):** [Qoitech Otii Ace Pro](https://www.qoitech.com/) or equivalent, probes, and validated supply wiring. Students observe during the [power consumption measurement](power-consumption-measurement); participant kits do not require Otii hardware.
 
 ### Lab safety
 
@@ -99,6 +99,7 @@ To follow this workshop, you will need the following hardware and software.
 - [Overview of the EU Cyber Resilience Act](overview-eu-cra)
 - [Lecture 1: TLS for secure communication](lecture-1)
 - [Assignment 1: Establish and verify a TLS connection](assignment-1)
+- [Power consumption measurement](power-consumption-measurement)
 - [Lecture 2: Secure storage with HMAC-based NVS encryption](lecture-2)
 - [Assignment 2: Protect data with HMAC-based NVS encryption](assignment-2)
 - [Lecture 3: Secure Boot V2, firmware authenticity](lecture-3)

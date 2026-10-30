@@ -3,7 +3,7 @@ title: "Lecture 3: Secure Boot V2"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 9
+series_order: 10
 showAuthor: false
 ---
 

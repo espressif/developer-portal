@@ -3,7 +3,7 @@ title: "Introduction to the ESP32-S31: Security - Conclusion"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 14
+series_order: 15
 showAuthor: false
 ---
 
@@ -127,7 +127,7 @@ A complete product security program also needs work on:
 
 ### Further reading
 
-TODO: Add the link to the workshop source-code repository when it is published.
+- [Workshop source-code examples](https://github.com/espressif/developer-portal-codebase/tree/main/content/workshops/introduction-to-esp32-s31-security/code-examples)
 
 ESP-IDF documentation for ESP32-S31:
 

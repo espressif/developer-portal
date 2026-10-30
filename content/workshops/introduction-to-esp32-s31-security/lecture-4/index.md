@@ -3,7 +3,7 @@ title: "Lecture 4: Flash Encryption"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 11
+series_order: 12
 showAuthor: false
 ---
 

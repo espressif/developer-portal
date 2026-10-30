@@ -3,7 +3,7 @@ title: "Assignment 4: Enable and Verify Flash Encryption"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 12
+series_order: 13
 showAuthor: false
 ---
 
@@ -45,7 +45,11 @@ idf.py menuconfig
 ```
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+Open **View → Tool Windows → Terminal** and run:
+
+```bash
+idf.py menuconfig
+```
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -168,7 +172,18 @@ python -m esptool --chip esp32s31 merge-bin -o build/merged-secure.bin \
 ```
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+1. Select the generated `app` configuration in the configuration switcher, then click **Build** (the hammer icon).
+2. Find the application binary name in the build output.
+3. Open **View → Tool Windows → Terminal** and run the merge command, replacing `<project-name>`:
+
+```bash
+python -m esptool --chip esp32s31 merge-bin -o build/merged-secure.bin \
+  --flash-mode dio --flash-size 4MB \
+  0x2000  build/bootloader/bootloader.bin \
+  0x10000 build/partition_table/partition-table.bin \
+  0x17000 build/ota_data_initial.bin \
+  0x20000 build/<project-name>.bin
+```
   {{< /tab >}}
 {{< /tabs >}}
 

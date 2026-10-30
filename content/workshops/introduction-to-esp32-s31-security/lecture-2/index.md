@@ -3,7 +3,7 @@ title: "Lecture 2: HMAC-Based NVS Encryption"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 7
+series_order: 8
 showAuthor: false
 ---
 
@@ -208,7 +208,7 @@ For Annex I themes and deadlines, rely on the overview and Developer Portal CRA 
 
 ## Navigation
 
-[Previous: Assignment 1](../assignment-1)
+[Previous: Power consumption measurement](../power-consumption-measurement)
 
 [Next: Assignment 2: Protect data with HMAC-based NVS encryption](../assignment-2)
 

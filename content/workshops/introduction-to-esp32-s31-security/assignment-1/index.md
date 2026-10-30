@@ -31,7 +31,15 @@ Run this from the `code-examples` directory created during workshop setup. For t
 Replace `PORT` in the commands below with your serial port.
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+1. Follow the JetBrains [ESP-IDF setup instructions](https://www.jetbrains.com/help/clion/esp-idf.html) to configure a CLion toolchain with the ESP-IDF environment.
+2. Select **File → Open** and open the `assignment-1` project directory. For the manual route, open `$IDF_PATH/examples/protocols/https_mbedtls`.
+3. Open **View → Tool Windows → Terminal** and run:
+
+```bash
+idf.py --preview set-target esp32s31
+```
+
+Reload the CMake project if CLion prompts you.
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -50,7 +58,13 @@ idf.py menuconfig
 ```
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+Open **View → Tool Windows → Terminal** and run:
+
+```bash
+idf.py menuconfig
+```
+
+JetBrains documents `menuconfig` as a terminal-based step in the CLion ESP-IDF workflow.
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -79,7 +93,7 @@ idf.py build
 ```
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+Select the generated `app` configuration in the configuration switcher, then click **Build** (the hammer icon). See [Build the project](https://www.jetbrains.com/help/clion/esp-idf.html#build).
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -102,7 +116,11 @@ idf.py -p PORT flash monitor
 To quit the monitor, press **Ctrl+]**.
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+1. If the serial port is not detected, add `ESPPORT` with your port as an environment variable under **Settings → Build, Execution, Deployment → CMake**, then reload the project.
+2. Select the generated `flash` configuration and click **Build**.
+3. Select the generated `monitor` configuration and click **Build** to open the serial output.
+
+See [Flash and monitor an ESP32 chip in CLion](https://www.jetbrains.com/help/clion/esp-idf.html#flash-monitor).
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -156,12 +174,14 @@ You should now be able to:
 
 ## Closing demo: TLS power consumption
 
-After you finish the TLS exercises above, the instructor will run a live demo of **TLS power consumption** on the ESP32-S31-Function-CoreBoard-1 using a [Qoitech](https://www.qoitech.com/) power profiler (for example [Otii Arc Pro](https://www.qoitech.com/otii-arc-pro/)). The demo shows how supply current changes during Wi-Fi bring-up and the TLS handshake while the device runs the same **https_mbedtls** client flow. You observe the trace; no extra steps are required in this assignment.
+After you finish the TLS exercises, the instructor will demonstrate TLS power consumption on the ESP32-S31-Function-CoreBoard-1 using a [Qoitech Otii Ace Pro Power Profiler](https://www.qoitech.com/). You will observe the supply current during Wi-Fi startup and the TLS handshake while comparing plain HTTP, a full TLS handshake, and a resumed TLS session. No student wiring is required.
+
+The measurements, results, and instructions for exploring the recordings are available in [Power consumption measurement](../power-consumption-measurement).
 
 ## Previous and next steps
 
 [Previous: Lecture 1](../lecture-1)
 
-[Next: Lecture 2: HMAC-based NVS encryption](../lecture-2)
+[Next: Power consumption measurement](../power-consumption-measurement)
 
 [Return to the workshop main page](/workshops/introduction-to-esp32-s31-security/)

@@ -3,7 +3,7 @@ title: "Assignment 2: Protect Data with HMAC-Based NVS Encryption"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 8
+series_order: 9
 showAuthor: false
 ---
 
@@ -80,7 +80,11 @@ idf.py menuconfig
 ```
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+Open **View → Tool Windows → Terminal** and run:
+
+```bash
+idf.py menuconfig
+```
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -396,7 +400,14 @@ idf.py merge-bin
 The image is `build/merged-binary.bin`.
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+1. Select the generated `app` configuration in the configuration switcher, then click **Build** (the hammer icon).
+2. Open **View → Tool Windows → Terminal** and run:
+
+```bash
+idf.py merge-bin
+```
+
+The image is `build/merged-binary.bin`.
   {{< /tab >}}
 {{< /tabs >}}
 

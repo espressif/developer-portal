@@ -3,7 +3,7 @@ title: "Assignment 3: Enable and Verify Secure Boot V2"
 date: 2026-10-06
 showTableOfContents: true
 series: ["ESP32-S31-SECURITY"]
-series_order: 10
+series_order: 11
 showAuthor: false
 ---
 
@@ -55,7 +55,11 @@ idf.py menuconfig
 ```
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+Open **View → Tool Windows → Terminal** and run:
+
+```bash
+idf.py menuconfig
+```
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -83,7 +87,13 @@ idf.py secure-generate-signing-key --version 2 --scheme rsa3072 secure_boot_sign
 Equivalent: `espsecure generate-signing-key --version 2 --scheme rsa3072 secure_boot_signing_key.pem` ([Enable Secure Boot v2 externally](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/security/security-features-enablement-workflows.html#enable-secure-boot-v2-externally)).
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+Open **View → Tool Windows → Terminal** and run:
+
+```bash
+idf.py secure-generate-signing-key --version 2 --scheme rsa3072 secure_boot_signing_key.pem
+```
+
+Keep this lab key private and do not commit it.
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -191,7 +201,18 @@ python -m esptool --chip esp32s31 merge-bin -o build/merged-secure.bin \
 Use the application binary name printed at the end of the build for `<project-name>`.
   {{< /tab >}}
   {{< tab label="CLion" >}}
-CLion instructions will be added soon.
+1. Select the generated `app` configuration in the configuration switcher, then click **Build** (the hammer icon).
+2. Find the application binary name in the build output.
+3. Open **View → Tool Windows → Terminal** and run the merge command, replacing `<project-name>`:
+
+```bash
+python -m esptool --chip esp32s31 merge-bin -o build/merged-secure.bin \
+  --flash-mode dio --flash-size 4MB \
+  0x2000  build/bootloader/bootloader.bin \
+  0x10000 build/partition_table/partition-table.bin \
+  0x17000 build/ota_data_initial.bin \
+  0x20000 build/<project-name>.bin
+```
   {{< /tab >}}
 {{< /tabs >}}
 
