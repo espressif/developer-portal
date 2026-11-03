@@ -55,12 +55,12 @@ By the end of the workshop, you will know how to:
 
 #### ESP-DL and native ESP-IDF development
 
-- ESP-IDF v6.1 or later; v6.1 is recommended
+- ESP-IDF v6.1 or later; v6.1 is recommended. ESP32-S31 is a preview target in v6.1, so `idf.py` commands need the `--preview` option
 - `git` and a serial terminal
 - Optional: [Visual Studio Code](https://code.visualstudio.com/) with the [ESP-IDF extension](https://marketplace.visualstudio.com/items?itemName=espressif.esp-idf-extension)
 
 > [!IMPORTANT]
-> ESP32-S31 support is evolving. The commands and APIs in this workshop target ESP32-S31, BSP `espressif/esp32_s31_korvo_1` 1.0.x, and ESP-DL 3.3.x. If you intentionally use newer component versions, review their changelogs before adapting the examples.
+> ESP32-S31 support is evolving. The commands and APIs in this workshop target ESP32-S31, BSP `espressif/esp32_s31_korvo_1` 1.1.x, and ESP-DL 3.3.x. If you intentionally use newer component versions, review their changelogs before adapting the examples.
 
 ## Agenda
 

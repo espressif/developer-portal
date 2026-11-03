@@ -1,6 +1,7 @@
 ---
 title: "Introduction to the ESP32-S31 with Vision: Assignment 7"
 date: 2026-09-28
+lastmod: 2026-11-04
 showTableOfContents: true
 series: ["ESP32-S31-VISION"]
 series_order: 12
@@ -26,7 +27,7 @@ Add the face-detection component to `main/idf_component.yml`:
 ```yaml
 dependencies:
   espressif/esp32_s31_korvo_1:
-    version: "1.0.1"
+    version: "1.1.0"
   espressif/human_face_detect:
     version: "0.5.0"
 ```
@@ -54,7 +55,7 @@ The final component manifest must contain:
 ```yaml
 dependencies:
   espressif/esp32_s31_korvo_1:
-    version: "1.0.1"
+    version: "1.1.0"
   espressif/human_face_detect:
     version: "0.5.0"
 ```
@@ -284,7 +285,7 @@ I (4231) face_detect: face score=0.91 box=[126,48,311,267]
 
 | Symptom | Check |
 |---------|-------|
-| `esp32s31` is an unknown target | Install and activate an ESP-IDF release with ESP32-S31 support |
+| `esp32s31` is an unknown target | Install and activate ESP-IDF v6.1 or later, and pass `--preview` to `idf.py` (for example, `idf.py --preview set-target esp32s31`) because ESP32-S31 is a preview target |
 | Camera device does not open | Confirm the camera module is seated and that OV3660 or SC101IOT auto-detection is enabled |
 | Blank display | Check the LCD subboard connector and call `bsp_display_backlight_on()` |
 | Build cannot find `human_face_detect.hpp` | Check `main/idf_component.yml`, then run `idf.py reconfigure` |
@@ -304,7 +305,7 @@ The generated `app_video.c` and `app_video.h` files remain unchanged.
 ```yaml
 dependencies:
   espressif/esp32_s31_korvo_1:
-    version: "1.0.1"
+    version: "1.1.0"
   espressif/human_face_detect:
     version: "0.5.0"
 ```
