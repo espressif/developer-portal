@@ -94,8 +94,7 @@ extern "C" {
 #endif
 
 esp_err_t app_dl_init(void);
-void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
-                            uint32_t height, bool byte_swapped,
+void app_dl_detect_and_draw(uint8_t *rgb565, uint32_t width, uint32_t height,
                             bool run_inference);
 
 #ifdef __cplusplus
@@ -113,7 +112,6 @@ Create `main/app_dl.cpp`:
 #include <vector>
 #include "esp_log.h"
 #include "human_face_detect.hpp"
-#include "dl_image_define.hpp"
 #include "dl_image_draw.hpp"
 
 static const char *TAG = "face_detect";
@@ -130,8 +128,7 @@ extern "C" esp_err_t app_dl_init(void)
     return ESP_OK;
 }
 
-extern "C" void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
-                                       uint32_t height, bool byte_swapped,
+extern "C" void app_dl_detect_and_draw(uint8_t *rgb565, uint32_t width, uint32_t height,
                                        bool run_inference)
 {
     if (!s_detector) {
@@ -139,32 +136,37 @@ extern "C" void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
     }
 
     dl::image::img_t image = {
-        .data = buffer,
+        .data = rgb565,
         .width = static_cast<uint16_t>(width),
         .height = static_cast<uint16_t>(height),
-        .pix_type = byte_swapped
-            ? dl::image::DL_IMAGE_PIX_TYPE_RGB565BE
-            : dl::image::DL_IMAGE_PIX_TYPE_RGB565LE,
+        .pix_type = dl::image::DL_IMAGE_PIX_TYPE_RGB565LE,
     };
 
     if (run_inference) {
         s_faces = s_detector->run(image);
     }
-    const std::vector<uint8_t> green = byte_swapped
-        ? std::vector<uint8_t>{0x07, 0xE0}
-        : std::vector<uint8_t>{0xE0, 0x07};
 
+    const std::vector<uint8_t> green = {0xE0, 0x07};
     for (const auto &face : s_faces) {
+        // draw_hollow_rectangle() asserts that the box lies inside the image.
         int x1 = std::max(0, face.box[0]);
         int y1 = std::max(0, face.box[1]);
         int x2 = std::min(static_cast<int>(width) - 1, face.box[2]);
         int y2 = std::min(static_cast<int>(height) - 1, face.box[3]);
+        if (x2 <= x1 || y2 <= y1) {
+            continue;
+        }
         dl::image::draw_hollow_rectangle(image, x1, y1, x2, y2, green, 3);
-        ESP_LOGI(TAG, "face score=%.2f box=[%d,%d,%d,%d]",
-                 face.score, x1, y1, x2, y2);
+        if (run_inference) {
+            ESP_LOGI(TAG, "face score=%.2f box=[%d,%d,%d,%d]", face.score, x1, y1, x2, y2);
+        }
     }
 }
 ```
+
+The function receives the image that the example's PPA step prepares for the LCD. The PPA converts the output of either camera module (RGB565 from the OV3660 or YUV422 from the SC101IOT) to little-endian RGB565, and it also rotates and scales the frame. ESP-DL therefore always receives the same format, and the green box is drawn directly on the image that LVGL displays.
+
+`draw_hollow_rectangle()` requires the box to lie inside the image, so the coordinates are clamped to the frame and empty boxes are skipped. The detection is logged only when inference runs, not every time the cached boxes are redrawn.
 
 `HumanFaceDetect` uses the model type and storage location selected by the component's Kconfig. With flash rodata, constructing the wrapper does not copy the model into RAM. By default, the wrapper initializes the selected model lazily on the first `run()`. That call preprocesses the image, executes the quantized network, and returns bounding boxes, confidence scores, and categories. Some detector variants also return keypoints.
 
@@ -173,23 +175,21 @@ extern "C" void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
 
 ## Step 3: Capture frames and run inference
 
-Rename `main/main.c` to `main/main.cpp`, then add the ESP-DL source file to `main/CMakeLists.txt`:
+Add `app_dl.cpp` to the sources in `main/CMakeLists.txt`:
 
 ```cmake
-idf_component_register(
-    SRCS "main.cpp" "app_video.c" "app_dl.cpp"
-    INCLUDE_DIRS "."
-    REQUIRES esp_driver_ppa
-)
+idf_component_register(SRCS "main.c" "app_video.c" "app_dl.cpp"
+                    INCLUDE_DIRS "."
+                    REQUIRES esp_driver_ppa)
 ```
 
-Add the header to `main.cpp`:
+Add the header to `main.c`:
 
-```cpp
+```c
 #include "app_dl.h"
 ```
 
-In `camera_video_frame_operation()`, run inference before the PPA scales the image for the LCD. Do not run the model on every captured frame.
+In `camera_video_frame_operation()`, run inference after the PPA has converted and scaled the frame, just before the frame is passed to the LVGL canvas. Do not run the model on every captured frame.
 
 The camera example is configured for 10 FPS, so a new frame is expected approximately every 100 ms. If face inference takes as long as, or longer than, that interval, processing every frame blocks the capture callback continuously. The display receives fewer updates, frames can be dropped, and interaction appears stalled.
 
@@ -210,32 +210,25 @@ On the other four frames, `app_dl_detect_and_draw()` skips `s_detector->run()` a
 
 Five is a starting value, not a universal optimum. A smaller interval updates detections more frequently but increases blocking. A larger interval improves display continuity but makes boxes react more slowly. Measure the selected model's latency and tune the interval for the required user experience.
 
-```cpp
-static uint32_t frame_count;
+```c
+    out_buf = cam_buff[camera_buf_index];
+#endif
 
-static void camera_video_frame_operation(uint8_t *camera_buf,
-        uint8_t camera_buf_index, uint32_t camera_buf_hes,
-        uint32_t camera_buf_ves, size_t camera_buf_len)
-{
-    ++frame_count;
-    bool byte_swapped =
-        app_video_get_pixelformat() == V4L2_PIX_FMT_RGB565X;
-    bool run_inference = frame_count % 5 == 0;
-    app_dl_detect_and_draw(camera_buf, camera_buf_hes,
-                           camera_buf_ves, byte_swapped,
-                           run_inference);
+    static uint32_t frame_count;
+    app_dl_detect_and_draw(out_buf, out_w, out_h, ++frame_count % 5 == 0);
 
-    // Keep the example's existing PPA scaling and LVGL canvas code below.
-    // ...
-}
+    bsp_display_lock(0);
+    lv_canvas_set_buffer(camera_canvas, out_buf, out_w, out_h, lvgl_cam_rgb565_fmt);
 ```
+
+Add only the two lines in the middle. The surrounding lines are the end of the example's PPA block and the start of its LVGL update.
 
 Finally, initialize the detector in `app_main()` after the BSP starts the camera:
 
-```cpp
+```c
 bsp_display_start();
 bsp_display_backlight_on();
-ESP_ERROR_CHECK(bsp_camera_start(NULL));
+bsp_camera_start(NULL);
 ESP_ERROR_CHECK(app_dl_init());
 ```
 
@@ -243,10 +236,42 @@ This first implementation still runs inference synchronously in the frame callba
 
 ## Step 4: Build, flash, and test
 
-Use these model settings in either interface:
+### Make room for the firmware
 
-1. Select a face-detection model available for ESP32-S31.
-2. Set the model location to **FLASH RODATA**.
+The BSP example is configured for 2 MB of flash and a 1 MB application partition. With ESP-DL and the face model, the firmware is about 3 MB, so the build fails with `app partition is too small`. The ESP32-S31-Korvo-1 module has 16 MB of flash, so configure it and add a larger application partition.
+
+Create `partitions.csv` in the project root:
+
+```csv
+# Name,   Type, SubType, Offset,  Size, Flags
+nvs,      data, nvs,     0x9000,  0x6000,
+phy_init, data, phy,     0xf000,  0x1000,
+factory,  app,  factory, 0x10000, 0x600000,
+```
+
+Append these lines to `sdkconfig.defaults`:
+
+```text
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+```
+
+The existing `sdkconfig` was generated before these defaults existed, so delete it and set the target again to regenerate it:
+
+```bash
+rm sdkconfig
+idf.py --preview set-target esp32s31
+```
+
+In Visual Studio Code, delete `sdkconfig` and run **ESP-IDF: Set Espressif Device Target** again, or use the terminal commands above.
+
+### Check the model settings
+
+Check these model settings in either interface. The component's defaults already match them, but confirm them before building:
+
+1. The default model is **MSRMNP S8 V1**, the face-detection model available for ESP32-S31.
+2. The model location is **FLASH RODATA**.
 
 {{< tabs group="esp-idf-build-flash" >}}
   {{< tab label="ESP-IDF CLI" >}}
@@ -255,7 +280,7 @@ Use these model settings in either interface:
 idf.py menuconfig
 ```
 
-Apply the settings under **Component config → models: human_face_detect**, save, and exit. Then build, flash, and monitor:
+Check the settings under **Component config → models: human_face_detect**, save, and exit. Then build, flash, and monitor:
 
 ```bash
 idf.py build
@@ -266,7 +291,7 @@ idf.py -p <PORT> flash monitor
   {{< tab label="Visual Studio Code" >}}
 
 1. Run **ESP-IDF: SDK Configuration Editor (menuconfig)**.
-2. Open **Component config → models: human_face_detect**, apply the settings above, and save.
+2. Open **Component config → models: human_face_detect**, check the settings above, and save.
 3. Connect the board through the USB Type-C **UART** port.
 4. Run **ESP-IDF: Select Port to Use (COM, tty, usbserial)** and select the UART port.
 5. Run **ESP-IDF: Build, Flash and Start a Monitor on Your Device**.
@@ -289,6 +314,7 @@ I (4231) face_detect: face score=0.91 box=[126,48,311,267]
 | Camera device does not open | Confirm the camera module is seated and that OV3660 or SC101IOT auto-detection is enabled |
 | Blank display | Check the LCD subboard connector and call `bsp_display_backlight_on()` |
 | Build cannot find `human_face_detect.hpp` | Check `main/idf_component.yml`, then run `idf.py reconfigure` |
+| `app partition is too small` | Complete the **Make room for the firmware** step, delete `sdkconfig`, and set the target again |
 | Model does not fit | Select the smaller face model and keep it in flash rodata |
 | Low frame rate | Increase the frame-skip interval or move inference to another task |
 
@@ -296,7 +322,7 @@ Exit the serial monitor with `Ctrl+]`.
 
 ## Complete working code
 
-The generated `app_video.c` and `app_video.h` files remain unchanged.
+The generated `app_video.c` and `app_video.h` files remain unchanged. The `main.c` listing is the example from BSP 1.1.0 with the ESP-DL changes applied.
 
 <details><summary>Show all changed and new project files</summary>
 
@@ -313,11 +339,26 @@ dependencies:
 **`main/CMakeLists.txt`:**
 
 ```cmake
-idf_component_register(
-    SRCS "main.cpp" "app_video.c" "app_dl.cpp"
-    INCLUDE_DIRS "."
-    REQUIRES esp_driver_ppa
-)
+idf_component_register(SRCS "main.c" "app_video.c" "app_dl.cpp"
+                    INCLUDE_DIRS "."
+                    REQUIRES esp_driver_ppa)
+```
+
+**`partitions.csv`:**
+
+```csv
+# Name,   Type, SubType, Offset,  Size, Flags
+nvs,      data, nvs,     0x9000,  0x6000,
+phy_init, data, phy,     0xf000,  0x1000,
+factory,  app,  factory, 0x10000, 0x600000,
+```
+
+**`sdkconfig.defaults`** (lines appended to the existing file):
+
+```text
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
 ```
 
 **`main/app_dl.h`:**
@@ -334,8 +375,7 @@ extern "C" {
 #endif
 
 esp_err_t app_dl_init(void);
-void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
-                            uint32_t height, bool byte_swapped,
+void app_dl_detect_and_draw(uint8_t *rgb565, uint32_t width, uint32_t height,
                             bool run_inference);
 
 #ifdef __cplusplus
@@ -353,7 +393,6 @@ void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
 #include <vector>
 #include "esp_log.h"
 #include "human_face_detect.hpp"
-#include "dl_image_define.hpp"
 #include "dl_image_draw.hpp"
 
 static const char *TAG = "face_detect";
@@ -370,8 +409,7 @@ extern "C" esp_err_t app_dl_init(void)
     return ESP_OK;
 }
 
-extern "C" void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
-                                       uint32_t height, bool byte_swapped,
+extern "C" void app_dl_detect_and_draw(uint8_t *rgb565, uint32_t width, uint32_t height,
                                        bool run_inference)
 {
     if (!s_detector) {
@@ -379,182 +417,197 @@ extern "C" void app_dl_detect_and_draw(uint8_t *buffer, uint32_t width,
     }
 
     dl::image::img_t image = {
-        .data = buffer,
+        .data = rgb565,
         .width = static_cast<uint16_t>(width),
         .height = static_cast<uint16_t>(height),
-        .pix_type = byte_swapped
-            ? dl::image::DL_IMAGE_PIX_TYPE_RGB565BE
-            : dl::image::DL_IMAGE_PIX_TYPE_RGB565LE,
+        .pix_type = dl::image::DL_IMAGE_PIX_TYPE_RGB565LE,
     };
 
     if (run_inference) {
         s_faces = s_detector->run(image);
     }
 
-    const std::vector<uint8_t> green = byte_swapped
-        ? std::vector<uint8_t>{0x07, 0xE0}
-        : std::vector<uint8_t>{0xE0, 0x07};
-
+    const std::vector<uint8_t> green = {0xE0, 0x07};
     for (const auto &face : s_faces) {
+        // draw_hollow_rectangle() asserts that the box lies inside the image.
         int x1 = std::max(0, face.box[0]);
         int y1 = std::max(0, face.box[1]);
         int x2 = std::min(static_cast<int>(width) - 1, face.box[2]);
         int y2 = std::min(static_cast<int>(height) - 1, face.box[3]);
-        dl::image::draw_hollow_rectangle(
-            image, x1, y1, x2, y2, green, 3);
-        ESP_LOGI(TAG, "face score=%.2f box=[%d,%d,%d,%d]",
-                 face.score, x1, y1, x2, y2);
+        if (x2 <= x1 || y2 <= y1) {
+            continue;
+        }
+        dl::image::draw_hollow_rectangle(image, x1, y1, x2, y2, green, 3);
+        if (run_inference) {
+            ESP_LOGI(TAG, "face score=%.2f box=[%d,%d,%d,%d]", face.score, x1, y1, x2, y2);
+        }
     }
 }
 ```
 
-**`main/main.cpp`:**
+**`main/main.c`:**
 
-```cpp
-#include <cassert>
-#include <cstdint>
-#include <cstdio>
-#include <cstring>
-#include <fcntl.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <linux/videodev2.h>
+```c
+/*
+ * SPDX-FileCopyrightText: 2025-2026 Espressif Systems (Shanghai) CO LTD
+ *
+ * SPDX-License-Identifier: CC0-1.0
+ */
 
+/**
+ * @file
+ * @brief BSP Camera Example
+ * @details Stream camera output to display (LVGL)
+ * @example https://espressif.github.io/esp-launchpad/?flashConfigURL=https://espressif.github.io/esp-bsp/config.toml&app=display_camera_video
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <inttypes.h>
 #include "sdkconfig.h"
 #include "bsp/esp-bsp.h"
 #include "esp_err.h"
 #include "esp_log.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <linux/videodev2.h>
+#if SOC_PPA_SUPPORTED
+#include "driver/ppa.h"
+#endif
 #include "esp_private/esp_cache_private.h"
 #include "app_video.h"
 #include "app_dl.h"
 
-#if SOC_PPA_SUPPORTED
-#include "driver/ppa.h"
-#endif
-
 #define NUM_BUFS 2
-#define ALIGN_UP(num, align) \
-    (((num) + ((align) - 1)) & ~((align) - 1))
+#define ALIGN_UP(num, align)    (((num) + ((align) - 1)) & ~((align) - 1))
 
-static const char *TAG = "camera_face_detect";
+typedef struct {
+    void  *start;
+    size_t length;
+} mmap_buf_t;
 
+static const char *TAG = "example";
 #if SOC_PPA_SUPPORTED
-static ppa_client_handle_t s_ppa_handle;
+static ppa_client_handle_t ppa_srm_handle = NULL;
+#endif
+static size_t data_cache_line_size = 0;
+static lv_obj_t *camera_canvas = NULL;
+static uint8_t *cam_buff[NUM_BUFS];
+static uint32_t cam_buff_size = 0;
+static lv_color_format_t lvgl_cam_rgb565_fmt;
+static bool camera_first_frame_received = false;
+#if SOC_PPA_SUPPORTED
+static ppa_srm_color_mode_t camera_input_color_mode = PPA_SRM_COLOR_MODE_RGB565;
+static bool camera_input_byte_swap = false;
+static int camera_rotation = BSP_CAMERA_ROTATION;
 #endif
 
-static size_t s_cache_line_size;
-static lv_obj_t *s_camera_canvas;
-static uint8_t *s_camera_buffers[NUM_BUFS];
-static uint32_t s_camera_buffer_size;
-static lv_color_format_t s_lvgl_rgb565_format;
-static uint32_t s_frame_count;
-
-static lv_color_format_t lvgl_rgb565_format_from_v4l2(
-    uint32_t pixel_format)
+#if !SOC_PPA_SUPPORTED
+static lv_color_format_t lvgl_rgb565_fmt_from_v4l2(uint32_t pixelformat)
 {
-    if (pixel_format == V4L2_PIX_FMT_RGB565X) {
+    if (pixelformat == V4L2_PIX_FMT_RGB565X) {
         return LV_COLOR_FORMAT_RGB565_SWAPPED;
     }
-    if (pixel_format == V4L2_PIX_FMT_RGB565) {
+    if (pixelformat == V4L2_PIX_FMT_RGB565) {
         return LV_COLOR_FORMAT_RGB565;
     }
-    ESP_LOGW(TAG, "Unexpected RGB565 format; using RGB565");
+    ESP_LOGW(TAG, "Unexpected RGB565 pixel format, using LV_COLOR_FORMAT_RGB565");
     return LV_COLOR_FORMAT_RGB565;
 }
+#endif
 
 #if SOC_PPA_SUPPORTED
 static void app_ppa_init(void)
 {
-    ppa_client_config_t config = {
+    /* Initialize PPA */
+    ppa_client_config_t ppa_srm_config = {
         .oper_type = PPA_OPERATION_SRM,
     };
-    ESP_ERROR_CHECK(ppa_register_client(&config, &s_ppa_handle));
+
+    esp_err_t ret = ppa_register_client(&ppa_srm_config, &ppa_srm_handle);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to register PPA client: 0x%x", ret);
+    }
 }
 
-static esp_err_t scale_and_rotate(
-    uint8_t *input, uint32_t input_width, uint32_t input_height,
-    uint8_t *output, uint32_t output_width, uint32_t output_height,
-    size_t output_size, ppa_srm_rotation_angle_t rotation)
+static esp_err_t app_image_process_scale_crop(
+    uint8_t *in_buf, uint32_t in_width, uint32_t in_height,
+    uint8_t *out_buf, uint32_t out_width, uint32_t out_height, size_t out_buf_size,
+    ppa_srm_rotation_angle_t rotation_angle)
 {
-    float scale_x = static_cast<float>(output_width) / input_width;
-    float scale_y = static_cast<float>(output_height) / input_height;
+    float scale_x = (float)out_width / in_width;
+    float scale_y = (float)out_height / in_height;
 
-    if (rotation == PPA_SRM_ROTATION_ANGLE_90 ||
-            rotation == PPA_SRM_ROTATION_ANGLE_270) {
-        scale_x = static_cast<float>(output_height) / input_width;
-        scale_y = static_cast<float>(output_width) / input_height;
+    if (rotation_angle == PPA_SRM_ROTATION_ANGLE_90 || rotation_angle == PPA_SRM_ROTATION_ANGLE_270) {
+        scale_x = (float)out_height / in_width;
+        scale_y = (float)out_width / in_height;
     }
 
-    ppa_srm_oper_config_t config = {
-        .in.buffer = input,
-        .in.pic_w = input_width,
-        .in.pic_h = input_height,
-        .in.block_w = input_width,
-        .in.block_h = input_height,
+    ppa_srm_oper_config_t srm_config = {
+        .in.buffer = in_buf,
+        .in.pic_w = in_width,
+        .in.pic_h = in_height,
+        .in.block_w = in_width,
+        .in.block_h = in_height,
         .in.block_offset_x = 0,
         .in.block_offset_y = 0,
-        .in.srm_cm = PPA_SRM_COLOR_MODE_RGB565,
-        .out.buffer = output,
-        .out.buffer_size = output_size,
-        .out.pic_w = output_width,
-        .out.pic_h = output_height,
+        .in.srm_cm = camera_input_color_mode,
+        .in.yuv_range = PPA_COLOR_RANGE_FULL,
+        .in.yuv_std = PPA_COLOR_CONV_STD_RGB_YUV_BT601,
+        .out.buffer = out_buf,
+        .out.buffer_size = out_buf_size,
+        .out.pic_w = out_width,
+        .out.pic_h = out_height,
         .out.block_offset_x = 0,
         .out.block_offset_y = 0,
         .out.srm_cm = PPA_SRM_COLOR_MODE_RGB565,
-        .rotation_angle = rotation,
+        .rotation_angle = rotation_angle,
         .scale_x = scale_x,
         .scale_y = scale_y,
         .rgb_swap = 0,
-        .byte_swap = 0,
+        .byte_swap = camera_input_byte_swap,
         .mode = PPA_TRANS_MODE_BLOCKING,
     };
 
-    return ppa_do_scale_rotate_mirror(s_ppa_handle, &config);
+    return ppa_do_scale_rotate_mirror(ppa_srm_handle, &srm_config);
 }
 
-static void calculate_aspect_fit(
-    uint32_t source_width, uint32_t source_height,
-    uint32_t destination_width, uint32_t destination_height,
-    uint32_t *output_width, uint32_t *output_height)
+static void calc_aspect_fit(
+    uint32_t src_w, uint32_t src_h,
+    uint32_t dst_w, uint32_t dst_h,
+    uint32_t *out_w, uint32_t *out_h)
 {
-    float source_aspect =
-        static_cast<float>(source_width) / source_height;
-    float destination_aspect =
-        static_cast<float>(destination_width) / destination_height;
+    float src_aspect = (float)src_w / src_h;
+    float dst_aspect = (float)dst_w / dst_h;
 
-    if (source_aspect > destination_aspect) {
-        *output_width = destination_width;
-        *output_height =
-            static_cast<uint32_t>(destination_width / source_aspect);
+    if (src_aspect > dst_aspect) {
+        *out_w = dst_w;
+        *out_h = dst_w / src_aspect;
     } else {
-        *output_height = destination_height;
-        *output_width =
-            static_cast<uint32_t>(destination_height * source_aspect);
+        *out_h = dst_h;
+        *out_w = dst_h * src_aspect;
     }
 }
 #endif
-
-static void camera_frame_operation(
-    uint8_t *camera_buffer, uint8_t buffer_index,
-    uint32_t width, uint32_t height, size_t buffer_length)
+static void camera_video_frame_operation(uint8_t *camera_buf, uint8_t camera_buf_index, uint32_t camera_buf_hes,
+        uint32_t camera_buf_ves, size_t camera_buf_len)
 {
-    (void)buffer_length;
-
-    ++s_frame_count;
-    bool byte_swapped =
-        app_video_get_pixelformat() == V4L2_PIX_FMT_RGB565X;
-    bool run_inference = s_frame_count % 5 == 0;
-    app_dl_detect_and_draw(
-        camera_buffer, width, height, byte_swapped, run_inference);
-
-    uint32_t output_width = width;
-    uint32_t output_height = height;
-    uint8_t *output_buffer = camera_buffer;
-
+    uint32_t out_w = camera_buf_hes;
+    uint32_t out_h = camera_buf_ves ;
+    uint8_t *out_buf = camera_buf;
+    if (!camera_first_frame_received) {
+        ESP_LOGI(TAG, "First camera frame received: %" PRIu32 "x%" PRIu32 ", %zu bytes",
+                 camera_buf_hes, camera_buf_ves, camera_buf_len);
+        camera_first_frame_received = true;
+    }
 #if SOC_PPA_SUPPORTED
     ppa_srm_rotation_angle_t rotation = PPA_SRM_ROTATION_ANGLE_0;
 
-    switch (BSP_CAMERA_ROTATION) {
+    switch (camera_rotation) {
+    case 0:
+        rotation = PPA_SRM_ROTATION_ANGLE_0;
+        break;
     case 90:
         rotation = PPA_SRM_ROTATION_ANGLE_90;
         break;
@@ -564,87 +617,133 @@ static void camera_frame_operation(
     case 270:
         rotation = PPA_SRM_ROTATION_ANGLE_270;
         break;
-    default:
-        break;
     }
 
-    if (BSP_CAMERA_ROTATION == 90 || BSP_CAMERA_ROTATION == 270) {
-        calculate_aspect_fit(
-            height, width, BSP_LCD_H_RES, BSP_LCD_V_RES,
-            &output_width, &output_height);
+    /* Get size of camera for screen (by aspect ratio)  */
+    if (camera_rotation == 90 || camera_rotation == 270) {
+        calc_aspect_fit(camera_buf_ves, camera_buf_hes, BSP_LCD_H_RES, BSP_LCD_V_RES, &out_w, &out_h);
     } else {
-        calculate_aspect_fit(
-            width, height, BSP_LCD_H_RES, BSP_LCD_V_RES,
-            &output_width, &output_height);
+        calc_aspect_fit(camera_buf_hes, camera_buf_ves, BSP_LCD_H_RES, BSP_LCD_V_RES, &out_w, &out_h);
     }
 
-    ESP_ERROR_CHECK(scale_and_rotate(
-        camera_buffer, width, height,
-        s_camera_buffers[buffer_index],
-        output_width, output_height,
-        s_camera_buffer_size, rotation));
-    output_buffer = s_camera_buffers[buffer_index];
+    /* Scale camera picture for the screen + rotation */
+    esp_err_t ret = app_image_process_scale_crop(
+                        camera_buf, camera_buf_hes, camera_buf_ves,
+                        cam_buff[camera_buf_index], out_w, out_h, cam_buff_size,
+                        rotation
+                    );
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "PPA image processing failed: %s", esp_err_to_name(ret));
+        return;
+    }
+    out_buf = cam_buff[camera_buf_index];
 #endif
 
+    static uint32_t frame_count;
+    app_dl_detect_and_draw(out_buf, out_w, out_h, ++frame_count % 5 == 0);
+
     bsp_display_lock(0);
-    lv_canvas_set_buffer(
-        s_camera_canvas, output_buffer,
-        output_width, output_height,
-        s_lvgl_rgb565_format);
-    lv_obj_center(s_camera_canvas);
-    lv_obj_invalidate(s_camera_canvas);
+    lv_canvas_set_buffer(camera_canvas, out_buf, out_w, out_h, lvgl_cam_rgb565_fmt);
+    lv_obj_center(camera_canvas);
+    lv_obj_invalidate(camera_canvas);
     bsp_display_unlock();
 }
 
-extern "C" void app_main(void)
+void app_main(void)
 {
+    esp_err_t ret = ESP_OK;
+
     bsp_display_start();
-    bsp_display_backlight_on();
-    ESP_ERROR_CHECK(bsp_camera_start(NULL));
+    bsp_display_backlight_on(); // Set display brightness to 100%
+
+    /* Initialize Camera */
+    bsp_camera_start(NULL);
     ESP_ERROR_CHECK(app_dl_init());
 
 #if SOC_PPA_SUPPORTED
+    /* Initialize PPA for scaling */
     app_ppa_init();
 #endif
 
-    ESP_ERROR_CHECK(esp_cache_get_alignment(
-        MALLOC_CAP_SPIRAM, &s_cache_line_size));
-
-    s_camera_buffer_size = ALIGN_UP(
-        BSP_LCD_H_RES * BSP_LCD_V_RES * 2, s_cache_line_size);
-
-    for (int index = 0; index < NUM_BUFS; ++index) {
-        s_camera_buffers[index] = static_cast<uint8_t *>(
-            heap_caps_aligned_calloc(
-                s_cache_line_size, 1, s_camera_buffer_size,
-                MALLOC_CAP_SPIRAM));
-        ESP_ERROR_CHECK(
-            s_camera_buffers[index] ? ESP_OK : ESP_ERR_NO_MEM);
+    /* Get cache alignment */
+    ret = esp_cache_get_alignment(MALLOC_CAP_SPIRAM, &data_cache_line_size);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Get cache alignment failed: 0x%x", ret);
+        return;
     }
 
-    int video_fd = app_video_open(
-        BSP_CAMERA_DEVICE, APP_VIDEO_FMT_DRIVER_DEFAULT);
-    ESP_ERROR_CHECK(video_fd < 0 ? ESP_FAIL : ESP_OK);
+    /* Allocate canvas buffers */
+    cam_buff_size = ALIGN_UP(BSP_LCD_H_RES * BSP_LCD_V_RES * 2, data_cache_line_size);
+    for (int i = 0; i < NUM_BUFS; i++) {
+        cam_buff[i] = heap_caps_aligned_calloc(data_cache_line_size, 1, cam_buff_size, MALLOC_CAP_SPIRAM);
+        if (cam_buff[i] == NULL) {
+            ESP_LOGE(TAG, "Failed to allocate camera buffer %d", i);
+            return;
+        }
+    }
 
-    s_lvgl_rgb565_format = lvgl_rgb565_format_from_v4l2(
-        app_video_get_pixelformat());
+    /* Open video first: pixel format comes from menuconfig / driver (VIDIOC_G_FMT). */
+    int fd = app_video_open(BSP_CAMERA_DEVICE, APP_VIDEO_FMT_DRIVER_DEFAULT);
+    if (fd < 0) {
+        ESP_LOGE(TAG, "Failed to open video device");
+        ESP_LOGW(TAG, "Please, try to select another camera sensor in menuconfig.");
+        return;
+    }
+    uint32_t camera_pixelformat = app_video_get_pixelformat();
+#if SOC_PPA_SUPPORTED
+    if (camera_pixelformat == V4L2_PIX_FMT_UYVY) {
+        camera_input_color_mode = PPA_SRM_COLOR_MODE_YUV422_UYVY;
+        camera_input_byte_swap = false;
+        camera_rotation = 0;
+    } else if (camera_pixelformat == V4L2_PIX_FMT_RGB565X) {
+        camera_input_color_mode = PPA_SRM_COLOR_MODE_RGB565;
+        camera_input_byte_swap = true;
+        camera_rotation = BSP_CAMERA_ROTATION;
+    } else if (camera_pixelformat == V4L2_PIX_FMT_RGB565) {
+        camera_input_color_mode = PPA_SRM_COLOR_MODE_RGB565;
+        camera_input_byte_swap = false;
+        camera_rotation = BSP_CAMERA_ROTATION;
+    } else {
+        ESP_LOGW(TAG, "Unsupported camera pixel format for PPA, treating as RGB565");
+        camera_input_color_mode = PPA_SRM_COLOR_MODE_RGB565;
+        camera_input_byte_swap = false;
+        camera_rotation = BSP_CAMERA_ROTATION;
+    }
+    lvgl_cam_rgb565_fmt = LV_COLOR_FORMAT_RGB565;
+#else
+    lvgl_cam_rgb565_fmt = lvgl_rgb565_fmt_from_v4l2(camera_pixelformat);
+#endif
 
+    /* Create LVGL canvas for camera image */
     bsp_display_lock(0);
-    s_camera_canvas = lv_canvas_create(lv_screen_active());
-    lv_canvas_set_buffer(
-        s_camera_canvas, s_camera_buffers[0],
-        BSP_LCD_H_RES, BSP_LCD_V_RES,
-        s_lvgl_rgb565_format);
-    assert(s_camera_canvas);
-    lv_obj_center(s_camera_canvas);
+    camera_canvas = lv_canvas_create(lv_scr_act());
+    lv_canvas_set_buffer(camera_canvas, cam_buff[0], BSP_LCD_H_RES, BSP_LCD_V_RES, lvgl_cam_rgb565_fmt);
+    assert(camera_canvas);
+    lv_obj_center(camera_canvas);
     bsp_display_unlock();
 
-    ESP_ERROR_CHECK(app_video_set_bufs(video_fd, NUM_BUFS, NULL));
-    ESP_ERROR_CHECK(app_video_register_frame_operation_cb(
-        camera_frame_operation));
-    ESP_ERROR_CHECK(app_video_stream_task_start(video_fd, 0));
+    /* Initialize video capture device */
+    ret = app_video_set_bufs(fd, NUM_BUFS, NULL);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to set video buffers: 0x%x", ret);
+        return;
+    }
 
-    ESP_LOGI(TAG, "Camera and face detection running");
+    /* Register frame process callback */
+    ret = app_video_register_frame_operation_cb(camera_video_frame_operation);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to register frame operation callback: 0x%x", ret);
+        return;
+    }
+
+    /* Start video stream task */
+    ret = app_video_stream_task_start(fd, 0);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to start video stream task: 0x%x", ret);
+        return;
+    }
+
+    ESP_LOGI(TAG, "Camera example running.");
 }
 ```
 
