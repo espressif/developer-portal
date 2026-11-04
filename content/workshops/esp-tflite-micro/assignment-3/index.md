@@ -2,7 +2,7 @@
 title: "ESP-TFLite-Micro workshop - Assignment 3: Convert and embed the model"
 date: 2026-09-07T00:00:00+01:00
 lastmod: 2026-09-07
-draft: true
+draft: false
 showTableOfContents: true
 series: ["WS004EN"]
 series_order: 8
