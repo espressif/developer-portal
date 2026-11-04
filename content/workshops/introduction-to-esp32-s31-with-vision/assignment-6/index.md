@@ -1,6 +1,7 @@
 ---
 title: "Introduction to the ESP32-S31 with Vision: Assignment 6"
 date: 2026-09-28
+lastmod: 2026-11-04
 showTableOfContents: true
 series: ["ESP32-S31-VISION"]
 series_order: 11
@@ -97,6 +98,8 @@ Capability macros such as `BSP_CAPS_CAMERA`, `BSP_CAPS_DISPLAY`, and `BSP_CAPS_S
 
 > [!NOTE]
 > This workshop requires ESP-IDF v6.1 or later. Version v6.1 is recommended because the instructions and examples were tested with that release. If needed, follow the official [ESP-IDF Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s31/get-started/index.html).
+>
+> The ESP32-S31 is a **preview target** in ESP-IDF v6.1, not a fully supported one. Preview targets are not shown by default, so you must pass the `--preview` option to `idf.py` whenever you list or select the target.
 
 If ESP-IDF was installed with the [ESP-IDF Installation Manager](https://dl.espressif.com/dl/eim/), select and activate v6.1:
 
@@ -109,17 +112,17 @@ Verify the active installation:
 
 ```bash
 idf.py --version
-idf.py --list-targets | grep esp32s31
+idf.py --preview --list-targets | grep esp32s31
 ```
 
-The first command must report ESP-IDF v6.1 or later. If it reports v5.x or an older release, activate or install a supported version before continuing. The second command confirms that the active installation includes the `esp32s31` target.
+The first command must report ESP-IDF v6.1 or later. If it reports v5.x or an older release, activate or install a supported version before continuing. The second command confirms that the active installation includes the `esp32s31` preview target.
 
 On Windows Command Prompt, replace `grep` with `findstr`.
 
 For Visual Studio Code, run **ESP-IDF: Doctor Command**, confirm that the report points to ESP-IDF v6.1 or later, and use **ESP-IDF: Open ESP-IDF Terminal** to run the same verification commands.
 
 > [!IMPORTANT]
-> Continue only if the active ESP-IDF version is v6.1 or later and `esp32s31` appears in the target list.
+> Continue only if the active ESP-IDF version is v6.1 or later and `esp32s31` appears in the target list printed with `--preview`.
 
 ## Step 2: Create the BSP project
 
@@ -130,9 +133,9 @@ Create the project from the BSP example:
 
 ```bash
 idf.py create-project-from-example \
-  "espressif/esp32_s31_korvo_1=1.0.1:display_camera_video"
+  "espressif/esp32_s31_korvo_1=1.1.0:display_camera_video"
 cd display_camera_video
-idf.py set-target esp32s31
+idf.py --preview set-target esp32s31
 ```
 
   {{< /tab >}}
@@ -141,10 +144,10 @@ idf.py set-target esp32s31
 1. Open the Command Palette.
 2. Run **ESP-IDF: Show ESP Component Registry**.
 3. Search for `esp32_s31_korvo_1`.
-4. Open `espressif/esp32_s31_korvo_1` and select version **1.0.1**.
+4. Open `espressif/esp32_s31_korvo_1` and select version **1.1.0**.
 5. Find `display_camera_video` and select **Create project from this example**.
 6. Choose a destination, create the project, and open it.
-7. Run **ESP-IDF: Set Espressif Device Target** and select `esp32s31`.
+7. Run **ESP-IDF: Set Espressif Device Target** and select `esp32s31`. Because it is a preview target, you can alternatively run `idf.py --preview set-target esp32s31` in the **ESP-IDF terminal**.
 
 See the official [project-creation guide](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/startproject.html#esp-component-registry) for more information.
 
