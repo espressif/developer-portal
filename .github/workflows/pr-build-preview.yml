@@ -35,6 +35,15 @@ jobs:
           printf '%s\n' "$PR_HEAD_REF" > pr_head_ref.txt
           printf '%s\n' "$PR_HEAD_SHA" > pr_head_sha.txt
 
+      - name: Collect articles touched by this PR
+        continue-on-error: true
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          bash tools/ci/collect_pr_articles.sh \
+            "$PR_BASE_SHA" "$PR_HEAD_SHA" pr_articles.txt
+
       - name: Add preview banner to website
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
@@ -73,6 +82,7 @@ jobs:
             pr_url.txt
             pr_head_ref.txt
             pr_head_sha.txt
+            pr_articles.txt
           retention-days: 3
 
       - name: Upload built site
