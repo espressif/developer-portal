@@ -1,0 +1,14 @@
+{
+    "name": "Mark Santos",
+    "type": "community",
+    "image": "img/authors/espressif.webp",
+    "bio": "Video editor. Runs Mark Studios, which makes explainer and product videos for software companies.",
+    "social": [
+        {
+            "github": "https://github.com/markksantos"
+        },
+        {
+            "link": "https://www.markstudios.com/for-saas"
+        }
+    ]
+}
