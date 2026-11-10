@@ -1,0 +1,12 @@
+{
+    "name": "Wokwi",
+    "type": "partner",
+    "image": "img/authors/wokwi.webp",
+    "bio": "Wokwi is an online simulator for embedded systems, IoT and electronics.",
+    "social": [
+        { "globe": "https://wokwi.com" },
+        { "discord": "https://wokwi.com/discord" },
+        { "github": "https://github.com/wokwi" },
+        { "linkedin": "https://www.linkedin.com/company/wokwi-simulation/" }
+    ]
+}
