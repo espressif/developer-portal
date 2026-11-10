@@ -1,7 +1,7 @@
 ---
 title: "Designing a fail-safe watering controller with ESP-IDF"
 date: 2026-12-02
-summary: "An ESP-IDF watering controller for the ESP32-C3 and ESP32-C6 that waters in short pulses, backs every pulse with a one-shot timer and the task watchdog, and latches a fault when the sensor fails, the soil stops responding or the pump uses up its daily on-time budget. The article covers the wiring, the sensor checks, the state machine and host tests that check the safety rules without hardware."
+summary: "This ESP-IDF project controls an ESP32-C3 or ESP32-C6 watering system with short pump pulses. A one-shot timer and the task watchdog back up the control task. Persistent invalid readings, insufficient moisture rise after a cycle or an exhausted pump budget latch a fault. The article covers the wiring, control logic and host tests, with a checklist for hardware bring-up."
 tags:
   - ESP-IDF
   - practitioner
@@ -13,7 +13,7 @@ authors:
   - "artur-puig"
 ---
 
-A controller that switches the pump on whenever the soil sensor reads dry keeps pumping in three common failures. A sensor that slips out of the soil reads dry in air. An empty reservoir never makes the soil wetter. A control task that stalls with the pump on never switches it off. The controller in this article stops the pump in all three cases: within one watering cycle for the first two, and within seconds for the third.
+A simple watering controller runs the pump until the soil sensor reads wet. Three common failures can leave it pumping. A sensor that slips out of the soil reads dry in air. An empty reservoir never makes the soil wetter. A control task that stalls with the pump on never switches it off. The controller in this article stops the pump in all three cases: within one watering cycle for the first two, and within seconds for the third.
 
 In 2018 I prototyped iGrow, a controller for growing conditions, and filed it in Spain as a [utility model application (ES 1211990 U)](https://consultas2.oepm.es/InvenesWeb/detalle?referencia=U201830548). Soil moisture was one of its inputs; this article builds a smaller controller around that one input.
 
@@ -21,13 +21,19 @@ The controller reads one capacitive soil moisture sensor and drives one low-volt
 
 {{< github repo="arturpuig/esp32-failsafe-watering" >}}
 
-## What the controller does
+## TL;DR
 
-- Reads soil moisture once per second and converts it to a percentage between two calibration points.
-- Waters in pulses of a few seconds with a soak period after each one, until the soil reaches a target.
-- Ends every pulse on time, with a one-shot timer and the task watchdog as backups for the control task.
-- Latches a fault when the readings stay invalid for 10 s, when a full cycle of pulses barely raises the moisture or when the pump uses up its 24-hour on-time budget. A latched fault keeps the pump off until someone clears it, and it survives a reboot, as does the on-time already used.
-- Optionally reports its state over MQTT. Watering never waits for the network.
+- Measure moisture once per second; water in short pulses with time to soak between them.
+- Back up the control task with a one-shot timer and the task watchdog.
+- Stop on persistent invalid readings, insufficient moisture rise after a full cycle or an exhausted 24-hour pump budget. Keep faults and used on-time across reboots; clear a fault with the BOOT button after checking the setup.
+- Report over MQTT if needed. Watering never waits for the network. The code builds for both chips, with host-tested logic and a checklist for hardware bring-up.
+
+{{< figure
+    default=true
+    src="img/controller-overview.webp"
+    alt="Controller overview: the soil sensor feeds the ESP32, which checks readings and watering limits before driving a MOSFET and pump. NVS saves and restores faults and used pump on-time; optional MQTT reports status without blocking control. A one-shot timer and the task watchdog hook can force the pump GPIO low. Both are firmware safeguards, not an independent hardware cutoff."
+    caption="The control path from sensor to pump, with persistent state, optional reporting and two software stop paths. The timer and watchdog bypass the control task; they still depend on the ESP32."
+    >}}
 
 {{< alert icon="triangle-exclamation" >}}
 This is a hobby or small-scale controller built from low-voltage parts. It is not a certified irrigation product. Keep mains wiring out of the build, and test every change with the pump outlet in a bucket before it goes near a plant.
