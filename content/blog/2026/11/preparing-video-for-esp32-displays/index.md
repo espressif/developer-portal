@@ -1,7 +1,7 @@
 ---
 title: "Preparing Video for ESP32 Displays with FFmpeg, Tested in QEMU"
 date: "2026-11-20"
-summary: "How to turn a video into MJPEG frames that fit an ESP32 display and its flash, pack them into a data partition, and play them with ESP_NEW_JPEG. Every step is checked in Espressif's QEMU, with no board: the decoded frames are compared with FFmpeg's decode of the same JPEGs, and the article covers the FFmpeg, decoder and QEMU details that broke along the way."
+summary: "How to turn a video into MJPEG frames sized for an ESP32-driven display, pack them into a flash data partition, and play them back with ESP_NEW_JPEG. Every step is checked in Espressif's QEMU without hardware by comparing decoded frames against FFmpeg's output. The article covers the FFmpeg, decoder, and QEMU issues encountered along the way."
 authors:
   - "mark-santos"
 tags:
@@ -28,11 +28,15 @@ panel, I tested correctness rather than speed, and I did it without a board:
 Espressif's QEMU emulates an RGB framebuffer, so the decoded frames can be
 captured and compared with FFmpeg's decode of the same files.
 
-The example project is ESP-IDF v6.1 on an ESP32-S3, with ESP_NEW_JPEG 1.0.2 and
+The example project uses [ESP-IDF v6.1](https://github.com/espressif/esp-idf) on an ESP32-S3, with ESP_NEW_JPEG 1.0.2 and
 [esp_lcd_qemu_rgb](https://components.espressif.com/components/espressif/esp_lcd_qemu_rgb)
-1.0.2, run in the QEMU 9.2.2 that ships in the `espressif/idf:v6.1` Docker
-image. FFmpeg is 9.0.2. The FFmpeg behaviors below were also checked on FFmpeg
-7.1.5.
+1.0.2, run in [QEMU 9.2.2](https://github.com/espressif/qemu) that ships in the
+[`espressif/idf:v6.1` Docker image](https://hub.docker.com/r/espressif/idf).
+FFmpeg is 9.0.2. The FFmpeg behaviors below were also checked on FFmpeg 7.1.5.
+
+Every script named below (`make_source.sh`, `pack_video.py`, `run_qemu.sh`,
+`qemu_screen.py`, `compare_frames.py`) and the player's source are in
+[Full listings](#full-listings) at the end of the article.
 
 ## Preparing the frames
 
@@ -146,7 +150,7 @@ for (uint32_t i = 0; i < v->count; i++) {
 }
 ```
 
-Each frame is shown for one frame period, timed with `esp_timer`. If decoding
+Each frame is shown for one frame period, timed with [esp_timer](https://docs.espressif.com/projects/esp-idf/en/v6.1/esp32s3/api-reference/system/esp_timer.html). If decoding
 falls behind, the player shows the next frame right away and counts it as late,
 so the count tells you whether a quality or frame-rate setting is too much for
 your chip.
@@ -154,7 +158,7 @@ your chip.
 ### RGB565 byte order
 
 QEMU's virtual panel takes RGB565 little-endian, hence
-`JPEG_PIXEL_FORMAT_RGB565_LE`. Controllers such as the ST7789 and ILI9341 take
+`JPEG_PIXEL_FORMAT_RGB565_LE`. Common display controllers, such as the ST7789 and ILI9341, take
 each 16-bit pixel high byte first over SPI (see their datasheets), which is
 what `JPEG_PIXEL_FORMAT_RGB565_BE` produces. If colors look wrong on a real
 panel, check this first.
