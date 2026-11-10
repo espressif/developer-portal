@@ -36,7 +36,8 @@ FFmpeg is 9.0.2. The FFmpeg behaviors below were also checked on FFmpeg 7.1.5.
 
 Every script named below (`make_source.sh`, `pack_video.py`, `run_qemu.sh`,
 `qemu_screen.py`, `compare_frames.py`) and the player's source are in
-[Full listings](#full-listings) at the end of the article.
+[Full listings](#full-listings) at the end of the article, with the folder
+layout and the commands that run them.
 
 ## Preparing the frames
 
@@ -272,6 +273,36 @@ comparison script, as they ran for this article.
 
 ## Full listings
 
+To recreate the project, save each listing below under the path in its title,
+inside one folder:
+
+```text
+example/
+├── make_source.sh          test footage (host)
+├── pack_video.py           frames and partition image (host)
+├── compare_frames.py       frame comparison (host)
+├── run_qemu.sh             build and run in QEMU (container)
+├── qemu_screen.py          panel refresh and screenshots (container)
+└── mjpeg_player/           ESP-IDF project
+    ├── CMakeLists.txt
+    ├── partitions.csv
+    ├── sdkconfig.defaults
+    └── main/
+        ├── CMakeLists.txt
+        ├── idf_component.yml
+        └── main.c
+```
+
+Then, from `example/`:
+
+```bash
+chmod +x make_source.sh run_qemu.sh
+./make_source.sh source.mp4
+python3 pack_video.py source.mp4 video.bin --size 320x240 --fps 15 --quality 5 --frames-dir frames
+docker run --rm -v "$PWD":/w -w /w espressif/idf:v6.1 ./run_qemu.sh
+python3 compare_frames.py qemu.log frames screen --panel=320x240
+```
+
 <details><summary>The test footage (<code>make_source.sh</code>)</summary>
 
 ```bash
@@ -407,7 +438,7 @@ if __name__ == "__main__":
 
 </details>
 
-<details><summary>The player (<code>main.c</code>)</summary>
+<details><summary>The player (<code>mjpeg_player/main/main.c</code>)</summary>
 
 ```c
 // Play an MJPEG partition image (see pack_video.py) on a display.
@@ -556,7 +587,7 @@ void app_main(void) {
 
 </details>
 
-<details><summary>Project CMakeLists.txt (<code>CMakeLists.txt</code>)</summary>
+<details><summary>The project file (<code>mjpeg_player/CMakeLists.txt</code>)</summary>
 
 ```cmake
 cmake_minimum_required(VERSION 3.22)
@@ -567,14 +598,14 @@ project(mjpeg_player)
 
 </details>
 
-<details><summary>main/CMakeLists.txt (<code>CMakeLists.txt</code>)</summary>
+<details><summary>The component file (<code>mjpeg_player/main/CMakeLists.txt</code>)</summary>
 
 ```cmake
 idf_component_register(SRCS "main.c" PRIV_REQUIRES esp_lcd esp_partition esp_timer)
 ```
 
 </details>
-<details><summary>partitions.csv (<code>partitions.csv</code>)</summary>
+<details><summary>The partition table (<code>mjpeg_player/partitions.csv</code>)</summary>
 
 ```csv
 # Name,   Type, SubType, Offset,   Size
@@ -585,7 +616,7 @@ video,    data, 0x40,    0x100000, 0x300000
 
 </details>
 
-<details><summary>main/idf_component.yml (<code>idf_component.yml</code>)</summary>
+<details><summary>The component dependencies (<code>mjpeg_player/main/idf_component.yml</code>)</summary>
 
 ```yaml
 dependencies:
@@ -595,7 +626,7 @@ dependencies:
 
 </details>
 
-<details><summary>sdkconfig.defaults (<code>sdkconfig.defaults</code>)</summary>
+<details><summary>The default configuration (<code>mjpeg_player/sdkconfig.defaults</code>)</summary>
 
 ```text
 CONFIG_IDF_TARGET="esp32s3"
