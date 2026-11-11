@@ -15,7 +15,6 @@ tags:
   - AI
 ---
 
-
 Every connected product reaches the same decision about its cloud: rent a platform, or build your own.
 
 - **Rent one,** and it gets in your way after launch. The data model, OTA and permissions are all *almost* right, and each "almost" becomes a workaround you pay for every month and never own.
@@ -139,21 +138,23 @@ Add a parameter in firmware, ship it over OTA, and the app shows the new control
 
 ### Cloud backend: add what your product needs
 
-- **New REST endpoints.** Adding one is four changes: the API spec, the Go handler, the stack wiring and the tests.
-- **Your product's own concepts**, notification channels and cloud integrations.
-
-**With an AI coding assistant.** We organized the repository so that an assistant can make a correct change in a package it has never seen:
-
-- **Rules.** `CLAUDE.md` points at `.claude/rules`, which Cursor reads through a symlink. Quality, behaviour and git rules always apply; Go, AWS and API rules load by path.
-- **Skills.** `/run-tests`, `/sync-docs`, `/mr-template` and `/deploy` turn the feature loop into commands. 
-- **Specs.** 34 design specs on one template sit next to the code, so an assistant can tell a change that fits from one that only compiles.
+Add your product's own concepts, notification channels and cloud integrations. A new REST endpoint, for example, is four changes: the API spec, the Go handler, the stack wiring and the tests.
 
 **Start:** clone [esp-rainmaker-neo](https://github.com/espressif/esp-rainmaker-neo), run `make deploy`, add an endpoint, then `make test` and `make itest`.
 
+#### With an AI coding assistant
+
+We organized the repository so that an assistant can make a correct change in a package it has never seen:
+
+- **Rules.** `CLAUDE.md` points at `.claude/rules`, which Cursor reads through a symlink. Quality, behaviour and git rules always apply; Go, AWS and API rules load by path.
+- **Skills.** `/run-tests`, `/sync-docs`, `/mr-template` and `/deploy` turn the feature loop into commands.
+- **Specs.** 34 design specs on one template sit next to the code, so an assistant can tell a change that fits from one that only compiles.
+
+About 150 Go packages, 120 REST operations and 45 MQTT channels. A small team moves across that surface because the repository teaches the assistant the house rules.
+
 ### Phone app: rebrand it, or build your own
 
-- **Rebrand the stock app:** fork [esp-rainmaker-home](https://github.com/espressif/esp-rainmaker-home) and change its icon, name and colours.
-- **Build your own** on the [TypeScript SDK](https://github.com/espressif/esp-rainmaker-neo-app-sdk-ts).
+Rebrand the stock app by forking [esp-rainmaker-home](https://github.com/espressif/esp-rainmaker-home) and changing its icon, name and colours, or build your own app on the [TypeScript SDK](https://github.com/espressif/esp-rainmaker-neo-app-sdk-ts).
 
 **Start:** scan your deployment's QR code in the stock app.
 
@@ -188,12 +189,7 @@ Enterprise modules deploy through the same Installer once we enable them for you
 2. **Deploy your own cloud** with the Installer, in about an hour.
 
 {{< alert icon="rocket" >}}
-Both start at the [Get Started guide](https://docs.neo.rainmaker.espressif.com/docs/get-started).
+Start at [docs.neo.rainmaker.espressif.com/docs/get-started](https://docs.neo.rainmaker.espressif.com/docs/get-started).
 {{< /alert >}}
-
-To go further:
-
-- [Inside ESP RainMaker Neo](/blog/2026/11/esp-rainmaker-neo-architecture/): how the backend works
-- [ESP RainMaker Neo workshop](/workshops/esp-rainmaker-neo/): build a product end to end, in one sitting
 
 We really look forward to what you build on your own cloud. Tell us how it goes at esp-rainmaker-support@espressif.com, or [open an issue](https://github.com/espressif/esp-rainmaker-neo/issues).
