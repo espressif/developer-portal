@@ -18,20 +18,14 @@ tags:
 
 Every connected product reaches the same decision about its cloud: rent a platform, or build your own.
 
-A rented platform gets you to launch, then gets in your way. The data model is *almost* right. OTA is *almost* what your fleet needs. Permissions are *almost* how your business works. Each "almost" becomes a workaround you pay for every month and never own.
+- **Rent one,** and it gets in your way after launch. The data model, OTA and permissions are all *almost* right, and each "almost" becomes a workaround you pay for every month and never own.
+- **Build one,** and you write identity, device lifecycle, OTA, voice assistants and an admin console before anything specific to your product.
 
-Building your own avoids that, but now you are writing identity, device lifecycle, groups, time series, OTA, voice assistants and an admin console, before you ship anything that is specific to your product.
-
-We built ESP RainMaker Neo as a third option: **own your IoT cloud, without building it from scratch**. You get a complete cloud in your own AWS account, and you change it to fit your product.
-
-In this article, let's look at what you get on day one, what it costs, and where you start making it yours.
+We built ESP RainMaker Neo as a third option: **own your IoT cloud, without building it from scratch**. It is a complete cloud that runs in your own AWS account, and you change it to fit your product. Let's look at what you get on day one, what it costs, and how you make it yours.
 
 ## What ESP RainMaker Neo is
 
 In August we [open-sourced ESP RainMaker Neo](/blog/2026/08/open-sourcing-esp-rainmaker-neo/): the whole device-to-cloud-to-phone stack, including the cloud backend, under the Apache License 2.0.
-
-- The SDKs stay close to ESP RainMaker's, so the programming model carries over.
-- The cloud is new, so existing ESP RainMaker deployments do not migrate to it directly. We recommend Neo for new products.
 
 - **Serverless.** Managed AWS services end to end. No servers to patch, and close to zero cost while idle.
 - **Open source.** Firmware, cloud backend, phone apps and Admin Dashboard, all yours to read, fork and change.
@@ -102,7 +96,13 @@ You pay AWS directly, at AWS prices, only for what your fleet uses.
 
 ## Make it yours
 
-Every layer is code you own. Here is what people change in each, and where to start.
+**ESP RainMaker Neo is designed to be changed.** Every layer is code you own. Open source is necessary but not sufficient. A platform you can safely modify needs tooling that tells you what a change does, tests that tell you when you are done, and documentation that tells you what was intended.
+
+- **Tooling.** A CLI and Python SDK that sign in as a user or a device and drive REST and MQTT; device and phone-app simulators, so no hardware is needed during development.
+- **Tests.** Unit tests own decisions: fast, against mocks, with no deploy needed. Integration tests own wiring: they run against a live deployment and catch problems such as a missing permission. Both run in CI.
+- **Documentation.** A design spec per subsystem on one skeleton; OpenAPI and AsyncAPI definitions validated in CI, with the API reference generated from them; and a [docs site](https://docs.neo.rainmaker.espressif.com/) for firmware, backend, apps and dashboard.
+
+Here is what people change in each layer, and where to start.
 
 ### Firmware: describe the device, get the app
 
@@ -141,7 +141,6 @@ Add a parameter in firmware, ship it over OTA, and the app shows the new control
 
 - **New REST endpoints.** Adding one is four changes: the API spec, the Go handler, the stack wiring and the tests.
 - **Your product's own concepts**, notification channels and cloud integrations.
-- **Tests that tell you when you are done.** Over 3,000 unit tests and over 400 integration tests come with Neo, and a CLI and simulators let you try a change with no hardware.
 
 **With an AI coding assistant.** We organized the repository so that an assistant can make a correct change in a package it has never seen:
 
@@ -164,7 +163,8 @@ Generating code is now cheap. Knowing that it works is not. An AI assistant will
 
 - **Working end to end.** Firmware, cloud and apps agree on one data model, one provisioning flow and one OTA path. The seams between them are where generated systems fail.
 - **Security thought through.** An X.509 identity per node, challenge-response association, scoped short-lived credentials per user, a separate admin identity, and secured provisioning.
-- **Built for scale and cost.** Batching for a fleet-wide reconnect, bulk registration as a job, and a calculator so you know the bill before you ship.
+- **Built for scale.** Event handling that switches to batching for a fleet-wide reconnect, and bulk registration that runs as a job.
+- **Cost optimized.** Close to zero when idle, and a calculator so you know the bill before you ship.
 
 We keep maintaining the platform and run its end-to-end tests every day. A generated backend is yours alone to maintain. Without tests and specs, it builds up context debt: it works as it was built, but it is a pain to change.
 
