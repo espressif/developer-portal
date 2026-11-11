@@ -1,14 +1,13 @@
 {
-    "name": "Manali Kaswa",
-    "type": "espressif",
-    "image": "img/authors/espressif.webp",
-    "bio": "[Role at Espressif]",
-    "social": [
-        {
-            "linkedin": "https://www.linkedin.com/in/[profile]"
-        },
-        {
-            "github": "https://github.com/[handle]"
-        }
-    ]
+  "name": "Manali Kaswa",
+  "type": "espressif",
+  "image": "img/authors/manali-kaswa.webp",
+  "bio": "Engineer at Espressif",
+  "social": [
+    { "github": "https://github.com/manalikaswa" },
+    { "medium": "https://medium.com/@manalii" },
+    { "twitter": "https://x.com/manalikaswa" },
+    { "linkedin": "https://www.linkedin.com/in/manalikaswa" },
+    { "link": "https://manalikaswa.github.io/" }
+  ]
 }
