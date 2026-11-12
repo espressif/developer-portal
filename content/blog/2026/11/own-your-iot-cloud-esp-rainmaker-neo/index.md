@@ -1,7 +1,7 @@
 ---
 title: "Own Your IoT Cloud with ESP RainMaker Neo"
 date: 2026-11-11
-summary: "ESP RainMaker Neo is an open-source, serverless IoT cloud that you deploy into your own AWS account and change to fit your product. This article covers what you get on day one, what it costs to run, why it is a better starting point than generating a cloud from a prompt, and where to start customizing it, with or without an AI coding assistant."
+summary: "ESP RainMaker Neo is an open-source, serverless IoT cloud that you deploy into your own AWS account and change to fit your product. This article covers what you get on day one, what it costs to run, why it is a better starting point than generating a cloud from with AI from scratch, and where to start customizing it, with or without an AI coding assistant."
 featureAsset: "img/featured/featured-rainmaker-neo.webp"
 authors:
   - "manali-kaswa"
@@ -15,12 +15,12 @@ tags:
   - AI
 ---
 
-Every connected product reaches the same decision about its cloud: rent a platform, or build your own.
+Every connected product explores the same tradeoff about its cloud platform: rent a SAAS platform, or build your own.
 
-- **Rent one,** and it gets in your way after launch. The data model, OTA and permissions are all *almost* right, and each "almost" becomes a workaround you pay for every month and never own.
-- **Build one,** and you write identity, device lifecycle, OTA, voice assistants and an admin console before anything specific to your product.
+- **Rent a SAAS platform,** and it gets in your way after launch. The data model, OTA and permissions are all *almost* right, and each "almost" is a compromise that takes you farther from your desired user experience.
+- **Build your own,** and you write identity, device lifecycle, OTA, voice assistants and an admin console before anything specific to your product. A months long project, even with AI agents.
 
-We built ESP RainMaker Neo as a third option: **own your IoT cloud, without building it from scratch**. It is a complete cloud that runs in your own AWS account, and you change it to fit your product. Let's look at what you get on day one, what it costs, and how you make it yours.
+We built ESP RainMaker Neo as a third option: **own your IoT cloud, and extend it as you like**. It is a complete cloud that runs in your own cloud account, and you change it to fit your product. Let's look at what you get on day one, what it costs, and how you make it yours.
 
 ## What ESP RainMaker Neo is
 
@@ -46,20 +46,26 @@ Every box above is a repository you own a copy of:
 
 So customizing your product means editing code, not working around a platform.
 
-## What you get on day one
+## What you get right off the gate
 
 ### For your customers
 
-The stock ESP RainMaker Home app points at your deployment with one QR scan. It brings:
+The platform offers your end-users the following features:
 
-- Onboarding over BLE or the local network
-- Local (over IP or Matter), remote, voice control
+- Device-Onboarding over BLE
+- Local (over IP or Matter), remote, voice control through phone apps
 - Schedules that run on the device, even when the cloud is unreachable
 - Automations across devices
 - Homes, rooms and sharing
 - Time-series history
 - Push notifications
 - Bridges for Zigbee, BLE mesh and Matter devices
+
+#### Third-Party Integrations
+
+Integrations with Voice Assistants like Amazon Alexa, Google Voice Assistant and Samsung SmartThings.
+
+The ESP RainMaker Neo cloud platform also packages its own [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server. So your end-users can link this to any AI Assistant and get them to control and automate their devices.
 
 ### For your operations team
 
@@ -70,27 +76,12 @@ The Admin Dashboard runs in your account, under your brand and with its own admi
 - Static and dynamic groups
 - OTA to one device or a query-defined fleet, with history
 
-### For AI agents
-
-Your deployment ships a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server.
-
-1. Add its URL to Claude, Cursor or any MCP client.
-2. Sign in once over OAuth.
-3. The agent sees exactly the devices that account can reach, through five tools: `list_devices`, `list_groups`, `list_schedules`, `set_params` and `set_schedule`.
-
-```text
-You:   "Turn off the kitchen lights and dim the bedroom to 30%."
-Agent: list_devices → set_params(Power: false) · set_params(Brightness: 30)
-```
-
-Voice assistants are integrated one at a time. MCP makes your product reachable from whatever agent your customer already uses, with no extra firmware work.
-
 ## What it costs to run
 
-You pay AWS directly, at AWS prices, only for what your fleet uses.
+You pay your cloud provider directly, and only for what your fleet actually uses.
 
 - **What you pay for:** messages, requests and stored bytes, not server-hours. A quiet fleet costs close to nothing.
-- **What it adds up to:** about $3 a month for a ten-node fleet with typical traffic, in the [cost calculator](https://calculator.neo.rainmaker.espressif.com/).
+- **What it adds up to:** the [cost calculator](https://calculator.neo.rainmaker.espressif.com/) helps you estimate how much it will cost for the interactions your devices and users will have.
 - **What you don't pay:** no per-node licence, and no platform fee for the open-source core.
 
 ## Make it yours
@@ -101,48 +92,17 @@ You pay AWS directly, at AWS prices, only for what your fleet uses.
 - **Tests.** Unit tests own decisions: fast, against mocks, with no deploy needed. Integration tests own wiring: they run against a live deployment and catch problems such as a missing permission. Both run in CI.
 - **Documentation.** A design spec per subsystem on one skeleton; OpenAPI and AsyncAPI definitions validated in CI, with the API reference generated from them; and a [docs site](https://docs.neo.rainmaker.espressif.com/) for firmware, backend, apps and dashboard.
 
-Here is what people change in each layer, and where to start.
+## Why not let AI build the cloud from scratch?
 
-### Firmware: describe the device, get the app
+ESP RainMaker Neo codebase offers a better starting point for AI Coding Agents to get started.
 
-This is the idea ESP RainMaker started with, and Neo keeps it. You describe your device in firmware, and the cloud and the phone app follow. Here is the core of the `light` example:
+Generating code is now cheap. Knowing that it works is not. An AI assistant will happily generate an IoT backend from scratch, but not the years of decisions a working one is made of, or the tests that prove them.
 
-```c
-light_device = esp_rmaker_lightbulb_device_create("Light", NULL, app_driver_get_power());
-esp_rmaker_device_add_bulk_cb(light_device, bulk_write_cb, NULL);
-esp_rmaker_device_add_param(light_device, esp_rmaker_brightness_param_create(ESP_RMAKER_DEF_BRIGHTNESS_ID, app_driver_get_brightness()));
-esp_rmaker_device_add_param(light_device, esp_rmaker_hue_param_create(ESP_RMAKER_DEF_HUE_ID, app_driver_get_hue()));
-esp_rmaker_device_add_param(light_device, esp_rmaker_saturation_param_create(ESP_RMAKER_DEF_SATURATION_ID, app_driver_get_saturation()));
-esp_rmaker_node_add_device(node, light_device);
-```
-
-Basically:
-
-- **`esp_rmaker_lightbulb_device_create`** creates a light, with its power state read from your driver.
-- **`esp_rmaker_device_add_bulk_cb`** registers the callback that receives changes from the app, the cloud or a voice assistant. This is where you drive your hardware.
-- **`esp_rmaker_device_add_param`** adds what you want to expose: here brightness, hue and saturation. Each standard parameter carries the UI it should be shown with.
-
-No cloud code and no app code. The phone app reads the device description and draws itself:
-
-{{< figure
-    default=true
-    src="img/app-light-color.webp"
-    alt="ESP RainMaker Home app showing the Light device: a power button and sliders for brightness, hue and saturation"
-    caption="The app draws these controls from the firmware's parameters."
-    width=300
-    >}}
-
-Add a parameter in firmware, ship it over OTA, and the app shows the new control on its next refresh. You can also change provisioning and OTA policy.
-
-**Start:** copy `examples/light` and iterate on the POSIX build, with no board.
-
-### Cloud backend: add what your product needs
-
-Add your product's own concepts, notification channels and cloud integrations. A new REST endpoint, for example, is four changes: the API spec, the Go handler, the stack wiring and the tests.
-
-**Start:** clone [esp-rainmaker-neo](https://github.com/espressif/esp-rainmaker-neo), run `make deploy`, add an endpoint, then `make test` and `make itest`.
-
-#### With an AI coding assistant
+- **Working end to end.** Firmware, cloud and apps agree on one data model, one provisioning flow and one OTA path. The seams between them are where generated systems fail.
+- **Security thought through.** An X.509 identity per node, challenge-response association, scoped short-lived credentials per user, a separate admin identity, and secured provisioning.
+- **Built for scale.** Event handling that switches to batching for a fleet-wide reconnect, and bulk registration that runs as a job.
+- **Cost optimized.** Close to zero when idle, and a calculator so you know the bill before you ship.
+- **Catch regressions early.** A thorough test coverage with unit and integration tests that provide instant feedback to AI coding agents to fix their code.
 
 We organized the repository so that an assistant can make a correct change in a package it has never seen:
 
@@ -152,24 +112,7 @@ We organized the repository so that an assistant can make a correct change in a 
 
 About 150 Go packages, 120 REST operations and 45 MQTT channels. A small team moves across that surface because the repository teaches the assistant the house rules.
 
-### Phone app: rebrand it, or build your own
-
-Rebrand the stock app by forking [esp-rainmaker-home](https://github.com/espressif/esp-rainmaker-home) and changing its icon, name and colours, or build your own app on the [TypeScript SDK](https://github.com/espressif/esp-rainmaker-neo-app-sdk-ts).
-
-**Start:** scan your deployment's QR code in the stock app.
-
-## Why not let AI build the cloud from scratch?
-
-Generating code is now cheap. Knowing that it works is not. An AI assistant will happily generate an IoT backend from a prompt, but not the years of decisions a working one is made of, or the tests that prove them:
-
-- **Working end to end.** Firmware, cloud and apps agree on one data model, one provisioning flow and one OTA path. The seams between them are where generated systems fail.
-- **Security thought through.** An X.509 identity per node, challenge-response association, scoped short-lived credentials per user, a separate admin identity, and secured provisioning.
-- **Built for scale.** Event handling that switches to batching for a fleet-wide reconnect, and bulk registration that runs as a job.
-- **Cost optimized.** Close to zero when idle, and a calculator so you know the bill before you ship.
-
-We keep maintaining the platform and run its end-to-end tests every day. A generated backend is yours alone to maintain. Without tests and specs, it builds up context debt: it works as it was built, but it is a pain to change.
-
-We think AI is better spent on the part that makes it your product than on rebuilding the platform underneath.
+Try asking your AI coding agent to customize ESP RainMaker Neo and see how quickly it understands and make changes without any regressions.
 
 ## Need more? Enterprise add-ons
 
@@ -177,11 +120,9 @@ The open-source core is complete on its own. For teams that want more, the ESP R
 
 - Support with SLAs
 - Enterprise identity features
-- ESP Insights device diagnostics, running in your own AWS account
+- ESP Insights device diagnostics
 - Private AI agents for your devices and apps
 - Consulting to scope, customize and launch your product
-
-Enterprise modules deploy through the same Installer once we enable them for your account. They build with the same Makefile and use the same APIs.
 
 ## Get started
 
@@ -192,4 +133,4 @@ Enterprise modules deploy through the same Installer once we enable them for you
 Start at [docs.neo.rainmaker.espressif.com/docs/get-started](https://docs.neo.rainmaker.espressif.com/docs/get-started).
 {{< /alert >}}
 
-We really look forward to what you build on your own cloud. Tell us how it goes at esp-rainmaker-support@espressif.com, or [open an issue](https://github.com/espressif/esp-rainmaker-neo/issues).
+We really look forward to what you build on your own cloud. Tell us how it goes at <esp-rainmaker-support@espressif.com>, or [open an issue](https://github.com/espressif/esp-rainmaker-neo/issues).
