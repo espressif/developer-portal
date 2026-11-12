@@ -2,7 +2,6 @@
 title: "Own Your IoT Cloud with ESP RainMaker Neo"
 date: 2026-11-11
 summary: "ESP RainMaker Neo is an open-source, serverless IoT cloud that you deploy into your own AWS account and change to fit your product. This article covers what you get on day one, what it costs to run, why it is a better starting point than generating a cloud from with AI from scratch, and where to start customizing it, with or without an AI coding assistant."
-featureAsset: "img/featured/featured-rainmaker-neo.webp"
 authors:
   - "manali-kaswa"
   - "kedar-sovani"
