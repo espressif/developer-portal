@@ -1,6 +1,7 @@
 ---
 title: Introducing ESP-IDF button component
 date: 2026-02-18
+lastmod: 2026-11-13
 authors:
     - pedro-minatel
 tags:
@@ -199,7 +200,6 @@ Register the callback functions for different button events:
     ESP_ERROR_CHECK(ret);
     ret = iot_button_register_cb(btn, BUTTON_PRESS_REPEAT, NULL, button_repeat_event_cb, NULL);
     ESP_ERROR_CHECK(ret);
-}
 ```
 
 This example demonstrates several important aspects of button configuration and handling. GPIO 9 is configured with active-low logic, meaning the button pulls the GPIO low when pressed. The timing parameters are set to detect a long press after 5 seconds and a short press after 200 milliseconds, providing flexibility for different interaction patterns.
