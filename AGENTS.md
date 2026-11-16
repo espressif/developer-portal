@@ -46,6 +46,18 @@ Prerequisites:
 Once prerequisites are satisfied, preview the website following the guidelines in `content/pages/contribution-guide/create-article-scaffold/index.md#preview-the-article`
 
 
+## Types of content
+
+Here are types of content and the paths where they are located:
+
+- `content/blog` -- blog articles
+- `content/workshops` -- workshops
+- `content/events` -- upcoming and past events
+- `content/hardware` -- hardware products, such as chips; their support status of hardware features and which software frameworks are supported on them
+- `content/software` -- software products, such as ESP-IDF; their support status of hardware products and which software features are being implemented
+- `content/pages/contribution-guide` -- Contribution guide
+
+
 ## Article lifecycle
 
 ### Create an article
