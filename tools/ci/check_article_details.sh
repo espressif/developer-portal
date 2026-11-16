@@ -192,6 +192,16 @@ collect_changed_files() {
   echo "List of renamed articles:"
   cat "$TEMP_DIR/folders-renamed.txt" \
     | sed -E 's:\/_?index\.md::g'
+
+  # Added, modified, and renamed pages. _index.md and index.md, including
+  # translations such as _index.cs.md.
+  git diff --name-only --diff-filter=AMR "$base_ref"...HEAD \
+    | grep -E '^content/(blog|workshops)/(.*/)?_?index(\.[A-Za-z0-9-]+)?\.md$' \
+    > "$TEMP_DIR/index-draft-check.txt" || true
+
+  echo
+  echo "List of index files checked for drafts:"
+  cat "$TEMP_DIR/index-draft-check.txt"
 }
 
 
@@ -505,6 +515,52 @@ find_trailing_spaces() {
 
 
 ###############################################################################
+# DRAFT FRONT MATTER VALIDATION
+###############################################################################
+
+validate_draft_frontmatter() {
+  echo
+  echo "Validating that pages are not drafts..."
+
+  local job_error=0
+  local INDEX_LIST="${TEMP_DIR}/index-draft-check.txt"
+  local index_file draft
+
+  while IFS= read -r index_file; do
+    [[ -z "$index_file" ]] && continue
+
+    if [[ ! -f "$index_file" ]]; then
+      echo "Warning: File not found: $index_file"
+      continue
+    fi
+
+    # Only the YAML header. A later "draft: true" in the body is not a flag.
+    draft=$(awk '
+      /^---$/ { c++; if (c == 2) exit; next }
+      c == 1 && /^draft:/ {
+        gsub(/["'\'' ]/, "", $2)
+        print tolower($2)
+        exit
+      }
+    ' "$index_file")
+
+    if [[ "$draft" == "true" ]]; then
+      echo
+      echo "Article: $index_file"
+      echo "❌ Found \"draft: true\" in the YAML header."
+      echo "   Remove it so the page is published after merge."
+      job_error=1
+    fi
+  done < "$INDEX_LIST"
+
+  if [[ $job_error -eq 0 ]]; then
+    echo "No issues found."
+  fi
+  return $job_error
+}
+
+
+###############################################################################
 # FEATURE ASSET VALIDATION
 ###############################################################################
 
@@ -812,6 +868,14 @@ BASE_REF="$(resolve_base_ref)"
 banner "🔎 Checking changed filenames and paths..."
 
 collect_changed_files "$BASE_REF"
+
+banner "🔎 Checking that pages are not drafts..."
+
+if [[ -s "$TEMP_DIR/index-draft-check.txt" ]]; then
+  validate_draft_frontmatter || overall_error=1
+else
+  echo "No added or updated index files."
+fi
 
 banner "🔎 Checking added files..."
 
