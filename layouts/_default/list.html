@@ -18,15 +18,17 @@
     {{ if .Params.showBreadcrumbs | default (site.Params.list.showBreadcrumbs | default false) }}
       {{ partial "breadcrumbs.html" . }}
     {{ end }}
-    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
-    <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+      <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       {{ partial "article-meta/list.html" (dict "context" . "scope" "single") }}
     </div>
   </header>
 
   {{/* Description (markdown content) */}}
   {{ $tocMargin := cond $showToc "mt-12" "mt-0" }}
-  {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+  {{ $topClass := cond (or (hasPrefix site.Params.header.layout "fixed") (eq site.Params.header.layout "floating")) "lg:top-[140px]" "lg:top-10" }}
   <section class="{{ $tocMargin }} prose flex max-w-full flex-col dark:prose-invert lg:flex-row mb-10">
     {{ if $showToc }}
       <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
