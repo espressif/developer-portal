@@ -81,7 +81,7 @@ You pay your cloud provider directly, and only for what your fleet actually uses
 
 - **What you pay for:** messages, requests and stored bytes, not server-hours. A quiet fleet costs close to nothing.
 - **What it adds up to:** the [cost calculator](https://calculator.neo.rainmaker.espressif.com/) helps you estimate how much it will cost for the interactions your devices and users will have.
-- **What you don't pay:** no per-node licence, and no platform fee for the open-source core.
+- **What you don't pay:** no per-node licence, and no platform fee for the open-source core, no expensive dev-ops teams
 
 ## Make it yours
 
@@ -111,7 +111,7 @@ We organized the repository so that an assistant can make a correct change in a 
 
 About 150 Go packages, 120 REST operations and 45 MQTT channels. A small team moves across that surface because the repository teaches the assistant the house rules.
 
-Try asking your AI coding agent to customize ESP RainMaker Neo and see how quickly it understands and make changes without any regressions.
+Try asking your AI coding agent to customize ESP RainMaker Neo and see how quickly it understands and makes changes without any regressions.
 
 ## Need more? Enterprise add-ons
 
