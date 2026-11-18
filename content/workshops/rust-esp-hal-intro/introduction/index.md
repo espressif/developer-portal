@@ -9,14 +9,11 @@ showAuthor: false
 
 Before you write any code, this page gives you a map of the pieces you will use during the workshop: what `no_std` means, what esp-hal is, and which crates sit around it.
 
-## Two ways to run Rust on Espressif chips
+## Bare-metal Rust with `no_std`
 
-Espressif chips can run Rust in two different ways:
+In this workshop, your Rust code runs directly on the hardware, with no operating system underneath. Such programs are called **`no_std`**: instead of the full Rust standard library, they use the [`core`](https://doc.rust-lang.org/core/) library, plus [`alloc`](https://doc.rust-lang.org/alloc/) when they need a heap. `core` still gives you everything that makes Rust Rust: ownership, traits, iterators, `Option`, `Result`, and formatting. What's missing are things that need an operating system, such as files and threads.
 
-- **`no_std` bare metal**: Rust code runs directly on the hardware with no operating system underneath. You only have the [`core`](https://doc.rust-lang.org/core/) library (and optionally [`alloc`](https://doc.rust-lang.org/alloc/)), but the whole firmware is Rust, builds with plain `cargo`, and you control every byte of it.
-- **`std` on top of ESP-IDF**: Rust code calls into the ESP-IDF C framework (FreeRTOS, lwIP, the Wi-Fi driver) through the [`esp-idf-hal`](https://github.com/esp-rs/esp-idf-hal) and [`esp-idf-svc`](https://github.com/esp-rs/esp-idf-svc) crates. You get the Rust standard library, threads, and the whole ESP-IDF ecosystem, at the cost of a C build system and a larger binary.
-
-This workshop uses the **`no_std`** approach with **esp-hal**.
+The whole firmware is Rust, it builds with plain `cargo`, and you control every byte of it.
 
 ## What is esp-hal?
 
@@ -70,6 +67,8 @@ All the boards in this workshop use **RISC-V** chips, which are supported by the
 
 ## Next step
 
-[Setup](../setup/)
+Continue with [Setup](../setup/).
 
-[Return to the workshop main page](/workshops/rust-esp-hal-intro/)
+---
+
+[← Workshop overview](/workshops/rust-esp-hal-intro/)
