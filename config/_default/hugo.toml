@@ -12,6 +12,10 @@ defaultContentLanguageInSubdir = false
 
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
 
+# Keep tag, category, and other term labels as written in front matter.
+# The default AP title case rewrites acronyms ("Espressif IDE" -> "Espressif Ide").
+capitalizeListTitles = false
+
 enableRobotsTXT = true
 summaryLength = 0
 
