@@ -1429,6 +1429,8 @@ In this assignment, you:
 
 ## Next step
 
-[Conclusion](../conclusion/)
+Continue with [Conclusion](../conclusion/).
 
-[Return to the workshop main page](/workshops/rust-esp-hal-intro/)
+---
+
+[← Workshop overview](/workshops/rust-esp-hal-intro/)

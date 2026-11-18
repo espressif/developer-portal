@@ -101,32 +101,32 @@ This step checks the whole toolchain and downloads and compiles all the dependen
 {{< tabs group="board" >}}
 {{< tab label="S31-CoreBoard" >}}
 ```bash
-esp-generate --template esp-rs/esp-hal --headless -o esp32s31 -o unstable-hal setup_test
+esp-generate --template Hahihula/esp-hal@base48-workshop --headless -o esp32s31 -o unstable-hal -o log -o esp-backtrace setup_test
 ```
 {{< /tab >}}
 {{< tab label="S31-Korvo-1" >}}
 ```bash
-esp-generate --template esp-rs/esp-hal --headless -o esp32s31 -o unstable-hal setup_test
+esp-generate --template Hahihula/esp-hal@base48-workshop --headless -o esp32s31 -o unstable-hal -o log -o esp-backtrace setup_test
 ```
 {{< /tab >}}
 {{< tab label="C6-DevKitC-1" >}}
 ```bash
-esp-generate --template esp-rs/esp-hal --headless -o esp32c6 -o unstable-hal setup_test
+esp-generate --template Hahihula/esp-hal@base48-workshop --headless -o esp32c6 -o unstable-hal -o log -o esp-backtrace setup_test
 ```
 {{< /tab >}}
 {{< tab label="C5-DevKitC-1" >}}
 ```bash
-esp-generate --template esp-rs/esp-hal --headless -o esp32c5 -o unstable-hal setup_test
+esp-generate --template Hahihula/esp-hal@base48-workshop --headless -o esp32c5 -o unstable-hal -o log -o esp-backtrace setup_test
 ```
 {{< /tab >}}
 {{< tab label="C3-DevKit-RUST-1" >}}
 ```bash
-esp-generate --template esp-rs/esp-hal --headless -o esp32c3 -o unstable-hal setup_test
+esp-generate --template Hahihula/esp-hal@base48-workshop --headless -o esp32c3 -o unstable-hal -o log -o esp-backtrace setup_test
 ```
 {{< /tab >}}
 {{< tab label="C3-LCDkit" >}}
 ```bash
-esp-generate --template esp-rs/esp-hal --headless -o esp32c3 -o unstable-hal setup_test
+esp-generate --template Hahihula/esp-hal@base48-workshop --headless -o esp32c3 -o unstable-hal -o log -o esp-backtrace setup_test
 ```
 {{< /tab >}}
 {{< /tabs >}}
@@ -191,6 +191,8 @@ The test project depends on esp-hal straight from its Git repository. If you are
 
 ## Next step
 
-[Assignment 1: Your first esp-hal project](../assignment-1/)
+Continue with [Assignment 1: Your first esp-hal project](../assignment-1/).
 
-[Return to the workshop main page](/workshops/rust-esp-hal-intro/)
+---
+
+[← Workshop overview](/workshops/rust-esp-hal-intro/)

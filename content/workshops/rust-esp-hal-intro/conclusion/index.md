@@ -17,7 +17,7 @@ In this workshop, you:
 - Generated esp-hal projects from the esp-hal template and learned what each generated file does
 - Drove a WS2812 RGB LED with the RMT peripheral, first with blocking code and then with async
 - Wrote async firmware with Embassy and `esp-rtos`
-- Connected your board to Wi-Fi with `esp-radio` and controlled it from a shared web app
+- Connected your board to Wi-Fi with `esp-radio`, joined an MQTT broker with `rust-mqtt`, and controlled it from a shared web page
 - Exchanged messages between boards with ESP-NOW, without any network infrastructure
 
 ## Where to go next
