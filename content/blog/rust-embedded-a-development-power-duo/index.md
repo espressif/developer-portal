@@ -7,9 +7,8 @@ authors:
   - juraj-sadel
 tags:
   - Rust
-  - Embedded Systems
-  - Esp32
-  - Rust Programming Language
+  - Embedded systems
+  - ESP32
 
 ---
 {{< figure

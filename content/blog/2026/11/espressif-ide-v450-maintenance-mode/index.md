@@ -7,10 +7,10 @@ authors:
 featureAsset: "img/featured/featured-espressif-ide.webp"
 tags:
   - Espressif-IDE
-  - release
+  - Release
   - migration
   - Eclipse
-  - VS Code
+  - ESP-IDF Extension for VS Code
   - AI
 ---
 

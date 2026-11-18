@@ -8,7 +8,7 @@ authors:
 tags:
   - Instagram
   - IoT
-  - Esp32
+  - ESP32
   - Newsletter
 
 ---

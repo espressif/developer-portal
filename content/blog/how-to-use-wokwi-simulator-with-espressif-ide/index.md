@@ -6,9 +6,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kondal-kolipaka
 tags:
-  - 2.9.0
-  - Espressif Ide
-  - Esp Idf
+  - Espressif-IDE
+  - ESP-IDF
   - Wokwi
   - Espressif
 

@@ -7,7 +7,7 @@ authors:
   - adwait-patankar
 tags:
   - Espinsights
-  - Esp32
+  - ESP32
   - IoT
 
 ---

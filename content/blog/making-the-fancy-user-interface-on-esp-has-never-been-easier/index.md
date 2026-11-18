@@ -9,8 +9,8 @@ tags:
   - LVGL
   - Squareline
   - ESP32
-  - Embedded
-  - User Interface
+  - Embedded systems
+  - GUI
 ---
 If you tried to make some fancy UI without any graphic library, you know, how hard it is. Fortunately, there are lot of graphical libraries for making fancy UI on our screens. One of the often used is [LVGL](http://lvgl.io), which is supported on ESP microcontrollers. Usually, when we wanted to use graphical library like [LVGL](http://lvgl.io), we had to know API functions and how to combine it to reach fancy UI. It isn’t true anymore!
 

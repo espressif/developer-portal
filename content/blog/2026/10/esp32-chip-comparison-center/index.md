@@ -6,9 +6,9 @@ showTableOfContents: true
 authors:
   - "he-xin-lin"
 tags:
-  - product selection
-  - overview
-  - web app
+  - Product selection
+  - Overview
+  - Web app
 summary: "Espressif chips now run from the ESP8266 and ESP32 through the S, C, H, P, and E series, and the details live in many datasheets. The Chip Comparison Center puts one chip's capabilities, side-by-side differences, requirement filters, application references, and matching development boards on a single page so you can choose a chip or a board faster."
 ---
 

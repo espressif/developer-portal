@@ -4,7 +4,7 @@ date: 2025-04-01
 showAuthor: False
 authors:
   - "radim-karnis"
-tags: ["esptool", "tools"]
+tags: ["esptool", "Tools"]
 summary: "esptool v5, currently under development by Espressif, boosts its new public API and customizable logging capabilities for developers. The new version brings enhancements for users as well. Contributions are welcome, preview out now."
 ---
 

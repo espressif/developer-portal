@@ -4,11 +4,11 @@ date: 2025-11-19
 lastmod: 2025-11-27
 tags:
   - NuttX
-  - practitioner
+  - Practitioner
   - how-to
   - RISC-V
-  - cross-compilation
-  - library
+  - Cross-compilation
+  - Library
 showAuthor: false
 authors:
     - "filipe-cavalcanti"

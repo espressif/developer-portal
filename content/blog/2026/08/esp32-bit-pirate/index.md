@@ -8,10 +8,10 @@ authors:
 tags:
   - ESP32
   - ESP32-C5
-  - development board
+  - Development board
   - open hardware
-  - community contribution
-  - debugging
+  - Community contribution
+  - Debugging
 ---
 
 ## One board on the bench, most of the bus protocols you meet

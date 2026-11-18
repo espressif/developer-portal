@@ -4,7 +4,7 @@ date: 2024-08-22T17:00:17+08:00
 showAuthor: false
 authors:
   - "cai-guanhong"
-tags: ["ESP32-C2", "SPI", "LCD", "ESP-Rainmaker", "Toothbrush", "DIY"]
+tags: ["ESP32-C2", "SPI", "LCD", "ESP RainMaker", "Toothbrush", "DIY"]
 ---
 
 ## Introduction

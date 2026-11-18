@@ -6,9 +6,9 @@ featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - kedar-sovani
 tags:
-  - Rainmaker
-  - Announcements
-  - Esp32
+  - ESP RainMaker
+  - Announcement
+  - ESP32
 
 ---
 

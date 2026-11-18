@@ -5,7 +5,7 @@ tags:
   - Arduino
   - BLE
   - Bluetooth
-  - library
+  - Library
 showAuthor: false
 featureAsset: "img/featured/featured-arduino.webp"
 authors:

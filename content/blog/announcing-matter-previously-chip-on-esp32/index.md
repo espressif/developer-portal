@@ -6,8 +6,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - hrishikesh-dhayagude
 tags:
-  - release v4.3
-  - Esp32
+  - Release
+  - ESP32
   - IoT
   - Matter
 

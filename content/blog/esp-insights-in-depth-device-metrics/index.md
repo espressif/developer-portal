@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-insights.webp"
 authors:
   - adwait-patankar
 tags:
-  - Esp32
+  - ESP32
   - IoT
   - Espinsights
 

@@ -1,7 +1,7 @@
 ---
 title: "SPI Flash for Persistent Data Storage with NuttX RTOS"
 date: 2025-09-23
-tags: ["NuttX", "Apache", "ESP32", "flash", "data", "storage"]
+tags: ["NuttX", "Apache", "ESP32", "flash", "data", "Storage"]
 showAuthor: false
 authors:
     - "filipe-cavalcanti"

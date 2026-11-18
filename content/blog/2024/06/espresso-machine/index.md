@@ -5,7 +5,7 @@ lastmod: 2025-10-16
 showAuthor: false
 authors:
   - "raffael-rostagno"
-tags: ["ESP32", "ESP-IDF", "RainMaker"]
+tags: ["ESP32", "ESP-IDF", "ESP RainMaker"]
 summary: "This article is about upgrading a regular low cost Espresso machine by adding an ESP32 for both control and connectivity."
 aliases:
   - /blog/espresso-machine

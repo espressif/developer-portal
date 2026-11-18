@@ -5,7 +5,7 @@ summary: This article compares the Analog-to-Digital Converter (ADC) performance
 showAuthor: False
 authors:
   - "zhang-wei"
-tags: ["peripheral", "adc", "performance"]
+tags: ["Peripheral", "ADC", "Performance"]
 ---
 
 ## Introduction

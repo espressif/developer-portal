@@ -7,7 +7,7 @@ authors:
 tags:
   - MCP
   - AI
-  - RainMaker
+  - ESP RainMaker
   - LLM
 summary: >
   ESP RainMaker now supports the Model Context Protocol (MCP), enabling natural language interactions with your IoT devices via tools like Claude, Cursor, Gemini CLI, Windsurf, etc. This blog introduces the new stdio-based MCP server, outlines use cases, and hints at what’s next.

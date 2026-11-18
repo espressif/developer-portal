@@ -8,7 +8,7 @@ authors:
 tags:
   - IoT
   - Security
-  - Embedded Systems
+  - Embedded systems
 
 ---
 In the [previous post](/blog/introducing-esp-privilege-separation), we introduced ESP Privilege Separation, a framework to achieve “user-kernel” separation and isolation on ESP32-C3 SoC. There are multiple ways of applying this framework to your project. This post presents a case study of integrating ESP-RainMaker, a real-world IoT application, with the ESP Privilege Separation framework.

@@ -5,9 +5,9 @@ lastmod: 2026-09-17
 summary: esp_trace is a new ESP-IDF component that splits application-level tracing into pluggable encoders and transports, so adding a new trace library no longer means patching the kernel. This post gives a high-level tour and walks through the example that demonstrates the integration.
 tags:
   - ESP-IDF
-  - tracing
+  - Tracing
   - FreeRTOS
-  - debugging
+  - Debugging
 authors:
   - "erhan-kurubas"
 ---

@@ -5,7 +5,7 @@ summary: "AES67/RAVENNA is the audio transport behind a lot of broadcast and liv
 featureAsset: "img/featured/featured-espressif-waves.webp"
 authors:
     - sylwester-sosnowski
-tags: ["AES67", "RAVENNA", "audio", "PTP", "RTP", "ESP-IDF", "ESP32-P4", "networking"]
+tags: ["AES67", "RAVENNA", "Audio", "PTP", "RTP", "ESP-IDF", "ESP32-P4", "Networking"]
 ---
 
 ## What AES67 is, and why this is an odd place to run it

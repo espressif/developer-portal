@@ -6,7 +6,6 @@ authors:
   - "marek-matej"
 tags:
   - Bootloader
-  - Simpleboot
   - ESP-IDF
   - Zephyr
   - NuttX

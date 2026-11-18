@@ -6,9 +6,9 @@ tags:
   - ESP32-S3
   - ESP-NOW
   - Arduino
-  - robotics
-  - motor
-  - sensor
+  - Robotics
+  - Motor
+  - Sensor
 authors:
   - "martin-suriak"
   - "ondrej-peter"

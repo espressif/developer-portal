@@ -4,7 +4,7 @@ date: "2025-10-20"
 summary: "This article shows how to port an external library into an ESP-IDF project by converting it into a reusable component. Using tinyexpr as an example, it covers obtaining the source code, creating a new project, building a component, configuring the build system, and testing on hardware."
 authors:
   - "francesco-bez"
-tags: ["esp32c3", "component","porting"]
+tags: ["ESP32-C3", "Component", "Porting"]
 ---
 
 ## Introduction

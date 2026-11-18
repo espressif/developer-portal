@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - hrishikesh-dhayagude
 tags:
-  - Esp32
+  - ESP32
   - Dialogflow
   - IoT
 

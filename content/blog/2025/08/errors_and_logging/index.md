@@ -5,7 +5,7 @@ showAuthor: false
 summary: "This article explains error handling in FreeRTOS-based embedded systems, highlighting common C practices and their limitations. It introduces ESP-IDF’s `esp_err_t` type and error-checking macros, demonstrating how they help manage errors systematically. It shows practical ways to implement error handling in embedded applications."
 authors:
   - "francesco-bez"
-tags: ["ESP32C3", "errors"]
+tags: ["ESP32-C3", "Errors"]
 ---
 
 ## Introduction

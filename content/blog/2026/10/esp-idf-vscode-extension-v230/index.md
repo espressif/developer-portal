@@ -7,9 +7,8 @@ authors:
 featureAsset: "img/featured/featured-espressif.webp"
 tags:
   - ESP-IDF Extension for VS Code
-  - release
+  - Release
   - ESP-IDF tool
-  - VS Code
   - AI
 showTableOfContents: true
 ---

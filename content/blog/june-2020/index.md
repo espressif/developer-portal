@@ -7,7 +7,7 @@ authors:
   - developer-portal
 tags:
   - Instagram
-  - Embedded Club
+  - Embedded systems
   - Newsletter
 
 ---

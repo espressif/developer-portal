@@ -6,8 +6,8 @@ authors:
     - "jan-beran"
 tags:
   - ESP-IDF
-  - practitioner
-  - overview
+  - Practitioner
+  - Overview
   - esp-idf-kconfig
   - idf.py
   - sdkconfig

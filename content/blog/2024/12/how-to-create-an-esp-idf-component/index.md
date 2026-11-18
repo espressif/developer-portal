@@ -4,7 +4,7 @@ date: 2024-12-02
 showAuthor: false
 authors:
   - "pedro-minatel"
-tags: ["I2C", "Registry", "Component", "ESP-IDF", "Driver", "Library"]
+tags: ["I2C", "Component registry", "Component", "ESP-IDF", "Driver", "Library"]
 ---
 
 Using a monolithic architecture to develop complex applications tightly integrated with all the business logic, peripheral drivers, protocols, cloud connectivity, and so on, might sound like a nightmare. Yet, this is common in embedded systems, because it helps keep the resource overhead to the minimum. Inevitably, such approach makes collaborative development, maintenance, and reuse of code challenging to say the least.

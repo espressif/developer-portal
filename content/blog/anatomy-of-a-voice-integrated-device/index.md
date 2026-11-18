@@ -8,7 +8,7 @@ authors:
 tags:
   - Alexa
   - Framework
-  - Esp32
+  - ESP32
 aliases:
   - anatomy-of-a-voice-controlled-device
 ---

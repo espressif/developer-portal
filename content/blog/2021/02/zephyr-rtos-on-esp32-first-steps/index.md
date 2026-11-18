@@ -6,9 +6,9 @@ showAuthor: false
 authors:
   - ricardo-tafas
 tags:
-  - Esp32
+  - ESP32
   - Zephyr
-  - Embedded Systems
+  - Embedded systems
   - Espressif
 summary: "First Steps with Zephyr on ESP32, a collection of all needed tutorials."
 ---

@@ -3,9 +3,9 @@ title: "C++ Components for ESP-IDF"
 date: 2026-04-13
 tags:
   - ESP-IDF
-  - beginner
+  - Beginner
   - C++
-  - components
+  - Component
 showAuthor: false
 authors:
     - "christoph-oberle"

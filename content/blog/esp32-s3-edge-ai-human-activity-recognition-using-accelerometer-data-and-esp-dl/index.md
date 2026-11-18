@@ -7,9 +7,9 @@ authors:
   - ali-hassan-shah
 tags:
   - AI
-  - Edge Computing
-  - Neural Networks
-  - Esp
+  - Edge computing
+  - Neural networks
+  - Espressif
   - Recognition
 
 ---

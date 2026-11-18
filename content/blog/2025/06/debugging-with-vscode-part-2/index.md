@@ -10,7 +10,7 @@ tags:
   - ESP-IDF
   - ESP32-C3
   - ESP32-S3
-  - VSCode
+  - ESP-IDF Extension for VS Code
 
 summary: "This two-part guide shows how to set up VS Code with the ESP-IDF extension to debug Espressif boards using JTAG. In this second part, we will debug a simple project using gdb through Espressif's VSCode extension. We will explore the debugging options for navigating the code and inspecting the variables."
 ---

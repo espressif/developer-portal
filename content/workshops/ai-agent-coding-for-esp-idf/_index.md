@@ -2,7 +2,7 @@
 title: "AI agent coding for ESP-IDF workshop"
 date: 2026-07-30T00:00:00+01:00
 lastmod: 2026-07-30
-tags: ["Workshop", "ESP-IDF", "AI", "Agents", "Cursor", "Coding Assistant"]
+tags: ["Workshop", "ESP-IDF", "AI", "Agents", "Cursor", "Coding assistant"]
 summary: "A hands-on workshop that teaches developers how to use AI coding agents to accelerate ESP-IDF firmware development, from environment setup and project scaffolding to component creation, debugging, and refactoring."
 
 ---

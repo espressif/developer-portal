@@ -10,7 +10,7 @@ tags:
   - Zigbee
   - Espressif
   - IoT
-  - Esp32
+  - ESP32
 
 ---
 [*Espressif Matter Series*](/blog/matter)* #4*

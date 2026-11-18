@@ -4,7 +4,6 @@ date: 2026-04-14
 tags:
   - ESP32
   - IoT
-  - UDP
   - Cloud
 showTableOfContents: true
 authors:

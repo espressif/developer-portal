@@ -5,7 +5,7 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "juraj-michalek"
-tags: ["Rust", "Embedded Systems", "ESP32", "ESP32-C3", "Espressif", "Wokwi", "Book", "Review"]
+tags: ["Rust", "Embedded systems", "ESP32", "ESP32-C3", "Espressif", "Wokwi", "Book", "Review"]
 ---
 
 ## Simplified Embedded Rust: A Comprehensive Guide to Embedded Rust Development

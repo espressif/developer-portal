@@ -6,7 +6,7 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "juraj-michalek"
-tags: ["Embedded Systems", "ESP32-C6", "Espressif", "Swift", "experimental"]
+tags: ["Embedded systems", "ESP32-C6", "Espressif", "Swift", "Experimental"]
 ---
 
 ## Introduction

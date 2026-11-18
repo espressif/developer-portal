@@ -6,10 +6,10 @@ authors:
   - abhik-roy
 tags:
   - ESP-IDF
-  - practitioner
+  - Practitioner
   - how-to
-  - security
-  - networking
+  - Security
+  - Networking
   - DNS
 summary: "This article introduces the ESP DNS component and explains why securing DNS resolution is essential for ESP32-based IoT devices. It shows how DNS over TLS (DoT) and DNS over HTTPS (DoH) can be enabled transparently in ESP-IDF with minimal code changes, using standard DNS APIs. Practical examples and guidance help developers choose the right protocol while balancing security, performance, and resource constraints."
 ---

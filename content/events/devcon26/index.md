@@ -4,7 +4,7 @@ date: 2026-07-03
 draft: false
 description: "Espressif Systems Developer Conference 2026"
 summary: "Espressif DevCon 2026 marks its 5th anniversary with its first-ever live event in Milan, Italy, on November 3–4, 2026. The two-day event will feature a global conference livestream covering product launches, AI, connectivity, security, developer tools, and technical sessions, followed by hands-on technical workshops in Milan and China Ecosystem Day in Shanghai. Tickets will be released soon, with limited seats available."
-tags: ["event", "devcon26"]
+tags: ["event", "DevCon"]
 showDate: false
 ---
 

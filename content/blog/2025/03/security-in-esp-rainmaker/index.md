@@ -4,11 +4,10 @@ date: 2025-03-20
 authors:
   - piyush-shah
 tags:
-  - Esp32
-  - Esp Rainmaker
+  - ESP32
+  - ESP RainMaker
   - Espressif
   - IoT
-  - Rainmaker
 summary: This article provides a high level overview of the security architecture of the ESP RainMaker IoT platform, covering all aspects like device hardware and network security, client network security, authentication and access control, user-device mapping, cloud data security and certifications.
 ---
 

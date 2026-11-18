@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
 tags:
-  - Product Development
+  - Product development
   - IoT
   - ESP32
 ---

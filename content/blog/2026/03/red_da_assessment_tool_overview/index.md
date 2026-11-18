@@ -8,7 +8,7 @@ authors:
 tags:
   - ESP32
   - Compliance
-  - RED Directive
+  - RED DA
   - IoT
   - Regulatory
 

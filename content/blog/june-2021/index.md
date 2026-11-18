@@ -7,7 +7,7 @@ authors:
   - developer-portal
 tags:
   - Newsletter
-  - Esp32
+  - ESP32
 
 ---
 {{< figure

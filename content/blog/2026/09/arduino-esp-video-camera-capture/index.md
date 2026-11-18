@@ -6,8 +6,8 @@ authors:
   - "dong-heng"
 tags:
   - Arduino
-  - tutorial
-  - camera
+  - Tutorial
+  - Camera
   - MIPI-CSI
 showTableOfContents: true
 ---

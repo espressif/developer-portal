@@ -4,7 +4,7 @@ date: "2025-10-03"
 summary: "This article explains how ESP-IDF brings object-oriented programming principles into C by using `structs`, opaque pointers, and handles to enforce encapsulation and modularity. It shows how components like HTTP servers and I²C buses are managed through handles that represent distinct objects for configuration and operation, and compares this approach to Python and C++."
 authors:
   - "francesco-bez"
-tags: ["ESP32C3", "OOP", "ESP-IDF"]
+tags: ["ESP32-C3", "OOP", "ESP-IDF"]
 ---
 
 ## Introduction

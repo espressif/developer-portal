@@ -5,8 +5,8 @@ summary: "Build an ecosystem that supports Matter—and still keep end users on 
 tags:
   - Matter
   - ESP RainMaker
-  - announcement
-  - smart home
+  - Announcement
+  - Smart home
 authors:
   - "iot-solution-team"
 ---

@@ -7,11 +7,6 @@ authors:
   - hou-haiyan
 tags:
   - Multimedia
-  - Image effects
-  - Image scale
-  - Image rotate
-  - Image crop
-  - Image color space
   - Image processing
 summary: "Espressif's ESP_IMAGE_EFFECTS component is a powerful image processing library that can do common image processing operations such as scaling, rotation, cropping, and color space conversion. This article introduces the library, shows how to use it in processing images, and provides usage examples."
 ---

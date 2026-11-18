@@ -6,9 +6,9 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
 tags:
-  - Esp32
+  - ESP32
   - Building Products
-  - Wifi
+  - Wi-Fi
 
 ---
 So you have your smart device on your end-user’s home network. Now you would want your user to access your device over the local network. That’s what we will look at in this post.

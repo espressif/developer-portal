@@ -7,7 +7,7 @@ authors:
   - mahavir-jain
 tags:
   - AWS
-  - Esp32
+  - ESP32
   - IoT
   - Framework
 

@@ -5,7 +5,7 @@ lastmod: 2025-10-20
 showAuthor: false
 authors:
   - "ricardo-tafas"
-tags: ["Zephyr", "Support", "Espressif"]
+tags: ["Zephyr", "Support status", "Espressif"]
 ---
 
 **Last updated:** {{< dynamic-block contentPath="persist\software\zephyr-status\zephyr-status.json" jsonKey="timestamp" >}}

@@ -4,7 +4,7 @@ date: 2026-05-05
 draft: false
 description: "Espressif at RustWeek 2026"
 summary: "Meet Espressif at RustWeek 2026 in Utrecht! Join us for a week of Rust talks, workshops, and community alongside the Rust Project's All-Hands."
-tags: ["event", "rust"]
+tags: ["event", "Rust"]
 showDate: false
 ---
 

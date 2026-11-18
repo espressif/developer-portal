@@ -7,11 +7,10 @@ featureAsset: "img/featured/featured-arduino.webp"
 authors:
   - pedro-minatel
 tags:
-  - version 2.0.0
-  - 2.0.0
+  - Release
   - Espressif
   - Arduino
-  - Esp32
+  - ESP32
   - USB
   - IoT
 summary: "Announcement of Arduino 2.0.0 release."
