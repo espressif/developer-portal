@@ -1,6 +1,6 @@
 ---
 title: "ESP RainMaker Neo: An Extensible IoT Cloud"
-date: 2026-11-11
+date: 2026-11-18
 summary: "A complete IoT cloud. In your own AWS account. Open-source, serverless and extensible. Find out what you get on day one, what it costs, why it beats building one with AI from scratch, and where to start, with or without an AI coding assistant."
 authors:
   - "manali-kaswa"
