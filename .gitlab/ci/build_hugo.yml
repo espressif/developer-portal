@@ -1,6 +1,6 @@
 build_hugo:
   stage: build_hugo
-  image: "hugomods/hugo:debian-base-0.169.0"
+  image: debian:bookworm-slim
   tags:
     - build_docs
   rules:
@@ -8,6 +8,9 @@ build_hugo:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
     NAME: "${CI_COMMIT_REF_SLUG}"
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends ca-certificates wget
+    - bash tools/ci/install-hugo.sh
   script:
     - hugo --gc --minify --environment staging --baseURL "${DOCS_PREVIEW_URL_BASE}/${NAME}"
     # use branch name like directory name for the URL path going forward
