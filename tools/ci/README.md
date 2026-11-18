@@ -38,6 +38,8 @@ The script `tools/ci/check_article_details.sh` validates content changes in a fe
 - Changed filenames and paths in `content/blog/` and `content/workshops/`:
   - Files and folders must not contain spaces
   - Files and folders must not contain bad characters
+- Added or updated pages in `content/blog/` and `content/workshops/`:
+  - `draft: true` must not be set in the YAML header
 - Added articles in `content/blog/`:
   - Folder and date consistency
     - Article must be placed in a `content/blog/YYYY/MM/` folder.
