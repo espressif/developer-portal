@@ -35,12 +35,6 @@ html.dark .prose code:not(pre code) {
   font-size: 0.85rem;
 }
 
-/* This reduces font in article card summaries */
-.py-1 {
-  font-size: 0.85rem;
-  font-weight: 400;
-}
-
 /* For bullet points to stand out in a list, the line heights inside and
    between bullet points should differ. This reduces the inside height */
    li {
