@@ -32,7 +32,7 @@ Please note the expected review time:
     - [ ] This item is N/A
     - Add subject matter experts (your team members, experts in the field)
 - [ ] Once tech review mostly done, initiate **editorial review**
-    - Add technical editors (`@kirill.chalov`, `@francesco.bez`, and/or `@pedro.minatel`)
+    - Add technical editors (`@kirill.chalov` and/or `@pedro.minatel`)
 
 ## Checks
 
