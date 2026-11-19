@@ -2,7 +2,7 @@
 title: "Build a Cloud-connected device with ESP RainMaker Studio"
 date: "2026-07-09"
 summary: "Learn to design an ESP RainMaker device data model using the Studio tool on Evaluation Hub, implement the ESP32-C3 hardware driver, and build, flash, and control a cloud-connected Rainbow LED from the ESP RainMaker Home app."
-tags: ["Workshop", "ESP RainMaker Studio", "ESP-IDF", "ESP32-C3", "IoT", "Cloud Connectivity"]
+tags: ["Workshop", "RainMaker", "ESP-IDF", "ESP32-C3", "IoT", "Cloud Connectivity"]
 authors:
   - "ivan-theng"
 showTableOfContents: false
