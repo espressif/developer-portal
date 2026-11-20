@@ -6,11 +6,10 @@ featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - amey-inamdar
 tags:
-  - Esp32
-  - Esp32 S2
-  - Rainmaker
+  - ESP32
+  - ESP32-S2
+  - ESP RainMaker
   - Cloud Architecture
-  - Serverless
 
 ---
 {{< figure

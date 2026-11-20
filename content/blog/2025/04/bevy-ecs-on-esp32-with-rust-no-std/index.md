@@ -4,7 +4,7 @@ date: "2025-04-09"
 showAuthor: false
 authors:
   - "juraj-michalek"
-tags: ["Embedded Systems", "ESP32", "ESP32-S3", "ESP32-C3", "Rust", "Bevy", "no_std", "ECS", "WASM"]
+tags: ["Embedded systems", "ESP32", "ESP32-S3", "ESP32-C3", "Rust", "Bevy", "no_std", "ECS", "WASM"]
 ---
 
 ## Introduction

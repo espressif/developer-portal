@@ -6,10 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 tags:
-  - Voices
+  - Voice
   - IoT
   - Technology
-  - Esp32
+  - ESP32
 
 ---
 {{< figure

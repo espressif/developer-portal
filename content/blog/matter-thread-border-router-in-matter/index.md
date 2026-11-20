@@ -9,7 +9,7 @@ tags:
   - Espressif
   - Matter
   - Thread
-  - Esp32
+  - ESP32
   - IoT
 
 ---

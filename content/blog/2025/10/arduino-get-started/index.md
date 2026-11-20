@@ -4,7 +4,7 @@ date: "2025-10-01"
 summary: "Learn how to set up the ESP32 Arduino Core development environment, including Arduino IDE installation and ESP32 board package setup using both the Board Manager and manual Git installation methods."
 authors:
   - "jan-prochazka"
-tags: ["Arduino", "ESP32", "Getting Started", "Tutorial"]
+tags: ["Arduino", "ESP32", "Getting started", "Tutorial"]
 ---
 
 The [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32) is a powerful development platform that brings the simplicity and accessibility of Arduino programming to Espressif's ESP32 series of microcontrollers. This integration allows developers to leverage the familiar Arduino environment while taking advantage of the ESP32's advanced features, including dual-core processing, built-in Wi-Fi and Bluetooth connectivity, and extensive peripheral support.

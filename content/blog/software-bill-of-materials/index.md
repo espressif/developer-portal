@@ -6,8 +6,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - mahavir-jain
 tags:
-  - Esp32
-  - Esp Idf
+  - ESP32
+  - ESP-IDF
   - Security
   - IoT
   - Tools

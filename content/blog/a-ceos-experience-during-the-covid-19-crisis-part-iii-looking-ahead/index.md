@@ -8,9 +8,9 @@ authors:
 tags:
   - Covid-19
   - Espressif
-  - Esp32
-  - Ceo Blog
-  - Esp Rainmaker
+  - ESP32
+  - CEO blog
+  - ESP RainMaker
 
 ---
 *The COVID-19 situation is developing rapidly, and the CEO of Espressif, Teo Swee Ann, gives a short update of the situation and some considerations of the future.*

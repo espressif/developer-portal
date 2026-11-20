@@ -8,7 +8,7 @@ authors:
 tags:
   - Ethernet
   - Espressif
-  - Esp32
+  - ESP32
   - Programming
 
 ---

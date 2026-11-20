@@ -6,10 +6,10 @@ featureAsset: "img/featured/featured-zerocode.webp"
 authors:
   - developer-portal
 tags:
-  - Zero Code
+  - ESP ZeroCode
   - AWS
   - Espressif
-  - Esp32
+  - ESP32
 
 ---
 {{< figure

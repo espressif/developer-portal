@@ -8,8 +8,8 @@ authors:
 tags:
   - IoT
   - Security
-  - Embedded Systems
-  - Esp32 S2
+  - Embedded systems
+  - ESP32-S2
   - Espressif
 
 ---

@@ -7,7 +7,7 @@ authors:
   - hrishikesh-dhayagude
 tags:
   - Bluetooth
-  - Esp32
+  - ESP32
   - IoT
 
 ---

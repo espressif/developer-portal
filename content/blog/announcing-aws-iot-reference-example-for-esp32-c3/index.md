@@ -6,7 +6,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - dhaval-gujar
 tags:
-  - ''
+  - ESP32-C3
+  - AWS Iot
 
 ---
 We had [announced](/blog/support-for-lts-release-of-aws-iot-device-sdk-for-embedded-c-on-esp32) the availability of AWS IoT LTS libraries for ESP32 in beta in esp-aws-iot repository in August, 2021. Since then, many of our customers and independent developers have been using these libraries that we have ported and writing applications based on the examples.

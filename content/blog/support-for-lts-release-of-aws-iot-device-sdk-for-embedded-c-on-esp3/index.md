@@ -7,9 +7,9 @@ authors:
   - dhaval-gujar
 tags:
   - ESP32
-  - Aws Iot
-  - Embedded Systems
-  - Aws Iot Core
+  - AWS Iot
+  - Embedded systems
+  - AWS Iot Core
   - Espressif
 aliases:
   - support-for-lts-release-of-aws-iot-device-sdk-for-embedded-c-on-esp32

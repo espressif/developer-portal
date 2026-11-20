@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
 tags:
-  - Esp32
+  - ESP32
   - IoT
   - Matter
   - Espressif

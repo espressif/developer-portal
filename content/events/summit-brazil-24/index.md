@@ -3,7 +3,7 @@ title: "Espressif Summit Brazil 2024"
 date: 2024-06-10
 draft: false
 description: "Espressif Systems Summit in Brazil"
-tags: ["event", "announcement"]
+tags: ["event", "Announcement"]
 showDate : false
 ---
 

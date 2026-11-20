@@ -7,7 +7,7 @@ authors:
   - developer-portal
 tags:
   - Instagram
-  - Esp32
+  - ESP32
   - Newsletter
 
 ---

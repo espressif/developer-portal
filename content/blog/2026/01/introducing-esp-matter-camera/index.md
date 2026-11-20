@@ -6,8 +6,8 @@ authors:
   - sayon-deep
 tags:
   - ESP32-P4
-  - announcement
-  - camera
+  - Announcement
+  - Camera
   - Matter
   - WebRTC
   - IoT

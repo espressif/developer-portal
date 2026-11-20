@@ -3,7 +3,7 @@ title: "Espressif DevCon24"
 date: 2024-06-11
 draft: false
 description: "Espressif Systems Developer Conference 24"
-tags: ["event", "announcement", "devcon"]
+tags: ["event", "Announcement", "DevCon"]
 showDate : false
 ---
 

@@ -16,8 +16,8 @@ authors:
 # Add tags
 tags:
   - "ESP-IDF"
-  - "beginner"
-  - "tutorial"
+  - "Beginner"
+  - "Tutorial"
   - "GPIO"
   - "LED"
 ---

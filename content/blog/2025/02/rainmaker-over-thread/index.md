@@ -5,7 +5,7 @@ showAuthor: false
 authors:
   - shu-chen
 tags:
-  - RainMaker
+  - ESP RainMaker
   - Thread
   - IoT
 ---

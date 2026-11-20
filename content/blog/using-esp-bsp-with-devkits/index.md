@@ -4,7 +4,7 @@ date: 2024-09-27
 showAuthor: false
 authors:
     - "vilem-zavodny"
-tags: ["Embedded Systems", "ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C2", "Espressif", "BSP", "DevKit"]
+tags: ["Embedded systems", "ESP32", "ESP32-S2", "ESP32-S3", "ESP32-C2", "Espressif", "BSP", "DevKit"]
 ---
 
 ## Introduction

@@ -1,7 +1,7 @@
 ---
 title: "Flowcode - M5 Stack Dial Workshop"
 date: 2024-12-09
-tags: ["Workshop", "Flowcode", "ESP32-S6", "GUI", "Process"]
+tags: ["Workshop", "Flowcode", "ESP32-S6", "GUI"]
 showAuthor: false
 authors:
     - john-dobson

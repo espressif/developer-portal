@@ -6,11 +6,9 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kondal-kolipaka
 tags:
-  - v2.4.0
-  - v2.4.1
-  - Espressif Ide
-  - Idf Eclipse Plugin
-  - Esp Idf
+  - Release
+  - Espressif-IDE
+  - ESP-IDF
   - Espressif
   - Eclipse
 

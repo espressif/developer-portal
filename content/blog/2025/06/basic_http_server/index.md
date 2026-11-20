@@ -7,8 +7,8 @@ authors:
   - "francesco-bez"
 tags:
   - ESP-IDF
-  - practitioner
-  - tutorial
+  - Practitioner
+  - Tutorial
   - HTTP server
 ---
 

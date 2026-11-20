@@ -6,9 +6,9 @@ authors:
   - "pedro-minatel"
 tags:
   - Arduino
-  - beginner
+  - Beginner
   - how-to
-  - community software
+  - Community software
   - WLED
   - LED
 ---

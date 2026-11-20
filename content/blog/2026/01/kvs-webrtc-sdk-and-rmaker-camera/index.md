@@ -5,15 +5,14 @@ date: 2026-01-30
 authors:
   - vikram-dattu
 tags:
-  - ESP32P4
+  - ESP32-P4
   - Camera
   - WebRTC
-  - Esp Rainmaker
+  - ESP RainMaker
   - KVS
   - AWS
   - Espressif
   - IoT
-  - Rainmaker
 
 summary: "This article announces the ESP-IDF port of [Amazon KVS WebRTC SDK](https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-c/tree/beta-reference-esp-port), featuring memory optimizations, split mode power savings, and a simplified API. We also showcase ESP RainMaker Camera as a production-ready use-case built on this SDK."
 ---

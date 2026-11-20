@@ -8,7 +8,7 @@ authors:
 tags:
   - Matter
   - Espressif
-  - Esp32
+  - ESP32
 
 ---
 [Espressif Matter Series](/blog/matter) #9

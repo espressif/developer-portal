@@ -6,10 +6,10 @@ featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyush-shah
 tags:
-  - Esp32
-  - Esp32 Programming
-  - Rainmaker
-  - Esp32 S2
+  - ESP32
+  - ESP32 Programming
+  - ESP RainMaker
+  - ESP32-S2
 
 ---
 {{< figure

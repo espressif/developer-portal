@@ -5,7 +5,7 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 authors:
     - "juraj-michalek"
-tags: ["Embedded Systems", "ESP32", "ESP32-S3", "ESP32-P4", "GUI", "OTA", "Espressif", "BSP"]
+tags: ["Embedded systems", "ESP32", "ESP32-S3", "ESP32-P4", "GUI", "OTA", "Espressif", "BSP"]
 ---
 
 ## Introduction

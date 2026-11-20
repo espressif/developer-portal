@@ -7,10 +7,9 @@ authors:
   - lucas-tamborrino
 tags:
   - Zephyr
-  - Core Dump
-  - Debugging Tools
-  - Esp32
-  - Debug
+  - Core dump
+  - Debugging
+  - ESP32
 summary: "How to use Zephyr Core Dump feature with Espressif Devices."
 aliases:
 - /blog/core-dump-a-powerful-tool-for-debugging-programs-in-zephyr-with-esp32-boards

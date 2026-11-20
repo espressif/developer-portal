@@ -4,7 +4,7 @@ date: 2025-06-18
 summary: "This article demonstrates how to implement a touchpad-based digit recognition system using ESP-DL on ESP32 series chips. It covers the complete workflow from data collection and preprocessing to model training, quantization, and deployment, showcasing ESP-DL's capabilities in edge AI applications."
 authors:
   - yan-ke
-tags: ["Edge Computing", "Neural Networks", "Recognition",  "AI"]
+tags: ["Edge computing", "Neural networks", "Recognition", "AI"]
 ---
 
 [ESP-DL](https://github.com/espressif/esp-dl) is a small and fast neural network inference framework designed for Espressif SoCs, such as the ESP32-S3/P4. It provides efficient model deployment solutions and helps developers quickly implement edge AI applications. Specifically, ESP-DL has the following advantages:

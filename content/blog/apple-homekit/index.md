@@ -6,8 +6,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 tags:
-  - Smart Home
-  - Esp32
+  - Smart home
+  - ESP32
   - Homekit
 
 ---

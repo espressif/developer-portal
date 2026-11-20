@@ -7,7 +7,7 @@ authors:
   - guo-jiacheng
 tags:
   - Matter
-  - Esp32
+  - ESP32
   - IoT
 
 ---

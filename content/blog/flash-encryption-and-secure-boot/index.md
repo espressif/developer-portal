@@ -4,7 +4,7 @@ date: 2024-09-23
 showAuthor: false
 authors:
   - "cai-guanhong"
-tags: ["ESP32-S3", "ESP-IDF", "Flash Encryption", "Secure Boot", "NVS Encryption"]
+tags: ["ESP32-S3", "ESP-IDF", "Flash Encryption", "Secure Boot", "NVS encryption"]
 ---
 
 ## Introduction

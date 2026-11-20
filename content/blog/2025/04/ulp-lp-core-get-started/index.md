@@ -5,7 +5,7 @@ showAuthor: false
 authors:
   - marius-vikhammer
 summary: "In this article, we’ll start with a quick overview of Ultra Low Power coprocessors (ULPs) in Espressif chips and how they can significantly reduce power consumption in your applications. Then, we’ll walk through a tutorial on how to use ULPs in practice!"
-tags: ["ESP32-C6", "ULP", "ESP-IDF", "Low Power", "LP-Core"]
+tags: ["ESP32-C6", "ULP", "ESP-IDF", "Low power", "LP-Core"]
 ---
 
 Imagine this scenario: you have finished programming your application, designed your PCB with a battery circuit, and you are finally ready to set it free by disconnecting the umbilical cord --- the USB cable. But to your great disappointment, you find too soon that your small LiPo battery drains in a matter of hours.

@@ -6,10 +6,10 @@ authors:
   - pedro-minatel
 tags:
   - Espressif
-  - Esp32 S2
+  - ESP32-S2
   - USB
-  - Esp Idf
-  - Dfu
+  - ESP-IDF
+  - DFU
 
 ---
 {{< figure

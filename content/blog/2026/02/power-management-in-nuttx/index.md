@@ -3,10 +3,10 @@ title: "Power Management in NuttX"
 date: 2026-02-05
 tags:
   - NuttX
-  - practitioner
+  - Practitioner
   - how-to
-  - low power
-  - power management
+  - Low power
+  - Power management
   - POSIX
 showAuthor: false
 authors:

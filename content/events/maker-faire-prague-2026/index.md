@@ -4,7 +4,7 @@ date: 2026-04-06
 draft: false
 description: "Espressif at Maker Faire Prague 2026"
 summary: "Meet Espressif at Maker Faire Prague 2026! Stop by our booth to explore live demos featuring the latest ESP32 SoCs and connect directly with our team."
-tags: ["event", "maker faire"]
+tags: ["event", "Maker Faire"]
 showDate: false
 ---
 

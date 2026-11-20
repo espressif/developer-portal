@@ -1,6 +1,6 @@
 check_article_details:
   stage: check_article
-  image: "hugomods/hugo:debian-base-0.161.1"
+  image: debian:bookworm-slim
   tags:
     - build_docs
   rules:
@@ -12,7 +12,8 @@ check_article_details:
   variables:
     GIT_SUBMODULE_STRATEGY: normal
   before_script:
-    - apt-get update && apt-get install -y git jq
+    - apt-get update && apt-get install -y --no-install-recommends ca-certificates wget git jq
+    - bash tools/ci/install-hugo.sh
     - git submodule update --init --recursive
   script:
     - |

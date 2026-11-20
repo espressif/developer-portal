@@ -7,7 +7,7 @@ authors:
   - developer-portal
 tags:
   - Newsletter
-  - Esp
+  - Espressif
 
 ---
 Welcome to our April Newsletter

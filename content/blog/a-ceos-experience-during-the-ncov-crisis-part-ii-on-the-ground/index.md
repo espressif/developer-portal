@@ -6,11 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - teo-swee-ann
 tags:
-  - Coronavirus
+  - Covid-19
   - Espressif
-  - Covid
   - CEO
-  - Ceo Blog
+  - CEO blog
 
 ---
 *As Espressif is a company with their main offices in China, the recent coronavirus outbreak has affected us as well. CEO Teo Swee Ann gives an update of the situation in Shanghai.*

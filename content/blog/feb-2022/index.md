@@ -6,9 +6,9 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 tags:
-  - Version 4.4
+  - Release
   - Instagram
-  - Esp32
+  - ESP32
   - Newsletter
 
 ---

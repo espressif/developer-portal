@@ -7,7 +7,7 @@ authors:
   - developer-portal
 tags:
   - Technology
-  - Esp32
+  - ESP32
   - IoT
 
 ---

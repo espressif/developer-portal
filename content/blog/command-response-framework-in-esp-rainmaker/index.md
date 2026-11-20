@@ -6,11 +6,10 @@ featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyush-shah
 tags:
-  - Esp32
-  - Esp Rainmaker
+  - ESP32
+  - ESP RainMaker
   - Espressif
   - IoT
-  - Rainmaker
 
 ---
 [*If you have been following the Espressif blogs and announcements, you must already be aware of ESP RainMaker and its various features. If not, please check out the info *[*here*](https://rainmaker.espressif.com/)* so that you get an idea about what ESP RainMaker is before you proceed further*.]

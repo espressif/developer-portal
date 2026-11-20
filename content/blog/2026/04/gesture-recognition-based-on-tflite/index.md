@@ -5,8 +5,8 @@ summary: "This article demonstrates how to implement gesture recognition using T
 authors:
   - yan-ke
 tags: 
-  - Edge Computing
-  - Deep Learning
+  - Edge computing
+  - Deep learning
   - AI
 ---
 

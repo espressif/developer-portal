@@ -4,7 +4,7 @@ date: 2026-01-12
 summary: "This article demonstrates how to implement an independently controllable robotic arm project based on the ESP32-P4 high-performance MCU. It covers complete kinematics, visual detection, and remote control, showcasing the great potential of ESP32-P4 in industrial applications."
 authors:
   - yan-ke
-tags: ["Robotic Arm", "Visual Detection", "Kinematics", "AI", "ESP DL"]
+tags: ["Robotics", "Visual detection", "Kinematics", "AI", "ESP-DL"]
 ---
 
 With the advancement of AI technology in recent years, the robotics field has entered the era of embodied intelligence, enabling robots to learn and perceive their environment. The ESP32-P4 high-performance MCU, with its powerful computing capabilities and rich peripheral interfaces, provides an ideal platform for building intelligent robotic arm control solutions. Specifically, this article presents the robotic arm solution with the following advantages:

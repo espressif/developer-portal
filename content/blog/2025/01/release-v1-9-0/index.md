@@ -6,9 +6,8 @@ disableComments: false
 featureAsset: "img/featured/featured-vscode-extension-release.webp"
 tags:
   - ESP-IDF Extension for VS Code
-  - release
+  - Release
   - ESP-IDF tool
-  - VS Code
 authors:
 - "radu-rentea"
 lastmod: 2026-05-08

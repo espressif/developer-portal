@@ -4,7 +4,7 @@ date: 2024-10-24
 showAuthor: false
 authors:
   - cai-guanhong
-tags: ["ESP32-S3", "USB", "Dongle", "HTTP Server"]
+tags: ["ESP32-S3", "USB", "Dongle", "HTTP server"]
 ---
 
 

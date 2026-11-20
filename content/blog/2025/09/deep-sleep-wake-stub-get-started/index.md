@@ -7,7 +7,7 @@ featuredAsset: "Wake-stub-featured.webp"
 authors:
   - chen-menghua
 summary: "In this article, we first explain the principles behind the Deep-sleep wake stub application and then demonstrate how to implement GPIO, UART, I2C, and SPI within it."
-tags: ["ESP32-C6", "Deep-sleep wake stub", "ESP-IDF", "Low Power"]
+tags: ["ESP32-C6", "Deep-sleep wake stub", "ESP-IDF", "Low power"]
 ---
 
 In the world of IoT devices, reducing power consumption is key to extending battery life. One of the most effective strategies to achieve this is by putting the device to sleep. The longer it stays asleep, the more power it saves. Espressif SoCs support multiple sleep modes to manage this, with *Deep-sleep* being the most power-efficient. But traditional Deep-sleep has a downside: every time the device wakes up, it has to go through a full boot process, even if the device only needs to perform a quick task before going back to sleep. Thus, it ends up wasting precious energy.

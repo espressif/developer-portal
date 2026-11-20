@@ -1,5 +1,12 @@
 {{ define "main" }}
   {{ .Scratch.Set "scope" "single" }}
+  {{ $showReadingProgress := site.Params.article.showReadingProgress | default false }}
+  {{ if isset .Params "showreadingprogress" }}
+    {{ $showReadingProgress = .Params.showReadingProgress }}
+  {{ end }}
+  {{ if $showReadingProgress }}
+    {{ partial "reading-progress.html" . }}
+  {{ end }}
   <article>
     {{/* Hero */}}
     {{ if .Params.showHero | default (site.Params.article.showHero | default false) }}
@@ -34,7 +41,7 @@
       {{ $enableToc := site.Params.article.showTableOfContents | default false }}
       {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
       {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
-      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+      {{ $topClass := cond (or (hasPrefix site.Params.header.layout "fixed") (eq site.Params.header.layout "floating")) "lg:top-[140px]" "lg:top-10" }}
       {{ if $showToc }}
         <div class="order-first lg:ms-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
@@ -96,18 +103,7 @@
     {{/* Footer */}}
     <footer class="pt-8 max-w-prose print:hidden">
       {{ partial "article-pagination.html" . }}
-      {{ if .Params.showComments | default (site.Params.article.showComments | default false) }}
-        {{ if templates.Exists "partials/comments.html" }}
-          <div class="pt-3">
-            <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
-            <div class="pt-3">
-              {{ partial "comments.html" . }}
-            </div>
-          </div>
-        {{ else }}
-          {{ warnf "[BLOWFISH] Comments are enabled for %s but no comments partial exists." .File.Path }}
-        {{ end }}
-      {{ end }}
+      {{ partial "article-comments.html" . }}
 
       {{ partial "features/mermaid-init.html" . }}
 
@@ -127,29 +123,31 @@
     {{ $baseURL = delimit (slice $baseURL "/") "" }}
   {{ end }}
 
-  {{ if .Params.showAuthor | default (site.Params.article.showAuthor | default true) }}
-    {{ $showAuthor = 1 }}
-    {{ partial "author.html" . }}
-  {{ end }}
-
-  {{ range $author := .Page.Params.authors }}
-    {{ $authorData := index $authorsData $author }}
-    {{- if $authorData -}}
-      {{ range $taxonomyname, $taxonomy := $taxonomies }}
-        {{ if (eq $taxonomyname $author) }}
-          {{ $taxonomyLink = delimit (slice $baseURL "authors/" $author "/") "" }}
+  {{ if .Page.Params.authors }}
+    {{ range $author := .Page.Params.authors }}
+      {{ $authorData := index $authorsData $author }}
+      {{- if $authorData -}}
+        {{ range $taxonomyname, $taxonomy := $taxonomies }}
+          {{ if (eq $taxonomyname $author) }}
+            {{ $taxonomyLink = delimit (slice $baseURL "authors/" $author "/") "" }}
+          {{ end }}
         {{ end }}
-      {{ end }}
 
-      {{ $finalLink := $taxonomyLink }}
-      {{ $currentLang := site.Language.Name }}
-      {{ if eq site.LanguagePrefix "" }}
-        {{ $finalLink = printf "%sauthors/%s/" $baseURL $author }}
-      {{ else }}
-        {{ $finalLink = printf "%s%s/authors/%s/" $baseURL $currentLang $author }}
-      {{ end }}
-      {{ partial "author-extra.html" (dict "context" . "data" $authorData "link" $finalLink) }}
-    {{- end -}}
+        {{ $finalLink := $taxonomyLink }}
+        {{ $currentLang := site.Language.Name }}
+        {{ if eq site.LanguagePrefix "" }}
+          {{ $finalLink = printf "%sauthors/%s/" $baseURL $author }}
+        {{ else }}
+          {{ $finalLink = printf "%s%s/authors/%s/" $baseURL $currentLang $author }}
+        {{ end }}
+        {{ partial "author-extra.html" (dict "context" . "data" $authorData "link" $finalLink) }}
+      {{- end -}}
+    {{ end }}
+  {{ else }}
+    {{ if .Params.showAuthor | default (site.Params.article.showAuthor | default true) }}
+      {{ $showAuthor = 1 }}
+      {{ partial "author.html" . }}
+    {{ end }}
   {{ end }}
 
   {{ if or $taxonomyLink $showAuthor }}

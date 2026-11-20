@@ -6,10 +6,9 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 tags:
-  - here
-  - Internet Of Things
-  - Esp32
-  - Esp8266
+  - Internet of Things
+  - ESP32
+  - ESP8266
   - Newsletter
 ---
 {{< figure

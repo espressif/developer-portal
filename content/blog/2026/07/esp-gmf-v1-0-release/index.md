@@ -4,11 +4,11 @@ date: 2026-07-21
 summary: "ESP-GMF v1.0 is the first official release of Espressif's General Multimedia Framework, a lightweight, unified framework for building audio, video, and AI multimedia applications on Espressif chips. This post introduces the release, walks through what is new for each component area, and lists the full v1.0 component set."
 tags:
   - ESP-GMF
-  - multimedia
-  - audio
-  - video
+  - Multimedia
+  - Audio
+  - Video
   - AI
-  - release
+  - Release
 authors:
   - "jason-mao"
 ---

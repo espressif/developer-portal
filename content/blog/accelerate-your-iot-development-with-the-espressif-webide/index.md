@@ -9,8 +9,8 @@ tags:
   - Espressif
   - Eclipse Theia
   - Docker
-  - Esp32
-  - Ide
+  - ESP32
+  - IDE
 
 ---
 {{< figure

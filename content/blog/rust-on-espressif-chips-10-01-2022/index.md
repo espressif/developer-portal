@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - scott-mabin
 tags:
-  - Esp32
+  - ESP32
   - Rust
   - Xtensa
 

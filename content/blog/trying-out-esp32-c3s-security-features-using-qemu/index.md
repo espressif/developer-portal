@@ -6,10 +6,9 @@ featureAsset: "img/featured/featured-tutorial.webp"
 authors:
   - harshal-patil
 tags:
-  - latest release
-  - releases section
-  - Esp32
-  - Esp Idf
+  - Release
+  - ESP32
+  - ESP-IDF
   - Security
   - Emulator
   - IoT

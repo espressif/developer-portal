@@ -5,8 +5,8 @@ summary: "This article shows how to create a simple environmental logger using t
 authors:
   - "francesco-bez" # same as in the file paths above
 tags:
-  - Filesystem
-  - sensor
+  - File system
+  - Sensor
   - I2C
 ---
 

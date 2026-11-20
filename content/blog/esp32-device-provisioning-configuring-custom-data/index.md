@@ -7,7 +7,7 @@ authors:
   - kedar-sovani
 tags:
   - API
-  - Esp32
+  - ESP32
   - Jumpstart
   - IoT
 

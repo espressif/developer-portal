@@ -6,8 +6,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - sachin-parekh
 tags:
-  - Esp Privilege Separation
-  - Esp32
+  - ESP Privilege Separation
+  - ESP32
   - IoT
   - Security
 

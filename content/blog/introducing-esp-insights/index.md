@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-insights.webp"
 authors:
   - kedar-sovani
 tags:
-  - Esp32
+  - ESP32
   - Observability
   - Espinsights
 

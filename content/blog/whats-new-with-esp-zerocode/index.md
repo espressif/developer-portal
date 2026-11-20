@@ -7,8 +7,8 @@ authors:
   - kedar-sovani
 tags:
   - IoT
-  - Zero Code
-  - Esp32
+  - ESP ZeroCode
+  - ESP32
   - Espressif
 
 ---

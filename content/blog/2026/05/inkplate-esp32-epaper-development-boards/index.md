@@ -5,12 +5,12 @@ summary: "Inkplate is a family of all-in-one, open-source e-paper development bo
 authors:
   - "borna-zelenika"
 tags:
-  - development board
+  - Development board
   - Arduino
-  - community contribution
+  - Community contribution
   - e-paper
   - MicroPython
-  - low power
+  - Low power
 ---
 
 ## What is Inkplate?

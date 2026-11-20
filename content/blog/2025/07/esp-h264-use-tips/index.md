@@ -7,7 +7,7 @@ authors:
 tags:
   - Multimedia
   - H.264
-  - Performance Tuning
+  - Performance
   - ESP32-P4
   - ESP32-S3
 summary: "This article introduces Espressif's esp_h264 component, a lightweight H.264 codec optimized for embedded devices. It shows how to leverage hardware acceleration, implement efficient video processing, and optimize performance for various applications."

@@ -6,8 +6,8 @@ showAuthor: false
 authors:
   - sara-monteiro
 tags:
-  - Nuttx
-  - Esp32
+  - NuttX
+  - ESP32
 summary: "This is a tutorial on how to blink an LED with NuttX after getting started."
 aliases:
 - /blog/blink-led-on-esp32-with-rtos-nuttx

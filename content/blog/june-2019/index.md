@@ -7,7 +7,7 @@ authors:
   - developer-portal
 tags:
   - Instagram
-  - Internet Of Things
+  - Internet of Things
   - Newsletter
 
 ---

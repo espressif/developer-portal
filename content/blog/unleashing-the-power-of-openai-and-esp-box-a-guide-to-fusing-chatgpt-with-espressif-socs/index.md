@@ -8,9 +8,9 @@ authors:
   - ali-hassan-shah
 tags:
   - AI
-  - Chatgpt Chatbot
+  - Chatbot
   - ChatGPT
-  - Esp
+  - Espressif
   - OpenAI
 
 ---

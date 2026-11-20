@@ -2,7 +2,7 @@
 title: "New Release: Espressif IDE 3.1.0"
 date: 2024-10-07
 disableComments : false
-tags: ["IDE", "ESP-IDF", "Eclipse", "Espressif IDE"]
+tags: ["IDE", "ESP-IDF", "Eclipse", "Espressif-IDE"]
 featureAsset: "img/featured/featured-espressif-ide.webp"
 showAuthor: false
 authors:

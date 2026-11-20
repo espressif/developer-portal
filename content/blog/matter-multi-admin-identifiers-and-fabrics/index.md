@@ -7,7 +7,7 @@ authors:
   - kedar-sovani
 tags:
   - IoT
-  - Esp32
+  - ESP32
   - Matter
 
 ---

@@ -6,8 +6,8 @@ featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyush-shah
 tags:
-  - Esp32
-  - Rainmaker
+  - ESP32
+  - ESP RainMaker
   - Espressif
 
 ---

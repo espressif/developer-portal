@@ -1,7 +1,7 @@
 ---
 title: "IEEE 802.15.4 Wireshark sniffer with ESP chips"
 date: 2026-11-09
-tags: ["Zephyr", "tutorial", "IEEE 802.15.4"]
+tags: ["Zephyr", "Tutorial", "IEEE 802.15.4"]
 showAuthor: false
 authors:
   - "marek-matej"

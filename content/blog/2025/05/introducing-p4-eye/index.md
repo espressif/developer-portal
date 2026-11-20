@@ -5,7 +5,7 @@ showAuthor: false
 summary: "Discover the ESP32-P4 EYE DevKit — a compact, camera-focused development board designed for real-time image processing and edge computing. Learn how this powerful, low-cost solution can accelerate your next smart camera or IoT project."
 authors:
   - tan-kai-jie-kyler
-tags: [  "Camera", "MIPI-CSI", "HMI", "IoT", "ESP32", "P4", "Technology"]
+tags: ["Camera", "MIPI-CSI", "HMI", "IoT", "ESP32", "ESP32-P4", "Technology"]
 ---
 
 

@@ -5,7 +5,7 @@ showAuthor: false
 featuredAsset: "ESP-SparkBot-featured.webp"
 authors:
   - "cai-guanhong"
-tags: ["ESP32-S3", "ESP-NOW", "Offline Speech Recognition", "Face Recognition", "Motion Detection", "USB Screen Mirror"]
+tags: ["ESP32-S3", "ESP-NOW", "Offline speech recognition", "Face recognition", "Motion detection", "USB Screen Mirror"]
 ---
 > This article provides an overview of the ESP-SparkBot, its features, and functionality.It also details the hardware design and outlines the software framework that supports its operation.
 

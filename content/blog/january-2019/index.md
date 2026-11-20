@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 tags:
-  - Esp32
+  - ESP32
   - Newsletter
 
 ---
