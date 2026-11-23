@@ -1,0 +1,9 @@
+{
+    "name": "Hu Rui",
+    "type": "espressif",
+    "image": "img/authors/espressif.webp",
+    "bio": "Embedded Software Engineer",
+    "social": [
+        { "github": "https://github.com/Narukara" }
+    ]
+}
