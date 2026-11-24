@@ -59,7 +59,7 @@ Reconcile upstream theme changes first, then re-apply site-specific deltas.
 | `partials/features/giscus-auto.html` | Auto-select Giscus theme. |
 | `partials/features/giscus_dark.html` | Dark Giscus theme partial. |
 | `partials/features/giscus_light.html` | Light Giscus theme partial. |
-| `partials/features/mermaid-init.html` | Mermaid initialization for articles. |
+| `partials/features/mermaid-init.html` | Loads `assets/js/mermaid-init.js` on articles that contain Mermaid diagrams. The script renders the diagrams and adds click-to-enlarge. |
 | `partials/features/kapa-widget.html` | Kapa AI widget injection. |
 | `partials/features/vendor_custom.html` | Loads portal vendor assets (e.g. Asciinema). |
 | `partials/features/dynamic_md_block.html` | Dynamic markdown block support. |
