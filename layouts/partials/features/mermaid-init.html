@@ -1,11 +1,11 @@
 {{/*
-  If the page includes Mermaid diagrams (`.Store.Get "hasMermaid"`),
-  this script loads Mermaid from CDN and initializes it automatically.
+  Pages with Mermaid diagrams (`.Store.Get "hasMermaid"`) load
+  assets/js/mermaid-init.js, which renders the diagrams and adds click-to-enlarge.
 */}}
 
 {{ if .Store.Get "hasMermaid" }}
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true });
-</script>
+  {{ $mermaidJS := resources.Get "js/mermaid-init.js" }}
+  {{ with $mermaidJS | resources.Minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
+    <script type="module" src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+  {{ end }}
 {{ end }}

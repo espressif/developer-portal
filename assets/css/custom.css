@@ -201,3 +201,72 @@ table th[align="right"], table td[align="right"] {
 .dark .prose td {
   border-color: rgb(var(--color-neutral-700));
 }
+
+/* Click-to-enlarge Mermaid diagrams. The open diagram is moved to <body>. */
+.mermaid[data-processed] {
+  /* pointer, not only zoom-in: iOS treats pointer as proof the element can be tapped */
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mermaid[data-processed] {
+    cursor: zoom-in;
+  }
+}
+
+.mermaid[data-processed]:focus-visible {
+  outline: 2px solid rgb(var(--color-primary-500));
+  outline-offset: 2px;
+}
+
+html.mermaid-lightbox-open {
+  overflow: hidden;
+}
+
+.mermaid.mermaid-lightbox {
+  /* The SVG is positioned on its own. This element is the full-window hit
+     target and the backdrop. A background here would cover the backdrop, and
+     overflow must stay hidden so the natural-size box cannot be scrolled. */
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  cursor: zoom-out;
+}
+
+.mermaid.mermaid-lightbox:focus-visible {
+  outline: none;
+}
+
+.mermaid.mermaid-lightbox::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mermaid.mermaid-lightbox.is-zoomed::before {
+  opacity: 1;
+}
+
+.mermaid.mermaid-lightbox > svg {
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  cursor: zoom-out;
+  transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mermaid.mermaid-lightbox::before {
+    transition: none;
+  }
+}
