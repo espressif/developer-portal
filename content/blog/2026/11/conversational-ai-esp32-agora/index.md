@@ -1,6 +1,6 @@
 ---
 title: "Conversational AI on ESP32: Connecting esp-webrtc-solution to Agora's Global Real-Time Network"
-date: "2026-11-24"
+date: "2026-11-25"
 summary: "Espressif's esp-webrtc-solution now connects to Agora SDRTN, Agora's global software-defined real-time network, so ESP32-powered devices can exchange real-time audio and talk to voice AI agents powered by the Agora Conversational AI Engine. This article explains how the open-source integration works — from the WebRTC connection on the device to cascaded and voice-to-voice AI models in the cloud — and how to try it, starting with ESP-Mosaico."
 authors:
     - amey-inamdar
