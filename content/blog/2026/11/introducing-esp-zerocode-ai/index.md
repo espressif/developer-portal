@@ -1,7 +1,7 @@
 ---
 title: "Introducing ESP ZeroCode AI"
-date: "2026-10-29"
-summary: "ESP ZeroCode AI is a browser-based development studio for Espressif devices. Describe a device in plain words, and it writes the product specification, builds and reviews a complete ESP-IDF project, tests it in an emulator, and guides you through checks on real hardware, with no toolchain to install."
+date: "2026-11-27"
+summary: "ESP ZeroCode AI is a browser-based development studio for Espressif devices. Describe a device in plain words, and it writes the product specification, builds and reviews a complete ESP-IDF project, tests it in an emulator, and guides you through checks on real hardware, with nothing to set up on your computer."
 authors:
   - "chirag-atal"
   - "kedar-sovani"
@@ -16,7 +16,9 @@ tags:
 
 AI can turn a prompt into embedded code. Getting that code to work on a specific board is harder. Pins, peripherals, memory limits, connectivity stacks and physical behavior all matter. Even firmware that compiles cleanly may not do what its creator intended.
 
-Today we are excited to introduce ESP ZeroCode AI, a browser-based development studio for Espressif devices. It turns natural-language requirements into a product specification, a complete ESP-IDF project, a build and code review, emulator tests, and optional guided checks on real hardware. You can get started without installing a toolchain.
+We are excited to introduce ESP ZeroCode AI, built to close that gap. It does not stop at code: it works out what the device should do, writes the firmware for your board, has it reviewed and tested, and then helps you check it on the real hardware. Everything happens in the browser.
+
+Here is the whole journey in five steps. The tour below is interactive: click **Next** and **Back**, or the dots, to step through it.
 
 <!-- The ESP ZeroCode AI tour: five click-through slides. Self-contained: its CSS is scoped to .zct, "not-prose" keeps the theme's typography out. -->
 <style>
@@ -61,7 +63,7 @@ Today we are excited to introduce ESP ZeroCode AI, a browser-based development s
 <div class="zct-copy">
 <div class="zct-txt" aria-live="polite">
 <div class="zct-s on"><div class="zct-eb">Describe</div><div class="zct-h">Start with a sentence, not a datasheet.</div><p>Describe your device in plain words: what it senses, what it does, what it works with.</p><p>The Product Expert asks a few quick questions, then gets to work.</p></div>
-<div class="zct-s" aria-hidden="true"><div class="zct-eb">Spec</div><div class="zct-h">A spec and wiring you agree to.</div><p>Features, controls and power-up behaviour, written down in plain words.</p><p>A wiring diagram on the real pins of your board.</p></div>
+<div class="zct-s" aria-hidden="true"><div class="zct-eb">Spec</div><div class="zct-h">A spec and wiring you agree to.</div><p>The Product Expert writes down the features, controls and power-up behavior in plain words.</p><p>It draws the wiring diagram on the real pins of your board.</p></div>
 <div class="zct-s" aria-hidden="true"><div class="zct-eb">Build</div><div class="zct-h">Written, built, reviewed and tested.</div><p>The Firmware Expert writes the code and builds it with ESP-IDF in the cloud.</p><p>A reviewer and the emulator check it. Anything that fails goes back with the evidence.</p></div>
 <div class="zct-s" aria-hidden="true"><div class="zct-eb">Run</div><div class="zct-h">Try it in your browser, then on your desk.</div><p>Run boots the real image on a virtual device, wired like your diagram.</p><p>Or flash your own board over USB, and the Testing Expert checks it with you.</p></div>
 <div class="zct-s" aria-hidden="true"><div class="zct-eb">Share</div><div class="zct-h">Publish it. Fork it.</div><p>Share the firmware, or the full source, with the Community.</p><p>Anyone can try it in their browser, flash it, or fork it into their own.</p></div>
@@ -88,15 +90,15 @@ Today we are excited to introduce ESP ZeroCode AI, a browser-based development s
 })()
 </script>
 
-## Three experts working together
+## Experts working together
 
-ESP ZeroCode AI doesn't just worry about writing code. It aims to give you a better product in the end.
+ESP ZeroCode AI is not only about writing code. Its aim is a better product at the end.
 
-The Product Expert asks clarifying questions and captures the intended behavior, hardware and wiring. Many users believe this to be a really enlightening exploration for their product.
+The **Product Expert** asks clarifying questions and captures the intended behavior, hardware and wiring. Early users have told us this conversation is one of the most enlightening parts of the experience: it brings up decisions about their product that they had not thought of yet.
 
-The Firmware Expert generates the ESP-IDF source, compiles it for the target and reviews the code.
+The **Firmware Expert** writes the ESP-IDF source, compiles it for the target and has the code reviewed.
 
-The Testing Expert checks supported behavior in an emulator and guides real-device testing. If a test uncovers a problem, its findings can be sent back to the Firmware Expert for correction.
+The **Testing Expert** checks the behavior on an emulator and guides testing on real hardware. When a test uncovers a problem, the findings go back to the Firmware Expert to fix.
 
 {{< figure
     src="img/three-experts.webp"
@@ -105,16 +107,18 @@ The Testing Expert checks supported behavior in an emulator and guides real-devi
 
 ## Grounded in the ESP32 ecosystem
 
-ESP ZeroCode AI works with real chip and board definitions, rather than generic pin assumptions. Its launch catalog spans eight Espressif SoCs, 131 development boards and 394 parts, including boards from Espressif, Adafruit and M5Stack. The Product Expert can use the selected board's pin map when defining a device and its wiring.
+ESP ZeroCode AI works with real chip and board definitions, rather than generic pin assumptions. At launch, its catalog spans eight Espressif SoCs, over 130 development boards and more than 400 parts, with boards from Espressif, M5Stack, Seeed Studio, Adafruit and more. The Product Expert uses the selected board's pin map when it writes the spec and wiring for the device.
 
-Supported software capabilities include Wi-Fi, Bluetooth LE, Thread, Matter, MQTT, displays and audio, depending on the chip and hardware. An open library of reusable drivers, device types, behaviors and framework integrations supports firmware creation and lets contributors extend the catalog.
+Firmware can combine capabilities across connectivity, interaction and AI, depending on the chip and hardware:
 
-The [Community](https://esp-zerocode.ai/#/community) has already created a number of fun firmwares: a Minecraft-style game on the ESP32-S31, a T-Rex runner, a music synthesizer and a FIDO2 USB security key.
+- **Connectivity:** Wi-Fi, Bluetooth LE, Matter over Wi-Fi or Thread, Zigbee, BLE Mesh, ESP-NOW, ESP RainMaker, MQTT and AWS IoT.
+- **Interaction:** touchscreen displays, speakers and sound, a control page served by the device itself, and Bluetooth media remotes.
+- **AI:** voice commands, trained models that classify sensor data on the device, plain-language commands understood offline, camera motion detection, and cloud AI agents.
 
-Come try out what you thought should happen and build it in minutes.
+An open library of reusable drivers, device types, behaviors and framework integrations supports firmware creation and lets contributors extend the catalog.
 
 <figure class="not-prose" style="margin:2rem 0">
-<svg viewBox="0 0 760 318" role="img" aria-label="Eight Espressif SoCs, one studio: ESP32, ESP32-C3, ESP32-C5, ESP32-C6, ESP32-H2, ESP32-P4, ESP32-S3 and the new ESP32-S31; 131 boards, 394 parts, 16 frameworks" style="display:block;width:100%;height:auto;color:inherit;fill:currentColor;font-family:inherit" font-size="11.5">
+<svg viewBox="0 0 760 318" role="img" aria-label="Eight Espressif SoCs, one studio: ESP32, ESP32-C3, ESP32-C5, ESP32-C6, ESP32-H2, ESP32-P4, ESP32-S3 and the new ESP32-S31; 131 boards, 400+ parts, 16 frameworks" style="display:block;width:100%;height:auto;color:inherit;fill:currentColor;font-family:inherit" font-size="11.5">
 <text x="24" y="32" font-size="15" font-weight="600">Eight Espressif SoCs, one studio</text>
 <g><rect x="24" y="60" width="166" height="76" rx="8" fill="none" fill-opacity="1" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.25"/><text x="36" y="86" font-size="13" font-weight="600">ESP32</text><text x="36" y="106" fill-opacity="0.7">Wi-Fi + Bluetooth</text><text x="36" y="122" fill-opacity="0.7">Classic and BLE</text></g>
 <g><rect x="206" y="60" width="166" height="76" rx="8" fill="none" fill-opacity="1" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.25"/><text x="218" y="86" font-size="13" font-weight="600">ESP32-C3</text><text x="218" y="106" fill-opacity="0.7">Wi-Fi 4 + BLE 5</text><text x="218" y="122" fill-opacity="0.7">RISC-V, low cost</text></g>
@@ -125,40 +129,54 @@ Come try out what you thought should happen and build it in minutes.
 <g><rect x="388" y="152" width="166" height="76" rx="8" fill="none" fill-opacity="1" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.25"/><text x="400" y="178" font-size="13" font-weight="600">ESP32-S3</text><text x="400" y="198" fill-opacity="0.7">Wi-Fi + BLE 5</text><text x="400" y="214" fill-opacity="0.7">Vector instructions</text></g>
 <g><rect x="570" y="152" width="166" height="76" rx="8" fill="#3283f2" fill-opacity="0.12" stroke="#3283f2" stroke-opacity="1" stroke-width="2"/><text x="582" y="178" font-size="13" font-weight="600">ESP32-S31</text><text x="724" y="178" text-anchor="end" font-size="11.5" font-weight="600" fill="#3283f2">NEW</text><text x="582" y="198" fill-opacity="1">Wi-Fi + BLE + Thread</text><text x="582" y="214" fill-opacity="1">Displays, audio, AI</text></g>
 <line x1="24" x2="736" y1="252" y2="252" stroke="currentColor" stroke-opacity="0.2"/>
-<text x="143" y="284" text-anchor="middle" font-size="22" font-weight="600">131</text><text x="143" y="304" text-anchor="middle" fill-opacity="0.7">boards in the catalog</text><text x="380" y="284" text-anchor="middle" font-size="22" font-weight="600">394</text><text x="380" y="304" text-anchor="middle" fill-opacity="0.7">parts to wire to them</text><text x="617" y="284" text-anchor="middle" font-size="22" font-weight="600">16</text><text x="617" y="304" text-anchor="middle" fill-opacity="0.7">frameworks to combine</text>
+<text x="143" y="284" text-anchor="middle" font-size="22" font-weight="600">131</text><text x="143" y="304" text-anchor="middle" fill-opacity="0.7">boards in the catalog</text><text x="380" y="284" text-anchor="middle" font-size="22" font-weight="600">400+</text><text x="380" y="304" text-anchor="middle" fill-opacity="0.7">parts to wire to them</text><text x="617" y="284" text-anchor="middle" font-size="22" font-weight="600">16</text><text x="617" y="304" text-anchor="middle" fill-opacity="0.7">frameworks to combine</text>
 </svg>
 </figure>
 
 ## Build and try, right in your browser
 
-Not just the code writing and code build are triggered through the browser, you can even try your firmware directly in the browser, before even having the real hardware. Click "Try it in your browser" and play with your firmware right there.
+Writing and building the firmware happen in the browser, and so does trying it. Before you have any hardware, you can run the firmware on a virtual device that is wired like your diagram. It boots the same image you would flash, and you can press its buttons and touch its screen.
 
 {{< figure
     src="img/product-page.webp"
-    alt="A Community product page: the wiring diagram the Product Expert drew, with Try it in your browser below it"
-    caption="A product page: the wiring diagram the Product Expert drew, with **Try it in your browser** below it"
+    alt="The Core-S3 Walkie-Talkie product page: a photo of two M5Stack CoreS3 units talking to each other, the prompt it was built from, and Try in browser, Flash, Download and Fork buttons"
+    caption="A Community project, the [Core-S3 Walkie-Talkie](https://esp-zerocode.ai/community/products/core-s3-walkie-talkie): the prompt it was built from, with **Try in browser**, **Flash**, **Download** and **Fork**"
+    >}}
+
+{{< figure
+    src="img/try-in-browser.webp"
+    alt="The T-Rex game running on a virtual ESP32-S31 board in the browser, with a list of what to look for beside it"
+    caption="[T-Rex](https://esp-zerocode.ai/community/products/t-rex-opt/try) running on a virtual ESP32-S31 board in the browser, with what to look for beside it"
     >}}
 
 ## Human in the loop: the agent tests on your hardware
 
-An emulator cannot tell you that a relay clicks, or that a 180 ms double-press is too quick for a thumb. Your board can, so the last test loop runs through it, with you as the agent's hands.
+An emulator cannot tell you that a relay clicks, or that a 180 ms double-press is too quick for a thumb. Your board can, so the last test loop runs on it, and you do the checks that only a person can.
 
-The Testing Expert provides a checklist, recognizes relevant log events and can flag crashes. You perform checks that require human observation, and send your responses back.
+Plug your board in over USB and flash it from the browser, with nothing to install. The Testing Expert then gives you a checklist, watches the device log for the events that matter and flags crashes. You confirm what you see and hear, and anything that fails goes back to the Firmware Expert with the evidence.
 
 {{< figure
-    src="img/flash-and-pair.webp"
-    alt="Flash and pair: connect your board, flash the firmware in one click, and watch it start"
-    caption="Flash & pair: connect the board, flash in one click, watch it start"
+    src="img/flash-from-browser.webp"
+    alt="Flash from your browser: connect your board, flash the firmware in one click, and watch the device log as it starts"
+    caption="Flashing from the browser: connect the board, flash in one click, watch it start"
     >}}
 
-## Share with the world: publish and fork
+## Your project, yours to share
 
-The output is a complete, editable ESP-IDF project with source, configuration and a flashable binary. Makers can continue in the browser; experienced developers can take the project into their usual ESP-IDF tools, add custom components and perform the additional validation needed for a commercial product.
+The output is a complete, editable ESP-IDF project with source, configuration and a flashable binary. Makers can continue in the browser; experienced developers can download the project into their usual ESP-IDF tools, add custom components and perform the additional validation needed for a commercial product.
 
-Projects may remain private or can be published to the Community. Creators can share binaries, optionally share source, and let others fork a specification and its available artifacts. Community examples already range from connected lighting to an ESP32-S31 Minecraft-style game, a synthesizer and a USB security-key project.
+Your projects are yours. They stay private unless you choose to publish them, and you can download the full source at any time. When you publish to the Community, you share either the firmware alone or the full source as well, and others can try it in their browser, flash it to their own board or fork it into a project of their own. Published code and binaries are shared under the Apache-2.0 license, and photos and descriptions under CC BY 4.0.
+
+{{< figure
+    src="img/community.webp"
+    alt="The ESP ZeroCode AI Community page: a carousel of projects built by makers, including a Minecraft-style game, a music player, a robot arm and a reminder display"
+    caption="What the [Community](https://esp-zerocode.ai/community) is building"
+    >}}
+
+The Community has already built a [Minecraft-style game](https://esp-zerocode.ai/community/products/minecraft) on the ESP32-S31, a [T-Rex runner](https://esp-zerocode.ai/community/products/t-rex-opt), a [music synthesizer](https://esp-zerocode.ai/community/products/music-synth), a [USB security key](https://esp-zerocode.ai/community/products/usb-security-key) and a [robot that plays Atari](https://esp-zerocode.ai/community/products/robo-atari) with a real joystick.
 
 ## Try it
 
-ESP ZeroCode AI is live today at [esp-zerocode.ai](https://esp-zerocode.ai). Describe a device, watch it get built and tested, run it in your browser, and when you are ready, plug in a board.
+ESP ZeroCode AI is live at [esp-zerocode.ai](https://esp-zerocode.ai). Describe a device, watch it get built and tested, run it in your browser, and when you are ready, plug in a board.
 
-We would love to see what you make, and to hear where we can improve the experience. Please reach out to [esp-zerocode@espressif.com](mailto:esp-zerocode@espressif.com) for any issues and feedback.
+We would love to see what you make, and to hear where we can improve the experience. Please reach out to [zerocode@espressif.com](mailto:zerocode@espressif.com) for any issues and feedback.
