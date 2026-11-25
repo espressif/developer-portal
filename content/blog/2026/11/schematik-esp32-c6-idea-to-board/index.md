@@ -1,13 +1,14 @@
 ---
 title: "Schematik: from a one-line idea to an ESP32-C6 touchscreen gadget"
 date: 2026-11-24
-summary: "This article follows one project built in Schematik, a web app that plans parts, pins, wiring and firmware from a plain-language description, on the Waveshare ESP32-C6-Touch-LCD-1.47. It shows how pins are chosen against the chip's strapping, USB and ADC constraints, how the Arduino firmware is compiled, how it runs in a browser simulator, and how it is flashed to the real board from Chrome. It also lists which Espressif SoCs each step supports."
+summary: "Schematik is a web app that plans parts, pins, wiring and firmware from a plain-language description. This article follows one project built in Schematik on the Waveshare ESP32-C6-Touch-LCD-1.47. It shows how pins are chosen against the chip's strapping, USB and ADC constraints, how the Arduino firmware is compiled, how it runs in a browser simulator, and how it is flashed to the real board from Chrome. It also lists which Espressif SoCs Schematik can build for, simulate and flash."
 tags:
   - Arduino
   - AI
   - web app
   - simulation
   - tutorial
+  - community contribution
 authors:
   - "jack-dunn"
 ---
@@ -16,20 +17,18 @@ authors:
 
 In this article we follow one published project from idea to running hardware: Tiny ESP DeskBuddy, a small desk dashboard on the Waveshare ESP32-C6-Touch-LCD-1.47. We look at each step from the chip's point of view: which pins are safe to use, what the firmware is compiled with, what the simulator runs and how flashing works.
 
-## Which Espressif chips are supported where
+## Which ESP32 boards can Schematik build for, simulate and flash?
 
-Support differs by step, so here it is in one place.
+DeskBuddy uses Arduino firmware. ESPHome and native ESP-IDF are alternative ways to write firmware, not extra steps in the build. Compiling for a board does not require a browser simulator for that chip.
 
-| Step | ESP32 | ESP32-S3 | ESP32-C3 | ESP32-C6 | ESP32-S2, ESP32-P4 |
+| In Schematik | ESP32 | ESP32-S3 | ESP32-C3 | ESP32-C6 | ESP32-S2, ESP32-P4 |
 |---|---|---|---|---|---|
-| Arduino firmware | Yes | Yes | Yes | Yes | Yes |
-| ESPHome firmware | Yes | Yes | Yes | Yes | Yes |
-| Native ESP-IDF firmware | Verified boards | Verified boards | No | No | No |
-| Browser simulator, Arduino and ESPHome | Yes | Yes | Yes | Yes | No |
-| Browser simulator, ESP-IDF | Verified boards | Verified boards | No | No | No |
-| USB flashing from Chrome or Edge | Yes | Yes | Yes | Yes | Yes |
+| Compile Arduino or ESPHome firmware | Yes | Yes | Yes | Yes | Yes |
+| Compile native ESP-IDF firmware | ESP32 Dev Module | Arduino Nano ESP32, ESP32-S3-DevKitC-1 | No | No | No |
+| Simulate Arduino or ESPHome firmware in the browser | Yes | Yes | Yes | Yes | No |
+| Flash from Chrome or Edge over USB | Yes | Yes | Yes | Yes | Yes |
 
-Arduino is the default. Boards without a simulator profile can still be built and flashed. ESP8266 boards are also supported for building and flashing.
+Schematik enables native ESP-IDF builds only for boards with a verified build profile. The C3, C6, S2 and P4 lack that profile in Schematik; this is not a limitation of Espressif’s SDK. The S2 and P4 also lack a browser simulator in Schematik, so test their firmware on hardware.
 
 ## The project
 
@@ -38,7 +37,7 @@ DeskBuddy runs on a single board with no external wiring. The Waveshare ESP32-C6
 - draws a monochrome face that changes expression when you tap it
 - moves the eyes as you tilt the board, using the IMU
 - pages between a clock, date, weather, moon phase, a stock quote and GitHub stats when you swipe
-- fetches weather from Open-Meteo over Wi-Fi, using credentials in a `secrets.h` file
+- fetches weather from Open-Meteo over Wi-Fi, using the Wi-Fi settings at the top of the sketch
 
 The [DeskBuddy project page](https://www.schematik.io/projects/build-an-esp-c6-touch-lcd-gadget) shows the full code, the parts list and the pin table. It is public and needs no account. The **Open in Schematik** button on that page copies the project into the editor after you sign in. Schematik is free to start building in the browser, with sign-in required to save and deploy projects.
 
@@ -105,7 +104,7 @@ Two other runtimes use the same compile service:
 - **ESPHome** projects build with ESPHome 2026.6.5.
 - **Native ESP-IDF** projects build with [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/v5.5.4/) v5.5.4, with ccache enabled. These projects use the `main/` component layout and are available on ESP32 and ESP32-S3 boards with a verified native build profile.
 
-DeskBuddy uses three libraries: GFX Library for Arduino for the LCD, ArduinoJson for the API responses and FastIMU for the QMI8658. The touch driver is written inline in the sketch.
+DeskBuddy uses GFX Library for Arduino for the LCD and ArduinoJson for the API responses. The sketch reads the touch controller and IMU directly over I2C.
 
 ## Step 4: Run it in the browser
 
@@ -113,7 +112,7 @@ The simulator is built on [esp32sim](https://github.com/schematik-engineering/es
 
 To run DeskBuddy:
 
-1. In the editor, open the **Preview** tab. The board and its parts appear on a 3D workbench.
+1. On the [DeskBuddy project page](https://www.schematik.io/projects/build-an-esp-c6-touch-lcd-gadget), choose **Open in Schematik**, then open the **Preview** tab in the editor. The board and its parts appear on a 3D workbench.
 2. Click **Run**. The first run takes a minute or two while the firmware compiles.
 3. When the face appears on the LCD, use the touch controls in the side panel to tap or press at a point on the screen. Each tap changes the face's expression.
 4. Open **Serial monitor** at the bottom right to see the firmware's log lines.
@@ -127,7 +126,7 @@ To run DeskBuddy:
 
 The simulated board joins a virtual Wi-Fi network with the SSID and password in your code. It can make public HTTP and HTTPS requests, so pages that call a public API, like the weather page, can fetch live data inside the simulation.
 
-We compared simulator runs with the real boards on our own projects. For a set of 12 OLED builds, the simulator closely matched the real board, down to the scenes, text and timing. On this C6 board's colour LCD, the layout and motion matched, but the colours looked different on camera. The simulator runs firmware and does not model voltage or current, so wiring mistakes such as a missing resistor still need the electrical rule check from Step 2.
+We compared simulator runs with the real boards on our own projects. For a set of 12 OLED builds, the simulator closely matched the real board, down to the scenes, text and timing. On this ESP32-C6 board's colour LCD, the layout and motion matched, but the colours looked different on camera. The simulator runs firmware and does not model voltage or current, so wiring mistakes such as a missing resistor still need the electrical rule check from Step 2.
 
 ## Step 5: Flash the real board from Chrome
 
