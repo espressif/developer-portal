@@ -1,6 +1,6 @@
 ---
 title: "Schematik: from a one-line idea to an ESP32-C6 touchscreen gadget"
-date: 2026-11-24
+date: 2026-11-30
 summary: "Schematik is a web app that plans parts, pins, wiring and firmware from a plain-language description. This article follows one project built in Schematik on the Waveshare ESP32-C6-Touch-LCD-1.47. It shows how pins are chosen against the chip's strapping, USB and ADC constraints, how the Arduino firmware is compiled, how it runs in a browser simulator, and how it is flashed to the real board from Chrome. It also lists which Espressif SoCs Schematik can build for, simulate and flash."
 tags:
   - Arduino
