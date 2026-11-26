@@ -1,7 +1,12 @@
 ---
 title: "Give an agent a phone: ESP32-S3 as AirPlay eyes and USB HID hands on a stock iPhone"
-date: 2026-11-11
-tags: ["ESP32-S3", "USB", "HID", "Wi-Fi", "Bluetooth LE"]
+date: 2026-11-30
+tags:
+  - ESP32-S3
+  - Arduino
+  - USB
+  - HID
+  - community contribution
 authors:
   - "henry-yuan"
 summary: "A Seeed XIAO ESP32S3 can stand in for a computer next to an iPhone. It receives the phone's AirPlay mirror, forwards the H.264 stream without decoding it, and enumerates as a USB mouse and keyboard so a vision-model agent can tap through real apps. This article walks through that firmware architecture from the code."
@@ -18,7 +23,7 @@ The firmware lives in [`hardware/hid_bridge`](https://github.com/onehumanbeing/e
 ## The three jobs of one chip
 
 ```mermaid
-flowchart LR
+flowchart TD
     P[iPhone] -->|Screen Mirroring / AirPlay| AP[ESP32-S3 AirPlay receiver]
     AP -->|H.264 TCP :7201| APP[ESP32 Agent app on the same iPhone]
     APP -->|BLE commands| BLE[ESP32-S3 NimBLE GATT]
@@ -154,3 +159,10 @@ The hard part is not whether an ESP32-S3 can enumerate as a mouse. It can, and t
 If you try this, start with the plain XIAO ESP32S3, a short USB-C data cable, and iOS 18 or later. Lightning phones need Apple's Lightning to USB Camera Adapter. Landscape apps are not supported yet. Only automate devices and accounts you are allowed to use, and keep a way to stop the run within reach.
 
 {{< youtube Ly4im-P4jYg >}}
+
+<div style="font-size: 0.8em; color: #888; margin-top: 2em;">
+Apple, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries and regions.
+This article is an independent publication and has not been authorized, sponsored, or otherwise approved by Apple Inc.
+
+IOS is a trademark or registered trademark of Cisco in the U.S. and other countries and is used under license.
+</div>
