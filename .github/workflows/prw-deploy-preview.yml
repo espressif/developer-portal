@@ -125,9 +125,31 @@ jobs:
                 repo: context.repo.repo
               });
 
+              const fs = require('fs');
+              const baseUrl = process.env.HUGO_BASEURL;
+
+              // Link straight to the articles this PR touches, so reviewers
+              // land on the changed content instead of the portal home page.
+              let articles = [];
+              try {
+                articles = fs.readFileSync('pr_articles.txt', 'utf8')
+                  .split('\n')
+                  .map(line => line.trim())
+                  .filter(Boolean);
+              } catch (error) {
+                core.info(`No article list available: ${error.message}`);
+              }
+
+              const links = articles.length
+                ? articles.map(path => `- ${baseUrl}${path}`).join('\n')
+                : baseUrl;
+
               // Define the comment body
-              const commentBody = `🎉 A preview for this PR is available at: ${process.env.HUGO_BASEURL}
-              \n\n> [!WARNING]\n>This link is **for review only** and will expire after merge. Don't share it publicly.`;
+              const commentBody =
+                `🎉 A preview for this PR is available at:\n\n${links}\n\n` +
+                `> [!WARNING]\n` +
+                `>This link is **for review only** and will expire after merge. ` +
+                `Don't share it publicly.`;
 
               // Look for an existing comment containing the specific text
               const existingComment = comments.find(comment =>
