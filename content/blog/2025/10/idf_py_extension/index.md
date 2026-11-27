@@ -4,7 +4,7 @@ date: "2025-10-10"
 showAuthor: false
 authors:
   - "marek-fiala"
-tags: ["ESP-IDF", "idf.py", "CLI", "Extensions", "Development Tools"]
+tags: ["ESP-IDF", "idf.py", "CLI", "Extensions", "Development tools"]
 summary: "Learn how to extend idf.py with custom commands for your development workflow. This guide covers both component-based extensions for project-specific tools and Python package extensions for reusable commands, with practical examples and best practices for seamless integration."
 ---
 

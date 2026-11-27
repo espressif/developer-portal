@@ -7,8 +7,7 @@ authors:
   - anant-raj-gupta
 tags:
   - Security
-  - Mcu
-  - Embedded Systems
+  - Embedded systems
   - Matter
   - Connectivity
 

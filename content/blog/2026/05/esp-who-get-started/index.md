@@ -13,8 +13,8 @@ authors:
   - "francesco-bez" # same as in the file paths above
 # Add tags (for details, see https://developer.espressif.com/pages/contribution-guide/tagging-content/)
 tags:
-  - esp-who
-  - dl
+  - ESP-WHO
+  - ESP-DL
 ---
 
 ## Introduction

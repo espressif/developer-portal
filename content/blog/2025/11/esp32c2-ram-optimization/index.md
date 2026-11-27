@@ -8,9 +8,9 @@ authors:
 tags:
   - ESP32-C2
   - ESP-IDF
-  - practitioner
+  - Practitioner
   - how-to
-  - memory management
+  - Memory optimization
 ---
 
 ## Overview

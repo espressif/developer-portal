@@ -8,9 +8,8 @@ authors:
 tags:
   - Theia
   - ESP-IDF Extension for VS Code
-  - release
+  - Release
   - ESP-IDF tool
-  - VS Code
 lastmod: 2026-05-08
 
 ---

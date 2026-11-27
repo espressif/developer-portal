@@ -6,10 +6,10 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - mahavir-jain
 tags:
-  - Esp32
+  - ESP32
   - IoT
-  - Embedded Systems
-  - Microcontrollers
+  - Embedded systems
+  - Microcontroller
   - Framework
 
 ---

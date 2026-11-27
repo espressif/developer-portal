@@ -7,10 +7,10 @@ authors:
   - "juraj-michalek"
 tags:
   - Wokwi
-  - practitioner
-  - debugging
-  - porting
-  - library
+  - Practitioner
+  - Debugging
+  - Porting
+  - Library
   - AI
   - CI/CD
 ---

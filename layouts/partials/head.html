@@ -54,6 +54,9 @@
       safeHTML
     }}
   {{ end }}
+  {{ with site.Home.OutputFormats.Get "LLMS" }}
+    <link rel="describedby" href="{{ .RelPermalink }}">
+  {{ end }}
 
   {{/* Me */}}
   {{ with .Site.Params.Author.name }}
@@ -72,7 +75,7 @@
   {{/* Social */}}
   {{ $featureImage := "" }}
   {{ $featureImageURL := "" }}
-  {{ with .Params.featureimage }}
+  {{ with partial "functions/feature-image.html" . }}
     {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
       {{ if site.Params.hotlinkFeatureImage }}
         {{ $featureImageURL = . | absURL }}
@@ -80,7 +83,10 @@
         {{ $featureImage = resources.GetRemote . }}
       {{ end }}
     {{ else }}
-      {{ $featureImage = resources.Get . }}
+      {{ $featureImage = page.Resources.Get . }}
+      {{ if not $featureImage }}
+        {{ $featureImage = resources.Get . }}
+      {{ end }}
     {{ end }}
   {{ end }}
   {{ if not (or $featureImage $featureImageURL) }}
@@ -166,6 +172,7 @@
     type="text/javascript"
     src="{{ $jsAppearance.RelPermalink }}"
     integrity="{{ $jsAppearance.Data.Integrity }}"></script>
+  {{ partial "language-redirect.html" . }}
   {{ $enableA11y := .Site.Params.enableA11y | default false }}
   {{ if $enableA11y }}
     {{ $jsA11y := resources.Get "js/a11y.js" | resources.Minify | resources.Fingerprint $alg }}
@@ -182,7 +189,20 @@
   {{ end }}
   {{ if not .Site.Params.disableImageZoom | default true }}
     {{ $zoomJS := resources.Get "lib/zoom/zoom.min.umd.js" | resources.Fingerprint $alg }}
-    <script src="{{ $zoomJS.RelPermalink }}" integrity="{{ $zoomJS.Data.Integrity }}"></script>
+    <script defer src="{{ $zoomJS.RelPermalink }}" integrity="{{ $zoomJS.Data.Integrity }}"></script>
+    {{ $zoomInit := resources.Get "js/medium-zoom.js" | resources.Fingerprint $alg }}
+    <script defer src="{{ $zoomInit.RelPermalink }}" integrity="{{ $zoomInit.Data.Integrity }}"></script>
+  {{ end }}
+  {{ $showReadingProgress := site.Params.article.showReadingProgress | default false }}
+  {{ if isset .Params "showreadingprogress" }}
+    {{ $showReadingProgress = .Params.showReadingProgress }}
+  {{ end }}
+  {{ if and .IsPage $showReadingProgress }}
+    {{ $jsReadingProgress := resources.Get "js/reading-progress.js" | resources.Minify | resources.Fingerprint $alg }}
+    <script
+      type="text/javascript"
+      src="{{ $jsReadingProgress.RelPermalink }}"
+      integrity="{{ $jsReadingProgress.Data.Integrity }}"></script>
   {{ end }}
 
   {{/* JS deferred */}}
@@ -202,6 +222,7 @@
     {{ $jsResources = $jsResources | append (resources.Get "js/rtl.js") }}
   {{ end }}
   {{ $jsResources = $jsResources | append (resources.Get "js/katex-render.js") }}
+  {{ $jsResources = $jsResources | append (resources.Get "js/menu-a11y.js") }}
   {{ $jsResources = $jsResources | append (resources.Get "js/print-support.js") }}
   {{ $jsResources = $jsResources | append (resources.Get "js/email.js") }}
   {{ if $jsResources }}

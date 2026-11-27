@@ -4,7 +4,7 @@ date: "2026-01-07"
 summary: "This article introduces fuzzing — a technique for finding vulnerabilities — and demonstrates practical workflows and lessons learned for ESP-IDF components and embedded libraries in general."
 authors:
     - david-cermak
-tags: ["component","fuzzing","security","vulnerability","ESP-IDF"]
+tags: ["Component", "Fuzzing", "Security", "ESP-IDF"]
 ---
 
 ## Introduction

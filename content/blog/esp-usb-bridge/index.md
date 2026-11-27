@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - roland-dobai
 tags:
-  - Esp32 S2
+  - ESP32-S2
   - USB
   - Bridge
   - Espressif

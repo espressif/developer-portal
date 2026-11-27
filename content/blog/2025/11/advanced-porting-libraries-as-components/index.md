@@ -4,7 +4,7 @@ date: "2025-11-24"
 summary: "This article follows up on the article 'Porting a library to an ESP-IDF component' and shows some advanced tips and tricks when porting larger libraries into ESP-IDF components."
 authors:
     - david-cermak
-tags: ["component","porting","linux","posix","ESP-IDF"]
+tags: ["Component", "Porting", "Linux", "POSIX", "ESP-IDF"]
 ---
 
 ## Introduction

@@ -1,7 +1,7 @@
 ---
 title: "Edge-AI with ESP32-S3 Workshop: Vision"
 date: 2026-07-07
-tags: ["Workshop", "ESP-IDF", "ESP32-S3", "AI", "ESP-WHO", "ESP-DL", "computer vision"]
+tags: ["Workshop", "ESP-IDF", "ESP32-S3", "AI", "ESP-WHO", "ESP-DL", "Computer vision"]
 summary: "Learn how to build edge AI vision applications on the ESP32-S3-EYE using ESP-WHO and ESP-DL. This hands-on workshop covers face detection, face recognition, hand gesture recognition, and object detection with real-time inference on the device."
 showTableOfContents: true
 ---

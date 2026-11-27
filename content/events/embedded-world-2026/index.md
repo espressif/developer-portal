@@ -4,7 +4,7 @@ date: 2026-02-06
 draft: false
 description: "Espressif at Embedded Workd 2026"
 summary: "Meet Espressif at Embedded World 2026 in Nuremberg from March 10 to 12 to explore live demos and the latest developments in connectivity, graphics, AIoT, and edge computing, and connect directly with our team."
-tags: ["event", "ew25"]
+tags: ["event", "Embedded World"]
 showDate: false
 ---
 

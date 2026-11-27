@@ -9,7 +9,7 @@ tags:
   - ESP-IDF
   - Bootloader
   - OTA
-  - Embedded Systems
+  - Embedded systems
 ---
 
 Imagine this scenario: a device is already deployed and running normally when a security review uncovers a bootloader vulnerability. Fixing it requires updating the bootloader on the device in the field.

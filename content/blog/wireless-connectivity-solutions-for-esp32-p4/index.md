@@ -6,10 +6,10 @@ featureAsset: "img/featured/featured-espressif-waves.webp"
 authors:
   - anant-raj-gupta
 tags:
-  - Esp32
-  - Wifi
+  - ESP32
+  - Wi-Fi
   - Wireless
-  - Microcontrollers
+  - Microcontroller
   - Connectivity
 ---
 The ESP32-P4 is a powerful system-on-chip (SoC) from Espressif, designed for high-performance applications that demand robust features. While the ESP32-P4 offers a range of advanced capabilities, it does not have integrated wireless connectivity and may require additional connectivity solutions to meet the diverse needs of modern embedded systems. Espressif provides three main connectivity solutions for the ESP32-P4: __ESP-AT__ , __ESP-Hosted__ , and __ESP-Extconn__ . Let’s explore each solution's advantages, limitations, and use cases.

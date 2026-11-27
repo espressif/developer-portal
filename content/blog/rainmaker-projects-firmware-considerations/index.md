@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - kedar-sovani
 tags:
-  - Rainmaker
+  - ESP RainMaker
 
 ---
 Recently we released [ESP RainMaker](https://rainmaker.espressif.com) that easily allows makers to build connected devices. Beyond the part of connecting with the phone applications, the way the applications are structured makes it much easier to build an easy to distribute firmware. Many of these features are the guidelines that are part of the [ESP-Jumpstart](https://docs.espressif.com/projects/esp-jumpstart/en/latest/) framework. Let’s look at some of these features.

@@ -1,7 +1,7 @@
 ---
 title: "NuttX Web Panel: A self-hosted web interface for NuttX"
 date: 2026-06-29
-tags: ["NuttX", "Apache", "Python", "ESP32-P4", "POSIX", "Web"]
+tags: ["NuttX", "Apache", "Python", "ESP32-P4", "POSIX", "Web app"]
 series: ["Python on NuttX"]
 series_order: 2
 showAuthor: false

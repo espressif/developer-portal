@@ -5,10 +5,10 @@ featureAsset: "img/featured/featured-rust.webp"
 authors:
   - scott-mabin
 tags:
-  - Esp32
+  - ESP32
   - Rust
   - Xtensa
-  - RISCV
+  - RISC-V
   - Announcement
 summary: "Announcing esp-hal 1.0, the first Rust SDK for embedded devices."
 

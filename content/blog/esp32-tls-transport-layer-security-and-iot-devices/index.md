@@ -8,7 +8,7 @@ authors:
 tags:
   - Security
   - IoT
-  - Esp32
+  - ESP32
   - Technology
 
 ---

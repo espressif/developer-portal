@@ -7,7 +7,7 @@ authors:
   - developer-portal
 tags:
   - IoT
-  - Esp32
+  - ESP32
   - Newsletter
 
 ---

@@ -4,11 +4,11 @@ date: 2026-03-23
 summary: Learn what the ESP-IDF SPIFFS component is, how it works with the VFS layer and standard C file APIs, and how to use the SPIFFSgen tool to embed files. This article is a practical guide with references to the official example.
 tags:
   - ESP-IDF
-  - beginner
-  - tutorial
-  - storage
+  - Beginner
+  - Tutorial
+  - Storage
   - SPIFFS
-  - filesystem
+  - File system
 authors:
   - "radek-tandler"
 ---

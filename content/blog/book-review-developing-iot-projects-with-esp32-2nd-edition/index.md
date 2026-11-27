@@ -6,8 +6,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - juraj-michalek
 tags:
-  - Books
-  - Esp32
+  - Book
+  - ESP32
   - IoT
   - AI
 

@@ -7,7 +7,7 @@ authors:
   - developer-portal
 tags:
   - CEO
-  - Ceo Blog
+  - CEO blog
 
 ---
 Dear all,

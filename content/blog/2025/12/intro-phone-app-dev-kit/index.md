@@ -5,9 +5,8 @@ date: 2025-12-02
 authors:
   - ninad-kheratkar
 tags:
-  - RainMaker
+  - ESP RainMaker
   - TypeScript
-  - SDK
   - Phone App
 summary: >
   Espressif announces the ESP RainMaker Phone App Development Kit, a comprehensive cross-platform toolkit combining a TypeScript SDK, Central Data Framework (CDF), and React Native reference app. This production-ready kit enables developers to rapidly build branded mobile applications with customisable UI and workflows, whilst leveraging Espressif's robust RainMaker cloud infrastructure for device management and secure communication.

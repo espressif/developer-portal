@@ -5,10 +5,10 @@ showAuthor: false
 authors:
   - li-bo
 tags:
-  - esp-iot-solution
+  - ESP-IoT-Solution
   - IoT
-  - Drivers
-  - News
+  - Driver
+  - Announcement
 
 ---
 

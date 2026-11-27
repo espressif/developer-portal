@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - ali-hassan-shah
 tags:
-  - Deep Learning
+  - Deep learning
   - AI
   - Espressif
   - ESP-ID

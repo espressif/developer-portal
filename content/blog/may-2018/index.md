@@ -6,9 +6,8 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - developer-portal
 tags:
-  - here
   - Instagram
-  - ESP-IDF v3.0
+  - ESP-IDF
   - Newsletter
 
 ---

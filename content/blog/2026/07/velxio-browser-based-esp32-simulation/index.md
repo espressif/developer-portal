@@ -6,9 +6,9 @@ tags:
   - ESP32
   - Arduino
   - AI
-  - web app
-  - simulation
-  - education
+  - Web app
+  - Simulation
+  - Education
 authors:
   - "david-montero-crespo"
 ---

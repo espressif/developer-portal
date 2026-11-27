@@ -4,7 +4,7 @@ date: 2025-08-27
 showAuthor: false
 authors:
   - "ricardo-tafas"
-tags: ["Arduino", "Arduino Core", "Support", "Espressif"]
+tags: ["Arduino", "Arduino Core", "Support status", "Espressif"]
 ---
 
 ## Arduino Support Status

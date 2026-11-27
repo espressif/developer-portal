@@ -8,7 +8,7 @@ authors:
 tags:
   - Alexa
   - IoT
-  - Esp32
+  - ESP32
   - Technology
 
 ---

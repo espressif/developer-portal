@@ -6,7 +6,7 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - shu-chen
 tags:
-  - Esp32
+  - ESP32
   - IoT
   - Open Thread
 

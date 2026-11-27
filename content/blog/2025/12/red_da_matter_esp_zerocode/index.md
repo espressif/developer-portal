@@ -12,7 +12,7 @@ summary: "In this blog we will introduce how combining the Espressif RED-DA comp
 authors:
   - "anant-raj-gupta" # same as in the file paths above
 # Add tags
-tags: ["REDDA", "Matter", "ZeroCode"]
+tags: ["RED DA", "Matter", "ESP ZeroCode"]
 ---
 
 With the EU **Radio Equipment Directive Delegated Act (RED‑DA)** now in effect, all radio equipment placed on the EU market must meet the mandatory cybersecurity and update requirements defined in **EN 18031**.

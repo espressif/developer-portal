@@ -6,9 +6,9 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - anant-raj-gupta
 tags:
-  - Esp32
+  - ESP32
   - Espressif
-  - Wifi
+  - Wi-Fi
   - IoT
   - Connectivity
 

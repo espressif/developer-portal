@@ -6,9 +6,9 @@ authors:
   - "felix-kunz"
 tags:
   - GPIO
-  - pinout
-  - community contribution
-  - development board
+  - Pinout
+  - Community contribution
+  - Development board
 ---
 
 ## The day Wi-Fi broke my analog readings

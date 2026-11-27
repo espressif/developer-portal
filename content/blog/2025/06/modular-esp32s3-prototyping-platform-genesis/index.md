@@ -4,7 +4,7 @@ summary: "Genesis turns the ESP32-S3 into a modular playground with snap-in AX22
 date: 2025-06-27
 showAuthor: false
 authors: ["povilas-dumcius"]
-tags: ["genesis", "esp32-s3", "iot", "modular-hardware", "education", "announcement"]
+tags: ["Development board", "ESP32-S3", "IoT", "Modular hardware", "Education", "Announcement"]
 
 ---
 

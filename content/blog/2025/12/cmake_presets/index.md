@@ -4,7 +4,7 @@ date: "2025-12-05"
 showAuthor: false
 authors:
   - "marek-fiala"
-tags: ["ESP-IDF", "CMake", "Build System", "Configuration"]
+tags: ["ESP-IDF", "CMake", "Build system", "Configuration"]
 summary: "Tired of juggling complex command-line arguments with endless `idf.py` flags? ESP-IDF v6.0 introduces a new feature, letting you switch between multiple build configuration. Learn how to structure your project, isolate sdkconfig files, and migrate from ad-hoc commands to clean, declarative builds."
 ---
 

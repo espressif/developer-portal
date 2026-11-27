@@ -19,12 +19,14 @@
         {{ i18n "nav.skip_to_main" }}
       </a>
     </div>
-    {{ $header := print "header/" site.Params.header.layout ".html" }}
-    {{ if templates.Exists ( printf "partials/%s" $header ) }}
-      {{ partial $header . }}
-    {{ else }}
-      {{ partial "header/basic.html" . }}
-    {{ end }}
+    <header>
+      {{ $header := print "header/" site.Params.header.layout ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $header ) }}
+        {{ partial $header . }}
+      {{ else }}
+        {{ partial "header/basic.html" . }}
+      {{ end }}
+    </header>
     <div class="relative flex flex-col grow">
       <main id="main-content" class="grow pb-[120px]">
         {{ block "main" . }}{{ end }}
@@ -37,7 +39,30 @@
         {{- partial "search.html" . -}}
       {{ end }}
     </div>
+    {{/* Rendered after the main block so page heroes that paint their own
+      fixed background can suppress the site-wide canvas for their page.
+      The layer is fixed, so its position in the DOM has no visual effect. */}}
+    {{ if and (site.Params.backgroundCanvas | default false) (not (.Store.Get "suppressBackgroundCanvas")) }}
+      {{ $default := site.Store.Get "defaultBackgroundImage" }}
+      {{ $canvasURL := $default.url }}
+      {{ if not $canvasURL }}
+        {{ with $default.obj }}{{ $canvasURL = .RelPermalink }}{{ end }}
+      {{ end }}
+      {{ with $canvasURL }}
+        <div id="background-canvas" aria-hidden="true" class="pointer-events-none fixed inset-0 -z-20">
+          <img
+            src="{{ . }}"
+            role="presentation"
+            loading="eager"
+            decoding="async"
+            class="nozoom h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-neutral/75 dark:bg-neutral-800/60"></div>
+        </div>
+      {{ end }}
+    {{ end }}
 
+    {{ partial "features/kapa-widget.html" . }}
+  </body>
   {{/* Remove buymeacoffee widget */}}
   <!--
   {{ if site.Params.buymeacoffee.globalWidget | default false }}
@@ -53,8 +78,16 @@
       data-x_margin="18"
       data-y_margin="18"></script>
   {{ end }}
-    -->
-
-    {{ partial "features/kapa-widget.html" . }}
-  </body>
+  -->
+  {{ if and (site.Params.kofi.globalWidget | default false) site.Params.kofi.identifier }}
+    <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+    <script>
+      kofiWidgetOverlay.draw('{{ site.Params.kofi.identifier }}', {
+        'type': 'floating-chat',
+        'floating-chat.donateButton.text': '{{ cond (isset site.Params.kofi "globalwidgettext") site.Params.kofi.globalWidgetText (i18n "kofi.support_me") }}',
+        'floating-chat.donateButton.background-color': '{{ site.Params.kofi.globalWidgetBackgroundColor | default "#00B9FE" }}',
+        'floating-chat.donateButton.text-color': '{{ site.Params.kofi.globalWidgetTextColor | default "#FFFFFF" }}',
+      });
+    </script>
+  {{ end }}
 </html>

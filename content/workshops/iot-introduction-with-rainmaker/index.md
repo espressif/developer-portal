@@ -3,7 +3,7 @@ title: "IoT Introduction with RainMaker"
 date: 2024-07-08
 lastmod: 2026-05-21
 showAuthor: false
-tags: ["Workshop", "RainMaker", "ESP-IDF"]
+tags: ["Workshop", "ESP RainMaker", "ESP-IDF"]
 authors:
   - "pedro-minatel"
 showTableOfContents: false

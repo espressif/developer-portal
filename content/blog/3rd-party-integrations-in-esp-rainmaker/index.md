@@ -7,7 +7,7 @@ authors:
   - piyush-shah
 tags:
   - Espressif
-  - Rainmaker
+  - ESP RainMaker
   - Alexa
   - Google Home
 ---

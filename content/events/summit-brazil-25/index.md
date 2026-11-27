@@ -4,7 +4,7 @@ date: 2025-06-17
 draft: false
 description: "Espressif Systems Summit Brazil 2025"
 summary: "On August 5th and 6th 2025, Campinas (Brazil) will host the second edition of the Espressif Summit Brazil, featuring talks, workshops, and exhibitions focused on IoT, digital security, hardware, software, and connectivity."
-tags: ["event", "announcement", "save-the-date"]
+tags: ["event", "Announcement"]
 showDate : false
 ---
 

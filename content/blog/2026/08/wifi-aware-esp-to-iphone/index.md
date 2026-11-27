@@ -11,7 +11,7 @@ tags:
   - ESP-IDF component
   - P2P
   - how-to
-  - practitioner
+  - Practitioner
 showTableOfContents: true
 ---
 

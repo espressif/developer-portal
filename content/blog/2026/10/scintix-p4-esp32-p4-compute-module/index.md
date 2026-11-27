@@ -3,8 +3,8 @@ title: "SCINTIX P4: An ESP32-P4 Compute Module for Raspberry Pi CM4/CM5 Carriers
 date: 2026-10-28
 summary: "SCINTIX P4 is a module from RELOC designed to accelerate ESP32-P4 product development. It integrates memory, power regulation, multiprotocol wireless and an Ethernet PHY in the Raspberry Pi CM4/CM5 form factor, letting you reuse existing carrier hardware from prototype to production."
 tags:
-  - development board
-  - community contribution
+  - Development board
+  - Community contribution
   - ESP32-P4
   - ESP32-C6
   - ESP-IDF

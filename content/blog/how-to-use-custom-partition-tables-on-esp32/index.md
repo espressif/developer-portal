@@ -6,9 +6,9 @@ authors:
   - pedro-minatel
 tags:
   - Espressif
-  - Esp32
+  - ESP32
   - IoT
-  - Esp Idf
+  - ESP-IDF
 
 ---
 {{< figure

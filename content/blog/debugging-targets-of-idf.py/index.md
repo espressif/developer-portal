@@ -8,8 +8,8 @@ authors:
 tags:
   - JTAG
   - idf.py
-  - Esp32
-  - Debugger
+  - ESP32
+  - Debugging
   - IoT
 aliases:
   - debugging-targets-of-idf-py

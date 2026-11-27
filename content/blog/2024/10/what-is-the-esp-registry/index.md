@@ -4,7 +4,7 @@ date: 2024-11-08
 showAuthor: false
 authors:
   - "pedro-minatel"
-tags: ["Registry", "Component", "ESP-IDF"]
+tags: ["Component registry", "Component", "ESP-IDF"]
 ---
 
 When starting a new project, we often reuse existing code, for example from libraries and drivers. This not only saves time but also makes your project easier to maintain.

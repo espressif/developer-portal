@@ -11,7 +11,7 @@ summary: "This article shows how ESP-IDF’s logging system uses tags and verbos
 authors:
   - "francesco-bez" # same as in the file paths above
 # Add tags
-tags: ["ESP32C3", "ESP-IDF", "errors"]
+tags: ["ESP32-C3", "ESP-IDF", "Errors"]
 ---
 
 ## Introduction

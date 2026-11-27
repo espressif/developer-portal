@@ -6,11 +6,10 @@ authors:
   - "amey-inamdar"
 tags:
   - ESP RainMaker
-  - announcement
-  - open source
+  - Announcement
   - AWS
   - Matter
-  - cloud
+  - Cloud
 summary: "ESP RainMaker Neo is a new implementation of ESP RainMaker in which the entire device-to-cloud-to-app stack, including the cloud backend, is open source under the Apache License 2.0. This article explains what Neo is, why we rebuilt RainMaker on native AWS IoT services, what open source means in practice for your product, and how Neo relates to ESP RainMaker Classic."
 ---
 

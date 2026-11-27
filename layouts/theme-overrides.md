@@ -20,20 +20,20 @@ Reconcile upstream theme changes first, then re-apply site-specific deltas.
 
 | File | Why it exists |
 |------|----------------|
-| `_default/baseof.html` | Keeps site-specific page shell behavior: extra main-content bottom padding for the Kapa widget, disables the Buy Me a Coffee widget, and adopts upstream Blowfish body/scrollbar updates. |
-| `partials/head.html` | Adds portal asset loading (`features/*` partials). Extends Blowfish's social-image fallback: resolve `featureimage`, then `featureAsset`, then page-bundle images (same order as `hero/basic.html`), call Hugo's Open Graph/Twitter internals, then emit `og:image` / `twitter:image` when a resolved image or `defaultSocialImage` is available. Stays aligned with upstream head changes (SEO metadata order, Fuse search bundle, email/print JS, hreflang links). |
-| `partials/header/basic.html` | Uses Blowfish's component-based header (desktop/mobile menu components) while keeping portal logo scaling, site title emojify, subnavigation emojify, and `assets/css/styles.css`. |
-| `partials/footer.html` | Keeps Espressif copyright text/emojify and removes deprecated upstream scripts no longer used by the portal. |
+| `_default/baseof.html` | Keeps site-specific page shell behavior: extra main-content bottom padding for the Kapa widget, disables the Buy Me a Coffee widget, and adopts upstream shell updates (header landmark, background canvas, conditional Ko-fi widget). |
+| `partials/head.html` | Adds portal asset loading (`features/*` partials). Extends Blowfish's social-image fallback: resolve `featureimage` via `functions/feature-image.html` (page bundle, then site assets), then `featureAsset`, then page-bundle images, call Hugo's Open Graph/Twitter internals, then emit `og:image` / `twitter:image` when a resolved image or `defaultSocialImage` is available. Stays aligned with upstream head changes (SEO metadata order, LLMS link, language redirect, Fuse search bundle, deferred medium-zoom, reading-progress and menu-a11y scripts, email/print JS, hreflang links). |
+| `partials/header/basic.html` | Uses Blowfish's component-based header (desktop/mobile menu components) and the upstream subnavigation landmark, while keeping portal logo scaling, site title emojify, subnavigation emojify, and `assets/css/styles.css`. |
+| `partials/footer.html` | Keeps Espressif copyright text/emojify and adopts the upstream footer (menu aria-label; image-zoom init now lives in `head.html`). |
 | `partials/home/custom.html` | Portal homepage customization (not in Blowfish). |
 
 ### Article and list rendering
 
 | File | Why it exists |
 |------|----------------|
-| `_default/list.html` | Applies upstream list/TOC layout changes while keeping `\| emojify` on list page content. |
-| `_default/single.html` | Merges upstream single-page changes (TOC, reply-by-email obfuscation, `hugo.Data.authors`) with portal article features: summary block, emojify, author disclaimer, Giscus, Mermaid init. |
-| `partials/hero/basic.html` | Supports `featureAsset` images from site assets in hero backgrounds, on top of upstream hero markup. |
-| `partials/article-link/card.html` | Supports `featureAsset` for card thumbnails and restores portal card shadows (`shadow-2xl`) on upstream card markup. |
+| `_default/list.html` | Applies upstream list/TOC layout changes (title emojify, floating-header TOC offset) while keeping `\| emojify` on list page content. |
+| `_default/single.html` | Merges upstream single-page changes (floating-header TOC offset, reading progress, `article-comments` partial, author list takes precedence over the site author) with portal article features: summary block, emojify, author disclaimer, Giscus, Mermaid init. |
+| `partials/hero/basic.html` | Supports `featureAsset` images from site assets in hero backgrounds, on top of upstream hero markup (`functions/feature-image.html` and `functions/resize.html`). |
+| `partials/article-link/card.html` | Supports `featureAsset` for card thumbnails and restores portal card shadows (`shadow-2xl`) on upstream card markup (feature-image partial, hover zoom, safe resize). |
 | `partials/article-link/card-related.html` | Same as card view, for related-articles cards. |
 | `partials/article-link/_shortcode.html` | Same as card view, for the `article` shortcode card rendering. |
 | `partials/author-extra.html` | Merges upstream author image/email-link improvements with Espressif/partner/community byline branding. |
@@ -115,9 +115,10 @@ Update this after each successful bump.
 
 | Field | Value |
 |-------|-------|
-| Last synced theme commit | `51b5cd932055e51519a689699aba716fab47409b` |
-| Previous sync baseline | `81f0e887100f4ddc9856c6d662883b62ab7b1043` (Blowfish 2.92.0) |
-| Sync date | 2026-06-26 |
+| Last synced theme commit | `f5ffa176c95b3d778900848ff1417f7301a128ad` |
+| Upstream layout commit | `3e4b25c4dc74d4da0e83ce5b6b3ac3850de40072` (Blowfish 3.10.0). The submodule pointer is the Espressif size-trim commit on top of this; layout files match. |
+| Previous sync baseline | `51b5cd932055e51519a689699aba716fab47409b` (layouts match `e9699d8c5da9a64a105eb8401fd2cf79c6015c6f`) |
+| Sync date | 2026-11-17 |
 
 ---
 
@@ -144,8 +145,7 @@ Task:
    - theme at <OLD_COMMIT>
    - theme at <NEW_COMMIT_OR_TAG>
    - our override in ./layouts/
-   Merge upstream theme changes into our overrides while preserving site-specific behavior
-   documented in theme-overrides.md.
+   Merge upstream theme changes into our overrides while preserving site-specific behavior documented in theme-overrides.md. Ensure overrides and customizations are not outdated or stale.
 3. Run `hugo --gc --minify` and fix build errors.
 4. Split the work into commits by intent (see "How changes are split into commits"):
    - submodule bump
@@ -159,7 +159,7 @@ Task:
 If anything is ambiguous, ask before making large structural changes (especially header/menu overrides).
 ```
 
-### Example filled in (2026-06 bump)
+### Example filled in (2026-11 bump)
 
 ```text
 I need to bump the Blowfish theme submodule and reconcile our layout overrides.
@@ -167,21 +167,20 @@ I need to bump the Blowfish theme submodule and reconcile our layout overrides.
 Context:
 - Repo: developer-portal
 - Theme submodule: themes/blowfish
-- Last synced Blowfish commit: 81f0e887100f4ddc9856c6d662883b62ab7b1043
-- New Blowfish commit/tag: 51b5cd932055e51519a689699aba716fab47409b
-- Hugo version (if changed): 0.161.1
+- Last synced Blowfish commit: e9699d8c5da9a64a105eb8401fd2cf79c6015c6f
+- New Blowfish commit/tag: 3e4b25c4dc74d4da0e83ce5b6b3ac3850de40072
+- Hugo version (if changed): 0.169.0
 
 Our site overrides live in ./layouts/ and are documented in layouts/theme-overrides.md.
 Read that file first — it explains why each override exists and how commits should be grouped.
 
 Task:
-1. Update themes/blowfish to 51b5cd932055e51519a689699aba716fab47409b and commit the submodule pointer alone.
+1. Update themes/blowfish to 3e4b25c4dc74d4da0e83ce5b6b3ac3850de40072 and commit the submodule pointer alone.
 2. For every file in ./layouts/ that also exists in themes/blowfish/layouts/, compare:
-   - theme at 81f0e887100f4ddc9856c6d662883b62ab7b1043
-   - theme at 51b5cd932055e51519a689699aba716fab47409b
+   - theme at e9699d8c5da9a64a105eb8401fd2cf79c6015c6f
+   - theme at 3e4b25c4dc74d4da0e83ce5b6b3ac3850de40072
    - our override in ./layouts/
-   Merge upstream theme changes into our overrides while preserving site-specific behavior
-   documented in theme-overrides.md.
+   Merge upstream theme changes into our overrides while preserving site-specific behavior documented in theme-overrides.md. Ensure overrides and customizations are not outdated or stale.
 3. Run `hugo --gc --minify` and fix build errors.
 4. Split the work into commits by intent (see "How changes are split into commits"):
    - submodule bump

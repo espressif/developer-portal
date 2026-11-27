@@ -3,7 +3,7 @@
 {{ $useDefault := false }}
 {{ $featured := "" }}
 {{ $featuredURL := "" }}
-{{ with .Params.featureimage }}
+{{ with partial "functions/feature-image.html" . }}
   {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
     {{ if site.Params.hotlinkFeatureImage }}
       {{ $featuredURL = . }}
@@ -11,7 +11,10 @@
       {{ $featured = resources.GetRemote . }}
     {{ end }}
   {{ else }}
-    {{ $featured = resources.Get . }}
+    {{ $featured = page.Resources.Get . }}
+    {{ if not $featured }}
+      {{ $featured = resources.Get . }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
@@ -45,7 +48,7 @@
     {{ $featuredURL = .RelPermalink }}
     {{ if not (or $disableImageOptimization (eq .MediaType.SubType "svg")) }}
       {{ $size := site.Store.Get "backgroundImageWidth" }}
-      {{ $featuredURL = (.Resize $size).RelPermalink }}
+      {{ $featuredURL = (partial "functions/resize.html" (dict "resource" . "spec" $size)).RelPermalink }}
     {{ end }}
   {{ end }}
 {{ end }}
@@ -64,6 +67,6 @@
       decoding="async"
       fetchpriority="high"
       class="w-full h-full nozoom object-cover"
-      {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}>
+      {{ if $style }}style="{{ $style | safeCSS }}"{{ end }} />
   </div>
 {{ end }}

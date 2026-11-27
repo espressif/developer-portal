@@ -5,9 +5,8 @@ showAuthor: false
 featureAsset: "img/featured/featured-espressif.webp"
 tags:
   - ESP-IDF Extension for VS Code
-  - release
+  - Release
   - ESP-IDF tool
-  - VS Code
 authors:
   - "brian-ignacio"
 lastmod: 2026-05-08

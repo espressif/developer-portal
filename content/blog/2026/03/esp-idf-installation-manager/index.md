@@ -5,8 +5,8 @@ lastmod: 2026-06-02
 tags:
   - ESP-IDF
   - installation
-  - beginner
-  - release
+  - Beginner
+  - Release
   - EIM
   - ESP-IDF tool
 showAuthor: false

@@ -6,11 +6,11 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - teo-swee-ann
 tags:
-  - Esp32
+  - ESP32
   - Espressif
-  - Esp32 C2
-  - Esp32 C6
-  - Ceo Blog
+  - ESP32-C2
+  - ESP32-C6
+  - CEO blog
 
 ---
 {{< figure

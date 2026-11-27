@@ -5,9 +5,9 @@ summary: "This article introduces Cirkit Designer's simulation architecture for 
 tags:
   - Arduino
   - AI
-  - web app
-  - simulation
-  - overview
+  - Web app
+  - Simulation
+  - Overview
 authors:
   - "austin-small"
 ---

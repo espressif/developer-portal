@@ -7,24 +7,11 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - amey-inamdar
 tags:
-  - Sign up
-  - Sign in
-  - Sign up
-  - Sign in
   - Follow
-  - ''
-  - ''
-  - Esp32 S3
+  - ESP32-S3
   - Espressif
-  - Ai Voice Assistant
+  - AI Voice Assistant
   - IoT
-  - ''
-  - ''
-  - ''
-  - Follow
-  - ''
-  - Follow
-  - ''
 
 ---
 {{< figure

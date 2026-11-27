@@ -6,9 +6,9 @@ featureAsset: "img/featured/featured-insights.webp"
 authors:
   - adwait-patankar
 tags:
-  - Custom Dashboard
+  - Custom dashboard
   - Espinsights
-  - Esp32
+  - ESP32
   - IoT
   - Observability
 

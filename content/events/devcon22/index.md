@@ -3,7 +3,7 @@ title: "Espressif DevCon22"
 date: 2022-10-20
 draft: false
 description: "Espressif Systems Developer Conference 22"
-tags: ["event", "devcon"]
+tags: ["event", "DevCon"]
 showDate : false
 ---
 

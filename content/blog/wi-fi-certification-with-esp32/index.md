@@ -6,9 +6,9 @@ featureAsset: "img/featured/featured-espressif.webp"
 authors:
   - kedar-sovani
 tags:
-  - Wifi
+  - Wi-Fi
   - Building Products
-  - Esp32
+  - ESP32
 
 ---
 A fair number of questions come up regarding Wi-Fi certification for Wi-Fi enabled IoT products. Here is an attempt to answer some of the relevant ones.

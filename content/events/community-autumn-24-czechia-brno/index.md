@@ -3,7 +3,7 @@ title: "Meeting ESP komunity - podzimní edice 2024"
 date: 2024-08-28
 draft: false
 description: "Espressif Community Meeting - Autumn 24"
-tags: ["event", "announcement", "community meeting", "czech transcript only"]
+tags: ["event", "Announcement", "Community meeting", "czech transcript only"]
 showDate : false
 ---
 

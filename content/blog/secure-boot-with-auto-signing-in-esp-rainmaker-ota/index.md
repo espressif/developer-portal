@@ -6,11 +6,11 @@ featureAsset: "img/featured/featured-rainmaker.webp"
 authors:
   - piyush-shah
 tags:
-  - Esp32
+  - ESP32
   - Espressif
   - IoT
   - Secure Boot
-  - Rainmaker
+  - ESP RainMaker
 
 ---
 Security is one of the most important aspects of any IoT system and at Espressif, we take it very seriously. The ESP RainMaker platform offers a secure way to onboard a device onto Wi-Fi network and then control and monitor it through cloud. However, the security of the hardware itself is also critical for the overall system to be secure. Espressif MCUs come with various security features like [secure boot](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/security/secure-boot-v2.html), [flash encryption](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/security/flash-encryption.html), etc.

@@ -1,7 +1,7 @@
 ---
 title: "Introduction to the ESP32-S31 with Vision"
 date: 2026-11-03
-tags: ["Workshop", "ESP-IDF", "ESP32-S31", "AI", "ESP-DL", "ESP-Vision", "computer vision"]
+tags: ["Workshop", "ESP-IDF", "ESP32-S31", "AI", "ESP-DL", "ESP-Vision", "Computer vision"]
 summary: "Explore the ESP32-S31 and build edge computer vision applications with ESP-DL and ESP-Vision on the ESP32-S31-Korvo-1."
 showTableOfContents: true
 ---

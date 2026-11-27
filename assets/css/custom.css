@@ -1,3 +1,10 @@
+/* Blowfish 3.10 ships Tailwind 4.3.5, whose default sans stack prefers
+   Roboto and Noto Sans. Those faces draw larger and heavier than the
+   previous ui-sans-serif / system-ui stack. CSS sizes and weights are unchanged. */
+:root {
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 /* This makes text in code blocks smaller than body text */
 .highlight, code {
   font-size: 0.85rem;
@@ -26,12 +33,6 @@ html.dark .prose code:not(pre code) {
 /* This makes text in TOC smaller than body text */
 #TableOfContents li {
   font-size: 0.85rem;
-}
-
-/* This reduces font in article card summaries */
-.py-1 {
-  font-size: 0.85rem;
-  font-weight: 400;
 }
 
 /* For bullet points to stand out in a list, the line heights inside and

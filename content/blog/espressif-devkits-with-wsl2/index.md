@@ -4,7 +4,7 @@ date: 2024-11-04
 showAuthor: false
 authors:
     - jakub-kocka
-tags: ["ESP-IDF", "devkit", "Windows", "WSL", "WSL2", "USB"]
+tags: ["ESP-IDF", "DevKit", "WSL", "USB"]
 ---
 
 Released in 2016 by Microsoft, the Windows Subsystem for Linux [(WSL)](https://learn.microsoft.com/en-us/windows/wsl/) is a feature that allows the use of a Linux environment with no need of a virtual machine, container or dual boot. The [WSL](https://learn.microsoft.com/en-us/windows/wsl/) is a great way to run Linux alongside Windows.
