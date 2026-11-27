@@ -1,0 +1,17 @@
+{
+    "name": "Henry Yuan",
+    "type": "community",
+    "image": "img/authors/henry-yuan.webp",
+    "bio": "Founder of Handsy AI. Builds ESP32 iPhone Agent, an open-source way to give an AI agent a real iPhone.",
+    "social": [
+        {
+            "github": "https://github.com/onehumanbeing"
+        },
+        {
+            "link": "https://handsy.tech"
+        },
+        {
+            "link": "https://x.com/iamhenryyuan"
+        }
+    ]
+}
