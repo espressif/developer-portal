@@ -1,6 +1,6 @@
 ---
 title: "Give an agent a phone: ESP32-S3 as AirPlay eyes and USB HID hands on a stock iPhone"
-date: 2026-11-30
+date: 2026-12-04
 tags:
   - ESP32-S3
   - Arduino
