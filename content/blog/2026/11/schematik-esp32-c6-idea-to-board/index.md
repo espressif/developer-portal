@@ -28,7 +28,7 @@ DeskBuddy uses Arduino firmware. ESPHome and native ESP-IDF are alternative ways
 | Simulate Arduino or ESPHome firmware in the browser | Yes | Yes | Yes | Yes | No |
 | Flash from Chrome or Edge over USB | Yes | Yes | Yes | Yes | Yes |
 
-Schematik enables native ESP-IDF builds only for boards with a verified build profile. The C3, C6, S2 and P4 lack that profile in Schematik; this is not a limitation of Espressif’s SDK. The S2 and P4 also lack a browser simulator in Schematik, so test their firmware on hardware.
+Schematik enables native ESP-IDF builds only for boards with a verified build profile. The ESP32-C3, ESP32-C6, ESP32-S2 and ESP32-P4 lack that profile in Schematik; this is not a limitation of Espressif’s SDK. The ESP32-S2 and ESP32-P4 also lack a browser simulator in Schematik, so test their firmware on hardware.
 
 ## The project
 
