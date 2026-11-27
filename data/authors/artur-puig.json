@@ -1,0 +1,17 @@
+{
+    "name": "Artur Puig",
+    "type": "community",
+    "image": "img/authors/artur-puig.webp",
+    "bio": "Freelance software developer in Barcelona, building apps, websites and business automation.",
+    "social": [
+        {
+            "linkedin": "https://www.linkedin.com/in/arturpuig/"
+        },
+        {
+            "github": "https://github.com/arturpuig"
+        },
+        {
+            "link": "https://arturpuig.com/"
+        }
+    ]
+}
